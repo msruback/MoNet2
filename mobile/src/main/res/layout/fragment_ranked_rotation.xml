@@ -1,0 +1,114 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    tools:context="com.mattrubacky.monet2.RankedRotation">
+
+    <RelativeLayout
+        android:id="@+id/rankedTimeSection"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:background="#e0e0e0"
+        android:elevation="3dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bgdotsrepeat">
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/rankTime"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="12:00PM - 2:00PM"
+            android:textSize="22sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rankModeSection"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rankedTimeSection"
+        android:background="#aa00ff"
+        android:elevation="2dp">
+
+        <TextView
+            android:id="@+id/rankMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:elevation="2dp"
+            android:text="Rainmaker"
+            android:textColor="#e4e4e4"
+            android:textSize="22sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bgspotsrepeat" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rankedData"
+        android:layout_width="match_parent"
+        android:layout_height="390dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rankModeSection">
+
+
+        <ImageView
+            android:id="@+id/rankStageImage1"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/stage1" />
+
+        <TextView
+            android:id="@+id/rankStageName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rankStageImage2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginEnd="19dp"
+            android:background="@drawable/bgcard"
+            android:backgroundTint="#c8343434"
+            android:padding="5dp"
+            android:text="The Reef"
+            android:textColor="#e4e4e4"
+            android:textSize="22sp" />
+
+        <ImageView
+            android:id="@+id/rankStageImage2"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/rankStageImage1"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/stage2" />
+
+        <TextView
+            android:id="@+id/rankStageName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/rankStageImage2"
+            android:layout_alignEnd="@+id/rankStageName1"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/bgcard"
+            android:backgroundTint="#c8343434"
+            android:padding="5dp"
+            android:text="Musselforge Fitness"
+            android:textColor="#e4e4e4"
+            android:textSize="22sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

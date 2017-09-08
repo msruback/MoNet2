@@ -1,0 +1,114 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    tools:context="com.mattrubacky.monet2.LeagueRotation">
+
+    <RelativeLayout
+        android:id="@+id/leagueTimeSection"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:background="#e0e0e0"
+        android:elevation="3dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bgdotsrepeat">
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/leagueTime"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="12:00PM - 2:00PM"
+            android:textSize="22sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/leagueModeSection"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/leagueTimeSection"
+        android:background="#00cb07"
+        android:elevation="2dp">
+
+        <TextView
+            android:id="@+id/leagueMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:elevation="2dp"
+            android:text="Rainmaker"
+            android:textColor="#e4e4e4"
+            android:textSize="22sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bgspotsrepeat" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/leagueData"
+        android:layout_width="match_parent"
+        android:layout_height="390dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/leagueModeSection">
+
+
+        <ImageView
+            android:id="@+id/leagueStageImage1"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/stage1" />
+
+        <TextView
+            android:id="@+id/leagueStageName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/leagueStageImage2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginEnd="19dp"
+            android:background="@drawable/bgcard"
+            android:backgroundTint="#c8343434"
+            android:padding="5dp"
+            android:text="The Reef"
+            android:textColor="#e4e4e4"
+            android:textSize="22sp" />
+
+        <ImageView
+            android:id="@+id/leagueStageImage2"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/leagueStageImage1"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/stage2" />
+
+        <TextView
+            android:id="@+id/leagueStageName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/leagueStageImage2"
+            android:layout_alignEnd="@+id/leagueStageName1"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/bgcard"
+            android:backgroundTint="#c8343434"
+            android:padding="5dp"
+            android:text="Musselforge Fitness"
+            android:textColor="#e4e4e4"
+            android:textSize="22sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

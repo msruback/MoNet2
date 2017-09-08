@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    tools:context="com.mattrubacky.monet2.TurfRotation">
+
+    <RelativeLayout
+        android:id="@+id/turfStages"
+        android:layout_width="match_parent"
+        android:layout_height="345dp"
+        android:layout_below="@+id/turfTimeSection">
+
+
+        <ImageView
+            android:id="@+id/turfStageImage1"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/stage1" />
+        <TextView
+            android:id="@+id/turfStageName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/turfStageImage2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginEnd="19dp"
+            android:background="@drawable/bgcard"
+            android:backgroundTint="#c8343434"
+            android:padding="5dp"
+            android:text="The Reef"
+            android:textColor="#e4e4e4"
+            android:textSize="22sp" />
+        <ImageView
+            android:id="@+id/turfStageImage2"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/turfStageImage1"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/stage2" />
+
+        <TextView
+            android:id="@+id/turfStageName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/turfStageImage2"
+            android:layout_alignEnd="@+id/turfStageName1"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/bgcard"
+            android:backgroundTint="#c8343434"
+            android:padding="5dp"
+            android:text="Musselforge Fitness"
+            android:textColor="#e4e4e4"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/turfTimeSection"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/turfModeBanner"
+        android:layout_centerHorizontal="true"
+        android:background="#e0e0e0"
+        android:elevation="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bgdotsrepeat" />
+
+        <TextView
+            android:id="@+id/turfTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="12:00PM - 2:00PM" />
+    </RelativeLayout>
+
+</RelativeLayout>

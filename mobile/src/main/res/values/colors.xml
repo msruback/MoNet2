@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2ee99e</color>
+    <color name="colorPrimaryDark">#2acb8a</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="offWhite">#e4e4e4</color>
+    <color name="grey">#686868</color>
+
+    <!--Battles-->
+    <color name="turfPrimary">#19d719</color>
+    <color name="turfAccent">#36e6f3</color>
+    <color name="rankPrimary">#f54910</color>
+    <color name="rankAccent">#aa00ff</color>
+    <color name="leaguePrimary">#f02d7d</color>
+    <color name="leagueAccent">#00cb07</color>
+
+    <!--Merch-->
+    <color name="merchHead">#ee156e</color>
+    <color name="merchClothes">#1dd6ad</color>
+    <color name="merchShoe">#e66900</color>
+</resources>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mattrubacky.monet2.Rotation">
+
+    <RelativeLayout
+        android:id="@+id/background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bgsquidsrepeat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="30dp">
+
+                <RelativeLayout
+                    android:id="@+id/TurfWar"
+                    android:layout_width="300dp"
+                    android:layout_height="460dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/bgcard"
+                    android:backgroundTint="@color/turfPrimary">
+
+                    <ImageView
+                        android:id="@+id/turfProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/bgmaskproduct" />
+
+                    <RelativeLayout
+                        android:id="@+id/turfGreyBottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="360dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="100dp"
+                        android:background="@drawable/bgcard"
+                        android:backgroundTint="@color/grey"></RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/turfStripes"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/bgstripesrepeat">
+
+                    </RelativeLayout>
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/TurfPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignTop="@+id/turfGreyBottom"></android.support.v4.view.ViewPager>
+
+                    <RelativeLayout
+                        android:id="@+id/turfModeBanner"
+                        android:layout_width="250dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/turfProduct"
+                        android:layout_marginTop="7dp"
+                        android:background="@drawable/squid"
+                        android:backgroundTint="@color/turfAccent">
+
+                        <ImageView
+                            android:id="@+id/turfWarLogo"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/battleregular" />
+
+                        <TextView
+                            android:id="@+id/turfWarName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/turfWarLogo"
+                            android:text="@string/turfWar"
+                            android:textColor="@color/offWhite"
+                            android:textSize="30dp" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/Ranked"
+                    android:layout_width="300dp"
+                    android:layout_height="490dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="550dp"
+                    android:background="@drawable/bgcard"
+                    android:backgroundTint="@color/rankPrimary">
+
+                    <ImageView
+                        android:id="@+id/rankedProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/bgmaskproduct" />
+
+                    <RelativeLayout
+                        android:id="@+id/rankedGreyBottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="390dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="100dp"
+                        android:background="@drawable/bgcard"
+                        android:backgroundTint="@color/grey"></RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rankedStripes"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bgstripesrepeat"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true">
+
+                    </RelativeLayout>
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/RankedPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignTop="@+id/rankedGreyBottom"></android.support.v4.view.ViewPager>
+                    <RelativeLayout
+                        android:id="@+id/rankModeBanner"
+                        android:layout_width="250dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/rankedProduct"
+                        android:layout_marginTop="7dp"
+                        android:background="@drawable/squid"
+                        android:backgroundTint="@color/rankAccent">
+
+                        <ImageView
+                            android:id="@+id/rankedLogo"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/battleranked" />
+
+                        <TextView
+                            android:id="@+id/rankedName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/rankedLogo"
+                            android:text="@string/rank"
+                            android:textColor="@color/offWhite"
+                            android:textSize="30dp" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/League"
+                    android:layout_width="300dp"
+                    android:layout_height="490dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="1150dp"
+                    android:background="@drawable/bgcard"
+                    android:backgroundTint="@color/leaguePrimary">
+
+                    <ImageView
+                        android:id="@+id/leagueProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/bgmaskproduct" />
+
+                    <RelativeLayout
+                        android:id="@+id/leagueGreyBottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="390dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="100dp"
+                        android:background="@drawable/bgcard"
+                        android:backgroundTint="@color/grey"></RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/leagueStripes"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bgstripesrepeat"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"/>
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/LeaguePager"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignTop="@+id/leagueGreyBottom"></android.support.v4.view.ViewPager>
+                    <RelativeLayout
+                        android:id="@+id/leagueModeBanner"
+                        android:layout_width="250dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/leagueProduct"
+                        android:layout_marginTop="7dp"
+                        android:background="@drawable/squid"
+                        android:backgroundTint="@color/leagueAccent">
+
+                        <ImageView
+                            android:id="@+id/leagueLogo"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/battleleague" />
+
+                        <TextView
+                            android:id="@+id/leagueName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/leagueLogo"
+                            android:text="@string/league"
+                            android:textColor="@color/offWhite"
+                            android:textSize="30dp" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

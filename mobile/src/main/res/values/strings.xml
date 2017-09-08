@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MoNet 2</string>
+
+    <string name="turfWar">Turf War</string>
+    <string name="rank">Ranked</string>
+    <string name="league">League</string>
+
+</resources>
