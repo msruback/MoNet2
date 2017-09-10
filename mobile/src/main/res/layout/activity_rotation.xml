@@ -33,7 +33,7 @@
                     android:layout_height="460dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="60dp"
                     android:background="@drawable/bgcard"
                     android:backgroundTint="@color/turfPrimary">
 
@@ -65,6 +65,7 @@
                         android:background="@drawable/bgstripesrepeat">
 
                     </RelativeLayout>
+
                     <android.support.v4.view.ViewPager
                         android:id="@+id/TurfPager"
                         android:layout_width="match_parent"
@@ -110,9 +111,9 @@
                     android:id="@+id/Ranked"
                     android:layout_width="300dp"
                     android:layout_height="490dp"
-                    android:layout_alignParentTop="true"
+                    android:layout_below="@+id/TurfWar"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="550dp"
+                    android:layout_marginTop="60dp"
                     android:background="@drawable/bgcard"
                     android:backgroundTint="@color/rankPrimary">
 
@@ -139,9 +140,9 @@
                         android:id="@+id/rankedStripes"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/bgstripesrepeat"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true">
+                        android:background="@drawable/bgstripesrepeat">
 
                     </RelativeLayout>
 
@@ -152,6 +153,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignTop="@+id/rankedGreyBottom"></android.support.v4.view.ViewPager>
+
                     <RelativeLayout
                         android:id="@+id/rankModeBanner"
                         android:layout_width="250dp"
@@ -188,9 +190,9 @@
                     android:id="@+id/League"
                     android:layout_width="300dp"
                     android:layout_height="490dp"
-                    android:layout_alignParentTop="true"
+                    android:layout_below="@id/Ranked"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="1150dp"
+                    android:layout_marginTop="60dp"
                     android:background="@drawable/bgcard"
                     android:backgroundTint="@color/leaguePrimary">
 
@@ -212,13 +214,15 @@
                         android:layout_marginTop="100dp"
                         android:background="@drawable/bgcard"
                         android:backgroundTint="@color/grey"></RelativeLayout>
+
                     <RelativeLayout
                         android:id="@+id/leagueStripes"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/bgstripesrepeat"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true"/>
+                        android:background="@drawable/bgstripesrepeat" />
+
                     <android.support.v4.view.ViewPager
                         android:id="@+id/LeaguePager"
                         android:layout_width="match_parent"
@@ -226,6 +230,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignTop="@+id/leagueGreyBottom"></android.support.v4.view.ViewPager>
+
                     <RelativeLayout
                         android:id="@+id/leagueModeBanner"
                         android:layout_width="250dp"
@@ -254,6 +259,83 @@
                             android:text="@string/league"
                             android:textColor="@color/offWhite"
                             android:textSize="30dp" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/SalmonRun"
+                    android:layout_width="300dp"
+                    android:layout_height="335dp"
+                    android:layout_below="@id/League"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/bgcard"
+                    android:backgroundTint="@color/rankPrimary">
+
+                    <RelativeLayout
+                        android:id="@+id/salmonDots"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/bgdotsrepeat">
+
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/salmonProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/bgmaskproduct" />
+
+                    <TextView
+                        android:id="@+id/salmonName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/salmonProduct"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="7dp"
+                        android:text="Grizz Co. Shifts"
+                        android:textColor="@color/offWhite"
+                        android:textSize="30dp" />
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginTop="85dp"
+                        android:background="@drawable/bgcard"
+                        android:backgroundTint="@color/offWhite">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:background="@color/offWhite"></RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bgspotsrepeat">
+
+                            <ImageView
+                                android:id="@+id/salmonLogo"
+                                android:layout_width="200dp"
+                                android:layout_height="200dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="25dp"
+                                android:background="@drawable/salmonrun"
+                                android:backgroundTint="#a89b9b9b" />
+                        </RelativeLayout>
+
+                        <ListView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></ListView>
                     </RelativeLayout>
 
                 </RelativeLayout>

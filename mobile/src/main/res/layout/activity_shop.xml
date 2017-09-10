@@ -24,173 +24,365 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/Item"
+                tools:layout_editor_absoluteX="30dp"
+                tools:layout_editor_absoluteY="8dp">
 
                 <RelativeLayout
-                    android:id="@+id/Item"
-                    android:layout_width="150dp"
-                    android:layout_height="240dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="57dp"
-                    android:background="@drawable/bgcard"
-                    android:backgroundTint="#e4e4e4">
+                    android:layout_marginStart="22dp"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="8dp"
+                    android:id="@+id/relativeLayout4">
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/bgcirclesrepeat">
-
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:id="@+id/Brand"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentStart="true"
+                        android:id="@+id/Item"
+                        android:layout_width="150dp"
+                        android:layout_height="240dp"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:src="@drawable/annaki" />
-
-                    <ImageView
-                        android:id="@+id/product"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/bgmaskproduct"
-                        android:layout_alignBottom="@+id/Brand"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="11dp" />
-
-                    <ImageView
-                        android:id="@+id/Image"
-                        android:layout_width="126dp"
-                        android:layout_height="126dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/hulapunk" />
-
-                    <TextView
-                        android:id="@+id/Name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hula Punk Shirt"
-                        android:textSize="13sp"
-                        android:layout_below="@+id/Image"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="7dp" />
-
-                    <RelativeLayout
-                        android:id="@+id/Abilities"
-                        android:layout_width="24dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignTop="@+id/Brand"
-                        android:layout_marginEnd="10dp">
+                        android:layout_marginTop="57dp"
+                        android:background="@drawable/bgcard"
+                        android:backgroundTint="#e4e4e4">
 
                         <RelativeLayout
-                            android:id="@+id/MainAbility"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentEnd="true"
-                            android:background="@drawable/ability"
-                            android:padding="2dp">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bgcirclesrepeat">
 
-                            <ImageView
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_alignParentEnd="true"
-                                android:src="@drawable/main_ink_saver" />
                         </RelativeLayout>
 
                         <ImageView
-                            android:id="@+id/Sub1"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_below="@id/MainAbility"
-                            android:layout_centerHorizontal="true"
+                            android:id="@+id/Brand"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
-                            android:src="@drawable/blankskillslot" />
+                            android:src="@drawable/annaki" />
 
                         <ImageView
-                            android:id="@+id/Sub2"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_below="@id/Sub1"
+                            android:id="@+id/product"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_alignBottom="@+id/Brand"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/blankskillslot" />
+                            android:layout_marginBottom="11dp"
+                            android:src="@drawable/bgmaskproduct" />
 
                         <ImageView
-                            android:id="@+id/Sub3"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_below="@id/Sub2"
+                            android:id="@+id/Image"
+                            android:layout_width="126dp"
+                            android:layout_height="126dp"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/blankskillslot" />
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/hulapunk" />
+
+                        <TextView
+                            android:id="@+id/Name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/Image"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="7dp"
+                            android:text="Hula Punk Shirt"
+                            android:textSize="13sp" />
+
+                        <RelativeLayout
+                            android:id="@+id/Abilities"
+                            android:layout_width="24dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignTop="@+id/Brand"
+                            android:layout_marginEnd="10dp">
+
+                            <RelativeLayout
+                                android:id="@+id/MainAbility"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentEnd="true"
+                                android:background="@drawable/ability"
+                                android:padding="2dp">
+
+                                <ImageView
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:src="@drawable/main_ink_saver" />
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:id="@+id/Sub1"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_below="@id/MainAbility"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/blankskillslot" />
+
+                            <ImageView
+                                android:id="@+id/Sub2"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_below="@id/Sub1"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/blankskillslot" />
+
+                            <ImageView
+                                android:id="@+id/Sub3"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_below="@id/Sub2"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/blankskillslot" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="60dp"
+                            android:layout_height="21dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/product"
+                            android:background="@drawable/squid"
+                            android:backgroundTint="@color/grey">
+
+                            <TextView
+                                android:id="@+id/Time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:text="1 Hour"
+                                android:textColor="@color/offWhite"
+                                android:textSize="13sp" />
+                        </RelativeLayout>
+
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:layout_width="60dp"
-                        android:layout_height="21dp"
-                        android:background="@drawable/squid"
-                        android:backgroundTint="@color/grey"
-                        android:layout_below="@+id/product"
-                        android:layout_alignParentStart="true">
+                        android:id="@+id/InfoBar"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignStart="@+id/Item"
+                        android:background="@drawable/bgcard"
+                        android:backgroundTint="@color/merchClothes">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="15dp"
+                            android:background="@color/merchClothes"></RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bgstripesrepeat"></RelativeLayout>
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_alignBottom="@+id/Cost"
+                            android:layout_marginRight="10dp"
+                            android:layout_toStartOf="@+id/Cost"
+                            android:src="@drawable/cash" />
 
                         <TextView
-                            android:id="@+id/Time"
+                            android:id="@+id/Cost"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1 Hour"
-                            android:textColor="@color/offWhite"
-                            android:textSize="13sp"
+                            android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="5dp"/>
+                            android:text="10000"
+                            android:textColor="@color/offWhite"
+                            android:textSize="13sp" />
                     </RelativeLayout>
 
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/InfoBar"
-                    android:layout_width="150dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignStart="@+id/Item"
-                    android:background="@drawable/bgcard"
-                    android:backgroundTint="@color/merchClothes">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="8dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/relativeLayout4">
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="15dp"
-                        android:background="@color/merchClothes"></RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/bgstripesrepeat"></RelativeLayout>
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_alignBottom="@+id/Cost"
-                        android:layout_marginRight="10dp"
-                        android:layout_toStartOf="@+id/Cost"
-                        android:src="@drawable/cash" />
-
-                    <TextView
-                        android:id="@+id/Cost"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/Item"
+                        android:layout_width="150dp"
+                        android:layout_height="240dp"
+                        android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:text="10000"
-                        android:textColor="@color/offWhite"
-                        android:textSize="13sp" />
+                        android:layout_marginTop="57dp"
+                        android:background="@drawable/bgcard"
+                        android:backgroundTint="#e4e4e4">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bgcirclesrepeat">
+
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/Brand"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/annaki" />
+
+                        <ImageView
+                            android:id="@+id/product"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_alignBottom="@+id/Brand"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="11dp"
+                            android:src="@drawable/bgmaskproduct" />
+
+                        <ImageView
+                            android:id="@+id/Image"
+                            android:layout_width="126dp"
+                            android:layout_height="126dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/hulapunk" />
+
+                        <TextView
+                            android:id="@+id/Name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/Image"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="7dp"
+                            android:text="Hula Punk Shirt"
+                            android:textSize="13sp" />
+
+                        <RelativeLayout
+                            android:id="@+id/Abilities"
+                            android:layout_width="24dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignTop="@+id/Brand"
+                            android:layout_marginEnd="10dp">
+
+                            <RelativeLayout
+                                android:id="@+id/MainAbility"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentEnd="true"
+                                android:background="@drawable/ability"
+                                android:padding="2dp">
+
+                                <ImageView
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:src="@drawable/main_ink_saver" />
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:id="@+id/Sub1"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_below="@id/MainAbility"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/blankskillslot" />
+
+                            <ImageView
+                                android:id="@+id/Sub2"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_below="@id/Sub1"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/blankskillslot" />
+
+                            <ImageView
+                                android:id="@+id/Sub3"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_below="@id/Sub2"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/blankskillslot" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="60dp"
+                            android:layout_height="21dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/product"
+                            android:background="@drawable/squid"
+                            android:backgroundTint="@color/grey">
+
+                            <TextView
+                                android:id="@+id/Time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:text="1 Hour"
+                                android:textColor="@color/offWhite"
+                                android:textSize="13sp" />
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/InfoBar"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignStart="@+id/Item"
+                        android:background="@drawable/bgcard"
+                        android:backgroundTint="@color/merchClothes">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="15dp"
+                            android:background="@color/merchClothes"></RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bgstripesrepeat"></RelativeLayout>
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_alignBottom="@+id/Cost"
+                            android:layout_marginRight="10dp"
+                            android:layout_toStartOf="@+id/Cost"
+                            android:src="@drawable/cash" />
+
+                        <TextView
+                            android:id="@+id/Cost"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:text="10000"
+                            android:textColor="@color/offWhite"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+
                 </RelativeLayout>
             </RelativeLayout>
         </ScrollView>
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
