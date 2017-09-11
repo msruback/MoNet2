@@ -29,7 +29,7 @@ public class Startup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), Login.class);
-                intent.putExtra("URL",loginUrl.getText());
+                intent.putExtra("URL",loginUrl.getText().toString());
                 startActivity(intent);
             }
         });

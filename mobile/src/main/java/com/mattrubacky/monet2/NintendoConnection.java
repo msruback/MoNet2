@@ -22,28 +22,29 @@ public class NintendoConnection {
     private String clientID,sessionTokenCode, state;
 
     //service access token request param
-    private String sessionToken;
+    public String sessionToken;
 
-    private String accessToken;
+    public String accessToken;
     //login request param
-    private String idToken,birthday;
+    public String idToken,birthday;
 
     //param to get Splatoon id
-    private String accessToken2;
+    public String accessToken2;
 
     //param to get Splatoon token
-    private String splatID;
+    public String splatID;
 
     //param to get Splatoon cookie
-    private String splatToken;
+    public String splatToken;
 
     //Splatoon Cookie
-    private String splatCookie;
+    public String splatCookie;
 
     public NintendoConnection(String clientID,String sessionTokenCode,String state){
         this.clientID = clientID;
         this.sessionTokenCode = sessionTokenCode;
         this.state = state;
+        splatID="5741031244955648";
     }
 
     public void requestSessionToken(){
@@ -56,6 +57,8 @@ public class NintendoConnection {
             request.setDoInput(true);
 
             request.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            request.setRequestProperty("X-Platform","Android");
+            request.setRequestProperty("X-ProductVersion","1.0.4");
             request.setRequestProperty("Content-Length",Integer.toString(post.length()));
 
             request.setRequestMethod("POST");
@@ -102,8 +105,9 @@ public class NintendoConnection {
             //Set Header
             request.setRequestProperty("Host"," accounts.nintendo.com");
             request.setRequestProperty("Content-Type","application/json; charset=utf-8");
-            request.setRequestProperty("Connection","keep-alive");
-            request.setRequestProperty("User-Agent","OnlineLoune/1.0.4 NASDKAPI iOS");
+            request.setRequestProperty("X-Platform","Android");
+            request.setRequestProperty("X-ProductVersion","1.0.4");
+            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (Android/4.4.2)");
             request.setRequestProperty("Accept","application/json");
             request.setRequestProperty("Accept-Language","en-US");
             request.setRequestProperty("Accept-Encoding","gzip,deflate");
@@ -141,7 +145,7 @@ public class NintendoConnection {
             e.printStackTrace();
         }
     }
-    public void getBirthday(){
+    public void requestBirthday(){
         try {
             URL ninUrl = new URL("https://accounts.nintendo.com/2.0.0/users/me");
             HttpURLConnection request = (HttpURLConnection) (ninUrl.openConnection());
@@ -151,11 +155,13 @@ public class NintendoConnection {
 
             //Set Header
             request.setRequestProperty("Host","api.accounts.nintendo.com");request.setRequestProperty("Connection","keep-alive");
-            request.setRequestProperty("User-Agent","OnlineLoune/1.0.4 NASDKAPI iOS");
+            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (Android/4.42)");
+            request.setRequestProperty("X-Platform","Android");
+            request.setRequestProperty("X-ProductVersion","1.0.4");
             request.setRequestProperty("Accept","application/json");
             request.setRequestProperty("Accept-Language","en-US");
             request.setRequestProperty("Accept-Encoding","gzip,deflate");
-            request.setRequestProperty("Authorization",accessToken);
+            request.setRequestProperty("Authorization","Bearer "+accessToken);
 
             request.setRequestMethod("Get");
 
@@ -184,7 +190,7 @@ public class NintendoConnection {
     }
     public void login(){
         try {
-            URL ninUrl = new URL("https://api-lp1.znv.srv.nintendo.net/v1/Account/GetToken");
+            URL ninUrl = new URL("https://api-lp1.znv.srv.nintendo.net/v1/Account/Login");
             HttpURLConnection request = (HttpURLConnection) (ninUrl.openConnection());
             String post = "{ \"parameter\": { \"language\": \"en-US\", \"naBirthday\": \""+birthday+"\", \"naCountry\": \"US\", \"naIdToken\": \""+idToken+"\" } }";
 
@@ -194,7 +200,9 @@ public class NintendoConnection {
             //Set Header
             request.setRequestProperty("Content-Type","application/json; charset=utf-8");
             request.setRequestProperty("Connection","keep-alive");
-            request.setRequestProperty("User-Agent","OnlineLoune/1.0.4 NASDKAPI iOS");
+            request.setRequestProperty("X-Platform","Android");
+            request.setRequestProperty("X-ProductVersion","1.0.4");
+            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (Android/4.4.2)");
             request.setRequestProperty("Accept","application/json");
             request.setRequestProperty("Accept-Language","en-US");
             request.setRequestProperty("Accept-Encoding","gzip,deflate");
@@ -231,50 +239,6 @@ public class NintendoConnection {
             e.printStackTrace();
         }
     }
-    public void requestGameList(){
-        try {
-            URL ninUrl = new URL("https://api-lp1.znv.srv.nintendo.net/v1/Game/ListWebServices");
-            HttpURLConnection request = (HttpURLConnection) (ninUrl.openConnection());
-
-            request.setDoInput(true);
-
-            //Set Header
-
-            request.setRequestProperty("Host","api-lp1.znc.srv.nintendo.net");
-            request.setRequestProperty("Content-Type","application/json; charset=utf-8");
-            request.setRequestProperty("Connection","keep-alive");
-            request.setRequestProperty("X-ProductVersion","1.0.4");
-            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (iOS/10.3.3)");
-            request.setRequestProperty("Accept-Language","en-US");
-            request.setRequestProperty("X-Platform","iOS");
-            request.setRequestProperty("Authorization",accessToken2);
-            request.setRequestProperty("Content-Length","0");
-
-            request.setRequestMethod("POST");
-
-            request.connect();
-
-            //Response
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(request.getInputStream())));
-            String line = "";
-            StringBuilder builder = new StringBuilder();
-            while((line = reader.readLine())!=null){
-                builder.append(line);
-            }
-            reader.close();
-
-            JSONObject jsonParse = new JSONObject(builder.toString());
-
-            splatID = jsonParse.getJSONArray("result").getJSONObject(0).getString("id");
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
     public void requestSplatoonToken(){
         try {
             URL ninUrl = new URL("https://api-lp1.znv.srv.nintendo.net/v1/Game/ListWebServices");
@@ -290,12 +254,12 @@ public class NintendoConnection {
             request.setRequestProperty("Content-Type","application/json; charset=utf-8");
             request.setRequestProperty("Connection","keep-alive");
             request.setRequestProperty("X-ProductVersion","1.0.4");
-            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (iOS/10.3.3)");
+            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (Android/4.4.2)");
             request.setRequestProperty("Accept-Language","en-US");
-            request.setRequestProperty("X-Platform","iOS");
+            request.setRequestProperty("X-Platform","Android");
             request.setRequestProperty("Accept-Encoding","gzip,deflate");
             request.setRequestProperty("Accept","application/json; charset=utf-8");
-            request.setRequestProperty("Authorization",accessToken2);
+            request.setRequestProperty("Authorization","Bearer "+accessToken2);
             request.setRequestProperty("Content-Length",Integer.toString(post.length()));
 
             request.setRequestMethod("POST");
@@ -340,12 +304,22 @@ public class NintendoConnection {
             //Set Header
 
             request.setRequestProperty("Host","https://app.splatoon2.nintendo.net");
-            request.setRequestProperty("X-GameWebToken",splatToken);
-            request.setRequestProperty("User-Agent","Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac OS X) AppleWebKit/603.3.8 (KHTML, like Gecko) Mobile/14G60");
-
+            request.setRequestProperty("x-gamewebtoken",splatToken);
+            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (Android/4.4.2)");
+            request.setRequestProperty("x-isappanalyticoptedin","false");
+            request.setRequestProperty("X-Requested-With","com.nintendo.znca");
             request.setRequestMethod("GET");
 
             request.connect();
+
+            //Response
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(request.getInputStream())));
+            String line = "";
+            StringBuilder builder = new StringBuilder();
+            while((line = reader.readLine())!=null){
+                builder.append(line);
+            }
+            reader.close();
 
             splatCookie = request.getHeaderField("Set-Cookie");
 

@@ -17,22 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/squid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="24dp"
-            android:layout_marginEnd="22dp"
-            android:layout_x="286dp"
-            android:backgroundTint="@color/leaguePrimary"
-            android:layout_y="452dp"
-            android:clickable="true"
-            android:minHeight="100dp"
-            android:minWidth="100dp"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/turfsquid" />
+
 
         <WebView
             android:id="@+id/Web"

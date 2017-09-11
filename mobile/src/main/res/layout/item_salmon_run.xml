@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparentgrey"
+    android:paddingTop="10dp">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/salmonrunmini"
+        android:layout_marginEnd="11dp"
+        android:paddingLeft="10dp"
+        android:id="@+id/Current"
+
+        android:layout_centerVertical="true"/>
+
+
+    <TextView
+        android:id="@+id/Time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="9/10 8:00 AM - 9/11 2:00 PM"
+        android:layout_toRightOf="@id/Current"
+        android:layout_centerVertical="true"
+        android:textSize="17sp"/>
+</RelativeLayout>
