@@ -13,6 +13,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.android.gms.tasks.Task;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,6 +35,17 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.BufferedSink;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
+
 public class Login extends AppCompatActivity {
     private String sessionTokenCode,codeVerifier,codeChallenge,state;
     @Override
@@ -51,7 +64,7 @@ public class Login extends AppCompatActivity {
         state = Base64.encodeToString(bytes,flags);
         bytes = new byte[32];
         random.nextBytes(bytes);
-        codeVerifier = Base64.encodeToString(bytes,flags);
+        /*codeVerifier = Base64.encodeToString(bytes,flags);
         codeChallenge = "";
         try {
             codeChallenge = Base64.encodeToString(computeHash(codeVerifier).getBytes(),flags);
@@ -60,6 +73,9 @@ public class Login extends AppCompatActivity {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        */
+        state="bEVJiwcJvRXSgswXXJfBWAXuVGPYUdIURawRoiAfpPuyvruFln";
+        codeChallenge = "yJBOlX8APS9gACKA7iMs17HfkE4z8qzZn1sW00WAt0k";
         String url = "https://accounts.nintendo.com/connect/1.0.0/authorize?state="+state+"&redirect_uri=npf71b963c1b7b6d119://auth&client_id=71b963c1b7b6d119&scope=openid%20user%20user.birthday%20user.mii%20user.screenName&response_type=session_token_code&session_token_code_challenge="+codeChallenge+"&session_token_code_challenge_method=S256&theme=login_form";
         final WebView wv = (WebView) findViewById(R.id.Web);
 
@@ -74,12 +90,13 @@ public class Login extends AppCompatActivity {
                 String url2 = webRequest.getUrl().toString();
                 if(url2.contains("npf71b963c1b7b6d119://auth#session_state")) {
                     //session token request params
+                    System.out.println(url2);
                     sessionTokenCode = "";
                     String[] url2DissectPre = url2.split("#");
                     String[] url2Dissect = url2DissectPre[1].split("&");
                     for (int i = 0; i < url2Dissect.length - 1; i++) {
                         if (url2Dissect[i].contains("session_token_code")) {
-                            sessionTokenCode = url2Dissect[i];
+                            sessionTokenCode = url2Dissect[i].split("=")[1];
                         }
                     }
                     getData();
@@ -139,135 +156,40 @@ public class Login extends AppCompatActivity {
                 //Splatoon Cookie
                 String splatCookie = "";
 
-                try {
+               try {
+                   Retrofit retrofit = new Retrofit.Builder().baseUrl("https://accounts.nintendo.com").build();
+                   NintendoSignIn signIn = retrofit.create(NintendoSignIn.class);
 
-                    URL ninUrl = new URL("https://accounts.nintendo.com/connect/1.0.0/api/session_token");
-                    HttpURLConnection request = (HttpURLConnection) (ninUrl.openConnection());
-                    String post = "client_id=71b963c1b7b6d119&session_token_code_verifier=" + codeVerifier + "&" + sessionTokenCode + "";
-                    byte[] bytes = post.getBytes(StandardCharsets.UTF_8);
-                    request.setDoOutput(true);
-                    request.setDoInput(true);
-                    request.setUseCaches(false);
+                   //Get Session Token
+                   Call<ResponseBody> sessionTokenGet = signIn.getSession("71b963c1b7b6d119",sessionTokenCode,state);
+                   ResponseBody response = sessionTokenGet.execute().body();
+                   JSONObject jsonParse = new JSONObject(response.string());
+                   sessionToken = jsonParse.getString("session_token");
+                   System.out.println("Session Token: "+sessionToken);
 
-                    request.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-                    request.setRequestProperty("X-Platform", "Android");
-                    request.setRequestProperty("X-ProductVersion", "1.0.4");
-                    request.setRequestProperty("Content-Length", Integer.toString(bytes.length));
+                   //Get ID token and Access Token 1
+                   String json = "{ \"client_id\":\"71b963c1b7b6d119\", \"grant_type\":\"urn:ietf:params:oauth:grant-type:jwt-bearer-session-token\", \"session_token\":\""+sessionToken+"\" }";
+                   RequestBody serviceRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
+                   Call<ResponseBody> serviceTokenGet = signIn.getServiceToken(serviceRequest);
+                   response = serviceTokenGet.execute().body();
+                   jsonParse = new JSONObject(response.string());
+                   idToken = jsonParse.getString("id_token");
+                   accessToken = jsonParse.getString("access_token");
+                   System.out.println("ID Token: "+idToken);
+                   System.out.println("Access Token 1: "+accessToken);
 
-                    request.setRequestMethod("POST");
+                   //Get Birthday
+                   String auth = "Bearer "+accessToken;
+                   Call<ResponseBody> userDataGet = signIn.getUserDetails(auth);
+                   response = userDataGet.execute().body();
+                   jsonParse = new JSONObject(response.string());
+                   birthday = jsonParse.getString("birthday");
+                   System.out.println("Birthday: "+birthday);
 
-
-                    //Session Token Request
-                    DataOutputStream wr = new DataOutputStream(request.getOutputStream());
-                    wr.write(bytes);
-                    wr.flush();
-                    wr.close();
-                    BufferedReader reader;
-                    String line;
-                    StringBuilder builder;
-                    JSONObject jsonParse;
-                    if (request.getResponseCode() != 200) {
-                        reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(request.getErrorStream())));
-                        line = "";
-                        builder = new StringBuilder();
-                        while ((line = reader.readLine()) != null) {
-                            builder.append(line);
-                        }
-                        reader.close();
-                        String error = builder.toString();
-                        sessionToken = "";
-                    } else {
-                        //Session Token Response
-                        reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(request.getInputStream())));
-                        line = "";
-                        builder = new StringBuilder();
-                        while ((line = reader.readLine()) != null) {
-                            builder.append(line);
-                        }
-                        reader.close();
-
-                        jsonParse = new JSONObject(builder.toString());
-
-                        sessionToken = jsonParse.getString("session_token");
-                    }
 /*
-                            //Request the access and id tokens using the session token
 
-                            ninUrl = new URL("https://accounts.nintendo.com/connect/1.0.0/api/token");
-                            request = (HttpURLConnection) (ninUrl.openConnection());
-                            post = "{ \"client_id\":\"71b963c1b7b6d119\", \"grant_type\":\"urn:ietf:params:oauth:grant-type:jwt-bearer-session-token\",\"session_token\":\""+sessionToken+"\" }";
 
-                            request.setDoOutput(true);
-                            request.setDoInput(true);
 
-                            //Service Token Header
-                            request.setRequestProperty("Host"," accounts.nintendo.com");
-                            request.setRequestProperty("Content-Type","application/json; charset=utf-8");
-                            request.setRequestProperty("X-Platform","Android");
-                            request.setRequestProperty("X-ProductVersion","1.0.4");
-                            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (Android/4.4.2)");
-                            request.setRequestProperty("Accept","application/json");
-                            request.setRequestProperty("Accept-Language","en-US");
-                            request.setRequestProperty("Accept-Encoding","gzip,deflate");
-                            request.setRequestProperty("Content-Length",Integer.toString(post.length()));
-
-                            request.setRequestMethod("POST");
-
-                            request.connect();
-
-                            //Service Token Request
-                            OutputStreamWriter writer = new OutputStreamWriter(request.getOutputStream());
-                            writer.write(post);
-                            writer.flush();
-                            writer.close();
-
-                            //Service Token Response
-                            reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(request.getInputStream())));
-                            line = "";
-                            builder = new StringBuilder();
-                            while((line = reader.readLine())!=null){
-                                builder.append(line);
-                            }
-                            reader.close();
-
-                            jsonParse = new JSONObject(builder.toString());
-
-                            idToken = jsonParse.getString("id_token");
-                            accessToken = jsonParse.getString("access_token");
-
-                            //Request birthday to log the user in using the access token and get the second access token
-
-                            ninUrl = new URL("https://accounts.nintendo.com/2.0.0/users/me");
-                            request = (HttpURLConnection) (ninUrl.openConnection());
-
-                            request.setDoInput(true);
-
-                            //User Data Header
-                            request.setRequestProperty("Host","api.accounts.nintendo.com");request.setRequestProperty("Connection","keep-alive");
-                            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (Android/4.42)");
-                            request.setRequestProperty("X-Platform","Android");
-                            request.setRequestProperty("X-ProductVersion","1.0.4");
-                            request.setRequestProperty("Accept","application/json");
-                            request.setRequestProperty("Accept-Language","en-US");
-                            request.setRequestProperty("Accept-Encoding","gzip,deflate");
-                            request.setRequestProperty("Authorization","Bearer "+accessToken);
-
-                            request.setRequestMethod("Get");
-
-                            request.connect();
-
-                            //User data Response
-                            reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(request.getInputStream())));
-                            line = "";
-                            builder = new StringBuilder();
-                            while((line = reader.readLine())!=null){
-                                builder.append(line);
-                            }
-                            reader.close();
-
-                            jsonParse = new JSONObject(builder.toString());
-
-                            birthday = jsonParse.getString("birthday");
 
                             //Use the id token and birthday(don't ask) to log the user in and get a new access token to the Nintendo Account API
 
@@ -409,6 +331,7 @@ public class Login extends AppCompatActivity {
         Thread t = new Thread(r);
         t.start();
     }
+
 
 
 
