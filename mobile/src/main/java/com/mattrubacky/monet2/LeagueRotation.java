@@ -8,7 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,6 +30,8 @@ public class LeagueRotation extends Fragment {
         TextView mode = (TextView) rootView.findViewById(R.id.leagueMode);
         TextView title1 = (TextView) rootView.findViewById(R.id.leagueStageName1);
         TextView title2 = (TextView) rootView.findViewById(R.id.leagueStageName2);
+        ImageView image1 = (ImageView) rootView.findViewById(R.id.leagueStageImage1);
+        ImageView image2 = (ImageView) rootView.findViewById(R.id.leagueStageImage2);
 
         time.setTypeface(font);
         mode.setTypeface(font);
@@ -48,6 +53,12 @@ public class LeagueRotation extends Fragment {
         title2.setText(b.name);
         mode.setText(timePeriod.rule.name);
         time.setText(startText+" - "+endText);
+
+        String url1 = "https://app.splatoon2.nintendo.net"+a.image;
+        String url2 = "https://app.splatoon2.nintendo.net"+b.image;
+
+        Picasso.with(getContext()).load(url1).resize(1280,720).into(image1);
+        Picasso.with(getContext()).load(url2).resize(1280,720).into(image2);
 
         return rootView;
     }

@@ -9,7 +9,10 @@ import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +36,8 @@ public class TurfRotation extends Fragment {
         TextView time = (TextView) rootView.findViewById(R.id.turfTime);
         TextView title1 = (TextView) rootView.findViewById(R.id.turfStageName1);
         TextView title2 = (TextView) rootView.findViewById(R.id.turfStageName2);
+        ImageView image1 = (ImageView) rootView.findViewById(R.id.turfStageImage1);
+        ImageView image2 = (ImageView) rootView.findViewById(R.id.turfStageImage2);
 
         time.setTypeface(font);
         title1.setTypeface(font);
@@ -48,9 +53,16 @@ public class TurfRotation extends Fragment {
         String startText = sdf.format(startTime);
         Date endTime = new Date((timePeriod.end*1000));
         String endText = sdf.format(endTime);
+
         title1.setText(a.name);
         title2.setText(b.name);
         time.setText(startText+" - "+endText);
+
+        String url1 = "https://app.splatoon2.nintendo.net"+a.image;
+        String url2 = "https://app.splatoon2.nintendo.net"+b.image;
+
+        Picasso.with(getContext()).load(url1).resize(1280,720).into(image1);
+        Picasso.with(getContext()).load(url2).resize(1280,720).into(image2);
 
         return rootView;
     }
