@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +27,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,13 +40,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import okhttp3.Cookie;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Headers;
 
 public class Rotation extends AppCompatActivity {
@@ -79,120 +85,99 @@ public class Rotation extends AppCompatActivity {
 
         salmonTimes.setAdapter(itemsAdapter);
 
-        getRotationData();
+        new RotationData().execute();
 
         turfWarTitle.setTypeface(fontTitle);
         rankedTitle.setTypeface(fontTitle);
         leagueTitle.setTypeface(fontTitle);
         salmonTitle.setTypeface(fontTitle);
     }
-    private void getRotationData(){
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Long now = Calendar.getInstance().getTimeInMillis();
-                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    String cookie;
 
-                    //Create Splatnet manager
-                    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").build();
-                    Splatnet splatnet = retrofit.create(Splatnet.class);
-                    ResponseBody response;
-                    JSONObject jsonParse;
+    class RotationData extends AsyncTask<Void, Void, Void> {
+        Schedules schedules;
 
-                    //Check if cookie is valid
-                    if (settings.getLong("cookie_expire", 0) < now) {
-                        //Replace cookie
-                        String token = settings.getString("token", "");
-                        Call<ResponseBody> getCookie = splatnet.getHomepage(token);
-                        okhttp3.Headers headers = getCookie.execute().headers();
-                        String preCookie = headers.get("Set-Cookie");
-                        String[] cookieDissect = preCookie.split(";");
-                        cookie=preCookie;
-                        /*for(int i=0;i<cookieDissect.length;i++){
-                            if(cookieDissect[i].contains("iksm_session")){
-                                cookie = cookieDissect[i].split("=")[1];
-                            }
-                        }*/
-                        System.out.println(preCookie);
-                        System.out.println(cookie);
-                        Calendar time = Calendar.getInstance();
-                        time.add(Calendar.DATE,1);
-                        SharedPreferences.Editor edit = settings.edit();
-                        edit.putLong("cookie_expire",time.getTimeInMillis());
-                        edit.putString("cookie",cookie);
+        @Override
+        protected Void doInBackground(Void... params) {
+            //Do Stuff that takes ages (background thread)
+            try {
+                Long now = Calendar.getInstance().getTimeInMillis();
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String cookie;
 
-                        edit.commit();
+                //Create Splatnet manager
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
+                Splatnet splatnet = retrofit.create(Splatnet.class);
 
-                    } else {
-                        //Retrieve cookie
-                        cookie = settings.getString("cookie", "");
-                    }
-                    cookie ="f8099471cbdfd30d6834f654ee74ae9afbd19511";
+                //Check if cookie is valid
+                if ((settings.getLong("cookie_expire", 0)*1000) < now) {
+                    //Replace cookie
+                    CookieManager cookieManager = new CookieManager();
+                    cookie = cookieManager.getCookie(settings.getString("token",""),getApplicationContext());
 
-                    Call<ResponseBody> rotationGet = splatnet.getSchedules(cookie);
-                    response = rotationGet.execute().errorBody();
-                    System.out.println(response.string());
-                    jsonParse = new JSONObject(response.string());
-
-                    ViewPager TurfPager = (ViewPager) findViewById(R.id.TurfPager);
-                    ViewPager RankPager = (ViewPager) findViewById(R.id.RankedPager);
-                    ViewPager LeaguePager = (ViewPager) findViewById(R.id.LeaguePager);
-
-                    PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(), jsonParse.getJSONArray("regular"));
-                    PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), jsonParse.getJSONArray("gachi"));
-                    PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(), jsonParse.getJSONArray("league"));
-
-                    TurfPager.setAdapter(turfAdapter);
-                    RankPager.setAdapter(rankAdapter);
-                    LeaguePager.setAdapter(leagueAdapter);
-
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                } else {
+                    //Retrieve cookie
+                    cookie = settings.getString("cookie", "");
                 }
-            }
-        };
+                System.out.println(cookie);
+                Call<Schedules> rotationGet = splatnet.getSchedules(cookie);
+                schedules = rotationGet.execute().body();
 
-        Thread t = new Thread(r);
-            t.start();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void params) {
+            //Call your next task (ui thread)=
+            ViewPager TurfPager = (ViewPager) findViewById(R.id.TurfPager);
+            ViewPager RankPager = (ViewPager) findViewById(R.id.RankedPager);
+            ViewPager LeaguePager = (ViewPager) findViewById(R.id.LeaguePager);
+
+            PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(), schedules.regular);
+            PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), schedules.ranked);
+            PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(), schedules.league);
+
+            TurfPager.setAdapter(turfAdapter);
+            RankPager.setAdapter(rankAdapter);
+            LeaguePager.setAdapter(leagueAdapter);
+        }
     }
 
 
-    //Adapters
+
+        //Adapters
     private class TurfAdapter extends FragmentStatePagerAdapter {
-        JSONArray input;
-        public TurfAdapter(FragmentManager fm, JSONArray input) {
+        ArrayList<TimePeriod> input;
+        public TurfAdapter(FragmentManager fm, ArrayList<TimePeriod> input) {
             super(fm);
             this.input = input;
         }
 
         @Override
         public Fragment getItem(int position) {
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("timePeriod",input.get(position));
             Fragment turf = new TurfRotation();
-            try {
-                Bundle bundle = new Bundle();
-                bundle.putString("json",input.getJSONObject(position).toString());
-                turf.setArguments(bundle);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            turf.setArguments(bundle);
             return turf;
         }
 
         @Override
         public int getCount() {
-            return input.length();
+            return input.size();
         }
 
     }
     private class RankAdapter extends FragmentStatePagerAdapter {
-        public RankAdapter(FragmentManager fm,JSONArray input) {
+        ArrayList<TimePeriod> input;
+        public RankAdapter(FragmentManager fm,ArrayList<TimePeriod> input) {
             super(fm);
+            this.input = input;
         }
 
         @Override
@@ -207,13 +192,19 @@ public class Rotation extends AppCompatActivity {
 
     }
     private class LeagueAdapter extends FragmentStatePagerAdapter {
-        public LeagueAdapter(FragmentManager fm,JSONArray input) {
+        ArrayList<TimePeriod> input;
+        public LeagueAdapter(FragmentManager fm,ArrayList<TimePeriod> input) {
             super(fm);
+            this.input = input;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return new LeagueRotation();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("timePeriod",input.get(position));
+            Fragment league = new LeagueRotation();
+            league.setArguments(bundle);
+            return league;
         }
 
         @Override
@@ -247,5 +238,6 @@ public class Rotation extends AppCompatActivity {
             return convertView;
         }
     }
+
 }
 

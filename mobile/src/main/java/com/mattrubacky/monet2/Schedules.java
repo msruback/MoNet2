@@ -1,8 +1,108 @@
 package com.mattrubacky.monet2;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+
 /**
  * Created by mattr on 9/12/2017.
  */
 
-public class Schedules {
+
+public class Schedules{
+    public Schedules(){}
+
+    @SerializedName("regular")
+    ArrayList<TimePeriod> regular;
+    @SerializedName("gachi")
+    ArrayList<TimePeriod> ranked;
+    @SerializedName("league")
+    ArrayList<TimePeriod> league;
+}
+
+class TimePeriod implements Parcelable{
+    public TimePeriod(){}
+
+    @SerializedName("rule.name")
+    String rule;
+    @SerializedName("stage_b")
+    Stage b;
+    @SerializedName("stage_a")
+    Stage a;
+    @SerializedName("start_time")
+    Long start;
+    @SerializedName("end_time")
+    Long end;
+
+    protected TimePeriod(Parcel in) {
+    }
+
+    public static final Creator<TimePeriod> CREATOR = new Creator<TimePeriod>() {
+        @Override
+        public TimePeriod createFromParcel(Parcel in) {
+            return new TimePeriod(in);
+        }
+
+        @Override
+        public TimePeriod[] newArray(int size) {
+            return new TimePeriod[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.start);
+        dest.writeLong(this.end);
+        dest.writeParcelable(this.a,0);
+        dest.writeParcelable(this.b,0);
+    }
+}
+
+class Stage implements Parcelable{
+    public Stage(){}
+
+    @SerializedName("id")
+    int id;
+    @SerializedName("image")
+    String image;
+    @SerializedName("name")
+    String name;
+
+    protected Stage(Parcel in) {
+        id = in.readInt();
+        image = in.readString();
+        name = in.readString();
+    }
+
+    public static final Creator<Stage> CREATOR = new Creator<Stage>() {
+        @Override
+        public Stage createFromParcel(Parcel in) {
+            return new Stage(in);
+        }
+
+        @Override
+        public Stage[] newArray(int size) {
+            return new Stage[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(image);
+        dest.writeString(name);
+    }
 }

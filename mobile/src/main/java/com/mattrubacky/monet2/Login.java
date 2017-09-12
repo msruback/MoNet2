@@ -170,57 +170,14 @@ public class Login extends AppCompatActivity {
                    Calendar expire = Calendar.getInstance();
                    expire.add(Calendar.YEAR,2);
 
-                   //Get ID token and Access Token 1
-                   String json = "{ \"client_id\":\"71b963c1b7b6d119\", \"grant_type\":\"urn:ietf:params:oauth:grant-type:jwt-bearer-session-token\", \"session_token\":\""+sessionToken+"\" }";
-                   RequestBody jsonRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
-                   Call<ResponseBody> serviceTokenGet = signIn.getServiceToken(jsonRequest);
-                   response = serviceTokenGet.execute().body();
-                   jsonParse = new JSONObject(response.string());
-                   idToken = jsonParse.getString("id_token");
-                   accessToken = jsonParse.getString("access_token");
-                   System.out.println("ID Token: "+idToken);
-                   System.out.println("Access Token 1: "+accessToken);
-
-                   retrofit = new Retrofit.Builder().baseUrl("https://api.accounts.nintendo.com").build();
-                   signIn = retrofit.create(NintendoSignIn.class);
-                   //Get Birthday
-                   String auth = "Bearer "+accessToken;
-                   Call<ResponseBody> userDataGet = signIn.getUserDetails(auth);
-                   response = userDataGet.execute().body();
-                   jsonParse = new JSONObject(response.string());
-                   birthday = jsonParse.getString("birthday");
-                   System.out.println("Birthday: "+birthday);
-
-                   //Switch Api to Nintendo Accounts API
-                   retrofit = new Retrofit.Builder().baseUrl("https://api-lp1.znc.srv.nintendo.net/").build();
-                   NintendoAccounts accounts = retrofit.create(NintendoAccounts.class);
-
-                   //Login to Nintendo Accounts API
-                   json = "{ \"parameter\": { \"language\": \"en-US\", \"naBirthday\": \""+birthday+"\", \"naCountry\": \"US\", \"naIdToken\": \""+idToken+"\" } }";
-                   jsonRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
-                   Call<ResponseBody> login = accounts.logIn(jsonRequest);
-                   response = login.execute().body();
-                   jsonParse = new JSONObject(response.string());
-                   accessToken2 = jsonParse.getJSONObject("result").getJSONObject("webApiServerCredential").getString("accessToken");
-                   System.out.println("Access Token 2: "+accessToken2);
-
-                   //Get Splatoon Token
-                   auth = "Bearer "+accessToken2;
-                   json = "{ \"parameter\": { \"id\": 5741031244955648 } }";
-                   jsonRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
-                   Call<ResponseBody> splatTokenGet = accounts.getGameToken(auth,jsonRequest);
-                   response = splatTokenGet.execute().body();
-                   jsonParse = new JSONObject(response.string());
-                   System.out.println(jsonParse.toString());
-                   splatToken = jsonParse.getJSONObject("result").getString("accessToken");
-
                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                    SharedPreferences.Editor edit = settings.edit();
                    edit.putString("token",sessionToken);
                    edit.putLong("token_expire",expire.getTimeInMillis());
-                   edit.putLong("cookie_expire",0);
 
                    edit.commit();
+                   CookieManager cookieManager = new CookieManager();
+                   cookieManager.getCookie(sessionToken,getApplicationContext());
 
                    Intent intent = new Intent(getBaseContext(), Rotation.class);
                    startActivity(intent);

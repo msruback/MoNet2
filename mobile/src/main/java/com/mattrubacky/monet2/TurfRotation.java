@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,12 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class TurfRotation extends Fragment {
@@ -30,26 +37,23 @@ public class TurfRotation extends Fragment {
         time.setTypeface(font);
         title1.setTypeface(font);
         title2.setTypeface(font);
+
+        Bundle bundle = this.getArguments();
+        TimePeriod timePeriod = bundle.getParcelable("timePeriod");
+
+        Stage a = timePeriod.a;
+        Stage b = timePeriod.b;
+        Date startTime = new Date((timePeriod.start*1000));
+        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
+        String startText = sdf.format(startTime);
+        Date endTime = new Date((timePeriod.end*1000));
+        String endText = sdf.format(endTime);
+        title1.setText(a.name);
+        title2.setText(b.name);
+        time.setText(startText+" - "+endText);
+
         return rootView;
     }
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState){
-        super.onActivityCreated(savedInstanceState);
-
-        TextView time = (TextView) getActivity().findViewById(R.id.turfTime);
-        TextView title1 = (TextView) getActivity().findViewById(R.id.turfStageName1);
-        TextView title2 = (TextView) getActivity().findViewById(R.id.turfStageName2);
-        Bundle bundle = this.getArguments();
-        try {
-            JSONObject json = new JSONObject(bundle.getString("json"));
-
-            title1.setText(json.getJSONObject("stage_a").getString("name"));
-
-            title2.setText(json.getJSONObject("stage_b").getString("name"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
+    
 }
 

@@ -32,7 +32,7 @@ public interface Splatnet {
     Call<ResponseBody> getHeroData(@Header("Cookie") String cookie);
 
     @GET("/api/schedules")
-    Call<ResponseBody> getSchedules(@Header("Cookie") String cookie);
+    Call<Schedules> getSchedules(@Header("Cookie") String cookie);
 
     @GET("api/data/stages")
     Call<ResponseBody> getStages(@Header("Cookie") String cookie);
