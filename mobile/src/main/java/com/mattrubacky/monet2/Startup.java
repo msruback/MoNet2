@@ -23,13 +23,19 @@ public class Startup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Long sessionExpire = (settings.getLong("token_expire",0)*1000);
-        Long now = new Date().getTime();
-        if(sessionExpire<now){
-            Intent intent = new Intent(getBaseContext(), Login.class);
-            startActivity(intent);
+        if(settings.contains("token_expire")){
+            Long sessionExpire = (settings.getLong("token_expire",0)*1000);
+
+            Long now = new Date().getTime();
+            if(sessionExpire<now){
+                Intent intent = new Intent(getBaseContext(), Login.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(getBaseContext(), Rotation.class);
+                startActivity(intent);
+            }
         }else{
-            Intent intent = new Intent(getBaseContext(), Rotation.class);
+            Intent intent = new Intent(getBaseContext(), Login.class);
             startActivity(intent);
         }
 
