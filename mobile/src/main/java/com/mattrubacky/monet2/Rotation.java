@@ -182,7 +182,11 @@ public class Rotation extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new RankedRotation();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("timePeriod",input.get(position));
+            Fragment rank = new RankedRotation();
+            rank.setArguments(bundle);
+            return rank;
         }
 
         @Override

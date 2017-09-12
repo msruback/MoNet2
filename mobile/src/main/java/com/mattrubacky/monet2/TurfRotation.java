@@ -54,6 +54,6 @@ public class TurfRotation extends Fragment {
 
         return rootView;
     }
-    
+
 }
 

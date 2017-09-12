@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class LeagueRotation extends Fragment {
 
@@ -29,6 +32,22 @@ public class LeagueRotation extends Fragment {
         mode.setTypeface(font);
         title1.setTypeface(font);
         title2.setTypeface(font);
+
+        Bundle bundle = this.getArguments();
+        TimePeriod timePeriod = bundle.getParcelable("timePeriod");
+
+        Stage a = timePeriod.a;
+        Stage b = timePeriod.b;
+        Date startTime = new Date((timePeriod.start*1000));
+        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
+        String startText = sdf.format(startTime);
+        Date endTime = new Date((timePeriod.end*1000));
+        String endText = sdf.format(endTime);
+
+        title1.setText(a.name);
+        title2.setText(b.name);
+        mode.setText(timePeriod.rule.name);
+        time.setText(startText+" - "+endText);
 
         return rootView;
     }

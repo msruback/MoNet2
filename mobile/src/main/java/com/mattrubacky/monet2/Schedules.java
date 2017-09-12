@@ -26,8 +26,8 @@ public class Schedules{
 class TimePeriod implements Parcelable{
     public TimePeriod(){}
 
-    @SerializedName("rule.name")
-    String rule;
+    @SerializedName("rule")
+    Rule rule;
     @SerializedName("stage_b")
     Stage b;
     @SerializedName("stage_a")
@@ -63,6 +63,44 @@ class TimePeriod implements Parcelable{
         dest.writeLong(this.end);
         dest.writeParcelable(this.a,0);
         dest.writeParcelable(this.b,0);
+    }
+}
+
+class Rule implements Parcelable{
+    public Rule(){}
+
+    @SerializedName("name")
+    String name;
+
+    @SerializedName("key")
+    String key;
+
+    protected Rule(Parcel in) {
+        name = in.readString();
+        key = in.readString();
+    }
+
+    public static final Creator<Rule> CREATOR = new Creator<Rule>() {
+        @Override
+        public Rule createFromParcel(Parcel in) {
+            return new Rule(in);
+        }
+
+        @Override
+        public Rule[] newArray(int size) {
+            return new Rule[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(key);
     }
 }
 

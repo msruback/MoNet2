@@ -54,7 +54,14 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="100dp"
                         android:background="@drawable/bgcard"
-                        android:backgroundTint="@color/grey"></RelativeLayout>
+                        android:backgroundTint="@color/grey">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/grey"
+                            android:layout_alignParentTop="true">
+                        </RelativeLayout>
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/turfStripes"
@@ -134,7 +141,14 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="100dp"
                         android:background="@drawable/bgcard"
-                        android:backgroundTint="@color/grey"></RelativeLayout>
+                        android:backgroundTint="@color/grey">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/grey"
+                            android:layout_alignParentTop="true">
+                        </RelativeLayout>
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/rankedStripes"
@@ -213,7 +227,12 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="100dp"
                         android:background="@drawable/bgcard"
-                        android:backgroundTint="@color/grey"></RelativeLayout>
+                        android:backgroundTint="@color/grey"><RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@color/grey"
+                        android:layout_alignParentTop="true">
+                    </RelativeLayout></RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/leagueStripes"
