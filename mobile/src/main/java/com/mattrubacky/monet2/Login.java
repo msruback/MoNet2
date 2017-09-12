@@ -12,6 +12,7 @@ import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import java.util.Calendar;
 
 import com.google.android.gms.tasks.Task;
 
@@ -166,11 +167,13 @@ public class Login extends AppCompatActivity {
                    JSONObject jsonParse = new JSONObject(response.string());
                    sessionToken = jsonParse.getString("session_token");
                    System.out.println("Session Token: "+sessionToken);
+                   Calendar expire = Calendar.getInstance();
+                   expire.add(Calendar.YEAR,2);
 
                    //Get ID token and Access Token 1
                    String json = "{ \"client_id\":\"71b963c1b7b6d119\", \"grant_type\":\"urn:ietf:params:oauth:grant-type:jwt-bearer-session-token\", \"session_token\":\""+sessionToken+"\" }";
-                   RequestBody serviceRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
-                   Call<ResponseBody> serviceTokenGet = signIn.getServiceToken(serviceRequest);
+                   RequestBody jsonRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
+                   Call<ResponseBody> serviceTokenGet = signIn.getServiceToken(jsonRequest);
                    response = serviceTokenGet.execute().body();
                    jsonParse = new JSONObject(response.string());
                    idToken = jsonParse.getString("id_token");
@@ -178,6 +181,8 @@ public class Login extends AppCompatActivity {
                    System.out.println("ID Token: "+idToken);
                    System.out.println("Access Token 1: "+accessToken);
 
+                   retrofit = new Retrofit.Builder().baseUrl("https://api.accounts.nintendo.com").build();
+                   signIn = retrofit.create(NintendoSignIn.class);
                    //Get Birthday
                    String auth = "Bearer "+accessToken;
                    Call<ResponseBody> userDataGet = signIn.getUserDetails(auth);
@@ -186,137 +191,40 @@ public class Login extends AppCompatActivity {
                    birthday = jsonParse.getString("birthday");
                    System.out.println("Birthday: "+birthday);
 
-/*
+                   //Switch Api to Nintendo Accounts API
+                   retrofit = new Retrofit.Builder().baseUrl("https://api-lp1.znc.srv.nintendo.net/").build();
+                   NintendoAccounts accounts = retrofit.create(NintendoAccounts.class);
 
+                   //Login to Nintendo Accounts API
+                   json = "{ \"parameter\": { \"language\": \"en-US\", \"naBirthday\": \""+birthday+"\", \"naCountry\": \"US\", \"naIdToken\": \""+idToken+"\" } }";
+                   jsonRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
+                   Call<ResponseBody> login = accounts.logIn(jsonRequest);
+                   response = login.execute().body();
+                   jsonParse = new JSONObject(response.string());
+                   accessToken2 = jsonParse.getJSONObject("result").getJSONObject("webApiServerCredential").getString("accessToken");
+                   System.out.println("Access Token 2: "+accessToken2);
 
+                   //Get Splatoon Token
+                   auth = "Bearer "+accessToken2;
+                   json = "{ \"parameter\": { \"id\": 5741031244955648 } }";
+                   jsonRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
+                   Call<ResponseBody> splatTokenGet = accounts.getGameToken(auth,jsonRequest);
+                   response = splatTokenGet.execute().body();
+                   jsonParse = new JSONObject(response.string());
+                   System.out.println(jsonParse.toString());
+                   splatToken = jsonParse.getJSONObject("result").getString("accessToken");
 
+                   SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                   SharedPreferences.Editor edit = settings.edit();
+                   edit.putString("token",sessionToken);
+                   edit.putLong("token_expire",expire.getTimeInMillis());
+                   edit.putLong("cookie_expire",0);
 
-                            //Use the id token and birthday(don't ask) to log the user in and get a new access token to the Nintendo Account API
+                   edit.commit();
 
-                            ninUrl = new URL("https://api-lp1.znv.srv.nintendo.net/v1/Account/Login");
-                            request = (HttpURLConnection) (ninUrl.openConnection());
-                            post = "{ \"parameter\": { \"language\": \"en-US\", \"naBirthday\": \""+birthday+"\", \"naCountry\": \"US\", \"naIdToken\": \""+idToken+"\" } }";
+                   Intent intent = new Intent(getBaseContext(), Rotation.class);
+                   startActivity(intent);
 
-                            request.setDoOutput(true);
-                            request.setDoInput(true);
-
-                            //Set Header
-                            request.setRequestProperty("Content-Type","application/json; charset=utf-8");
-                            request.setRequestProperty("Connection","keep-alive");
-                            request.setRequestProperty("X-Platform","Android");
-                            request.setRequestProperty("X-ProductVersion","1.0.4");
-                            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (Android/4.4.2)");
-                            request.setRequestProperty("Accept","application/json");
-                            request.setRequestProperty("Accept-Language","en-US");
-                            request.setRequestProperty("Accept-Encoding","gzip,deflate");
-                            request.setRequestProperty("Content-Length",Integer.toString(post.length()));
-
-                            request.setRequestMethod("POST");
-
-                            request.connect();
-
-                            //Login Request
-                            writer = new OutputStreamWriter(request.getOutputStream());
-                            writer.write(post);
-                            writer.flush();
-                            writer.close();
-
-                            //Login Response
-                            reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(request.getInputStream())));
-                            line = "";
-                            builder = new StringBuilder();
-                            while((line = reader.readLine())!=null){
-                                builder.append(line);
-                            }
-                            reader.close();
-
-                            jsonParse = new JSONObject(builder.toString());
-
-                            accessToken2 = jsonParse.getJSONObject("webApiServerCredential").getString("accessToken");
-
-                            //Use the Splatoon game id and the second access token to get the Splatoon Token to access Splatoon API
-
-                            ninUrl = new URL("https://api-lp1.znv.srv.nintendo.net/v1/Game/ListWebServices");
-                            request = (HttpURLConnection) (ninUrl.openConnection());
-                            post = "{ \"parameter\": { \"id\": "+splatID+" } }";
-
-                            request.setDoOutput(true);
-                            request.setDoInput(true);
-
-                            //Set Header
-
-                            request.setRequestProperty("Host","api-lp1.znc.srv.nintendo.net");
-                            request.setRequestProperty("Content-Type","application/json; charset=utf-8");
-                            request.setRequestProperty("Connection","keep-alive");
-                            request.setRequestProperty("X-ProductVersion","1.0.4");
-                            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (Android/4.4.2)");
-                            request.setRequestProperty("Accept-Language","en-US");
-                            request.setRequestProperty("X-Platform","Android");
-                            request.setRequestProperty("Accept-Encoding","gzip,deflate");
-                            request.setRequestProperty("Accept","application/json; charset=utf-8");
-                            request.setRequestProperty("Authorization","Bearer "+accessToken2);
-                            request.setRequestProperty("Content-Length",Integer.toString(post.length()));
-
-                            request.setRequestMethod("POST");
-
-                            request.connect();
-
-                            //Splat Token Request
-                            writer = new OutputStreamWriter(request.getOutputStream());
-                            writer.write(post);
-                            writer.flush();
-                            writer.close();
-
-                            //Splat Response
-                            reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(request.getInputStream())));
-                            line = "";
-                            builder = new StringBuilder();
-                            while((line = reader.readLine())!=null){
-                                builder.append(line);
-                            }
-                            reader.close();
-
-                            jsonParse = new JSONObject(builder.toString());
-
-                            splatToken = jsonParse.getJSONObject("result").getString("accessToken");
-
-                            //Use the Splatoon Token to request a Cookie from the Splatoon API
-
-                            ninUrl = new URL("https://app.splatoon2.nintendo.net/");
-                            request = (HttpURLConnection) (ninUrl.openConnection());
-                            post = "{ \"parameter\": { \"id\": "+splatID+" } }";
-
-                            request.setDoInput(true);
-
-                            //Cookie Header
-
-                            request.setRequestProperty("Host","https://app.splatoon2.nintendo.net");
-                            request.setRequestProperty("x-gamewebtoken",splatToken);
-                            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (Android/4.4.2)");
-                            request.setRequestProperty("x-isappanalyticoptedin","false");
-                            request.setRequestProperty("X-Requested-With","com.nintendo.znca");
-                            request.setRequestMethod("GET");
-
-                            request.connect();
-
-                            //Cookie Response, might want to save this to look for new api calls
-                            reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(request.getInputStream())));
-                            line = "";
-                            builder = new StringBuilder();
-                            while((line = reader.readLine())!=null){
-                                builder.append(line);
-                            }
-                            reader.close();
-
-                            splatCookie = request.getHeaderField("Set-Cookie");
-                            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            SharedPreferences.Editor edit = settings.edit();
-                            edit.putString("cookie",splatCookie);
-                            edit.commit();
-
-                            Intent intent = new Intent(getBaseContext(), Rotation.class);
-                            startActivity(intent);
-                            */
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

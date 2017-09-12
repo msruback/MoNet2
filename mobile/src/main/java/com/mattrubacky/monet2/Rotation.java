@@ -38,6 +38,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import okhttp3.Cookie;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.http.Headers;
 
 public class Rotation extends AppCompatActivity {
     int TurfPage = 5;
@@ -80,53 +87,79 @@ public class Rotation extends AppCompatActivity {
         salmonTitle.setTypeface(fontTitle);
     }
     private void getRotationData(){
-        ArrayList<JSONObject> toReturn = new ArrayList<>();
-        try {
-            URL ninUrl = null;
-            ninUrl = new URL("https://app.splatoon2.nintendo.net/api/schedules");
-            HttpURLConnection request = (HttpURLConnection) (ninUrl.openConnection());
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Long now = Calendar.getInstance().getTimeInMillis();
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    String cookie;
 
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-            String cookie = settings.getString("cookie","error");
-            request.setRequestProperty("Accept","*/*");
-            request.setRequestProperty("Accept-Encoding","gzip, deflate");
-            request.setRequestProperty("User-Agent","com.nintendo.znca/1.0.4 (Android/4.4.2)");
-            request.setRequestProperty("Cookie",cookie);
+                    //Create Splatnet manager
+                    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").build();
+                    Splatnet splatnet = retrofit.create(Splatnet.class);
+                    ResponseBody response;
+                    JSONObject jsonParse;
 
-            request.setRequestMethod("GET");
+                    //Check if cookie is valid
+                    if (settings.getLong("cookie_expire", 0) < now) {
+                        //Replace cookie
+                        String token = settings.getString("token", "");
+                        Call<ResponseBody> getCookie = splatnet.getHomepage(token);
+                        okhttp3.Headers headers = getCookie.execute().headers();
+                        String preCookie = headers.get("Set-Cookie");
+                        String[] cookieDissect = preCookie.split(";");
+                        cookie=preCookie;
+                        /*for(int i=0;i<cookieDissect.length;i++){
+                            if(cookieDissect[i].contains("iksm_session")){
+                                cookie = cookieDissect[i].split("=")[1];
+                            }
+                        }*/
+                        System.out.println(preCookie);
+                        System.out.println(cookie);
+                        Calendar time = Calendar.getInstance();
+                        time.add(Calendar.DATE,1);
+                        SharedPreferences.Editor edit = settings.edit();
+                        edit.putLong("cookie_expire",time.getTimeInMillis());
+                        edit.putString("cookie",cookie);
 
-            request.connect();
+                        edit.commit();
 
-            //Response
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(request.getInputStream())));
-            String line = "";
-            StringBuilder builder = new StringBuilder();
-            while((line = reader.readLine())!=null){
-                builder.append(line);
+                    } else {
+                        //Retrieve cookie
+                        cookie = settings.getString("cookie", "");
+                    }
+                    cookie ="f8099471cbdfd30d6834f654ee74ae9afbd19511";
+
+                    Call<ResponseBody> rotationGet = splatnet.getSchedules(cookie);
+                    response = rotationGet.execute().errorBody();
+                    System.out.println(response.string());
+                    jsonParse = new JSONObject(response.string());
+
+                    ViewPager TurfPager = (ViewPager) findViewById(R.id.TurfPager);
+                    ViewPager RankPager = (ViewPager) findViewById(R.id.RankedPager);
+                    ViewPager LeaguePager = (ViewPager) findViewById(R.id.LeaguePager);
+
+                    PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(), jsonParse.getJSONArray("regular"));
+                    PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), jsonParse.getJSONArray("gachi"));
+                    PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(), jsonParse.getJSONArray("league"));
+
+                    TurfPager.setAdapter(turfAdapter);
+                    RankPager.setAdapter(rankAdapter);
+                    LeaguePager.setAdapter(leagueAdapter);
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-            reader.close();
+        };
 
-            JSONObject jsonParse = new JSONObject(builder.toString());
-
-            ViewPager TurfPager = (ViewPager) findViewById(R.id.TurfPager);
-            ViewPager RankPager = (ViewPager) findViewById(R.id.RankedPager);
-            ViewPager LeaguePager = (ViewPager) findViewById(R.id.LeaguePager);
-
-            PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(),jsonParse.getJSONArray("regular"));
-            PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(),jsonParse.getJSONArray("gachi"));
-            PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(),jsonParse.getJSONArray("league"));
-
-            TurfPager.setAdapter(turfAdapter);
-            RankPager.setAdapter(rankAdapter);
-            LeaguePager.setAdapter(leagueAdapter);
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        Thread t = new Thread(r);
+            t.start();
     }
 
 
