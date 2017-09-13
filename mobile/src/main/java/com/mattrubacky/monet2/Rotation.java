@@ -116,11 +116,29 @@ public class Rotation extends AppCompatActivity {
         customHandler = new android.os.Handler();
 
         salmonTimes.setAdapter(itemsAdapter);
+        Thread t = new Thread(updateRotationData);
         if(schedules.regular.size()==0){
-            customHandler.post(updateRotationData);
+            customHandler.post(update2Hours);
         }else {
             if ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
-                customHandler.post(updateRotationData);
+                customHandler.post(update2Hours);
+           }else{
+                Calendar now = Calendar.getInstance();
+                now.setTime(new Date());
+                Calendar nextUpdate = Calendar.getInstance();
+                nextUpdate.setTimeInMillis(now.getTimeInMillis());
+                int hour = now.get(Calendar.HOUR);
+                if(now.get(Calendar.HOUR)%2==0){
+                    hour+=2;
+                }else{
+                    hour+=1;
+                }
+                nextUpdate.set(Calendar.HOUR,hour);
+                nextUpdate.set(Calendar.MINUTE,0);
+                nextUpdate.set(Calendar.SECOND,0);
+                nextUpdate.set(Calendar.MILLISECOND,0);
+                Long nextUpdateTime = nextUpdate.getTimeInMillis()-now.getTimeInMillis();
+                customHandler.postDelayed(update2Hours, nextUpdateTime);
             }
         }
 
@@ -209,7 +227,6 @@ public class Rotation extends AppCompatActivity {
                     //Retrieve cookie
                     cookie = settings.getString("cookie", "");
                 }
-                System.out.println(cookie);
                 Call<Schedules> rotationGet = splatnet.getSchedules(cookie);
                 Response response = rotationGet.execute();
                 if(response.isSuccessful()){
@@ -242,13 +259,25 @@ public class Rotation extends AppCompatActivity {
                     LeaguePager.setAdapter(leagueAdapter);
                 }
             });
+        }
+    };
+    private Runnable update2Hours = new Runnable()
+    {
+        public void run() {
+            Thread t = new Thread(updateRotationData);
+            t.start();
             Calendar now = Calendar.getInstance();
-            Calendar nextUpdate = now;
+            now.setTime(new Date());
+            Calendar nextUpdate = Calendar.getInstance();
+            nextUpdate.setTimeInMillis(now.getTimeInMillis());
+            int hour = now.get(Calendar.HOUR);
             if(now.get(Calendar.HOUR)%2==0){
-                nextUpdate.set(Calendar.HOUR,(now.get(Calendar.HOUR)+2));
+                hour+=2;
             }else{
-                nextUpdate.set(Calendar.HOUR,(now.get(Calendar.HOUR)+1));
+                hour+=1;
             }
+            int zero = 0;
+            nextUpdate.set(Calendar.HOUR,hour);
             nextUpdate.set(Calendar.MINUTE,0);
             nextUpdate.set(Calendar.SECOND,0);
             nextUpdate.set(Calendar.MILLISECOND,0);
@@ -256,6 +285,7 @@ public class Rotation extends AppCompatActivity {
             customHandler.postDelayed(this, nextUpdateTime);
         }
     };
+
 
 
 
