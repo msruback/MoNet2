@@ -58,9 +58,24 @@ public class RankedRotation extends Fragment {
         String url1 = "https://app.splatoon2.nintendo.net"+a.image;
         String url2 = "https://app.splatoon2.nintendo.net"+b.image;
 
-        Picasso.with(getContext()).load(url1).resize(1280,720).into(image1);
-        Picasso.with(getContext()).load(url2).resize(1280,720).into(image2);
+        ImageHandler imageHandler = new ImageHandler();
+        String image1DirName = a.name.toLowerCase().replace(" ","_");
+        String image2DirName = b.name.toLowerCase().replace(" ","_");
 
+        if(imageHandler.imageExists("stage",image1DirName,getContext())){
+            image1.setImageBitmap(imageHandler.loadImage("stage",image1DirName));
+        }else{
+            Picasso.with(getContext()).load(url1).resize(1280,720).into(image1);
+            imageHandler.downloadImage("stage",image1DirName,url1,getContext());
+        }
+
+        if(imageHandler.imageExists("stage",image2DirName,getContext())){
+            image2.setImageBitmap(imageHandler.loadImage("stage",image2DirName));
+        }else{
+            Picasso.with(getContext()).load(url2).resize(1280,720).into(image2);
+            imageHandler.downloadImage("stage",image2DirName,url2,getContext());
+        }
+        
         return rootView;
     }
 }
