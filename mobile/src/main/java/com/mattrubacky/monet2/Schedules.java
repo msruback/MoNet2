@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 
 
-public class Schedules{
+public class Schedules implements Parcelable{
     public Schedules(){}
 
     @SerializedName("regular")
@@ -21,6 +21,36 @@ public class Schedules{
     ArrayList<TimePeriod> ranked;
     @SerializedName("league")
     ArrayList<TimePeriod> league;
+
+    protected Schedules(Parcel in) {
+        regular = in.createTypedArrayList(TimePeriod.CREATOR);
+        ranked = in.createTypedArrayList(TimePeriod.CREATOR);
+        league = in.createTypedArrayList(TimePeriod.CREATOR);
+    }
+
+    public static final Creator<Schedules> CREATOR = new Creator<Schedules>() {
+        @Override
+        public Schedules createFromParcel(Parcel in) {
+            return new Schedules(in);
+        }
+
+        @Override
+        public Schedules[] newArray(int size) {
+            return new Schedules[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(regular);
+        dest.writeTypedList(ranked);
+        dest.writeTypedList(league);
+    }
 }
 
 class TimePeriod implements Parcelable{

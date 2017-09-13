@@ -27,6 +27,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONArray;
@@ -53,21 +55,45 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Headers;
 
 public class Rotation extends AppCompatActivity {
-    int TurfPage = 5;
-    int LeaguePage = 5;
-    int RankPage = 5;
+    Schedules schedules;
+    android.os.Handler customHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rotation);
+
+        Typeface font = Typeface.createFromAsset(getAssets(),"Splatfont2.ttf");
+        Typeface fontTitle = Typeface.createFromAsset(getAssets(),"Paintball.otf");
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if(settings.contains("rotationState")) {
+            Gson gson = new Gson();
+            schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
+        }else{
+            schedules = new Schedules();
+            schedules.regular = new ArrayList<TimePeriod>();
+            schedules.ranked = new ArrayList<TimePeriod>();
+            schedules.league = new ArrayList<TimePeriod>();
+        }
+
+        ViewPager TurfPager = (ViewPager) findViewById(R.id.TurfPager);
+        ViewPager RankPager = (ViewPager) findViewById(R.id.RankedPager);
+        ViewPager LeaguePager = (ViewPager) findViewById(R.id.LeaguePager);
+
+        PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(), schedules.regular);
+        PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), schedules.ranked);
+        PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(), schedules.league);
+
+        TurfPager.setAdapter(turfAdapter);
+        RankPager.setAdapter(rankAdapter);
+        LeaguePager.setAdapter(leagueAdapter);
+
+
         ArrayList<String> salmonRunTimes=new ArrayList<String>();
         salmonRunTimes.add("9/10 8:00 AM - 9/11 2:00 PM");
         salmonRunTimes.add("9/12 2:00 PM - 9/13 8:00 AM");
         salmonRunTimes.add("9/14 2:00 AM - 9/15 2:00 AM");
         salmonRunTimes.add("9/15 8:00 PM - 9/17 2:00 AM");
         salmonRunTimes.add("9/17 8:00 PM - 9/18 8:00 PM");
-        Typeface font = Typeface.createFromAsset(getAssets(),"Splatfont2.ttf");
-        Typeface fontTitle = Typeface.createFromAsset(getAssets(),"Paintball.otf");
 
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -83,18 +109,76 @@ public class Rotation extends AppCompatActivity {
 
         ArrayAdapter<String> itemsAdapter = new SalmonAdapter(this,salmonRunTimes);
 
-        salmonTimes.setAdapter(itemsAdapter);
+        customHandler = new android.os.Handler();
 
-        new RotationData().execute();
+        salmonTimes.setAdapter(itemsAdapter);
+        if(schedules.regular.size()==0){
+            new RotationData().execute();
+        }else {
+            if ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
+                new RotationData().execute();
+            }
+        }
 
         turfWarTitle.setTypeface(fontTitle);
         rankedTitle.setTypeface(fontTitle);
         leagueTitle.setTypeface(fontTitle);
         salmonTitle.setTypeface(fontTitle);
+
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        savedInstanceState.putParcelable("schedules",schedules);
+        // etc.
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor edit = settings.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(schedules);
+        edit.putString("rotationState",json);
+        edit.commit();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Gson gson = new Gson();
+        schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+        schedules = savedInstanceState.getParcelable("schedules");
+
+        ViewPager TurfPager = (ViewPager) findViewById(R.id.TurfPager);
+        ViewPager RankPager = (ViewPager) findViewById(R.id.RankedPager);
+        ViewPager LeaguePager = (ViewPager) findViewById(R.id.LeaguePager);
+
+        PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(), schedules.regular);
+        PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), schedules.ranked);
+        PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(), schedules.league);
+
+        TurfPager.setAdapter(turfAdapter);
+        RankPager.setAdapter(rankAdapter);
+        LeaguePager.setAdapter(leagueAdapter);
+    }
+
+    //Get Rotation Data
     class RotationData extends AsyncTask<Void, Void, Void> {
-        Schedules schedules;
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -144,6 +228,7 @@ public class Rotation extends AppCompatActivity {
             TurfPager.setAdapter(turfAdapter);
             RankPager.setAdapter(rankAdapter);
             LeaguePager.setAdapter(leagueAdapter);
+
         }
     }
 
@@ -191,7 +276,7 @@ public class Rotation extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return RankPage;
+            return input.size();
         }
 
     }
@@ -213,7 +298,7 @@ public class Rotation extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return LeaguePage;
+            return input.size();
         }
 
     }
