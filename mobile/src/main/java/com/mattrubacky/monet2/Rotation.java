@@ -113,10 +113,10 @@ public class Rotation extends AppCompatActivity {
 
         salmonTimes.setAdapter(itemsAdapter);
         if(schedules.regular.size()==0){
-            new RotationData().execute();
+            customHandler.post(updateRotationData);
         }else {
             if ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
-                new RotationData().execute();
+                customHandler.post(updateRotationData);
             }
         }
 
@@ -178,11 +178,11 @@ public class Rotation extends AppCompatActivity {
     }
 
     //Get Rotation Data
-    class RotationData extends AsyncTask<Void, Void, Void> {
 
-        @Override
-        protected Void doInBackground(Void... params) {
-            //Do Stuff that takes ages (background thread)
+    private Runnable updateRotationData = new Runnable()
+    {
+        public void run()
+        {
             try {
                 Long now = Calendar.getInstance().getTimeInMillis();
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -211,26 +211,38 @@ public class Rotation extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return null;
+            Rotation.this.runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    ViewPager TurfPager = (ViewPager) findViewById(R.id.TurfPager);
+                    ViewPager RankPager = (ViewPager) findViewById(R.id.RankedPager);
+                    ViewPager LeaguePager = (ViewPager) findViewById(R.id.LeaguePager);
+
+                    PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(), schedules.regular);
+                    PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), schedules.ranked);
+                    PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(), schedules.league);
+
+                    TurfPager.setAdapter(turfAdapter);
+                    RankPager.setAdapter(rankAdapter);
+                    LeaguePager.setAdapter(leagueAdapter);
+                }
+            });
+            Calendar now = Calendar.getInstance();
+            Calendar nextUpdate = now;
+            if(now.get(Calendar.HOUR)%2==0){
+                nextUpdate.set(Calendar.HOUR,(now.get(Calendar.HOUR)+2));
+            }else{
+                nextUpdate.set(Calendar.HOUR,(now.get(Calendar.HOUR)+1));
+            }
+            nextUpdate.set(Calendar.MINUTE,0);
+            nextUpdate.set(Calendar.SECOND,0);
+            nextUpdate.set(Calendar.MILLISECOND,0);
+            Long nextUpdateTime = nextUpdate.getTimeInMillis()-now.getTimeInMillis();
+            customHandler.postDelayed(this, nextUpdateTime);
         }
+    };
 
-        @Override
-        protected void onPostExecute(Void params) {
-            //Call your next task (ui thread)=
-            ViewPager TurfPager = (ViewPager) findViewById(R.id.TurfPager);
-            ViewPager RankPager = (ViewPager) findViewById(R.id.RankedPager);
-            ViewPager LeaguePager = (ViewPager) findViewById(R.id.LeaguePager);
-
-            PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(), schedules.regular);
-            PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), schedules.ranked);
-            PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(), schedules.league);
-
-            TurfPager.setAdapter(turfAdapter);
-            RankPager.setAdapter(rankAdapter);
-            LeaguePager.setAdapter(leagueAdapter);
-
-        }
-    }
 
 
 
