@@ -75,7 +75,7 @@ public class RankedRotation extends Fragment {
             Picasso.with(getContext()).load(url2).resize(1280,720).into(image2);
             imageHandler.downloadImage("stage",image2DirName,url2,getContext());
         }
-        
+
         return rootView;
     }
 }

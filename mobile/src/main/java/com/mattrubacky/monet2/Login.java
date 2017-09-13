@@ -180,7 +180,9 @@ public class Login extends AppCompatActivity {
                    cookieManager.getCookie(sessionToken,getApplicationContext());
 
                    Intent intent = new Intent(getBaseContext(), Rotation.class);
+                   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                    startActivity(intent);
+                   finish();
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();

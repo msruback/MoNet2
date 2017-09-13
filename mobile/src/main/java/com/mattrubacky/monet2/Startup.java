@@ -29,15 +29,19 @@ public class Startup extends AppCompatActivity {
             Long now = new Date().getTime();
             if(sessionExpire<now){
                 Intent intent = new Intent(getBaseContext(), Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }else{
                 Intent intent = new Intent(getBaseContext(), Rotation.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         }else{
             Intent intent = new Intent(getBaseContext(), Login.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
+        finish();
 
 
     }
