@@ -13,7 +13,9 @@ import java.util.ArrayList;
 
 
 public class Schedules implements Parcelable{
-    public Schedules(){}
+    public Schedules(){
+
+    }
 
     @SerializedName("regular")
     ArrayList<TimePeriod> regular;
@@ -50,6 +52,14 @@ public class Schedules implements Parcelable{
         dest.writeTypedList(regular);
         dest.writeTypedList(ranked);
         dest.writeTypedList(league);
+    }
+    public int getLength(){
+        return regular.size();
+    }
+    public void dequeue(){
+        regular.remove(0);
+        ranked.remove(0);
+        league.remove(0);
     }
 }
 

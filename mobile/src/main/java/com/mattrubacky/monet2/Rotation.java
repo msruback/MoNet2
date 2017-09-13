@@ -50,6 +50,7 @@ import java.util.Date;
 import okhttp3.Cookie;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Headers;
@@ -105,6 +106,9 @@ public class Rotation extends AppCompatActivity {
         TextView leagueTitle = (TextView) findViewById(R.id.leagueName);
         TextView salmonTitle = (TextView) findViewById(R.id.salmonName);
 
+        TextView turfError = (TextView) findViewById(R.id.TurfErrorMessage);
+        TextView rankError = (TextView) findViewById(R.id.RankErrorMessage);
+
         ListView salmonTimes = (ListView) findViewById(R.id.SalmonTimes);
 
         ArrayAdapter<String> itemsAdapter = new SalmonAdapter(this,salmonRunTimes);
@@ -124,6 +128,9 @@ public class Rotation extends AppCompatActivity {
         rankedTitle.setTypeface(fontTitle);
         leagueTitle.setTypeface(fontTitle);
         salmonTitle.setTypeface(fontTitle);
+
+        turfError.setTypeface(font);
+        rankError.setTypeface(font);
 
     }
 
@@ -204,7 +211,14 @@ public class Rotation extends AppCompatActivity {
                 }
                 System.out.println(cookie);
                 Call<Schedules> rotationGet = splatnet.getSchedules(cookie);
-                schedules = rotationGet.execute().body();
+                Response response = rotationGet.execute();
+                if(response.isSuccessful()){
+                    schedules = (Schedules) response.body();
+                }else{
+                    if(schedules.getLength()>0){
+                        schedules.dequeue();
+                    }
+                }
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -252,6 +266,10 @@ public class Rotation extends AppCompatActivity {
         public TurfAdapter(FragmentManager fm, ArrayList<TimePeriod> input) {
             super(fm);
             this.input = input;
+            if(getCount()>0){
+                TextView errorMessage = (TextView) findViewById(R.id.TurfErrorMessage);
+                errorMessage.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override
@@ -275,6 +293,10 @@ public class Rotation extends AppCompatActivity {
         public RankAdapter(FragmentManager fm,ArrayList<TimePeriod> input) {
             super(fm);
             this.input = input;
+            if(getCount()>0){
+                TextView errorMessage = (TextView) findViewById(R.id.RankErrorMessage);
+                errorMessage.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override
@@ -297,6 +319,10 @@ public class Rotation extends AppCompatActivity {
         public LeagueAdapter(FragmentManager fm,ArrayList<TimePeriod> input) {
             super(fm);
             this.input = input;
+            if(getCount()>0){
+                TextView errorMessage = (TextView) findViewById(R.id.LeagueErrorMessage);
+                errorMessage.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override
