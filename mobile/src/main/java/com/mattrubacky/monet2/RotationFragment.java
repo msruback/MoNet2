@@ -2,6 +2,7 @@ package com.mattrubacky.monet2;
 
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,10 +10,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -28,28 +28,23 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Rotation extends AppCompatActivity {
+/**
+ * Created by mattr on 9/14/2017.
+ */
+
+public class RotationFragment extends Fragment {
     Schedules schedules;
     android.os.Handler customHandler;
+    ViewGroup rootView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rotation);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        rootView = (ViewGroup) inflater.inflate(
+                R.layout.fragment_rotation, container, false);
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
+        Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
 
-        Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
-        Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView title = (TextView) findViewById(R.id.title);
-        title.setTypeface(fontTitle);
-        setSupportActionBar(toolbar);
-        title.setText(toolbar.getTitle());
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
-
-
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         if(settings.contains("rotationState")) {
             Gson gson = new Gson();
             schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
@@ -66,17 +61,17 @@ public class Rotation extends AppCompatActivity {
             schedules.league = new ArrayList<TimePeriod>();
         }
 
-        ViewPager TurfPager = (ViewPager) findViewById(R.id.TurfPager);
-        ViewPager RankPager = (ViewPager) findViewById(R.id.RankedPager);
-        ViewPager LeaguePager = (ViewPager) findViewById(R.id.LeaguePager);
+        ViewPager TurfPager = (ViewPager) rootView.findViewById(R.id.TurfPager);
+        ViewPager RankPager = (ViewPager) rootView.findViewById(R.id.RankedPager);
+        ViewPager LeaguePager = (ViewPager) rootView.findViewById(R.id.LeaguePager);
 
-        PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(), schedules.regular);
-        PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), schedules.ranked);
-        PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(), schedules.league);
+        PagerAdapter turfAdapter = new TurfAdapter(getFragmentManager(), schedules.regular);
+        PagerAdapter rankAdapter = new RankAdapter(getFragmentManager(), schedules.ranked);
+        PagerAdapter leagueAdapter = new LeagueAdapter(getFragmentManager(), schedules.league);
 
-        TabLayout turfDots = (TabLayout) findViewById(R.id.TurfDots);
-        TabLayout rankDots = (TabLayout) findViewById(R.id.RankDots);
-        TabLayout leagueDots = (TabLayout) findViewById(R.id.LeagueDots);
+        TabLayout turfDots = (TabLayout) rootView.findViewById(R.id.TurfDots);
+        TabLayout rankDots = (TabLayout) rootView.findViewById(R.id.RankDots);
+        TabLayout leagueDots = (TabLayout) rootView.findViewById(R.id.LeagueDots);
 
         turfDots.setupWithViewPager(TurfPager, true);
         rankDots.setupWithViewPager(RankPager, true);
@@ -86,12 +81,12 @@ public class Rotation extends AppCompatActivity {
         RankPager.setAdapter(rankAdapter);
         LeaguePager.setAdapter(leagueAdapter);
 
-        TextView turfWarTitle = (TextView) findViewById(R.id.turfWarName);
-        TextView rankedTitle = (TextView) findViewById(R.id.rankedName);
-        TextView leagueTitle = (TextView) findViewById(R.id.leagueName);
+        TextView turfWarTitle = (TextView) rootView.findViewById(R.id.turfWarName);
+        TextView rankedTitle = (TextView) rootView.findViewById(R.id.rankedName);
+        TextView leagueTitle = (TextView) rootView.findViewById(R.id.leagueName);
 
-        TextView turfError = (TextView) findViewById(R.id.TurfErrorMessage);
-        TextView rankError = (TextView) findViewById(R.id.RankErrorMessage);
+        TextView turfError = (TextView) rootView.findViewById(R.id.TurfErrorMessage);
+        TextView rankError = (TextView) rootView.findViewById(R.id.RankErrorMessage);
 
 
         customHandler = new android.os.Handler();
@@ -102,7 +97,7 @@ public class Rotation extends AppCompatActivity {
         }else {
             if ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
                 customHandler.post(update2Hours);
-           }else{
+            }else{
                 Calendar now = Calendar.getInstance();
                 now.setTime(new Date());
                 Calendar nextUpdate = Calendar.getInstance();
@@ -128,7 +123,7 @@ public class Rotation extends AppCompatActivity {
 
         turfError.setTypeface(font);
         rankError.setTypeface(font);
-
+        return rootView;
     }
 
     @Override
@@ -142,9 +137,9 @@ public class Rotation extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         SharedPreferences.Editor edit = settings.edit();
         Gson gson = new Gson();
         String json = gson.toJson(schedules);
@@ -152,11 +147,11 @@ public class Rotation extends AppCompatActivity {
         edit.commit();
     }
 
-
+/*
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
     }
@@ -168,17 +163,17 @@ public class Rotation extends AppCompatActivity {
         // This bundle has also been passed to onCreate.
         schedules = savedInstanceState.getParcelable("schedules");
 
-        ViewPager TurfPager = (ViewPager) findViewById(R.id.TurfPager);
-        ViewPager RankPager = (ViewPager) findViewById(R.id.RankedPager);
-        ViewPager LeaguePager = (ViewPager) findViewById(R.id.LeaguePager);
+        ViewPager TurfPager = (ViewPager) rootView.findViewById(R.id.TurfPager);
+        ViewPager RankPager = (ViewPager) rootView.findViewById(R.id.RankedPager);
+        ViewPager LeaguePager = (ViewPager) rootView.findViewById(R.id.LeaguePager);
 
-        PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(), schedules.regular);
-        PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), schedules.ranked);
-        PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(), schedules.league);
+        PagerAdapter turfAdapter = new TurfAdapter(getFragmentManager(), schedules.regular);
+        PagerAdapter rankAdapter = new RankAdapter(getFragmentManager(), schedules.ranked);
+        PagerAdapter leagueAdapter = new LeagueAdapter(getFragmentManager(), schedules.league);
 
-        TabLayout turfDots = (TabLayout) findViewById(R.id.TurfDots);
-        TabLayout rankDots = (TabLayout) findViewById(R.id.RankDots);
-        TabLayout leagueDots = (TabLayout) findViewById(R.id.LeagueDots);
+        TabLayout turfDots = (TabLayout) rootView.findViewById(R.id.TurfDots);
+        TabLayout rankDots = (TabLayout) rootView.findViewById(R.id.RankDots);
+        TabLayout leagueDots = (TabLayout) rootView.findViewById(R.id.LeagueDots);
 
         turfDots.setupWithViewPager(TurfPager, true);
         rankDots.setupWithViewPager(RankPager, true);
@@ -188,6 +183,7 @@ public class Rotation extends AppCompatActivity {
         RankPager.setAdapter(rankAdapter);
         LeaguePager.setAdapter(leagueAdapter);
     }
+    */
 
     //Get Rotation Data
 
@@ -197,7 +193,7 @@ public class Rotation extends AppCompatActivity {
         {
             try {
                 Long now = Calendar.getInstance().getTimeInMillis();
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
                 String cookie;
 
                 //Create Splatnet manager
@@ -208,7 +204,7 @@ public class Rotation extends AppCompatActivity {
                 if ((settings.getLong("cookie_expire", 0)*1000) < now) {
                     //Replace cookie
                     CookieManager cookieManager = new CookieManager();
-                    cookie = cookieManager.getCookie(settings.getString("token",""),getApplicationContext());
+                    cookie = cookieManager.getCookie(settings.getString("token",""),getContext());
 
                 } else {
                     //Retrieve cookie
@@ -259,21 +255,21 @@ public class Rotation extends AppCompatActivity {
     private Runnable updateUI = new Runnable(){
         @Override
         public void run() {
-            ViewPager TurfPager = (ViewPager) findViewById(R.id.TurfPager);
-            ViewPager RankPager = (ViewPager) findViewById(R.id.RankedPager);
-            ViewPager LeaguePager = (ViewPager) findViewById(R.id.LeaguePager);
+            ViewPager TurfPager = (ViewPager) rootView.findViewById(R.id.TurfPager);
+            ViewPager RankPager = (ViewPager) rootView.findViewById(R.id.RankedPager);
+            ViewPager LeaguePager = (ViewPager) rootView.findViewById(R.id.LeaguePager);
 
-            TabLayout turfDots = (TabLayout) findViewById(R.id.TurfDots);
-            TabLayout rankDots = (TabLayout) findViewById(R.id.RankDots);
-            TabLayout leagueDots = (TabLayout) findViewById(R.id.LeagueDots);
+            TabLayout turfDots = (TabLayout) rootView.findViewById(R.id.TurfDots);
+            TabLayout rankDots = (TabLayout) rootView.findViewById(R.id.RankDots);
+            TabLayout leagueDots = (TabLayout) rootView.findViewById(R.id.LeagueDots);
 
             turfDots.setupWithViewPager(TurfPager, true);
             rankDots.setupWithViewPager(RankPager, true);
             leagueDots.setupWithViewPager(LeaguePager, true);
 
-            PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(), schedules.regular);
-            PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), schedules.ranked);
-            PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(), schedules.league);
+            PagerAdapter turfAdapter = new TurfAdapter(getFragmentManager(), schedules.regular);
+            PagerAdapter rankAdapter = new RankAdapter(getFragmentManager(), schedules.ranked);
+            PagerAdapter leagueAdapter = new LeagueAdapter(getFragmentManager(), schedules.league);
 
             TurfPager.setAdapter(turfAdapter);
             RankPager.setAdapter(rankAdapter);
@@ -285,14 +281,14 @@ public class Rotation extends AppCompatActivity {
 
 
 
-        //Adapters
+    //Adapters
     private class TurfAdapter extends FragmentStatePagerAdapter {
         ArrayList<TimePeriod> input;
         public TurfAdapter(FragmentManager fm, ArrayList<TimePeriod> input) {
             super(fm);
             this.input = input;
             if(getCount()>0){
-                TextView errorMessage = (TextView) findViewById(R.id.TurfErrorMessage);
+                TextView errorMessage = (TextView) rootView.findViewById(R.id.TurfErrorMessage);
                 errorMessage.setVisibility(View.INVISIBLE);
             }
         }
@@ -319,7 +315,7 @@ public class Rotation extends AppCompatActivity {
             super(fm);
             this.input = input;
             if(getCount()>0){
-                TextView errorMessage = (TextView) findViewById(R.id.RankErrorMessage);
+                TextView errorMessage = (TextView) rootView.findViewById(R.id.RankErrorMessage);
                 errorMessage.setVisibility(View.INVISIBLE);
             }
         }
@@ -345,7 +341,7 @@ public class Rotation extends AppCompatActivity {
             super(fm);
             this.input = input;
             if(getCount()>0){
-                TextView errorMessage = (TextView) findViewById(R.id.LeagueErrorMessage);
+                TextView errorMessage = (TextView) rootView.findViewById(R.id.LeagueErrorMessage);
                 errorMessage.setVisibility(View.INVISIBLE);
             }
         }
@@ -365,6 +361,4 @@ public class Rotation extends AppCompatActivity {
         }
 
     }
-
 }
-

@@ -1,14 +1,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="logo">@drawable/title</item>
-        <item name="displayOptions">useLogo|showHome</item>
     </style>
+
+    <style name="TitleTextStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    </style>
+
+
 
     <style name="Theme_Dialog" parent="android:Theme.Light">
         <item name="android:windowNoTitle">true</item>

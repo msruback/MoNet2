@@ -15,25 +15,26 @@
         <activity
             android:name=".Startup"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        </activity>
+        <activity
+            android:name=".Login"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Rotation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Shop"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Stats" />
+        <activity android:name=".DebugActivity"></activity>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".Login"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".Rotation"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".Shop"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".Stats" />
-        <activity android:name=".DebugActivity">
         </activity>
     </application>
 

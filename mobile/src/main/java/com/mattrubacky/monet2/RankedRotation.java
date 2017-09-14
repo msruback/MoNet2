@@ -1,8 +1,6 @@
 package com.mattrubacky.monet2;
 
-import android.content.Context;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,7 +22,7 @@ public class RankedRotation extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_ranked_rotation, container, false);
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
 
         TextView time = (TextView) rootView.findViewById(R.id.rankTime);
         TextView mode = (TextView) rootView.findViewById(R.id.rankMode);
