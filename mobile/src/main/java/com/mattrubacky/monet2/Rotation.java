@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -90,17 +91,18 @@ public class Rotation extends AppCompatActivity {
         PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), schedules.ranked);
         PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(), schedules.league);
 
+        TabLayout turfDots = (TabLayout) findViewById(R.id.TurfDots);
+        TabLayout rankDots = (TabLayout) findViewById(R.id.RankDots);
+        TabLayout leagueDots = (TabLayout) findViewById(R.id.LeagueDots);
+
+        turfDots.setupWithViewPager(TurfPager, true);
+        rankDots.setupWithViewPager(RankPager, true);
+        leagueDots.setupWithViewPager(LeaguePager, true);
+
         TurfPager.setAdapter(turfAdapter);
         RankPager.setAdapter(rankAdapter);
         LeaguePager.setAdapter(leagueAdapter);
 
-
-        ArrayList<String> salmonRunTimes=new ArrayList<String>();
-        salmonRunTimes.add("9/10 8:00 AM - 9/11 2:00 PM");
-        salmonRunTimes.add("9/12 2:00 PM - 9/13 8:00 AM");
-        salmonRunTimes.add("9/14 2:00 AM - 9/15 2:00 AM");
-        salmonRunTimes.add("9/15 8:00 PM - 9/17 2:00 AM");
-        salmonRunTimes.add("9/17 8:00 PM - 9/18 8:00 PM");
 
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -110,18 +112,13 @@ public class Rotation extends AppCompatActivity {
         TextView turfWarTitle = (TextView) findViewById(R.id.turfWarName);
         TextView rankedTitle = (TextView) findViewById(R.id.rankedName);
         TextView leagueTitle = (TextView) findViewById(R.id.leagueName);
-        TextView salmonTitle = (TextView) findViewById(R.id.salmonName);
 
         TextView turfError = (TextView) findViewById(R.id.TurfErrorMessage);
         TextView rankError = (TextView) findViewById(R.id.RankErrorMessage);
 
-        ListView salmonTimes = (ListView) findViewById(R.id.SalmonTimes);
-
-        ArrayAdapter<String> itemsAdapter = new SalmonAdapter(this,salmonRunTimes);
 
         customHandler = new android.os.Handler();
 
-        salmonTimes.setAdapter(itemsAdapter);
         Thread t = new Thread(updateRotationData);
         if(schedules.regular.size()==0){
             customHandler.post(update2Hours);
@@ -151,7 +148,6 @@ public class Rotation extends AppCompatActivity {
         turfWarTitle.setTypeface(fontTitle);
         rankedTitle.setTypeface(fontTitle);
         leagueTitle.setTypeface(fontTitle);
-        salmonTitle.setTypeface(fontTitle);
 
         turfError.setTypeface(font);
         rankError.setTypeface(font);
@@ -202,6 +198,14 @@ public class Rotation extends AppCompatActivity {
         PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(), schedules.regular);
         PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), schedules.ranked);
         PagerAdapter leagueAdapter = new LeagueAdapter(getSupportFragmentManager(), schedules.league);
+
+        TabLayout turfDots = (TabLayout) findViewById(R.id.TurfDots);
+        TabLayout rankDots = (TabLayout) findViewById(R.id.RankDots);
+        TabLayout leagueDots = (TabLayout) findViewById(R.id.LeagueDots);
+
+        turfDots.setupWithViewPager(TurfPager, true);
+        rankDots.setupWithViewPager(RankPager, true);
+        leagueDots.setupWithViewPager(LeaguePager, true);
 
         TurfPager.setAdapter(turfAdapter);
         RankPager.setAdapter(rankAdapter);
@@ -255,6 +259,14 @@ public class Rotation extends AppCompatActivity {
                     ViewPager TurfPager = (ViewPager) findViewById(R.id.TurfPager);
                     ViewPager RankPager = (ViewPager) findViewById(R.id.RankedPager);
                     ViewPager LeaguePager = (ViewPager) findViewById(R.id.LeaguePager);
+
+                    TabLayout turfDots = (TabLayout) findViewById(R.id.TurfDots);
+                    TabLayout rankDots = (TabLayout) findViewById(R.id.RankDots);
+                    TabLayout leagueDots = (TabLayout) findViewById(R.id.LeagueDots);
+
+                    turfDots.setupWithViewPager(TurfPager, true);
+                    rankDots.setupWithViewPager(RankPager, true);
+                    leagueDots.setupWithViewPager(LeaguePager, true);
 
                     PagerAdapter turfAdapter = new TurfAdapter(getSupportFragmentManager(), schedules.regular);
                     PagerAdapter rankAdapter = new RankAdapter(getSupportFragmentManager(), schedules.ranked);

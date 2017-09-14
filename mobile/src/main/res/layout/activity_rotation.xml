@@ -30,7 +30,7 @@
                 <RelativeLayout
                     android:id="@+id/TurfWar"
                     android:layout_width="300dp"
-                    android:layout_height="460dp"
+                    android:layout_height="470dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="60dp"
@@ -50,18 +50,18 @@
                     <RelativeLayout
                         android:id="@+id/turfGreyBottom"
                         android:layout_width="match_parent"
-                        android:layout_height="360dp"
+                        android:layout_height="370dp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="100dp"
                         android:background="@drawable/bgcard"
                         android:backgroundTint="@color/grey">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="@color/grey"
-                            android:layout_alignParentTop="true">
-                        </RelativeLayout>
+                            android:layout_alignParentTop="true"
+                            android:background="@color/grey"></RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -73,6 +73,7 @@
                         android:background="@drawable/bgstripesrepeat">
 
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -83,23 +84,38 @@
                             android:layout_width="250dp"
                             android:layout_height="90dp"
                             android:layout_centerInParent="true"
-                            android:gravity="center"
                             android:layout_marginTop="200dp"
                             android:background="@drawable/bgmaskbanner"
                             android:backgroundTint="@color/turfAccent"
+                            android:gravity="center"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             android:text="@string/dataError"
                             android:textSize="22sp" />
                     </RelativeLayout>
 
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/TurfPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="350dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignTop="@+id/turfGreyBottom"></android.support.v4.view.ViewPager>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="360dp"
+                        android:layout_alignTop="@+id/turfGreyBottom">
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/TurfPager"
+                            android:layout_width="match_parent"
+                            android:layout_height="350dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"></android.support.v4.view.ViewPager>
+
+                        <android.support.design.widget.TabLayout
+                            android:id="@+id/TurfDots"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="350dp"
+                            app:tabBackground="@drawable/turf_tab_selector"
+                            app:tabGravity="center"
+                            app:tabIndicatorHeight="0dp" />
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/turfModeBanner"
@@ -137,7 +153,7 @@
                 <RelativeLayout
                     android:id="@+id/Ranked"
                     android:layout_width="300dp"
-                    android:layout_height="490dp"
+                    android:layout_height="500dp"
                     android:layout_below="@+id/TurfWar"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="60dp"
@@ -157,18 +173,19 @@
                     <RelativeLayout
                         android:id="@+id/rankedGreyBottom"
                         android:layout_width="match_parent"
-                        android:layout_height="390dp"
+                        android:layout_height="400dp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="100dp"
                         android:background="@drawable/bgcard"
                         android:backgroundTint="@color/grey">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:background="@color/grey"
-                            android:layout_alignParentTop="true">
-                        </RelativeLayout>
+                            android:layout_alignParentTop="true"
+                            android:background="@color/grey"></RelativeLayout>
+
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -191,23 +208,38 @@
                             android:layout_width="250dp"
                             android:layout_height="90dp"
                             android:layout_centerInParent="true"
-                            android:gravity="center"
                             android:layout_marginTop="200dp"
                             android:background="@drawable/bgmaskbanner"
                             android:backgroundTint="@color/rankAccent"
+                            android:gravity="center"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             android:text="@string/dataError"
                             android:textSize="22sp" />
                     </RelativeLayout>
 
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/RankedPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="350dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignTop="@+id/rankedGreyBottom"></android.support.v4.view.ViewPager>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="390dp"
+                        android:layout_alignTop="@+id/rankedGreyBottom">
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/RankedPager"
+                            android:layout_width="match_parent"
+                            android:layout_height="370dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true" />
+
+                        <android.support.design.widget.TabLayout
+                            android:id="@+id/RankDots"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="380dp"
+                            app:tabBackground="@drawable/rank_tab_selector"
+                            app:tabGravity="center"
+                            app:tabIndicatorHeight="0dp" />
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/rankModeBanner"
@@ -244,7 +276,7 @@
                 <RelativeLayout
                     android:id="@+id/League"
                     android:layout_width="300dp"
-                    android:layout_height="490dp"
+                    android:layout_height="500dp"
                     android:layout_below="@id/Ranked"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="60dp"
@@ -264,17 +296,19 @@
                     <RelativeLayout
                         android:id="@+id/leagueGreyBottom"
                         android:layout_width="match_parent"
-                        android:layout_height="390dp"
+                        android:layout_height="400dp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="100dp"
                         android:background="@drawable/bgcard"
-                        android:backgroundTint="@color/grey"><RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/grey"
-                        android:layout_alignParentTop="true">
-                    </RelativeLayout></RelativeLayout>
+                        android:backgroundTint="@color/grey">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/grey"
+                            android:layout_alignParentTop="true">
+                        </RelativeLayout>
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/leagueStripes"
@@ -303,13 +337,28 @@
                             android:textSize="22sp" />
                     </RelativeLayout>
 
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/LeaguePager"
-                        android:layout_width="match_parent"
-                        android:layout_height="350dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignTop="@+id/leagueGreyBottom"></android.support.v4.view.ViewPager>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="390dp"
+                        android:layout_alignTop="@+id/leagueGreyBottom">
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/LeaguePager"
+                            android:layout_width="match_parent"
+                            android:layout_height="370dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true"
+                            />
+                        <android.support.design.widget.TabLayout
+                            android:id="@+id/LeagueDots"
+                            android:layout_width="250dp"
+                            android:layout_height="wrap_content"
+                            app:tabBackground="@drawable/league_tab_selector"
+                            app:tabGravity="center"
+                            app:tabIndicatorHeight="0dp"
+                            android:layout_marginTop="380dp"
+                            android:layout_centerHorizontal="true" />
+                        </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/leagueModeBanner"
@@ -342,7 +391,7 @@
                     </RelativeLayout>
 
                 </RelativeLayout>
-
+<!--
                 <RelativeLayout
                     android:id="@+id/SalmonRun"
                     android:layout_width="300dp"
@@ -420,6 +469,7 @@
                     </RelativeLayout>
 
                 </RelativeLayout>
+                -->
 
             </RelativeLayout>
         </ScrollView>
