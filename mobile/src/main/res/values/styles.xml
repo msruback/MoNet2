@@ -10,5 +10,9 @@
         <item name="displayOptions">useLogo|showHome</item>
     </style>
 
+    <style name="Theme_Dialog" parent="android:Theme.Light">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 
 </resources>

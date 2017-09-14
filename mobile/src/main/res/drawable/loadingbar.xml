@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+    <item android:duration="70">
+        <bitmap
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:src="@drawable/loading1"
+            android:tileMode="repeat"
+            android:dither="false" />
+    </item>
+    <item android:duration="150">
+        <bitmap
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:src="@drawable/loading2"
+            android:tileMode="repeat"
+            android:dither="false" />
+    </item>
+    <item android:duration="150">
+        <bitmap
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:src="@drawable/loading3"
+            android:tileMode="repeat"
+            android:dither="false" />
+    </item>
+    <item android:duration="150">
+        <bitmap
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:src="@drawable/loading4"
+            android:tileMode="repeat"
+            android:dither="false" />
+    </item>
+</animation-list>

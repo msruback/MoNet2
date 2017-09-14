@@ -1,5 +1,6 @@
 package com.mattrubacky.monet2;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.view.Window;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -58,23 +60,6 @@ public class Login extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.title);
 
-        int flags = Base64.URL_SAFE|Base64.NO_PADDING|Base64.NO_WRAP;
-        SecureRandom random = new SecureRandom();
-        byte[] bytes = new byte[36];
-        random.nextBytes(bytes);
-        state = Base64.encodeToString(bytes,flags);
-        bytes = new byte[32];
-        random.nextBytes(bytes);
-        /*codeVerifier = Base64.encodeToString(bytes,flags);
-        codeChallenge = "";
-        try {
-            codeChallenge = Base64.encodeToString(computeHash(codeVerifier).getBytes(),flags);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        */
         state="bEVJiwcJvRXSgswXXJfBWAXuVGPYUdIURawRoiAfpPuyvruFln";
         codeChallenge = "yJBOlX8APS9gACKA7iMs17HfkE4z8qzZn1sW00WAt0k";
         String url = "https://accounts.nintendo.com/connect/1.0.0/authorize?state="+state+"&redirect_uri=npf71b963c1b7b6d119://auth&client_id=71b963c1b7b6d119&scope=openid%20user%20user.birthday%20user.mii%20user.screenName&response_type=session_token_code&session_token_code_challenge="+codeChallenge+"&session_token_code_challenge_method=S256&theme=login_form";
@@ -100,6 +85,11 @@ public class Login extends AppCompatActivity {
                             sessionTokenCode = url2Dissect[i].split("=")[1];
                         }
                     }
+                    Dialog dialog = new Dialog(Login.this,R.style.Theme_Dialog);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setCancelable(false);
+                    dialog.setContentView(R.layout.dialog_loading);
+                    dialog.show();
                     getData();
                     return true;
                 }
@@ -110,31 +100,7 @@ public class Login extends AppCompatActivity {
         wv.loadUrl(url);
 
     }
-    static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    static SecureRandom rnd = new SecureRandom();
 
-    String randomString( int len ) {
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++)
-            sb.append(AB.charAt(rnd.nextInt(AB.length())));
-        return sb.toString();
-    }
-    public String computeHash(String input)
-            throws NoSuchAlgorithmException, UnsupportedEncodingException
-    {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        digest.reset();
-
-        byte[] byteData = digest.digest(input.getBytes(StandardCharsets.UTF_8));
-        StringBuffer hexString = new StringBuffer();
-        for (int i = 0; i < byteData.length; i++) {
-            String hex = Integer.toHexString(0xff & byteData[i]);
-            if(hex.length() == 1) hexString.append('0');
-            hexString.append(hex);
-        }
-        return hexString.toString();
-
-    }
     public void getData(){
         Runnable r = new Runnable() {
             @Override

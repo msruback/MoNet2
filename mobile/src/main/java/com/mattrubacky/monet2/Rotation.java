@@ -69,6 +69,12 @@ public class Rotation extends AppCompatActivity {
         if(settings.contains("rotationState")) {
             Gson gson = new Gson();
             schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
+            if(schedules == null){
+                schedules = new Schedules();
+                schedules.regular = new ArrayList<TimePeriod>();
+                schedules.ranked = new ArrayList<TimePeriod>();
+                schedules.league = new ArrayList<TimePeriod>();
+            }
         }else{
             schedules = new Schedules();
             schedules.regular = new ArrayList<TimePeriod>();
