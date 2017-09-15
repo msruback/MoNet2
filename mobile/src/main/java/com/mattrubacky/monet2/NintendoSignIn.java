@@ -19,8 +19,8 @@ public interface NintendoSignIn{
     @Headers({
             "Content-Type: application/x-www-form-urlencoded",
             "X-Platform: Android",
-            "X-ProductVersion: 1.0.4",
-            "User-Agent: com.nintendo.znca/1.0.4 (Android/4.4.2)"
+            "X-ProductVersion: 1.1.0",
+            "User-Agent: com.nintendo.znca/1.1.0 (Android/5.1.1)"
     })
     @FormUrlEncoded
     @POST("connect/1.0.0/api/session_token")
@@ -28,16 +28,16 @@ public interface NintendoSignIn{
 
     @Headers({
             "X-Platform: Android",
-            "X-ProductVersion: 1.0.4",
-            "User-Agent: com.nintendo.znca/1.0.4 (Android/4.4.2)"
+            "X-ProductVersion: 1.1.0",
+            "User-Agent: com.nintendo.znca/1.1.0 (Android/5.1.1)"
     })
     @POST("connect/1.0.0/api/token")
     Call<ResponseBody> getServiceToken(@Body RequestBody params);
 
     @Headers({
             "X-Platform: Android",
-            "X-ProductVersion: 1.0.4",
-            "User-Agent: com.nintendo.znca/1.0.4 (Android/4.4.2)"
+            "X-ProductVersion: 1.1.0",
+            "User-Agent: com.nintendo.znca/1.1.0 (Android/5.1.1)"
     })
     @GET("2.0.0/users/me")
     Call<ResponseBody> getUserDetails(@Header("Authorization") String authorization);

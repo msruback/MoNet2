@@ -27,7 +27,7 @@
                 android:layout_height="470dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="100dp"
                 android:background="@drawable/bgcard"
                 android:backgroundTint="@color/turfPrimary"
                 android:rotation="2">

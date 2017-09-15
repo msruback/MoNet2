@@ -200,16 +200,16 @@ public class RotationFragment extends Fragment {
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
 
-                //Check if cookie is valid
-                if ((settings.getLong("cookie_expire", 0)*1000) < now) {
-                    //Replace cookie
-                    CookieManager cookieManager = new CookieManager();
-                    cookie = cookieManager.getCookie(settings.getString("token",""),getContext());
-
-                } else {
+//                //Check if cookie is valid
+//                if ((settings.getLong("cookie_expire", 0)*1000) < now) {
+//                    //Replace cookie
+//                    CookieManager cookieManager = new CookieManager();
+//                    cookie = cookieManager.getCookie(settings.getString("token",""),getContext());
+//
+//                } else {
                     //Retrieve cookie
-                    cookie = settings.getString("cookie", "");
-                }
+                    cookie = "iksm_session=bee3827dbb85788a86340dd93bead490348374ac";;
+//                }
                 Call<Schedules> rotationGet = splatnet.getSchedules(cookie);
                 Response response = rotationGet.execute();
                 if(response.isSuccessful()){
@@ -231,6 +231,7 @@ public class RotationFragment extends Fragment {
     {
         public void run() {
             Thread t = new Thread(updateRotationData);
+            customHandler.postDelayed(updateUI,10000);
             t.start();
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());

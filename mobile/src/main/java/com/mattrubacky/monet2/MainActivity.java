@@ -1,6 +1,8 @@
 package com.mattrubacky.monet2;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.graphics.Typeface;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ListView drawerList;
     ArrayList<String> titles;
+    Fragment rotation,shop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +37,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
+        //Add titles
         titles = new ArrayList<String>();
         titles.add("Rotation");
+        titles.add("Shop");
+        //Add fragments
+        rotation = new RotationFragment();
+
 
 
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
@@ -59,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.frame_container, rotation)
+                .commit();
 
 
     }
@@ -72,17 +84,15 @@ public class MainActivity extends AppCompatActivity {
     /** Swaps fragments in the main content view */
     private void selectItem(int position) {
         // Create a new fragment and specify the planet to show based on position
-        Fragment fragment = null;
+        FragmentManager fragmentManager = getSupportFragmentManager();
         switch(position){
             case 0:
-                fragment = new RotationFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container, rotation)
+                        .commit();
         }
 
         // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.frame_container, fragment)
-                .commit();
 
         // Highlight the selected item, update the title, and close the drawer
         drawerList.setItemChecked(position, true);
@@ -98,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_nav, parent, false);
             }
-            Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
+            Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
 
 
             TextView title = (TextView) convertView.findViewById(R.id.Title);

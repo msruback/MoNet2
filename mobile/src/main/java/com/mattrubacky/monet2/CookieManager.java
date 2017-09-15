@@ -69,7 +69,7 @@ public class CookieManager {
             NintendoAccounts accounts = retrofit.create(NintendoAccounts.class);
 
             //Login to Nintendo Accounts API
-            json = "{ \"parameter\": { \"language\": \"en-US\", \"naBirthday\": \""+birthday+"\", \"naCountry\": \"US\", \"naIdToken\": \""+idToken+"\" } }";
+            json = "{ \"parameter\": { \"f\": \"a05eae3d62b6d33b48e69ea3fc9f15778a7b8a9c5b7c3d3d5d14539ce83e61f2\",\"language\": \"en-US\", \"naBirthday\": \""+birthday+"\", \"naCountry\": \"US\", \"naIdToken\": \""+idToken+"\" } }";
             jsonRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
             Call<ResponseBody> login = accounts.logIn(jsonRequest);
             response = login.execute().body();

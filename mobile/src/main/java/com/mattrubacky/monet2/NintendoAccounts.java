@@ -18,8 +18,8 @@ import retrofit2.http.POST;
 public interface NintendoAccounts {
     @Headers({
             "X-Platform: Android",
-            "X-ProductVersion: 1.0.4",
-            "User-Agent: com.nintendo.znca/1.0.4 (Android/4.4.2)",
+            "X-ProductVersion: 1.1.0",
+            "User-Agent: com.nintendo.znca/1.1.0 (Android/5.1.1)",
             "Authorization: Bearer"
     })
     @POST("v1/Account/Login")
@@ -27,8 +27,8 @@ public interface NintendoAccounts {
 
     @Headers({
             "X-Platform: Android",
-            "X-ProductVersion: 1.0.4",
-            "User-Agent: com.nintendo.znca/1.0.4 (Android/4.4.2)"
+            "X-ProductVersion: 1.1.0",
+            "User-Agent: com.nintendo.znca/1.1.0 (Android/5.1.1)"
     })
     @POST("v1/Game/GetWebServiceToken")
     Call<ResponseBody> getGameToken(@Header("Authorization") String auth,@Body RequestBody params);

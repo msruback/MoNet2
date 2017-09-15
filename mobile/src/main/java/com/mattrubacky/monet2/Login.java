@@ -55,13 +55,9 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.title);
 
-        state="bEVJiwcJvRXSgswXXJfBWAXuVGPYUdIURawRoiAfpPuyvruFln";
-        codeChallenge = "yJBOlX8APS9gACKA7iMs17HfkE4z8qzZn1sW00WAt0k";
+        state="vckBgmLmHQstFDWnoJhKApnlYyslIuTCzhOjVjkngBanStAxlD";
+        codeChallenge = "9ZBssKO8B2cbJMjXr6tlhrgYmriIqqma_WkuNXJQKgs";
         String url = "https://accounts.nintendo.com/connect/1.0.0/authorize?state="+state+"&redirect_uri=npf71b963c1b7b6d119://auth&client_id=71b963c1b7b6d119&scope=openid%20user%20user.birthday%20user.mii%20user.screenName&response_type=session_token_code&session_token_code_challenge="+codeChallenge+"&session_token_code_challenge_method=S256&theme=login_form";
         final WebView wv = (WebView) findViewById(R.id.Web);
 
@@ -85,11 +81,11 @@ public class Login extends AppCompatActivity {
                             sessionTokenCode = url2Dissect[i].split("=")[1];
                         }
                     }
-                    Dialog dialog = new Dialog(Login.this,R.style.Theme_Dialog);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setCancelable(false);
-                    dialog.setContentView(R.layout.dialog_loading);
-                    dialog.show();
+                    //Dialog dialog = new Dialog(Login.this,R.style.Theme_Dialog);
+                    //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    //dialog.setCancelable(false);
+                    //dialog.setContentView(R.layout.dialog_loading);
+                    //dialog.show();
                     getData();
                     return true;
                 }
@@ -145,7 +141,7 @@ public class Login extends AppCompatActivity {
                    CookieManager cookieManager = new CookieManager();
                    cookieManager.getCookie(sessionToken,getApplicationContext());
 
-                   Intent intent = new Intent(getBaseContext(), Rotation.class);
+                   Intent intent = new Intent(getBaseContext(), MainActivity.class);
                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                    startActivity(intent);
                    finish();
