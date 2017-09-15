@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 1:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.frame_container, rotation)
+                        .replace(R.id.frame_container, shop)
                         .commit();
                 break;
         }

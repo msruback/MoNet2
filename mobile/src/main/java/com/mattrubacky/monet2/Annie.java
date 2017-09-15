@@ -22,7 +22,7 @@ class Ordered{
     @SerializedName("gear")
     Gear gear;
     @SerializedName("price")
-    int price;
+    String price;
     @SerializedName("skill")
     Skill skill;
 
@@ -32,9 +32,9 @@ class Product{
     @SerializedName("gear")
     Gear gear;
     @SerializedName("price")
-    int price;
+    String price;
     @SerializedName("id")
-    int id;
+    String id;
     @SerializedName("skill")
     Skill skill;
     @SerializedName("end_time")

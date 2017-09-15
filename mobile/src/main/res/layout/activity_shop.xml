@@ -103,7 +103,7 @@
                             android:layout_marginEnd="10dp">
 
                             <RelativeLayout
-                                android:id="@+id/MainAbility"
+                                android:id="@+id/mainAbility"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 android:layout_alignParentEnd="true"
@@ -121,7 +121,7 @@
                                 android:id="@+id/Sub1"
                                 android:layout_width="18dp"
                                 android:layout_height="18dp"
-                                android:layout_below="@id/MainAbility"
+                                android:layout_below="@id/mainAbility"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="5dp"
                                 android:src="@drawable/blankskillslot" />
@@ -278,7 +278,7 @@
                             android:layout_marginEnd="10dp">
 
                             <RelativeLayout
-                                android:id="@+id/MainAbility"
+                                android:id="@+id/mainAbility"
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 android:layout_alignParentEnd="true"
@@ -296,7 +296,7 @@
                                 android:id="@+id/Sub1"
                                 android:layout_width="18dp"
                                 android:layout_height="18dp"
-                                android:layout_below="@id/MainAbility"
+                                android:layout_below="@id/mainAbility"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="5dp"
                                 android:src="@drawable/blankskillslot" />

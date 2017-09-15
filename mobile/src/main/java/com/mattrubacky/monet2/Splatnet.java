@@ -53,7 +53,7 @@ public interface Splatnet {
     Call<ResponseBody> getNicknameIcon(@Path("id") String id,@Header("Cookie") String cookie);
 
     @GET("api/onlineshop/merchandises")
-    Call<ResponseBody> getShop(@Header("Cookie") String cookie);
+    Call<Annie> getShop(@Header("Cookie") String cookie);
 
     @Headers({
             "Accept: */*",

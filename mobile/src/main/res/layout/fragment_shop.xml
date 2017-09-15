@@ -20,25 +20,65 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/orderLayout">
+            android:id="@+id/orderLayout"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:id="@+id/orderTitle"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="@drawable/bgmaskbanner"
+                android:backgroundTint="@color/turfPrimary"
+                android:paddingLeft="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ordered"
+                    android:textColor="@color/offWhite"
+                    android:textSize="22sp"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
 
             <GridView
                 android:id="@+id/CurrentOrder"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_below="@+id/orderTitle"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="8dp" />
+
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/merchLayout">
+            android:id="@+id/merchLayout"
+            android:layout_below="@+id/orderLayout"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:id="@+id/merchTitle"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="@drawable/bgmaskbanner"
+                android:backgroundTint="@color/leaguePrimary"
+                android:paddingLeft="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Available"
+                    android:textColor="@color/offWhite"
+                    android:textSize="22sp"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
 
             <GridView
                 android:id="@+id/CurrentMerch"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_below="@+id/merchTitle"/>
         </RelativeLayout>
 
     </RelativeLayout>

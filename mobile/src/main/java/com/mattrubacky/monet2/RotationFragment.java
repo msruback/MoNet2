@@ -192,8 +192,8 @@ public class RotationFragment extends Fragment {
         public void run()
         {
             try {
-                Long now = Calendar.getInstance().getTimeInMillis();
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                //Long now = Calendar.getInstance().getTimeInMillis();
+                //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
                 String cookie;
 
                 //Create Splatnet manager
@@ -208,7 +208,7 @@ public class RotationFragment extends Fragment {
 //
 //                } else {
                     //Retrieve cookie
-                    cookie = "iksm_session=bee3827dbb85788a86340dd93bead490348374ac";;
+                    cookie = "iksm_session=bee3827dbb85788a86340dd93bead490348374ac";
 //                }
                 Call<Schedules> rotationGet = splatnet.getSchedules(cookie);
                 Response response = rotationGet.execute();
