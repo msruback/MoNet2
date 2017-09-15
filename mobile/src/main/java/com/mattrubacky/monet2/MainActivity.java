@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         titles.add("Shop");
         //Add fragments
         rotation = new RotationFragment();
+        shop = new ShopFragment();
 
 
 
@@ -90,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_container, rotation)
                         .commit();
+                break;
+            case 1:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container, rotation)
+                        .commit();
+                break;
         }
 
         // Insert the fragment by replacing any existing fragment
