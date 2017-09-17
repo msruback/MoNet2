@@ -4,7 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true">
+    android:layout_alignParentTop="true"
+    android:layout_centerInParent="true">
 
     <RelativeLayout
         android:id="@+id/Item"
@@ -112,7 +113,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="60dp"
+            android:layout_width="80dp"
             android:layout_height="21dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/product"

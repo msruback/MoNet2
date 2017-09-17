@@ -109,6 +109,7 @@ public class CookieManager {
             SharedPreferences.Editor edit = settings.edit();
             edit.putLong("cookie_expire",time.getTimeInMillis());
             edit.putString("cookie",cookie);
+            edit.commit();
             return cookie;
         } catch (MalformedURLException e) {
             e.printStackTrace();

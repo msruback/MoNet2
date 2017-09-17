@@ -16,70 +16,87 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
-
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/orderLayout"
-            android:padding="10dp">
-
+            android:layout_height="wrap_content">
             <RelativeLayout
-                android:id="@+id/orderTitle"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:background="@drawable/bgmaskbanner"
-                android:backgroundTint="@color/turfPrimary"
-                android:paddingLeft="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ordered"
-                    android:textColor="@color/offWhite"
-                    android:textSize="22sp"
-                    android:layout_centerInParent="true"/>
-            </RelativeLayout>
-
-            <GridView
-                android:id="@+id/CurrentOrder"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_below="@+id/orderTitle"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="8dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/merchLayout"
-            android:layout_below="@+id/orderLayout"
-            android:padding="10dp">
-
-            <RelativeLayout
-                android:id="@+id/merchTitle"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:background="@drawable/bgmaskbanner"
-                android:backgroundTint="@color/leaguePrimary"
-                android:paddingLeft="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Available"
-                    android:textColor="@color/offWhite"
-                    android:textSize="22sp"
-                    android:layout_centerInParent="true"/>
-            </RelativeLayout>
-
-            <GridView
-                android:id="@+id/CurrentMerch"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/merchTitle"/>
-        </RelativeLayout>
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/orderLayout"
+                android:padding="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/orderTitle"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bgmaskbanner"
+                    android:backgroundTint="@color/turfPrimary"
+                    android:paddingLeft="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ordered"
+                        android:textColor="@color/offWhite"
+                        android:textSize="22sp"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+
+                <GridView
+                    android:id="@+id/CurrentOrder"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_below="@+id/orderTitle"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="8dp" />
+
+            </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/merchLayout"
+                    android:layout_below="@+id/orderLayout">
+
+                    <RelativeLayout
+                        android:id="@+id/merchTitle"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bgmaskbanner"
+                        android:backgroundTint="@color/leaguePrimary"
+                        android:paddingLeft="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Available"
+                            android:textColor="@color/offWhite"
+                            android:textSize="22sp"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+                    <GridView
+                        android:id="@+id/CurrentMerch"
+                        android:layout_width="match_parent"
+                        android:layout_height="750dp"
+                        android:layout_centerInParent="true"
+                        android:columnWidth="170dp"
+                        android:layout_below="@+id/merchTitle"
+                        android:numColumns="2"
+                        android:gravity="center"
+                        android:verticalSpacing="10dp"
+                        android:horizontalSpacing="10dp"
+                        android:scrollbars="none"
+                        android:layout_marginTop="10dp"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </ScrollView>
 
     </RelativeLayout>
 

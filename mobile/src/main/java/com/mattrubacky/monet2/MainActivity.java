@@ -45,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
         rotation = new RotationFragment();
         shop = new ShopFragment();
 
+        String cookie = "iksm_session=bee3827dbb85788a86340dd93bead490348374ac";
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor edit = settings.edit();
+        edit.putString("cookie",cookie);
+        edit.commit();
 
 
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");

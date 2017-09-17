@@ -129,11 +129,8 @@ public class RotationFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        // Save UI state changes to the savedInstanceState.
-        // This bundle will be passed to onCreate if the process is
-        // killed and restarted.
+        //Save the schedule
         savedInstanceState.putParcelable("schedules",schedules);
-        // etc.
     }
 
     @Override
@@ -147,15 +144,14 @@ public class RotationFragment extends Fragment {
         edit.commit();
     }
 
-/*
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
     }
-
+/*
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -208,7 +204,8 @@ public class RotationFragment extends Fragment {
 //
 //                } else {
                     //Retrieve cookie
-                    cookie = "iksm_session=bee3827dbb85788a86340dd93bead490348374ac";
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                    cookie = settings.getString("cookie","");
 //                }
                 Call<Schedules> rotationGet = splatnet.getSchedules(cookie);
                 Response response = rotationGet.execute();

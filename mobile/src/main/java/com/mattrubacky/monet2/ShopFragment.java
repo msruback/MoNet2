@@ -1,11 +1,15 @@
 package com.mattrubacky.monet2;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.support.annotation.Dimension;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
@@ -41,11 +46,49 @@ public class ShopFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_shop, container, false);
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if(settings.contains("shopState")) {
+            Gson gson = new Gson();
+            shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
+            if(shop == null){
+                shop = new Annie();
+                shop.merch = new ArrayList<Product>();
+            }
+        }else{
+            shop = new Annie();
+            shop.merch = new ArrayList<Product>();
+        }
+        GridView currentMerch = (GridView) rootView.findViewById(R.id.CurrentMerch);
+        MerchAdapter merchAdapter = new MerchAdapter(getContext(),shop.merch);
+        currentMerch.setAdapter(merchAdapter);
+
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
         customHandler = new android.os.Handler();
         customHandler.post(updateNeeded);
         return rootView;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor edit = settings.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(shop);
+        edit.putString("shopState",json);
+        edit.commit();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Gson gson = new Gson();
+        shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
+    }
+
+
     private Runnable updateUI = new Runnable(){
         @Override
         public void run() {
@@ -70,6 +113,7 @@ public class ShopFragment extends Fragment {
             Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
             RelativeLayout item = (RelativeLayout) convertView.findViewById(R.id.Item);
             RelativeLayout infoBar = (RelativeLayout) convertView.findViewById(R.id.InfoBar);
+            item.setClipToOutline(true);
 
             ImageView brand = (ImageView) convertView.findViewById(R.id.Brand);
             ImageView gear = (ImageView) convertView.findViewById(R.id.Image);
@@ -120,25 +164,27 @@ public class ShopFragment extends Fragment {
 
             if(product.gear.rarity==1){
                 sub3.setVisibility(View.INVISIBLE);
-            }else if(product.gear.rarity==0){
+            }else if(product.gear.rarity==0) {
                 sub2.setVisibility(View.INVISIBLE);
                 sub3.setVisibility(View.INVISIBLE);
             }
-
-            new CountDownTimer(product.endTime, 60000) {
+            Long now = new Date().getTime();
+            new CountDownTimer((product.endTime*1000)-now, 60000) {
 
                 public void onTick(long millisUntilFinished) {
                     Long minutes = ((millisUntilFinished/1000)/60);
                     Long hours = minutes/60;
+                    String timeString;
                     if(hours>1){
-                        time.setText(hours+" Hours");
+                        timeString=hours+" Hours";
                     }else if(hours==1){
-                        time.setText(hours+" Hour");
+                        timeString=hours+" Hour";
                     }else if(minutes>1){
-                        time.setText(minutes+" Minutes");
+                        timeString=minutes+" Minutes";
                     }else{
-                        time.setText(minutes+" Minute");
+                        timeString=minutes+" Minute";
                     }
+                    time.setText(timeString);
                 }
 
                 public void onFinish() {
@@ -155,7 +201,8 @@ public class ShopFragment extends Fragment {
     private Runnable updateRotationData = new Runnable() {
         public void run() {
             try{
-                String cookie = "iksm_session=bee3827dbb85788a86340dd93bead490348374ac";
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                String cookie = settings.getString("cookie","");
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
                 Call<Annie> shopUpdate = splatnet.getShop(cookie);
