@@ -4,16 +4,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.CountDownTimer;
+import android.os.Process;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.annotation.Dimension;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -59,7 +63,8 @@ public class ShopFragment extends Fragment {
             shop = new Annie();
             shop.merch = new ArrayList<Product>();
         }
-        GridView currentMerch = (GridView) rootView.findViewById(R.id.CurrentMerch);
+        RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);
+        currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
         MerchAdapter merchAdapter = new MerchAdapter(getContext(),shop.merch);
         currentMerch.setAdapter(merchAdapter);
 
@@ -92,110 +97,164 @@ public class ShopFragment extends Fragment {
     private Runnable updateUI = new Runnable(){
         @Override
         public void run() {
-            GridView currentMerch = (GridView) getActivity().findViewById(R.id.CurrentMerch);
+            RecyclerView currentMerch = (RecyclerView) getActivity().findViewById(R.id.CurrentMerch);
+            currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
             MerchAdapter merchAdapter = new MerchAdapter(getContext(),shop.merch);
             currentMerch.setAdapter(merchAdapter);
 
         }
     };
+
     //Adapters
-    private class MerchAdapter extends ArrayAdapter<Product> {
+    public class MerchAdapter extends RecyclerView.Adapter<MerchAdapter.ViewHolder> {
+
+        private ArrayList<Product> input = new ArrayList<Product>();
+        private LayoutInflater inflater;
+
         public MerchAdapter(Context context, ArrayList<Product> input) {
-            super(context, 0, input);
+            this.inflater = LayoutInflater.from(context);
+            this.input = input;
         }
+
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = inflater.inflate(R.layout.item_merch, parent, false);
+            ViewHolder viewHolder = new ViewHolder(view);
+            return viewHolder;
+        }
 
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_merch, parent, false);
-            }
-            ImageHandler imageHandler = new ImageHandler();
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, int position) {
+            final Product product  = input.get(position);
             Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
-            RelativeLayout item = (RelativeLayout) convertView.findViewById(R.id.Item);
-            RelativeLayout infoBar = (RelativeLayout) convertView.findViewById(R.id.InfoBar);
-            item.setClipToOutline(true);
 
-            ImageView brand = (ImageView) convertView.findViewById(R.id.Brand);
-            ImageView gear = (ImageView) convertView.findViewById(R.id.Image);
-            ImageView mainAbility = (ImageView) convertView.findViewById(R.id.MainAbility);
-            ImageView sub2 = (ImageView) convertView.findViewById(R.id.Sub2);
-            ImageView sub3 = (ImageView) convertView.findViewById(R.id.Sub3);
+            //Change the info bar color to match gear kind
+            switch (product.gear.kind){
+                case "head":
+                    holder.infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.head));
+                    holder.infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.head));
+                    break;
+                case "clothes":
+                    holder.infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.clothes));
+                    holder.infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.clothes));
+                    break;
+                case "shoes":
+                    holder.infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.shoes));
+                    holder.infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.shoes));
+                    break;
+            }
 
-            TextView name = (TextView) convertView.findViewById(R.id.Name);
-            TextView cost = (TextView) convertView.findViewById(R.id.Cost);
+            //Set the fonts
+            holder.name.setTypeface(font);
+            holder.cost.setTypeface(font);
+            holder.time.setTypeface(font);
 
-            final TextView time = (TextView) convertView.findViewById(R.id.Time);
+            //Set the name and cost of the gear
+            holder.name.setText(product.gear.name);
+            holder.cost.setText(product.price);
 
-            Product product = getItem(position);
-
-            name.setTypeface(font);
-            cost.setTypeface(font);
-            time.setTypeface(font);
-
-            name.setText(product.gear.name);
-            cost.setText(product.price);
-
+            //Set the gear image
             String gearUrl = "https://app.splatoon2.nintendo.net"+product.gear.url;
             String gearLocation = product.gear.name.toLowerCase().replace(" ","_");
-            if(imageHandler.imageExists("gear",gearLocation,getContext())){
-                gear.setImageBitmap(imageHandler.loadImage("gear",gearLocation));
+            if(holder.imageHandler.imageExists("gear",gearLocation,getContext())){
+                holder.gear.setImageBitmap(holder.imageHandler.loadImage("gear",gearLocation));
             }else{
-                Picasso.with(getContext()).load(gearUrl).into(gear);
-                imageHandler.downloadImage("gear",gearLocation,gearUrl,getContext());
+                Picasso.with(getContext()).load(gearUrl).into(holder.gear);
+                holder.imageHandler.downloadImage("gear",gearLocation,gearUrl,getContext());
             }
 
+            //Set the brand image
             String brandUrl = "https://app.splatoon2.nintendo.net"+product.gear.brand.url;
             String brandLocation = product.gear.brand.name.toLowerCase().replace(" ","_");
-            if(imageHandler.imageExists("brand",brandLocation,getContext())){
-                brand.setImageBitmap(imageHandler.loadImage("brand",brandLocation));
+            if(holder.imageHandler.imageExists("brand",brandLocation,getContext())){
+                holder.brand.setImageBitmap(holder.imageHandler.loadImage("brand",brandLocation));
             }else{
-                Picasso.with(getContext()).load(brandUrl).into(brand);
-                imageHandler.downloadImage("brand",gearLocation,brandUrl,getContext());
+                Picasso.with(getContext()).load(brandUrl).into(holder.brand);
+                holder.imageHandler.downloadImage("brand",gearLocation,brandUrl,getContext());
             }
 
+            //Set the ability image
             String abilityUrl = "https://app.splatoon2.nintendo.net"+product.skill.url;
             String abilityLocation = product.skill.name.toLowerCase().replace(" ","_");
-            if(imageHandler.imageExists("ability",abilityLocation,getContext())){
-                mainAbility.setImageBitmap(imageHandler.loadImage("ability",abilityLocation));
+            if(holder.imageHandler.imageExists("ability",abilityLocation,getContext())){
+                holder.mainAbility.setImageBitmap(holder.imageHandler.loadImage("ability",abilityLocation));
             }else{
-                Picasso.with(getContext()).load(abilityUrl).into(mainAbility);
-                imageHandler.downloadImage("ability",abilityLocation,abilityUrl,getContext());
+                Picasso.with(getContext()).load(abilityUrl).into(holder.mainAbility);
+                holder.imageHandler.downloadImage("ability",abilityLocation,abilityUrl,getContext());
             }
 
+            //Set the number of slots the gear has
             if(product.gear.rarity==1){
-                sub3.setVisibility(View.INVISIBLE);
+                holder.sub3.setVisibility(View.INVISIBLE);
             }else if(product.gear.rarity==0) {
-                sub2.setVisibility(View.INVISIBLE);
-                sub3.setVisibility(View.INVISIBLE);
+                holder.sub2.setVisibility(View.INVISIBLE);
+                holder.sub3.setVisibility(View.INVISIBLE);
             }
+
+            //Set the timer
             Long now = new Date().getTime();
-            new CountDownTimer((product.endTime*1000)-now, 60000) {
+            new CountDownTimer((product.endTime * 1000) - now, 60000) {
 
                 public void onTick(long millisUntilFinished) {
-                    Long minutes = ((millisUntilFinished/1000)/60);
-                    Long hours = minutes/60;
+                    Long minutes = ((millisUntilFinished / 1000) / 60);
+                    Long hours = minutes / 60;
                     String timeString;
-                    if(hours>1){
-                        timeString=hours+" Hours";
-                    }else if(hours==1){
-                        timeString=hours+" Hour";
-                    }else if(minutes>1){
-                        timeString=minutes+" Minutes";
-                    }else{
-                        timeString=minutes+" Minute";
+                    if (hours > 1) {
+                        timeString = hours + " Hours";
+                    } else if (hours == 1) {
+                        timeString = hours + " Hour";
+                    } else if (minutes > 1) {
+                        timeString = minutes + " Minutes";
+                    } else {
+                        timeString = minutes + " Minute";
                     }
-                    time.setText(timeString);
+                    holder.time.setText(timeString);
                 }
 
                 public void onFinish() {
-                    time.setText("Expired");
+                    holder.time.setText("Expired");
                 }
 
             }.start();
-
-
-            return convertView;
         }
+
+        @Override
+        public int getItemCount() {
+            return input.size();
+        }
+
+
+
+        public class ViewHolder extends RecyclerView.ViewHolder{
+            ImageHandler imageHandler;
+            RelativeLayout item,infoBar,infoPatch;
+            ImageView brand,gear,mainAbility,sub2,sub3;
+            TextView name,cost,time;
+
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                imageHandler = new ImageHandler();
+                item = (RelativeLayout) itemView.findViewById(R.id.Item);
+                infoBar = (RelativeLayout) itemView.findViewById(R.id.InfoBar);
+                infoPatch = (RelativeLayout) itemView.findViewById(R.id.infoPatch);
+                item.setClipToOutline(true);
+
+                brand = (ImageView) itemView.findViewById(R.id.Brand);
+                gear = (ImageView) itemView.findViewById(R.id.Image);
+                mainAbility = (ImageView) itemView.findViewById(R.id.MainAbility);
+                sub2 = (ImageView) itemView.findViewById(R.id.Sub2);
+                sub3 = (ImageView) itemView.findViewById(R.id.Sub3);
+
+                name = (TextView) itemView.findViewById(R.id.Name);
+                cost = (TextView) itemView.findViewById(R.id.Cost);
+
+                time = (TextView) itemView.findViewById(R.id.Time);
+            }
+
+        }
+
+
     }
 
     private Runnable updateRotationData = new Runnable() {

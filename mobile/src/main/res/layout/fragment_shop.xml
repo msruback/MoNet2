@@ -78,20 +78,15 @@
                             android:textSize="22sp"
                             android:layout_centerInParent="true"/>
                     </RelativeLayout>
-
-                    <GridView
+                    <android.support.v7.widget.RecyclerView
                         android:id="@+id/CurrentMerch"
-                        android:layout_width="match_parent"
-                        android:layout_height="750dp"
-                        android:layout_centerInParent="true"
-                        android:columnWidth="170dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/merchTitle"
-                        android:numColumns="2"
-                        android:gravity="center"
+                        android:gravity="center_horizontal"
                         android:verticalSpacing="10dp"
                         android:horizontalSpacing="10dp"
-                        android:scrollbars="none"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_centerInParent="true"/>
 
                 </RelativeLayout>
 

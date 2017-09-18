@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         rotation = new RotationFragment();
         shop = new ShopFragment();
 
-        String cookie = "iksm_session=bee3827dbb85788a86340dd93bead490348374ac";
+        String cookie = "iksm_session=51e607f6813897a87e7397c0c8fc4f2b9b4cac61";
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor edit = settings.edit();
         edit.putString("cookie",cookie);
