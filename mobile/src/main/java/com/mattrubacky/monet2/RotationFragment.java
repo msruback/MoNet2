@@ -126,12 +126,6 @@ public class RotationFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        //Save the schedule
-        savedInstanceState.putParcelable("schedules",schedules);
-    }
 
     @Override
     public void onPause() {
@@ -150,36 +144,8 @@ public class RotationFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
+        updateUI.run();
     }
-/*
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        // Restore UI state from the savedInstanceState.
-        // This bundle has also been passed to onCreate.
-        schedules = savedInstanceState.getParcelable("schedules");
-
-        ViewPager TurfPager = (ViewPager) rootView.findViewById(R.id.TurfPager);
-        ViewPager RankPager = (ViewPager) rootView.findViewById(R.id.RankedPager);
-        ViewPager LeaguePager = (ViewPager) rootView.findViewById(R.id.LeaguePager);
-
-        PagerAdapter turfAdapter = new TurfAdapter(getFragmentManager(), schedules.regular);
-        PagerAdapter rankAdapter = new RankAdapter(getFragmentManager(), schedules.ranked);
-        PagerAdapter leagueAdapter = new LeagueAdapter(getFragmentManager(), schedules.league);
-
-        TabLayout turfDots = (TabLayout) rootView.findViewById(R.id.TurfDots);
-        TabLayout rankDots = (TabLayout) rootView.findViewById(R.id.RankDots);
-        TabLayout leagueDots = (TabLayout) rootView.findViewById(R.id.LeagueDots);
-
-        turfDots.setupWithViewPager(TurfPager, true);
-        rankDots.setupWithViewPager(RankPager, true);
-        leagueDots.setupWithViewPager(LeaguePager, true);
-
-        TurfPager.setAdapter(turfAdapter);
-        RankPager.setAdapter(rankAdapter);
-        LeaguePager.setAdapter(leagueAdapter);
-    }
-    */
 
     //Get Rotation Data
 

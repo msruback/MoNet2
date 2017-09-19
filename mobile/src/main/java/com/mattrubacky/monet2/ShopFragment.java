@@ -67,6 +67,7 @@ public class ShopFragment extends Fragment {
         currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
         MerchAdapter merchAdapter = new MerchAdapter(getContext(),shop.merch);
         currentMerch.setAdapter(merchAdapter);
+        orderAdapter();
 
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
         customHandler = new android.os.Handler();
@@ -97,15 +98,98 @@ public class ShopFragment extends Fragment {
     private Runnable updateUI = new Runnable(){
         @Override
         public void run() {
+
             RecyclerView currentMerch = (RecyclerView) getActivity().findViewById(R.id.CurrentMerch);
             currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
             MerchAdapter merchAdapter = new MerchAdapter(getContext(),shop.merch);
             currentMerch.setAdapter(merchAdapter);
-
+            orderAdapter();
         }
     };
 
     //Adapters
+    public void orderAdapter(){
+        Ordered ordered = shop.ordered;
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
+        ImageHandler imageHandler = new ImageHandler();
+
+        RelativeLayout item = (RelativeLayout) rootView.findViewById(R.id.OrderedItem);
+        RelativeLayout infoBar = (RelativeLayout) rootView.findViewById(R.id.OrderedInfoBar);
+        RelativeLayout infoPatch = (RelativeLayout) rootView.findViewById(R.id.OrderedInfoPatch);
+        item.setClipToOutline(true);
+
+        ImageView brand = (ImageView) rootView.findViewById(R.id.OrderedBrand);
+        ImageView gear = (ImageView) rootView.findViewById(R.id.OrderedImage);
+        ImageView mainAbility = (ImageView) rootView.findViewById(R.id.OrderedMainAbility);
+        ImageView sub2 = (ImageView) rootView.findViewById(R.id.OrderedSub2);
+        ImageView sub3 = (ImageView) rootView.findViewById(R.id.OrderedSub3);
+
+        TextView name = (TextView) rootView.findViewById(R.id.OrderedName);
+        TextView cost = (TextView) rootView.findViewById(R.id.OrderedCost);
+
+        //Change the info bar color to match gear kind
+        switch (ordered.gear.kind){
+            case "head":
+                infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.head));
+                infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.head));
+                break;
+            case "clothes":
+                infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.clothes));
+                infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.clothes));
+                break;
+            case "shoes":
+                infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.shoes));
+                infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.shoes));
+                break;
+        }
+
+        //Set the fonts
+        name.setTypeface(font);
+        cost.setTypeface(font);
+
+        //Set the name and cost of the gear
+        name.setText(ordered.gear.name);
+        cost.setText(ordered.price);
+
+        //Set the gear image
+        String gearUrl = "https://app.splatoon2.nintendo.net"+ordered.gear.url;
+        String gearLocation = ordered.gear.name.toLowerCase().replace(" ","_");
+        if(imageHandler.imageExists("gear",gearLocation,getContext())){
+            gear.setImageBitmap(imageHandler.loadImage("gear",gearLocation));
+        }else{
+            Picasso.with(getContext()).load(gearUrl).into(gear);
+            imageHandler.downloadImage("gear",gearLocation,gearUrl,getContext());
+        }
+
+        //Set the brand image
+        String brandUrl = "https://app.splatoon2.nintendo.net"+ordered.gear.brand.url;
+        String brandLocation = ordered.gear.brand.name.toLowerCase().replace(" ","_");
+        if(imageHandler.imageExists("brand",brandLocation,getContext())){
+            brand.setImageBitmap(imageHandler.loadImage("brand",brandLocation));
+        }else{
+            Picasso.with(getContext()).load(brandUrl).into(brand);
+            imageHandler.downloadImage("brand",gearLocation,brandUrl,getContext());
+        }
+
+        //Set the ability image
+        String abilityUrl = "https://app.splatoon2.nintendo.net"+ordered.skill.url;
+        String abilityLocation = ordered.skill.name.toLowerCase().replace(" ","_");
+        if(imageHandler.imageExists("ability",abilityLocation,getContext())){
+            mainAbility.setImageBitmap(imageHandler.loadImage("ability",abilityLocation));
+        }else{
+            Picasso.with(getContext()).load(abilityUrl).into(mainAbility);
+            imageHandler.downloadImage("ability",abilityLocation,abilityUrl,getContext());
+        }
+
+        //Set the number of slots the gear has
+        if(ordered.gear.rarity==1){
+            sub3.setVisibility(View.INVISIBLE);
+        }else if(ordered.gear.rarity==0) {
+            sub2.setVisibility(View.INVISIBLE);
+            sub3.setVisibility(View.INVISIBLE);
+        }
+
+    }
     public class MerchAdapter extends RecyclerView.Adapter<MerchAdapter.ViewHolder> {
 
         private ArrayList<Product> input = new ArrayList<Product>();
@@ -127,6 +211,7 @@ public class ShopFragment extends Fragment {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             final Product product  = input.get(position);
             Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
+            ImageHandler imageHandler = new ImageHandler();
 
             //Change the info bar color to match gear kind
             switch (product.gear.kind){
@@ -156,31 +241,31 @@ public class ShopFragment extends Fragment {
             //Set the gear image
             String gearUrl = "https://app.splatoon2.nintendo.net"+product.gear.url;
             String gearLocation = product.gear.name.toLowerCase().replace(" ","_");
-            if(holder.imageHandler.imageExists("gear",gearLocation,getContext())){
-                holder.gear.setImageBitmap(holder.imageHandler.loadImage("gear",gearLocation));
+            if(imageHandler.imageExists("gear",gearLocation,getContext())){
+                holder.gear.setImageBitmap(imageHandler.loadImage("gear",gearLocation));
             }else{
                 Picasso.with(getContext()).load(gearUrl).into(holder.gear);
-                holder.imageHandler.downloadImage("gear",gearLocation,gearUrl,getContext());
+                imageHandler.downloadImage("gear",gearLocation,gearUrl,getContext());
             }
 
             //Set the brand image
             String brandUrl = "https://app.splatoon2.nintendo.net"+product.gear.brand.url;
             String brandLocation = product.gear.brand.name.toLowerCase().replace(" ","_");
-            if(holder.imageHandler.imageExists("brand",brandLocation,getContext())){
-                holder.brand.setImageBitmap(holder.imageHandler.loadImage("brand",brandLocation));
+            if(imageHandler.imageExists("brand",brandLocation,getContext())){
+                holder.brand.setImageBitmap(imageHandler.loadImage("brand",brandLocation));
             }else{
                 Picasso.with(getContext()).load(brandUrl).into(holder.brand);
-                holder.imageHandler.downloadImage("brand",gearLocation,brandUrl,getContext());
+                imageHandler.downloadImage("brand",gearLocation,brandUrl,getContext());
             }
 
             //Set the ability image
             String abilityUrl = "https://app.splatoon2.nintendo.net"+product.skill.url;
             String abilityLocation = product.skill.name.toLowerCase().replace(" ","_");
-            if(holder.imageHandler.imageExists("ability",abilityLocation,getContext())){
-                holder.mainAbility.setImageBitmap(holder.imageHandler.loadImage("ability",abilityLocation));
+            if(imageHandler.imageExists("ability",abilityLocation,getContext())){
+                holder.mainAbility.setImageBitmap(imageHandler.loadImage("ability",abilityLocation));
             }else{
                 Picasso.with(getContext()).load(abilityUrl).into(holder.mainAbility);
-                holder.imageHandler.downloadImage("ability",abilityLocation,abilityUrl,getContext());
+                imageHandler.downloadImage("ability",abilityLocation,abilityUrl,getContext());
             }
 
             //Set the number of slots the gear has
@@ -226,7 +311,6 @@ public class ShopFragment extends Fragment {
 
 
         public class ViewHolder extends RecyclerView.ViewHolder{
-            ImageHandler imageHandler;
             RelativeLayout item,infoBar,infoPatch;
             ImageView brand,gear,mainAbility,sub2,sub3;
             TextView name,cost,time;
@@ -234,7 +318,7 @@ public class ShopFragment extends Fragment {
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                imageHandler = new ImageHandler();
+
                 item = (RelativeLayout) itemView.findViewById(R.id.Item);
                 infoBar = (RelativeLayout) itemView.findViewById(R.id.InfoBar);
                 infoPatch = (RelativeLayout) itemView.findViewById(R.id.infoPatch);

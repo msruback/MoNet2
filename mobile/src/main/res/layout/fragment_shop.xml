@@ -26,35 +26,181 @@
                 <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/orderLayout"
-                android:padding="10dp">
+                android:id="@+id/orderLayout">
+                    <RelativeLayout
+                        android:id="@+id/orderTitle"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bgmaskbanner"
+                        android:backgroundTint="@color/turfPrimary"
+                        android:paddingLeft="5dp"
+                        android:layout_marginLeft="10dp">
 
-                <RelativeLayout
-                    android:id="@+id/orderTitle"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/bgmaskbanner"
-                    android:backgroundTint="@color/turfPrimary"
-                    android:paddingLeft="5dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ordered"
+                            android:textColor="@color/offWhite"
+                            android:textSize="22sp"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
 
-                    <TextView
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ordered"
-                        android:textColor="@color/offWhite"
-                        android:textSize="22sp"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/orderTitle"
+                        android:layout_margin="10dp">
+                        <RelativeLayout
+                            android:id="@+id/OrderedItem"
+                            android:layout_width="150dp"
+                            android:layout_height="240dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/bgcard"
+                            android:backgroundTint="#e4e4e4">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/bgcirclesrepeat">
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:id="@+id/OrderedBrand"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/annaki" />
+
+                            <ImageView
+                                android:id="@+id/product"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_alignBottom="@+id/OrderedBrand"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="11dp"
+                                android:src="@drawable/bgmaskproduct" />
+
+                            <ImageView
+                                android:id="@+id/OrderedImage"
+                                android:layout_width="126dp"
+                                android:layout_height="126dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/hulapunk" />
+
+                            <TextView
+                                android:id="@+id/OrderedName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/OrderedImage"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="7dp"
+                                android:text="Hula Punk Shirt"
+                                android:textSize="13sp" />
+
+                            <RelativeLayout
+                                android:id="@+id/OrderedAbilities"
+                                android:layout_width="24dp"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignTop="@+id/OrderedBrand"
+                                android:layout_marginEnd="10dp">
+
+                                <RelativeLayout
+                                    android:id="@+id/mainAbility"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:background="@drawable/ability"
+                                    android:padding="2dp">
+
+                                    <ImageView
+                                        android:id="@+id/OrderedMainAbility"
+                                        android:layout_width="36dp"
+                                        android:layout_height="36dp"
+                                        android:layout_alignParentEnd="true"
+                                        android:src="@drawable/main_ink_saver" />
+                                </RelativeLayout>
+
+                                <ImageView
+                                    android:id="@+id/OrderedSub1"
+                                    android:layout_width="18dp"
+                                    android:layout_height="18dp"
+                                    android:layout_below="@id/mainAbility"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="5dp"
+                                    android:src="@drawable/blankskillslot" />
+
+                                <ImageView
+                                    android:id="@+id/OrderedSub2"
+                                    android:layout_width="18dp"
+                                    android:layout_height="18dp"
+                                    android:layout_below="@id/OrderedSub1"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="5dp"
+                                    android:src="@drawable/blankskillslot" />
+
+                                <ImageView
+                                    android:id="@+id/OrderedSub3"
+                                    android:layout_width="18dp"
+                                    android:layout_height="18dp"
+                                    android:layout_below="@id/OrderedSub2"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="5dp"
+                                    android:src="@drawable/blankskillslot" />
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/OrderedInfoBar"
+                            android:layout_width="150dp"
+                            android:layout_height="30dp"
+                            android:layout_alignStart="@+id/Item"
+                            android:layout_marginTop="210dp"
+                            android:background="@drawable/bgcard"
+                            android:backgroundTint="@color/merchClothes">
+
+                            <RelativeLayout
+                                android:id="@+id/OrderedInfoPatch"
+                                android:layout_width="match_parent"
+                                android:layout_height="15dp"
+                                android:background="@color/merchClothes"></RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/bgstripesrepeat"></RelativeLayout>
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_alignBottom="@+id/OrderedCost"
+                                android:layout_marginRight="10dp"
+                                android:layout_toStartOf="@+id/OrderedCost"
+                                android:src="@drawable/cash" />
+
+                            <TextView
+                                android:id="@+id/OrderedCost"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:text="10000"
+                                android:textColor="@color/offWhite"
+                                android:textSize="13sp" />
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
                 </RelativeLayout>
-
-                <GridView
-                    android:id="@+id/CurrentOrder"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_below="@+id/orderTitle"
-                    tools:layout_editor_absoluteX="8dp"
-                    tools:layout_editor_absoluteY="8dp" />
-
-            </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -68,7 +214,8 @@
                         android:layout_height="30dp"
                         android:background="@drawable/bgmaskbanner"
                         android:backgroundTint="@color/leaguePrimary"
-                        android:paddingLeft="5dp">
+                        android:paddingLeft="5dp"
+                        android:layout_marginLeft="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"
