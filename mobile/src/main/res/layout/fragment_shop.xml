@@ -21,12 +21,15 @@
             android:layout_height="wrap_content">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/orderLayout">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/orderLayout"
+                    android:layout_marginTop="10dp"
+                    android:minHeight="120dp">
                     <RelativeLayout
                         android:id="@+id/orderTitle"
                         android:layout_width="100dp"
@@ -37,21 +40,43 @@
                         android:layout_marginLeft="10dp">
 
                         <TextView
+                            android:id="@+id/OrderTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
                             android:text="Ordered"
                             android:textColor="@color/offWhite"
-                            android:textSize="22sp"
+                            android:textSize="22sp" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="200dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bgmaskbanner"
+                        android:backgroundTint="@color/rankAccent"
+                        android:layout_centerInParent="true"
+                        android:paddingLeft="5dp"
+                        android:layout_centerHorizontal="true"
+                        android:rotation="-3"
+                        android:id="@+id/nothingToShow">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_ordered"
+                            android:textColor="@color/offWhite"
+                            android:textSize="16sp"
+                            android:id="@+id/NothingOrdered"
                             android:layout_centerInParent="true"/>
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/Ordered"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_centerHorizontal="true"
                         android:layout_below="@+id/orderTitle"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerInParent="true"
                         android:layout_margin="10dp">
+
                         <RelativeLayout
                             android:id="@+id/OrderedItem"
                             android:layout_width="150dp"
@@ -210,20 +235,21 @@
 
                     <RelativeLayout
                         android:id="@+id/merchTitle"
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
                         android:background="@drawable/bgmaskbanner"
                         android:backgroundTint="@color/leaguePrimary"
-                        android:paddingLeft="5dp"
-                        android:layout_marginLeft="10dp">
+                        android:paddingLeft="5dp">
 
                         <TextView
+                            android:id="@+id/MerchTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
                             android:text="Available"
                             android:textColor="@color/offWhite"
-                            android:textSize="22sp"
-                            android:layout_centerInParent="true"/>
+                            android:textSize="22sp" />
                     </RelativeLayout>
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/CurrentMerch"

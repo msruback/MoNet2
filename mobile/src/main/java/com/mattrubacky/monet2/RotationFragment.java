@@ -136,6 +136,7 @@ public class RotationFragment extends Fragment {
         String json = gson.toJson(schedules);
         edit.putString("rotationState",json);
         edit.commit();
+        customHandler.removeCallbacks(updateUI);
     }
 
     @Override

@@ -69,7 +69,17 @@ public class ShopFragment extends Fragment {
         currentMerch.setAdapter(merchAdapter);
         orderAdapter();
 
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
+        Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
+
+        TextView orderTitle = (TextView) rootView.findViewById(R.id.OrderTitle);
+        TextView noOrderText = (TextView) rootView.findViewById(R.id.NothingOrdered);
+        TextView merchTitle = (TextView) rootView.findViewById(R.id.MerchTitle);
+
+        orderTitle.setTypeface(titleFont);
+        noOrderText.setTypeface(font);
+        merchTitle.setTypeface(titleFont);
+
         customHandler = new android.os.Handler();
         customHandler.post(updateNeeded);
         return rootView;
@@ -84,6 +94,7 @@ public class ShopFragment extends Fragment {
         String json = gson.toJson(shop);
         edit.putString("shopState",json);
         edit.commit();
+        customHandler.removeCallbacks(updateUI);
     }
 
     @Override
@@ -113,80 +124,88 @@ public class ShopFragment extends Fragment {
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
         ImageHandler imageHandler = new ImageHandler();
 
-        RelativeLayout item = (RelativeLayout) rootView.findViewById(R.id.OrderedItem);
-        RelativeLayout infoBar = (RelativeLayout) rootView.findViewById(R.id.OrderedInfoBar);
-        RelativeLayout infoPatch = (RelativeLayout) rootView.findViewById(R.id.OrderedInfoPatch);
-        item.setClipToOutline(true);
+        RelativeLayout order = (RelativeLayout) rootView.findViewById(R.id.Ordered);
+        RelativeLayout noOrder = (RelativeLayout) rootView.findViewById(R.id.nothingToShow);
 
-        ImageView brand = (ImageView) rootView.findViewById(R.id.OrderedBrand);
-        ImageView gear = (ImageView) rootView.findViewById(R.id.OrderedImage);
-        ImageView mainAbility = (ImageView) rootView.findViewById(R.id.OrderedMainAbility);
-        ImageView sub2 = (ImageView) rootView.findViewById(R.id.OrderedSub2);
-        ImageView sub3 = (ImageView) rootView.findViewById(R.id.OrderedSub3);
+        if(ordered==null){
+            order.setVisibility(View.GONE);
+        }else {
+            noOrder.setVisibility(View.GONE);
+            RelativeLayout item = (RelativeLayout) rootView.findViewById(R.id.OrderedItem);
+            RelativeLayout infoBar = (RelativeLayout) rootView.findViewById(R.id.OrderedInfoBar);
+            RelativeLayout infoPatch = (RelativeLayout) rootView.findViewById(R.id.OrderedInfoPatch);
+            item.setClipToOutline(true);
 
-        TextView name = (TextView) rootView.findViewById(R.id.OrderedName);
-        TextView cost = (TextView) rootView.findViewById(R.id.OrderedCost);
+            ImageView brand = (ImageView) rootView.findViewById(R.id.OrderedBrand);
+            ImageView gear = (ImageView) rootView.findViewById(R.id.OrderedImage);
+            ImageView mainAbility = (ImageView) rootView.findViewById(R.id.OrderedMainAbility);
+            ImageView sub2 = (ImageView) rootView.findViewById(R.id.OrderedSub2);
+            ImageView sub3 = (ImageView) rootView.findViewById(R.id.OrderedSub3);
 
-        //Change the info bar color to match gear kind
-        switch (ordered.gear.kind){
-            case "head":
-                infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.head));
-                infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.head));
-                break;
-            case "clothes":
-                infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.clothes));
-                infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.clothes));
-                break;
-            case "shoes":
-                infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.shoes));
-                infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.shoes));
-                break;
-        }
+            TextView name = (TextView) rootView.findViewById(R.id.OrderedName);
+            TextView cost = (TextView) rootView.findViewById(R.id.OrderedCost);
 
-        //Set the fonts
-        name.setTypeface(font);
-        cost.setTypeface(font);
+            //Change the info bar color to match gear kind
+            switch (ordered.gear.kind) {
+                case "head":
+                    infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.head));
+                    infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.head));
+                    break;
+                case "clothes":
+                    infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.clothes));
+                    infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.clothes));
+                    break;
+                case "shoes":
+                    infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.shoes));
+                    infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.shoes));
+                    break;
+            }
 
-        //Set the name and cost of the gear
-        name.setText(ordered.gear.name);
-        cost.setText(ordered.price);
+            //Set the fonts
+            name.setTypeface(font);
+            cost.setTypeface(font);
 
-        //Set the gear image
-        String gearUrl = "https://app.splatoon2.nintendo.net"+ordered.gear.url;
-        String gearLocation = ordered.gear.name.toLowerCase().replace(" ","_");
-        if(imageHandler.imageExists("gear",gearLocation,getContext())){
-            gear.setImageBitmap(imageHandler.loadImage("gear",gearLocation));
-        }else{
-            Picasso.with(getContext()).load(gearUrl).into(gear);
-            imageHandler.downloadImage("gear",gearLocation,gearUrl,getContext());
-        }
+            //Set the name and cost of the gear
+            name.setText(ordered.gear.name);
+            cost.setText(ordered.price);
 
-        //Set the brand image
-        String brandUrl = "https://app.splatoon2.nintendo.net"+ordered.gear.brand.url;
-        String brandLocation = ordered.gear.brand.name.toLowerCase().replace(" ","_");
-        if(imageHandler.imageExists("brand",brandLocation,getContext())){
-            brand.setImageBitmap(imageHandler.loadImage("brand",brandLocation));
-        }else{
-            Picasso.with(getContext()).load(brandUrl).into(brand);
-            imageHandler.downloadImage("brand",gearLocation,brandUrl,getContext());
-        }
+            //Set the gear image
+            String gearUrl = "https://app.splatoon2.nintendo.net" + ordered.gear.url;
+            String gearLocation = ordered.gear.name.toLowerCase().replace(" ", "_");
+            if (imageHandler.imageExists("gear", gearLocation, getContext())) {
+                gear.setImageBitmap(imageHandler.loadImage("gear", gearLocation));
+            } else {
+                Picasso.with(getContext()).load(gearUrl).into(gear);
+                imageHandler.downloadImage("gear", gearLocation, gearUrl, getContext());
+            }
 
-        //Set the ability image
-        String abilityUrl = "https://app.splatoon2.nintendo.net"+ordered.skill.url;
-        String abilityLocation = ordered.skill.name.toLowerCase().replace(" ","_");
-        if(imageHandler.imageExists("ability",abilityLocation,getContext())){
-            mainAbility.setImageBitmap(imageHandler.loadImage("ability",abilityLocation));
-        }else{
-            Picasso.with(getContext()).load(abilityUrl).into(mainAbility);
-            imageHandler.downloadImage("ability",abilityLocation,abilityUrl,getContext());
-        }
+            //Set the brand image
+            String brandUrl = "https://app.splatoon2.nintendo.net" + ordered.gear.brand.url;
+            String brandLocation = ordered.gear.brand.name.toLowerCase().replace(" ", "_");
+            if (imageHandler.imageExists("brand", brandLocation, getContext())) {
+                brand.setImageBitmap(imageHandler.loadImage("brand", brandLocation));
+            } else {
+                Picasso.with(getContext()).load(brandUrl).into(brand);
+                imageHandler.downloadImage("brand", gearLocation, brandUrl, getContext());
+            }
 
-        //Set the number of slots the gear has
-        if(ordered.gear.rarity==1){
-            sub3.setVisibility(View.INVISIBLE);
-        }else if(ordered.gear.rarity==0) {
-            sub2.setVisibility(View.INVISIBLE);
-            sub3.setVisibility(View.INVISIBLE);
+            //Set the ability image
+            String abilityUrl = "https://app.splatoon2.nintendo.net" + ordered.skill.url;
+            String abilityLocation = ordered.skill.name.toLowerCase().replace(" ", "_");
+            if (imageHandler.imageExists("ability", abilityLocation, getContext())) {
+                mainAbility.setImageBitmap(imageHandler.loadImage("ability", abilityLocation));
+            } else {
+                Picasso.with(getContext()).load(abilityUrl).into(mainAbility);
+                imageHandler.downloadImage("ability", abilityLocation, abilityUrl, getContext());
+            }
+
+            //Set the number of slots the gear has
+            if (ordered.gear.rarity == 1) {
+                sub3.setVisibility(View.INVISIBLE);
+            } else if (ordered.gear.rarity == 0) {
+                sub2.setVisibility(View.INVISIBLE);
+                sub3.setVisibility(View.INVISIBLE);
+            }
         }
 
     }
