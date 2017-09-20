@@ -13,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface Splatnet {
@@ -61,7 +62,7 @@ public interface Splatnet {
             "X-Requested-With: XMLHttpRequest"
     })
     @POST("api/onlineshop/order/{id}")
-    Call<ResponseBody> orderMerch(@Path("id") String id,@Header("X-Unique-Id") String uniqueId);
+    Call<ResponseBody> orderMerch(@Path("id") String id, @Header("X-Unique-Id") String uniqueId, @Part("override") RequestBody requestBody, @Header("Cookie") String cookie);
 
     @GET("api/share/profile")
     Call<ResponseBody> shareProfile(@Header("Cookie") String Cookie);

@@ -63,6 +63,8 @@ public class ShopFragment extends Fragment {
             shop = new Annie();
             shop.merch = new ArrayList<Product>();
         }
+
+
         RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);
         currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
         MerchAdapter merchAdapter = new MerchAdapter(getContext(),shop.merch);
@@ -360,7 +362,7 @@ public class ShopFragment extends Fragment {
 
     }
 
-    private Runnable updateRotationData = new Runnable() {
+    private Runnable updateShopData = new Runnable() {
         public void run() {
             try{
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -379,10 +381,10 @@ public class ShopFragment extends Fragment {
             }
         }
     };
-    private Runnable updateNeeded = new Runnable()
+    public Runnable updateNeeded = new Runnable()
     {
         public void run() {
-            Thread t = new Thread(updateRotationData);
+            Thread t = new Thread(updateShopData);
             customHandler.postDelayed(updateUI,10000);
             t.start();
             Calendar now = Calendar.getInstance();

@@ -9,5 +9,7 @@
     <string name="loading">Loading</string>
 
     <string name="no_ordered">Nothing has been Ordered</string>
+    <string name="order">Order</string>
+    <string name="keep">Keep</string>
 
 </resources>
