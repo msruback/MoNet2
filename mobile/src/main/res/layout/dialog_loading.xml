@@ -19,7 +19,6 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
         android:background="@drawable/bgmaskhook"
         android:backgroundTint="@color/grey"
         android:rotation="-2">

@@ -1,5 +1,6 @@
 package com.mattrubacky.monet2;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -10,6 +11,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.Dimension;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -133,6 +135,7 @@ public class ShopFragment extends Fragment {
             order.setVisibility(View.GONE);
         }else {
             noOrder.setVisibility(View.GONE);
+            order.setVisibility(View.VISIBLE);
             RelativeLayout item = (RelativeLayout) rootView.findViewById(R.id.OrderedItem);
             RelativeLayout infoBar = (RelativeLayout) rootView.findViewById(R.id.OrderedInfoBar);
             RelativeLayout infoPatch = (RelativeLayout) rootView.findViewById(R.id.OrderedInfoPatch);
@@ -211,42 +214,44 @@ public class ShopFragment extends Fragment {
         }
 
     }
-    public class MerchAdapter extends RecyclerView.Adapter<MerchAdapter.ViewHolder> {
+    class MerchAdapter extends RecyclerView.Adapter<MerchAdapter.ViewHolder>{
 
         private ArrayList<Product> input = new ArrayList<Product>();
         private LayoutInflater inflater;
+        private Context context;
 
         public MerchAdapter(Context context, ArrayList<Product> input) {
             this.inflater = LayoutInflater.from(context);
             this.input = input;
-        }
+            this.context = context;
 
+        }
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public MerchAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = inflater.inflate(R.layout.item_merch, parent, false);
-            ViewHolder viewHolder = new ViewHolder(view);
+            MerchAdapter.ViewHolder viewHolder = new MerchAdapter.ViewHolder(view);
             return viewHolder;
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
+        public void onBindViewHolder(final MerchAdapter.ViewHolder holder, int position) {
             final Product product  = input.get(position);
-            Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
+            Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
             ImageHandler imageHandler = new ImageHandler();
 
             //Change the info bar color to match gear kind
             switch (product.gear.kind){
                 case "head":
-                    holder.infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.head));
-                    holder.infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.head));
+                    holder.infoBar.setBackgroundTintList(context.getResources().getColorStateList(R.color.head));
+                    holder.infoPatch.setBackgroundTintList(context.getResources().getColorStateList(R.color.head));
                     break;
                 case "clothes":
-                    holder.infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.clothes));
-                    holder.infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.clothes));
+                    holder.infoBar.setBackgroundTintList(context.getResources().getColorStateList(R.color.clothes));
+                    holder.infoPatch.setBackgroundTintList(context.getResources().getColorStateList(R.color.clothes));
                     break;
                 case "shoes":
-                    holder.infoBar.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.shoes));
-                    holder.infoPatch.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.shoes));
+                    holder.infoBar.setBackgroundTintList(context.getResources().getColorStateList(R.color.shoes));
+                    holder.infoPatch.setBackgroundTintList(context.getResources().getColorStateList(R.color.shoes));
                     break;
             }
 
@@ -262,31 +267,31 @@ public class ShopFragment extends Fragment {
             //Set the gear image
             String gearUrl = "https://app.splatoon2.nintendo.net"+product.gear.url;
             String gearLocation = product.gear.name.toLowerCase().replace(" ","_");
-            if(imageHandler.imageExists("gear",gearLocation,getContext())){
+            if(imageHandler.imageExists("gear",gearLocation,context)){
                 holder.gear.setImageBitmap(imageHandler.loadImage("gear",gearLocation));
             }else{
-                Picasso.with(getContext()).load(gearUrl).into(holder.gear);
-                imageHandler.downloadImage("gear",gearLocation,gearUrl,getContext());
+                Picasso.with(context).load(gearUrl).into(holder.gear);
+                imageHandler.downloadImage("gear",gearLocation,gearUrl,context);
             }
 
             //Set the brand image
             String brandUrl = "https://app.splatoon2.nintendo.net"+product.gear.brand.url;
             String brandLocation = product.gear.brand.name.toLowerCase().replace(" ","_");
-            if(imageHandler.imageExists("brand",brandLocation,getContext())){
+            if(imageHandler.imageExists("brand",brandLocation,context)){
                 holder.brand.setImageBitmap(imageHandler.loadImage("brand",brandLocation));
             }else{
-                Picasso.with(getContext()).load(brandUrl).into(holder.brand);
-                imageHandler.downloadImage("brand",gearLocation,brandUrl,getContext());
+                Picasso.with(context).load(brandUrl).into(holder.brand);
+                imageHandler.downloadImage("brand",gearLocation,brandUrl,context);
             }
 
             //Set the ability image
             String abilityUrl = "https://app.splatoon2.nintendo.net"+product.skill.url;
             String abilityLocation = product.skill.name.toLowerCase().replace(" ","_");
-            if(imageHandler.imageExists("ability",abilityLocation,getContext())){
+            if(imageHandler.imageExists("ability",abilityLocation,context)){
                 holder.mainAbility.setImageBitmap(imageHandler.loadImage("ability",abilityLocation));
             }else{
-                Picasso.with(getContext()).load(abilityUrl).into(holder.mainAbility);
-                imageHandler.downloadImage("ability",abilityLocation,abilityUrl,getContext());
+                Picasso.with(context).load(abilityUrl).into(holder.mainAbility);
+                imageHandler.downloadImage("ability",abilityLocation,abilityUrl,context);
             }
 
             //Set the number of slots the gear has
@@ -359,7 +364,16 @@ public class ShopFragment extends Fragment {
 
         }
 
-
+    }
+    class ShopClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);
+            int itemPosition = currentMerch.indexOfChild(v);
+            BuyDialog buyDialog = new BuyDialog(getActivity(),shop.merch.get(itemPosition),shop.ordered);
+            buyDialog.show();
+            customHandler.post(updateNeeded);
+        }
     }
 
     private Runnable updateShopData = new Runnable() {
@@ -401,5 +415,8 @@ public class ShopFragment extends Fragment {
             customHandler.postDelayed(this, nextUpdateTime);
         }
     };
+    public void update(){
+        updateNeeded.run();
+    }
 
 }

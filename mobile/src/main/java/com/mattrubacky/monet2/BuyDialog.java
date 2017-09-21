@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
@@ -16,12 +18,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Downloader;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Request;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Handler;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -33,12 +39,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by mattr on 9/20/2017.
  */
 
-public class BuyDialog extends Dialog implements android.view.View.OnClickListener{
+public class BuyDialog extends Dialog{
     Product toBuy;
     Ordered alreadyOrdered;
     LoadingDialog loadingDialog;
     public BuyDialog(Activity activity,Product product,Ordered ordered) {
         super(activity);
+        loadingDialog = new LoadingDialog(activity,"Ordering");
         toBuy = product;
         alreadyOrdered = ordered;
     }
@@ -47,11 +54,15 @@ public class BuyDialog extends Dialog implements android.view.View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         if(alreadyOrdered==null){
             setContentView(R.layout.dialog_buy_item);
 
             Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
             ImageHandler imageHandler = new ImageHandler();
+
+            RelativeLayout dialogCard = (RelativeLayout) findViewById(R.id.dialogCard);
+            dialogCard.setClipToOutline(true);
 
             RelativeLayout item = (RelativeLayout) findViewById(R.id.Item);
             RelativeLayout infoBar = (RelativeLayout) findViewById(R.id.InfoBar);
@@ -71,6 +82,15 @@ public class BuyDialog extends Dialog implements android.view.View.OnClickListen
             Button orderButton = (Button) findViewById(R.id.OrderButton);
 
             orderButton.setTypeface(font);
+            orderButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadingDialog.show();
+                    Thread t = new Thread(orderGear);
+                    t.start();
+                    dismiss();
+                }
+            });
 
             //Change the info bar color to match gear kind
             switch (toBuy.gear.kind) {
@@ -167,6 +187,9 @@ public class BuyDialog extends Dialog implements android.view.View.OnClickListen
             Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
             ImageHandler imageHandler = new ImageHandler();
 
+            RelativeLayout dialogCard = (RelativeLayout) findViewById(R.id.dialogCard);
+            dialogCard.setClipToOutline(true);
+
             RelativeLayout orderingItem = (RelativeLayout) findViewById(R.id.OrderingItem);
             RelativeLayout orderingInfoBar = (RelativeLayout) findViewById(R.id.OrderingInfoBar);
             RelativeLayout orderingInfoPatch = (RelativeLayout) findViewById(R.id.orderingInfoPatch);
@@ -202,6 +225,23 @@ public class BuyDialog extends Dialog implements android.view.View.OnClickListen
 
             orderButton.setTypeface(font);
             keepButton.setTypeface(font);
+
+            orderButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadingDialog.show();
+                    Thread t = new Thread(orderGear);
+                    t.start();
+                    dismiss();
+                }
+            });
+
+            keepButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                }
+            });
 
             //Change the info bar color to match gear kind
 
@@ -318,6 +358,7 @@ public class BuyDialog extends Dialog implements android.view.View.OnClickListen
                 orderedSub3.setVisibility(View.INVISIBLE);
             }
 
+            //Set the Time
             Long now = new Date().getTime();
             new CountDownTimer((toBuy.endTime * 1000) - now, 60000) {
 
@@ -347,36 +388,19 @@ public class BuyDialog extends Dialog implements android.view.View.OnClickListen
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.OrderButton:
-                loadingDialog = new LoadingDialog(getOwnerActivity(),"Ordering");
-                loadingDialog.show();
-                orderGear.run();
-                dismiss();
-                break;
-            case R.id.KeepButton:
-                dismiss();
-                break;
-            case R.id.dialogCard:
-                break;
-            default:
-                dismiss();
-                break;
-        }
-    }
     private Runnable orderGear = new Runnable() {
         public void run() {
             try{
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
                 String cookie = settings.getString("cookie","");
-                String id = settings.getString("unique_id","");
-                RequestBody body = RequestBody.create(MediaType.parse("text/plain"), "1");
+                String id = "15752465600930901659";//settings.getString("unique_id","");
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
-                Call<ResponseBody> buy = splatnet.orderMerch(toBuy.id,id,body,cookie);
-                buy.execute();
+                RequestBody override = RequestBody.create(MediaType.parse("text/plain"), "1");
+                Call<ResponseBody> buy = splatnet.orderMerch(toBuy.id,id,override,cookie);
+                okhttp3.Request request = buy.request();
+                Response response = buy.execute();
+                System.out.println("Code: "+response.code());
                 loadingDialog.dismiss();
             } catch (IOException e) {
                 e.printStackTrace();

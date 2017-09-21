@@ -98,7 +98,7 @@
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/Brand"
+                android:layout_alignTop="@+id/OrderingBrand"
                 android:layout_marginEnd="10dp">
 
                 <RelativeLayout

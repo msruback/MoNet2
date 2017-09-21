@@ -3,15 +3,20 @@ package com.mattrubacky.monet2;
 /**
  * Created by mattr on 9/11/2017.
  */
+import android.preference.MultiSelectListPreference;
+
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
@@ -19,6 +24,9 @@ import retrofit2.http.Path;
 public interface Splatnet {
     @GET("/")
     Call<ResponseBody> getHomepage(@Header("X-GameWebToken") String token);
+
+    @GET("/api/timeline")
+    Call<Timeline> getTimeline(@Header("Cookie") String Cookie);
 
     @GET("api/results")
     Call<ResponseBody> get50Results(@Header("Cookie") String cookie);
@@ -58,11 +66,15 @@ public interface Splatnet {
 
     @Headers({
             "Accept: */*",
-            "User-Agent: com.nintendo.znca/1.0.4 (Android/4.4.2)",
-            "X-Requested-With: XMLHttpRequest"
+            "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/55.0.2883.91 Safari/537.36",
+            "X-Requested-With: XMLHttpRequest",
+            "origin: https://app.splatoon2.nintendo.net",
+            "content-type: multipart/form-data; boundary=----WebKitFormBoundary4qpiBomwB1YQG1QH",
+            "Connection: keep-alive"
     })
+    @Multipart
     @POST("api/onlineshop/order/{id}")
-    Call<ResponseBody> orderMerch(@Path("id") String id, @Header("X-Unique-Id") String uniqueId, @Part("override") RequestBody requestBody, @Header("Cookie") String cookie);
+    Call<ResponseBody> orderMerch(@Path("id") String id, @Header("X-Unique-Id") String uniqueId, @Part("override") RequestBody override, @Header("Cookie") String cookie);
 
     @GET("api/share/profile")
     Call<ResponseBody> shareProfile(@Header("Cookie") String Cookie);

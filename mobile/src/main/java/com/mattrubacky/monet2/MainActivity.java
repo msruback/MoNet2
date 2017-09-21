@@ -21,7 +21,14 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,12 +52,14 @@ public class MainActivity extends AppCompatActivity {
         rotation = new RotationFragment();
         shop = new ShopFragment();
 
-        String cookie = "iksm_session=51e607f6813897a87e7397c0c8fc4f2b9b4cac61";
+        String cookie = "iksm_session=d12b1c06a6bba079d221d10e3648f789dd92e8cf";
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor edit = settings.edit();
         edit.putString("cookie",cookie);
         edit.commit();
 
+        Thread t = new Thread(updateTimeline);
+        t.start();
 
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
@@ -129,6 +138,28 @@ public class MainActivity extends AppCompatActivity {
             return convertView;
         }
     }
+    private Runnable updateTimeline = new Runnable() {
+        public void run() {
+            try{
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String cookie = settings.getString("cookie","");
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
+                Splatnet splatnet = retrofit.create(Splatnet.class);
+                Call<Timeline> shopUpdate = splatnet.getTimeline(cookie);
+                Response response = shopUpdate.execute();
+                if(response.isSuccessful()){
+                    Timeline timeline = (Timeline) response.body();
+                    SharedPreferences.Editor edit = settings.edit();
+                    edit.putString("unique_id",timeline.uniqueID);
+                    edit.commit();
+                }else{
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
 
 
