@@ -16,6 +16,7 @@ public class SplatnetSQL {
     public SplatnetSQL(Context context){
         database = new SplatnetSQLHelper(context).getWritableDatabase();
     }
+
     private void insertSkill(int id, String name, Boolean chunkable) {
         ContentValues values = new ContentValues();
 
@@ -34,7 +35,33 @@ public class SplatnetSQL {
 
         database.insert(SplatnetContract.Sub.TABLE_NAME, null, values);
     }
-    
+
+    private void insertSpecial(int id, String name){
+        ContentValues values = new ContentValues();
+
+        values.put(SplatnetContract.Special._ID,id);
+        values.put(SplatnetContract.Special.COLUMN_NAME,name);
+
+        database.insert(SplatnetContract.Special.TABLE_NAME, null, values);
+    }
+
+    private void insertStage(Stage stage){
+        ContentValues values = new ContentValues();
+
+        values.put(SplatnetContract.Stage._ID,stage.id);
+        values.put(SplatnetContract.Stage.COLUMN_NAME,stage.name);
+
+        database.insert(SplatnetContract.Stage.TABLE_NAME, null, values);
+    }
+
+    private void insertSplatfest(int id){
+        ContentValues values = new ContentValues();
+
+        values.put(SplatnetContract.Splatfest._ID,id);
+
+        database.insert(SplatnetContract.Splatfest.TABLE_NAME, null, values);
+    }
+
 }
 class SplatnetSQLHelper extends SQLiteOpenHelper {
 

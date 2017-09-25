@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         rotation = new RotationFragment();
         shop = new ShopFragment();
 
-        String cookie = "iksm_session=d12b1c06a6bba079d221d10e3648f789dd92e8cf";
+        String cookie = "iksm_session=7d9c8df432370bcd88638d6bfca506e1f2f450ef";
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor edit = settings.edit();
         edit.putString("cookie",cookie);
