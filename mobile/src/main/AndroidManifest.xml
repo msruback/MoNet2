@@ -31,6 +31,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <reciever
+            android:process=":remote"
+            android:name=".SplatnetBackgroundService"/>
     </application>
 
 </manifest>

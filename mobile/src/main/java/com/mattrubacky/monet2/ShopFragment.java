@@ -230,6 +230,7 @@ public class ShopFragment extends Fragment {
         public MerchAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = inflater.inflate(R.layout.item_merch, parent, false);
             MerchAdapter.ViewHolder viewHolder = new MerchAdapter.ViewHolder(view);
+            //view.setOnClickListener(new ShopClickListener());
             return viewHolder;
         }
 

@@ -261,6 +261,18 @@ class Skill{
     int id;
 }
 
+class Timeline {
+    public Timeline(){};
+    @SerializedName("unique_id")
+    String uniqueID;
+
+    @SerializedName("coop")
+    GrizzCo currentRun;
+}
+class GrizzCo{
+    public GrizzCo(){};
+}
+
 
 class PastSplatfest{
     public PastSplatfest(){}
@@ -542,12 +554,18 @@ class Battle{
     Rule rule;
     @SerializedName("type")
     String type;
+    @SerializedName("stage")
+    Stage stage;
     @SerializedName("my_team_result")
     TeamResult result;
     @SerializedName("my_team_count")
     int myTeamCount;
     @SerializedName("other_team_count")
     int otherTeamCount;
+    @SerializedName("my_team_percentage")
+    float myTeamPercent;
+    @SerializedName("other_team_percentage")
+    float otherTeamPercent;
     @SerializedName("my_team_members")
     ArrayList<Player> myTeam;
     @SerializedName("other_team_members")
@@ -556,6 +574,14 @@ class Battle{
     Long time;
     @SerializedName("start_time")
     Long start;
+    @SerializedName("win_meter")
+    Float winMeter;
+    @SerializedName("fes_id")
+    int splatfestID;
+    @SerializedName("my_estimate_fes_power")
+    int fesPower;
+    @SerializedName("estimate_gachi_power")
+    int gachiPower;
 }
 class Player{
     public Player(){}
@@ -572,6 +598,8 @@ class Player{
     int points;
     @SerializedName("special_count")
     int special;
+    @SerializedName("fes_grade")
+    SplatfestGrade grade;
 }
 class TeamResult{
     public TeamResult(){}

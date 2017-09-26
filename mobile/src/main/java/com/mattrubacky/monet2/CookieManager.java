@@ -39,12 +39,12 @@ public class CookieManager {
 
 
             Retrofit retrofit = new Retrofit.Builder().baseUrl("https://accounts.nintendo.com").build();
-            NintendoSignIn signIn = retrofit.create(NintendoSignIn.class);
+            //NintendoSignIn signIn = retrofit.create(NintendoSignIn.class);
             ResponseBody response;
             JSONObject jsonParse;
 
             //Get ID token and Access Token 1
-            String json = "{ \"client_id\":\"71b963c1b7b6d119\", \"grant_type\":\"urn:ietf:params:oauth:grant-type:jwt-bearer-session-token\", \"session_token\":\""+sessionToken+"\" }";
+            /*String json = "{ \"client_id\":\"71b963c1b7b6d119\", \"grant_type\":\"urn:ietf:params:oauth:grant-type:jwt-bearer-session-token\", \"session_token\":\""+sessionToken+"\" }";
             RequestBody jsonRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
             Call<ResponseBody> serviceTokenGet = signIn.getServiceToken(jsonRequest);
             response = serviceTokenGet.execute().body();
@@ -65,22 +65,22 @@ public class CookieManager {
             System.out.println("Birthday: "+birthday);
 
             //Switch Api to Nintendo Accounts API
-            retrofit = new Retrofit.Builder().baseUrl("https://api-lp1.znc.srv.nintendo.net/").build();
+            */retrofit = new Retrofit.Builder().baseUrl("https://api-lp1.znc.srv.nintendo.net/").build();
             NintendoAccounts accounts = retrofit.create(NintendoAccounts.class);
-
+            /*
             //Login to Nintendo Accounts API
-            json = "{ \"parameter\": { \"f\": \"a05eae3d62b6d33b48e69ea3fc9f15778a7b8a9c5b7c3d3d5d14539ce83e61f2\",\"language\": \"en-US\", \"naBirthday\": \""+birthday+"\", \"naCountry\": \"US\", \"naIdToken\": \""+idToken+"\" } }";
+            (json = "{ \"parameter\": { \"f\": \"a05eae3d62b6d33b48e69ea3fc9f15778a7b8a9c5b7c3d3d5d14539ce83e61f2\",\"language\": \"en-US\", \"naBirthday\": \""+birthday+"\", \"naCountry\": \"US\", \"naIdToken\": \""+idToken+"\" } }";
             jsonRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
             Call<ResponseBody> login = accounts.logIn(jsonRequest);
             response = login.execute().body();
-            jsonParse = new JSONObject(response.string());
-            accessToken2 = jsonParse.getJSONObject("result").getJSONObject("webApiServerCredential").getString("accessToken");
+            jsonParse = new JSONObject(response.string());*/
+            accessToken2 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcGktbHAxLnpuYy5zcnYubmludGVuZG8ubmV0IiwiYXVkIjoiZjQxN2UxdGlianFkOTFjaDk5dTQ5aXd6NXNuOWNoeTMiLCJpYXQiOjE1MDY0NDAwMjcsInR5cCI6ImlkX3Rva2VuIiwic3ViIjo1NzUxMjcxNTU0Mjg1NTY4LCJleHAiOjE1MDY0NDcyMjd9.zKYaiw4ow2CLKg0ZqkBDmMO8Y7lZP2l2jCVEF4IdZQY";
             System.out.println("Access Token 2: "+accessToken2);
 
             //Get Splatoon Token
-            auth = "Bearer "+accessToken2;
-            json = "{ \"parameter\": { \"id\": 5741031244955648 } }";
-            jsonRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
+            String auth = "Bearer "+accessToken2;
+            String json = "{ \"parameter\": { \"id\": 5741031244955648 } }";
+            RequestBody jsonRequest = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),json);
             Call<ResponseBody> splatTokenGet = accounts.getGameToken(auth,jsonRequest);
             response = splatTokenGet.execute().body();
             jsonParse = new JSONObject(response.string());

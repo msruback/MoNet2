@@ -21,10 +21,11 @@ public final class SplatnetContract {
         public static final String COLUMN_WIN_METER ="win_meter";
         public static final String COLUMN_FES = "fes";
         public static final String COLUMN_ELAPSED_TIME = "elapsed_time";
+        public static final String COLUMN_START_TIME = "start_time";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
-                COLUMN_STAGE + " INTEGER, FORIEGN KEY("+COLUMN_STAGE+") REFERENCES stage(id), "+
+                COLUMN_STAGE + " INTEGER REFERENCES stage(_id), "+
                 COLUMN_RESULT + " TEXT, "+
                 COLUMN_ALLY_SCORE + " INTEGER, "+
                 COLUMN_FOE_SCORE + " INTEGER, "+
@@ -32,7 +33,8 @@ public final class SplatnetContract {
                 COLUMN_MODE + " TEXT, "+
                 COLUMN_POWER + " INTEGER, "+
                 COLUMN_WIN_METER + " REAL, "+
-                COLUMN_FES + " INTEGER, FORIEGN KEY("+COLUMN_FES+") REFERENCES splatfest(id), "+
+                COLUMN_FES + " INTEGER REFERENCES splatfest(_id), "+
+                COLUMN_START_TIME + " INTEGER, "+
                 COLUMN_ELAPSED_TIME +" INTEGER)";
     }
 
@@ -68,36 +70,36 @@ public final class SplatnetContract {
         public static final String COLUMN_SHOES_SUB_2 = "shoes_sub_2";
         public static final String COLUMN_SHOES_SUB_3 = "shoes_sub_3";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
-                COLUMN_BATTLE +" INTEGER, FORIEGN KEY("+COLUMN_BATTLE+") REFERENCES battle(id), "+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                COLUMN_BATTLE +" INTEGER REFERENCES battle(_id), "+
                 COLUMN_MODE +" TEXT, "+
                 COLUMN_POINT + " INTEGER, "+
                 COLUMN_KILL + " INTEGER, "+
                 COLUMN_ASSIST + " INTEGER, "+
                 COLUMN_DEATH + " INTEGER, "+
                 COLUMN_SPECIAL +" INTEGER, "+
-                COLUMN_WEAPON + " INTEGER, FORIEGN KEY("+COLUMN_WEAPON+") REFERENCES weapon(id), "+
+                COLUMN_WEAPON + " INTEGER REFERENCES weapon(_id), "+
                 COLUMN_NAME +" TEXT, "+
                 COLUMN_ID + " INTEGER, "+
                 COLUMN_LEVEL + " INTEGER, "+
                 COLUMN_RANK + " TEXT, "+
                 COLUMN_S_NUM + " TEXT, "+
                 COLUMN_FES_GRADE + " TEXT, "+
-                COLUMN_HEAD + " INTEGER, FORIEGN KEY ("+COLUMN_HEAD+") REFERENCES gear(id), "+
-                COLUMN_HEAD_MAIN + " INTEGER, FORIEGN KEY ("+COLUMN_HEAD_MAIN+") REFERENCES skill(id), "+
-                COLUMN_HEAD_SUB_1 + " INTEGER, FORIEGN KEY ("+COLUMN_HEAD_SUB_1+") REFERENCES skill(id), "+
-                COLUMN_HEAD_SUB_2 + " INTEGER, FORIEGN KEY ("+COLUMN_HEAD_SUB_2+") REFERENCES skill(id), "+
-                COLUMN_HEAD_SUB_3 + " INTEGER, FORIEGN KEY ("+COLUMN_HEAD_SUB_3+") REFERENCES skill(id), "+
-                COLUMN_CLOTHES + " INTEGER, FORIEGN KEY ("+COLUMN_CLOTHES+") REFERENCES gear(id), "+
-                COLUMN_CLOTHES_MAIN + " INTEGER, FORIEGN KEY ("+COLUMN_CLOTHES_MAIN+") REFERENCES skill(id), "+
-                COLUMN_CLOTHES_SUB_1 + " INTEGER, FORIEGN KEY ("+COLUMN_CLOTHES_SUB_1+") REFERENCES skill(id), "+
-                COLUMN_CLOTHES_SUB_2 + " INTEGER, FORIEGN KEY ("+COLUMN_CLOTHES_SUB_2+") REFERENCES skill(id), "+
-                COLUMN_CLOTHES_SUB_3 + " INTEGER, FORIEGN KEY ("+COLUMN_CLOTHES_SUB_3+") REFERENCES skill(id), "+
-                COLUMN_SHOES + " INTEGER, FORIEGN KEY ("+COLUMN_SHOES+") REFERENCES gear(id), "+
-                COLUMN_SHOES_MAIN + " INTEGER, FORIEGN KEY ("+COLUMN_SHOES_MAIN+") REFERENCES skill(id), "+
-                COLUMN_SHOES_SUB_1 + " INTEGER, FORIEGN KEY ("+COLUMN_SHOES_SUB_1+") REFERENCES skill(id), "+
-                COLUMN_SHOES_SUB_2 + " INTEGER, FORIEGN KEY ("+COLUMN_SHOES_SUB_2+") REFERENCES skill(id), "+
-                COLUMN_SHOES_SUB_3 + " INTEGER, FORIEGN KEY ("+COLUMN_SHOES_SUB_3+") REFERENCES skill(id))";
+                COLUMN_HEAD + " INTEGER REFERENCES gear(_id), "+
+                COLUMN_HEAD_MAIN + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_HEAD_SUB_1 + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_HEAD_SUB_2 + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_HEAD_SUB_3 + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_CLOTHES + " INTEGER REFERENCES gear(_id), "+
+                COLUMN_CLOTHES_MAIN + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_CLOTHES_SUB_1 + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_CLOTHES_SUB_2 + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_CLOTHES_SUB_3 + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_SHOES + " INTEGER REFERENCES gear(_id), "+
+                COLUMN_SHOES_MAIN + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_SHOES_SUB_1 + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_SHOES_SUB_2 + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_SHOES_SUB_3 + " INTEGER REFERENCES skill(_id))";
 
     }
 
@@ -108,10 +110,10 @@ public final class SplatnetContract {
         public static final String COLUMN_RARITY = "rarity";
         public static final String COLUMN_BRAND = "brand";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_NAME + " TEXT, "+
-                COLUMN_BRAND +" INTEGER, FORIEGN KEY ("+COLUMN_BRAND+") REFERNCES brand(id), "+
+                COLUMN_BRAND +" INTEGER REFERENCES brand(_id), "+
                 COLUMN_KIND + " TEXT, "+
                 COLUMN_RARITY + " INTEGER)";
     }
@@ -121,10 +123,10 @@ public final class SplatnetContract {
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_SKILL = "skill";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
-                COLUMN_NAME + " TEXT, "+
-                COLUMN_SKILL + " INTEGER, FORIEGN KEY ("+COLUMN_SKILL+") REFERNCES skill(id))";
+                COLUMN_SKILL + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_NAME + " TEXT)";
     }
 
     public static class Skill implements BaseColumns{
@@ -132,7 +134,7 @@ public final class SplatnetContract {
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_CHUNKABLE = "chunkable";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+"("+
                 _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_NAME + " TEXT, "+
                 COLUMN_CHUNKABLE + " INTEGER)";
@@ -144,18 +146,18 @@ public final class SplatnetContract {
         public static final String COLUMN_SUB = "sub";
         public static final String COLUMN_SPECIAL = "special";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_NAME + " TEXT, "+
-                COLUMN_SUB + " INTEGER, FORIEGN KEY ("+COLUMN_SUB+") REFERENCES sub(id), "+
-                COLUMN_SPECIAL + " INTEGER, FORIEGN KEY ("+COLUMN_SPECIAL+") REFERENCES special(id))";
+                COLUMN_SUB + " INTEGER REFERENCES sub(_id), "+
+                COLUMN_SPECIAL + " INTEGER REFERENCES special(_id))";
     }
 
     public static class Sub implements BaseColumns{
         public static final String TABLE_NAME = "sub";
         public static final String COLUMN_NAME = "name";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_NAME + " TEXT)";
     }
@@ -164,7 +166,7 @@ public final class SplatnetContract {
         public static final String TABLE_NAME = "special";
         public static final String COLUMN_NAME = "name";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_NAME + " TEXT)";
     }
@@ -173,7 +175,7 @@ public final class SplatnetContract {
         public static final String TABLE_NAME = "stage";
         public static final String COLUMN_NAME = "name";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_NAME + " TEXT)";
     }
@@ -201,7 +203,7 @@ public final class SplatnetContract {
         public static final String COLUMN_TEAM = "team";
         public static final String COLUMN_WINNER = "winner";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_ALPHA + " TEXT, "+
                 COLUMN_BRAVO + " TEXT, "+
@@ -231,9 +233,9 @@ public final class SplatnetContract {
         public static final String COLUMN_FES = "fes";
         public static final String COLUMN_VOTE = "vote";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
-                COLUMN_PLAYER +" TEXT, FORIEGN KEY ("+COLUMN_PLAYER+") REFERENCES friends(id), "+
-                COLUMN_FES + " INTEGER, FORIEGN KEY("+COLUMN_FES+") REFERENCES splatfest(id), "+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                COLUMN_PLAYER +" TEXT REFERENCES friends(_id), "+
+                COLUMN_FES + " INTEGER REFERENCES splatfest(_id), "+
                 COLUMN_VOTE + " INTEGER)";//0 alpha 1 bravo
     }
 
@@ -241,7 +243,7 @@ public final class SplatnetContract {
         public static final String TABLE_NAME = "friends";
         public static final String COLUMN_NAME = "name";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " TEXT PRIMARY KEY, "+ //Yes text ids are not ideal, blame Nintendo
                 COLUMN_NAME + " TEXT)";
     }
@@ -256,8 +258,8 @@ public final class SplatnetContract {
         public static final String COLUMN_MAX_WIN_METER = "max_win_meter";
         public static final String COLUMN_LAST_USE_TIME = "last_use_time";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
-                COLUMN_WEAPON + " INTEGER, FORIEGN KEY("+ COLUMN_WEAPON+ ") REFERENCES weapon(id), "+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                COLUMN_WEAPON + " INTEGER REFERENCES weapon(_id), "+
                 COLUMN_WIN_METER + " REAL, "+
                 COLUMN_WIN_COUNT + " INTEGER, "+
                 COLUMN_LOSE_COUNT + " INTEGER, "+
@@ -277,12 +279,12 @@ public final class SplatnetContract {
         public static final String COLUMN_LOSE_COUNT = "lose_count";
         public static final String COLUMN_LAST_USE_TIME = "last_use_time";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
-                COLUMN_GEAR + " INTEGER, FORIEGN KEY("+COLUMN_GEAR+") REFERENCES gear(id), "+
-                COLUMN_MAIN + " INTEGER, FORIEGN KEY("+COLUMN_MAIN+") REFERENCES skill(id), "+
-                COLUMN_SUB_1 + " INTEGER, FORIEGN KEY("+COLUMN_SUB_1+") REFERENCES skill(id), "+
-                COLUMN_SUB_2 + " INTEGER, FORIEGN KEY("+COLUMN_SUB_2+") REFERENCES skill(id), "+
-                COLUMN_SUB_3 + " INTEGER, FORIEGN KEY("+COLUMN_SUB_3+") REFERENCES skill(id), "+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                COLUMN_GEAR + " INTEGER REFERENCES gear(_id), "+
+                COLUMN_MAIN + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_SUB_1 + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_SUB_2 + " INTEGER REFERENCES skill(_id), "+
+                COLUMN_SUB_3 + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_WIN_COUNT + " INTEGER, "+
                 COLUMN_LOSE_COUNT + " INTEGER, "+
                 COLUMN_LAST_USE_TIME + " INTEGER)";
@@ -302,8 +304,8 @@ public final class SplatnetContract {
         public static final String COLUMN_TURFWAR_LOSE = "turfwar_lose";
         public static final String COLUMN_SPLATFEST_LOSE = "splatfest_lose";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
-                COLUMN_STAGE + " INTEGER, FORIEGN KEY("+COLUMN_STAGE+") REFERENCES stage(id), "+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                COLUMN_STAGE + " INTEGER REFERENCES stage(_id), "+
                 COLUMN_SPLATZONE_WIN + " INTEGER, "+
                 COLUMN_TOWER_WIN + " INTEGER, "+
                 COLUMN_RAINMAKER_WIN + " INTEGER, "+
@@ -321,8 +323,8 @@ public final class SplatnetContract {
         public static final String COLUMN_SKILL = "skill";
         public static final String COLUMN_COUNT = "count";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
-                COLUMN_SKILL + " INTEGER, FORIEGN KEY ("+COLUMN_SKILL+") REFERENCES skill(id), "+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                COLUMN_SKILL + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_COUNT + " INTEGER)";
     }
 
@@ -335,9 +337,9 @@ public final class SplatnetContract {
         public static final String COLUMN_START = "start";
         public static final String COLUMN_END = "end";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
-                COLUMN_STAGE_A + " INTEGER, FORIEGN KEY ("+COLUMN_STAGE_A+") REFERENCES stage(id), "+
-                COLUMN_STAGE_B + " INTEGER, FORIEGN KEY ("+ COLUMN_STAGE_B+ ") REFERENCES stage(id), "+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                COLUMN_STAGE_A + " INTEGER REFERENCES stage(_id), "+
+                COLUMN_STAGE_B + " INTEGER REFERENCES stage(_id), "+
                 COLUMN_MODE + " TEXT, "+
                 COLUMN_RULE + " TEXT, "+
                 COLUMN_START + " INTEGER, "+
@@ -351,9 +353,9 @@ public final class SplatnetContract {
         public static final String COLUMN_PRICE = "price";
         public static final String COLUMN_END = "end";
 
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXIST "+TABLE_NAME+" ("+
-                COLUMN_GEAR + " INTEGER, FORIEGN KEY ("+COLUMN_GEAR+") REFERENCES gear(id), "+
-                COLUMN_MAIN + " INTEGER, FORIEGN KEY ("+COLUMN_MAIN+") REFERENCES skill(id), "+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                COLUMN_GEAR + " INTEGER REFERENCES gear(_id), "+
+                COLUMN_MAIN + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_PRICE + " INTEGER, "+
                 COLUMN_END + " INTEGER)";
     }

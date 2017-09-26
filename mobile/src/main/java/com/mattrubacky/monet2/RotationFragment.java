@@ -145,7 +145,6 @@ public class RotationFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
-        updateUI.run();
     }
 
     //Get Rotation Data

@@ -29,10 +29,10 @@ public interface Splatnet {
     Call<Timeline> getTimeline(@Header("Cookie") String Cookie);
 
     @GET("api/results")
-    Call<ResponseBody> get50Results(@Header("Cookie") String cookie);
+    Call<ResultList> get50Results(@Header("Cookie") String cookie);
 
     @GET("api/results/{battle}")
-    Call<ResponseBody> getBattle(@Path("battle") String battle,@Header("Cookie") String Cookie);
+    Call<Battle> getBattle(@Path("battle") String battle,@Header("Cookie") String Cookie);
 
     @GET("api/records")
     Call<ResponseBody> getRecords(@Header("Cookie") String cookie);

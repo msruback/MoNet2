@@ -393,11 +393,12 @@ public class BuyDialog extends Dialog{
             try{
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
                 String cookie = settings.getString("cookie","");
-                String id = "15752465600930901659";//settings.getString("unique_id","");
+                String id = settings.getString("unique_id","");
+                String itemId = "4780952683920445331";
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
                 RequestBody override = RequestBody.create(MediaType.parse("text/plain"), "1");
-                Call<ResponseBody> buy = splatnet.orderMerch(toBuy.id,id,override,cookie);
+                Call<ResponseBody> buy = splatnet.orderMerch(itemId,id,override,cookie);
                 okhttp3.Request request = buy.request();
                 Response response = buy.execute();
                 System.out.println("Code: "+response.code());

@@ -1,7 +1,11 @@
 package com.mattrubacky.monet2;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -60,6 +64,19 @@ public class MainActivity extends AppCompatActivity {
 
         Thread t = new Thread(updateTimeline);
         t.start();
+        Thread s = new Thread(updateBattleInfo);
+        s.start();
+
+        AlarmManager alarmMgr;
+        PendingIntent alarmIntent;
+
+        alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getApplicationContext(), SplatnetBackgroundService.class);
+        alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+
+        alarmMgr.setRepeating(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis(),AlarmManager.INTERVAL_HOUR,alarmIntent);
+
+
 
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
@@ -145,8 +162,8 @@ public class MainActivity extends AppCompatActivity {
                 String cookie = settings.getString("cookie","");
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
-                Call<Timeline> shopUpdate = splatnet.getTimeline(cookie);
-                Response response = shopUpdate.execute();
+                Call<Timeline> getTimeline = splatnet.getTimeline(cookie);
+                Response response = getTimeline.execute();
                 if(response.isSuccessful()){
                     Timeline timeline = (Timeline) response.body();
                     SharedPreferences.Editor edit = settings.edit();
@@ -155,6 +172,33 @@ public class MainActivity extends AppCompatActivity {
                 }else{
 
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private Runnable updateBattleInfo = new Runnable() {
+        public void run() {
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            String cookie = settings.getString("cookie","");
+
+            SplatnetSQL database = new SplatnetSQL(getApplicationContext());
+
+            try {
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
+                Splatnet splatnet = retrofit.create(Splatnet.class);
+                Response response;
+
+                response = splatnet.get50Results(cookie).execute();
+                ResultList results = (ResultList) response.body();
+                for(int i = 0;i<results.resultIds.size();i++) {
+                    if (!database.existsIn(SplatnetContract.Battle.TABLE_NAME, SplatnetContract.Battle._ID, results.resultIds.get(i).id)) {
+                        response = splatnet.getBattle(String.valueOf(results.resultIds.get(i).id),cookie).execute();
+                        database.insertBattle((Battle) response.body());
+                    }
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
