@@ -22,13 +22,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ListView drawerList;
     ArrayList<String> titles;
-    Fragment rotation,shop;
+    Fragment rotation,shop,battleList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +50,14 @@ public class MainActivity extends AppCompatActivity {
         titles = new ArrayList<String>();
         titles.add("Rotation");
         titles.add("Shop");
+        titles.add("Battles");
         //Add fragments
         rotation = new RotationFragment();
         shop = new ShopFragment();
+        battleList = new BattleListFragment();
 
-        String cookie = "iksm_session=7d9c8df432370bcd88638d6bfca506e1f2f450ef";
+
+        String cookie ="iksm_session=7d9c8df432370bcd88638d6bfca506e1f2f450ef";
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor edit = settings.edit();
         edit.putString("cookie",cookie);
@@ -67,14 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Thread s = new Thread(updateBattleInfo);
         s.start();
 
-        AlarmManager alarmMgr;
-        PendingIntent alarmIntent;
 
-        alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getApplicationContext(), SplatnetBackgroundService.class);
-        alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-
-        alarmMgr.setRepeating(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis(),AlarmManager.INTERVAL_HOUR,alarmIntent);
 
 
 
@@ -128,6 +122,10 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.frame_container, shop)
                         .commit();
                 break;
+            case 2:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container,battleList)
+                        .commit();
         }
 
         // Insert the fragment by replacing any existing fragment

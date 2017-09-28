@@ -4,7 +4,7 @@
     android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgsquidsrepeat"
+    android:background="@drawable/repeat_squids"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintLeft_toLeftOf="parent"
@@ -28,7 +28,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/bgcard"
+                android:background="@drawable/shape_card"
                 android:backgroundTint="@color/turfPrimary"
                 android:rotation="2">
 
@@ -39,7 +39,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/bgmaskproduct" />
+                    android:src="@drawable/extra_product" />
 
                 <RelativeLayout
                     android:id="@+id/turfGreyBottom"
@@ -48,7 +48,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="100dp"
-                    android:background="@drawable/bgcard"
+                    android:background="@drawable/shape_card"
                     android:backgroundTint="@color/grey">
 
                     <RelativeLayout
@@ -64,7 +64,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:background="@drawable/bgstripesrepeat">
+                    android:background="@drawable/repeat_stripes">
 
                 </RelativeLayout>
 
@@ -79,7 +79,7 @@
                         android:layout_height="90dp"
                         android:layout_centerInParent="true"
                         android:layout_marginTop="200dp"
-                        android:background="@drawable/bgmaskbanner"
+                        android:background="@drawable/banner_normal"
                         android:backgroundTint="@color/turfAccent"
                         android:gravity="center"
                         android:paddingLeft="20dp"
@@ -106,7 +106,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="350dp"
-                        app:tabBackground="@drawable/turf_tab_selector"
+                        app:tabBackground="@drawable/tab_turf_selector"
                         app:tabGravity="center"
                         app:tabIndicatorHeight="0dp" />
                 </RelativeLayout>
@@ -118,7 +118,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/turfProduct"
                     android:layout_marginTop="7dp"
-                    android:background="@drawable/squid"
+                    android:background="@drawable/banner_ink_left"
                     android:backgroundTint="@color/turfAccent">
 
                     <ImageView
@@ -128,7 +128,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="8dp"
-                        android:src="@drawable/battleregular" />
+                        android:src="@drawable/battle_regular" />
 
                     <TextView
                         android:id="@+id/turfWarName"
@@ -151,7 +151,7 @@
                 android:layout_below="@+id/TurfWar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/bgcard"
+                android:background="@drawable/shape_card"
                 android:backgroundTint="@color/rankPrimary"
                 android:rotation="-1.5">
 
@@ -162,7 +162,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/bgmaskproduct" />
+                    android:src="@drawable/extra_product" />
 
                 <RelativeLayout
                     android:id="@+id/rankedGreyBottom"
@@ -171,7 +171,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="100dp"
-                    android:background="@drawable/bgcard"
+                    android:background="@drawable/shape_card"
                     android:backgroundTint="@color/grey">
 
                     <RelativeLayout
@@ -188,7 +188,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:background="@drawable/bgstripesrepeat">
+                    android:background="@drawable/repeat_stripes">
 
                 </RelativeLayout>
 
@@ -203,7 +203,7 @@
                         android:layout_height="90dp"
                         android:layout_centerInParent="true"
                         android:layout_marginTop="200dp"
-                        android:background="@drawable/bgmaskbanner"
+                        android:background="@drawable/banner_normal"
                         android:backgroundTint="@color/rankAccent"
                         android:gravity="center"
                         android:paddingLeft="20dp"
@@ -230,7 +230,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="380dp"
-                        app:tabBackground="@drawable/rank_tab_selector"
+                        app:tabBackground="@drawable/tab_rank_selector"
                         app:tabGravity="center"
                         app:tabIndicatorHeight="0dp" />
                 </RelativeLayout>
@@ -242,7 +242,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/rankedProduct"
                     android:layout_marginTop="7dp"
-                    android:background="@drawable/squid"
+                    android:background="@drawable/banner_ink_left"
                     android:backgroundTint="@color/rankAccent">
 
                     <ImageView
@@ -252,7 +252,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="8dp"
-                        android:src="@drawable/battleranked" />
+                        android:src="@drawable/battle_ranked" />
 
                     <TextView
                         android:id="@+id/rankedName"
@@ -274,7 +274,7 @@
                 android:layout_below="@id/Ranked"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/bgcard"
+                android:background="@drawable/shape_card"
                 android:backgroundTint="@color/leaguePrimary"
                 android:rotation="1.5">
 
@@ -285,7 +285,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/bgmaskproduct" />
+                    android:src="@drawable/extra_product" />
 
                 <RelativeLayout
                     android:id="@+id/leagueGreyBottom"
@@ -294,7 +294,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="100dp"
-                    android:background="@drawable/bgcard"
+                    android:background="@drawable/shape_card"
                     android:backgroundTint="@color/grey">
 
                     <RelativeLayout
@@ -310,7 +310,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:background="@drawable/bgstripesrepeat" />
+                    android:background="@drawable/repeat_stripes" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -323,7 +323,7 @@
                         android:layout_height="90dp"
                         android:layout_centerInParent="true"
                         android:layout_marginTop="200dp"
-                        android:background="@drawable/bgmaskbanner"
+                        android:background="@drawable/banner_normal"
                         android:backgroundTint="@color/leagueAccent"
                         android:gravity="center"
                         android:paddingLeft="20dp"
@@ -350,7 +350,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="380dp"
-                        app:tabBackground="@drawable/league_tab_selector"
+                        app:tabBackground="@drawable/tab_league_selector"
                         app:tabGravity="center"
                         app:tabIndicatorHeight="0dp" />
                 </RelativeLayout>
@@ -362,7 +362,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/leagueProduct"
                     android:layout_marginTop="7dp"
-                    android:background="@drawable/squid"
+                    android:background="@drawable/banner_ink_left"
                     android:backgroundTint="@color/leagueAccent">
 
                     <ImageView
@@ -372,7 +372,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="8dp"
-                        android:src="@drawable/battleleague" />
+                        android:src="@drawable/battle_league" />
 
                     <TextView
                         android:id="@+id/leagueName"
@@ -394,7 +394,7 @@
                 android:layout_below="@id/League"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/bgcard"
+                android:background="@drawable/shape_card"
                 android:backgroundTint="@color/rankPrimary">
 
                 <RelativeLayout
@@ -403,7 +403,7 @@
                     android:layout_height="400dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:background="@drawable/bgdotsrepeat">
+                    android:background="@drawable/repeat_dots">
 
 
                 </RelativeLayout>
@@ -415,7 +415,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/bgmaskproduct" />
+                    android:src="@drawable/extra_product" />
 
                 <TextView
                     android:id="@+id/salmonName"
@@ -433,7 +433,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:layout_marginTop="85dp"
-                    android:background="@drawable/bgcard"
+                    android:background="@drawable/shape_card"
                     android:backgroundTint="@color/offWhite">
 
                     <RelativeLayout
@@ -444,7 +444,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/bgspotsrepeat">
+                        android:background="@drawable/repeat_spots">
 
                         <ImageView
                             android:id="@+id/salmonLogo"
@@ -453,7 +453,7 @@
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="25dp"
-                            android:background="@drawable/salmonrun"
+                            android:background="@drawable/salmon_run_watermark"
                             android:backgroundTint="#a89b9b9b" />
                     </RelativeLayout>
 

@@ -19,7 +19,7 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bgmaskhook"
+        android:background="@drawable/extra_hook"
         android:backgroundTint="@color/grey"
         android:rotation="-2">
 
@@ -29,7 +29,7 @@
         android:id="@+id/card"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:background="@drawable/bgcard"
+        android:background="@drawable/shape_card"
         android:backgroundTint="@color/grey"
         android:rotation="-2"
         android:layout_below="@+id/hook"
@@ -40,7 +40,7 @@
             android:layout_height="250dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:background="@drawable/bgstripes">
+            android:background="@drawable/repeatable_stripes">
 
             <RelativeLayout
                 android:layout_width="200dp"
@@ -48,7 +48,7 @@
                 android:layout_below="@+id/LoadingText"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="34dp"
-                android:background="@drawable/bgcard"
+                android:background="@drawable/shape_card"
                 android:backgroundTint="@color/turfPrimary">
 
                 <ProgressBar
@@ -60,8 +60,8 @@
                     android:layout_alignParentTop="true"
                     android:indeterminate="true"
                     android:indeterminateBehavior="repeat"
-                    android:indeterminateDrawable="@drawable/loadingbar"
-                    android:progressDrawable="@drawable/bgstripes" />
+                    android:indeterminateDrawable="@drawable/loading_bar"
+                    android:progressDrawable="@drawable/repeatable_stripes" />
             </RelativeLayout>
 
             <TextView

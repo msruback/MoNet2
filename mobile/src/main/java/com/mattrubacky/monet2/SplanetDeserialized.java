@@ -1,5 +1,6 @@
 package com.mattrubacky.monet2;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -388,6 +389,8 @@ class Records{
     Map<Integer,SplatfestRecords> splatfestRecords;
     @SerializedName("player")
     User user;
+    @SerializedName("unique_id")
+    String unique_id;
     @SerializedName("weapon_stats")
     Map<Integer,WeaponStats> weaponStats;
 

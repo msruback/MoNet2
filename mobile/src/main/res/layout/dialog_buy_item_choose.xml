@@ -13,12 +13,12 @@
         android:layout_height="40dp"
         android:layout_above="@+id/dialogCard"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bgmaskhook"
+        android:background="@drawable/extra_hook"
         android:backgroundTint="@color/grey">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bgdotsrepeat"></RelativeLayout>
+            android:background="@drawable/repeat_dots"></RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -26,18 +26,18 @@
         android:layout_width="350dp"
         android:layout_height="330dp"
         android:layout_centerInParent="true"
-        android:background="@drawable/bgcard"
+        android:background="@drawable/shape_card"
         android:backgroundTint="@color/grey">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bgspots"></RelativeLayout>
+            android:background="@drawable/repeatable_spots"></RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bgdotsrepeat"></RelativeLayout>
+            android:background="@drawable/repeat_dots"></RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/OrderingItem"
@@ -45,14 +45,14 @@
             android:layout_height="240dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="15dp"
-            android:background="@drawable/bgcard"
+            android:background="@drawable/shape_card"
             android:backgroundTint="#e4e4e4"
             android:layout_marginLeft="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bgcirclesrepeat">
+                android:background="@drawable/repeat_circles">
 
             </RelativeLayout>
 
@@ -64,7 +64,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/annaki" />
+                android:src="@drawable/brand_annaki" />
 
             <ImageView
                 android:id="@+id/orderingProduct"
@@ -73,7 +73,7 @@
                 android:layout_alignBottom="@+id/OrderingBrand"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="11dp"
-                android:src="@drawable/bgmaskproduct" />
+                android:src="@drawable/extra_product" />
 
             <ImageView
                 android:id="@+id/OrderingImage"
@@ -81,7 +81,7 @@
                 android:layout_height="126dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/hulapunk" />
+                android:src="@drawable/hula_punk" />
 
             <TextView
                 android:id="@+id/OrderingName"
@@ -106,7 +106,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_alignParentEnd="true"
-                    android:background="@drawable/ability"
+                    android:background="@drawable/skill_background"
                     android:padding="2dp">
 
                     <ImageView
@@ -114,7 +114,7 @@
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_alignParentEnd="true"
-                        android:src="@drawable/main_ink_saver" />
+                        android:src="@drawable/skill_main_ink_saver" />
                 </RelativeLayout>
 
                 <ImageView
@@ -124,7 +124,7 @@
                     android:layout_below="@id/orderingMainAbility"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/blankskillslot" />
+                    android:src="@drawable/skill_blank" />
 
                 <ImageView
                     android:id="@+id/OrderingSub2"
@@ -133,7 +133,7 @@
                     android:layout_below="@id/OrderingSub1"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/blankskillslot" />
+                    android:src="@drawable/skill_blank" />
 
                 <ImageView
                     android:id="@+id/OrderingSub3"
@@ -142,7 +142,7 @@
                     android:layout_below="@id/OrderingSub2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/blankskillslot" />
+                    android:src="@drawable/skill_blank" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -150,7 +150,7 @@
                 android:layout_height="21dp"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/orderingProduct"
-                android:background="@drawable/squid"
+                android:background="@drawable/banner_ink_left"
                 android:backgroundTint="@color/grey">
 
                 <TextView
@@ -172,7 +172,7 @@
             android:layout_height="30dp"
             android:layout_alignStart="@+id/OrderingItem"
             android:layout_marginTop="225dp"
-            android:background="@drawable/bgcard"
+            android:background="@drawable/shape_card"
             android:backgroundTint="@color/merchClothes">
 
             <RelativeLayout
@@ -184,7 +184,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bgstripesrepeat"></RelativeLayout>
+                android:background="@drawable/repeat_stripes"></RelativeLayout>
 
             <ImageView
                 android:layout_width="18dp"
@@ -192,7 +192,7 @@
                 android:layout_alignBottom="@+id/OrderingCost"
                 android:layout_marginRight="10dp"
                 android:layout_toStartOf="@+id/OrderingCost"
-                android:src="@drawable/cash" />
+                android:src="@drawable/icon_cash" />
 
             <TextView
                 android:id="@+id/OrderingCost"
@@ -211,14 +211,14 @@
             android:layout_below="@+id/OrderingInfoBar"
             android:layout_alignStart="@+id/OrderingItem"
             android:layout_marginTop="15dp"
-            android:background="@drawable/bgcard"
+            android:background="@drawable/shape_card"
             android:backgroundTint="@color/colorPrimary">
 
             <Button
                 android:id="@+id/OrderButton"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:background="@drawable/bgstripesrepeat"
+                android:background="@drawable/repeat_stripes"
                 android:text="@string/order"></Button>
         </RelativeLayout>
 
@@ -230,13 +230,13 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="15dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/bgcard"
+            android:background="@drawable/shape_card"
             android:backgroundTint="#e4e4e4">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bgcirclesrepeat">
+                android:background="@drawable/repeat_circles">
 
             </RelativeLayout>
 
@@ -248,7 +248,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/annaki" />
+                android:src="@drawable/brand_annaki" />
 
             <ImageView
                 android:id="@+id/orderedProduct"
@@ -257,7 +257,7 @@
                 android:layout_alignBottom="@+id/OrderedBrand"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="11dp"
-                android:src="@drawable/bgmaskproduct" />
+                android:src="@drawable/extra_product" />
 
             <ImageView
                 android:id="@+id/OrderedImage"
@@ -265,7 +265,7 @@
                 android:layout_height="126dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/hulapunk" />
+                android:src="@drawable/hula_punk" />
 
             <TextView
                 android:id="@+id/OrderedName"
@@ -290,7 +290,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_alignParentEnd="true"
-                    android:background="@drawable/ability"
+                    android:background="@drawable/skill_background"
                     android:padding="2dp">
 
                     <ImageView
@@ -298,7 +298,7 @@
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_alignParentEnd="true"
-                        android:src="@drawable/main_ink_saver" />
+                        android:src="@drawable/skill_main_ink_saver" />
                 </RelativeLayout>
 
                 <ImageView
@@ -308,7 +308,7 @@
                     android:layout_below="@id/orderedMainAbility"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/blankskillslot" />
+                    android:src="@drawable/skill_blank" />
 
                 <ImageView
                     android:id="@+id/OrderedSub2"
@@ -317,7 +317,7 @@
                     android:layout_below="@id/OrderedSub1"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/blankskillslot" />
+                    android:src="@drawable/skill_blank" />
 
                 <ImageView
                     android:id="@+id/OrderedSub3"
@@ -326,7 +326,7 @@
                     android:layout_below="@id/OrderedSub2"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/blankskillslot" />
+                    android:src="@drawable/skill_blank" />
             </RelativeLayout>
 
         </RelativeLayout>
@@ -337,7 +337,7 @@
             android:layout_height="30dp"
             android:layout_alignStart="@+id/OrderedItem"
             android:layout_marginTop="225dp"
-            android:background="@drawable/bgcard"
+            android:background="@drawable/shape_card"
             android:backgroundTint="@color/merchClothes">
 
             <RelativeLayout
@@ -349,7 +349,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bgstripesrepeat"></RelativeLayout>
+                android:background="@drawable/repeat_stripes"></RelativeLayout>
 
             <ImageView
                 android:layout_width="18dp"
@@ -357,7 +357,7 @@
                 android:layout_alignBottom="@+id/OrderedCost"
                 android:layout_marginRight="10dp"
                 android:layout_toStartOf="@+id/OrderedCost"
-                android:src="@drawable/cash" />
+                android:src="@drawable/icon_cash" />
 
             <TextView
                 android:id="@+id/OrderedCost"
@@ -376,14 +376,14 @@
             android:layout_alignStart="@+id/OrderedItem"
             android:layout_below="@+id/OrderedInfoBar"
             android:layout_marginTop="15dp"
-            android:background="@drawable/bgcard"
+            android:background="@drawable/shape_card"
             android:backgroundTint="@color/colorAccent">
 
             <Button
                 android:id="@+id/KeepButton"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:background="@drawable/bgstripesrepeat"
+                android:background="@drawable/repeat_stripes"
                 android:text="@string/keep"></Button>
         </RelativeLayout>
 

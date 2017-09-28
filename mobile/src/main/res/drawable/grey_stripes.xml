@@ -11,7 +11,7 @@
     <item>
         <bitmap
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:src="@drawable/bgstripes"
+        android:src="@drawable/repeatable_stripes"
         android:tileMode="repeat"
         android:dither="true" />
     </item>

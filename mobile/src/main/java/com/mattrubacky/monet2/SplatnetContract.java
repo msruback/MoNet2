@@ -80,7 +80,7 @@ public final class SplatnetContract {
                 COLUMN_SPECIAL +" INTEGER, "+
                 COLUMN_WEAPON + " INTEGER REFERENCES weapon(_id), "+
                 COLUMN_NAME +" TEXT, "+
-                COLUMN_ID + " INTEGER, "+
+                COLUMN_ID + " TEXT, "+
                 COLUMN_LEVEL + " INTEGER, "+
                 COLUMN_RANK + " TEXT, "+
                 COLUMN_S_NUM + " TEXT, "+

@@ -3,12 +3,13 @@
     package="com.mattrubacky.monet2">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="MoNet 2"
-        android:logo="@drawable/monet2"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -32,8 +33,9 @@
             </intent-filter>
         </activity>
         <reciever
-            android:process=":remote"
-            android:name=".SplatnetBackgroundService"/>
+            android:enabled="true"
+            android:name="com.mattrubacky.monet2.BattleUpdater">
+        </reciever>
     </application>
 
 </manifest>

@@ -9,7 +9,7 @@
         android:id="@+id/background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/bgsquidsrepeat"
+        android:background="@drawable/repeat_squids"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -34,7 +34,7 @@
                         android:id="@+id/orderTitle"
                         android:layout_width="100dp"
                         android:layout_height="30dp"
-                        android:background="@drawable/bgmaskbanner"
+                        android:background="@drawable/banner_normal"
                         android:backgroundTint="@color/turfPrimary"
                         android:paddingLeft="5dp"
                         android:layout_marginLeft="10dp">
@@ -51,7 +51,7 @@
                     <RelativeLayout
                         android:layout_width="200dp"
                         android:layout_height="30dp"
-                        android:background="@drawable/bgmaskbanner"
+                        android:background="@drawable/banner_normal"
                         android:backgroundTint="@color/rankAccent"
                         android:layout_centerInParent="true"
                         android:paddingLeft="5dp"
@@ -83,13 +83,13 @@
                             android:layout_height="240dp"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
-                            android:background="@drawable/bgcard"
+                            android:background="@drawable/shape_card"
                             android:backgroundTint="#e4e4e4">
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@drawable/bgcirclesrepeat">
+                                android:background="@drawable/repeat_circles">
 
                             </RelativeLayout>
 
@@ -101,7 +101,7 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:src="@drawable/annaki" />
+                                android:src="@drawable/brand_annaki" />
 
                             <ImageView
                                 android:id="@+id/product"
@@ -110,7 +110,7 @@
                                 android:layout_alignBottom="@+id/OrderedBrand"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginBottom="11dp"
-                                android:src="@drawable/bgmaskproduct" />
+                                android:src="@drawable/extra_product" />
 
                             <ImageView
                                 android:id="@+id/OrderedImage"
@@ -118,7 +118,7 @@
                                 android:layout_height="126dp"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
-                                android:src="@drawable/hulapunk" />
+                                android:src="@drawable/hula_punk" />
 
                             <TextView
                                 android:id="@+id/OrderedName"
@@ -143,7 +143,7 @@
                                     android:layout_width="24dp"
                                     android:layout_height="24dp"
                                     android:layout_alignParentEnd="true"
-                                    android:background="@drawable/ability"
+                                    android:background="@drawable/skill_background"
                                     android:padding="2dp">
 
                                     <ImageView
@@ -151,7 +151,7 @@
                                         android:layout_width="36dp"
                                         android:layout_height="36dp"
                                         android:layout_alignParentEnd="true"
-                                        android:src="@drawable/main_ink_saver" />
+                                        android:src="@drawable/skill_main_ink_saver" />
                                 </RelativeLayout>
 
                                 <ImageView
@@ -161,7 +161,7 @@
                                     android:layout_below="@id/mainAbility"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="5dp"
-                                    android:src="@drawable/blankskillslot" />
+                                    android:src="@drawable/skill_blank" />
 
                                 <ImageView
                                     android:id="@+id/OrderedSub2"
@@ -170,7 +170,7 @@
                                     android:layout_below="@id/OrderedSub1"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="5dp"
-                                    android:src="@drawable/blankskillslot" />
+                                    android:src="@drawable/skill_blank" />
 
                                 <ImageView
                                     android:id="@+id/OrderedSub3"
@@ -179,7 +179,7 @@
                                     android:layout_below="@id/OrderedSub2"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginTop="5dp"
-                                    android:src="@drawable/blankskillslot" />
+                                    android:src="@drawable/skill_blank" />
                             </RelativeLayout>
 
                         </RelativeLayout>
@@ -190,7 +190,7 @@
                             android:layout_height="30dp"
                             android:layout_alignStart="@+id/Item"
                             android:layout_marginTop="210dp"
-                            android:background="@drawable/bgcard"
+                            android:background="@drawable/shape_card"
                             android:backgroundTint="@color/merchClothes">
 
                             <RelativeLayout
@@ -202,7 +202,7 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@drawable/bgstripesrepeat"></RelativeLayout>
+                                android:background="@drawable/repeat_stripes"></RelativeLayout>
 
                             <ImageView
                                 android:layout_width="18dp"
@@ -210,7 +210,7 @@
                                 android:layout_alignBottom="@+id/OrderedCost"
                                 android:layout_marginRight="10dp"
                                 android:layout_toStartOf="@+id/OrderedCost"
-                                android:src="@drawable/cash" />
+                                android:src="@drawable/icon_cash" />
 
                             <TextView
                                 android:id="@+id/OrderedCost"
@@ -238,7 +238,7 @@
                         android:layout_width="120dp"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@drawable/bgmaskbanner"
+                        android:background="@drawable/banner_normal"
                         android:backgroundTint="@color/leaguePrimary"
                         android:paddingLeft="5dp">
 

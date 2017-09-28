@@ -6,6 +6,7 @@
 
     <color name="offWhite">#e4e4e4</color>
     <color name="grey">#686868</color>
+    <color name="darkgrey">#4f4f4f</color>
     <color name="transparentgrey">#5d9a9a9a</color>
     <color name="transparentgrey2">#9e9a9a9a</color>
     <color name="transparent">#00ffffff</color>

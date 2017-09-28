@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import java.util.ArrayList;
+
 /**
  * Created by mattr on 9/22/2017.
  */
@@ -16,6 +18,36 @@ public class SplatnetSQL {
     Context context;
     public SplatnetSQL(Context context){
         this.context = context;
+    }
+
+    public ArrayList<Battle> selectBattle(){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        String query = "SELECT * FROM "+ SplatnetContract.Battle.TABLE_NAME;
+        Cursor cursor = database.rawQuery(query,null);
+        ArrayList<Battle> battles = new ArrayList<Battle>();
+        if(cursor.moveToNext()) {
+            do {
+                Battle battle = new Battle();
+                battle.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle._ID));
+                battle.type = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MODE));
+                battle.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_START_TIME));
+
+                Rule rule = new Rule();
+                rule.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
+
+                battle.rule = rule;
+                battles.add(battle);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return battles;
+    }
+    public int battleCount(){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        String query = "SELECT * FROM "+ SplatnetContract.Battle.TABLE_NAME;
+        Cursor cursor = database.rawQuery(query,null);
+        return cursor.getCount();
     }
 
     public boolean existsIn(String tableName,String column, int id){
