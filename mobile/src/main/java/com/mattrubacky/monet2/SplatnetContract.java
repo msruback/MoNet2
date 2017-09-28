@@ -42,6 +42,7 @@ public final class SplatnetContract {
         public static final String TABLE_NAME = "player";
         public static final String COLUMN_BATTLE = "battle";
         public static final String COLUMN_MODE = "mode";
+        public static final String COLUMN_TYPE = "type";
         public static final String COLUMN_POINT = "point";
         public static final String COLUMN_KILL = "kill";
         public static final String COLUMN_ASSIST = "assist";
@@ -81,6 +82,7 @@ public final class SplatnetContract {
                 COLUMN_WEAPON + " INTEGER REFERENCES weapon(_id), "+
                 COLUMN_NAME +" TEXT, "+
                 COLUMN_ID + " TEXT, "+
+                COLUMN_TYPE + " INTEGER, "+ //0: user, 1: ally, 2: foe
                 COLUMN_LEVEL + " INTEGER, "+
                 COLUMN_RANK + " TEXT, "+
                 COLUMN_S_NUM + " TEXT, "+
@@ -109,46 +111,54 @@ public final class SplatnetContract {
         public static final String COLUMN_KIND = "kind";
         public static final String COLUMN_RARITY = "rarity";
         public static final String COLUMN_BRAND = "brand";
+        public static final String COLUMN_URL = "url";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_NAME + " TEXT, "+
                 COLUMN_BRAND +" INTEGER REFERENCES brand(_id), "+
                 COLUMN_KIND + " TEXT, "+
-                COLUMN_RARITY + " INTEGER)";
+                COLUMN_RARITY + " INTEGER, "+
+                COLUMN_URL + " TEXT)";
     }
 
     public static class Brand implements BaseColumns{
         public static final String TABLE_NAME = "brand";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_SKILL = "skill";
+        public static final String COLUMN_URL = "url";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_SKILL + " INTEGER REFERENCES skill(_id), "+
-                COLUMN_NAME + " TEXT)";
+                COLUMN_NAME + " TEXT, " +
+                COLUMN_URL + " TEXT)";
     }
 
     public static class Skill implements BaseColumns{
         public static final String TABLE_NAME = "skill";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_CHUNKABLE = "chunkable";
+        public static final String COLUMN_URL = "url";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+"("+
                 _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_NAME + " TEXT, "+
-                COLUMN_CHUNKABLE + " INTEGER)";
+                COLUMN_CHUNKABLE + " INTEGER, " +
+                COLUMN_URL + " TEXT)";
     }
 
     public static class Weapon implements BaseColumns{
         public static final String TABLE_NAME = "weapon";
         public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_URL = "url";
         public static final String COLUMN_SUB = "sub";
         public static final String COLUMN_SPECIAL = "special";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_NAME + " TEXT, "+
+                COLUMN_URL + " TEXT, "+
                 COLUMN_SUB + " INTEGER REFERENCES sub(_id), "+
                 COLUMN_SPECIAL + " INTEGER REFERENCES special(_id))";
     }
@@ -156,28 +166,34 @@ public final class SplatnetContract {
     public static class Sub implements BaseColumns{
         public static final String TABLE_NAME = "sub";
         public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_URL = "url";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
-                COLUMN_NAME + " TEXT)";
+                COLUMN_NAME + " TEXT, " +
+                COLUMN_URL + " TEXT)";
     }
 
     public static class Special implements BaseColumns{
         public static final String TABLE_NAME = "special";
         public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_URL = "url";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
+                COLUMN_URL + " TEXT, "+
                 COLUMN_NAME + " TEXT)";
     }
 
     public static class Stage implements BaseColumns{
         public static final String TABLE_NAME = "stage";
         public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_URL = "url";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
-                COLUMN_NAME + " TEXT)";
+                COLUMN_NAME + " TEXT, " +
+                COLUMN_URL + "TEXT)";
     }
 
     public static class Splatfest implements BaseColumns{
@@ -188,6 +204,8 @@ public final class SplatnetContract {
         public static final String COLUMN_BRAVO_LONG = "bravo_long";
         public static final String COLUMN_ALPHA_COLOR = "alpha_color";
         public static final String COLUMN_BRAVO_COLOR = "bravo_color";
+        public static final String COLUMN_ALPHA_URL = "alpha_url";
+        public static final String COLUMN_BRAVO_URL = "bravo_url";
         public static final String COLUMN_START_TIME = "start_time";
         public static final String COLUMN_END_TIME = "end_time";
         public static final String COLUMN_ANNOUNCE_TIME = "announce_time";
@@ -211,6 +229,8 @@ public final class SplatnetContract {
                 COLUMN_BRAVO_LONG + " TEXT, "+
                 COLUMN_ALPHA_COLOR + " TEXT, "+
                 COLUMN_BRAVO_COLOR + " TEXT, "+
+                COLUMN_ALPHA_URL + " TEXT, "+
+                COLUMN_BRAVO_URL + " TEXT, "+
                 COLUMN_START_TIME + " INTEGER, "+
                 COLUMN_END_TIME + " INTEGER, "+
                 COLUMN_ANNOUNCE_TIME + " INTEGER, "+
@@ -242,7 +262,6 @@ public final class SplatnetContract {
     public static class Friends implements BaseColumns{
         public static final String TABLE_NAME = "friends";
         public static final String COLUMN_NAME = "name";
-
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " TEXT PRIMARY KEY, "+ //Yes text ids are not ideal, blame Nintendo
                 COLUMN_NAME + " TEXT)";

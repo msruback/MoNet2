@@ -437,7 +437,7 @@ class User{
     public User(){}
 
     @SerializedName("prinicipal_id")
-    int id;
+    String id;
     @SerializedName("nickname")
     String name;
     @SerializedName("player_rank")

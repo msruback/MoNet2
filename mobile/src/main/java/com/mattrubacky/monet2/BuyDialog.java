@@ -137,14 +137,14 @@ public class BuyDialog extends Dialog{
                 imageHandler.downloadImage("brand", gearLocation, brandUrl, getContext());
             }
 
-            //Set the skill_background image
+            //Set the ability image
             String abilityUrl = "https://app.splatoon2.nintendo.net" + toBuy.skill.url;
             String abilityLocation = toBuy.skill.name.toLowerCase().replace(" ", "_");
-            if (imageHandler.imageExists("skill_background", abilityLocation, getContext())) {
-                mainAbility.setImageBitmap(imageHandler.loadImage("skill_background", abilityLocation));
+            if (imageHandler.imageExists("ability", abilityLocation, getContext())) {
+                mainAbility.setImageBitmap(imageHandler.loadImage("ability", abilityLocation));
             } else {
                 Picasso.with(getContext()).load(abilityUrl).into(mainAbility);
-                imageHandler.downloadImage("skill_background", abilityLocation, abilityUrl, getContext());
+                imageHandler.downloadImage("ability", abilityLocation, abilityUrl, getContext());
             }
 
             //Set the number of slots the gear has
@@ -325,22 +325,22 @@ public class BuyDialog extends Dialog{
                 imageHandler.downloadImage("brand", gearLocation, brandUrl, getContext());
             }
 
-            //Set the skill_background image
+            //Set the ability image
             String abilityUrl = "https://app.splatoon2.nintendo.net" + toBuy.skill.url;
             String abilityLocation = toBuy.skill.name.toLowerCase().replace(" ", "_");
-            if (imageHandler.imageExists("skill_background", abilityLocation, getContext())) {
-                orderingMainAbility.setImageBitmap(imageHandler.loadImage("skill_background", abilityLocation));
+            if (imageHandler.imageExists("ability", abilityLocation, getContext())) {
+                orderingMainAbility.setImageBitmap(imageHandler.loadImage("ability", abilityLocation));
             } else {
                 Picasso.with(getContext()).load(abilityUrl).into(orderingMainAbility);
-                imageHandler.downloadImage("skill_background", abilityLocation, abilityUrl, getContext());
+                imageHandler.downloadImage("ability", abilityLocation, abilityUrl, getContext());
             }
             abilityUrl = "https://app.splatoon2.nintendo.net" + alreadyOrdered.skill.url;
             abilityLocation = toBuy.skill.name.toLowerCase().replace(" ", "_");
-            if (imageHandler.imageExists("skill_background", abilityLocation, getContext())) {
-                orderedMainAbility.setImageBitmap(imageHandler.loadImage("skill_background", abilityLocation));
+            if (imageHandler.imageExists("ability", abilityLocation, getContext())) {
+                orderedMainAbility.setImageBitmap(imageHandler.loadImage("ability", abilityLocation));
             } else {
                 Picasso.with(getContext()).load(abilityUrl).into(orderedMainAbility);
-                imageHandler.downloadImage("skill_background", abilityLocation, abilityUrl, getContext());
+                imageHandler.downloadImage("ability", abilityLocation, abilityUrl, getContext());
             }
 
             //Set the number of slots the gear has

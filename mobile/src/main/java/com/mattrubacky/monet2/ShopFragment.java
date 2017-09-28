@@ -194,14 +194,14 @@ public class ShopFragment extends Fragment {
                 imageHandler.downloadImage("brand", gearLocation, brandUrl, getContext());
             }
 
-            //Set the skill_background image
+            //Set the ability image
             String abilityUrl = "https://app.splatoon2.nintendo.net" + ordered.skill.url;
             String abilityLocation = ordered.skill.name.toLowerCase().replace(" ", "_");
-            if (imageHandler.imageExists("skill_background", abilityLocation, getContext())) {
-                mainAbility.setImageBitmap(imageHandler.loadImage("skill_background", abilityLocation));
+            if (imageHandler.imageExists("ability", abilityLocation, getContext())) {
+                mainAbility.setImageBitmap(imageHandler.loadImage("ability", abilityLocation));
             } else {
                 Picasso.with(getContext()).load(abilityUrl).into(mainAbility);
-                imageHandler.downloadImage("skill_background", abilityLocation, abilityUrl, getContext());
+                imageHandler.downloadImage("ability", abilityLocation, abilityUrl, getContext());
             }
 
             //Set the number of slots the gear has
@@ -285,14 +285,14 @@ public class ShopFragment extends Fragment {
                 imageHandler.downloadImage("brand",gearLocation,brandUrl,context);
             }
 
-            //Set the skill_background image
+            //Set the ability image
             String abilityUrl = "https://app.splatoon2.nintendo.net"+product.skill.url;
             String abilityLocation = product.skill.name.toLowerCase().replace(" ","_");
-            if(imageHandler.imageExists("skill_background",abilityLocation,context)){
-                holder.mainAbility.setImageBitmap(imageHandler.loadImage("skill_background",abilityLocation));
+            if(imageHandler.imageExists("ability",abilityLocation,context)){
+                holder.mainAbility.setImageBitmap(imageHandler.loadImage("ability",abilityLocation));
             }else{
                 Picasso.with(context).load(abilityUrl).into(holder.mainAbility);
-                imageHandler.downloadImage("skill_background",abilityLocation,abilityUrl,context);
+                imageHandler.downloadImage("ability",abilityLocation,abilityUrl,context);
             }
 
             //Set the number of slots the gear has
