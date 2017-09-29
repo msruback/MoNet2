@@ -107,6 +107,9 @@ public class ShopFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
+        if(shop!=null){
+            customHandler.post(updateUI);
+        }
     }
 
 

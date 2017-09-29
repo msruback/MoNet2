@@ -65,12 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         Thread t = new Thread(updateTimeline);
         t.start();
-        Thread s = new Thread(updateBattleInfo);
-        s.start();
-
-
-
-
 
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
@@ -176,32 +170,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private Runnable updateBattleInfo = new Runnable() {
-        public void run() {
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            String cookie = settings.getString("cookie","");
-
-            SplatnetSQL database = new SplatnetSQL(getApplicationContext());
-
-            try {
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
-                Splatnet splatnet = retrofit.create(Splatnet.class);
-                Response response;
-
-                response = splatnet.get50Results(cookie).execute();
-                ResultList results = (ResultList) response.body();
-                for(int i = 0;i<results.resultIds.size();i++) {
-                    if (!database.existsIn(SplatnetContract.Battle.TABLE_NAME, SplatnetContract.Battle._ID, results.resultIds.get(i).id)) {
-                        response = splatnet.getBattle(String.valueOf(results.resultIds.get(i).id),cookie).execute();
-                        database.insertBattle((Battle) response.body());
-                    }
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    };
 
 
 

@@ -55,11 +55,7 @@ public class SplatnetSQL {
         database.insert(SplatnetContract.Skill.TABLE_NAME, null, values);
         database.close();
 
-        ImageHandler imageHandler = new ImageHandler();
-        String imageName = skill.name.toLowerCase().replace(" ","_");;
-        if(!imageHandler.imageExists("ability",imageName,context)){
-            imageHandler.downloadImage("ability",imageName,skill.url,context);
-        }
+
     }
 
     public Skill selectSkill(int id){
@@ -75,7 +71,8 @@ public class SplatnetSQL {
             skill.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Skill.COLUMN_NAME));
             skill.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Skill.COLUMN_URL));
         }
-
+        cursor.close();
+        database.close();
         return skill;
     }
 
@@ -91,11 +88,6 @@ public class SplatnetSQL {
         database.insert(SplatnetContract.Sub.TABLE_NAME, null, values);
         database.close();
 
-        ImageHandler imageHandler = new ImageHandler();
-        String imageName = sub.name.toLowerCase().replace(" ","_");;
-        if(!imageHandler.imageExists("sub",imageName,context)){
-            imageHandler.downloadImage("sub",imageName,sub.url,context);
-        }
     }
 
     public Sub selectSub(int id){
@@ -111,7 +103,8 @@ public class SplatnetSQL {
             sub.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Sub.COLUMN_NAME));
             sub.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Sub.COLUMN_URL));
         }
-
+        cursor.close();
+        database.close();
         return sub;
     }
 
@@ -126,11 +119,6 @@ public class SplatnetSQL {
         database.insert(SplatnetContract.Special.TABLE_NAME, null, values);
         database.close();
 
-        ImageHandler imageHandler = new ImageHandler();
-        String imageName = special.name.toLowerCase().replace(" ","_");;
-        if(!imageHandler.imageExists("special",imageName,context)){
-            imageHandler.downloadImage("special",imageName,special.url,context);
-        }
     }
 
     public Special selectSpecial(int id){
@@ -146,7 +134,8 @@ public class SplatnetSQL {
             special.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_NAME));
             special.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_URL));
         }
-
+        cursor.close();
+        database.close();
         return special;
     }
 
@@ -161,17 +150,12 @@ public class SplatnetSQL {
         database.insert(SplatnetContract.Stage.TABLE_NAME, null, values);
         database.close();
 
-        ImageHandler imageHandler = new ImageHandler();
-        String imageName = stage.name.toLowerCase().replace(" ","_");;
-        if(!imageHandler.imageExists("stage",imageName,context)){
-            imageHandler.downloadImage("stage",imageName,stage.image,context);
-        }
     }
 
     public Stage selectStage(int id){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
-        String query = "SELECT * FROM "+ SplatnetContract.Special.TABLE_NAME+" WHERE "+ SplatnetContract.Special._ID+" = "+id;
+        String query = "SELECT * FROM "+ SplatnetContract.Stage.TABLE_NAME+" WHERE "+ SplatnetContract.Stage._ID+" = "+id;
         Cursor cursor = database.rawQuery(query,null);
 
         Stage stage = new Stage();
@@ -181,7 +165,8 @@ public class SplatnetSQL {
             stage.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_NAME));
             stage.image = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_URL));
         }
-
+        cursor.close();
+        database.close();
         return stage;
     }
 
@@ -278,7 +263,6 @@ public class SplatnetSQL {
         ContentValues values = new ContentValues();
 
         values.put(SplatnetContract.Battle._ID,battle.id);
-        values.put(SplatnetContract.Battle.COLUMN_STAGE,battle.stage.name);
         values.put(SplatnetContract.Battle.COLUMN_RESULT,battle.result.name);
         values.put(SplatnetContract.Battle.COLUMN_RULE,battle.rule.name);
         values.put(SplatnetContract.Battle.COLUMN_MODE,battle.type);
@@ -301,6 +285,10 @@ public class SplatnetSQL {
                 values.put(SplatnetContract.Battle.COLUMN_ELAPSED_TIME,battle.time);
                 break;
         }
+        if(!existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,battle.stage.id)){
+            insertStage(battle.stage);
+        }
+        values.put(SplatnetContract.Battle.COLUMN_STAGE,battle.stage.id);
 
         database.insert(SplatnetContract.Battle.TABLE_NAME, null, values);
         insertPlayer(battle.user,battle.type,battle.id,0);
@@ -321,7 +309,7 @@ public class SplatnetSQL {
 
         ArrayList<Battle> battles = new ArrayList<Battle>();
 
-        if(cursor.moveToFirst()) {
+        if(cursor.moveToLast()) {
             do {
                 Battle battle = new Battle();
                 battle.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle._ID));
@@ -335,6 +323,8 @@ public class SplatnetSQL {
                 TeamResult teamResult = new TeamResult();
                 teamResult.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
                 battle.result = teamResult;
+
+                battle.stage = selectStage(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_STAGE)));
 
                 battle.user = selectPlayer(battle.id,0).get(0);
                 battle.myTeam = selectPlayer(battle.id,1);
@@ -361,7 +351,7 @@ public class SplatnetSQL {
 
                 battles.add(battle);
                 num--;
-            } while (cursor.moveToNext()&&num>0);
+            } while (cursor.moveToPrevious()&&num>0);
         }
         cursor.close();
         database.close();
@@ -418,7 +408,10 @@ public class SplatnetSQL {
         SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
         String query = "SELECT * FROM "+ SplatnetContract.Battle.TABLE_NAME;
         Cursor cursor = database.rawQuery(query,null);
-        return cursor.getCount();
+        int count = cursor.getCount();
+        cursor.close();
+        database.close();
+        return count;
     }
 
     //Players
@@ -565,7 +558,7 @@ public class SplatnetSQL {
 
                 User user = new User();
                 user.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_NAME));
-                user.id = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player._ID));
+                user.id = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_ID));
                 user.rank = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_LEVEL));
                 Rank rank = new Rank();
                 rank.rank = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_RANK));
@@ -641,11 +634,6 @@ public class SplatnetSQL {
         database.insert(SplatnetContract.Gear.TABLE_NAME, null, values);
         database.close();
 
-        ImageHandler imageHandler = new ImageHandler();
-        String imageName = gear.name.toLowerCase().replace(" ","_");;
-        if(!imageHandler.imageExists("gear",imageName,context)){
-            imageHandler.downloadImage("gear",imageName,gear.url,context);
-        }
     }
 
     public Gear selectGear(int id){
@@ -664,7 +652,8 @@ public class SplatnetSQL {
             gear.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_URL));
             gear.brand = selectBrand(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_BRAND)));
         }
-
+        cursor.close();
+        database.close();
         return gear;
     }
 
@@ -686,11 +675,6 @@ public class SplatnetSQL {
         database.insert(SplatnetContract.Brand.TABLE_NAME, null, values);
         database.close();
 
-        ImageHandler imageHandler = new ImageHandler();
-        String imageName = brand.name.toLowerCase().replace(" ","_");;
-        if(!imageHandler.imageExists("brand",imageName,context)){
-            imageHandler.downloadImage("brand",imageName,brand.url,context);
-        }
     }
 
     public Brand selectBrand(int id){
@@ -707,7 +691,8 @@ public class SplatnetSQL {
             brand.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Brand.COLUMN_URL));
             brand.skill = selectSkill(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Brand.COLUMN_SKILL)));
         }
-
+        cursor.close();
+        database.close();
         return brand;
     }
 
@@ -717,6 +702,7 @@ public class SplatnetSQL {
 
         values.put(SplatnetContract.Weapon._ID,weapon.id);
         values.put(SplatnetContract.Weapon.COLUMN_NAME,weapon.name);
+        values.put(SplatnetContract.Weapon.COLUMN_URL,weapon.url);
 
         if(!existsIn(SplatnetContract.Sub.TABLE_NAME, SplatnetContract.Sub._ID,weapon.sub.id)){
             insertSub(weapon.sub);
@@ -731,11 +717,6 @@ public class SplatnetSQL {
         database.insert(SplatnetContract.Weapon.TABLE_NAME, null, values);
         database.close();
 
-        ImageHandler imageHandler = new ImageHandler();
-        String imageName = weapon.name.toLowerCase().replace(" ","_");;
-        if(!imageHandler.imageExists("weapon",imageName,context)){
-            imageHandler.downloadImage("weapon",imageName,weapon.url,context);
-        }
     }
 
     public Weapon selectWeapon(int id){
@@ -753,7 +734,8 @@ public class SplatnetSQL {
             weapon.special = selectSpecial(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SPECIAL)));
             weapon.sub = selectSub(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SUB)));
         }
-
+        cursor.close();
+        database.close();
         return weapon;
     }
 

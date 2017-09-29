@@ -19,6 +19,10 @@
     <color name="leaguePrimary">#f02d7d</color>
     <color name="leagueAccent">#00cb07</color>
 
+    <!--Characters-->
+    <color name="pearl">#fa047f</color>
+    <color name="marina">#00e6b7</color>
+
     <!--Merch-->
     <color name="merchHead">#ee156e</color>
     <color name="merchClothes">#1dd6ad</color>

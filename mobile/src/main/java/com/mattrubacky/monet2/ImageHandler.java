@@ -47,7 +47,7 @@ public class ImageHandler {
     }
 
     public void downloadImage(final String location,final String name,String url,Context cxt){
-        Picasso.with(cxt).load(url).resize(1280,720).into(new Target() {
+        Target target = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 try {
@@ -69,6 +69,15 @@ public class ImageHandler {
             @Override
             public void onPrepareLoad(Drawable placeHolderDrawable) {
             }
-        });
+        };
+
+        switch (location){
+            case "stage":
+                Picasso.with(cxt).load(url).resize(1280,720).into(target);
+                break;
+            default:
+                Picasso.with(cxt).load(url).into(target);
+                break;
+        }
     }
 }
