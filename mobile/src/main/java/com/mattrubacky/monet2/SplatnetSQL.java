@@ -739,7 +739,92 @@ public class SplatnetSQL {
         return weapon;
     }
 
+    public void insertWeaponLocker(WeaponStats weaponStats){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(SplatnetContract.WeaponLocker._ID,weaponStats.weapon.id);
+        values.put(SplatnetContract.WeaponLocker.COLUMN_WEAPON,weaponStats.weapon.id);
+        values.put(SplatnetContract.WeaponLocker.COLUMN_LAST_USE_TIME,weaponStats.lastUsed);
+        values.put(SplatnetContract.WeaponLocker.COLUMN_WIN_COUNT,weaponStats.wins);
+        values.put(SplatnetContract.WeaponLocker.COLUMN_LOSE_COUNT,weaponStats.losses);
+        values.put(SplatnetContract.WeaponLocker.COLUMN_TOTAL_PAINT_POINT,weaponStats.totalPaintPoint);
+        values.put(SplatnetContract.WeaponLocker.COLUMN_MAX_WIN_METER,weaponStats.maxWinMeter);
+        values.put(SplatnetContract.WeaponLocker.COLUMN_WIN_METER,weaponStats.winMeter);
+
+        database.insert(SplatnetContract.WeaponLocker.TABLE_NAME, null, values);
+        database.close();
+    }
+
+    public void insertCloset(Gear gear,Skill main, ArrayList<Skill> subs,Battle battle){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(SplatnetContract.Closet._ID,gear.id);
+        values.put(SplatnetContract.Closet.COLUMN_GEAR,gear.id);
+        values.put(SplatnetContract.Closet.COLUMN_MAIN,main.id);
+        if(subs.get(0)!=null){
+            values.put(SplatnetContract.Closet.COLUMN_SUB_1,subs.get(0).id);
+            if(subs.get(1)!=null){
+                values.put(SplatnetContract.Closet.COLUMN_SUB_2,subs.get(1).id);
+                if(subs.get(2)!=null){
+                    values.put(SplatnetContract.Closet.COLUMN_SUB_3,subs.get(2).id);
+                }
+            }
+        }
+
+        values.put(SplatnetContract.Closet.COLUMN_LAST_USE_TIME,battle.start);
+
+        database.insert(SplatnetContract.Closet.TABLE_NAME, null, values);
+        database.close();
+    }
+
+    public void updateCloset(Gear gear,Skill main,ArrayList<Skill> subs, Battle battle){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(SplatnetContract.Closet.COLUMN_MAIN,main.id);
+        if(subs.get(0)!=null){
+            values.put(SplatnetContract.Closet.COLUMN_SUB_1,subs.get(0).id);
+            if(subs.get(1)!=null){
+                values.put(SplatnetContract.Closet.COLUMN_SUB_2,subs.get(1).id);
+                if(subs.get(2)!=null){
+                    values.put(SplatnetContract.Closet.COLUMN_SUB_3,subs.get(2).id);
+                }
+            }
+        }
+
+        values.put(SplatnetContract.Closet.COLUMN_LAST_USE_TIME,battle.start);
+
+        String selection = SplatnetContract.Splatfest._ID + " LIKE ?";
+        String[] args = {String.valueOf(gear.id)};
+
+        database.update(SplatnetContract.Splatfest.TABLE_NAME, values,selection,args);
+        database.close();
+    }
+
+    public void insertPostcard(StageStats stageStats){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(SplatnetContract.StagePostcards._ID,stageStats.stage.id);
+        values.put(SplatnetContract.StagePostcards.COLUMN_STAGE,stageStats.stage.id);
+        values.put(SplatnetContract.StagePostcards.COLUMN_RAINMAKER_WIN,stageStats.rainmakerWin);
+        values.put(SplatnetContract.StagePostcards.COLUMN_RAINMAKER_LOSE,stageStats.rainmakerLose);
+        values.put(SplatnetContract.StagePostcards.COLUMN_SPLATZONE_WIN,stageStats.splatzonesWin);
+        values.put(SplatnetContract.StagePostcards.COLUMN_SPLATZONE_LOSE,stageStats.splatzonesLose);
+        values.put(SplatnetContract.StagePostcards.COLUMN_TOWER_WIN,stageStats.towerWin);
+        values.put(SplatnetContract.StagePostcards.COLUMN_TOWER_LOSE,stageStats.towerLose);
+        values.put(SplatnetContract.StagePostcards.COLUMN_LAST_PLAY_TIME,stageStats.lastPlayed);
+
+
+        database.insert(SplatnetContract.Closet.TABLE_NAME, null, values);
+        database.close();
+    }
+
 }
+
+
 class SplatnetSQLHelper extends SQLiteOpenHelper {
 
 

@@ -278,6 +278,7 @@ public final class SplatnetContract {
         public static final String COLUMN_LAST_USE_TIME = "last_use_time";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_WEAPON + " INTEGER REFERENCES weapon(_id), "+
                 COLUMN_WIN_METER + " REAL, "+
                 COLUMN_WIN_COUNT + " INTEGER, "+
@@ -287,62 +288,54 @@ public final class SplatnetContract {
                 COLUMN_LAST_USE_TIME + " INTEGER)";
     }
 
-    public static class Closet{
+    public static class Closet implements BaseColumns{
         public static final String TABLE_NAME = "closet";
         public static final String COLUMN_GEAR = "gear";
         public static final String COLUMN_MAIN = "main";
         public static final String COLUMN_SUB_1 = "sub_1";
         public static final String COLUMN_SUB_2 = "sub_2";
         public static final String COLUMN_SUB_3 = "sub_3";
-        public static final String COLUMN_WIN_COUNT = "win_count";
-        public static final String COLUMN_LOSE_COUNT = "lose_count";
         public static final String COLUMN_LAST_USE_TIME = "last_use_time";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_GEAR + " INTEGER REFERENCES gear(_id), "+
                 COLUMN_MAIN + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_SUB_1 + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_SUB_2 + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_SUB_3 + " INTEGER REFERENCES skill(_id), "+
-                COLUMN_WIN_COUNT + " INTEGER, "+
-                COLUMN_LOSE_COUNT + " INTEGER, "+
                 COLUMN_LAST_USE_TIME + " INTEGER)";
     }
 
-    public static class StagePostcards{
+    public static class StagePostcards implements BaseColumns{
         public static final String TABLE_NAME = "stage_postcards";
         public static final String COLUMN_STAGE = "stage";
         public static final String COLUMN_SPLATZONE_WIN = "splatzone_win";
         public static final String COLUMN_TOWER_WIN = "tower_win";//yagura
         public static final String COLUMN_RAINMAKER_WIN = "rainmaker_win";//hoko
-        public static final String COLUMN_TURFWAR_WIN = "turfwar_win";
-        public static final String COLUMN_SPLATFEST_WIN = "splatfet_win";
         public static final String COLUMN_SPLATZONE_LOSE = "splatzone_lose";
         public static final String COLUMN_TOWER_LOSE = "tower_lose";
         public static final String COLUMN_RAINMAKER_LOSE = "rainmaker_lose";
-        public static final String COLUMN_TURFWAR_LOSE = "turfwar_lose";
-        public static final String COLUMN_SPLATFEST_LOSE = "splatfest_lose";
+        public static final String COLUMN_LAST_PLAY_TIME = "last_play_time";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 COLUMN_STAGE + " INTEGER REFERENCES stage(_id), "+
                 COLUMN_SPLATZONE_WIN + " INTEGER, "+
                 COLUMN_TOWER_WIN + " INTEGER, "+
                 COLUMN_RAINMAKER_WIN + " INTEGER, "+
-                COLUMN_TURFWAR_WIN + " INTEGER, "+
-                COLUMN_SPLATFEST_WIN + " INTEGER, "+
                 COLUMN_SPLATZONE_LOSE + " INTEGER, "+
                 COLUMN_TOWER_LOSE + " INTEGER, "+
                 COLUMN_RAINMAKER_LOSE + " INTEGER, "+
-                COLUMN_TURFWAR_LOSE + " INTEGER, "+
-                COLUMN_SPLATFEST_LOSE + " INTEGER)";
+                COLUMN_LAST_PLAY_TIME +" INTEGER)";
     }
 
-    public static class ChunkBag{
+    public static class ChunkBag implements BaseColumns{
         public static final String TABLE_NAME = "chunk_bag";
         public static final String COLUMN_SKILL = "skill";
         public static final String COLUMN_COUNT = "count";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_SKILL + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_COUNT + " INTEGER)";
     }
