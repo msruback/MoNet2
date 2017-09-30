@@ -24,6 +24,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -50,7 +52,10 @@ public class MainActivity extends AppCompatActivity {
         titles = new ArrayList<String>();
         titles.add("Rotation");
         titles.add("Shop");
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        titles.add(settings.getString("name","User"));
         titles.add("Battles");
+
         //Add fragments
         rotation = new RotationFragment();
         shop = new ShopFragment();
@@ -58,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         String cookie ="iksm_session=7d9c8df432370bcd88638d6bfca506e1f2f450ef";
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor edit = settings.edit();
         edit.putString("cookie",cookie);
         edit.commit();
@@ -117,9 +121,12 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
                 break;
             case 2:
+                break;
+            case 3:
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_container,battleList)
                         .commit();
+                break;
         }
 
         // Insert the fragment by replacing any existing fragment
@@ -154,12 +161,32 @@ public class MainActivity extends AppCompatActivity {
                 String cookie = settings.getString("cookie","");
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
+                SplatnetSQL database = new SplatnetSQL(getApplicationContext());
+
+
                 Call<Timeline> getTimeline = splatnet.getTimeline(cookie);
                 Response response = getTimeline.execute();
+
                 if(response.isSuccessful()){
                     Timeline timeline = (Timeline) response.body();
                     SharedPreferences.Editor edit = settings.edit();
-                    edit.putString("unique_id",timeline.uniqueID);
+                    Gson gson = new Gson();
+                    String json = gson.toJson(timeline.currentRun.rewardGear.gear);
+                    edit.putString("reward_gear",json);
+                    edit.commit();
+                    if(!database.existsIn(SplatnetContract.Gear.TABLE_NAME, SplatnetContract.Gear._ID,timeline.currentRun.rewardGear.gear.id)){
+                        database.insertGear(timeline.currentRun.rewardGear.gear);
+                    }
+                }else{
+                }
+                Call<Record> getRecords = splatnet.getRecords(cookie);
+                response = getRecords.execute();
+                if(response.isSuccessful()){
+                    Record record = (Record) response.body();
+                    SharedPreferences.Editor edit = settings.edit();
+                    Gson gson = new Gson();
+                    edit.putString("unique_id",record.records.unique_id);
+                    edit.putString("name",record.records.user.name);
                     edit.commit();
                 }else{
 

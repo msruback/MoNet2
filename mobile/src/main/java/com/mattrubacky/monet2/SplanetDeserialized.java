@@ -263,7 +263,7 @@ class Skill{
 }
 
 class Timeline {
-    public Timeline(){};
+    public Timeline(){}
     @SerializedName("unique_id")
     String uniqueID;
 
@@ -271,7 +271,19 @@ class Timeline {
     GrizzCo currentRun;
 }
 class GrizzCo{
-    public GrizzCo(){};
+    public GrizzCo(){}
+
+    @SerializedName("reward_gear")
+    RewardGear rewardGear;
+}
+class RewardGear{
+    public RewardGear(){}
+
+    @SerializedName("available_time")
+    long available;
+
+    @SerializedName("gear")
+    Gear gear;
 }
 
 
@@ -436,6 +448,8 @@ class SplatfestGrade{
 class User{
     public User(){}
 
+    @SerializedName("unique_id")
+    String uniqueId;
     @SerializedName("prinicipal_id")
     String id;
     @SerializedName("nickname")

@@ -35,7 +35,7 @@ public interface Splatnet {
     Call<Battle> getBattle(@Path("battle") String battle,@Header("Cookie") String Cookie);
 
     @GET("api/records")
-    Call<ResponseBody> getRecords(@Header("Cookie") String cookie);
+    Call<Record> getRecords(@Header("Cookie") String cookie);
 
     @GET("api/records/hero")
     Call<ResponseBody> getHeroData(@Header("Cookie") String cookie);
@@ -69,7 +69,6 @@ public interface Splatnet {
             "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/55.0.2883.91 Safari/537.36",
             "X-Requested-With: XMLHttpRequest",
             "origin: https://app.splatoon2.nintendo.net",
-            "content-type: multipart/form-data; boundary=----WebKitFormBoundary4qpiBomwB1YQG1QH",
             "Connection: keep-alive"
     })
     @Multipart
