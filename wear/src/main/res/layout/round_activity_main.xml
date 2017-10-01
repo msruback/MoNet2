@@ -50,7 +50,7 @@
 
                 <RelativeLayout
                     android:layout_width="200dp"
-                    android:layout_height="80dp"
+                    android:layout_height="105dp"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/shape_card"
                     android:backgroundTint="@color/turfPrimary">
@@ -59,20 +59,41 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/repeat_zigzag"></RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="7dp"
+                        android:id="@+id/turfModeLayout">
+                        <ImageView
+                            android:id="@+id/regularIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/battle_regular"/>
+                        <TextView
+                            android:id="@+id/TurfMode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/regularIcon"
+                            android:layout_centerVertical="true"
+                            android:text="Turf War" />
+                    </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/turfStageA"
+                        android:id="@+id/turfStageALayout"
                         android:layout_width="190dp"
                         android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@+id/turfModeLayout"
                         android:background="@drawable/shape_card"
                         android:backgroundTint="@color/transparentgrey"
                         android:paddingEnd="5dp"
                         android:paddingStart="5dp">
 
                         <TextView
+                            android:id="@+id/TurfStageA"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -80,11 +101,11 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/turfStageB"
+                        android:id="@+id/turfStageBLayout"
                         android:layout_width="190dp"
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
-                        android:layout_below="@+id/turfStageA"
+                        android:layout_below="@+id/turfStageALayout"
                         android:layout_marginEnd="5dp"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/shape_card"
@@ -93,6 +114,7 @@
                         android:paddingStart="5dp">
 
                         <TextView
+                            android:id="@+id/TurfStageB"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -110,7 +132,7 @@
 
                 <RelativeLayout
                     android:layout_width="200dp"
-                    android:layout_height="80dp"
+                    android:layout_height="105dp"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/shape_card"
                     android:backgroundTint="@color/rankPrimary">
@@ -121,18 +143,43 @@
                         android:background="@drawable/repeat_zigzag"></RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rankModeLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="7dp">
+
+                        <ImageView
+                            android:id="@+id/rankedIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/battle_ranked" />
+
+                        <TextView
+                            android:id="@+id/RankMode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/rankedIcon"
+                            android:text="Rainmaker" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:id="@+id/rankStageA"
                         android:layout_width="190dp"
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="5dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@+id/rankModeLayout"
                         android:background="@drawable/shape_card"
                         android:backgroundTint="@color/transparentgrey"
                         android:paddingEnd="5dp"
                         android:paddingStart="5dp">
 
                         <TextView
+                            android:id="@+id/RankStageA"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -153,6 +200,7 @@
                         android:paddingStart="5dp">
 
                         <TextView
+                            android:id="@+id/RankStageB"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -170,7 +218,7 @@
 
                 <RelativeLayout
                     android:layout_width="200dp"
-                    android:layout_height="80dp"
+                    android:layout_height="105dp"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/shape_card"
                     android:backgroundTint="@color/leaguePrimary">
@@ -179,6 +227,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/repeat_zigzag"></RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/leagueModeLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="7dp">
+
+                        <ImageView
+                            android:id="@+id/leagueIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/battle_league" />
+
+                        <TextView
+                            android:id="@+id/LeagueMode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/leagueIcon"
+                            android:text="Rainmaker" />
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/leagueStageA"
@@ -186,13 +256,15 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="5dp"
-                        android:layout_marginTop="7dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@+id/leagueModeLayout"
                         android:background="@drawable/shape_card"
                         android:backgroundTint="@color/transparentgrey"
                         android:paddingEnd="5dp"
                         android:paddingStart="5dp">
 
                         <TextView
+                            android:id="@+id/LeagueStageA"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -213,6 +285,7 @@
                         android:paddingStart="5dp">
 
                         <TextView
+                            android:id="@+id/LeagueStageB"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"

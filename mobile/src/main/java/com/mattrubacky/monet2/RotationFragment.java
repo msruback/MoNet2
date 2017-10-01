@@ -36,6 +36,8 @@ public class RotationFragment extends Fragment {
     Schedules schedules;
     android.os.Handler customHandler;
     ViewGroup rootView;
+    WearLink wearLink;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,6 +62,8 @@ public class RotationFragment extends Fragment {
             schedules.ranked = new ArrayList<TimePeriod>();
             schedules.league = new ArrayList<TimePeriod>();
         }
+
+        wearLink = new WearLink(getContext());
 
         ViewPager TurfPager = (ViewPager) rootView.findViewById(R.id.TurfPager);
         ViewPager RankPager = (ViewPager) rootView.findViewById(R.id.RankedPager);
@@ -137,6 +141,7 @@ public class RotationFragment extends Fragment {
         edit.putString("rotationState",json);
         edit.commit();
         customHandler.removeCallbacks(updateUI);
+        wearLink.closeConnection();
     }
 
     @Override
@@ -148,6 +153,7 @@ public class RotationFragment extends Fragment {
         if(schedules!=null){
             customHandler.post(updateUI);
         }
+        wearLink.openConnection();
     }
 
     //Get Rotation Data
@@ -165,17 +171,8 @@ public class RotationFragment extends Fragment {
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
 
-//                //Check if cookie is valid
-//                if ((settings.getLong("cookie_expire", 0)*1000) < now) {
-//                    //Replace cookie
-//                    CookieManager cookieManager = new CookieManager();
-//                    cookie = cookieManager.getCookie(settings.getString("token",""),getContext());
-//
-//                } else {
-                    //Retrieve cookie
-                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    cookie = settings.getString("cookie","");
-//                }
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                cookie = settings.getString("cookie","");
                 Call<Schedules> rotationGet = splatnet.getSchedules(cookie);
                 Response response = rotationGet.execute();
                 if(response.isSuccessful()){
@@ -241,6 +238,7 @@ public class RotationFragment extends Fragment {
             TurfPager.setAdapter(turfAdapter);
             RankPager.setAdapter(rankAdapter);
             LeaguePager.setAdapter(leagueAdapter);
+            wearLink.sendRotation(schedules);
         }
     };
 

@@ -1,6 +1,7 @@
 package com.mattrubacky.monet2;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -623,4 +624,25 @@ class TeamResult{
 
     @SerializedName("name")
     String name;
+}
+
+
+//Not Technically from Splatnet, but small enough to include as a tagalong
+class SalmonSchedule{
+    public SalmonSchedule(){}
+    @SerializedName("schedule")
+    ArrayList<SalmonRun> schedule;
+}
+class SalmonRun {
+    public SalmonRun() {
+    }
+
+    @SerializedName("start")
+    long startTime;
+    @SerializedName("end")
+    long endTime;
+    @SerializedName("stage")
+    String stage;
+    @SerializedName("weapons")
+    ArrayList<Weapon> weapons;
 }

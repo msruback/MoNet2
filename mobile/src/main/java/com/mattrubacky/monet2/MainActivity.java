@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -61,11 +67,12 @@ public class MainActivity extends AppCompatActivity {
         shop = new ShopFragment();
         battleList = new BattleListFragment();
 
-
         String cookie ="iksm_session=7d9c8df432370bcd88638d6bfca506e1f2f450ef";
         SharedPreferences.Editor edit = settings.edit();
         edit.putString("cookie",cookie);
         edit.commit();
+
+
 
         Thread t = new Thread(updateTimeline);
         t.start();
