@@ -1,15 +1,305 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/repeat_squids"
     android:orientation="vertical"
     tools:context="com.mattrubacky.monet2.MapRotation"
     tools:deviceIds="wear_square">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_square" />
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/repeat_stripes"></RelativeLayout>
+
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Rotation"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titleLayout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <RelativeLayout
+                android:id="@+id/TurfWar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="200dp"
+                    android:layout_height="105dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/turfPrimary">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/repeat_zigzag"></RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/turfModeLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="7dp">
+
+                        <ImageView
+                            android:id="@+id/regularIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/battle_regular" />
+
+                        <TextView
+                            android:id="@+id/TurfMode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/regularIcon"
+                            android:text="Turf War" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/turfStageALayout"
+                        android:layout_width="190dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/turfModeLayout"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/transparentgrey"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp">
+
+                        <TextView
+                            android:id="@+id/TurfStageA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Humpback Pumptrack" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/turfStageBLayout"
+                        android:layout_width="190dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/turfStageALayout"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/transparentgrey"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp">
+
+                        <TextView
+                            android:id="@+id/TurfStageB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Inkblot Art Academy" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Ranked"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TurfWar"
+                android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="200dp"
+                    android:layout_height="105dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/rankPrimary">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/repeat_zigzag"></RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rankModeLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="7dp">
+
+                        <ImageView
+                            android:id="@+id/rankedIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/battle_ranked" />
+
+                        <TextView
+                            android:id="@+id/RankMode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/rankedIcon"
+                            android:text="Rainmaker" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rankStageA"
+                        android:layout_width="190dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/rankModeLayout"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/transparentgrey"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp">
+
+                        <TextView
+                            android:id="@+id/RankStageA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Humpback Pumptrack" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rankStageB"
+                        android:layout_width="190dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/rankStageA"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/transparentgrey"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp">
+
+                        <TextView
+                            android:id="@+id/RankStageB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Inkblot Art Academy" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/League"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Ranked"
+                android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="200dp"
+                    android:layout_height="105dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/leaguePrimary">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/repeat_zigzag"></RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/leagueModeLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="7dp">
+
+                        <ImageView
+                            android:id="@+id/leagueIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/battle_league" />
+
+                        <TextView
+                            android:id="@+id/LeagueMode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/leagueIcon"
+                            android:text="Rainmaker" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/leagueStageA"
+                        android:layout_width="190dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/leagueModeLayout"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/transparentgrey"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp">
+
+                        <TextView
+                            android:id="@+id/LeagueStageA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Humpback Pumptrack" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/leagueStageB"
+                        android:layout_width="190dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/leagueStageA"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/transparentgrey"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp">
+
+                        <TextView
+                            android:id="@+id/LeagueStageB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Inkblot Art Academy" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
+

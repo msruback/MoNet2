@@ -3,6 +3,7 @@
     package="com.mattrubacky.monet2">
 
     <uses-feature android:name="android.hardware.type.watch" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -20,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TurfDetail"
+            android:label="@string/title_activity_turf_detail"></activity>
     </application>
 
 </manifest>

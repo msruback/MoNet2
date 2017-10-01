@@ -58,10 +58,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
             public void onLayoutInflated(WatchViewStub stub) {
 
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                String cookie ="iksm_session=7d9c8df432370bcd88638d6bfca506e1f2f450ef";
-                SharedPreferences.Editor edit = settings.edit();
-                edit.putString("cookie",cookie);
-                edit.commit();
+
 
                 if(settings.contains("rotationState")) {
                     Gson gson = new Gson();
@@ -132,7 +129,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
-        
+
         googleApiClient.connect();
     }
 
