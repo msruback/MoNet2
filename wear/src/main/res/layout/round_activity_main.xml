@@ -13,7 +13,8 @@
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:elevation="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -45,8 +45,12 @@ public class WearLink
             schedules = settings.getString("rotationState","");
         }
 
+        Gson gson = new Gson();
+        Schedules scheduleObj=gson.fromJson(schedules,Schedules.class);;
+
         PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/schedules");
         putDataMapReq.getDataMap().putString("schedule",schedules);
+        putDataMapReq.getDataMap().putLong("rotationNum",scheduleObj.regular.get(0).end);
         PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
         Wearable.DataApi.putDataItem(googleApiClient, putDataReq);
     }
