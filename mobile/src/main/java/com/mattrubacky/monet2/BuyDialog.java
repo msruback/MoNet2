@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Downloader;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Request;
@@ -402,6 +403,16 @@ public class BuyDialog extends Dialog{
                 Response response = buy.execute();
                 System.out.println("Code: "+response.code());
                 loadingDialog.dismiss();
+                Gson gson = new Gson();
+                Annie shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
+                shop.ordered.gear = toBuy.gear;
+                shop.ordered.price = toBuy.price;
+                shop.ordered.skill = toBuy.skill;
+
+                SharedPreferences.Editor edit = settings.edit();
+
+                edit.putString("shopState",gson.toJson(shop));
+                edit.commit();
             } catch (IOException e) {
                 e.printStackTrace();
             }

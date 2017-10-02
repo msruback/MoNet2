@@ -88,6 +88,10 @@ public class ShopFragment extends Fragment {
 
         customHandler = new android.os.Handler();
         customHandler.post(updateNeeded);
+
+        while((shop.merch.get(0).endTime*1000)<new Date().getTime()){
+            shop.merch.remove(0);
+        }
         return rootView;
     }
 
@@ -101,6 +105,7 @@ public class ShopFragment extends Fragment {
         edit.putString("shopState",json);
         edit.commit();
         updateShopData.cancel(true);
+        customHandler.removeCallbacks(updateNeeded);
     }
 
     @Override
@@ -109,9 +114,6 @@ public class ShopFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
-        if(shop!=null){
-            updateShopData.execute();
-        }
     }
 
     private void updateUi(){

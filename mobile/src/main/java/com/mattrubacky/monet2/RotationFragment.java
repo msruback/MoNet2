@@ -108,6 +108,10 @@ public class RotationFragment extends Fragment {
             customHandler.post(update2Hours);
         }else {
             if ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
+                do{
+                    schedules.dequeue();
+                }while((schedules.regular.get(0).end * 1000)< new Date().getTime());
+                updateUi();
                 customHandler.post(update2Hours);
             }else{
                 Calendar now = Calendar.getInstance();
@@ -150,6 +154,7 @@ public class RotationFragment extends Fragment {
         edit.commit();
         wearLink.closeConnection();
         updateRotationData.cancel(true);
+        customHandler.removeCallbacks(update2Hours);
     }
 
     @Override
@@ -158,9 +163,6 @@ public class RotationFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
-        if(schedules!=null){
-            updateUi();
-        }
         wearLink.openConnection();
     }
 

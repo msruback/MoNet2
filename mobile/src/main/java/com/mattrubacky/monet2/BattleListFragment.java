@@ -227,7 +227,6 @@ public class BattleListFragment extends Fragment {
             nextUpdate.setTimeInMillis(now.getTimeInMillis());
             int hour = now.get(Calendar.HOUR);
             hour+=1;
-            int zero = 0;
             nextUpdate.set(Calendar.HOUR,hour);
             nextUpdate.set(Calendar.MINUTE,0);
             nextUpdate.set(Calendar.SECOND,0);
