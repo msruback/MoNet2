@@ -3,6 +3,7 @@ package com.mattrubacky.monet2;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
@@ -42,6 +43,8 @@ public class BattleListFragment extends Fragment {
     SplatnetSQL database;
     android.os.Handler customHandler;
     ArrayList<Battle> battles;
+    UpdateBattleData updateBattleData;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,6 +53,8 @@ public class BattleListFragment extends Fragment {
 
         customHandler = new android.os.Handler();
         database = new SplatnetSQL(getContext());
+
+        updateBattleData = new UpdateBattleData();
 
 
         customHandler.post(update2Hours);
@@ -66,7 +71,7 @@ public class BattleListFragment extends Fragment {
         String json = gson.toJson(battles);
         edit.putString("recentBattles",json);
         edit.commit();
-        customHandler.removeCallbacks(updateUI);
+        updateBattleData.cancel(true);
     }
 
     @Override
@@ -76,7 +81,7 @@ public class BattleListFragment extends Fragment {
         Gson gson = new Gson();
         battles = gson.fromJson(settings.getString("recentBattles",""),new TypeToken<ArrayList<Battle>>(){}.getType());
         if(battles!=null){
-            customHandler.post(updateUI);
+            updateUi();
         }
     }
 
@@ -160,22 +165,24 @@ public class BattleListFragment extends Fragment {
         }
     }
 
-    private Runnable updateUI = new Runnable() {
-        public void run() {
+    private void updateUi(){
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
-            Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
+        BattleAdapter battleAdapter = new BattleAdapter(getContext(),battles);
+        ListView listView = (ListView) rootView.findViewById(R.id.battleList);
+        listView.setAdapter(battleAdapter);
 
-            BattleAdapter battleAdapter = new BattleAdapter(getContext(),battles);
-            ListView listView = (ListView) rootView.findViewById(R.id.battleList);
-            listView.setAdapter(battleAdapter);
+        TextView count = (TextView) rootView.findViewById(R.id.count);
+        count.setTypeface(font);
+        count.setText(String.valueOf(database.battleCount()));
+    }
 
-            TextView count = (TextView) rootView.findViewById(R.id.count);
-            count.setTypeface(font);
-            count.setText(String.valueOf(database.battleCount()));
-        }
-    };
-    private Runnable updateBattleInfo = new Runnable() {
-        public void run() {
+    private class UpdateBattleData extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected void onPreExecute() {}
+        @Override
+        protected Void doInBackground(Void... params) {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
             String cookie = settings.getString("cookie","");
 
@@ -200,15 +207,20 @@ public class BattleListFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return null;
         }
-    };
+
+        @Override
+        protected void onPostExecute(Void result) {
+            updateUi();
+        }
+
+    }
 
     private Runnable update2Hours = new Runnable()
     {
         public void run() {
-            Thread t = new Thread(updateBattleInfo);
-            customHandler.postDelayed(updateUI,20000);
-            t.start();
+            updateBattleData.execute();
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());
             Calendar nextUpdate = Calendar.getInstance();

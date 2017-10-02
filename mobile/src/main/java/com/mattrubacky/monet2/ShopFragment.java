@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.os.Process;
 import android.preference.PreferenceManager;
@@ -30,6 +31,7 @@ import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,6 +48,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ShopFragment extends Fragment {
     ViewGroup rootView;
     android.os.Handler customHandler;
+    UpdateShopData updateShopData;
     Annie shop;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,8 +68,7 @@ public class ShopFragment extends Fragment {
             shop = new Annie();
             shop.merch = new ArrayList<Product>();
         }
-
-
+        updateShopData = new UpdateShopData();
         RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);
         currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
         MerchAdapter merchAdapter = new MerchAdapter(getContext(),shop.merch);
@@ -98,7 +100,7 @@ public class ShopFragment extends Fragment {
         String json = gson.toJson(shop);
         edit.putString("shopState",json);
         edit.commit();
-        customHandler.removeCallbacks(updateUI);
+        updateShopData.cancel(true);
     }
 
     @Override
@@ -108,22 +110,17 @@ public class ShopFragment extends Fragment {
         Gson gson = new Gson();
         shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
         if(shop!=null){
-            customHandler.post(updateUI);
+            updateShopData.execute();
         }
     }
 
-
-    private Runnable updateUI = new Runnable(){
-        @Override
-        public void run() {
-
-            RecyclerView currentMerch = (RecyclerView) getActivity().findViewById(R.id.CurrentMerch);
-            currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
-            MerchAdapter merchAdapter = new MerchAdapter(getContext(),shop.merch);
-            currentMerch.setAdapter(merchAdapter);
-            orderAdapter();
-        }
-    };
+    private void updateUi(){
+        RecyclerView currentMerch = (RecyclerView) getActivity().findViewById(R.id.CurrentMerch);
+        currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        MerchAdapter merchAdapter = new MerchAdapter(getContext(),shop.merch);
+        currentMerch.setAdapter(merchAdapter);
+        orderAdapter();
+    }
 
     //Adapters
     public void orderAdapter(){
@@ -380,8 +377,12 @@ public class ShopFragment extends Fragment {
         }
     }
 
-    private Runnable updateShopData = new Runnable() {
-        public void run() {
+    private class UpdateShopData extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected void onPreExecute() {}
+        @Override
+        protected Void doInBackground(Void... params) {
             try{
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
                 String cookie = settings.getString("cookie","");
@@ -397,14 +398,20 @@ public class ShopFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return null;
         }
-    };
+
+        @Override
+        protected void onPostExecute(Void result) {
+            updateUi();
+        }
+
+    }
+
     public Runnable updateNeeded = new Runnable()
     {
         public void run() {
-            Thread t = new Thread(updateShopData);
-            customHandler.postDelayed(updateUI,10000);
-            t.start();
+            updateShopData.execute();
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());
             Calendar nextUpdate = Calendar.getInstance();

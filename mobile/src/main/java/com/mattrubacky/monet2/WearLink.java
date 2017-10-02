@@ -16,6 +16,8 @@ import com.google.android.gms.wearable.Wearable;
 import com.google.android.gms.wearable.WearableListenerService;
 import com.google.gson.Gson;
 
+import java.util.Date;
+
 /**
  * Created by mattr on 9/30/2017.
  */
@@ -50,7 +52,7 @@ public class WearLink
 
         PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/schedules");
         putDataMapReq.getDataMap().putString("schedule",schedules);
-        putDataMapReq.getDataMap().putLong("rotationNum",scheduleObj.regular.get(0).end);
+        putDataMapReq.getDataMap().putLong("time",new Date().getTime());
         PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
         Wearable.DataApi.putDataItem(googleApiClient, putDataReq);
     }
@@ -71,6 +73,7 @@ public class WearLink
         if(nodeConnected){
             PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/schedules");
             putDataMapReq.getDataMap().putString("schedule",this.schedules);
+            putDataMapReq.getDataMap().putLong("time",new Date().getTime());
             PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
             Wearable.DataApi.putDataItem(googleApiClient, putDataReq);
         }

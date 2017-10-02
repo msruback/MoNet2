@@ -177,12 +177,14 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Timeline timeline = (Timeline) response.body();
                     SharedPreferences.Editor edit = settings.edit();
-                    Gson gson = new Gson();
-                    String json = gson.toJson(timeline.currentRun.rewardGear.gear);
-                    edit.putString("reward_gear",json);
-                    edit.commit();
-                    if(!database.existsIn(SplatnetContract.Gear.TABLE_NAME, SplatnetContract.Gear._ID,timeline.currentRun.rewardGear.gear.id)){
-                        database.insertGear(timeline.currentRun.rewardGear.gear);
+                    if(timeline.currentRun.rewardGear!=null) {
+                        Gson gson = new Gson();
+                        String json = gson.toJson(timeline.currentRun.rewardGear.gear);
+                        edit.putString("reward_gear", json);
+                        edit.commit();
+                        if (!database.existsIn(SplatnetContract.Gear.TABLE_NAME, SplatnetContract.Gear._ID, timeline.currentRun.rewardGear.gear.id)) {
+                            database.insertGear(timeline.currentRun.rewardGear.gear);
+                        }
                     }
                 }else{
                 }

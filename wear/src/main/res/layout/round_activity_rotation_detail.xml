@@ -41,7 +41,10 @@
             android:id="@+id/times"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/repeat_spots" />
+            android:paddingBottom="30dp"
+            android:background="@drawable/repeat_spots" >
+
+        </ListView>
     </RelativeLayout>
 
 </RelativeLayout>

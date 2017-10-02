@@ -1,9 +1,11 @@
 package com.mattrubacky.monet2;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -11,11 +13,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.wearable.view.WatchViewStub;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Releasable;
 import com.google.android.gms.common.data.DataBuffer;
 import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.DataEvent;
@@ -44,6 +49,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
     Schedules schedules;
     private GoogleApiClient googleApiClient;
     WatchViewStub stub;
+    UpdateRotationData updateRotationData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,9 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 .addOnConnectionFailedListener(this)
                 .build();
         googleApiClient.connect();
+
+        updateRotationData = new UpdateRotationData();
+
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
@@ -85,19 +94,24 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
 
 
                 TextView title = (TextView) stub.findViewById(R.id.Title);
+
+                RelativeLayout TurfWar = (RelativeLayout) stub.findViewById(R.id.TurfWar);
                 TextView TurfMode = (TextView) stub.findViewById(R.id.TurfMode);
                 TextView TurfStageA = (TextView) stub.findViewById(R.id.TurfStageA);
                 TextView TurfStageB = (TextView) stub.findViewById(R.id.TurfStageB);
 
+                RelativeLayout Ranked = (RelativeLayout) stub.findViewById(R.id.Ranked);
                 TextView RankMode = (TextView) stub.findViewById(R.id.RankMode);
                 TextView RankStageA = (TextView) stub.findViewById(R.id.RankStageA);
                 TextView RankStageB = (TextView) stub.findViewById(R.id.RankStageB);
 
+                RelativeLayout League = (RelativeLayout) stub.findViewById(R.id.League);
                 TextView LeagueMode = (TextView) stub.findViewById(R.id.LeagueMode);
                 TextView LeagueStageA = (TextView) stub.findViewById(R.id.LeagueStageA);
                 TextView LeagueStageB = (TextView) stub.findViewById(R.id.LeagueStageB);
 
                 title.setTypeface(fontTitle);
+
                 TurfMode.setTypeface(fontTitle);
                 TurfStageA.setTypeface(font);
                 TurfStageB.setTypeface(font);
@@ -109,6 +123,42 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 LeagueMode.setTypeface(fontTitle);
                 LeagueStageA.setTypeface(font);
                 LeagueStageB.setTypeface(font);
+
+                TurfWar.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        Intent intent = new Intent(getBaseContext(), RotationDetail.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("type","regular");
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        return false;
+                    }
+                });
+
+                Ranked.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        Intent intent = new Intent(getBaseContext(), RotationDetail.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("type","ranked");
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        return false;
+                    }
+                });
+
+                League.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        Intent intent = new Intent(getBaseContext(), RotationDetail.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("type","league");
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        return false;
+                    }
+                });
 
                 updateUI();
             }
@@ -125,6 +175,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
         edit.commit();
         googleApiClient.disconnect();
         Wearable.DataApi.removeListener(googleApiClient, this);
+        updateRotationData.cancel(true);
     }
 
     @Override
@@ -133,13 +184,15 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
-
         googleApiClient.connect();
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Wearable.DataApi.addListener(googleApiClient, this);
+        if((schedules.regular.get(0).end*1000)<(new Date().getTime())) {
+            updateRotationData.execute();
+        }
     }
 
     @Override
@@ -161,7 +214,6 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 if (item.getUri().getPath().compareTo("/schedules") == 0) {
                     DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
                     saveSchedules(dataMap.getString("schedule"));
-
                 }
             } else if (event.getType() == DataEvent.TYPE_DELETED) {
                 // DataItem deleted
@@ -179,32 +231,65 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
 
 
     private void updateUI(){
+        RelativeLayout TurfWar = (RelativeLayout) stub.findViewById(R.id.TurfWar);
         TextView TurfStageA = (TextView) stub.findViewById(R.id.TurfStageA);
         TextView TurfStageB = (TextView) stub.findViewById(R.id.TurfStageB);
 
+        RelativeLayout Ranked = (RelativeLayout) stub.findViewById(R.id.Ranked);
         TextView RankMode = (TextView) stub.findViewById(R.id.RankMode);
         TextView RankStageA = (TextView) stub.findViewById(R.id.RankStageA);
         TextView RankStageB = (TextView) stub.findViewById(R.id.RankStageB);
 
+        RelativeLayout League = (RelativeLayout) stub.findViewById(R.id.League);
         TextView LeagueMode = (TextView) stub.findViewById(R.id.LeagueMode);
         TextView LeagueStageA = (TextView) stub.findViewById(R.id.LeagueStageA);
         TextView LeagueStageB = (TextView) stub.findViewById(R.id.LeagueStageB);
 
         if(schedules.regular.size()>0) {
+            TurfWar.setVisibility(View.VISIBLE);
             TurfStageA.setText(schedules.regular.get(0).a.name);
             TurfStageB.setText(schedules.regular.get(0).b.name);
+        }else{
+            TurfWar.setVisibility(View.GONE);
         }
 
         if(schedules.ranked.size()>0) {
+            Ranked.setVisibility(View.VISIBLE);
             RankMode.setText(schedules.ranked.get(0).rule.name);
             RankStageA.setText(schedules.ranked.get(0).a.name);
             RankStageB.setText(schedules.ranked.get(0).b.name);
+        }else{
+            Ranked.setVisibility(View.GONE);
         }
 
         if(schedules.league.size()>0) {
+            League.setVisibility(View.VISIBLE);
             LeagueMode.setText(schedules.league.get(0).rule.name);
             LeagueStageA.setText(schedules.league.get(0).a.name);
             LeagueStageB.setText(schedules.league.get(0).b.name);
+        }else{
+            League.setVisibility(View.GONE);
         }
+    }
+
+    private class UpdateRotationData extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected void onPreExecute() {}
+        @Override
+        protected Void doInBackground(Void... params) {
+            Uri uri = new Uri.Builder().scheme(PutDataRequest.WEAR_URI_SCHEME).authority(Wearable.NodeApi.getConnectedNodes(googleApiClient).await().getNodes().get(0).getId()).path("/schedules").build();
+            DataItem item = Wearable.DataApi.getDataItem(googleApiClient,uri).await().getDataItem();
+            DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
+            Gson gson = new Gson();
+            schedules = gson.fromJson(dataMap.getString("schedule"),Schedules.class);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            updateUI();
+        }
+
     }
 }

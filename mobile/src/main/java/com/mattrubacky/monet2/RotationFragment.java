@@ -2,6 +2,8 @@ package com.mattrubacky.monet2;
 
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
@@ -15,6 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.wearable.DataItem;
+import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.DataMapItem;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -37,6 +44,7 @@ public class RotationFragment extends Fragment {
     android.os.Handler customHandler;
     ViewGroup rootView;
     WearLink wearLink;
+    UpdateRotationData updateRotationData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +53,7 @@ public class RotationFragment extends Fragment {
                 R.layout.fragment_rotation, container, false);
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
-
+        updateRotationData = new UpdateRotationData();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         if(settings.contains("rotationState")) {
             Gson gson = new Gson();
@@ -95,7 +103,7 @@ public class RotationFragment extends Fragment {
 
         customHandler = new android.os.Handler();
 
-        Thread t = new Thread(updateRotationData);
+        updateRotationData.execute();
         if(schedules.regular.size()==0){
             customHandler.post(update2Hours);
         }else {
@@ -140,8 +148,8 @@ public class RotationFragment extends Fragment {
         String json = gson.toJson(schedules);
         edit.putString("rotationState",json);
         edit.commit();
-        customHandler.removeCallbacks(updateUI);
         wearLink.closeConnection();
+        updateRotationData.cancel(true);
     }
 
     @Override
@@ -151,17 +159,42 @@ public class RotationFragment extends Fragment {
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
         if(schedules!=null){
-            customHandler.post(updateUI);
+            updateUi();
         }
         wearLink.openConnection();
     }
 
     //Get Rotation Data
 
-    private Runnable updateRotationData = new Runnable()
-    {
-        public void run()
-        {
+    private void updateUi(){
+        ViewPager TurfPager = (ViewPager) rootView.findViewById(R.id.TurfPager);
+        ViewPager RankPager = (ViewPager) rootView.findViewById(R.id.RankedPager);
+        ViewPager LeaguePager = (ViewPager) rootView.findViewById(R.id.LeaguePager);
+
+        TabLayout turfDots = (TabLayout) rootView.findViewById(R.id.TurfDots);
+        TabLayout rankDots = (TabLayout) rootView.findViewById(R.id.RankDots);
+        TabLayout leagueDots = (TabLayout) rootView.findViewById(R.id.LeagueDots);
+
+        turfDots.setupWithViewPager(TurfPager, true);
+        rankDots.setupWithViewPager(RankPager, true);
+        leagueDots.setupWithViewPager(LeaguePager, true);
+
+        PagerAdapter turfAdapter = new TurfAdapter(getFragmentManager(), schedules.regular);
+        PagerAdapter rankAdapter = new RankAdapter(getFragmentManager(), schedules.ranked);
+        PagerAdapter leagueAdapter = new LeagueAdapter(getFragmentManager(), schedules.league);
+
+        TurfPager.setAdapter(turfAdapter);
+        RankPager.setAdapter(rankAdapter);
+        LeaguePager.setAdapter(leagueAdapter);
+        wearLink.sendRotation(schedules);
+    }
+
+    private class UpdateRotationData extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected void onPreExecute() {}
+        @Override
+        protected Void doInBackground(Void... params) {
             try {
                 //Long now = Calendar.getInstance().getTimeInMillis();
                 //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -188,14 +221,20 @@ public class RotationFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return null;
         }
-    };
+
+        @Override
+        protected void onPostExecute(Void result) {
+            updateUi();
+        }
+
+    }
+
     private Runnable update2Hours = new Runnable()
     {
         public void run() {
-            Thread t = new Thread(updateRotationData);
-            customHandler.postDelayed(updateUI,10000);
-            t.start();
+            updateRotationData.execute();
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());
             Calendar nextUpdate = Calendar.getInstance();
@@ -213,34 +252,9 @@ public class RotationFragment extends Fragment {
             nextUpdate.set(Calendar.MILLISECOND,0);
             Long nextUpdateTime = nextUpdate.getTimeInMillis()-now.getTimeInMillis();
             customHandler.postDelayed(this, nextUpdateTime);
-            customHandler.postDelayed(updateUI,nextUpdateTime+60000);
         }
     };
-    private Runnable updateUI = new Runnable(){
-        @Override
-        public void run() {
-            ViewPager TurfPager = (ViewPager) rootView.findViewById(R.id.TurfPager);
-            ViewPager RankPager = (ViewPager) rootView.findViewById(R.id.RankedPager);
-            ViewPager LeaguePager = (ViewPager) rootView.findViewById(R.id.LeaguePager);
 
-            TabLayout turfDots = (TabLayout) rootView.findViewById(R.id.TurfDots);
-            TabLayout rankDots = (TabLayout) rootView.findViewById(R.id.RankDots);
-            TabLayout leagueDots = (TabLayout) rootView.findViewById(R.id.LeagueDots);
-
-            turfDots.setupWithViewPager(TurfPager, true);
-            rankDots.setupWithViewPager(RankPager, true);
-            leagueDots.setupWithViewPager(LeaguePager, true);
-
-            PagerAdapter turfAdapter = new TurfAdapter(getFragmentManager(), schedules.regular);
-            PagerAdapter rankAdapter = new RankAdapter(getFragmentManager(), schedules.ranked);
-            PagerAdapter leagueAdapter = new LeagueAdapter(getFragmentManager(), schedules.league);
-
-            TurfPager.setAdapter(turfAdapter);
-            RankPager.setAdapter(rankAdapter);
-            LeaguePager.setAdapter(leagueAdapter);
-            wearLink.sendRotation(schedules);
-        }
-    };
 
 
 
