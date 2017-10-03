@@ -228,6 +228,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/repeat_zigzag"></RelativeLayout>
+
                     <RelativeLayout
                         android:id="@+id/leagueModeLayout"
                         android:layout_width="wrap_content"
@@ -256,9 +257,9 @@
                         android:layout_width="190dp"
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/leagueModeLayout"
                         android:layout_marginEnd="5dp"
                         android:layout_marginTop="5dp"
-                        android:layout_below="@+id/leagueModeLayout"
                         android:background="@drawable/shape_card"
                         android:backgroundTint="@color/transparentgrey"
                         android:paddingEnd="5dp"
@@ -292,6 +293,69 @@
                             android:layout_centerVertical="true"
                             android:text="Inkblot Art Academy" />
                     </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/SalmonRun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/League"
+                android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="200dp"
+                    android:layout_height="105dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/salmonAccent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/repeat_spots"></RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/salmonTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="7dp">
+                        <ImageView
+                            android:id="@+id/salmonIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/salmon_run_mini"/>
+                        <TextView
+                            android:id="@+id/SalmonTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@id/salmonIcon"
+                            android:text="Grizz Co. Shifts"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/shift"
+                        android:layout_width="190dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/salmonTitle"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/darkGreyTrans"
+                        android:paddingEnd="5dp"
+                        android:paddingStart="5dp">
+
+                        <TextView
+                            android:id="@+id/ShiftTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="10/2 8AM to 10/3 8AM" />
+                    </RelativeLayout>
+
                 </RelativeLayout>
             </RelativeLayout>
         </RelativeLayout>

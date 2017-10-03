@@ -30,8 +30,7 @@
                 android:layout_marginTop="60dp"
                 android:background="@drawable/shape_card"
                 android:backgroundTint="@color/turfPrimary"
-                android:rotation="2"
-                android:visibility="gone">
+                android:rotation="2">
 
                 <ImageView
                     android:id="@+id/turfProduct"
@@ -154,8 +153,7 @@
                 android:layout_marginTop="60dp"
                 android:background="@drawable/shape_card"
                 android:backgroundTint="@color/rankPrimary"
-                android:rotation="-1.5"
-                android:visibility="gone">
+                android:rotation="-1.5">
 
                 <ImageView
                     android:id="@+id/rankedProduct"
@@ -278,8 +276,7 @@
                 android:layout_marginTop="60dp"
                 android:background="@drawable/shape_card"
                 android:backgroundTint="@color/leaguePrimary"
-                android:rotation="1.5"
-                android:visibility="gone">
+                android:rotation="1.5">
 
                 <ImageView
                     android:id="@+id/leagueProduct"
@@ -396,7 +393,7 @@
                 android:layout_height="335dp"
                 android:layout_below="@id/League"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="110dp"
                 android:background="@drawable/shape_card"
                 android:backgroundTint="@color/rankPrimary">
 
@@ -405,6 +402,7 @@
                     android:layout_height="85dp"
                     android:background="@color/rankPrimary"
                     android:elevation="4dp">
+
                     <RelativeLayout
                         android:id="@+id/salmonDots"
                         android:layout_width="match_parent"
@@ -471,7 +469,7 @@
                         android:layout_marginTop="7dp"
                         android:text="Grizz Co. Shifts"
                         android:textColor="@color/offWhite"
-                        android:textSize="30dp"/>
+                        android:textSize="30dp" />
 
                 </RelativeLayout>
 
@@ -510,6 +508,105 @@
                         android:layout_height="wrap_content">
 
                     </ListView>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/League"
+                android:layout_marginTop="40dp">
+
+                <RelativeLayout
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/skill_background"
+                    android:backgroundTint="@color/offWhite"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="5dp"
+                    android:elevation="6dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/repeat_stripes">
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/skill_background"
+                        android:backgroundTint="@color/rankPrimary"
+                        android:rotation="-10">
+                        <ImageView
+                            android:id="@+id/monthlyGear"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/hula_punk"/>
+                    </RelativeLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rotation="32"
+                    android:elevation="7dp">
+                    <RelativeLayout
+                        android:layout_width="10dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/salmonAccent"
+                        android:layout_marginLeft="55dp"
+                        android:elevation="8dp">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/repeat_dots">
+                        </RelativeLayout>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="10dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/salmonAccent"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="80dp"
+                        android:elevation="8dp">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/repeat_dots">
+                        </RelativeLayout>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="10dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/salmonAccent"
+                        android:layout_marginTop="50dp"
+                        android:elevation="8dp">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/repeat_dots">
+                        </RelativeLayout>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="30dp"
+                        android:layout_height="10dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/salmonAccent"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="50dp"
+                        android:elevation="8dp">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/repeat_dots">
+                        </RelativeLayout>
+                    </RelativeLayout>
                 </RelativeLayout>
 
             </RelativeLayout>

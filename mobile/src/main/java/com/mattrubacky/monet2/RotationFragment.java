@@ -55,6 +55,7 @@ public class RotationFragment extends Fragment {
     WearLink wearLink;
     UpdateRotationData updateRotationData;
     SalmonSchedule salmonSchedule;
+    Gear monthlyGear;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,7 +82,7 @@ public class RotationFragment extends Fragment {
             schedules.league = new ArrayList<TimePeriod>();
         }
         salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedule\":[]}"),SalmonSchedule.class);
-
+        monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
 
 
         wearLink = new WearLink(getContext());
@@ -179,6 +180,7 @@ public class RotationFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
+        monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
         wearLink.openConnection();
     }
 
@@ -206,10 +208,24 @@ public class RotationFragment extends Fragment {
         LeaguePager.setAdapter(leagueAdapter);
 
         ListView SalmonTimes = (ListView) rootView.findViewById(R.id.SalmonTimes);
+        ImageView currentGear = (ImageView) rootView.findViewById(R.id.monthlyGear);
+
+
+        String url = "https://app.splatoon2.nintendo.net" + monthlyGear.url;
+        ImageHandler imageHandler = new ImageHandler();
+        String imageDirName = monthlyGear.name.toLowerCase().replace(" ", "_");
+        if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+            currentGear.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+        } else {
+            Picasso.with(getContext()).load(url).into(currentGear);
+            imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+        }
+
         SalmonRunAdapter salmonRunAdapter = new SalmonRunAdapter(getContext(),salmonSchedule.schedule);
         SalmonTimes.setAdapter(salmonRunAdapter);
 
         wearLink.sendRotation(schedules);
+        wearLink.sendSalmon(salmonSchedule);
     }
 
     private class UpdateRotationData extends AsyncTask<Void,Void,Void> {

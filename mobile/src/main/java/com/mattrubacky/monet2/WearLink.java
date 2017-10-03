@@ -27,7 +27,7 @@ public class WearLink
     private GoogleApiClient googleApiClient;
     private boolean nodeConnected = false;
     Context context;
-    String schedules;
+    String schedules,salmonSchedule;
 
     public WearLink(Context context){
         googleApiClient = new GoogleApiClient.Builder(context)
@@ -42,9 +42,13 @@ public class WearLink
     @Override
     public void onConnected(Bundle bundle) {
         nodeConnected = true;
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         if(schedules==null){
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
             schedules = settings.getString("rotationState","");
+        }
+        if(salmonSchedule==null){
+            salmonSchedule = settings.getString("salmonRunSchedule","");
         }
 
         Gson gson = new Gson();
@@ -52,7 +56,7 @@ public class WearLink
 
         PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/schedules");
         putDataMapReq.getDataMap().putString("schedule",schedules);
-        putDataMapReq.getDataMap().putLong("time",new Date().getTime());
+        putDataMapReq.getDataMap().putString("salmonRunSchedule",salmonSchedule);
         PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
         Wearable.DataApi.putDataItem(googleApiClient, putDataReq);
     }
@@ -73,7 +77,17 @@ public class WearLink
         if(nodeConnected){
             PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/schedules");
             putDataMapReq.getDataMap().putString("schedule",this.schedules);
-            putDataMapReq.getDataMap().putLong("time",new Date().getTime());
+            PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
+            Wearable.DataApi.putDataItem(googleApiClient, putDataReq);
+        }
+    }
+
+    public void sendSalmon(SalmonSchedule salmonSchedule){
+        Gson gson = new Gson();
+        this.salmonSchedule = gson.toJson(salmonSchedule);
+        if(nodeConnected){
+            PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/schedules");
+            putDataMapReq.getDataMap().putString("salmonSchedule",this.salmonSchedule);
             PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
             Wearable.DataApi.putDataItem(googleApiClient, putDataReq);
         }

@@ -35,6 +35,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,6 +48,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MapRotation extends Activity implements DataApi.DataListener,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
 
     Schedules schedules;
+    SalmonSchedule salmonSchedule;
     private GoogleApiClient googleApiClient;
     WatchViewStub stub;
     UpdateRotationData updateRotationData;
@@ -72,9 +74,8 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
 
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-
+                Gson gson = new Gson();
                 if(settings.contains("rotationState")) {
-                    Gson gson = new Gson();
                     schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
                     if(schedules == null){
                         schedules = new Schedules();
@@ -88,6 +89,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                     schedules.ranked = new ArrayList<TimePeriod>();
                     schedules.league = new ArrayList<TimePeriod>();
                 }
+                salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedule\":[]}"),SalmonSchedule.class);
 
                 Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
                 Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
@@ -110,6 +112,9 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 TextView LeagueStageA = (TextView) stub.findViewById(R.id.LeagueStageA);
                 TextView LeagueStageB = (TextView) stub.findViewById(R.id.LeagueStageB);
 
+                TextView SalmonTitle = (TextView) stub.findViewById(R.id.SalmonTitle);
+                TextView SalmonShift = (TextView) stub.findViewById(R.id.ShiftTime);
+
                 title.setTypeface(fontTitle);
 
                 TurfMode.setTypeface(fontTitle);
@@ -123,6 +128,9 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 LeagueMode.setTypeface(fontTitle);
                 LeagueStageA.setTypeface(font);
                 LeagueStageB.setTypeface(font);
+
+                SalmonTitle.setTypeface(fontTitle);
+                SalmonShift.setTypeface(font);
 
                 TurfWar.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
@@ -176,6 +184,8 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
         Gson gson = new Gson();
         String json = gson.toJson(schedules);
         edit.putString("rotationState",json);
+        json = gson.toJson(salmonSchedule);
+        edit.putString("salmonRunSchedule",json);
         edit.commit();
         googleApiClient.disconnect();
         Wearable.DataApi.removeListener(googleApiClient, this);
@@ -188,6 +198,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
+        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedule\":[]}"),SalmonSchedule.class);
         googleApiClient.connect();
     }
 
@@ -195,6 +206,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
     public void onConnected(@Nullable Bundle bundle) {
         Wearable.DataApi.addListener(googleApiClient, this);
         if((schedules.regular.get(0).end*1000)<(new Date().getTime())) {
+            updateRotationData =new UpdateRotationData();
             updateRotationData.execute();
         }
     }
@@ -249,6 +261,9 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
         TextView LeagueStageA = (TextView) stub.findViewById(R.id.LeagueStageA);
         TextView LeagueStageB = (TextView) stub.findViewById(R.id.LeagueStageB);
 
+        RelativeLayout SalmonRun = (RelativeLayout) stub.findViewById(R.id.SalmonRun);
+        TextView SalmonShift = (TextView) stub.findViewById(R.id.ShiftTime);
+
         if(schedules.regular.size()>0) {
             TurfWar.setVisibility(View.VISIBLE);
             TurfStageA.setText(schedules.regular.get(0).a.name);
@@ -274,6 +289,22 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
         }else{
             League.setVisibility(View.GONE);
         }
+
+        if(salmonSchedule!=null) {
+            if (salmonSchedule.schedule.size() > 0) {
+                SalmonRun.setVisibility(View.VISIBLE);
+                SimpleDateFormat sdf = new SimpleDateFormat("M/d h a");
+                String startText = sdf.format(salmonSchedule.schedule.get(0).startTime);
+                String endText = sdf.format(salmonSchedule.schedule.get(0).endTime);
+                SalmonShift.setText(startText + " to " + endText);
+            } else {
+                SalmonRun.setVisibility(View.GONE);
+            }
+        }else{
+            SalmonRun.setVisibility(View.GONE);
+        }
+
+
     }
 
     private class UpdateRotationData extends AsyncTask<Void,Void,Void> {
@@ -287,6 +318,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
             DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
             Gson gson = new Gson();
             schedules = gson.fromJson(dataMap.getString("schedule"),Schedules.class);
+            salmonSchedule = gson.fromJson(dataMap.getString("salmonRunSchedule"),SalmonSchedule.class);
             return null;
         }
 
