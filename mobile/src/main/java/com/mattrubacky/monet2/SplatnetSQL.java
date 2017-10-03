@@ -739,6 +739,31 @@ public class SplatnetSQL {
         return weapon;
     }
 
+    public ArrayList<Weapon> getWeapons(){
+        ArrayList<Weapon> weapons = new ArrayList<>();
+
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+
+        String query = "SELECT * FROM "+ SplatnetContract.Weapon.TABLE_NAME+"";
+        Cursor cursor = database.rawQuery(query,null);
+
+        if(cursor.moveToLast()) {
+            do {
+                Weapon weapon = new Weapon();
+
+                weapon.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon._ID));
+                weapon.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_NAME));
+                weapon.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_URL));
+                weapon.special = selectSpecial(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SPECIAL)));
+                weapon.sub = selectSub(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SUB)));
+                weapons.add(weapon);
+            } while (cursor.moveToPrevious());
+        }
+        cursor.close();
+        database.close();
+        return weapons;
+    }
+
     public void insertWeaponLocker(WeaponStats weaponStats){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
         ContentValues values = new ContentValues();

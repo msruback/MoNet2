@@ -1,5 +1,6 @@
 package com.mattrubacky.monet2;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -15,6 +16,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.wearable.DataItem;
@@ -73,6 +76,8 @@ public class RotationFragment extends Fragment {
 
         wearLink = new WearLink(getContext());
 
+        Button addRun = (Button) rootView.findViewById(R.id.AddRun);
+
         ViewPager TurfPager = (ViewPager) rootView.findViewById(R.id.TurfPager);
         ViewPager RankPager = (ViewPager) rootView.findViewById(R.id.RankedPager);
         ViewPager LeaguePager = (ViewPager) rootView.findViewById(R.id.LeaguePager);
@@ -99,11 +104,25 @@ public class RotationFragment extends Fragment {
 
         TextView turfError = (TextView) rootView.findViewById(R.id.TurfErrorMessage);
         TextView rankError = (TextView) rootView.findViewById(R.id.RankErrorMessage);
+        TextView leagueError = (TextView) rootView.findViewById(R.id.LeagueErrorMessage);
+
+        RelativeLayout salmonRun = (RelativeLayout) rootView.findViewById(R.id.SalmonRun);
+        salmonRun.setClipToOutline(true);
+
+        addRun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddRun.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("type","new");
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
 
         customHandler = new android.os.Handler();
 
-        updateRotationData.execute();
         if(schedules.regular.size()==0){
             customHandler.post(update2Hours);
         }else {
@@ -139,8 +158,10 @@ public class RotationFragment extends Fragment {
 
         turfError.setTypeface(font);
         rankError.setTypeface(font);
+        leagueError.setTypeface(font);
         return rootView;
     }
+
 
 
     @Override

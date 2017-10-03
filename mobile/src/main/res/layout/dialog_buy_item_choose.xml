@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
-    android:layout_centerInParent="true"
-    android:layout_margin="10dp">
+    android:layout_centerInParent="true">
 
     <RelativeLayout
         android:layout_width="40dp"
@@ -46,7 +45,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="15dp"
             android:background="@drawable/shape_card"
-            android:backgroundTint="#e4e4e4"
+            android:backgroundTint="@color/offWhite"
             android:layout_marginLeft="10dp">
 
             <RelativeLayout
@@ -70,6 +69,7 @@
                 android:id="@+id/orderingProduct"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:tint="@color/grey"
                 android:layout_alignBottom="@+id/OrderingBrand"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="11dp"
@@ -257,6 +257,7 @@
                 android:layout_alignBottom="@+id/OrderedBrand"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="11dp"
+                android:tint="@color/grey"
                 android:src="@drawable/extra_product" />
 
             <ImageView

@@ -94,6 +94,11 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
                         times.setAdapter(leagueAdapter);
                         break;
                 }
+                if(schedules.regular.size()!=0) {
+                    while ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
+                        schedules.dequeue();
+                    }
+                }
             }
         });
     }

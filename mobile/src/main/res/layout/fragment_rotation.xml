@@ -30,7 +30,8 @@
                 android:layout_marginTop="60dp"
                 android:background="@drawable/shape_card"
                 android:backgroundTint="@color/turfPrimary"
-                android:rotation="2">
+                android:rotation="2"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/turfProduct"
@@ -153,7 +154,8 @@
                 android:layout_marginTop="60dp"
                 android:background="@drawable/shape_card"
                 android:backgroundTint="@color/rankPrimary"
-                android:rotation="-1.5">
+                android:rotation="-1.5"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/rankedProduct"
@@ -276,7 +278,8 @@
                 android:layout_marginTop="60dp"
                 android:background="@drawable/shape_card"
                 android:backgroundTint="@color/leaguePrimary"
-                android:rotation="1.5">
+                android:rotation="1.5"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/leagueProduct"
@@ -386,7 +389,7 @@
                 </RelativeLayout>
 
             </RelativeLayout>
-            <!--
+
             <RelativeLayout
                 android:id="@+id/SalmonRun"
                 android:layout_width="300dp"
@@ -398,35 +401,79 @@
                 android:backgroundTint="@color/rankPrimary">
 
                 <RelativeLayout
-                    android:id="@+id/salmonDots"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/repeat_dots">
+                    android:layout_height="85dp"
+                    android:background="@color/rankPrimary"
+                    android:elevation="4dp">
+                    <RelativeLayout
+                        android:id="@+id/salmonDots"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/repeat_dots">
 
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/salmonProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/extra_product" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/salmonProduct"
+                        android:layout_marginEnd="5dp"
+                        android:elevation="4dp">
+
+                        <Button
+                            android:id="@+id/AddRun"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/shape_card"
+                            android:backgroundTint="@color/salmonAccent"
+                            android:text="+"
+                            android:textColor="@color/offWhite"
+                            android:textSize="22sp"></Button>
+
+                        <RelativeLayout
+                            android:layout_width="13dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="18dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/shape_card"
+                            android:backgroundTint="@color/salmonAccent"></RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="5dp"
+                            android:layout_height="13dp"
+                            android:layout_marginLeft="33dp"
+                            android:layout_marginTop="27dp"
+                            android:background="@drawable/shape_card"
+                            android:backgroundTint="@color/salmonAccent"></RelativeLayout>
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:id="@+id/salmonName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/salmonProduct"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="7dp"
+                        android:text="Grizz Co. Shifts"
+                        android:textColor="@color/offWhite"
+                        android:textSize="30dp"/>
 
                 </RelativeLayout>
-
-                <ImageView
-                    android:id="@+id/salmonProduct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/extra_product" />
-
-                <TextView
-                    android:id="@+id/salmonName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/salmonProduct"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="7dp"
-                    android:text="Grizz Co. Shifts"
-                    android:textColor="@color/offWhite"
-                    android:textSize="30dp" />
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout3"
@@ -460,11 +507,13 @@
                     <ListView
                         android:id="@+id/SalmonTimes"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></ListView>
+                        android:layout_height="wrap_content">
+
+                    </ListView>
                 </RelativeLayout>
 
             </RelativeLayout>
-            -->
+
 
         </RelativeLayout>
     </ScrollView>

@@ -3,7 +3,7 @@ package com.mattrubacky.monet2;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.support.v7.widget.Toolbar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -12,18 +12,20 @@ public class DebugActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item_battle);
+        setContentView(R.layout.activity_add_run);
 
         Typeface font = Typeface.createFromAsset(getAssets(),"Splatfont2.ttf");
 
-        RelativeLayout item = (RelativeLayout) findViewById(R.id.item);
-        item.setClipToOutline(true);
+        Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
-        TextView mode = (TextView) findViewById(R.id.mode);
-        TextView map = (TextView) findViewById(R.id.map);
-        TextView result = (TextView) findViewById(R.id.result);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView title = (TextView) findViewById(R.id.title);
+        title.setTypeface(fontTitle);
+        setSupportActionBar(toolbar);
+        title.setText(toolbar.getTitle());
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        ImageView weapon = (ImageView) findViewById(R.id.weapon);
-        ImageView type = (ImageView) findViewById(R.id.type);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 }

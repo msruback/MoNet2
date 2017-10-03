@@ -159,7 +159,11 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                         return false;
                     }
                 });
-
+                if(schedules.regular.size()!=0) {
+                    while ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
+                        schedules.dequeue();
+                    }
+                }
                 updateUI();
             }
         });

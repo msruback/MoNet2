@@ -18,6 +18,7 @@
     <color name="rankAccent">#aa00ff</color>
     <color name="leaguePrimary">#f02d7d</color>
     <color name="leagueAccent">#00cb07</color>
+    <color name="salmonAccent">#02a608</color>
 
     <!--Characters-->
     <color name="pearl">#fa047f</color>

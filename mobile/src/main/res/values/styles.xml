@@ -6,6 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorForeground">@color/offWhite</item>
+        <item name="android:navigationBarColor">@color/offWhite</item>
+        <item name="android:textColorPrimary">@color/common_google_signin_btn_text_light_focused</item>
     </style>
 
     <style name="TitleTextStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
