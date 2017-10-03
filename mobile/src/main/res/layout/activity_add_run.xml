@@ -180,7 +180,7 @@
                     android:id="@+id/TimeEndText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
+                    android:gravity="center"
                     android:text="Time End"
                     android:textSize="18sp"/>
             </RelativeLayout>
@@ -229,6 +229,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/repeat_stripes"></RelativeLayout>
                 <TextView
+                    android:id="@+id/WeaponText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -330,6 +331,7 @@
                 android:background="@drawable/repeat_stripes"></RelativeLayout>
 
             <TextView
+                android:id="@+id/DeleteText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -353,6 +355,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/repeat_stripes"></RelativeLayout>
             <TextView
+                android:id="@+id/SubmitText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

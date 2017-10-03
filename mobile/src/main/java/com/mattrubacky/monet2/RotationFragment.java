@@ -91,6 +91,7 @@ public class RotationFragment extends Fragment {
         TextView turfWarTitle = (TextView) rootView.findViewById(R.id.turfWarName);
         TextView rankedTitle = (TextView) rootView.findViewById(R.id.rankedName);
         TextView leagueTitle = (TextView) rootView.findViewById(R.id.leagueName);
+        TextView salmonTitle = (TextView) rootView.findViewById(R.id.salmonName);
 
         TextView turfError = (TextView) rootView.findViewById(R.id.TurfErrorMessage);
         TextView rankError = (TextView) rootView.findViewById(R.id.RankErrorMessage);
@@ -148,6 +149,7 @@ public class RotationFragment extends Fragment {
         turfWarTitle.setTypeface(fontTitle);
         rankedTitle.setTypeface(fontTitle);
         leagueTitle.setTypeface(fontTitle);
+        salmonTitle.setTypeface(fontTitle);
 
         turfError.setTypeface(font);
         rankError.setTypeface(font);
@@ -372,10 +374,16 @@ public class RotationFragment extends Fragment {
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_salmon_run, parent, false);
             }
+
+            Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
+
             final SalmonRun salmonRun = getItem(position);
 
             TextView time = (TextView) convertView.findViewById(R.id.time);
             TextView stage = (TextView) convertView.findViewById(R.id.stage);
+
+            time.setTypeface(font);
+            stage.setTypeface(font);
 
             ImageView weapon1 = (ImageView) convertView.findViewById(R.id.Weapon1);
             ImageView weapon2 = (ImageView) convertView.findViewById(R.id.Weapon2);

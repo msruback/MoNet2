@@ -81,6 +81,10 @@ public class AddRun extends AppCompatActivity {
         TextView timeStartText = (TextView) findViewById(R.id.TimeStartText);
         TextView timeEndText = (TextView) findViewById(R.id.TimeEndText);
         TextView stageText = (TextView) findViewById(R.id.StageText);
+        TextView weaponsText = (TextView) findViewById(R.id.WeaponText);
+
+        TextView submitText = (TextView) findViewById(R.id.SubmitText);
+        TextView deleteText = (TextView) findViewById(R.id.DeleteText);
 
         final EditText stageInput = (EditText) findViewById(R.id.StageInput);
 
@@ -164,6 +168,12 @@ public class AddRun extends AppCompatActivity {
         timeStartText.setTypeface(font);
         timeEndText.setTypeface(font);
         stageText.setTypeface(font);
+        weaponsText.setTypeface(font);
+        submitText.setTypeface(font);
+        deleteText.setTypeface(font);
+
+        stageText.setTypeface(font);
+
         timeStartInputText.setTypeface(font);
         timeEndInputText.setTypeface(font);
 
