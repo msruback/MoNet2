@@ -487,7 +487,7 @@ class Rank {
     @SerializedName("s_plus_number")
     String sPlus;
 }
-class Weapon{
+class Weapon implements Parcelable{
     public Weapon(){}
     @SerializedName("id")
     int id;
@@ -499,8 +499,42 @@ class Weapon{
     Special special;
     @SerializedName("sub")
     Sub sub;
+
+    protected Weapon(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        url = in.readString();
+        special = in.readParcelable(Special.class.getClassLoader());
+        sub = in.readParcelable(Sub.class.getClassLoader());
+    }
+
+    public static final Creator<Weapon> CREATOR = new Creator<Weapon>() {
+        @Override
+        public Weapon createFromParcel(Parcel in) {
+            return new Weapon(in);
+        }
+
+        @Override
+        public Weapon[] newArray(int size) {
+            return new Weapon[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(url);
+        dest.writeParcelable(special, flags);
+        dest.writeParcelable(sub, flags);
+    }
 }
-class Special{
+class Special implements Parcelable{
     public Special(){}
 
     @SerializedName("id")
@@ -509,8 +543,38 @@ class Special{
     String name;
     @SerializedName("image_a")
     String url;
+
+    protected Special(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        url = in.readString();
+    }
+
+    public static final Creator<Special> CREATOR = new Creator<Special>() {
+        @Override
+        public Special createFromParcel(Parcel in) {
+            return new Special(in);
+        }
+
+        @Override
+        public Special[] newArray(int size) {
+            return new Special[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(url);
+    }
 }
-class Sub{
+class Sub implements Parcelable{
     public Sub(){
     }
 
@@ -520,6 +584,36 @@ class Sub{
     String name;
     @SerializedName("image_a")
     String url;
+
+    protected Sub(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        url = in.readString();
+    }
+
+    public static final Creator<Sub> CREATOR = new Creator<Sub>() {
+        @Override
+        public Sub createFromParcel(Parcel in) {
+            return new Sub(in);
+        }
+
+        @Override
+        public Sub[] newArray(int size) {
+            return new Sub[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(url);
+    }
 }
 class GearSkills{
     public GearSkills(){}
@@ -628,12 +722,38 @@ class TeamResult{
 
 
 //Not Technically from Splatnet, but small enough to include as a tagalong
-class SalmonSchedule{
+class SalmonSchedule implements Parcelable{
     public SalmonSchedule(){}
     @SerializedName("schedule")
     ArrayList<SalmonRun> schedule;
+
+    protected SalmonSchedule(Parcel in) {
+        schedule = in.createTypedArrayList(SalmonRun.CREATOR);
+    }
+
+    public static final Creator<SalmonSchedule> CREATOR = new Creator<SalmonSchedule>() {
+        @Override
+        public SalmonSchedule createFromParcel(Parcel in) {
+            return new SalmonSchedule(in);
+        }
+
+        @Override
+        public SalmonSchedule[] newArray(int size) {
+            return new SalmonSchedule[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(schedule);
+    }
 }
-class SalmonRun {
+class SalmonRun implements Parcelable{
     public SalmonRun() {
     }
 
@@ -645,4 +765,36 @@ class SalmonRun {
     String stage;
     @SerializedName("weapons")
     ArrayList<Weapon> weapons;
+
+    protected SalmonRun(Parcel in) {
+        startTime = in.readLong();
+        endTime = in.readLong();
+        stage = in.readString();
+        weapons = in.createTypedArrayList(Weapon.CREATOR);
+    }
+
+    public static final Creator<SalmonRun> CREATOR = new Creator<SalmonRun>() {
+        @Override
+        public SalmonRun createFromParcel(Parcel in) {
+            return new SalmonRun(in);
+        }
+
+        @Override
+        public SalmonRun[] newArray(int size) {
+            return new SalmonRun[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(startTime);
+        dest.writeLong(endTime);
+        dest.writeString(stage);
+        dest.writeTypedList(weapons);
+    }
 }

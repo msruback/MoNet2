@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -51,7 +52,8 @@ public class AddRun extends AppCompatActivity {
         setContentView(R.layout.activity_add_run);
 
         Intent intent = getIntent();
-        type = intent.getExtras().getString("type");
+        Bundle bundle = intent.getExtras();
+        type = bundle.getString("type");
 
         Typeface font = Typeface.createFromAsset(getAssets(),"Splatfont2.ttf");
 
@@ -76,16 +78,6 @@ public class AddRun extends AppCompatActivity {
         RelativeLayout submit = (RelativeLayout) findViewById(R.id.Submit);
         RelativeLayout delete = (RelativeLayout) findViewById(R.id.Delete);
 
-        switch (type){
-            case "new":
-                title.setText("Add Shift");
-                delete.setVisibility(View.GONE);
-                break;
-            case "edit":
-                title.setText("Edit Shift");
-                break;
-        }
-
         TextView timeStartText = (TextView) findViewById(R.id.TimeStartText);
         TextView timeEndText = (TextView) findViewById(R.id.TimeEndText);
         TextView stageText = (TextView) findViewById(R.id.StageText);
@@ -100,8 +92,74 @@ public class AddRun extends AppCompatActivity {
         timeStartInputText = (TextView) findViewById(R.id.TimeStartInputText);
         timeEndInputText = (TextView) findViewById(R.id.TimeEndInputText);
 
-        salmonRun = new SalmonRun();
-        salmonRun.weapons = new ArrayList<>();
+        switch (type){
+            case "new":
+                title.setText("Add Shift");
+                delete.setVisibility(View.GONE);
+                salmonRun = new SalmonRun();
+                salmonRun.weapons = new ArrayList<>();
+                break;
+            case "edit":
+                title.setText("Edit Shift");
+                salmonRun = bundle.getParcelable("run");
+
+                SimpleDateFormat sdf = new SimpleDateFormat("M/d/y h a");
+
+                String timeText = sdf.format(salmonRun.startTime);
+                timeStartInputText.setText(timeText);
+
+                timeText = sdf.format(salmonRun.endTime);
+                timeEndInputText.setText(timeText);
+
+                stageInput.setText(salmonRun.stage);
+
+                ImageHandler imageHandler = new ImageHandler();
+
+
+
+                String imageDirName = salmonRun.weapons.get(0).name.toLowerCase().replace(" ","_");
+                String url = "https://app.splatoon2.nintendo.net"+salmonRun.weapons.get(0).url;
+                weapon1 = salmonRun.weapons.get(0);
+                if(imageHandler.imageExists("weapon",imageDirName,getBaseContext())){
+                    weapon1Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
+                }else{
+                    Picasso.with(getBaseContext()).load(url).into(weapon1Image);
+                    imageHandler.downloadImage("weapon",imageDirName,url,getBaseContext());
+                }
+
+                imageDirName = salmonRun.weapons.get(1).name.toLowerCase().replace(" ","_");
+                url = "https://app.splatoon2.nintendo.net"+salmonRun.weapons.get(1).url;
+                weapon2 = salmonRun.weapons.get(1);
+                if(imageHandler.imageExists("weapon",imageDirName,getBaseContext())){
+                    weapon2Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
+                }else{
+                    Picasso.with(getBaseContext()).load(url).into(weapon2Image);
+                    imageHandler.downloadImage("weapon",imageDirName,url,getBaseContext());
+                }
+
+                imageDirName = salmonRun.weapons.get(2).name.toLowerCase().replace(" ","_");
+                url = "https://app.splatoon2.nintendo.net"+salmonRun.weapons.get(2).url;
+                weapon3 = salmonRun.weapons.get(2);
+                if(imageHandler.imageExists("weapon",imageDirName,getBaseContext())){
+                    weapon3Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
+                }else{
+                    Picasso.with(getBaseContext()).load(url).into(weapon3Image);
+                    imageHandler.downloadImage("weapon",imageDirName,url,getBaseContext());
+                }
+
+                imageDirName = salmonRun.weapons.get(3).name.toLowerCase().replace(" ","_");
+                url = "https://app.splatoon2.nintendo.net"+salmonRun.weapons.get(3).url;
+                weapon4 = salmonRun.weapons.get(3);
+                if(imageHandler.imageExists("weapon",imageDirName,getBaseContext())){
+                    weapon4Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
+                }else{
+                    Picasso.with(getBaseContext()).load(url).into(weapon4Image);
+                    imageHandler.downloadImage("weapon",imageDirName,url,getBaseContext());
+                }
+
+                break;
+        }
+
 
         timeStartText.setTypeface(font);
         timeEndText.setTypeface(font);
@@ -156,6 +214,7 @@ public class AddRun extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                salmonRun.weapons = new ArrayList<Weapon>();
                 salmonRun.weapons.add(weapon1);
                 salmonRun.weapons.add(weapon2);
                 salmonRun.weapons.add(weapon3);
@@ -173,7 +232,7 @@ public class AddRun extends AppCompatActivity {
                     schedule.schedule.remove(replacementPosition);
                 }
                 boolean isInserted = false;
-                for(int i = 0; i<schedule.schedule.size();i++){
+                for(int i = 0; i<schedule.schedule.size()&&!isInserted;i++){
                     if(schedule.schedule.get(i).startTime>salmonRun.startTime){
                         schedule.schedule.add(i,salmonRun);
                         isInserted = true;
@@ -187,7 +246,9 @@ public class AddRun extends AppCompatActivity {
                 String json = gson.toJson(schedule);
                 edit.putString("salmonRunSchedule",json);
                 edit.commit();
-                onBackPressed();
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
@@ -196,15 +257,18 @@ public class AddRun extends AppCompatActivity {
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 Gson gson = new Gson();
                 SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
-                Intent intent = getIntent();
-                int replacementPosition = intent.getExtras().getInt("position");
+                Intent callingIntent = getIntent();
+                int replacementPosition = callingIntent.getExtras().getInt("position");
                 schedule.schedule.remove(replacementPosition);
 
                 SharedPreferences.Editor edit = settings.edit();
                 String json = gson.toJson(schedule);
                 edit.putString("salmonRunSchedule",json);
                 edit.commit();
-                onBackPressed();
+
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
@@ -213,7 +277,9 @@ public class AddRun extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
-            onBackPressed();
+            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(menuItem);
     }

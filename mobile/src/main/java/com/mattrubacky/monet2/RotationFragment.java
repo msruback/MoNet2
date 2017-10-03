@@ -54,6 +54,7 @@ public class RotationFragment extends Fragment {
     ViewGroup rootView;
     WearLink wearLink;
     UpdateRotationData updateRotationData;
+    SalmonSchedule salmonSchedule;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,8 +65,8 @@ public class RotationFragment extends Fragment {
         Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
         updateRotationData = new UpdateRotationData();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Gson gson = new Gson();
         if(settings.contains("rotationState")) {
-            Gson gson = new Gson();
             schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
             if(schedules == null){
                 schedules = new Schedules();
@@ -79,30 +80,13 @@ public class RotationFragment extends Fragment {
             schedules.ranked = new ArrayList<TimePeriod>();
             schedules.league = new ArrayList<TimePeriod>();
         }
+        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedule\":[]}"),SalmonSchedule.class);
+
+
 
         wearLink = new WearLink(getContext());
 
         Button addRun = (Button) rootView.findViewById(R.id.AddRun);
-
-        ViewPager TurfPager = (ViewPager) rootView.findViewById(R.id.TurfPager);
-        ViewPager RankPager = (ViewPager) rootView.findViewById(R.id.RankedPager);
-        ViewPager LeaguePager = (ViewPager) rootView.findViewById(R.id.LeaguePager);
-
-        PagerAdapter turfAdapter = new TurfAdapter(getFragmentManager(), schedules.regular);
-        PagerAdapter rankAdapter = new RankAdapter(getFragmentManager(), schedules.ranked);
-        PagerAdapter leagueAdapter = new LeagueAdapter(getFragmentManager(), schedules.league);
-
-        TabLayout turfDots = (TabLayout) rootView.findViewById(R.id.TurfDots);
-        TabLayout rankDots = (TabLayout) rootView.findViewById(R.id.RankDots);
-        TabLayout leagueDots = (TabLayout) rootView.findViewById(R.id.LeagueDots);
-
-        turfDots.setupWithViewPager(TurfPager, true);
-        rankDots.setupWithViewPager(RankPager, true);
-        leagueDots.setupWithViewPager(LeaguePager, true);
-
-        TurfPager.setAdapter(turfAdapter);
-        RankPager.setAdapter(rankAdapter);
-        LeaguePager.setAdapter(leagueAdapter);
 
         TextView turfWarTitle = (TextView) rootView.findViewById(R.id.turfWarName);
         TextView rankedTitle = (TextView) rootView.findViewById(R.id.rankedName);
@@ -114,17 +98,6 @@ public class RotationFragment extends Fragment {
 
         RelativeLayout salmonRun = (RelativeLayout) rootView.findViewById(R.id.SalmonRun);
 
-        ListView SalmonTimes = (ListView) rootView.findViewById(R.id.SalmonTimes);
-
-
-        Gson gson = new Gson();
-        SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedule\":[]}"),SalmonSchedule.class);
-
-
-        SalmonRunAdapter salmonRunAdapter = new SalmonRunAdapter(getContext(),schedule.schedule);
-
-        SalmonTimes.setAdapter(salmonRunAdapter);
-
         salmonRun.setClipToOutline(true);
 
         addRun.setOnClickListener(new View.OnClickListener() {
@@ -134,12 +107,14 @@ public class RotationFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("type","new");
                 intent.putExtras(bundle);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
 
 
         customHandler = new android.os.Handler();
+        updateUi();
 
         if(schedules.regular.size()==0){
             customHandler.post(update2Hours);
@@ -227,6 +202,11 @@ public class RotationFragment extends Fragment {
         TurfPager.setAdapter(turfAdapter);
         RankPager.setAdapter(rankAdapter);
         LeaguePager.setAdapter(leagueAdapter);
+
+        ListView SalmonTimes = (ListView) rootView.findViewById(R.id.SalmonTimes);
+        SalmonRunAdapter salmonRunAdapter = new SalmonRunAdapter(getContext(),salmonSchedule.schedule);
+        SalmonTimes.setAdapter(salmonRunAdapter);
+
         wearLink.sendRotation(schedules);
     }
 
@@ -392,7 +372,7 @@ public class RotationFragment extends Fragment {
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_salmon_run, parent, false);
             }
-            SalmonRun salmonRun = getItem(position);
+            final SalmonRun salmonRun = getItem(position);
 
             TextView time = (TextView) convertView.findViewById(R.id.time);
             TextView stage = (TextView) convertView.findViewById(R.id.stage);
@@ -412,7 +392,7 @@ public class RotationFragment extends Fragment {
             time.setText(startText + " to " + endText);
             stage.setText(salmonRun.stage);
 
-            if(salmonRun.weapons.size()>1) {
+            if(salmonRun.weapons.get(0)!=null) {
                 String url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(0).url;
                 ImageHandler imageHandler = new ImageHandler();
                 String imageDirName = salmonRun.weapons.get(0).name.toLowerCase().replace(" ", "_");
@@ -423,7 +403,7 @@ public class RotationFragment extends Fragment {
                     imageHandler.downloadImage("weapon", imageDirName, url, getContext());
                 }
 
-                if(salmonRun.weapons.size()>2) {
+                if(salmonRun.weapons.get(1)!=null) {
                     url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(1).url;
                     imageDirName = salmonRun.weapons.get(1).name.toLowerCase().replace(" ", "_");
                     if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
@@ -433,7 +413,7 @@ public class RotationFragment extends Fragment {
                         imageHandler.downloadImage("weapon", imageDirName, url, getContext());
                     }
 
-                    if(salmonRun.weapons.size()>3) {
+                    if(salmonRun.weapons.get(2)!=null) {
                         url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(2).url;
                         imageDirName = salmonRun.weapons.get(2).name.toLowerCase().replace(" ", "_");
                         if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
@@ -443,7 +423,7 @@ public class RotationFragment extends Fragment {
                             imageHandler.downloadImage("weapon", imageDirName, url, getContext());
                         }
 
-                        if(salmonRun.weapons.size()>4) {
+                        if(salmonRun.weapons.get(3)!=null) {
                             url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(3).url;
                             imageDirName = salmonRun.weapons.get(3).name.toLowerCase().replace(" ", "_");
                             if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
@@ -464,7 +444,9 @@ public class RotationFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putString("type","edit");
                     bundle.putInt("position",position);
+                    bundle.putParcelable("run",salmonSchedule.schedule.get(position));
                     intent.putExtras(bundle);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
             });
