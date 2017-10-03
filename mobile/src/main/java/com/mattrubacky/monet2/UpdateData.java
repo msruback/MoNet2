@@ -66,7 +66,7 @@ public class UpdateData extends Service {
         super.onStartCommand(intent,flags,startId);
 
         Thread t = new Thread(updateSplatnetData);
-        updateSplatnetData.run();
+        t.start();
 
         return START_NOT_STICKY;
     }
