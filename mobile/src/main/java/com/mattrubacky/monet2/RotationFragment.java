@@ -1,5 +1,6 @@
 package com.mattrubacky.monet2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -16,7 +17,10 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,9 +30,11 @@ import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -107,6 +113,18 @@ public class RotationFragment extends Fragment {
         TextView leagueError = (TextView) rootView.findViewById(R.id.LeagueErrorMessage);
 
         RelativeLayout salmonRun = (RelativeLayout) rootView.findViewById(R.id.SalmonRun);
+
+        ListView SalmonTimes = (ListView) rootView.findViewById(R.id.SalmonTimes);
+
+
+        Gson gson = new Gson();
+        SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedule\":[]}"),SalmonSchedule.class);
+
+
+        SalmonRunAdapter salmonRunAdapter = new SalmonRunAdapter(getContext(),schedule.schedule);
+
+        SalmonTimes.setAdapter(salmonRunAdapter);
+
         salmonRun.setClipToOutline(true);
 
         addRun.setOnClickListener(new View.OnClickListener() {
@@ -362,5 +380,97 @@ public class RotationFragment extends Fragment {
             return input.size();
         }
 
+    }
+
+    private class SalmonRunAdapter extends ArrayAdapter<SalmonRun> {
+        public SalmonRunAdapter(Context context, ArrayList<SalmonRun> input) {
+            super(context, 0, input);
+        }
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_salmon_run, parent, false);
+            }
+            SalmonRun salmonRun = getItem(position);
+
+            TextView time = (TextView) convertView.findViewById(R.id.time);
+            TextView stage = (TextView) convertView.findViewById(R.id.stage);
+
+            ImageView weapon1 = (ImageView) convertView.findViewById(R.id.Weapon1);
+            ImageView weapon2 = (ImageView) convertView.findViewById(R.id.Weapon2);
+            ImageView weapon3 = (ImageView) convertView.findViewById(R.id.Weapon3);
+            ImageView weapon4 = (ImageView) convertView.findViewById(R.id.Weapon4);
+            ImageView editButton = (ImageView) convertView.findViewById(R.id.EditButton);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("M/d h a");
+
+
+            String startText = sdf.format(salmonRun.startTime);
+            String endText = sdf.format(salmonRun.endTime);
+
+            time.setText(startText + " to " + endText);
+            stage.setText(salmonRun.stage);
+
+            if(salmonRun.weapons.size()>1) {
+                String url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(0).url;
+                ImageHandler imageHandler = new ImageHandler();
+                String imageDirName = salmonRun.weapons.get(0).name.toLowerCase().replace(" ", "_");
+                if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                    weapon1.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                } else {
+                    Picasso.with(getContext()).load(url).into(weapon1);
+                    imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                }
+
+                if(salmonRun.weapons.size()>2) {
+                    url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(1).url;
+                    imageDirName = salmonRun.weapons.get(1).name.toLowerCase().replace(" ", "_");
+                    if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                        weapon2.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                    } else {
+                        Picasso.with(getContext()).load(url).into(weapon2);
+                        imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                    }
+
+                    if(salmonRun.weapons.size()>3) {
+                        url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(2).url;
+                        imageDirName = salmonRun.weapons.get(2).name.toLowerCase().replace(" ", "_");
+                        if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                            weapon3.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                        } else {
+                            Picasso.with(getContext()).load(url).into(weapon3);
+                            imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                        }
+
+                        if(salmonRun.weapons.size()>4) {
+                            url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(3).url;
+                            imageDirName = salmonRun.weapons.get(3).name.toLowerCase().replace(" ", "_");
+                            if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                                weapon4.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                            } else {
+                                Picasso.with(getContext()).load(url).into(weapon4);
+                                imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                            }
+                        }
+                    }
+                }
+            }
+
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), AddRun.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("type","edit");
+                    bundle.putInt("position",position);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
+
+
+            return convertView;
+        }
     }
 }

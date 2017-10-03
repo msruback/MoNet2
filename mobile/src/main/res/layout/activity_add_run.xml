@@ -102,8 +102,9 @@
                 <TextView
                     android:id="@+id/TimeStartInputText"
                     android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:textSize="18sp"/>
             </RelativeLayout>
         </RelativeLayout>
@@ -150,8 +151,9 @@
                     android:background="@drawable/repeat_circles"></RelativeLayout>
                 <EditText
                     android:id="@+id/StageInput"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"/>
             </RelativeLayout>
         </RelativeLayout>
 
@@ -176,8 +178,8 @@
 
                 <TextView
                     android:id="@+id/TimeEndText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_centerInParent="true"
                     android:text="Time End"
                     android:textSize="18sp"/>
@@ -200,9 +202,9 @@
                     android:background="@drawable/repeat_circles"></RelativeLayout>
                 <TextView
                     android:id="@+id/TimeEndInputText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:layout_marginLeft="5dp"
                     android:textSize="18sp"/>
             </RelativeLayout>

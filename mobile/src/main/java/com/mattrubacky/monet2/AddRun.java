@@ -101,6 +101,7 @@ public class AddRun extends AppCompatActivity {
         timeEndInputText = (TextView) findViewById(R.id.TimeEndInputText);
 
         salmonRun = new SalmonRun();
+        salmonRun.weapons = new ArrayList<>();
 
         timeStartText.setTypeface(font);
         timeEndText.setTypeface(font);
@@ -162,7 +163,7 @@ public class AddRun extends AppCompatActivity {
                 salmonRun.stage = stageInput.getText().toString();
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 Gson gson = new Gson();
-                SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
+                SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedule\":[]}"),SalmonSchedule.class);
                 if(schedule.schedule==null){
                     schedule.schedule = new ArrayList<SalmonRun>();
                 }
@@ -186,6 +187,7 @@ public class AddRun extends AppCompatActivity {
                 String json = gson.toJson(schedule);
                 edit.putString("salmonRunSchedule",json);
                 edit.commit();
+                onBackPressed();
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
@@ -202,6 +204,7 @@ public class AddRun extends AppCompatActivity {
                 String json = gson.toJson(schedule);
                 edit.putString("salmonRunSchedule",json);
                 edit.commit();
+                onBackPressed();
             }
         });
 
