@@ -250,9 +250,7 @@ public class RotationFragment extends Fragment {
                 if(response.isSuccessful()){
                     schedules = (Schedules) response.body();
                 }else{
-                    if(schedules.getLength()>0){
-                        schedules.dequeue();
-                    }
+
                 }
 
             } catch (MalformedURLException e) {

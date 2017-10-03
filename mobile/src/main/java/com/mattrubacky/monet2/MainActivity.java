@@ -1,11 +1,9 @@
 package com.mattrubacky.monet2;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +14,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +22,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.wearable.PutDataMapRequest;
-import com.google.android.gms.wearable.PutDataRequest;
-import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -72,7 +64,11 @@ public class MainActivity extends AppCompatActivity {
         edit.putString("cookie",cookie);
         edit.commit();
 
+        Intent myIntent = new Intent(MainActivity.this, UpdateData.class);
+        PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this, 0, myIntent, 0);
 
+        DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
+        dataUpdateAlarm.setAlarm(MainActivity.this);
 
         Thread t = new Thread(updateTimeline);
         t.start();
@@ -111,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             selectItem(position);
         }
     }
+
 
     /** Swaps fragments in the main content view */
     private void selectItem(int position) {
