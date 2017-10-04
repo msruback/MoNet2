@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -330,6 +331,11 @@ public class RotationFragment extends Fragment {
         public int getCount() {
             return input.size();
         }
+        @Override
+        public Parcelable saveState() {
+            // Do Nothing
+            return null;
+        }
 
     }
     private class RankAdapter extends FragmentStatePagerAdapter {
@@ -356,6 +362,11 @@ public class RotationFragment extends Fragment {
         public int getCount() {
             return input.size();
         }
+        @Override
+        public Parcelable saveState() {
+            // Do Nothing
+            return null;
+        }
 
     }
     private class LeagueAdapter extends FragmentStatePagerAdapter {
@@ -381,6 +392,11 @@ public class RotationFragment extends Fragment {
         @Override
         public int getCount() {
             return input.size();
+        }
+        @Override
+        public Parcelable saveState() {
+            // Do Nothing
+            return null;
         }
 
     }

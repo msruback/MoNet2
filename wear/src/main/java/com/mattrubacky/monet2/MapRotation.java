@@ -174,10 +174,10 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                         salmonSchedule.schedule.remove(0);
                     }
                 }
-                if(schedules.regular.size()!=0) {
-                    while ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
+                if(schedules.regular.size()!=0&&((schedules.regular.get(0).end * 1000) < new Date().getTime())) {
+                    do{
                         schedules.dequeue();
-                    }
+                    }while(schedules.regular.size()!=0&&((schedules.regular.get(0).end * 1000) < new Date().getTime()));
                 }
                 updateUI();
             }
