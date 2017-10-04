@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ListView drawerList;
     ArrayList<String> titles;
-    Fragment rotation,shop,battleList;
+    Fragment rotation,shop,battleList,settingsFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
+
         //Add titles
         titles = new ArrayList<String>();
         titles.add("Rotation");
@@ -53,23 +54,19 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         titles.add(settings.getString("name","User"));
         titles.add("Battles");
+        titles.add("Settings");
 
         //Add fragments
         rotation = new RotationFragment();
         shop = new ShopFragment();
         battleList = new BattleListFragment();
+        settingsFrag = new SettingsFragment();
 
-        String cookie ="iksm_session=7d9c8df432370bcd88638d6bfca506e1f2f450ef";
-        SharedPreferences.Editor edit = settings.edit();
-        edit.putString("cookie",cookie);
-        edit.commit();
-
-        Intent myIntent = new Intent(MainActivity.this, UpdateData.class);
-        PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this, 0, myIntent, 0);
-
+        //Set up Alarm(Temporary
         DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
         dataUpdateAlarm.setAlarm(MainActivity.this);
 
+        //Get the timeline
         Thread t = new Thread(updateTimeline);
         t.start();
 
@@ -109,9 +106,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /** Swaps fragments in the main content view */
+    /** Swaps fragments*/
     private void selectItem(int position) {
-        // Create a new fragment and specify the planet to show based on position
         FragmentManager fragmentManager = getSupportFragmentManager();
         switch(position){
             case 0:
@@ -124,12 +120,18 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.frame_container, shop)
                         .commit();
                 break;
+            //Stats fragments go here
             case 2:
                 break;
             case 3:
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_container,battleList)
                         .commit();
+                break;
+            case 4:
+                fragmentManager.beginTransaction()
+                    .replace(R.id.frame_container,settingsFrag)
+                    .commit();
                 break;
         }
 

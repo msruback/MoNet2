@@ -139,6 +139,7 @@ public class UpdateData extends Service {
                 edit.putString("recentBattles",json);
 
                 edit.commit();
+                WearLink wearLink = new WearLink(getApplicationContext());
 
             } catch (IOException e) {
                 e.printStackTrace();

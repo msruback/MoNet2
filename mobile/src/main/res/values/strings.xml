@@ -12,4 +12,15 @@
     <string name="order">Order</string>
     <string name="keep">Keep</string>
 
+    <string-array name="update_periods">
+        <item>1 Hour</item>
+        <item>2 Hours</item>
+        <item>4 Hours</item>
+        <item>6 Hours</item>
+        <item>8 Hours</item>
+        <item>10 Hours</item>
+        <item>12 Hours</item>
+        <item>24 Hours</item>
+    </string-array>
+
 </resources>

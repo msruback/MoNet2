@@ -18,13 +18,8 @@ public class BootReciever extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             // Set the alarm here.
-            AlarmManager alarmMgr;
-            PendingIntent alarmIntent;
-            alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-            Intent newIntent = new Intent(context, DataUpdateAlarm.class);
-            alarmIntent = PendingIntent.getBroadcast(context, 0, newIntent, 0);
-
-            alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,new Date().getTime(),alarmIntent);
+            DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
+            dataUpdateAlarm.setAlarm(context);
         }
     }
 }
