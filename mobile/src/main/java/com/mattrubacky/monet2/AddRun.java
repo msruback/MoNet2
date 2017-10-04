@@ -119,46 +119,52 @@ public class AddRun extends AppCompatActivity {
 
                 ImageHandler imageHandler = new ImageHandler();
 
-
-
-                String imageDirName = salmonRun.weapons.get(0).name.toLowerCase().replace(" ","_");
-                String url = "https://app.splatoon2.nintendo.net"+salmonRun.weapons.get(0).url;
-                weapon1 = salmonRun.weapons.get(0);
-                if(imageHandler.imageExists("weapon",imageDirName,getBaseContext())){
-                    weapon1Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-                }else{
-                    Picasso.with(getBaseContext()).load(url).into(weapon1Image);
-                    imageHandler.downloadImage("weapon",imageDirName,url,getBaseContext());
+                if(salmonRun.weapons.get(0)!=null) {
+                    String imageDirName = salmonRun.weapons.get(0).name.toLowerCase().replace(" ", "_");
+                    String url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(0).url;
+                    weapon1 = salmonRun.weapons.get(0);
+                    if (imageHandler.imageExists("weapon", imageDirName, getBaseContext())) {
+                        weapon1Image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                    } else {
+                        Picasso.with(getBaseContext()).load(url).into(weapon1Image);
+                        imageHandler.downloadImage("weapon", imageDirName, url, getBaseContext());
+                    }
                 }
 
-                imageDirName = salmonRun.weapons.get(1).name.toLowerCase().replace(" ","_");
-                url = "https://app.splatoon2.nintendo.net"+salmonRun.weapons.get(1).url;
-                weapon2 = salmonRun.weapons.get(1);
-                if(imageHandler.imageExists("weapon",imageDirName,getBaseContext())){
-                    weapon2Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-                }else{
-                    Picasso.with(getBaseContext()).load(url).into(weapon2Image);
-                    imageHandler.downloadImage("weapon",imageDirName,url,getBaseContext());
+                if(salmonRun.weapons.get(1)!=null) {
+                    String imageDirName = salmonRun.weapons.get(1).name.toLowerCase().replace(" ", "_");
+                    String url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(1).url;
+                    weapon2 = salmonRun.weapons.get(1);
+                    if (imageHandler.imageExists("weapon", imageDirName, getBaseContext())) {
+                        weapon2Image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                    } else {
+                        Picasso.with(getBaseContext()).load(url).into(weapon2Image);
+                        imageHandler.downloadImage("weapon", imageDirName, url, getBaseContext());
+                    }
                 }
 
-                imageDirName = salmonRun.weapons.get(2).name.toLowerCase().replace(" ","_");
-                url = "https://app.splatoon2.nintendo.net"+salmonRun.weapons.get(2).url;
-                weapon3 = salmonRun.weapons.get(2);
-                if(imageHandler.imageExists("weapon",imageDirName,getBaseContext())){
-                    weapon3Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-                }else{
-                    Picasso.with(getBaseContext()).load(url).into(weapon3Image);
-                    imageHandler.downloadImage("weapon",imageDirName,url,getBaseContext());
+                if(salmonRun.weapons.get(2)!=null) {
+                    String imageDirName = salmonRun.weapons.get(2).name.toLowerCase().replace(" ", "_");
+                    String url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(2).url;
+                    weapon3 = salmonRun.weapons.get(2);
+                    if (imageHandler.imageExists("weapon", imageDirName, getBaseContext())) {
+                        weapon3Image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                    } else {
+                        Picasso.with(getBaseContext()).load(url).into(weapon3Image);
+                        imageHandler.downloadImage("weapon", imageDirName, url, getBaseContext());
+                    }
                 }
 
-                imageDirName = salmonRun.weapons.get(3).name.toLowerCase().replace(" ","_");
-                url = "https://app.splatoon2.nintendo.net"+salmonRun.weapons.get(3).url;
-                weapon4 = salmonRun.weapons.get(3);
-                if(imageHandler.imageExists("weapon",imageDirName,getBaseContext())){
-                    weapon4Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-                }else{
-                    Picasso.with(getBaseContext()).load(url).into(weapon4Image);
-                    imageHandler.downloadImage("weapon",imageDirName,url,getBaseContext());
+                if(salmonRun.weapons.get(3)!=null) {
+                    String imageDirName = salmonRun.weapons.get(3).name.toLowerCase().replace(" ", "_");
+                    String url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(3).url;
+                    weapon4 = salmonRun.weapons.get(3);
+                    if (imageHandler.imageExists("weapon", imageDirName, getBaseContext())) {
+                        weapon4Image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                    } else {
+                        Picasso.with(getBaseContext()).load(url).into(weapon4Image);
+                        imageHandler.downloadImage("weapon", imageDirName, url, getBaseContext());
+                    }
                 }
 
                 break;

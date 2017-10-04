@@ -118,6 +118,12 @@ public class RotationFragment extends Fragment {
         customHandler = new android.os.Handler();
         updateUi();
 
+        if(salmonSchedule.schedule.size()!=0){
+            if(salmonSchedule.schedule.get(0).endTime< new Date().getTime()){
+                salmonSchedule.schedule.remove(0);
+            }
+        }
+
         if(schedules.regular.size()==0){
             customHandler.post(update2Hours);
         }else {
@@ -180,12 +186,10 @@ public class RotationFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
-        if(schedules!=null){
-            updateUi();
-        }
         monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
         wearLink.openConnection();
     }
+
 
     //Get Rotation Data
 
@@ -202,9 +206,9 @@ public class RotationFragment extends Fragment {
         rankDots.setupWithViewPager(RankPager, true);
         leagueDots.setupWithViewPager(LeaguePager, true);
 
-        PagerAdapter turfAdapter = new TurfAdapter(getFragmentManager(), schedules.regular);
-        PagerAdapter rankAdapter = new RankAdapter(getFragmentManager(), schedules.ranked);
-        PagerAdapter leagueAdapter = new LeagueAdapter(getFragmentManager(), schedules.league);
+        PagerAdapter turfAdapter = new TurfAdapter(getChildFragmentManager(), schedules.regular);
+        PagerAdapter rankAdapter = new RankAdapter(getChildFragmentManager(), schedules.ranked);
+        PagerAdapter leagueAdapter = new LeagueAdapter(getChildFragmentManager(), schedules.league);
 
         TurfPager.setAdapter(turfAdapter);
         RankPager.setAdapter(rankAdapter);
@@ -396,6 +400,12 @@ public class RotationFragment extends Fragment {
 
             final SalmonRun salmonRun = getItem(position);
 
+            RelativeLayout weapon1Layout = (RelativeLayout) convertView.findViewById(R.id.weapon1);
+            RelativeLayout weapon2Layout = (RelativeLayout) convertView.findViewById(R.id.weapon2);
+            RelativeLayout weapon3Layout = (RelativeLayout) convertView.findViewById(R.id.weapon3);
+            RelativeLayout weapon4Layout = (RelativeLayout) convertView.findViewById(R.id.weapon4);
+
+
             TextView time = (TextView) convertView.findViewById(R.id.time);
             TextView stage = (TextView) convertView.findViewById(R.id.stage);
 
@@ -416,10 +426,16 @@ public class RotationFragment extends Fragment {
 
             time.setText(startText + " to " + endText);
             stage.setText(salmonRun.stage);
+            if(salmonRun.stage.equals("")){
+                stage.setVisibility(View.GONE);
+            }else{
+                stage.setVisibility(View.VISIBLE);
+            }
 
+
+            ImageHandler imageHandler = new ImageHandler();
             if(salmonRun.weapons.get(0)!=null) {
                 String url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(0).url;
-                ImageHandler imageHandler = new ImageHandler();
                 String imageDirName = salmonRun.weapons.get(0).name.toLowerCase().replace(" ", "_");
                 if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
                     weapon1.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
@@ -427,39 +443,49 @@ public class RotationFragment extends Fragment {
                     Picasso.with(getContext()).load(url).into(weapon1);
                     imageHandler.downloadImage("weapon", imageDirName, url, getContext());
                 }
-
-                if(salmonRun.weapons.get(1)!=null) {
-                    url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(1).url;
-                    imageDirName = salmonRun.weapons.get(1).name.toLowerCase().replace(" ", "_");
-                    if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
-                        weapon2.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
-                    } else {
-                        Picasso.with(getContext()).load(url).into(weapon2);
-                        imageHandler.downloadImage("weapon", imageDirName, url, getContext());
-                    }
-
-                    if(salmonRun.weapons.get(2)!=null) {
-                        url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(2).url;
-                        imageDirName = salmonRun.weapons.get(2).name.toLowerCase().replace(" ", "_");
-                        if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
-                            weapon3.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
-                        } else {
-                            Picasso.with(getContext()).load(url).into(weapon3);
-                            imageHandler.downloadImage("weapon", imageDirName, url, getContext());
-                        }
-
-                        if(salmonRun.weapons.get(3)!=null) {
-                            url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(3).url;
-                            imageDirName = salmonRun.weapons.get(3).name.toLowerCase().replace(" ", "_");
-                            if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
-                                weapon4.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
-                            } else {
-                                Picasso.with(getContext()).load(url).into(weapon4);
-                                imageHandler.downloadImage("weapon", imageDirName, url, getContext());
-                            }
-                        }
-                    }
+            }
+            if(salmonRun.weapons.get(1)!=null) {
+                String url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(1).url;
+                String imageDirName = salmonRun.weapons.get(1).name.toLowerCase().replace(" ", "_");
+                if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                    weapon2.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                } else {
+                    Picasso.with(getContext()).load(url).into(weapon2);
+                    imageHandler.downloadImage("weapon", imageDirName, url, getContext());
                 }
+            }
+
+            if(salmonRun.weapons.get(2)!=null) {
+                String url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(2).url;
+                String imageDirName = salmonRun.weapons.get(2).name.toLowerCase().replace(" ", "_");
+                if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                    weapon3.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                } else {
+                    Picasso.with(getContext()).load(url).into(weapon3);
+                    imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                }
+            }
+
+            if(salmonRun.weapons.get(3)!=null) {
+                String url = "https://app.splatoon2.nintendo.net" + salmonRun.weapons.get(3).url;
+                String imageDirName = salmonRun.weapons.get(3).name.toLowerCase().replace(" ", "_");
+                if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                    weapon4.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                } else {
+                    Picasso.with(getContext()).load(url).into(weapon4);
+                    imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                }
+            }
+            if(salmonRun.weapons.get(0)==null&&salmonRun.weapons.get(1)==null&&salmonRun.weapons.get(2)==null&&salmonRun.weapons.get(3)==null){
+                weapon1Layout.setVisibility(View.GONE);
+                weapon2Layout.setVisibility(View.GONE);
+                weapon3Layout.setVisibility(View.GONE);
+                weapon4Layout.setVisibility(View.GONE);
+            }else{
+                weapon1Layout.setVisibility(View.VISIBLE);
+                weapon2Layout.setVisibility(View.VISIBLE);
+                weapon3Layout.setVisibility(View.VISIBLE);
+                weapon4Layout.setVisibility(View.VISIBLE);
             }
 
             editButton.setOnClickListener(new View.OnClickListener() {

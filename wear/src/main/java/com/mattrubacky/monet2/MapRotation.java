@@ -113,7 +113,8 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 TextView LeagueStageB = (TextView) stub.findViewById(R.id.LeagueStageB);
 
                 TextView SalmonTitle = (TextView) stub.findViewById(R.id.SalmonTitle);
-                TextView SalmonShift = (TextView) stub.findViewById(R.id.ShiftTime);
+                TextView SalmonShift1 = (TextView) stub.findViewById(R.id.ShiftTime1);
+                TextView SalmonShift2 = (TextView) stub.findViewById(R.id.ShiftTime2);
 
                 title.setTypeface(fontTitle);
 
@@ -130,7 +131,8 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 LeagueStageB.setTypeface(font);
 
                 SalmonTitle.setTypeface(fontTitle);
-                SalmonShift.setTypeface(font);
+                SalmonShift1.setTypeface(font);
+                SalmonShift2.setTypeface(font);
 
                 TurfWar.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
@@ -167,6 +169,11 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                         return false;
                     }
                 });
+                if(salmonSchedule.schedule.size()!=0){
+                    if(salmonSchedule.schedule.get(0).endTime<new Date().getTime()){
+                        salmonSchedule.schedule.remove(0);
+                    }
+                }
                 if(schedules.regular.size()!=0) {
                     while ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
                         schedules.dequeue();
@@ -262,7 +269,8 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
         TextView LeagueStageB = (TextView) stub.findViewById(R.id.LeagueStageB);
 
         RelativeLayout SalmonRun = (RelativeLayout) stub.findViewById(R.id.SalmonRun);
-        TextView SalmonShift = (TextView) stub.findViewById(R.id.ShiftTime);
+        TextView SalmonShift1 = (TextView) stub.findViewById(R.id.ShiftTime1);
+        TextView SalmonShift2 = (TextView) stub.findViewById(R.id.ShiftTime2);
 
         if(schedules.regular.size()>0) {
             TurfWar.setVisibility(View.VISIBLE);
@@ -296,7 +304,12 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 SimpleDateFormat sdf = new SimpleDateFormat("M/d h a");
                 String startText = sdf.format(salmonSchedule.schedule.get(0).startTime);
                 String endText = sdf.format(salmonSchedule.schedule.get(0).endTime);
-                SalmonShift.setText(startText + " to " + endText);
+                SalmonShift1.setText(startText + " to " + endText);
+                if(salmonSchedule.schedule.size()>1){
+                    startText = sdf.format(salmonSchedule.schedule.get(1).startTime);
+                    endText = sdf.format(salmonSchedule.schedule.get(1).endTime);
+                    SalmonShift2.setText(startText + " to " + endText);
+                }
             } else {
                 SalmonRun.setVisibility(View.GONE);
             }

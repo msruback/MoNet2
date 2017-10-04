@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
@@ -108,15 +109,17 @@ public class SettingsFragment extends Fragment {
         frequencyText.setTypeface(font);
         dataText.setTypeface(font);
         //Grab data as changed
-        frequencySpinner.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        frequencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferences.Editor edit = settings.edit();
+                edit.putInt("updateInterval", position);
+                edit.commit();
+            }
 
-                    SharedPreferences.Editor edit = settings.edit();
-                    edit.putInt("updateInterval",frequencySpinner.getSelectedItemPosition());
-                    edit.commit();
-                }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -124,9 +127,9 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SharedPreferences.Editor edit = settings.edit();
-                edit.putBoolean("autoUpdate",isChecked);
+                edit.putBoolean("autoUpdate", isChecked);
                 edit.commit();
-                if(isChecked){
+                if (isChecked) {
                     frequencyLayout.setAlpha(1);
                     dataLayout.setAlpha(1);
                     frequencySpinner.setEnabled(true);
@@ -140,7 +143,7 @@ public class SettingsFragment extends Fragment {
                             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                             PackageManager.DONT_KILL_APP);
 
-                }else{
+                } else {
                     frequencyLayout.setAlpha((float) 0.5);
                     dataLayout.setAlpha((float) 0.5);
                     frequencySpinner.setEnabled(false);
