@@ -62,10 +62,6 @@ public class MainActivity extends AppCompatActivity {
         battleList = new BattleListFragment();
         settingsFrag = new SettingsFragment();
 
-        //Set up Alarm(Temporary
-        DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
-        dataUpdateAlarm.setAlarm(MainActivity.this);
-
         //Get the timeline
         Thread t = new Thread(updateTimeline);
         t.start();

@@ -89,23 +89,28 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/repeat_stripes">
                 </RelativeLayout>
-            <TextView
-                android:id="@+id/FrequencyText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Update Frequency"
-                android:layout_centerVertical="true"
-                android:textSize="18sp" />
+            <RelativeLayout
+                android:id="@+id/FrequencyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/FrequencyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Update Frequency"
+                    android:layout_centerVertical="true"
+                    android:textSize="18sp" />
 
-            <Spinner
-                android:id="@+id/FrequencySpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:entries="@array/update_periods"/>
+                <Spinner
+                    android:id="@+id/FrequencySpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:entries="@array/update_periods"/>
+            </RelativeLayout>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/onData"
@@ -122,21 +127,27 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/repeat_stripes">
                 </RelativeLayout>
-            <TextView
-                android:id="@+id/DataText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Update on Data"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:textSize="18sp"/>
+            <RelativeLayout
+                android:id="@+id/DataLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/DataText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update on Data"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="18sp"/>
 
-            <Switch
-                android:id="@+id/DataSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true" /></RelativeLayout>
+                <Switch
+                    android:id="@+id/DataSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>
