@@ -1,7 +1,10 @@
 package com.mattrubacky.monet2;
 
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -9,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -42,7 +46,7 @@ public class SettingsFragment extends Fragment {
 
         dataUpdateAlarm = new DataUpdateAlarm();
 
-        ArrayList<String> hours = new ArrayList<>();
+        final ArrayList<String> hours = new ArrayList<>();
         hours.add("1 Hour");
         hours.add("2 Hours");
         hours.add("4 Hours");
@@ -51,19 +55,36 @@ public class SettingsFragment extends Fragment {
         hours.add("10 Hours");
         hours.add("12 Hours");
 
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
+        final Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
-        Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
+        final Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
 
         final RelativeLayout frequencyLayout = (RelativeLayout) rootView.findViewById(R.id.FrequencyLayout);
         final RelativeLayout dataLayout = (RelativeLayout) rootView.findViewById(R.id.DataLayout);
 
-        TextView autoTitle = (TextView) rootView.findViewById(R.id.autoUpdateTitle);
-        TextView autoText = (TextView) rootView.findViewById(R.id.AutoText);
-        TextView frequencyText = (TextView) rootView.findViewById(R.id.FrequencyText);
-        TextView dataText = (TextView) rootView.findViewById(R.id.DataText);
+        final TextView autoTitle = (TextView) rootView.findViewById(R.id.autoUpdateTitle);
+        final TextView autoText = (TextView) rootView.findViewById(R.id.AutoText);
+        final TextView frequencyText = (TextView) rootView.findViewById(R.id.FrequencyText);
+        final TextView dataText = (TextView) rootView.findViewById(R.id.DataText);
 
         final Spinner frequencySpinner = (Spinner) rootView.findViewById(R.id.FrequencySpinner);
+
+
+
+        final ArrayAdapter<String> hourAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,hours) {
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+
+                if (position <= hours.size()) {
+                    Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
+                    ((TextView) v).setTypeface(typeface);
+                }
+
+                return v;
+            }
+        };
+
+        frequencySpinner.setAdapter(hourAdapter);
 
         final Switch autoSwitch = (Switch) rootView.findViewById(R.id.AutoSwitch);
         final Switch dataSwitch = (Switch) rootView.findViewById(R.id.DataSwitch);
@@ -111,12 +132,26 @@ public class SettingsFragment extends Fragment {
                     frequencySpinner.setEnabled(true);
                     dataSwitch.setEnabled(true);
                     dataUpdateAlarm.setAlarm(getContext());
+
+                    ComponentName receiver = new ComponentName(getContext(), BootReciever.class);
+                    PackageManager pm = getContext().getPackageManager();
+
+                    pm.setComponentEnabledSetting(receiver,
+                            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                            PackageManager.DONT_KILL_APP);
+
                 }else{
                     frequencyLayout.setAlpha((float) 0.5);
                     dataLayout.setAlpha((float) 0.5);
                     frequencySpinner.setEnabled(false);
                     dataSwitch.setEnabled(false);
                     dataUpdateAlarm.cancelAlarm(getContext());
+                    ComponentName receiver = new ComponentName(getContext(), BootReciever.class);
+                    PackageManager pm = getContext().getPackageManager();
+
+                    pm.setComponentEnabledSetting(receiver,
+                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                            PackageManager.DONT_KILL_APP);
                 }
             }
         });
@@ -132,6 +167,24 @@ public class SettingsFragment extends Fragment {
 
         return rootView;
 
+    }
+    private class HourAdapter extends ArrayAdapter<String> {
+        public HourAdapter(Context context, ArrayList<String> input) {
+            super(context, 0, input);
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
+            }
+            Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
+
+            ((TextView)convertView).setTypeface(font);
+            ((TextView)convertView).setText(getItem(position));
+
+            return convertView;
+        }
     }
 
 }

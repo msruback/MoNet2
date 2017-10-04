@@ -5,6 +5,8 @@ import android.app.Service;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.IBinder;
 
@@ -64,9 +66,18 @@ public class UpdateData extends Service {
 // TODO Auto-generated method stub
 
         super.onStartCommand(intent,flags,startId);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         Thread t = new Thread(updateSplatnetData);
-        t.start();
+        if(settings.getBoolean("updateData",false)){
+            t.start();
+        }else{
+            ConnectivityManager connManager = (ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE);
+            NetworkInfo wifiStatus = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            if(wifiStatus.isConnected()){
+                t.start();
+            }
+        }
 
         return START_NOT_STICKY;
     }

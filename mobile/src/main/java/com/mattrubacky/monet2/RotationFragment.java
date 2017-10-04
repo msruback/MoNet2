@@ -180,6 +180,9 @@ public class RotationFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
+        if(schedules!=null){
+            updateUi();
+        }
         monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
         wearLink.openConnection();
     }

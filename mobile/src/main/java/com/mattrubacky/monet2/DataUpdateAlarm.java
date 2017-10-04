@@ -5,7 +5,9 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 /**
@@ -32,7 +34,37 @@ public class DataUpdateAlarm extends BroadcastReceiver {
 
     public void setAlarm(Context context)
     {
-        Long alarmSpacing = Long.valueOf((1000*60*60));
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Long alarmSpacing;
+        switch(settings.getInt("updateInterval",0)){
+            case 0:
+                alarmSpacing = Long.valueOf((1000*60*60));//1 Hour
+                break;
+            case 1:
+                alarmSpacing = Long.valueOf((1000*60*60)*2);//2 Hour
+                break;
+            case 2:
+                alarmSpacing = Long.valueOf((1000*60*60)*4);//4 Hour
+                break;
+            case 3:
+                alarmSpacing = Long.valueOf((1000*60*60)*6);//6 Hour
+                break;
+            case 4:
+                alarmSpacing = Long.valueOf((1000*60*60)*8);//8 Hour
+                break;
+            case 5:
+                alarmSpacing = Long.valueOf((1000*60*60)*10);//10 Hour
+                break;
+            case 6:
+                alarmSpacing = Long.valueOf((1000*60*60)*12);//12 Hour
+                break;
+            case 7:
+                alarmSpacing = Long.valueOf((1000*60*60)*24);//24 Hour
+                break;
+            default:
+                alarmSpacing = Long.valueOf((1000*60*60));
+                break;
+        }
         AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, DataUpdateAlarm.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
