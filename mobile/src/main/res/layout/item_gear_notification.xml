@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:id="@+id/gearImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/GearImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/hula_punk" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/skillImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="5dp"
+        android:layout_toRightOf="@+id/gearImage"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/skill_background">
+
+        <ImageView
+            android:id="@+id/SkillImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/skill_main_ink_saver" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/GearName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/skillImage"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:text="Hula Punk Shirt"
+        android:textSize="18sp"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:id="@+id/EditButton"
+            android:src="@android:drawable/ic_menu_edit"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentTop="true"
+            android:tint="@color/grey" />
+    </RelativeLayout>
+
+</RelativeLayout>

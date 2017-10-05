@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -85,11 +86,16 @@ public class AddNotification extends AppCompatActivity {
                 title.setText("Edit Notification");
                 gearNotification = bundle.getParcelable("notification");
                 gearInput.setText(gearNotification.gear.name);
-                abilityInput.setText(gearNotification.skill.name);
+                if(gearNotification.skill!=null) {
+                    abilityInput.setText(gearNotification.skill.name);
+                }
             }else{
                 title.setText("Add Notification");
                 Delete.setVisibility(View.GONE);
                 gearNotification = new GearNotification();
+                gearNotification.skill = new Skill();
+                gearNotification.skill.name = "Any";
+                gearNotification.skill.id = -1;
             }
 
 
@@ -112,23 +118,27 @@ public class AddNotification extends AppCompatActivity {
             Submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                    Gson gson = new Gson();
-                    GearNotifications gearNotifications = gson.fromJson(settings.getString("gearNotifications","{\"notifications\":[]}"),GearNotifications.class);
-                    if(isEdit){
-                        gearNotifications.notifications.remove(bundle.getInt("position"));
+                    if(gearNotification.gear!=null) {
+                        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                        Gson gson = new Gson();
+                        GearNotifications gearNotifications = gson.fromJson(settings.getString("gearNotifications", "{\"notifications\":[]}"), GearNotifications.class);
+                        if (isEdit) {
+                            gearNotifications.notifications.remove(bundle.getInt("position"));
+                        }
+                        gearNotifications.notifications.add(gearNotification);
+
+                        SharedPreferences.Editor edit = settings.edit();
+                        String json = gson.toJson(gearNotifications);
+                        edit.putString("gearNotifications", json);
+                        edit.commit();
+
+                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("fragment", 4);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getApplicationContext(),"Please Select a Gear",Toast.LENGTH_SHORT);
                     }
-                    gearNotifications.notifications.add(gearNotification);
-
-                    SharedPreferences.Editor edit = settings.edit();
-                    String json = gson.toJson(gearNotifications);
-                    edit.putString("gearNotifications",json);
-                    edit.commit();
-
-                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra("fragment",4);
-                    startActivity(intent);
 
                 }
             });
@@ -174,6 +184,7 @@ public class AddNotification extends AppCompatActivity {
             final RelativeLayout Delete = (RelativeLayout) findViewById(R.id.Delete);
 
             final ArrayList<String> modes = new ArrayList<>();
+            modes.add("Any");
             modes.add("Regular");
             modes.add("Ranked");
             modes.add("League");
@@ -192,6 +203,7 @@ public class AddNotification extends AppCompatActivity {
             };
 
             final ArrayList<String> rules = new ArrayList<>();
+            rules.add("Any");
             rules.add("Splat Zones");
             rules.add("Tower Control");
             rules.add("Rainmaker");
@@ -217,8 +229,8 @@ public class AddNotification extends AppCompatActivity {
             TextView submitText = (TextView) findViewById(R.id.SubmitText);
             TextView deleteText = (TextView) findViewById(R.id.DeleteText);
 
-            Spinner modeSpinner = (Spinner) findViewById(R.id.TypeSpinner);
-            Spinner ruleSpinner = (Spinner) findViewById(R.id.RuleSpinner);
+            final Spinner modeSpinner = (Spinner) findViewById(R.id.TypeSpinner);
+            final Spinner ruleSpinner = (Spinner) findViewById(R.id.RuleSpinner);
 
             modeSpinner.setAdapter(modeAdapter);
             ruleSpinner.setAdapter(ruleAdapter);
@@ -234,18 +246,121 @@ public class AddNotification extends AppCompatActivity {
                 title.setText("Edit Notification");
                 stageNotification = bundle.getParcelable("notification");
                 stageInput.setText(stageNotification.stage.name);
-                switch (stageNotification.rule.key){
-                    case "":
+                switch (stageNotification.rule){
+                    case "splat_zones":
+                        ruleSpinner.setSelection(1);
+                        break;
+                    case "tower_control":
+                        ruleSpinner.setSelection(2);
+                        break;
+                    case "rainmaker":
+                        ruleSpinner.setSelection(3);
+                        break;
+                    default:
+                        ruleSpinner.setSelection(0);
                         break;
                 }
-
+                switch (stageNotification.type){
+                    case "regular":
+                        modeSpinner.setSelection(1);
+                        ruleSpinner.setEnabled(false);
+                        ruleSpinner.setSelection(0);
+                        stageNotification.rule = "any";
+                        break;
+                    case "gachi":
+                        modeSpinner.setSelection(2);
+                        break;
+                    case "league":
+                        modeSpinner.setSelection(3);
+                        break;
+                    default:
+                        modeSpinner.setSelection(0);
+                        break;
+                }
             }else{
                 title.setText("Add Notification");
                 Delete.setVisibility(View.GONE);
                 stageNotification = new StageNotification();
             }
 
+            Submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(stageNotification.stage==null){
+                        stageNotification.stage = new Stage();
+                        stageNotification.stage.id = -1;
+                        stageNotification.stage.name = "Any";
+                    }
+                    switch(modeSpinner.getSelectedItemPosition()){
+                        case 0:
+                            stageNotification.type = "any";
+                            break;
+                        case 1:
+                            stageNotification.type = "regular";
+                            break;
+                        case 2:
+                            stageNotification.type = "gachi";
+                            break;
+                        case 3:
+                            stageNotification.type = "league";
+                            break;
 
+                    }
+                    switch (ruleSpinner.getSelectedItemPosition()){
+                        case 0:
+                            stageNotification.rule = "any";
+                            break;
+                        case 1:
+                            stageNotification.rule = "splat_zones";
+                            break;
+                        case 2:
+                            stageNotification.rule = "tower_control";
+                            break;
+                        case 3:
+                            stageNotification.rule = "rainmaker";
+                    }
+
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    Gson gson = new Gson();
+                    StageNotifications stageNotifications = gson.fromJson(settings.getString("stageNotifications","{\"notifications\":[]}"),StageNotifications.class);
+                    if(isEdit){
+                        stageNotifications.notifications.remove(bundle.getInt("position"));
+                    }
+                    stageNotifications.notifications.add(stageNotification);
+
+                    SharedPreferences.Editor edit = settings.edit();
+                    String json = gson.toJson(stageNotifications);
+                    edit.putString("stageNotifications",json);
+                    edit.commit();
+
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("fragment",4);
+                    startActivity(intent);
+                }
+            });
+
+            Delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    Gson gson = new Gson();
+                    StageNotifications stageNotifications = gson.fromJson(settings.getString("stageNotifications","{\"notifications\":[]}"),StageNotifications.class);
+                    if(isEdit){
+                        stageNotifications.notifications.remove(bundle.getInt("position"));
+                    }
+
+                    SharedPreferences.Editor edit = settings.edit();
+                    String json = gson.toJson(stageNotifications);
+                    edit.putString("stageNotifications",json);
+                    edit.commit();
+
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("fragment",4);
+                    startActivity(intent);
+                }
+            });
 
         }
 
@@ -338,7 +453,12 @@ public class AddNotification extends AppCompatActivity {
             title.setTypeface(titleFont);
 
             SplatnetSQL splatnetSQL = new SplatnetSQL(getApplicationContext());
-            skills = splatnetSQL.getSkills();
+            skills = new ArrayList<>();
+            Skill anySkill = new Skill();
+            anySkill.id = -1;
+            anySkill.name = "Any";
+            skills.add(anySkill);
+            skills.addAll(splatnetSQL.getSkills());
 
             final SkillAdapter skillAdapter = new SkillAdapter(getApplicationContext(),skills);
 
@@ -397,7 +517,12 @@ public class AddNotification extends AppCompatActivity {
             title.setTypeface(titleFont);
 
             SplatnetSQL splatnetSQL = new SplatnetSQL(getApplicationContext());
-            stages = splatnetSQL.getStages();
+            stages = new ArrayList<>();
+            Stage anyStage = new Stage();
+            anyStage.id = -1;
+            anyStage.name = "Any";
+            stages.add(anyStage);
+            stages.addAll(splatnetSQL.getStages());
 
             final StageAdapter stageAdapter = new StageAdapter(getApplicationContext(),stages);
 
@@ -482,24 +607,28 @@ public class AddNotification extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_weapon_picker, parent, false);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_skill_picker, parent, false);
             }
             Skill skill = getItem(position);
 
             ImageView image = (ImageView) convertView.findViewById(R.id.Image);
-            TextView weaponName = (TextView) convertView.findViewById(R.id.WeaponName);
-
-            weaponName.setText(skill.name);
-
-            String url = "https://app.splatoon2.nintendo.net"+skill.url;
-
-            ImageHandler imageHandler = new ImageHandler();
-            String imageDirName = skill.name.toLowerCase().replace(" ","_");
-            if(imageHandler.imageExists("gear",imageDirName,getContext())){
-                image.setImageBitmap(imageHandler.loadImage("gear",imageDirName));
+            TextView weaponName = (TextView) convertView.findViewById(R.id.SkillName);
+            if(skill.id ==-1) {
+                weaponName.setText("Any");
+                image.setImageDrawable(getResources().getDrawable(R.drawable.skill_blank));
             }else{
-                Picasso.with(getContext()).load(url).into(image);
-                imageHandler.downloadImage("gear",imageDirName,url,getContext());
+                weaponName.setText(skill.name);
+
+                String url = "https://app.splatoon2.nintendo.net" + skill.url;
+
+                ImageHandler imageHandler = new ImageHandler();
+                String imageDirName = skill.name.toLowerCase().replace(" ", "_");
+                if (imageHandler.imageExists("ability", imageDirName, getContext())) {
+                    image.setImageBitmap(imageHandler.loadImage("ability", imageDirName));
+                } else {
+                    Picasso.with(getContext()).load(url).into(image);
+                    imageHandler.downloadImage("ability", imageDirName, url, getContext());
+                }
             }
 
             return convertView;
@@ -514,13 +643,13 @@ public class AddNotification extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_weapon_picker, parent, false);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_stage_picker, parent, false);
             }
             Stage stage = getItem(position);
 
-            TextView weaponName = (TextView) convertView.findViewById(R.id.WeaponName);
+            TextView stageName = (TextView) convertView.findViewById(R.id.StageName);
 
-            weaponName.setText(stage.name);
+            stageName.setText(stage.name);
 
             return convertView;
         }

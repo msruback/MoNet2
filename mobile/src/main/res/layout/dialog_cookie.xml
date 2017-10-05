@@ -45,7 +45,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/repeat_stripes"></RelativeLayout>
                 <TextView
-                    android:id="@+id/dialogPrompt"
+                    android:id="@+id/DialogPrompt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -68,7 +68,7 @@
                     android:background="@drawable/repeat_stripes"></RelativeLayout>
 
                 <EditText
-                    android:id="@+id/cookieInput"
+                    android:id="@+id/CookieInput"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -80,24 +80,27 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/Submit"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:background="@drawable/banner_normal"
-            android:backgroundTint="@color/colorPrimary"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_marginBottom="24dp"
             android:layout_marginEnd="22dp"
-            android:layout_marginBottom="24dp">
+            android:background="@drawable/banner_normal"
+            android:backgroundTint="@color/colorPrimary">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/repeat_stripes"></RelativeLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Submit"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
         </RelativeLayout>
 

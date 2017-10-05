@@ -72,6 +72,8 @@ class Schedules implements Parcelable {
 class TimePeriod implements Parcelable{
     public TimePeriod(){}
 
+    @SerializedName("game_mode")
+    Gamemode gamemode;
     @SerializedName("rule")
     Rule rule;
     @SerializedName("stage_b")
@@ -84,6 +86,12 @@ class TimePeriod implements Parcelable{
     Long end;
 
     protected TimePeriod(Parcel in) {
+        gamemode = in.readParcelable(Gamemode.class.getClassLoader());
+        rule = in.readParcelable(Rule.class.getClassLoader());
+        b = in.readParcelable(Stage.class.getClassLoader());
+        a = in.readParcelable(Stage.class.getClassLoader());
+        start = in.readLong();
+        end = in.readLong();
     }
 
     public static final Creator<TimePeriod> CREATOR = new Creator<TimePeriod>() {
@@ -105,10 +113,49 @@ class TimePeriod implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.start);
-        dest.writeLong(this.end);
-        dest.writeParcelable(this.a,0);
-        dest.writeParcelable(this.b,0);
+        dest.writeParcelable(gamemode, flags);
+        dest.writeParcelable(rule, flags);
+        dest.writeParcelable(b, flags);
+        dest.writeParcelable(a, flags);
+        dest.writeLong(start);
+        dest.writeLong(end);
+    }
+}
+
+class Gamemode implements Parcelable{
+    public Gamemode(){
+    }
+    @SerializedName("name")
+    String name;
+    @SerializedName("key")
+    String key;
+
+    protected Gamemode(Parcel in) {
+        name = in.readString();
+        key = in.readString();
+    }
+
+    public static final Creator<Gamemode> CREATOR = new Creator<Gamemode>() {
+        @Override
+        public Gamemode createFromParcel(Parcel in) {
+            return new Gamemode(in);
+        }
+
+        @Override
+        public Gamemode[] newArray(int size) {
+            return new Gamemode[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(key);
     }
 }
 
@@ -986,14 +1033,14 @@ class StageNotification implements Parcelable{
     @SerializedName("type")
     String type;
     @SerializedName("rule")
-    Rule rule;
+    String rule;
     @SerializedName("notified")
     ArrayList<TimePeriod> notified;
 
     protected StageNotification(Parcel in) {
         stage = in.readParcelable(Stage.class.getClassLoader());
         type = in.readString();
-        rule = in.readParcelable(Rule.class.getClassLoader());
+        rule = in.readString();
         notified = in.createTypedArrayList(TimePeriod.CREATOR);
     }
 
@@ -1018,7 +1065,7 @@ class StageNotification implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(stage, flags);
         dest.writeString(type);
-        dest.writeParcelable(rule, flags);
+        dest.writeString(rule);
         dest.writeTypedList(notified);
     }
 }

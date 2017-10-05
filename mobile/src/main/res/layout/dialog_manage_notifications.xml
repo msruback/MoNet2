@@ -1,36 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/hook"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/extra_hook"
-        android:backgroundTint="@color/grey"
-        android:rotation="-2">
+        android:backgroundTint="@color/colorAccent">
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/card"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:id="@+id/dialogCard"
+        android:layout_width="250dp"
+        android:layout_height="410dp"
         android:layout_below="@+id/hook"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:background="@drawable/shape_card"
-        android:backgroundTint="@color/grey"
-        android:rotation="-2">
+        android:backgroundTint="@color/offWhite">
 
         <RelativeLayout
-            android:layout_width="300dp"
-            android:layout_height="250dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:background="@drawable/repeatable_stripes">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/repeatable_spots">
 
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/colorAccent"
+            android:elevation="4dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Notifications"
+                android:textSize="22sp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:elevation="4dp">
+
+                <Button
+                    android:id="@+id/AddNotification"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="+"
+                    android:textColor="@color/offWhite"
+                    android:textSize="22sp"></Button>
+
+                <RelativeLayout
+                    android:layout_width="13dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/colorPrimary"></RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="5dp"
+                    android:layout_height="13dp"
+                    android:layout_marginLeft="33dp"
+                    android:layout_marginTop="27dp"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/colorPrimary"></RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/ItemList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/bar"
+            android:choiceMode="singleChoice"
+            android:listSelector="@color/transparentgrey2" />
+
     </RelativeLayout>
 </RelativeLayout>
