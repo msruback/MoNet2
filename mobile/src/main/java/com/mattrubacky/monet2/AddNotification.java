@@ -23,6 +23,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -35,6 +36,7 @@ public class AddNotification extends AppCompatActivity {
 
     private boolean isGear,isEdit;
     private GearNotification gearNotification;
+    private StageNotification stageNotification;
     TextView gearInput,abilityInput,stageInput;
 
     @Override
@@ -65,15 +67,6 @@ public class AddNotification extends AppCompatActivity {
             RelativeLayout Submit = (RelativeLayout) findViewById(R.id.Submit);
             final RelativeLayout Delete = (RelativeLayout) findViewById(R.id.Delete);
 
-            if(isEdit){
-                title.setText("Edit Notification");
-                gearNotification = bundle.getParcelable("notification");
-            }else{
-                title.setText("Add Notification");
-                Delete.setVisibility(View.GONE);
-                gearNotification = new GearNotification();
-            }
-
             TextView gearText = (TextView) findViewById(R.id.GearText);
             gearInput = (TextView) findViewById(R.id.GearInput);
             TextView abilityText = (TextView) findViewById(R.id.AbilityText);
@@ -87,6 +80,17 @@ public class AddNotification extends AppCompatActivity {
             abilityInput.setTypeface(font);
             submitText.setTypeface(font);
             deleteText.setTypeface(font);
+
+            if(isEdit){
+                title.setText("Edit Notification");
+                gearNotification = bundle.getParcelable("notification");
+                gearInput.setText(gearNotification.gear.name);
+                abilityInput.setText(gearNotification.skill.name);
+            }else{
+                title.setText("Add Notification");
+                Delete.setVisibility(View.GONE);
+                gearNotification = new GearNotification();
+            }
 
 
             gearInput.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +158,95 @@ public class AddNotification extends AppCompatActivity {
 
 
         }else{
+            //Stage Notification
             setContentView(R.layout.activity_add_stage_notification);
+
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            TextView title = (TextView) findViewById(R.id.title);
+            title.setTypeface(fontTitle);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+            RelativeLayout Submit = (RelativeLayout) findViewById(R.id.Submit);
+            final RelativeLayout Delete = (RelativeLayout) findViewById(R.id.Delete);
+
+            final ArrayList<String> modes = new ArrayList<>();
+            modes.add("Regular");
+            modes.add("Ranked");
+            modes.add("League");
+
+            final ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item,modes) {
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View v = super.getView(position, convertView, parent);
+
+                    if (position <= modes.size()) {
+                        Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
+                        ((TextView) v).setTypeface(typeface);
+                    }
+
+                    return v;
+                }
+            };
+
+            final ArrayList<String> rules = new ArrayList<>();
+            rules.add("Splat Zones");
+            rules.add("Tower Control");
+            rules.add("Rainmaker");
+
+            final ArrayAdapter<String> ruleAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item,rules) {
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View v = super.getView(position, convertView, parent);
+
+                    if (position <= rules.size()) {
+                        Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
+                        ((TextView) v).setTypeface(typeface);
+                    }
+
+                    return v;
+                }
+            };
+
+
+            TextView stageText = (TextView) findViewById(R.id.StageText);
+            stageInput = (TextView) findViewById(R.id.StageInput);
+            TextView modeText = (TextView) findViewById(R.id.TypeText);
+            TextView ruleText = (TextView) findViewById(R.id.RuleText);
+            TextView submitText = (TextView) findViewById(R.id.SubmitText);
+            TextView deleteText = (TextView) findViewById(R.id.DeleteText);
+
+            Spinner modeSpinner = (Spinner) findViewById(R.id.TypeSpinner);
+            Spinner ruleSpinner = (Spinner) findViewById(R.id.RuleSpinner);
+
+            modeSpinner.setAdapter(modeAdapter);
+            ruleSpinner.setAdapter(ruleAdapter);
+
+            stageText.setTypeface(font);
+            stageInput.setTypeface(font);
+            modeText.setTypeface(font);
+            ruleText.setTypeface(font);
+            submitText.setTypeface(font);
+            deleteText.setTypeface(font);
+
+            if(isEdit){
+                title.setText("Edit Notification");
+                stageNotification = bundle.getParcelable("notification");
+                stageInput.setText(stageNotification.stage.name);
+                switch (stageNotification.rule.key){
+                    case "":
+                        break;
+                }
+
+            }else{
+                title.setText("Add Notification");
+                Delete.setVisibility(View.GONE);
+                stageNotification = new StageNotification();
+            }
+
+
+
         }
 
     }
@@ -265,6 +357,65 @@ public class AddNotification extends AppCompatActivity {
                 public void onClick(View v) {
                     gearNotification.skill = skills.get(selected);
                     abilityInput.setText(gearNotification.skill.name);
+                    dismiss();
+                }
+            });
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                }
+            });
+        }
+    }
+
+    class StagePickerDialog extends Dialog {
+        int selected;
+        ArrayList<Stage> stages;
+        public StagePickerDialog(Activity activity) {
+            super(activity);
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            setContentView(R.layout.dialog_item_picker);
+            Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
+
+            selected =-1;
+
+            RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
+            TextView title = (TextView) findViewById(R.id.title);
+            final ListView stageList = (ListView) findViewById(R.id.ItemList);
+            Button submit = (Button) findViewById(R.id.Submit);
+            Button cancel = (Button) findViewById(R.id.Cancel);
+
+            title.setText("Pick Stage");
+
+            title.setTypeface(titleFont);
+
+            SplatnetSQL splatnetSQL = new SplatnetSQL(getApplicationContext());
+            stages = splatnetSQL.getStages();
+
+            final StageAdapter stageAdapter = new StageAdapter(getApplicationContext(),stages);
+
+            stageList.setAdapter(stageAdapter);
+
+            card.setClipToOutline(true);
+            stageList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    selected = position;
+                }
+            });
+
+            submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    stageNotification.stage = stages.get(selected);
+                    stageInput.setText(stageNotification.stage.name);
                     dismiss();
                 }
             });

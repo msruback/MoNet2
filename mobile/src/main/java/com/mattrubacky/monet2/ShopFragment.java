@@ -3,6 +3,7 @@ package com.mattrubacky.monet2;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
@@ -394,6 +395,12 @@ public class ShopFragment extends Fragment {
                 Response response = shopUpdate.execute();
                 if(response.isSuccessful()){
                     shop = (Annie) response.body();
+                    SplatnetSQL database = new SplatnetSQL(getContext());
+                    for(int i=0;i<shop.merch.size();i++){
+                        if(!database.existsIn(SplatnetContract.Gear.TABLE_NAME,SplatnetContract.Gear._ID,shop.merch.get(i).gear.id)){
+                            database.insertGear(shop.merch.get(i).gear);
+                        }
+                    }
                 }else{
 
                 }

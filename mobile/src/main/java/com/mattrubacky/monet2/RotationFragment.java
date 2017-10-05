@@ -257,6 +257,29 @@ public class RotationFragment extends Fragment {
                 Response response = rotationGet.execute();
                 if(response.isSuccessful()){
                     schedules = (Schedules) response.body();
+                    SplatnetSQL database = new SplatnetSQL(getContext());
+                    for(int i=0;i<schedules.regular.size();i++){
+                        if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.regular.get(i).a.id)){
+                            database.insertStage(schedules.regular.get(0).a);
+                        }
+                        if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.regular.get(i).b.id)){
+                            database.insertStage(schedules.regular.get(0).b);
+                        }
+
+                        if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.ranked.get(i).a.id)){
+                            database.insertStage(schedules.ranked.get(0).a);
+                        }
+                        if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.ranked.get(i).b.id)){
+                            database.insertStage(schedules.ranked.get(0).b);
+                        }
+
+                        if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.league.get(i).a.id)){
+                            database.insertStage(schedules.league.get(0).a);
+                        }
+                        if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.league.get(i).b.id)){
+                            database.insertStage(schedules.league.get(0).b);
+                        }
+                    }
                 }else{
 
                 }

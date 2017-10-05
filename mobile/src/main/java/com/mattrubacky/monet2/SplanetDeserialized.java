@@ -210,7 +210,7 @@ class Ordered{
     Skill skill;
 
 }
-class Product{
+class Product implements Parcelable{
     public Product(){}
     @SerializedName("gear")
     Gear gear;
@@ -223,6 +223,37 @@ class Product{
     @SerializedName("end_time")
     Long endTime;
 
+    protected Product(Parcel in) {
+        gear = in.readParcelable(Gear.class.getClassLoader());
+        price = in.readString();
+        id = in.readString();
+        skill = in.readParcelable(Skill.class.getClassLoader());
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(gear, flags);
+        dest.writeString(price);
+        dest.writeString(id);
+        dest.writeParcelable(skill, flags);
+    }
 }
 class Gear implements Parcelable{
     public Gear(){}
@@ -908,10 +939,13 @@ class GearNotification implements Parcelable{
     Gear gear;
     @SerializedName("ability")
     Skill skill;
+    @SerializedName("notified")
+    ArrayList<Product> notified;
 
     protected GearNotification(Parcel in) {
         gear = in.readParcelable(Gear.class.getClassLoader());
         skill = in.readParcelable(Skill.class.getClassLoader());
+        notified = in.createTypedArrayList(Product.CREATOR);
     }
 
     public static final Creator<GearNotification> CREATOR = new Creator<GearNotification>() {
@@ -935,5 +969,56 @@ class GearNotification implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(gear, flags);
         dest.writeParcelable(skill, flags);
+        dest.writeTypedList(notified);
+    }
+}
+class StageNotifications{
+    public StageNotifications(){
+    }
+    @SerializedName("notifications")
+    ArrayList<StageNotification> notifications;
+}
+class StageNotification implements Parcelable{
+    public StageNotification(){}
+
+    @SerializedName("stage")
+    Stage stage;
+    @SerializedName("type")
+    String type;
+    @SerializedName("rule")
+    Rule rule;
+    @SerializedName("notified")
+    ArrayList<TimePeriod> notified;
+
+    protected StageNotification(Parcel in) {
+        stage = in.readParcelable(Stage.class.getClassLoader());
+        type = in.readString();
+        rule = in.readParcelable(Rule.class.getClassLoader());
+        notified = in.createTypedArrayList(TimePeriod.CREATOR);
+    }
+
+    public static final Creator<StageNotification> CREATOR = new Creator<StageNotification>() {
+        @Override
+        public StageNotification createFromParcel(Parcel in) {
+            return new StageNotification(in);
+        }
+
+        @Override
+        public StageNotification[] newArray(int size) {
+            return new StageNotification[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(stage, flags);
+        dest.writeString(type);
+        dest.writeParcelable(rule, flags);
+        dest.writeTypedList(notified);
     }
 }
