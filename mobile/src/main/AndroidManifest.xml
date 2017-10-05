@@ -46,7 +46,8 @@
         <activity
             android:name=".AddRun"
             android:screenOrientation="portrait" />
-        <activity android:name=".AddNotification"></activity>
+        <activity android:name=".AddNotification"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

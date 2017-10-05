@@ -431,7 +431,12 @@ public class AddRun extends AppCompatActivity {
             title.setTypeface(titleFont);
 
             SplatnetSQL splatnetSQL = new SplatnetSQL(getApplicationContext());
-            weapons = splatnetSQL.getWeapons();
+            weapons = new ArrayList<>();
+            Weapon mystery = new Weapon();
+            mystery.id =-1;
+            mystery.name = "Mystery";
+            weapons.add(mystery);
+            weapons.addAll(splatnetSQL.getWeapons());
 
             final WeaponAdapter weaponAdapter = new WeaponAdapter(getApplicationContext(),weapons);
 
@@ -456,38 +461,54 @@ public class AddRun extends AppCompatActivity {
 
                     switch(weaponNum){
                         case 1:
-                            if(imageHandler.imageExists("weapon",imageDirName,getContext())){
-                                weapon1Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-                            }else{
-                                Picasso.with(getContext()).load(url).into(weapon1Image);
-                                imageHandler.downloadImage("weapon",imageDirName,url,getContext());
+                            if(weapon.id==-1){
+                                weapon1Image.setImageDrawable(getResources().getDrawable(R.drawable.skill_blank));
+                            }else {
+                                if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                                    weapon1Image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                                } else {
+                                    Picasso.with(getContext()).load(url).into(weapon1Image);
+                                    imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                                }
                             }
                             weapon1 = weapon;
                             break;
                         case 2:
-                            if(imageHandler.imageExists("weapon",imageDirName,getContext())){
-                                weapon2Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-                            }else{
-                                Picasso.with(getContext()).load(url).into(weapon2Image);
-                                imageHandler.downloadImage("weapon",imageDirName,url,getContext());
+                            if(weapon.id==-1){
+                                weapon2Image.setImageDrawable(getResources().getDrawable(R.drawable.skill_blank));
+                            }else {
+                                if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                                    weapon2Image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                                } else {
+                                    Picasso.with(getContext()).load(url).into(weapon2Image);
+                                    imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                                }
                             }
                             weapon2 = weapon;
                             break;
                         case 3:
-                            if(imageHandler.imageExists("weapon",imageDirName,getContext())){
-                                weapon3Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-                            }else{
-                                Picasso.with(getContext()).load(url).into(weapon3Image);
-                                imageHandler.downloadImage("weapon",imageDirName,url,getContext());
+                            if(weapon.id==-1){
+                                weapon3Image.setImageDrawable(getResources().getDrawable(R.drawable.skill_blank));
+                            }else {
+                                if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                                    weapon3Image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                                } else {
+                                    Picasso.with(getContext()).load(url).into(weapon3Image);
+                                    imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                                }
                             }
                             weapon3 = weapon;
                             break;
                         case 4:
-                            if(imageHandler.imageExists("weapon",imageDirName,getContext())){
-                                weapon4Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-                            }else{
-                                Picasso.with(getContext()).load(url).into(weapon4Image);
-                                imageHandler.downloadImage("weapon",imageDirName,url,getContext());
+                            if(weapon.id==-1){
+                                weapon4Image.setImageDrawable(getResources().getDrawable(R.drawable.skill_blank));
+                            }else {
+                                if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                                    weapon4Image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                                } else {
+                                    Picasso.with(getContext()).load(url).into(weapon4Image);
+                                    imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                                }
                             }
                             weapon4 = weapon;
                             break;
@@ -522,13 +543,17 @@ public class AddRun extends AppCompatActivity {
 
             String url = "https://app.splatoon2.nintendo.net"+weapon.url;
 
-            ImageHandler imageHandler = new ImageHandler();
-            String imageDirName = weapon.name.toLowerCase().replace(" ","_");
-            if(imageHandler.imageExists("weapon",imageDirName,getContext())){
-                image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-            }else{
-                Picasso.with(getContext()).load(url).into(image);
-                imageHandler.downloadImage("weapon",imageDirName,url,getContext());
+            if(weapon.id==-1) {
+                image.setImageDrawable(getResources().getDrawable(R.drawable.skill_blank));
+            }else {
+                ImageHandler imageHandler = new ImageHandler();
+                String imageDirName = weapon.name.toLowerCase().replace(" ", "_");
+                if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                    image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                } else {
+                    Picasso.with(getContext()).load(url).into(image);
+                    imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                }
             }
 
             return convertView;
