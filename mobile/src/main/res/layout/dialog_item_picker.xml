@@ -38,7 +38,7 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pick Weapon"
+                android:text="Pick Item"
                 android:textSize="22sp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -47,7 +47,7 @@
 
         </RelativeLayout>
         <ListView
-            android:id="@+id/WeaponList"
+            android:id="@+id/ItemList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/bar"

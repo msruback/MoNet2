@@ -8,9 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -31,13 +29,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class AddRun extends AppCompatActivity {
     SalmonRun salmonRun;
@@ -264,6 +260,7 @@ public class AddRun extends AppCompatActivity {
                 edit.commit();
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("fragment",0);
                 startActivity(intent);
             }
         });
@@ -418,16 +415,18 @@ public class AddRun extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            setContentView(R.layout.dialog_weapon_picker);
+            setContentView(R.layout.dialog_item_picker);
             Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
 
             selected =-1;
 
             RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
             TextView title = (TextView) findViewById(R.id.title);
-            final ListView weaponList = (ListView) findViewById(R.id.WeaponList);
+            final ListView weaponList = (ListView) findViewById(R.id.ItemList);
             Button submit = (Button) findViewById(R.id.Submit);
             Button cancel = (Button) findViewById(R.id.Cancel);
+
+            title.setText("Pick Weapon");
 
             title.setTypeface(titleFont);
 

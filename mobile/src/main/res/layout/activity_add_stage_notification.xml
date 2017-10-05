@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mattrubacky.monet2.AddNotification"
+    android:background="@drawable/repeat_squids">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/colorPrimary"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:titleTextAppearance="@style/TitleTextStyle">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/offWhite"
+            android:textSize="30sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/hook"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/extra_hook"
+        android:backgroundTint="@color/grey"
+        android:rotation="-1">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/card"
+        android:layout_width="400dp"
+        android:layout_height="230dp"
+        android:layout_below="@+id/hook"
+        android:layout_marginTop="-1dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/grey"
+        android:rotation="-1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/repeat_zigzag">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/stageLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp">
+            <RelativeLayout
+                android:id="@+id/stageTextLayout"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/colorPrimary">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/repeat_stripes"></RelativeLayout>
+                <TextView
+                    android:id="@+id/StageText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Stage"
+                    android:textSize="18sp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/stageTextLayout"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/offWhite">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/repeat_circles"></RelativeLayout>
+                <TextView
+                    android:id="@+id/StageInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="18sp"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/typeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/stageLayout">
+            <RelativeLayout
+                android:id="@+id/typeTextLayout"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/colorPrimary">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/repeat_stripes"></RelativeLayout>
+                <TextView
+                    android:id="@+id/TypeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Mode"
+                    android:textSize="18sp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/typeTextLayout"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/offWhite">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/repeat_circles"></RelativeLayout>
+                <Spinner
+                    android:id="@+id/TypeSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></Spinner>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ruleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/typeLayout">
+            <RelativeLayout
+                android:id="@+id/ruleTextLayout"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/colorPrimary">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/repeat_stripes"></RelativeLayout>
+                <TextView
+                    android:id="@+id/RuleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Rule"
+                    android:textSize="18sp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/ruleTextLayout"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/offWhite">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/repeat_circles"></RelativeLayout>
+                <Spinner
+                    android:id="@+id/RuleSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></Spinner>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/Submit"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/ruleLayout"
+            android:layout_marginEnd="21dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/banner_normal"
+            android:backgroundTint="@color/colorAccent"
+            android:elevation="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/repeat_stripes"></RelativeLayout>
+
+            <TextView
+                android:id="@+id/SubmitText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Submit" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/Delete"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/Submit"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/banner_normal"
+            android:backgroundTint="@color/colorAccent"
+            android:elevation="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/repeat_stripes"></RelativeLayout>
+
+            <TextView
+                android:id="@+id/DeleteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Delete" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

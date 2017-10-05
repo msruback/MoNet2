@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
 
+
         //Add titles
         titles = new ArrayList<String>();
         titles.add("Rotation");
@@ -61,6 +62,34 @@ public class MainActivity extends AppCompatActivity {
         shop = new ShopFragment();
         battleList = new BattleListFragment();
         settingsFrag = new SettingsFragment();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Intent intent = getIntent();
+        switch(intent.getIntExtra("fragment",0)){
+            case 0:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container, rotation)
+                        .commit();
+                break;
+            case 1:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container, shop)
+                        .commit();
+                break;
+            //Stats fragments go here
+            case 2:
+                break;
+            case 3:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container,battleList)
+                        .commit();
+                break;
+            case 4:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container,settingsFrag)
+                        .commit();
+                break;
+        }
 
         //Get the timeline
         Thread t = new Thread(updateTimeline);
@@ -87,10 +116,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.frame_container, rotation)
-                .commit();
 
 
     }

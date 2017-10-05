@@ -224,7 +224,7 @@ class Product{
     Long endTime;
 
 }
-class Gear{
+class Gear implements Parcelable{
     public Gear(){}
 
     @SerializedName("name")
@@ -239,8 +239,44 @@ class Gear{
     int id;
     @SerializedName("kind")
     String kind;
+
+    protected Gear(Parcel in) {
+        name = in.readString();
+        brand = in.readParcelable(Brand.class.getClassLoader());
+        url = in.readString();
+        rarity = in.readInt();
+        id = in.readInt();
+        kind = in.readString();
+    }
+
+    public static final Creator<Gear> CREATOR = new Creator<Gear>() {
+        @Override
+        public Gear createFromParcel(Parcel in) {
+            return new Gear(in);
+        }
+
+        @Override
+        public Gear[] newArray(int size) {
+            return new Gear[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeParcelable(brand, flags);
+        dest.writeString(url);
+        dest.writeInt(rarity);
+        dest.writeInt(id);
+        dest.writeString(kind);
+    }
 }
-class Brand{
+class Brand implements Parcelable{
     public Brand(){}
 
     @SerializedName("name")
@@ -251,8 +287,40 @@ class Brand{
     String url;
     @SerializedName("frequent_skill")
     Skill skill;
+
+    protected Brand(Parcel in) {
+        name = in.readString();
+        id = in.readInt();
+        url = in.readString();
+        skill = in.readParcelable(Skill.class.getClassLoader());
+    }
+
+    public static final Creator<Brand> CREATOR = new Creator<Brand>() {
+        @Override
+        public Brand createFromParcel(Parcel in) {
+            return new Brand(in);
+        }
+
+        @Override
+        public Brand[] newArray(int size) {
+            return new Brand[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeInt(id);
+        dest.writeString(url);
+        dest.writeParcelable(skill, flags);
+    }
 }
-class Skill{
+class Skill implements Parcelable{
     public Skill(){}
 
     @SerializedName("name")
@@ -261,6 +329,36 @@ class Skill{
     String url;
     @SerializedName("id")
     int id;
+
+    protected Skill(Parcel in) {
+        name = in.readString();
+        url = in.readString();
+        id = in.readInt();
+    }
+
+    public static final Creator<Skill> CREATOR = new Creator<Skill>() {
+        @Override
+        public Skill createFromParcel(Parcel in) {
+            return new Skill(in);
+        }
+
+        @Override
+        public Skill[] newArray(int size) {
+            return new Skill[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(url);
+        dest.writeInt(id);
+    }
 }
 
 class Timeline {
@@ -796,5 +894,46 @@ class SalmonRun implements Parcelable{
         dest.writeLong(endTime);
         dest.writeString(stage);
         dest.writeTypedList(weapons);
+    }
+}
+class GearNotifications{
+    public GearNotifications(){
+    }
+    @SerializedName("notifications")
+    ArrayList<GearNotification> notifications;
+}
+class GearNotification implements Parcelable{
+    public GearNotification(){}
+    @SerializedName("gear")
+    Gear gear;
+    @SerializedName("ability")
+    Skill skill;
+
+    protected GearNotification(Parcel in) {
+        gear = in.readParcelable(Gear.class.getClassLoader());
+        skill = in.readParcelable(Skill.class.getClassLoader());
+    }
+
+    public static final Creator<GearNotification> CREATOR = new Creator<GearNotification>() {
+        @Override
+        public GearNotification createFromParcel(Parcel in) {
+            return new GearNotification(in);
+        }
+
+        @Override
+        public GearNotification[] newArray(int size) {
+            return new GearNotification[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(gear, flags);
+        dest.writeParcelable(skill, flags);
     }
 }

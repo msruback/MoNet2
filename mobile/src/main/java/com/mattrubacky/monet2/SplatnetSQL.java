@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
@@ -74,6 +75,29 @@ public class SplatnetSQL {
         cursor.close();
         database.close();
         return skill;
+    }
+
+    public ArrayList<Skill> getSkills(){
+        ArrayList<Skill> skills = new ArrayList<>();
+
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+
+        String query = "SELECT * FROM "+ SplatnetContract.Skill.TABLE_NAME+"";
+        Cursor cursor = database.rawQuery(query,null);
+
+        if(cursor.moveToLast()) {
+            do {
+                Skill skill = new Skill();
+
+                skill.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Skill._ID));
+                skill.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Skill.COLUMN_NAME));
+                skill.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Skill.COLUMN_URL));
+                skills.add(skill);
+            } while (cursor.moveToPrevious());
+        }
+        cursor.close();
+        database.close();
+        return skills;
     }
 
 
@@ -168,6 +192,29 @@ public class SplatnetSQL {
         cursor.close();
         database.close();
         return stage;
+    }
+
+    public ArrayList<Stage> getStages(){
+        ArrayList<Stage> stages = new ArrayList<>();
+
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+
+        String query = "SELECT * FROM "+ SplatnetContract.Gear.TABLE_NAME+"";
+        Cursor cursor = database.rawQuery(query,null);
+
+        if(cursor.moveToLast()) {
+            do {
+                Stage stage = new Stage();
+
+                stage.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Stage._ID));
+                stage.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_NAME));
+                stage.image = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_URL));
+                stages.add(stage);
+            } while (cursor.moveToPrevious());
+        }
+        cursor.close();
+        database.close();
+        return stages;
     }
 
     public void insertSplatfest(Splatfest splatfest){
@@ -651,6 +698,32 @@ public class SplatnetSQL {
             gear.rarity = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_RARITY));
             gear.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_URL));
             gear.brand = selectBrand(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_BRAND)));
+        }
+        cursor.close();
+        database.close();
+        return gear;
+    }
+
+    public ArrayList<Gear> getGear(){
+        ArrayList<Gear> gear = new ArrayList<>();
+
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+
+        String query = "SELECT * FROM "+ SplatnetContract.Gear.TABLE_NAME+"";
+        Cursor cursor = database.rawQuery(query,null);
+
+        if(cursor.moveToLast()) {
+            do {
+                Gear currentGear = new Gear();
+
+                currentGear.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear._ID));
+                currentGear.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_NAME));
+                currentGear.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_URL));
+                currentGear.brand  = selectBrand(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_BRAND)));
+                currentGear.rarity = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_RARITY));
+                currentGear.kind = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_KIND));
+                gear.add(currentGear);
+            } while (cursor.moveToPrevious());
         }
         cursor.close();
         database.close();

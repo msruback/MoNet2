@@ -67,6 +67,12 @@ public class SettingsFragment extends Fragment {
         final TextView autoText = (TextView) rootView.findViewById(R.id.AutoText);
         final TextView frequencyText = (TextView) rootView.findViewById(R.id.FrequencyText);
         final TextView dataText = (TextView) rootView.findViewById(R.id.DataText);
+        TextView cookieTitle = (TextView) rootView.findViewById(R.id.cookieTitle);
+        TextView cookieText = (TextView) rootView.findViewById(R.id.CookieText);
+        TextView notificationTitle = (TextView) rootView.findViewById(R.id.alertTitle);
+        TextView stageNotificationText = (TextView) rootView.findViewById(R.id.ModeAlertText);
+        TextView gearNotificationText = (TextView) rootView.findViewById(R.id.GearAlertText);
+        TextView salmonNotificationText = (TextView) rootView.findViewById(R.id.SalmonText);
 
         final Spinner frequencySpinner = (Spinner) rootView.findViewById(R.id.FrequencySpinner);
 
@@ -102,12 +108,19 @@ public class SettingsFragment extends Fragment {
             dataSwitch.setEnabled(false);
         }
 
-
-
         autoTitle.setTypeface(fontTitle);
         autoText.setTypeface(font);
         frequencyText.setTypeface(font);
         dataText.setTypeface(font);
+
+        cookieTitle.setTypeface(fontTitle);
+        cookieText.setTypeface(font);
+
+        notificationTitle.setTypeface(fontTitle);
+        stageNotificationText.setTypeface(font);
+        gearNotificationText.setTypeface(font);
+        salmonNotificationText.setTypeface(font);
+
         //Grab data as changed
         frequencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
