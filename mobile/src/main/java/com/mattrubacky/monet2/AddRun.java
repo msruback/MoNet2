@@ -301,6 +301,7 @@ public class AddRun extends AppCompatActivity {
         if (menuItem.getItemId() == android.R.id.home) {
             Intent intent = new Intent(getBaseContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("fragment",0);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(menuItem);

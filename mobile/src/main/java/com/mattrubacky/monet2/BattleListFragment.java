@@ -57,6 +57,7 @@ public class BattleListFragment extends Fragment {
         updateBattleData = new UpdateBattleData();
 
 
+        updateUi();
         customHandler.post(update2Hours);
 
         return rootView;

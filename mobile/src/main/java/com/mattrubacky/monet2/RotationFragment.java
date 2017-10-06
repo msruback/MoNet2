@@ -122,6 +122,9 @@ public class RotationFragment extends Fragment {
         if(salmonSchedule.schedule.size()!=0){
             if(salmonSchedule.schedule.get(0).endTime< new Date().getTime()){
                 salmonSchedule.schedule.remove(0);
+                SalmonAlarm salmonAlarm = new SalmonAlarm();
+                salmonAlarm.cancelAlarm(getContext());
+                salmonAlarm.setAlarm(getContext());
             }
         }
 

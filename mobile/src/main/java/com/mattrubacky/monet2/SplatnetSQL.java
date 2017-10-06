@@ -199,7 +199,7 @@ public class SplatnetSQL {
 
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
-        String query = "SELECT * FROM "+ SplatnetContract.Gear.TABLE_NAME+"";
+        String query = "SELECT * FROM "+ SplatnetContract.Stage.TABLE_NAME+"";
         Cursor cursor = database.rawQuery(query,null);
 
         if(cursor.moveToLast()) {

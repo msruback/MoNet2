@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -283,6 +284,30 @@ public class AddNotification extends AppCompatActivity {
                 stageNotification = new StageNotification();
             }
 
+            stageInput.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    StagePickerDialog dialog = new StagePickerDialog(AddNotification.this);
+                    dialog.show();
+                }
+            });
+            modeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if(position==1){
+                        ruleSpinner.setSelection(0);
+                        ruleSpinner.setEnabled(false);
+                    }else{
+                        ruleSpinner.setEnabled(true);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
             Submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -364,6 +389,16 @@ public class AddNotification extends AppCompatActivity {
 
         }
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("fragment",4);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 
     class GearPickerDialog extends Dialog {
@@ -488,6 +523,7 @@ public class AddNotification extends AppCompatActivity {
             });
         }
     }
+
 
     class StagePickerDialog extends Dialog {
         int selected;

@@ -461,7 +461,7 @@ public class SettingsFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_gear_notification, parent, false);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_stage_notification, parent, false);
             }
             final StageNotification notification = getItem(position);
 
