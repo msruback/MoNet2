@@ -18,6 +18,9 @@ public class BootReciever extends BroadcastReceiver {
             // Set the alarm here.
             DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
             dataUpdateAlarm.setAlarm(context);
+
+            SalmonAlarm salmonAlarm = new SalmonAlarm();
+            salmonAlarm.setAlarm(context);
         }
     }
 }

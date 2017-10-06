@@ -113,11 +113,13 @@ public class SettingsFragment extends Fragment {
 
         final Switch autoSwitch = (Switch) rootView.findViewById(R.id.AutoSwitch);
         final Switch dataSwitch = (Switch) rootView.findViewById(R.id.DataSwitch);
+        Switch salmonSwitch = (Switch) rootView.findViewById(R.id.SalmonSwitch);
 
         Boolean checked = settings.getBoolean("autoUpdate",false);
         autoSwitch.setChecked(checked);
         dataSwitch.setChecked(settings.getBoolean("updateData",false));
         frequencySpinner.setSelection(settings.getInt("updateInterval",0));
+        salmonSwitch.setChecked(settings.getBoolean("salmonNotifications",false));
 
         if(!checked){
             frequencyLayout.setAlpha((float) 0.5);
@@ -170,6 +172,9 @@ public class SettingsFragment extends Fragment {
                     ComponentName receiver = new ComponentName(getContext(), BootReciever.class);
                     PackageManager pm = getContext().getPackageManager();
 
+                    SalmonAlarm salmonAlarm = new SalmonAlarm();
+                    salmonAlarm.setAlarm(getContext());
+
                     pm.setComponentEnabledSetting(receiver,
                             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                             PackageManager.DONT_KILL_APP);
@@ -182,6 +187,9 @@ public class SettingsFragment extends Fragment {
                     dataUpdateAlarm.cancelAlarm(getContext());
                     ComponentName receiver = new ComponentName(getContext(), BootReciever.class);
                     PackageManager pm = getContext().getPackageManager();
+
+                    SalmonAlarm salmonAlarm = new SalmonAlarm();
+                    salmonAlarm.cancelAlarm(getContext());
 
                     pm.setComponentEnabledSetting(receiver,
                             PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
@@ -220,6 +228,14 @@ public class SettingsFragment extends Fragment {
             public void onClick(View v) {
                 GearNotificationPickerDialog dialog = new GearNotificationPickerDialog(getActivity());
                 dialog.show();
+            }
+        });
+        salmonSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor edit = settings.edit();
+                edit.putBoolean("salmonNotifications",isChecked);
+                edit.commit();
             }
         });
 

@@ -28,8 +28,6 @@ public class DataUpdateAlarm extends BroadcastReceiver {
 
 
         wl.release();
-        //Thread s = new Thread(updateBattleInfo);
-        //s.start();
     }
 
     public void setAlarm(Context context)

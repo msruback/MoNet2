@@ -258,6 +258,11 @@ public class AddRun extends AppCompatActivity {
                 String json = gson.toJson(schedule);
                 edit.putString("salmonRunSchedule",json);
                 edit.commit();
+
+                SalmonAlarm salmonAlarm = new SalmonAlarm();
+                salmonAlarm.cancelAlarm(getApplicationContext());
+                salmonAlarm.setAlarm(getApplicationContext());
+
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("fragment",0);
@@ -278,6 +283,10 @@ public class AddRun extends AppCompatActivity {
                 String json = gson.toJson(schedule);
                 edit.putString("salmonRunSchedule",json);
                 edit.commit();
+
+                SalmonAlarm salmonAlarm = new SalmonAlarm();
+                salmonAlarm.cancelAlarm(getApplicationContext());
+                salmonAlarm.setAlarm(getApplicationContext());
 
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
