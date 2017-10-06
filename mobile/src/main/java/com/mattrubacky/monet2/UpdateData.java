@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -70,6 +71,7 @@ public class UpdateData extends Service {
             ArrayList<Battle> battles = new ArrayList<>();
             Annie shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
             Schedules schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
+            StageNotifications stageNotifications = gson.fromJson(settings.getString("stageNotifications",""),StageNotifications.class);
 
 
             SplatnetSQL database = new SplatnetSQL(getApplicationContext());
@@ -85,6 +87,24 @@ public class UpdateData extends Service {
                     schedules = (Schedules) response.body();
                 }else{
 
+                }
+                for(int i=0;i<stageNotifications.notifications.size();i++){
+                    switch(stageNotifications.notifications.get(i).type){
+                        case "any":
+                            findStageNotifications(schedules.regular,stageNotifications.notifications.get(i));
+                            findStageNotifications(schedules.ranked,stageNotifications.notifications.get(i));
+                            findStageNotifications(schedules.league,stageNotifications.notifications.get(i));
+                            break;
+                        case "regular":
+                            findStageNotifications(schedules.regular,stageNotifications.notifications.get(i));
+                            break;
+                        case "gachi":
+                            findStageNotifications(schedules.ranked,stageNotifications.notifications.get(i));
+                            break;
+                        case "league":
+                            findStageNotifications(schedules.league,stageNotifications.notifications.get(i));
+                            break;
+                    }
                 }
 
 
@@ -130,10 +150,44 @@ public class UpdateData extends Service {
         }
     };
 
-    private void findStageNotifications(Schedules schedules){
+    private void findStageNotifications(ArrayList<TimePeriod> timePeriods,StageNotification notification){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Gson gson = new Gson();
-        StageNotifications stageNotifications = gson.fromJson(settings.getString("stageNotifications",""),StageNotifications.class);
+        int numTimePeriods = 1;
+        switch(settings.getInt("updateInterval",0)){
+            case 0://1 Hour
+                numTimePeriods = 1;
+                break;
+            case 1://2 Hour
+                numTimePeriods = 1;
+                break;
+            case 2://4 Hour
+                numTimePeriods = 2;
+                break;
+            case 3://6 Hour
+                numTimePeriods = 3;
+                break;
+            case 4://8 Hour
+                numTimePeriods = 4;
+                break;
+            case 5://10 Hour
+                numTimePeriods = 5;
+                break;
+            case 6://12 Hour
+                numTimePeriods = 6;
+                break;
+            case 7://24 Hour
+                numTimePeriods = 12;
+                break;
+        }
+        for(int i=0;i<numTimePeriods;i++){
+            TimePeriod timePeriod = timePeriods.get(i);
+            if(timePeriod.rule.key.equals(notification.rule)||notification.rule.equals("any")){
+                if(notification.stage.id == timePeriod.a.id||notification.stage.id == timePeriod.b.id||notification.stage.id==-1){
+                    postStageNotification(timePeriod,notification);
+                }
+            }
+        }
+
     }
 
     private void findShopNotifications(Annie shop){
@@ -151,6 +205,30 @@ public class UpdateData extends Service {
                 }
             }
         }
+    }
+
+    private void postStageNotification(TimePeriod timePeriod,StageNotification stageNotification){
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Intent stageIntent = new Intent(this, MainActivity.class);
+        stageIntent.putExtra("fragment",0);
+        PendingIntent stageIntentPending = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), stageIntent, 0);
+
+        String title;
+        String content;
+        Notification.Builder builder = new Notification.Builder(this);
+
+        Random random = new Random();
+        if(random.nextInt(2)==1){
+            builder.setSmallIcon(R.drawable.char_marina);
+        }else{
+            builder.setSmallIcon(R.drawable.char_pearl);
+        }
+        builder.setContentTitle(title)
+                .setContentText(content)
+                .setContentIntent(stageIntentPending)
+                .setAutoCancel(true);
+        Notification notification = builder.build();
+        notificationManager.notify(0, notification);
     }
 
     private void postShopNotification(Product product){
@@ -175,7 +253,7 @@ public class UpdateData extends Service {
         Notification notification  = new Notification.Builder(this)
                 .setContentTitle(title)
                 .setContentText(content)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.char_annie)
                 .setContentIntent(shopIntentPending)
                 .setAutoCancel(true)
                 .addAction(R.drawable.char_annie,"Order",orderIntentPending)
