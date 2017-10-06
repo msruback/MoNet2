@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -213,9 +215,32 @@ public class UpdateData extends Service {
         stageIntent.putExtra("fragment",0);
         PendingIntent stageIntentPending = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), stageIntent, 0);
 
+        String time;
         String title;
         String content;
+        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
         Notification.Builder builder = new Notification.Builder(this);
+        if(stageNotification.stage.id==-1){
+            if((timePeriod.start *1000)<new Date().getTime()){
+                title = timePeriod.rule.name + " available now in " + timePeriod.gamemode.name + "!";
+                time = sdf.format(timePeriod.end);
+                content = "Play "+timePeriod.rule.name+ " on "+timePeriod.a.name + " and "+ timePeriod.b.name +" until "+time+"!";
+            }else{
+                title = timePeriod.rule.name + " available soon in " + timePeriod.gamemode.name + "!";
+                time = sdf.format(timePeriod.start);
+                content = "Play "+timePeriod.rule.name + " on "+timePeriod.a.name + " and " + timePeriod.b.name+ " at "+time+"!";
+            }
+        }else{
+            if((timePeriod.start *1000)<new Date().getTime()){
+                title = stageNotification.stage.name + " available now in " + timePeriod.gamemode.name + "!";
+                time = sdf.format(timePeriod.end);
+                content = "Play " + timePeriod.rule.name + " on "+ stageNotification.stage.name +" now until "+time+"!";
+            }else{
+                title = stageNotification.stage.name + " available soon in " + timePeriod.gamemode.name + "!";
+                time = sdf.format(timePeriod.start);
+                content = "Play " + timePeriod.rule.name + " on "+ stageNotification.stage.name + " at "+time+"!";
+            }
+        }
 
         Random random = new Random();
         if(random.nextInt(2)==1){
