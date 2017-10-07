@@ -56,6 +56,9 @@ public class BattleListFragment extends Fragment {
 
         updateBattleData = new UpdateBattleData();
 
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Gson gson = new Gson();
+        battles = gson.fromJson(settings.getString("recentBattles",""),new TypeToken<ArrayList<Battle>>(){}.getType());
 
         updateUi();
         customHandler.post(update2Hours);

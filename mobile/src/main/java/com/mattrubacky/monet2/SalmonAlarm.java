@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by mattr on 10/6/2017.
@@ -60,7 +61,7 @@ public class SalmonAlarm extends BroadcastReceiver {
                 .setContentIntent(rotationIntentPending)
                 .setAutoCancel(true)
                 .build();
-        notificationManager.notify(0, notification);
+        notificationManager.notify((int) (new Date().getTime()%10000), notification);
         wl.release();
     }
 
@@ -72,20 +73,24 @@ public class SalmonAlarm extends BroadcastReceiver {
         if(schedule.schedule.size()>0) {
             SalmonRun run = schedule.schedule.get(0);
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            Intent intent = new Intent(context, DataUpdateAlarm.class);
+            Intent intent = new Intent(context, SalmonAlarm.class);
             Bundle bundle = new Bundle();
             bundle.putParcelable("run",run);
             intent.putExtras(bundle);
             PendingIntent intentPending = PendingIntent.getBroadcast(context, 0, intent, 0);
-            am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+(run.startTime*1000), intentPending);
+            am.set(AlarmManager.RTC_WAKEUP,run.startTime, intentPending);
         }
     }
 
     public void cancelAlarm(Context context)
     {
-        Intent intent = new Intent(context, DataUpdateAlarm.class);
+        Intent intent = new Intent(context, SalmonAlarm.class);
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
+    }
+    public boolean isAlarmSet(Context context){
+        Intent intent = new Intent(context, SalmonAlarm.class);
+        return (PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE) != null);
     }
 }

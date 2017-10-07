@@ -1,9 +1,11 @@
 package com.mattrubacky.monet2;
 
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -62,6 +64,27 @@ public class MainActivity extends AppCompatActivity {
         shop = new ShopFragment();
         battleList = new BattleListFragment();
         settingsFrag = new SettingsFragment();
+
+
+        DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
+        if(settings.getBoolean("autoUpdate",false)){
+            dataUpdateAlarm.setAlarm(MainActivity.this);
+            ComponentName receiver = new ComponentName(MainActivity.this, BootReciever.class);
+            PackageManager pm = getPackageManager();
+            pm.setComponentEnabledSetting(receiver,
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                    PackageManager.DONT_KILL_APP);
+            if(settings.getBoolean("salmonNotifications",false)){
+                SalmonAlarm salmonAlarm = new SalmonAlarm();
+                salmonAlarm.setAlarm(MainActivity.this);
+            }
+        }else{
+            ComponentName receiver = new ComponentName(MainActivity.this, BootReciever.class);
+            PackageManager pm = getPackageManager();
+            pm.setComponentEnabledSetting(receiver,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP);
+        }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Intent intent = getIntent();

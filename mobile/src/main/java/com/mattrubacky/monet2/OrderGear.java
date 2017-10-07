@@ -61,6 +61,7 @@ public class OrderGear extends Service {
                 Response response = buy.execute();
                 Gson gson = new Gson();
                 Annie shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
+                shop.ordered = new Ordered();
                 shop.ordered.gear = buying.gear;
                 shop.ordered.price = buying.price;
                 shop.ordered.skill = buying.skill;
