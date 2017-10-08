@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.google.gson.Gson;
 
@@ -21,20 +22,23 @@ import java.util.Date;
  * Created by mattr on 10/6/2017.
  */
 
-public class SalmonAlarm extends BroadcastReceiver {
+public class SalmonAlarm extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
         wl.acquire();
-        SalmonRun run = intent.getExtras().getParcelable("run");
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
+        SalmonRun run = schedule.schedule.get(0);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         Intent rotationIntent = new Intent(context, MainActivity.class);
         rotationIntent.putExtra("fragment",0);
         PendingIntent rotationIntentPending = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), rotationIntent, 0);
         SimpleDateFormat sdf = new SimpleDateFormat("M/d h a");
-
+        System.out.println(run.stage);
         String time = sdf.format(run.endTime);
         String title = "Grizz Co. Now Hiring!";
         String content;
@@ -61,6 +65,7 @@ public class SalmonAlarm extends BroadcastReceiver {
                 .setContentIntent(rotationIntentPending)
                 .setAutoCancel(true)
                 .build();
+        notification.defaults = Notification.DEFAULT_ALL;
         notificationManager.notify((int) (new Date().getTime()%10000), notification);
         wl.release();
     }
@@ -72,22 +77,29 @@ public class SalmonAlarm extends BroadcastReceiver {
         SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
         if(schedule.schedule.size()>0) {
             SalmonRun run = schedule.schedule.get(0);
+            if(run.endTime == settings.getLong("salmonNotified",0)){
+                run = schedule.schedule.get(0);
+            }
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(context, SalmonAlarm.class);
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("run",run);
-            intent.putExtras(bundle);
-            PendingIntent intentPending = PendingIntent.getBroadcast(context, 0, intent, 0);
+            PendingIntent intentPending = PendingIntent.getBroadcast(context, 1, intent, 0);
             am.set(AlarmManager.RTC_WAKEUP,run.startTime, intentPending);
+            SharedPreferences.Editor edit = settings.edit();
+            edit.putLong("salmonNotified",run.endTime);
+            edit.commit();
         }
     }
 
     public void cancelAlarm(Context context)
     {
         Intent intent = new Intent(context, SalmonAlarm.class);
-        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
+        PendingIntent sender = PendingIntent.getBroadcast(context, 1, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor edit = settings.edit();
+        edit.putLong("salmonNotified",0);
+        edit.commit();
     }
     public boolean isAlarmSet(Context context){
         Intent intent = new Intent(context, SalmonAlarm.class);

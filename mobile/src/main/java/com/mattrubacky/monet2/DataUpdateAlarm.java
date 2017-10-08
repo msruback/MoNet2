@@ -341,6 +341,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                 .setContentIntent(stageIntentPending)
                 .setAutoCancel(true);
         Notification notification = builder.build();
+        notification.defaults = Notification.DEFAULT_ALL;
         notificationManager.notify((int) (new Date().getTime()%10000), notification);
     }
 
@@ -371,6 +372,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                 .setAutoCancel(true)
                 .addAction(R.drawable.char_annie,"Order",orderIntentPending)
                 .build();
+        notification.defaults = Notification.DEFAULT_ALL;
         notificationManager.notify((int) (new Date().getTime()%10000), notification);
     }
 }

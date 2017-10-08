@@ -1,5 +1,7 @@
 package com.mattrubacky.monet2;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
@@ -64,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         shop = new ShopFragment();
         battleList = new BattleListFragment();
         settingsFrag = new SettingsFragment();
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 
         DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
