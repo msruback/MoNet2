@@ -2,10 +2,13 @@
 <resources>
     <color name="colorPrimary">#2ee99e</color>
     <color name="colorPrimaryDark">#2acb8a</color>
+    <color name="colorPrimaryDarker">#21a670</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentDark">#d13369</color>
+    <color name="colorAccentDarker">#ae2c58</color>
 
     <color name="offWhite">#e4e4e4</color>
-    <color name="offWhiteDark">#d0d0d0</color>
+    <color name="offWhiteDark">#b1b1b1</color>
     <color name="grey">#686868</color>
     <color name="darkgrey">#4f4f4f</color>
     <color name="transparentgrey">#5d9a9a9a</color>
