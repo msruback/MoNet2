@@ -17,26 +17,29 @@
         <receiver
             android:name=".DataUpdateAlarm"
             android:enabled="true"
-            android:process=":remote"
-            android:exported="true">
-        </receiver>
-        <receiver android:name=".SalmonAlarm"
+            android:exported="true"
+            android:process=":remote" />
+        <receiver
+            android:name=".SalmonAlarm"
             android:enabled="true"
-            android:process=":remote"
-            android:exported="true"/>
+            android:exported="true"
+            android:process=":remote" />
         <receiver
             android:name=".BootReciever"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                >
             </intent-filter>
         </receiver>
 
-        <service android:name=".OrderGear"
-            android:exported="true"/>
+        <service
+            android:name=".OrderGear"
+            android:exported="true" />
 
         <activity
             android:name=".Startup"
@@ -45,9 +48,7 @@
         <activity
             android:name=".Login"
             android:screenOrientation="portrait" />
-        <activity android:name=".DebugActivity">
-
-        </activity>
+        <activity android:name=".DebugActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -60,8 +61,11 @@
         <activity
             android:name=".AddRun"
             android:screenOrientation="portrait" />
-        <activity android:name=".AddNotification"
-            android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".AddNotification"
+            android:screenOrientation="portrait" />
+        <activity android:name=".BattleInfo" />
+        <activity android:name=".WeaponStats"></activity>
     </application>
 
 </manifest>

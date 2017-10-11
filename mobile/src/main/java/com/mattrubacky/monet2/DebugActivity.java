@@ -25,5 +25,19 @@ public class DebugActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_battle_info);
+        RelativeLayout meter = (RelativeLayout) findViewById(R.id.meter);
+        meter.setClipToOutline(true);
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
+        Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
+
+        TextView mode = (TextView) findViewById(R.id.Rule);
+        TextView allyTitle = (TextView) findViewById(R.id.allyTitle);
+        TextView foeTitle = (TextView) findViewById(R.id.foeTitle);
+        mode.setTypeface(fontTitle);
+        allyTitle.setTypeface(font);
+        foeTitle.setTypeface(font);
+
     }
 }

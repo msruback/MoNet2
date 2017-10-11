@@ -42,6 +42,9 @@ public class SalmonAlarm extends WakefulBroadcastReceiver {
         String time = sdf.format(run.endTime);
         String title = "Grizz Co. Now Hiring!";
         String content;
+        SharedPreferences.Editor edit = settings.edit();
+        edit.putLong("salmonNotified",run.endTime);
+        edit.commit();
 
         if(!run.stage.equals("")){
             if(run.weapons.get(0)!=null&&run.weapons.get(1)!=null&&run.weapons.get(2)!=null&&run.weapons.get(3)!=null){
@@ -60,7 +63,7 @@ public class SalmonAlarm extends WakefulBroadcastReceiver {
         }
         Notification notification  = new Notification.Builder(context)
                 .setContentTitle(title)
-                .setContentText(content)
+                .setStyle(new Notification.BigTextStyle().bigText(content))
                 .setSmallIcon(R.drawable.char_mr_grizz)
                 .setContentIntent(rotationIntentPending)
                 .setAutoCancel(true)
@@ -78,15 +81,12 @@ public class SalmonAlarm extends WakefulBroadcastReceiver {
         if(schedule.schedule.size()>0) {
             SalmonRun run = schedule.schedule.get(0);
             if(run.endTime == settings.getLong("salmonNotified",0)){
-                run = schedule.schedule.get(0);
+                run = schedule.schedule.get(1);
             }
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(context, SalmonAlarm.class);
             PendingIntent intentPending = PendingIntent.getBroadcast(context, 1, intent, 0);
             am.set(AlarmManager.RTC_WAKEUP,run.startTime, intentPending);
-            SharedPreferences.Editor edit = settings.edit();
-            edit.putLong("salmonNotified",run.endTime);
-            edit.commit();
         }
     }
 

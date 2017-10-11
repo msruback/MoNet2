@@ -122,6 +122,10 @@ public class RotationFragment extends Fragment {
         if(salmonSchedule.schedule.size()!=0){
             if(salmonSchedule.schedule.get(0).endTime< new Date().getTime()){
                 salmonSchedule.schedule.remove(0);
+                SharedPreferences.Editor edit = settings.edit();
+                String json = gson.toJson(salmonSchedule);
+                edit.putString("salmonRunSchedule",json);
+                edit.commit();
                 SalmonAlarm salmonAlarm = new SalmonAlarm();
                 salmonAlarm.cancelAlarm(getContext());
                 salmonAlarm.setAlarm(getContext());
@@ -178,6 +182,8 @@ public class RotationFragment extends Fragment {
         Gson gson = new Gson();
         String json = gson.toJson(schedules);
         edit.putString("rotationState",json);
+        json = gson.toJson(salmonSchedule);
+        edit.putString("salmonRunSchedule",json);
         edit.commit();
         wearLink.closeConnection();
         updateRotationData.cancel(true);
@@ -191,6 +197,7 @@ public class RotationFragment extends Fragment {
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
         monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
+        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
         wearLink.openConnection();
     }
 
@@ -246,8 +253,6 @@ public class RotationFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                //Long now = Calendar.getInstance().getTimeInMillis();
-                //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
                 String cookie;
 
                 //Create Splatnet manager
