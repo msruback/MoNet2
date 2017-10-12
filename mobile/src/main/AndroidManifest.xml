@@ -48,7 +48,8 @@
         <activity
             android:name=".Login"
             android:screenOrientation="portrait" />
-        <activity android:name=".DebugActivity"></activity>
+        <activity android:name=".DebugActivity">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -65,7 +66,7 @@
             android:name=".AddNotification"
             android:screenOrientation="portrait" />
         <activity android:name=".BattleInfo" />
-        <activity android:name=".WeaponStats"></activity>
+        <activity android:name=".WeaponLockerDetail"></activity>
     </application>
 
 </manifest>

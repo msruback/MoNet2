@@ -339,7 +339,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
         builder.setContentTitle(title)
                 .setStyle(new Notification.BigTextStyle().bigText(content))
                 .setContentIntent(stageIntentPending)
-                .setAutoCancel(true);
+                .setColor(context.getResources().getColor(R.color.colorPrimary));
         Notification notification = builder.build();
         notification.defaults = Notification.DEFAULT_ALL;
         notificationManager.notify((int) (new Date().getTime()%10000), notification);
@@ -369,7 +369,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                 .setStyle(new Notification.BigTextStyle().bigText(content))
                 .setSmallIcon(R.drawable.char_annie)
                 .setContentIntent(shopIntentPending)
-                .setAutoCancel(true)
+                .setColor(context.getResources().getColor(R.color.colorPrimary))
                 .addAction(R.drawable.char_annie,"Order",orderIntentPending)
                 .build();
         notification.defaults = Notification.DEFAULT_ALL;

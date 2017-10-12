@@ -66,7 +66,7 @@ public class SalmonAlarm extends WakefulBroadcastReceiver {
                 .setStyle(new Notification.BigTextStyle().bigText(content))
                 .setSmallIcon(R.drawable.char_mr_grizz)
                 .setContentIntent(rotationIntentPending)
-                .setAutoCancel(true)
+                .setColor(context.getResources().getColor(R.color.colorPrimary))
                 .build();
         notification.defaults = Notification.DEFAULT_ALL;
         notificationManager.notify((int) (new Date().getTime()%10000), notification);
