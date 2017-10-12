@@ -405,6 +405,7 @@ public class BuyDialog extends Dialog{
                 loadingDialog.dismiss();
                 Gson gson = new Gson();
                 Annie shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
+                shop.ordered = new Ordered();
                 shop.ordered.gear = toBuy.gear;
                 shop.ordered.price = toBuy.price;
                 shop.ordered.skill = toBuy.skill;

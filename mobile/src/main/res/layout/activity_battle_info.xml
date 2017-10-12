@@ -120,30 +120,38 @@
                                 android:layout_height="40dp"
                                 android:background="@drawable/shape_card"
                                 android:backgroundTint="@color/darkgrey">
+
                                 <RelativeLayout
+                                    android:id="@+id/AllyMeter"
                                     android:layout_width="105.25dp"
                                     android:layout_height="match_parent"
                                     android:background="@color/colorPrimary">
+
                                     <TextView
+                                        android:id="@+id/AllyPercent"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="42.1%"
                                         android:layout_centerVertical="true"
                                         android:layout_marginLeft="5dp"
+                                        android:text="42.1%"
                                         android:textSize="16sp" />
                                 </RelativeLayout>
+
                                 <RelativeLayout
+                                    android:id="@+id/FoeMeter"
                                     android:layout_width="131.25dp"
                                     android:layout_height="match_parent"
                                     android:layout_alignParentRight="true"
                                     android:background="@color/colorAccent">
+
                                     <TextView
+                                        android:id="@+id/FoePercent"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="52.5%"
-                                        android:layout_centerVertical="true"
                                         android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
                                         android:layout_marginRight="5dp"
+                                        android:text="52.5%"
                                         android:textSize="16sp" />
                                 </RelativeLayout>
                                 <RelativeLayout

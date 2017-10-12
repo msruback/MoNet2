@@ -2,6 +2,7 @@ package com.mattrubacky.monet2;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
@@ -375,8 +376,15 @@ public class ShopFragment extends Fragment {
             RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);
             int itemPosition = currentMerch.indexOfChild(v);
             BuyDialog buyDialog = new BuyDialog(getActivity(),shop.merch.get(itemPosition),shop.ordered);
+            buyDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    updateUi();
+                    updateShopData = new UpdateShopData();
+                    updateShopData.execute();
+                }
+            });
             buyDialog.show();
-            customHandler.post(updateNeeded);
         }
     }
 
@@ -420,6 +428,7 @@ public class ShopFragment extends Fragment {
     public Runnable updateNeeded = new Runnable()
     {
         public void run() {
+            updateShopData = new UpdateShopData();
             updateShopData.execute();
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());
