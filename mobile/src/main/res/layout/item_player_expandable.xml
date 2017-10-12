@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:text="35"
             android:textColor="@color/offWhite"
             android:textSize="18sp"/>
@@ -41,10 +41,17 @@
                 android:textSize="18sp"
                 android:textColor="@color/offWhite"/>
             <TextView
-                android:id="@+id/Points"
+                android:id="@+id/FesGrade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/Name"
+                android:text="Invisibility Champion"
+                android:textSize="11sp"/>
+            <TextView
+                android:id="@+id/Points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/FesGrade"
                 android:text="1000P"
                 android:textSize="13sp"/>
         </RelativeLayout>
@@ -59,13 +66,15 @@
                 android:id="@+id/KillsIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/kills_ally"/>
+                android:src="@drawable/icon_kills_ally"/>
+
             <TextView
+                android:id="@+id/KillsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/KillsIcon"
                 android:layout_centerHorizontal="true"
-                android:text="15(4)"/>
+                android:text="15(4)" />
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/deathLayout"
@@ -78,7 +87,7 @@
                 android:id="@+id/DeathsIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/deaths_ally"/>
+                android:src="@drawable/icon_deaths_ally"/>
             <TextView
                 android:id="@+id/DeathsText"
                 android:layout_width="wrap_content"

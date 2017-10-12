@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_card"
-    android:backgroundTint="@color/offWhite">
+    android:backgroundTint="@color/offWhite"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,54 +13,62 @@
         android:background="@color/offWhite"></RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:background="@drawable/repeat_circles">
-
-        <RelativeLayout
-            android:id="@+id/gear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
 
             <RelativeLayout
                 android:id="@+id/head"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp">
+                <RelativeLayout
+                    android:id="@+id/headAbove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+                    <ImageView
+                        android:id="@+id/HeadGear"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/hula_punk"/>
+                    <RelativeLayout
+                        android:id="@+id/headMain"
+                        android:layout_width="25dp"
+                        android:layout_toRightOf="@+id/HeadGear"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/skill_background">
+                        <ImageView
+                            android:id="@+id/HeadMain"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
+                </RelativeLayout>
 
                 <ImageView
-                    android:id="@+id/HeadGear"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/hula_punk" />
-
-                <ImageView
-                    android:layout_width="110dp"
+                    android:layout_width="70dp"
                     android:layout_height="3dp"
-                    android:layout_below="@+id/HeadGear"
+                    android:layout_below="@+id/headAbove"
                     android:src="@drawable/shape_line" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/HeadGear"
+                    android:layout_below="@+id/headAbove"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp">
-
-                    <RelativeLayout
-                        android:id="@+id/headMain"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/skill_background"></RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/headSub1"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@+id/headMain"
-                        android:background="@drawable/skill_background"></RelativeLayout>
+                        android:background="@drawable/skill_background">
+                        <ImageView
+                            android:id="@+id/HeadSub1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/headSub2"
@@ -67,7 +77,12 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@id/headSub1"
-                        android:background="@drawable/skill_background"></RelativeLayout>
+                        android:background="@drawable/skill_background">
+                        <ImageView
+                            android:id="@+id/HeadSub2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/headSub3"
@@ -76,7 +91,12 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@+id/headSub2"
-                        android:background="@drawable/skill_background"></RelativeLayout>
+                        android:background="@drawable/skill_background">
+                        <ImageView
+                            android:id="@+id/HeadSub3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -85,42 +105,56 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@+id/head">
+                android:layout_centerHorizontal="true">
+
+                <RelativeLayout
+                    android:id="@+id/clothesAbove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+                    <ImageView
+                        android:id="@+id/ClothesGear"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/hula_punk"/>
+                    <RelativeLayout
+                        android:id="@+id/clothesMain"
+                        android:layout_width="25dp"
+                        android:layout_toRightOf="@+id/ClothesGear"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/skill_background">
+                        <ImageView
+                            android:id="@+id/ClothesMain"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
+                </RelativeLayout>
 
                 <ImageView
-                    android:id="@+id/ClothesGear"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/hula_punk" />
-
-                <ImageView
-                    android:layout_width="110dp"
+                    android:layout_width="70dp"
                     android:layout_height="3dp"
-                    android:layout_below="@+id/ClothesGear"
+                    android:layout_below="@+id/clothesAbove"
                     android:src="@drawable/shape_line" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ClothesGear"
+                    android:layout_below="@+id/clothesAbove"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp">
-
-                    <RelativeLayout
-                        android:id="@+id/clothesMain"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/skill_background"></RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/clothesSub1"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@+id/clothesMain"
-                        android:background="@drawable/skill_background"></RelativeLayout>
+                        android:background="@drawable/skill_background">
+                        <ImageView
+                            android:id="@+id/ClothesSub1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/clothesSub2"
@@ -129,7 +163,12 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@id/clothesSub1"
-                        android:background="@drawable/skill_background"></RelativeLayout>
+                        android:background="@drawable/skill_background">
+                        <ImageView
+                            android:id="@+id/ClothesSub2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/clothesSub3"
@@ -138,7 +177,12 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@+id/clothesSub2"
-                        android:background="@drawable/skill_background"></RelativeLayout>
+                        android:background="@drawable/skill_background">
+                            <ImageView
+                            android:id="@+id/ClothesSub3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -147,42 +191,58 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@+id/clothes">
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp">
+
+                <RelativeLayout
+                    android:id="@+id/shoesAbove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+                    <ImageView
+                        android:id="@+id/ShoesGear"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/hula_punk"/>
+                    <RelativeLayout
+                        android:id="@+id/shoesMain"
+                        android:layout_width="25dp"
+                        android:layout_toRightOf="@+id/ShoesGear"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/skill_background">
+                        <ImageView
+                            android:id="@+id/ShoesMain"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
+                </RelativeLayout>
 
                 <ImageView
-                    android:id="@+id/ShoesGear"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/hula_punk" />
-
-                <ImageView
-                    android:layout_width="110dp"
+                    android:layout_width="70dp"
                     android:layout_height="3dp"
-                    android:layout_below="@+id/ShoesGear"
+                    android:layout_below="@+id/shoesAbove"
                     android:src="@drawable/shape_line" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ShoesGear"
+                    android:layout_below="@+id/shoesAbove"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp">
 
-                    <RelativeLayout
-                        android:id="@+id/shoesMain"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/skill_background"></RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/shoesSub1"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@+id/shoesMain"
-                        android:background="@drawable/skill_background"></RelativeLayout>
+                        android:background="@drawable/skill_background">
+                        <ImageView
+                            android:id="@+id/ShoesSub1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/shoesSub2"
@@ -191,7 +251,12 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@id/shoesSub1"
-                        android:background="@drawable/skill_background"></RelativeLayout>
+                        android:background="@drawable/skill_background">
+                        <ImageView
+                            android:id="@+id/ShoesSub2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/shoesSub3"
@@ -200,104 +265,15 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@+id/shoesSub2"
-                        android:background="@drawable/skill_background"></RelativeLayout>
-                </RelativeLayout>
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/gear"
-            android:layout_marginTop="10dp">
-            <RelativeLayout
-                android:id="@+id/inkMeterLayout"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:id="@+id/inkMeter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp">
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="-15dp"
-                        android:layout_alignLeft="@+id/inkLowerWhisker"
-                        android:rotation="90"
-                        android:src="@drawable/shape_line"/>
-                    <ImageView
-                        android:id="@+id/inkLowerWhisker"
-                        android:layout_width="50dp"
-                        android:layout_height="3dp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/shape_line"
-                        />
-                    <RelativeLayout
-                        android:id="@+id/inkBoxOutline"
-                        android:layout_width="106dp"
-                        android:layout_height="match_parent"
-                        android:layout_toRightOf="@+id/inkLowerWhisker"
-                        android:background="@drawable/shape_card"
-                        android:padding="3dp">
-                        <RelativeLayout
-                            android:id="@+id/inkBox"
+                        android:background="@drawable/skill_background">
+                        <ImageView
+                            android:id="@+id/ShoesSub3"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/shape_card">
-                            <RelativeLayout
-                                android:id="@+id/InkLowerBox"
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:background="@color/colorPrimary">
-                            </RelativeLayout>
-                            <RelativeLayout
-                                android:id="@+id/InkUpperBox"
-                                android:layout_width="50dp"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentRight="true"
-                                android:background="@color/colorAccent">
-                            </RelativeLayout>
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/repeat_stripes"></RelativeLayout>
-                        </RelativeLayout>
-                    </RelativeLayout>
-                    <ImageView
-                        android:id="@+id/inkUpperWhisker"
-                        android:layout_width="50dp"
-                        android:layout_height="3dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/inkBoxOutline"
-                        android:src="@drawable/shape_line"/>
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginRight="-15dp"
-                        android:layout_alignRight="@+id/inkUpperWhisker"
-                        android:rotation="90"
-                        android:src="@drawable/shape_line"/>
-                    <RelativeLayout
-                        android:id="@+id/InkPosition"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/shape_card"
-                        android:backgroundTint="@color/turfPrimary">
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/repeat_stripes"></RelativeLayout>
+                            android:layout_height="match_parent"/>
                     </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
 
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

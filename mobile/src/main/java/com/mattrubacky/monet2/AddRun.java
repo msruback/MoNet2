@@ -59,9 +59,8 @@ public class AddRun extends AppCompatActivity {
         TextView title = (TextView) findViewById(R.id.title);
         title.setTypeface(fontTitle);
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

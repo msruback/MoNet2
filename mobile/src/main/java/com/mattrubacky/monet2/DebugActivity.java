@@ -30,6 +30,6 @@ public class DebugActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_battle_info);
+        setContentView(R.layout.item_player_child);
     }
 }

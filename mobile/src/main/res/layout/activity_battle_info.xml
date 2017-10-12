@@ -169,11 +169,18 @@
                             android:text="DEFEAT"
                             android:textSize="16sp"
                             android:textColor="@color/offWhite"/>
+                        <TextView
+                            android:id="@+id/Power"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/Result"
+                            android:text="1880"/>
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:layout_below="@id/Result">
+                            android:layout_below="@id/Power">
                             <TextView
                                 android:id="@+id/Time"
                                 android:layout_width="wrap_content"
@@ -191,7 +198,7 @@
 
                     <RelativeLayout
                         android:id="@+id/allies"
-                        android:layout_width="280dp"
+                        android:layout_width="350dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/stats"
                         android:layout_centerHorizontal="true"
@@ -207,20 +214,18 @@
                             android:layout_height="wrap_content"
                             android:text="My Team"
                             android:textSize="18sp" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
+                        <ExpandableListView
+                            android:id="@+id/AllyList"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/allyTitle"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/shape_card"
-                            android:backgroundTint="@color/darkGreyTrans"
-                            android:padding="10dp"></RelativeLayout>
+                            android:layout_marginTop="10dp"></ExpandableListView>
+
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/foes"
-                        android:layout_width="280dp"
+                        android:layout_width="350dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/allies"
                         android:layout_centerHorizontal="true"
@@ -237,14 +242,12 @@
                             android:text="Other Team"
                             android:textSize="18sp" />
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
+                        <ExpandableListView
+                            android:id="@+id/FoeList"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/foeTitle"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/shape_card"
-                            android:backgroundTint="@color/darkGreyTrans"
-                            android:padding="10dp"></RelativeLayout>
+                            android:layout_marginTop="10dp"></ExpandableListView>
                     </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
