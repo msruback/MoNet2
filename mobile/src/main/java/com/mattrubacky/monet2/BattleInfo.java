@@ -70,12 +70,73 @@ public class BattleInfo extends AppCompatActivity {
         PlayerAdapter allyAdapter = new PlayerAdapter(getApplicationContext(),allies,true);
         PlayerAdapter foeAdapter = new PlayerAdapter(getApplicationContext(),battle.otherTeam,false);
 
-        ExpandableListView allyList = (ExpandableListView) findViewById(R.id.AllyList);
-        ExpandableListView foeList = (ExpandableListView) findViewById(R.id.FoeList);
+        final ExpandableListView allyList = (ExpandableListView) findViewById(R.id.AllyList);
+        final ExpandableListView foeList = (ExpandableListView) findViewById(R.id.FoeList);
 
         allyList.setAdapter(allyAdapter);
         foeList.setAdapter(foeAdapter);
 
+        allyList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                int height = 0;
+                for (int i = 0; i < allyList.getChildCount(); i++) {
+                    height += allyList.getChildAt(i).getMeasuredHeight();
+                    height += allyList.getDividerHeight();
+                }
+                height += (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, getResources().getDisplayMetrics());
+                ViewGroup.LayoutParams params = allyList.getLayoutParams();
+                params.height = (height);
+                allyList.setLayoutParams(params);
+            }
+        });
+
+        // Listview Group collapsed listener
+        allyList.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                int height = 0;
+                for (int i = 0; i < allyList.getChildCount(); i++) {
+                    height += allyList.getChildAt(i).getMeasuredHeight();
+                    height += allyList.getDividerHeight();
+                }
+                ViewGroup.LayoutParams params = allyList.getLayoutParams();
+                params.height -= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, getResources().getDisplayMetrics());
+                allyList.setLayoutParams(params);
+            }
+        });
+
+        foeList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                int height = 0;
+                for (int i = 0; i < foeList.getChildCount(); i++) {
+                    height += foeList.getChildAt(i).getMeasuredHeight();
+                    height += foeList.getDividerHeight();
+                }
+                height += (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, getResources().getDisplayMetrics());
+                ViewGroup.LayoutParams params = foeList.getLayoutParams();
+                params.height = (height);
+                foeList.setLayoutParams(params);
+            }
+        });
+
+        // Listview Group collapsed listener
+        foeList.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                int height = 0;
+                for (int i = 0; i < foeList.getChildCount(); i++) {
+                    height += foeList.getChildAt(i).getMeasuredHeight();
+                    height += foeList.getDividerHeight();
+                }
+                ViewGroup.LayoutParams params = foeList.getLayoutParams();
+                params.height -= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, getResources().getDisplayMetrics());
+                foeList.setLayoutParams(params);
+            }
+        });
 
         title.setTypeface(fontTitle);
         mode.setTypeface(fontTitle);
@@ -137,6 +198,7 @@ public class BattleInfo extends AppCompatActivity {
         }
 
 
+
     }
 
     @Override
@@ -144,7 +206,7 @@ public class BattleInfo extends AppCompatActivity {
         if (menuItem.getItemId() == android.R.id.home) {
             Intent intent = new Intent(getBaseContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("fragment",4);
+            intent.putExtra("fragment",3);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(menuItem);
@@ -209,6 +271,8 @@ public class BattleInfo extends AppCompatActivity {
             Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
             Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
+            RelativeLayout card = (RelativeLayout) convertView.findViewById(R.id.playerCard);
+
             TextView rank = (TextView) convertView.findViewById(R.id.Rank);
             TextView name = (TextView) convertView.findViewById(R.id.Name);
             TextView fesGrade = (TextView) convertView.findViewById(R.id.FesGrade);
@@ -233,10 +297,17 @@ public class BattleInfo extends AppCompatActivity {
             name.setText(player.user.name);
             String point = player.points+"p";
             points.setText(point);
-            String kills = player.kills +"("+player.assists+")";
+            String kills;
+            if(player.assists==0){
+                kills = String.valueOf(player.kills);
+            }else{
+                kills = player.kills +"("+player.assists+")";
+            }
             killsText.setText(kills);
-            deathsText.setText(player.deaths);
-            specialText.setText(player.special);
+            String deaths = String.valueOf(player.deaths);
+            deathsText.setText(deaths);
+            String specials = String.valueOf(player.special);
+            specialText.setText(specials);
 
             String url = "https://app.splatoon2.nintendo.net"+player.user.weapon.url;
 
@@ -374,16 +445,18 @@ public class BattleInfo extends AppCompatActivity {
                 }
             }
 
+            String rankString;
             switch (battle.type){
                 case "regular":
-                    rank.setText(player.user.rank);
+                    rankString = String.valueOf(player.user.rank);
+                    rank.setText(rankString);
                     fesGrade.setVisibility(View.GONE);
                     break;
                 case "gachi":
                     if(player.user.udamae.sPlus==null) {
                         rank.setText(player.user.udamae.rank);
                     }else{
-                        String rankString = player.user.udamae.rank + player.user.udamae.sPlus;
+                        rankString = player.user.udamae.rank + player.user.udamae.sPlus;
                         rank.setText(rankString);
                     }
                     fesGrade.setVisibility(View.GONE);
@@ -392,7 +465,7 @@ public class BattleInfo extends AppCompatActivity {
                     if(player.user.udamae.sPlus==null) {
                         rank.setText(player.user.udamae.rank);
                     }else{
-                        String rankString = player.user.udamae.rank + player.user.udamae.sPlus;
+                        rankString = player.user.udamae.rank + player.user.udamae.sPlus;
                         rank.setText(rankString);
                     }
                     fesGrade.setVisibility(View.GONE);
@@ -409,6 +482,7 @@ public class BattleInfo extends AppCompatActivity {
             }
             Player player =(Player) getGroup(groupPosition);
 
+            RelativeLayout child = (RelativeLayout) convertView.findViewById(R.id.child);
             RelativeLayout headSub1Layout = (RelativeLayout) convertView.findViewById(R.id.headSub1);
             RelativeLayout headSub2Layout = (RelativeLayout) convertView.findViewById(R.id.headSub2);
             RelativeLayout headSub3Layout = (RelativeLayout) convertView.findViewById(R.id.headSub3);
@@ -435,6 +509,7 @@ public class BattleInfo extends AppCompatActivity {
             ImageView shoesSub2 = (ImageView) convertView.findViewById(R.id.ShoesSub2);
             ImageView shoesSub3 = (ImageView) convertView.findViewById(R.id.ShoesSub3);
 
+            child.setClipToOutline(true);
 
             String url = "https://app.splatoon2.nintendo.net"+player.user.head.url;
             ImageHandler imageHandler = new ImageHandler();

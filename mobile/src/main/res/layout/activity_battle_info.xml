@@ -72,7 +72,7 @@
                 android:layout_marginRight="-10dp"
                 android:layout_marginLeft="-10dp"
                 android:layout_marginBottom="-15dp"
-                android:rotation="1">
+                android:rotation=".3">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -204,23 +204,28 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="30dp"
                         android:layout_marginTop="30dp"
+                        android:rotation="-1"
                         android:background="@drawable/shape_card"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:id="@+id/allyTitle"
-                            android:layout_width="wrap_content"
+                        android:backgroundTint="@color/colorPrimary">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="My Team"
-                            android:textSize="18sp" />
-                        <ExpandableListView
-                            android:id="@+id/AllyList"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/allyTitle"
-                            android:layout_marginTop="10dp"></ExpandableListView>
-
+                            android:paddingBottom="10dp"
+                            android:background="@drawable/repeat_zigzag">
+                            <TextView
+                                android:id="@+id/allyTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:text="My Team"
+                                android:textSize="18sp" />
+                            <ExpandableListView
+                                android:id="@+id/AllyList"
+                                android:layout_width="wrap_content"
+                                android:layout_height="285dp"
+                                android:layout_below="@+id/allyTitle"
+                                android:layout_marginTop="10dp"></ExpandableListView>
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -231,23 +236,30 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="30dp"
                         android:layout_marginTop="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:rotation="-1.2"
                         android:background="@drawable/shape_card"
-                        android:backgroundTint="@color/colorAccent"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:id="@+id/foeTitle"
-                            android:layout_width="wrap_content"
+                        android:backgroundTint="@color/colorAccent">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Other Team"
-                            android:textSize="18sp" />
+                            android:paddingBottom="10dp"
+                            android:background="@drawable/repeat_zigzag">
+                            <TextView
+                                android:id="@+id/foeTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:text="Other Team"
+                                android:textSize="18sp" />
 
-                        <ExpandableListView
-                            android:id="@+id/FoeList"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/foeTitle"
-                            android:layout_marginTop="10dp"></ExpandableListView>
+                            <ExpandableListView
+                                android:id="@+id/FoeList"
+                                android:layout_width="wrap_content"
+                                android:layout_height="285dp"
+                                android:layout_below="@+id/foeTitle"
+                                android:layout_marginTop="10dp"></ExpandableListView>
+                        </RelativeLayout>
                     </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>

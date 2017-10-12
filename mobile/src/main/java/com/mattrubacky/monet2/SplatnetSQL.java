@@ -56,11 +56,13 @@ public class SplatnetSQL {
         database.insert(SplatnetContract.Skill.TABLE_NAME, null, values);
         database.close();
 
-
     }
 
     public Skill selectSkill(int id){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+        if(id==-1){
+            return null;
+        }
 
         String query = "SELECT * FROM "+ SplatnetContract.Skill.TABLE_NAME+" WHERE "+ SplatnetContract.Skill._ID+" = "+id;
         Cursor cursor = database.rawQuery(query,null);
@@ -518,8 +520,18 @@ public class SplatnetSQL {
                         insertSkill(player.user.headSkills.subs.get(2));
                     }
                     values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3,player.user.headSkills.subs.get(2).id);
+                }else{
+                    values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3,-1);
                 }
+            }else{
+
+                values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_2,-1);
+                values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3,-1);
             }
+        }else{
+            values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_1,-1);
+            values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_2,-1);
+            values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3,-1);
         }
 
         if(!existsIn(SplatnetContract.Gear.TABLE_NAME, SplatnetContract.Gear._ID, player.user.clothes.id)){
@@ -548,8 +560,18 @@ public class SplatnetSQL {
                         insertSkill(player.user.clothesSkills.subs.get(2));
                     }
                     values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3,player.user.clothesSkills.subs.get(2).id);
+                }else{
+                    values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3,-1);
                 }
+            }else{
+
+                values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2,-1);
+                values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3,-1);
             }
+        }else{
+            values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_1,-1);
+            values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2,-1);
+            values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3,-1);
         }
 
         if(!existsIn(SplatnetContract.Gear.TABLE_NAME, SplatnetContract.Gear._ID, player.user.shoes.id)){
@@ -578,8 +600,18 @@ public class SplatnetSQL {
                         insertSkill(player.user.shoeSkills.subs.get(2));
                     }
                     values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3,player.user.shoeSkills.subs.get(2).id);
+                }else{
+                    values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3,-1);
                 }
+            }else{
+
+                values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_2,-1);
+                values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3,-1);
             }
+        }else{
+            values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_1,-1);
+            values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_2,-1);
+            values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3,-1);
         }
 
 
@@ -618,6 +650,7 @@ public class SplatnetSQL {
                 headSkills.main = selectSkill(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_MAIN)));
 
                 ArrayList<Skill> headSub = new ArrayList<>();
+                int skill = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_SUB_3));
                 headSub.add(selectSkill(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_SUB_1))));
                 headSub.add(selectSkill(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_SUB_2))));
                 headSub.add(selectSkill(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_SUB_3))));

@@ -1,6 +1,7 @@
 package com.mattrubacky.monet2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -14,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -175,6 +177,16 @@ public class BattleListFragment extends Fragment {
         BattleAdapter battleAdapter = new BattleAdapter(getContext(),battles);
         ListView listView = (ListView) rootView.findViewById(R.id.battleList);
         listView.setAdapter(battleAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), BattleInfo.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("id",battles.get(position).id);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         TextView count = (TextView) rootView.findViewById(R.id.count);
         count.setTypeface(font);

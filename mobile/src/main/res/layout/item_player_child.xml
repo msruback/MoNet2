@@ -2,19 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_card"
-    android:backgroundTint="@color/offWhite"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp">
-
+    android:layout_marginTop="-1dp"
+    android:paddingRight="25dp"
+    android:paddingLeft="25dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="@color/offWhite"></RelativeLayout>
     <RelativeLayout
+        android:id="@+id/child"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@drawable/repeat_circles">
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/offWhite">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/repeat_circles">
 
             <RelativeLayout
                 android:id="@+id/head"
@@ -273,8 +277,7 @@
                     </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
-
-
+        </RelativeLayout>
     </RelativeLayout>
 
 
