@@ -49,6 +49,7 @@
             android:name=".Login"
             android:screenOrientation="portrait" />
         <activity android:name=".DebugActivity">
+
         </activity>
         <activity
             android:name=".MainActivity"

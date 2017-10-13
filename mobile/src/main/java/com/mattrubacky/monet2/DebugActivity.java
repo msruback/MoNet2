@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,11 +19,16 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DebugActivity extends AppCompatActivity {
 
@@ -32,4 +38,5 @@ public class DebugActivity extends AppCompatActivity {
 
         setContentView(R.layout.item_player_child);
     }
+
 }
