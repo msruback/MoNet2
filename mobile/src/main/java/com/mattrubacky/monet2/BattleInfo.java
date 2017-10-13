@@ -626,9 +626,12 @@ public class BattleInfo extends AppCompatActivity {
                     }
                 }else{
                     headSub2Layout.setVisibility(View.GONE);
+                    headSub3Layout.setVisibility(View.GONE);
                 }
             }else{
                 headSub1Layout.setVisibility(View.GONE);
+                headSub2Layout.setVisibility(View.GONE);
+                headSub3Layout.setVisibility(View.GONE);
             }
 
             //CLOTHES
@@ -689,9 +692,12 @@ public class BattleInfo extends AppCompatActivity {
                     }
                 }else{
                     clothesSub2Layout.setVisibility(View.GONE);
+                    clothesSub3Layout.setVisibility(View.GONE);
                 }
             }else{
                 clothesSub1Layout.setVisibility(View.GONE);
+                clothesSub2Layout.setVisibility(View.GONE);
+                clothesSub3Layout.setVisibility(View.GONE);
             }
 
             //SHOES
@@ -752,9 +758,12 @@ public class BattleInfo extends AppCompatActivity {
                     }
                 }else{
                     shoesSub2Layout.setVisibility(View.GONE);
+                    shoesSub3Layout.setVisibility(View.GONE);
                 }
             }else{
                 shoesSub1Layout.setVisibility(View.GONE);
+                shoesSub2Layout.setVisibility(View.GONE);
+                shoesSub3Layout.setVisibility(View.GONE);
             }
             return convertView;
         }
