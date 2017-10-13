@@ -17,10 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -55,12 +57,41 @@ public class BattleListFragment extends Fragment {
 
         customHandler = new android.os.Handler();
         database = new SplatnetSQL(getContext());
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
         updateBattleData = new UpdateBattleData();
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         battles = gson.fromJson(settings.getString("recentBattles",""),new TypeToken<ArrayList<Battle>>(){}.getType());
+
+        RelativeLayout numberButton = (RelativeLayout) rootView.findViewById(R.id.NumberButton);
+
+        TextView count = (TextView) rootView.findViewById(R.id.count);
+        TextView numberButtonText = (TextView) rootView.findViewById(R.id.NumberButtonText);
+
+        count.setTypeface(font);
+        numberButtonText.setTypeface(font);
+
+        numberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText battleNumber = (EditText) rootView.findViewById(R.id.BattleNumber);
+                String idString = battleNumber.getText().toString();
+                int id = Integer.parseInt(idString);
+                if(database.existsIn(SplatnetContract.Battle.TABLE_NAME, SplatnetContract.Battle._ID,id)) {
+                    Intent intent = new Intent(getContext(), BattleInfo.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", id);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getContext(),"Invalid Battle Number",Toast.LENGTH_SHORT);
+                    battleNumber.setText("");
+                }
+            }
+        });
+
 
         updateUi();
         customHandler.post(update2Hours);
@@ -189,7 +220,6 @@ public class BattleListFragment extends Fragment {
         });
 
         TextView count = (TextView) rootView.findViewById(R.id.count);
-        count.setTypeface(font);
         count.setText(String.valueOf(database.battleCount()));
     }
 

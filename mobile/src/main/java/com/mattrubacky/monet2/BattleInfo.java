@@ -209,7 +209,8 @@ public class BattleInfo extends AppCompatActivity {
                 modeImage.setImageDrawable(getResources().getDrawable(R.drawable.battle_ranked));
                 elapsed = elapsedFormat.format(battle.time*1000);
                 elapsedTime.setText(elapsed);
-                power.setText(battle.gachiPower);
+                String powerString = String.valueOf(battle.gachiPower);
+                power.setText(powerString);
 
                 total = battle.myTeamCount+battle.otherTeamCount;
                 allyWidth = (float) battle.myTeamCount/total;
