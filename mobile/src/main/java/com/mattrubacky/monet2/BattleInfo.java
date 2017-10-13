@@ -233,6 +233,7 @@ public class BattleInfo extends AppCompatActivity {
             case "league":
                 modeImage.setImageDrawable(getResources().getDrawable(R.drawable.battle_league));
                 elapsed = elapsedFormat.format(battle.time*1000);
+                power.setVisibility(View.GONE);
                 elapsedTime.setText(elapsed);
 
                 total = battle.myTeamCount+battle.otherTeamCount;
