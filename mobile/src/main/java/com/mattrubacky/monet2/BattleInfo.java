@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class BattleInfo extends AppCompatActivity {
@@ -54,7 +55,11 @@ public class BattleInfo extends AppCompatActivity {
         RelativeLayout allyMeter = (RelativeLayout) findViewById(R.id.AllyMeter);
         RelativeLayout foeMeter = (RelativeLayout) findViewById(R.id.FoeMeter);
 
-        TextView mode = (TextView) findViewById(R.id.Rule);
+        ImageView stageImage = (ImageView) findViewById(R.id.StageImage);
+        ImageView modeImage = (ImageView) findViewById(R.id.Mode);
+
+        TextView stageName = (TextView) findViewById(R.id.StageName);
+        TextView rule = (TextView) findViewById(R.id.Rule);
         TextView allyTitle = (TextView) findViewById(R.id.allyTitle);
         TextView foeTitle = (TextView) findViewById(R.id.foeTitle);
         TextView allyCount = (TextView) findViewById(R.id.AllyPercent);
@@ -139,7 +144,8 @@ public class BattleInfo extends AppCompatActivity {
         });
 
         title.setTypeface(fontTitle);
-        mode.setTypeface(fontTitle);
+        stageName.setTypeface(fontTitle);
+        rule.setTypeface(fontTitle);
         allyTitle.setTypeface(font);
         foeTitle.setTypeface(font);
         allyCount.setTypeface(font);
@@ -149,14 +155,40 @@ public class BattleInfo extends AppCompatActivity {
         startTime.setTypeface(font);
         elapsedTime.setTypeface(font);
 
+
+        SimpleDateFormat startFormat = new SimpleDateFormat("MM/dd/yyyy h:mm a");
+
+        String start = startFormat.format(battle.start*1000);
+
         title.setText("Battle #"+battle.id);
+        result.setText(battle.result.name);
+        startTime.setText(start);
+        rule.setText(battle.rule.name);
+        stageName.setText(battle.stage.name);
+
+        String url = "https://app.splatoon2.nintendo.net"+battle.stage.image;
+
+        ImageHandler imageHandler = new ImageHandler();
+        String imageDirName = battle.stage.name.toLowerCase().replace(" ", "_");
+        if (imageHandler.imageExists("stage", imageDirName, getApplicationContext())) {
+            stageImage.setImageBitmap(imageHandler.loadImage("stage", imageDirName));
+        } else {
+            Picasso.with(getApplicationContext()).load(url).into(stageImage);
+            imageHandler.downloadImage("stage", imageDirName, url, getApplicationContext());
+        }
+
         int total;
         float allyWidth,foeWidth;
         ViewGroup.LayoutParams allyParams,foeParams;
+        String percentCount,elapsed;
+        SimpleDateFormat elapsedFormat = new SimpleDateFormat("mm:ss");
         switch(battle.type){
             case "regular":
+                modeImage.setImageDrawable(getResources().getDrawable(R.drawable.battle_regular));
+
                 power.setVisibility(View.GONE);
                 elapsedTime.setVisibility(View.GONE);
+
                 allyWidth = (float) 2.5*battle.myTeamPercent;
                 foeWidth = (float) 2.5*battle.otherTeamPercent;
 
@@ -168,21 +200,41 @@ public class BattleInfo extends AppCompatActivity {
                 foeParams.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, foeWidth, getResources().getDisplayMetrics());
                 foeMeter.setLayoutParams(foeParams);
 
+                percentCount = battle.myTeamPercent + "%";
+                allyCount.setText(percentCount);
+                percentCount = battle.otherTeamPercent + "%";
+                foeCount.setText(percentCount);
                 break;
             case "gachi":
+                modeImage.setImageDrawable(getResources().getDrawable(R.drawable.battle_ranked));
+                elapsed = elapsedFormat.format(battle.time*1000);
+                elapsedTime.setText(elapsed);
+                power.setText(battle.gachiPower);
+
                 total = battle.myTeamCount+battle.otherTeamCount;
-                allyWidth = (float) 250*(battle.myTeamCount/total);
-                foeWidth = (float) 250*(battle.otherTeamCount/total);
+                allyWidth = (float) battle.myTeamCount/total;
+                allyWidth *= 250;
+                foeWidth = (float) battle.otherTeamCount/total;
+                foeWidth *= 250;
 
                 allyParams = allyMeter.getLayoutParams();
-                allyParams.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, allyWidth, getResources().getDisplayMetrics());
+                allyParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, allyWidth, getResources().getDisplayMetrics());
                 allyMeter.setLayoutParams(allyParams);
 
                 foeParams = foeMeter.getLayoutParams();
-                foeParams.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, foeWidth, getResources().getDisplayMetrics());
+                foeParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, foeWidth, getResources().getDisplayMetrics());
                 foeMeter.setLayoutParams(foeParams);
+
+                percentCount = String.valueOf(battle.myTeamCount);
+                allyCount.setText(percentCount);
+                percentCount = String.valueOf(battle.otherTeamCount);
+                foeCount.setText(percentCount);
                 break;
             case "league":
+                modeImage.setImageDrawable(getResources().getDrawable(R.drawable.battle_league));
+                elapsed = elapsedFormat.format(battle.time*1000);
+                elapsedTime.setText(elapsed);
+
                 total = battle.myTeamCount+battle.otherTeamCount;
                 allyWidth = (float) 250*(battle.myTeamCount/total);
                 foeWidth = (float) 250*(battle.otherTeamCount/total);
@@ -194,6 +246,11 @@ public class BattleInfo extends AppCompatActivity {
                 foeParams = foeMeter.getLayoutParams();
                 foeParams.width =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, foeWidth, getResources().getDisplayMetrics());
                 foeMeter.setLayoutParams(foeParams);
+
+                percentCount = String.valueOf(battle.myTeamCount);
+                allyCount.setText(percentCount);
+                percentCount = String.valueOf(battle.otherTeamCount);
+                foeCount.setText(percentCount);
                 break;
         }
 

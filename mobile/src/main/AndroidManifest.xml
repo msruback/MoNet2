@@ -65,8 +65,10 @@
         <activity
             android:name=".AddNotification"
             android:screenOrientation="portrait" />
-        <activity android:name=".BattleInfo" />
-        <activity android:name=".WeaponLockerDetail"></activity>
+        <activity android:name=".BattleInfo"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".WeaponLockerDetail"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

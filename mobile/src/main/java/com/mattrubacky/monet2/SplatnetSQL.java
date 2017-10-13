@@ -426,6 +426,8 @@ public class SplatnetSQL {
             teamResult.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
             battle.result = teamResult;
 
+            battle.stage = selectStage(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_STAGE)));
+
             battle.user = selectPlayer(battle.id,0).get(0);
             battle.myTeam = selectPlayer(battle.id,1);
             battle.otherTeam = selectPlayer(battle.id,2);

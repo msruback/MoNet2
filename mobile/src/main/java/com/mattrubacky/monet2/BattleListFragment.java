@@ -236,6 +236,7 @@ public class BattleListFragment extends Fragment {
     private Runnable update2Hours = new Runnable()
     {
         public void run() {
+            updateBattleData = new UpdateBattleData();
             updateBattleData.execute();
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());

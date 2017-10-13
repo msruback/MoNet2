@@ -48,6 +48,29 @@
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:src="@drawable/stage_1" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:paddingBottom="5dp">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/transparentgrey2"
+                        android:padding="10dp">
+                        <TextView
+                            android:id="@+id/StageName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="The Reef"
+                            android:textColor="@color/offWhite"
+                            android:textSize="22sp"
+                            />
+                    </RelativeLayout>
+                </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -204,7 +227,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="30dp"
                         android:layout_marginTop="30dp"
-                        android:rotation="-1"
+                        android:rotation="1"
                         android:background="@drawable/shape_card"
                         android:backgroundTint="@color/colorPrimary">
                         <RelativeLayout
@@ -224,6 +247,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="285dp"
                                 android:layout_below="@+id/allyTitle"
+                                android:groupIndicator="@null"
                                 android:layout_marginTop="10dp"></ExpandableListView>
                         </RelativeLayout>
                     </RelativeLayout>
@@ -258,6 +282,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="285dp"
                                 android:layout_below="@+id/foeTitle"
+                                android:groupIndicator="@null"
                                 android:layout_marginTop="10dp"></ExpandableListView>
                         </RelativeLayout>
                     </RelativeLayout>
