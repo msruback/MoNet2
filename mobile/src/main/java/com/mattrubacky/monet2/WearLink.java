@@ -27,7 +27,7 @@ public class WearLink
     private GoogleApiClient googleApiClient;
     private boolean nodeConnected = false;
     Context context;
-    String schedules,salmonSchedule;
+    String schedules,salmonSchedule,currentSplatfest;
 
     public WearLink(Context context){
         googleApiClient = new GoogleApiClient.Builder(context)
@@ -50,6 +50,9 @@ public class WearLink
         if(salmonSchedule==null){
             salmonSchedule = settings.getString("salmonRunSchedule","");
         }
+        if(currentSplatfest==null){
+            currentSplatfest = settings.getString("currentSplatfest","");
+        }
 
         Gson gson = new Gson();
         Schedules scheduleObj=gson.fromJson(schedules,Schedules.class);;
@@ -57,6 +60,7 @@ public class WearLink
         PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/schedules");
         putDataMapReq.getDataMap().putString("schedule",schedules);
         putDataMapReq.getDataMap().putString("salmonRunSchedule",salmonSchedule);
+        putDataMapReq.getDataMap().putString("currentSplatfest",currentSplatfest);
         PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
         Wearable.DataApi.putDataItem(googleApiClient, putDataReq);
     }

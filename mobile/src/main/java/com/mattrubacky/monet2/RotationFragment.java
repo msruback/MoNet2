@@ -288,6 +288,20 @@ public class RotationFragment extends Fragment {
                             database.insertStage(schedules.league.get(0).b);
                         }
                     }
+                    Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie);
+                    response = getSplatfest.execute();
+                    if(response.isSuccessful()){
+                        CurrentSplatfest currentSplatfest = (CurrentSplatfest) response.body();
+                        if(currentSplatfest.splatfests.size()>0){
+                            schedules.setSplatfest(currentSplatfest.splatfests.get(0));
+                        }
+                        SharedPreferences.Editor edit = settings.edit();
+                        Gson gson = new Gson();
+                        edit.putString("currentSplatfest",gson.toJson(currentSplatfest));
+                        edit.commit();
+                    }else{
+
+                    }
                 }else{
 
                 }

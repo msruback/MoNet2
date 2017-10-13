@@ -140,6 +140,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
             Annie shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
             Schedules schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
             StageNotifications stageNotifications = gson.fromJson(settings.getString("stageNotifications",""),StageNotifications.class);
+            CurrentSplatfest currentSplatfest = gson.fromJson(settings.getString("currentSplatfest",""),CurrentSplatfest.class);
 
 
             SplatnetSQL database = new SplatnetSQL(context);
@@ -153,6 +154,16 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                 response = rotationGet.execute();
                 if(response.isSuccessful()){
                     schedules = (Schedules) response.body();
+                    Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie);
+                    response = getSplatfest.execute();
+                    if(response.isSuccessful()){
+                        currentSplatfest = (CurrentSplatfest) response.body();
+                        if(currentSplatfest.splatfests.size()>0){
+                            schedules.setSplatfest(currentSplatfest.splatfests.get(0));
+                        }
+                    }else{
+
+                    }
                 }else{
 
                 }
@@ -202,6 +213,9 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
 
                 json = gson.toJson(schedules);
                 edit.putString("rotationState",json);
+
+                json = gson.toJson(currentSplatfest);
+                edit.putString("currentSplatfest",json);
 
                 json = gson.toJson(shop);
                 edit.putString("shopState",json);

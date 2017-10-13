@@ -24,6 +24,8 @@ class Schedules implements Parcelable {
     ArrayList<TimePeriod> ranked;
     @SerializedName("league")
     ArrayList<TimePeriod> league;
+    @SerializedName("fes")
+    ArrayList<TimePeriod> splatfest;
 
     protected Schedules(Parcel in) {
         regular = in.createTypedArrayList(TimePeriod.CREATOR);
@@ -58,9 +60,26 @@ class Schedules implements Parcelable {
         return regular.size();
     }
     public void dequeue(){
+
+        if(splatfest.size()>0&&splatfest.get(0).start==regular.get(0).start){
+            splatfest.remove(0);
+        }
         regular.remove(0);
         ranked.remove(0);
         league.remove(0);
+    }
+    public void setSplatfest(Splatfest splatfest){
+        long start = splatfest.times.start;
+        long end = splatfest.times.end;
+        this.splatfest = new ArrayList<>();
+        for(int i=0;i<getLength();i++){
+            if(regular.get(i).start>start&&regular.get(i).start<end){
+                this.splatfest.add(regular.get(i));
+                regular.remove(i);
+                ranked.remove(i);
+                league.remove(i);
+            }
+        }
     }
 }
 
@@ -204,4 +223,57 @@ class SalmonRun {
     long endTime;
     @SerializedName("stage")
     String stage;
+}
+
+class CurrentSplatfest{
+    public CurrentSplatfest(){}
+    @SerializedName("festivals")
+    ArrayList<Splatfest> splatfests;
+}
+class Splatfest{
+    public Splatfest(){}
+
+    @SerializedName("festival_id")
+    int id;
+    @SerializedName("times")
+    SplatfestTimes times;
+    @SerializedName("colors")
+    SplatfestColors colors;
+    @SerializedName("names")
+    SplatfestNames names;
+    @SerializedName("special_stage")
+    Stage stage;
+}
+
+class SplatfestTimes{
+    public SplatfestTimes(){}
+
+    @SerializedName("start")
+    Long start;
+    @SerializedName("end")
+    Long end;
+    @SerializedName("announce")
+    Long announce;
+    @SerializedName("result")
+    Long result;
+}
+class SplatfestColors{
+    public SplatfestColors(){
+    }
+    @SerializedName("alpha")
+    String alpha;
+    @SerializedName("bravo")
+    String bravo;
+}
+class SplatfestNames{
+    public SplatfestNames(){}
+
+    @SerializedName("bravo_short")
+    String bravo;
+    @SerializedName("bravo_long")
+    String bravoDesc;
+    @SerializedName("alpha_short")
+    String alpha;
+    @SerializedName("alpha_long")
+    String alphaDesc;
 }

@@ -47,10 +47,10 @@ public interface Splatnet {
     Call<ResponseBody> getStages(@Header("Cookie") String cookie);
 
     @GET("api/festivals/active")
-    Call<ResponseBody> getActiveSplatfests(@Header("Cookie") String cookie);
+    Call<CurrentSplatfest> getActiveSplatfests(@Header("Cookie") String cookie);
 
     @GET("api/festivals/pasts")
-    Call<ResponseBody> getPastSplatfests(@Header("Cookie") String cookie);
+    Call<PastSplatfest> getPastSplatfests(@Header("Cookie") String cookie);
 
     @GET("api/festivals/{id}/votes")
     Call<ResponseBody> getSplatfestVotes(@Header("Cookie") String cookie);
