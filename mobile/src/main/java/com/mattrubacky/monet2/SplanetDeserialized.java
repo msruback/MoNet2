@@ -66,7 +66,7 @@ class Schedules implements Parcelable {
     }
     public void dequeue(){
 
-        if(splatfest.size()>0&&splatfest.get(0).start==regular.get(0).start){
+        if(splatfest!=null&&splatfest.size()>0&&splatfest.get(0).start==regular.get(0).start){
             splatfest.remove(0);
         }
         regular.remove(0);
@@ -77,8 +77,8 @@ class Schedules implements Parcelable {
         long start = splatfest.times.start;
         long end = splatfest.times.end;
         this.splatfest = new ArrayList<>();
-        for(int i=0;i<getLength();i++){
-            if(regular.get(i).start>start&&regular.get(i).start<end){
+        for(int i=0;i<regular.size();i++){
+            while(regular.size()>i&&(regular.get(i).end>start)&&(regular.get(i).start<=end)){
                 this.splatfest.add(regular.get(i));
                 regular.remove(i);
                 ranked.remove(i);
@@ -527,9 +527,50 @@ class SplatfestColors{
     public SplatfestColors(){
     }
     @SerializedName("alpha")
-    String alpha;
+    SplatfestColor alpha;
     @SerializedName("bravo")
-    String bravo;
+    SplatfestColor bravo;
+}
+class SplatfestColor{
+    public SplatfestColor(){}
+    @SerializedName("b")
+    double b;
+    @SerializedName("r")
+    double r;
+    @SerializedName("g")
+    double g;
+    public String getColor(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("#");
+        int colorNum = (int) (255*r);
+        builder.append(getHexDigit(colorNum/16));
+        builder.append(getHexDigit(colorNum%16));
+        colorNum = (int) (255*g);
+        builder.append(getHexDigit(colorNum/16));
+        builder.append(getHexDigit(colorNum%16));
+        colorNum = (int) (255*b);
+        builder.append(getHexDigit(colorNum/16));
+        builder.append(getHexDigit(colorNum%16));
+        return builder.toString();
+    }
+    private String getHexDigit(int num){
+        switch(num){
+            case 10:
+                return "a";
+            case 11:
+                return "b";
+            case 12:
+                return "c";
+            case 13:
+                return "d";
+            case 14:
+                return "e";
+            case 15:
+                return "f";
+            default:
+                return String.valueOf(num);
+        }
+    }
 }
 class SplatfestNames{
     public SplatfestNames(){}

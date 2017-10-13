@@ -78,9 +78,11 @@ public class WearLink
     public void sendRotation(Schedules schedules){
         Gson gson = new Gson();
         this.schedules = gson.toJson(schedules);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         if(nodeConnected){
             PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/schedules");
             putDataMapReq.getDataMap().putString("schedule",this.schedules);
+            putDataMapReq.getDataMap().putString("currentSplatfest",settings.getString("currentSplatfest",""));
             PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
             Wearable.DataApi.putDataItem(googleApiClient, putDataReq);
         }

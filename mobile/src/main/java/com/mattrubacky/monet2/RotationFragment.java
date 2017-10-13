@@ -131,8 +131,8 @@ public class RotationFragment extends Fragment {
                 salmonAlarm.setAlarm(getContext());
             }
         }
-
-        if(schedules.regular.size()==0){
+        updateRotationData.execute();
+        /*if(schedules.regular.size()==0){
             customHandler.post(update2Hours);
         }else {
             if ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
@@ -160,6 +160,7 @@ public class RotationFragment extends Fragment {
                 customHandler.postDelayed(update2Hours, nextUpdateTime);
             }
         }
+        */
 
         turfWarTitle.setTypeface(fontTitle);
         rankedTitle.setTypeface(fontTitle);
@@ -297,6 +298,7 @@ public class RotationFragment extends Fragment {
                         }
                         SharedPreferences.Editor edit = settings.edit();
                         Gson gson = new Gson();
+                        edit.putString("rotationState",gson.toJson(schedules));
                         edit.putString("currentSplatfest",gson.toJson(currentSplatfest));
                         edit.commit();
                     }else{
@@ -324,6 +326,7 @@ public class RotationFragment extends Fragment {
     private Runnable update2Hours = new Runnable()
     {
         public void run() {
+            updateRotationData = new UpdateRotationData();
             updateRotationData.execute();
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());

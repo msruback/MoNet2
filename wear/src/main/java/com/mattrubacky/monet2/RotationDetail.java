@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -71,6 +72,7 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
                 Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
                 RelativeLayout titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
+                RelativeLayout titleZigZag = (RelativeLayout) findViewById(R.id.titleZigZag);
 
                 TextView title = (TextView) findViewById(R.id.Title);
                 title.setTypeface(fontTitle);
@@ -101,8 +103,14 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
                         CurrentSplatfest currentSplatfest = gson.fromJson(settings.getString("currentSplatfest",""),CurrentSplatfest.class);
                         Splatfest splatfest = currentSplatfest.splatfests.get(0);
                         title.setText("Splatfest");
-                        title.setTextColor(Color.parseColor(splatfest.colors.bravo));
-                        titleLayout.setBackgroundColor(Color.parseColor(splatfest.colors.alpha));
+                        titleZigZag.setBackground(getResources().getDrawable(R.drawable.repeat_zigzag_splatfest));
+
+                        String alphaColor = currentSplatfest.splatfests.get(0).colors.alpha.getColor();
+
+                        String bravoColor = currentSplatfest.splatfests.get(0).colors.bravo.getColor();
+
+                        titleLayout.setBackgroundColor(Color.parseColor(alphaColor));
+                        titleZigZag.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(bravoColor)));
                 }
                 if(schedules.regular.size()!=0) {
                     while ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {

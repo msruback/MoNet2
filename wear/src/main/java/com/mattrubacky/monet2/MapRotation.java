@@ -1,8 +1,11 @@
 package com.mattrubacky.monet2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -13,8 +16,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.wearable.view.WatchViewStub;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -52,6 +58,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
     private GoogleApiClient googleApiClient;
     WatchViewStub stub;
     UpdateRotationData updateRotationData;
+    CurrentSplatfest currentSplatfest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,78 +104,9 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
 
                 TextView title = (TextView) stub.findViewById(R.id.Title);
 
-                RelativeLayout TurfWar = (RelativeLayout) stub.findViewById(R.id.TurfWar);
-                TextView TurfMode = (TextView) stub.findViewById(R.id.TurfMode);
-                TextView TurfStageA = (TextView) stub.findViewById(R.id.TurfStageA);
-                TextView TurfStageB = (TextView) stub.findViewById(R.id.TurfStageB);
-
-                RelativeLayout Ranked = (RelativeLayout) stub.findViewById(R.id.Ranked);
-                TextView RankMode = (TextView) stub.findViewById(R.id.RankMode);
-                TextView RankStageA = (TextView) stub.findViewById(R.id.RankStageA);
-                TextView RankStageB = (TextView) stub.findViewById(R.id.RankStageB);
-
-                RelativeLayout League = (RelativeLayout) stub.findViewById(R.id.League);
-                TextView LeagueMode = (TextView) stub.findViewById(R.id.LeagueMode);
-                TextView LeagueStageA = (TextView) stub.findViewById(R.id.LeagueStageA);
-                TextView LeagueStageB = (TextView) stub.findViewById(R.id.LeagueStageB);
-
-                TextView SalmonTitle = (TextView) stub.findViewById(R.id.SalmonTitle);
-                TextView SalmonShift1 = (TextView) stub.findViewById(R.id.ShiftTime1);
-                TextView SalmonShift2 = (TextView) stub.findViewById(R.id.ShiftTime2);
-
                 title.setTypeface(fontTitle);
-
-                TurfMode.setTypeface(fontTitle);
-                TurfStageA.setTypeface(font);
-                TurfStageB.setTypeface(font);
-
-                RankMode.setTypeface(fontTitle);
-                RankStageA.setTypeface(font);
-                RankStageB.setTypeface(font);
-
-                LeagueMode.setTypeface(fontTitle);
-                LeagueStageA.setTypeface(font);
-                LeagueStageB.setTypeface(font);
-
-                SalmonTitle.setTypeface(fontTitle);
-                SalmonShift1.setTypeface(font);
-                SalmonShift2.setTypeface(font);
-
-                TurfWar.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Intent intent = new Intent(getBaseContext(), RotationDetail.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("type","regular");
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        return false;
-                    }
-                });
-
-                Ranked.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Intent intent = new Intent(getBaseContext(), RotationDetail.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("type","ranked");
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        return false;
-                    }
-                });
-
-                League.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Intent intent = new Intent(getBaseContext(), RotationDetail.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("type","league");
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        return false;
-                    }
-                });
+                updateRotationData = new UpdateRotationData();
+                updateRotationData.execute();
                 if(salmonSchedule.schedule.size()!=0){
                     if(salmonSchedule.schedule.get(0).endTime<new Date().getTime()){
                         salmonSchedule.schedule.remove(0);
@@ -193,6 +131,8 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
         edit.putString("rotationState",json);
         json = gson.toJson(salmonSchedule);
         edit.putString("salmonRunSchedule",json);
+        json = gson.toJson(currentSplatfest);
+        edit.putString("currentSplatfest",json);
         edit.commit();
         googleApiClient.disconnect();
         Wearable.DataApi.removeListener(googleApiClient, this);
@@ -206,6 +146,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
         salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedule\":[]}"),SalmonSchedule.class);
+        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
         googleApiClient.connect();
     }
 
@@ -254,70 +195,190 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
 
 
     private void updateUI(){
-        RelativeLayout TurfWar = (RelativeLayout) stub.findViewById(R.id.TurfWar);
-        TextView TurfStageA = (TextView) stub.findViewById(R.id.TurfStageA);
-        TextView TurfStageB = (TextView) stub.findViewById(R.id.TurfStageB);
-
-        RelativeLayout Ranked = (RelativeLayout) stub.findViewById(R.id.Ranked);
-        TextView RankMode = (TextView) stub.findViewById(R.id.RankMode);
-        TextView RankStageA = (TextView) stub.findViewById(R.id.RankStageA);
-        TextView RankStageB = (TextView) stub.findViewById(R.id.RankStageB);
-
-        RelativeLayout League = (RelativeLayout) stub.findViewById(R.id.League);
-        TextView LeagueMode = (TextView) stub.findViewById(R.id.LeagueMode);
-        TextView LeagueStageA = (TextView) stub.findViewById(R.id.LeagueStageA);
-        TextView LeagueStageB = (TextView) stub.findViewById(R.id.LeagueStageB);
-
-        RelativeLayout SalmonRun = (RelativeLayout) stub.findViewById(R.id.SalmonRun);
-        TextView SalmonShift1 = (TextView) stub.findViewById(R.id.ShiftTime1);
-        TextView SalmonShift2 = (TextView) stub.findViewById(R.id.ShiftTime2);
-
-        if(schedules.regular.size()>0) {
-            TurfWar.setVisibility(View.VISIBLE);
-            TurfStageA.setText(schedules.regular.get(0).a.name);
-            TurfStageB.setText(schedules.regular.get(0).b.name);
-        }else{
-            TurfWar.setVisibility(View.GONE);
+        ArrayList<String> rotation = new ArrayList<>();
+        if(schedules.regular.size()>0){
+            rotation.add("regular");
         }
-
-        if(schedules.ranked.size()>0) {
-            Ranked.setVisibility(View.VISIBLE);
-            RankMode.setText(schedules.ranked.get(0).rule.name);
-            RankStageA.setText(schedules.ranked.get(0).a.name);
-            RankStageB.setText(schedules.ranked.get(0).b.name);
-        }else{
-            Ranked.setVisibility(View.GONE);
+        if(schedules.ranked.size()>0){
+            rotation.add("ranked");
         }
-
-        if(schedules.league.size()>0) {
-            League.setVisibility(View.VISIBLE);
-            LeagueMode.setText(schedules.league.get(0).rule.name);
-            LeagueStageA.setText(schedules.league.get(0).a.name);
-            LeagueStageB.setText(schedules.league.get(0).b.name);
-        }else{
-            League.setVisibility(View.GONE);
+        if(schedules.league.size()>0){
+            rotation.add("league");
         }
-
-        if(salmonSchedule!=null) {
-            if (salmonSchedule.schedule.size() > 0) {
-                SalmonRun.setVisibility(View.VISIBLE);
-                SimpleDateFormat sdf = new SimpleDateFormat("M/d h a");
-                String startText = sdf.format(salmonSchedule.schedule.get(0).startTime);
-                String endText = sdf.format(salmonSchedule.schedule.get(0).endTime);
-                SalmonShift1.setText(startText + " to " + endText);
-                if(salmonSchedule.schedule.size()>1){
-                    startText = sdf.format(salmonSchedule.schedule.get(1).startTime);
-                    endText = sdf.format(salmonSchedule.schedule.get(1).endTime);
-                    SalmonShift2.setText(startText + " to " + endText);
-                }
-            } else {
-                SalmonRun.setVisibility(View.GONE);
+        if(currentSplatfest.splatfests.size()>0){
+            if(currentSplatfest.splatfests.get(0).times.start<schedules.regular.get(0).start){
+                rotation.add(0,"fes");
+            }else{
+                rotation.add("fes");
             }
-        }else{
-            SalmonRun.setVisibility(View.GONE);
         }
+        if(salmonSchedule.schedule!=null&&salmonSchedule.schedule.size()>0){
+            rotation.add("salmon");
+        }
+        ListView rotationList = (ListView) stub.findViewById(R.id.ScheduleList);
+        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getApplicationContext(),rotation);
+        rotationList.setAdapter(scheduleAdapter);
+    }
+
+    private class ScheduleAdapter extends ArrayAdapter<String> {
+        public ScheduleAdapter(Context context, ArrayList<String> input) {
+            super(context, 0, input);
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
+            Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
+
+            switch(getItem(position)){
+                case "regular":
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_regular, parent, false);
+                    TextView TurfMode = (TextView) convertView.findViewById(R.id.TurfMode);
+                    TextView TurfStageA = (TextView) convertView.findViewById(R.id.TurfStageA);
+                    TextView TurfStageB = (TextView) convertView.findViewById(R.id.TurfStageB);
+
+                    TurfMode.setTypeface(fontTitle);
+                    TurfStageA.setTypeface(font);
+                    TurfStageB.setTypeface(font);
+
+                    TurfStageA.setText(schedules.regular.get(0).a.name);
+                    TurfStageB.setText(schedules.regular.get(0).b.name);
+
+                    convertView.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            Intent intent = new Intent(getBaseContext(), RotationDetail.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("type","regular");
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            return false;
+                        }
+                    });
+                    break;
+                case "ranked":
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_ranked, parent, false);
+                    TextView RankMode = (TextView) convertView.findViewById(R.id.RankMode);
+                    TextView RankStageA = (TextView) convertView.findViewById(R.id.RankStageA);
+                    TextView RankStageB = (TextView) convertView.findViewById(R.id.RankStageB);
+
+                    RankMode.setTypeface(fontTitle);
+                    RankStageA.setTypeface(font);
+                    RankStageB.setTypeface(font);
+
+                    RankMode.setText(schedules.ranked.get(0).rule.name);
+                    RankStageA.setText(schedules.ranked.get(0).a.name);
+                    RankStageB.setText(schedules.ranked.get(0).b.name);
+                    convertView.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            Intent intent = new Intent(getBaseContext(), RotationDetail.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("type","ranked");
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            return false;
+                        }
+                    });
+                    break;
+                case "league":
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_league, parent, false);
+
+                    TextView LeagueMode = (TextView) convertView.findViewById(R.id.LeagueMode);
+                    TextView LeagueStageA = (TextView) convertView.findViewById(R.id.LeagueStageA);
+                    TextView LeagueStageB = (TextView) convertView.findViewById(R.id.LeagueStageB);
+
+                    LeagueMode.setTypeface(fontTitle);
+                    LeagueStageA.setTypeface(font);
+                    LeagueStageB.setTypeface(font);
+
+                    LeagueMode.setText(schedules.league.get(0).rule.name);
+                    LeagueStageA.setText(schedules.league.get(0).a.name);
+                    LeagueStageB.setText(schedules.league.get(0).b.name);
+
+                    convertView.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            Intent intent = new Intent(getBaseContext(), RotationDetail.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("type","league");
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            return false;
+                        }
+                    });
+                    break;
+                case "fes":
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_festival, parent, false);
+                    RelativeLayout SplatfestCard = (RelativeLayout) convertView.findViewById(R.id.FesCard);
+                    RelativeLayout SplatfestZigZag = (RelativeLayout) convertView.findViewById(R.id.FesZigZag);
+                    RelativeLayout Alpha = (RelativeLayout) convertView.findViewById(R.id.Alpha);
+                    RelativeLayout Bravo = (RelativeLayout) convertView.findViewById(R.id.Bravo);
 
 
+                    TextView SplatfestMode = (TextView) convertView.findViewById(R.id.FesMode);
+                    TextView SplatfestStageA = (TextView) convertView.findViewById(R.id.FesStageA);
+                    TextView SplatfestStageB = (TextView) convertView.findViewById(R.id.FesStageB);
+                    TextView SplatfestStageC = (TextView) convertView.findViewById(R.id.FesStageC);
+
+                    SplatfestMode.setTypeface(font);
+                    SplatfestStageA.setTypeface(font);
+                    SplatfestStageB.setTypeface(font);
+                    SplatfestStageC.setTypeface(font);
+
+                    String alphaColor = currentSplatfest.splatfests.get(0).colors.alpha.getColor();
+
+                    String bravoColor = currentSplatfest.splatfests.get(0).colors.bravo.getColor();
+
+                    SplatfestCard.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(alphaColor)));
+                    SplatfestZigZag.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(bravoColor)));
+
+                    Alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(alphaColor)));
+                    Bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(bravoColor)));
+
+                    SplatfestStageA.setText(schedules.splatfest.get(0).a.name);
+                    SplatfestStageB.setText(schedules.splatfest.get(0).b.name);
+                    SplatfestStageC.setText(currentSplatfest.splatfests.get(0).stage.name);
+
+                    SplatfestCard.setClipToOutline(true);
+
+                    convertView.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            Intent intent = new Intent(getBaseContext(), RotationDetail.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("type","fes");
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            return false;
+                        }
+                    });
+                    break;
+                case "salmon":
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_salmon, parent, false);
+
+                    TextView salmonTitle = (TextView) convertView.findViewById(R.id.SalmonTitle);
+                    TextView SalmonShift1 = (TextView) convertView.findViewById(R.id.ShiftTime1);
+                    TextView SalmonShift2 = (TextView) convertView.findViewById(R.id.ShiftTime2);
+
+                    salmonTitle.setTypeface(fontTitle);
+                    SalmonShift1.setTypeface(font);
+                    SalmonShift2.setTypeface(font);
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("M/d h a");
+                    String startText = sdf.format(salmonSchedule.schedule.get(0).startTime);
+                    String endText = sdf.format(salmonSchedule.schedule.get(0).endTime);
+                    SalmonShift1.setText(startText + " to " + endText);
+                    if(salmonSchedule.schedule.size()>1){
+                        startText = sdf.format(salmonSchedule.schedule.get(1).startTime);
+                        endText = sdf.format(salmonSchedule.schedule.get(1).endTime);
+                        SalmonShift2.setText(startText + " to " + endText);
+                    }
+                    break;
+            }
+
+            return convertView;
+        }
     }
 
     private class UpdateRotationData extends AsyncTask<Void,Void,Void> {
@@ -332,6 +393,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
             Gson gson = new Gson();
             schedules = gson.fromJson(dataMap.getString("schedule"),Schedules.class);
             salmonSchedule = gson.fromJson(dataMap.getString("salmonRunSchedule"),SalmonSchedule.class);
+            currentSplatfest = gson.fromJson(dataMap.getString("currentSplatfest"),CurrentSplatfest.class);
             return null;
         }
 

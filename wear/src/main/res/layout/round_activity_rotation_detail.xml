@@ -16,6 +16,7 @@
         android:elevation="4dp">
 
         <RelativeLayout
+            android:id="@+id/titleZigZag"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/repeat_zigzag"></RelativeLayout>

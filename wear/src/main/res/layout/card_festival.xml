@@ -1,5 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/FesCard"
+            android:layout_width="200dp"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/pearl">
+
+            <RelativeLayout
+                android:id="@+id/FesZigZag"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/repeat_zigzag_splatfest"
+                android:backgroundTint="@color/marina"></RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fesModeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="7dp">
+
+                <RelativeLayout
+                    android:id="@+id/fesIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/battle_splatfest_empty">
+                    <RelativeLayout
+                        android:id="@+id/Alpha"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/battle_splatfest_alpha"
+                        android:backgroundTint="@color/pearl"></RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/Bravo"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/battle_splatfest_bravo"
+                        android:backgroundTint="@color/marina"></RelativeLayout>
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/FesMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/fesIcon"
+                    android:text="Splatfest"
+                    android:textColor="@color/offWhite"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fesStageALayout"
+                android:layout_width="190dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/fesModeLayout"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/darkGreyTrans"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp">
+
+                <TextView
+                    android:id="@+id/FesStageA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Humpback Pumptrack" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fesStageBLayout"
+                android:layout_width="190dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/fesStageALayout"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/darkGreyTrans"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp">
+
+                <TextView
+                    android:id="@+id/FesStageB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Inkblot Art Academy" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/fesStageCLayout"
+                android:layout_width="190dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/fesStageBLayout"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/darkGreyTrans"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp">
+
+                <TextView
+                    android:id="@+id/FesStageC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Inkblot Art Academy" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>
