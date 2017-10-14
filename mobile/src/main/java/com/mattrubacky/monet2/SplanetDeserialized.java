@@ -491,12 +491,38 @@ class PastSplatfest{
     @SerializedName("results")
     ArrayList<SplatfestResult> results;
 }
-class CurrentSplatfest{
+class CurrentSplatfest implements Parcelable{
     public CurrentSplatfest(){}
     @SerializedName("festivals")
     ArrayList<Splatfest> splatfests;
+
+    protected CurrentSplatfest(Parcel in) {
+        splatfests = in.createTypedArrayList(Splatfest.CREATOR);
+    }
+
+    public static final Creator<CurrentSplatfest> CREATOR = new Creator<CurrentSplatfest>() {
+        @Override
+        public CurrentSplatfest createFromParcel(Parcel in) {
+            return new CurrentSplatfest(in);
+        }
+
+        @Override
+        public CurrentSplatfest[] newArray(int size) {
+            return new CurrentSplatfest[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(splatfests);
+    }
 }
-class Splatfest{
+class Splatfest implements Parcelable{
     public Splatfest(){}
 
     @SerializedName("festival_id")
@@ -509,9 +535,43 @@ class Splatfest{
     SplatfestNames names;
     @SerializedName("special_stage")
     Stage stage;
+
+    protected Splatfest(Parcel in) {
+        id = in.readInt();
+        times = in.readParcelable(SplatfestTimes.class.getClassLoader());
+        colors = in.readParcelable(SplatfestColors.class.getClassLoader());
+        names = in.readParcelable(SplatfestNames.class.getClassLoader());
+        stage = in.readParcelable(Stage.class.getClassLoader());
+    }
+
+    public static final Creator<Splatfest> CREATOR = new Creator<Splatfest>() {
+        @Override
+        public Splatfest createFromParcel(Parcel in) {
+            return new Splatfest(in);
+        }
+
+        @Override
+        public Splatfest[] newArray(int size) {
+            return new Splatfest[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeParcelable(times, flags);
+        dest.writeParcelable(colors, flags);
+        dest.writeParcelable(names, flags);
+        dest.writeParcelable(stage, flags);
+    }
 }
 
-class SplatfestTimes{
+class SplatfestTimes implements Parcelable{
     public SplatfestTimes(){}
 
     @SerializedName("start")
@@ -522,16 +582,76 @@ class SplatfestTimes{
     Long announce;
     @SerializedName("result")
     Long result;
+
+    protected SplatfestTimes(Parcel in) {
+        start = in.readLong();
+        end = in.readLong();
+        announce = in.readLong();
+        result = in.readLong();
+    }
+
+    public static final Creator<SplatfestTimes> CREATOR = new Creator<SplatfestTimes>() {
+        @Override
+        public SplatfestTimes createFromParcel(Parcel in) {
+            return new SplatfestTimes(in);
+        }
+
+        @Override
+        public SplatfestTimes[] newArray(int size) {
+            return new SplatfestTimes[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(start);
+        dest.writeLong(end);
+        dest.writeLong(announce);
+        dest.writeLong(result);
+    }
 }
-class SplatfestColors{
+class SplatfestColors implements Parcelable{
     public SplatfestColors(){
     }
     @SerializedName("alpha")
     SplatfestColor alpha;
     @SerializedName("bravo")
     SplatfestColor bravo;
+
+    protected SplatfestColors(Parcel in) {
+        alpha = in.readParcelable(SplatfestColor.class.getClassLoader());
+        bravo = in.readParcelable(SplatfestColor.class.getClassLoader());
+    }
+
+    public static final Creator<SplatfestColors> CREATOR = new Creator<SplatfestColors>() {
+        @Override
+        public SplatfestColors createFromParcel(Parcel in) {
+            return new SplatfestColors(in);
+        }
+
+        @Override
+        public SplatfestColors[] newArray(int size) {
+            return new SplatfestColors[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(alpha, flags);
+        dest.writeParcelable(bravo, flags);
+    }
 }
-class SplatfestColor{
+class SplatfestColor implements Parcelable{
     public SplatfestColor(){}
     @SerializedName("b")
     double b;
@@ -539,19 +659,45 @@ class SplatfestColor{
     double r;
     @SerializedName("g")
     double g;
+    @SerializedName("color")
+    String color;
+
+    protected SplatfestColor(Parcel in) {
+        b = in.readDouble();
+        r = in.readDouble();
+        g = in.readDouble();
+        color = in.readString();
+    }
+
+    public static final Creator<SplatfestColor> CREATOR = new Creator<SplatfestColor>() {
+        @Override
+        public SplatfestColor createFromParcel(Parcel in) {
+            return new SplatfestColor(in);
+        }
+
+        @Override
+        public SplatfestColor[] newArray(int size) {
+            return new SplatfestColor[size];
+        }
+    };
+
     public String getColor(){
-        StringBuilder builder = new StringBuilder();
-        builder.append("#");
-        int colorNum = (int) (255*r);
-        builder.append(getHexDigit(colorNum/16));
-        builder.append(getHexDigit(colorNum%16));
-        colorNum = (int) (255*g);
-        builder.append(getHexDigit(colorNum/16));
-        builder.append(getHexDigit(colorNum%16));
-        colorNum = (int) (255*b);
-        builder.append(getHexDigit(colorNum/16));
-        builder.append(getHexDigit(colorNum%16));
-        return builder.toString();
+        if(color==null) {
+            StringBuilder builder = new StringBuilder();
+            builder.append("#");
+            int colorNum = (int) (255 * r);
+            builder.append(getHexDigit(colorNum / 16));
+            builder.append(getHexDigit(colorNum % 16));
+            colorNum = (int) (255 * g);
+            builder.append(getHexDigit(colorNum / 16));
+            builder.append(getHexDigit(colorNum % 16));
+            colorNum = (int) (255 * b);
+            builder.append(getHexDigit(colorNum / 16));
+            builder.append(getHexDigit(colorNum % 16));
+            color = builder.toString();
+
+        }
+        return color;
     }
     private String getHexDigit(int num){
         switch(num){
@@ -571,8 +717,21 @@ class SplatfestColor{
                 return String.valueOf(num);
         }
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(b);
+        dest.writeDouble(r);
+        dest.writeDouble(g);
+        dest.writeString(color);
+    }
 }
-class SplatfestNames{
+class SplatfestNames implements Parcelable{
     public SplatfestNames(){}
 
     @SerializedName("bravo_short")
@@ -583,6 +742,16 @@ class SplatfestNames{
     String alpha;
     @SerializedName("alpha_long")
     String alphaDesc;
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+    }
 }
 
 class SplatfestResult{

@@ -226,10 +226,10 @@ public class SplatnetSQL {
         values.put(SplatnetContract.Splatfest._ID,splatfest.id);
         values.put(SplatnetContract.Splatfest.COLUMN_ALPHA,splatfest.names.alpha);
         values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_LONG,splatfest.names.alphaDesc);
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_COLOR,splatfest.colors.alpha);
+        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_COLOR,splatfest.colors.alpha.getColor());
         values.put(SplatnetContract.Splatfest.COLUMN_BRAVO,splatfest.names.bravo);
         values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_LONG,splatfest.names.bravoDesc);
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_COLOR,splatfest.colors.bravo);
+        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_COLOR,splatfest.colors.bravo.getColor());
         values.put(SplatnetContract.Splatfest.COLUMN_ANNOUNCE_TIME,splatfest.times.announce);
         values.put(SplatnetContract.Splatfest.COLUMN_START_TIME,splatfest.times.start);
         values.put(SplatnetContract.Splatfest.COLUMN_END_TIME,splatfest.times.end);
@@ -246,10 +246,10 @@ public class SplatnetSQL {
         values.put(SplatnetContract.Splatfest._ID,splatfest.id);
         values.put(SplatnetContract.Splatfest.COLUMN_ALPHA,splatfest.names.alpha);
         values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_LONG,splatfest.names.alphaDesc);
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_COLOR,splatfest.colors.alpha);
+        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_COLOR,splatfest.colors.alpha.getColor());
         values.put(SplatnetContract.Splatfest.COLUMN_BRAVO,splatfest.names.bravo);
         values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_LONG,splatfest.names.bravoDesc);
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_COLOR,splatfest.colors.bravo);
+        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_COLOR,splatfest.colors.bravo.getColor());
         values.put(SplatnetContract.Splatfest.COLUMN_ANNOUNCE_TIME,splatfest.times.announce);
         values.put(SplatnetContract.Splatfest.COLUMN_START_TIME,splatfest.times.start);
         values.put(SplatnetContract.Splatfest.COLUMN_END_TIME,splatfest.times.end);

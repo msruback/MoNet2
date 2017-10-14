@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/League"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/leaguePrimary"
+        android:rotation="1.5"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:id="@+id/leagueProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/extra_product" />
+
+        <RelativeLayout
+            android:id="@+id/leagueGreyBottom"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/grey">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:background="@color/grey"></RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/leagueStripes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/repeat_stripes" />
+
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="390dp"
+            android:layout_alignTop="@+id/leagueGreyBottom">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/LeaguePager"
+                android:layout_width="match_parent"
+                android:layout_height="370dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/LeagueDots"
+                app:tabBackground="@drawable/tab_league_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="380dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/leagueModeBanner"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/leagueProduct"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/banner_ink_left"
+            android:backgroundTint="@color/leagueAccent">
+
+            <ImageView
+                android:id="@+id/leagueLogo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/battle_league" />
+
+            <TextView
+                android:id="@+id/leagueName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/leagueLogo"
+                android:text="@string/league"
+                android:textColor="@color/offWhite"
+                android:textSize="30dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/Festival"
+            android:layout_width="300dp"
+            android:layout_height="620dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/pearl"
+            android:rotation="-2">
+
+            <ImageView
+                android:id="@+id/fesProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/extra_product" />
+
+            <RelativeLayout
+                android:id="@+id/fesGreyBottom"
+                android:layout_width="match_parent"
+                android:layout_height="520dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="100dp"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/grey">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/grey"></RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fesStripes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/repeat_stripes">
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="510dp"
+                android:layout_alignTop="@+id/fesGreyBottom">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/FesPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"></android.support.v4.view.ViewPager>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/FesDots"
+                    app:tabBackground="@drawable/tab_turf_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="500dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fesModeBanner"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/fesProduct"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/banner_ink_left"
+                android:backgroundTint="@color/marina">
+
+                <RelativeLayout
+                    android:id="@+id/fesLogo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/battle_splatfest_empty">
+                    <RelativeLayout
+                        android:id="@+id/Alpha"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/battle_splatfest_alpha"
+                        android:backgroundTint="@color/pearl"></RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/Bravo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/battle_splatfest_bravo"
+                        android:backgroundTint="@color/marina"></RelativeLayout>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/fesName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toEndOf="@+id/fesLogo"
+                    android:text="Splatfest"
+                    android:textColor="@color/offWhite"
+                    android:textSize="30dp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

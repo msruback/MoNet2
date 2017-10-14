@@ -109,6 +109,9 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
 
                         String bravoColor = currentSplatfest.splatfests.get(0).colors.bravo.getColor();
 
+                        FestivalAdapter festivalAdapter = new FestivalAdapter(getApplicationContext(),schedules.splatfest,currentSplatfest.splatfests.get(0));
+                        times.setAdapter(festivalAdapter);
+
                         titleLayout.setBackgroundColor(Color.parseColor(alphaColor));
                         titleZigZag.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(bravoColor)));
                 }

@@ -3,6 +3,8 @@ package com.mattrubacky.monet2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -57,6 +59,7 @@ public class RotationFragment extends Fragment {
     UpdateRotationData updateRotationData;
     SalmonSchedule salmonSchedule;
     Gear monthlyGear;
+    CurrentSplatfest currentSplatfest;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,37 +87,10 @@ public class RotationFragment extends Fragment {
         }
         salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedule\":[]}"),SalmonSchedule.class);
         monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
+        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
 
 
         wearLink = new WearLink(getContext());
-
-        Button addRun = (Button) rootView.findViewById(R.id.AddRun);
-
-        TextView turfWarTitle = (TextView) rootView.findViewById(R.id.turfWarName);
-        TextView rankedTitle = (TextView) rootView.findViewById(R.id.rankedName);
-        TextView leagueTitle = (TextView) rootView.findViewById(R.id.leagueName);
-        TextView salmonTitle = (TextView) rootView.findViewById(R.id.salmonName);
-
-        TextView turfError = (TextView) rootView.findViewById(R.id.TurfErrorMessage);
-        TextView rankError = (TextView) rootView.findViewById(R.id.RankErrorMessage);
-        TextView leagueError = (TextView) rootView.findViewById(R.id.LeagueErrorMessage);
-
-        RelativeLayout salmonRun = (RelativeLayout) rootView.findViewById(R.id.SalmonRun);
-
-        salmonRun.setClipToOutline(true);
-
-        addRun.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddRun.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("type","new");
-                intent.putExtras(bundle);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-
 
         customHandler = new android.os.Handler();
         updateUi();
@@ -131,8 +107,7 @@ public class RotationFragment extends Fragment {
                 salmonAlarm.setAlarm(getContext());
             }
         }
-        updateRotationData.execute();
-        /*if(schedules.regular.size()==0){
+        if(schedules.regular.size()==0){
             customHandler.post(update2Hours);
         }else {
             if ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
@@ -160,16 +135,7 @@ public class RotationFragment extends Fragment {
                 customHandler.postDelayed(update2Hours, nextUpdateTime);
             }
         }
-        */
 
-        turfWarTitle.setTypeface(fontTitle);
-        rankedTitle.setTypeface(fontTitle);
-        leagueTitle.setTypeface(fontTitle);
-        salmonTitle.setTypeface(fontTitle);
-
-        turfError.setTypeface(font);
-        rankError.setTypeface(font);
-        leagueError.setTypeface(font);
         return rootView;
     }
 
@@ -185,6 +151,8 @@ public class RotationFragment extends Fragment {
         edit.putString("rotationState",json);
         json = gson.toJson(salmonSchedule);
         edit.putString("salmonRunSchedule",json);
+        json = gson.toJson(currentSplatfest);
+        edit.putString("currentSplatfest",json);
         edit.commit();
         wearLink.closeConnection();
         updateRotationData.cancel(true);
@@ -199,6 +167,7 @@ public class RotationFragment extends Fragment {
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
         monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
         salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
+        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
         wearLink.openConnection();
     }
 
@@ -206,42 +175,32 @@ public class RotationFragment extends Fragment {
     //Get Rotation Data
 
     private void updateUi(){
-        ViewPager TurfPager = (ViewPager) rootView.findViewById(R.id.TurfPager);
-        ViewPager RankPager = (ViewPager) rootView.findViewById(R.id.RankedPager);
-        ViewPager LeaguePager = (ViewPager) rootView.findViewById(R.id.LeaguePager);
+        ListView scheduleList = (ListView) rootView.findViewById(R.id.ScheduleList);
 
-        TabLayout turfDots = (TabLayout) rootView.findViewById(R.id.TurfDots);
-        TabLayout rankDots = (TabLayout) rootView.findViewById(R.id.RankDots);
-        TabLayout leagueDots = (TabLayout) rootView.findViewById(R.id.LeagueDots);
-
-        turfDots.setupWithViewPager(TurfPager, true);
-        rankDots.setupWithViewPager(RankPager, true);
-        leagueDots.setupWithViewPager(LeaguePager, true);
-
-        PagerAdapter turfAdapter = new TurfAdapter(getChildFragmentManager(), schedules.regular);
-        PagerAdapter rankAdapter = new RankAdapter(getChildFragmentManager(), schedules.ranked);
-        PagerAdapter leagueAdapter = new LeagueAdapter(getChildFragmentManager(), schedules.league);
-
-        TurfPager.setAdapter(turfAdapter);
-        RankPager.setAdapter(rankAdapter);
-        LeaguePager.setAdapter(leagueAdapter);
-
-        ListView SalmonTimes = (ListView) rootView.findViewById(R.id.SalmonTimes);
-        ImageView currentGear = (ImageView) rootView.findViewById(R.id.monthlyGear);
-
-
-        String url = "https://app.splatoon2.nintendo.net" + monthlyGear.url;
-        ImageHandler imageHandler = new ImageHandler();
-        String imageDirName = monthlyGear.name.toLowerCase().replace(" ", "_");
-        if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
-            currentGear.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
-        } else {
-            Picasso.with(getContext()).load(url).into(currentGear);
-            imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+        ArrayList<String> rotation = new ArrayList<>();
+        if(schedules.regular.size()>0){
+            rotation.add("regular");
+        }
+        if(schedules.ranked.size()>0){
+            rotation.add("ranked");
+        }
+        if(schedules.league.size()>0){
+            rotation.add("league");
+        }
+        if(currentSplatfest.splatfests.size()>0){
+            if(currentSplatfest.splatfests.get(0).times.start<schedules.regular.get(0).start){
+                rotation.add(0,"fes");
+            }else{
+                rotation.add("fes");
+            }
+        }
+        if(salmonSchedule.schedule!=null&&salmonSchedule.schedule.size()>0){
+            rotation.add("salmon");
         }
 
-        SalmonRunAdapter salmonRunAdapter = new SalmonRunAdapter(getContext(),salmonSchedule.schedule);
-        SalmonTimes.setAdapter(salmonRunAdapter);
+
+        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),rotation);
+        scheduleList.setAdapter(scheduleAdapter);
 
         wearLink.sendRotation(schedules);
         wearLink.sendSalmon(salmonSchedule);
@@ -292,15 +251,10 @@ public class RotationFragment extends Fragment {
                     Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie);
                     response = getSplatfest.execute();
                     if(response.isSuccessful()){
-                        CurrentSplatfest currentSplatfest = (CurrentSplatfest) response.body();
+                        currentSplatfest = (CurrentSplatfest) response.body();
                         if(currentSplatfest.splatfests.size()>0){
                             schedules.setSplatfest(currentSplatfest.splatfests.get(0));
                         }
-                        SharedPreferences.Editor edit = settings.edit();
-                        Gson gson = new Gson();
-                        edit.putString("rotationState",gson.toJson(schedules));
-                        edit.putString("currentSplatfest",gson.toJson(currentSplatfest));
-                        edit.commit();
                     }else{
 
                     }
@@ -354,15 +308,136 @@ public class RotationFragment extends Fragment {
 
 
     //Adapters
+    private class ScheduleAdapter extends ArrayAdapter<String> {
+        public ScheduleAdapter(Context context, ArrayList<String> input) {
+            super(context, 0, input);
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
+            Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
+
+            switch(getItem(position)){
+                case "regular":
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_regular, parent, false);
+
+                    TextView turfWarTitle = (TextView) convertView.findViewById(R.id.turfWarName);
+                    turfWarTitle.setTypeface(fontTitle);
+
+                    ViewPager TurfPager = (ViewPager) convertView.findViewById(R.id.TurfPager);
+                    TabLayout turfDots = (TabLayout) convertView.findViewById(R.id.TurfDots);
+
+                    turfDots.setupWithViewPager(TurfPager, true);
+                    PagerAdapter turfAdapter = new TurfAdapter(getChildFragmentManager(), schedules.regular);
+                    TurfPager.setAdapter(turfAdapter);
+
+                    break;
+                case "ranked":
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_ranked, parent, false);
+
+                    TextView rankedTitle = (TextView) convertView.findViewById(R.id.rankedName);
+                    rankedTitle.setTypeface(fontTitle);
+
+                    ViewPager RankPager = (ViewPager) convertView.findViewById(R.id.RankedPager);
+                    TabLayout rankDots = (TabLayout) convertView.findViewById(R.id.RankDots);
+                    rankDots.setupWithViewPager(RankPager, true);
+                    PagerAdapter rankAdapter = new RankAdapter(getChildFragmentManager(), schedules.ranked);
+                    RankPager.setAdapter(rankAdapter);
+
+
+                    break;
+                case "league":
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_league, parent, false);
+
+                    TextView leagueTitle = (TextView) convertView.findViewById(R.id.leagueName);
+                    leagueTitle.setTypeface(fontTitle);
+
+                    ViewPager LeaguePager = (ViewPager) convertView.findViewById(R.id.LeaguePager);
+                    TabLayout leagueDots = (TabLayout) convertView.findViewById(R.id.LeagueDots);
+                    leagueDots.setupWithViewPager(LeaguePager, true);
+                    PagerAdapter leagueAdapter = new LeagueAdapter(getChildFragmentManager(), schedules.league);
+                    LeaguePager.setAdapter(leagueAdapter);
+
+
+                    break;
+                case "fes":
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_festival, parent, false);
+
+                    RelativeLayout fesCard = (RelativeLayout) convertView.findViewById(R.id.Festival);
+                    RelativeLayout fesBanner = (RelativeLayout) convertView.findViewById(R.id.fesModeBanner);
+                    RelativeLayout Alpha = (RelativeLayout) convertView.findViewById(R.id.Alpha);
+                    RelativeLayout Bravo = (RelativeLayout) convertView.findViewById(R.id.Bravo);
+
+                    fesCard.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(currentSplatfest.splatfests.get(0).colors.alpha.getColor())));
+                    fesBanner.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(currentSplatfest.splatfests.get(0).colors.bravo.getColor())));
+
+                    Alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(currentSplatfest.splatfests.get(0).colors.alpha.getColor())));
+                    Bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(currentSplatfest.splatfests.get(0).colors.bravo.getColor())));
+
+                    TextView fesTitle = (TextView) convertView.findViewById(R.id.fesName);
+                    fesTitle.setTypeface(fontTitle);
+
+                    ViewPager FesPager = (ViewPager) convertView.findViewById(R.id.FesPager);
+                    TabLayout fesDots = (TabLayout) convertView.findViewById(R.id.FesDots);
+
+                    fesDots.setupWithViewPager(FesPager, true);
+                    PagerAdapter fesAdapter = new FesAdapter(getChildFragmentManager(), schedules.splatfest,currentSplatfest.splatfests.get(0));
+                    FesPager.setAdapter(fesAdapter);
+
+                    break;
+                case "salmon":
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_salmon, parent, false);
+
+                    RelativeLayout salmonRun = (RelativeLayout) convertView.findViewById(R.id.SalmonRun);
+                    salmonRun.setClipToOutline(true);
+
+                    TextView salmonTitle = (TextView) convertView.findViewById(R.id.salmonName);
+                    salmonTitle.setTypeface(fontTitle);
+
+                    Button addRun = (Button) convertView.findViewById(R.id.AddRun);
+                    addRun.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), AddRun.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("type","new");
+                            intent.putExtras(bundle);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    });
+
+                    ListView SalmonTimes = (ListView) convertView.findViewById(R.id.SalmonTimes);
+                    ImageView currentGear = (ImageView) convertView.findViewById(R.id.monthlyGear);
+
+
+                    String url = "https://app.splatoon2.nintendo.net" + monthlyGear.url;
+                    ImageHandler imageHandler = new ImageHandler();
+                    String imageDirName = monthlyGear.name.toLowerCase().replace(" ", "_");
+                    if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                        currentGear.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                    } else {
+                        Picasso.with(getContext()).load(url).into(currentGear);
+                        imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                    }
+
+                    SalmonRunAdapter salmonRunAdapter = new SalmonRunAdapter(getContext(),salmonSchedule.schedule);
+                    SalmonTimes.setAdapter(salmonRunAdapter);
+
+                    break;
+            }
+
+            return convertView;
+        }
+    }
+
+
     private class TurfAdapter extends FragmentStatePagerAdapter {
         ArrayList<TimePeriod> input;
         public TurfAdapter(FragmentManager fm, ArrayList<TimePeriod> input) {
             super(fm);
             this.input = input;
-            if(getCount()>0){
-                TextView errorMessage = (TextView) rootView.findViewById(R.id.TurfErrorMessage);
-                errorMessage.setVisibility(View.INVISIBLE);
-            }
         }
 
         @Override
@@ -391,10 +466,6 @@ public class RotationFragment extends Fragment {
         public RankAdapter(FragmentManager fm,ArrayList<TimePeriod> input) {
             super(fm);
             this.input = input;
-            if(getCount()>0){
-                TextView errorMessage = (TextView) rootView.findViewById(R.id.RankErrorMessage);
-                errorMessage.setVisibility(View.INVISIBLE);
-            }
         }
 
         @Override
@@ -422,10 +493,6 @@ public class RotationFragment extends Fragment {
         public LeagueAdapter(FragmentManager fm,ArrayList<TimePeriod> input) {
             super(fm);
             this.input = input;
-            if(getCount()>0){
-                TextView errorMessage = (TextView) rootView.findViewById(R.id.LeagueErrorMessage);
-                errorMessage.setVisibility(View.INVISIBLE);
-            }
         }
 
         @Override
@@ -448,7 +515,37 @@ public class RotationFragment extends Fragment {
         }
 
     }
+    private class FesAdapter extends FragmentStatePagerAdapter {
+        ArrayList<TimePeriod> input;
+        Splatfest splatfest;
+        public FesAdapter(FragmentManager fm, ArrayList<TimePeriod> input,Splatfest splatfest) {
+            super(fm);
+            this.input = input;
+            this.splatfest = splatfest;
+        }
 
+        @Override
+        public Fragment getItem(int position) {
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("timePeriod",input.get(position));
+            bundle.putParcelable("splatfest",splatfest);
+            Fragment fes = new SplatfestRotation();
+            fes.setArguments(bundle);
+            return fes;
+        }
+
+        @Override
+        public int getCount() {
+            return input.size();
+        }
+        @Override
+        public Parcelable saveState() {
+            // Do Nothing
+            return null;
+        }
+
+    }
     private class SalmonRunAdapter extends ArrayAdapter<SalmonRun> {
         public SalmonRunAdapter(Context context, ArrayList<SalmonRun> input) {
             super(context, 0, input);
