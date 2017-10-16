@@ -193,10 +193,13 @@ public class BattleInfo extends AppCompatActivity {
                 foeCount.setText(percentCount);
                 break;
             case "fes":
-                Splatfest splatfest = database.selectSplatfest(battle.splatfestID);
-
-                alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
-                bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+                if(battle.myTheme.key.equals("alpha")){
+                    alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
+                    bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
+                }else{
+                    alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
+                    bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
+                }
 
                 modeImage.setVisibility(View.GONE);
                 elapsedTime.setVisibility(View.GONE);
@@ -566,8 +569,12 @@ public class BattleInfo extends AppCompatActivity {
             }
             if(isAlly){
                 specialColor.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.primary));
+                killsIcon.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.primary));
+                deathsIcon.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.primary));
             }else{
                 specialColor.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.accent));
+                killsIcon.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.accent));
+                deathsIcon.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.accent));
             }
 
             String rankString;
@@ -597,9 +604,13 @@ public class BattleInfo extends AppCompatActivity {
                     break;
                 case "fes":
                     if(isAlly){
-                        //specialColor.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor));
+                        specialColor.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
+                        killsIcon.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
+                        deathsIcon.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
                     }else{
-
+                        specialColor.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
+                        killsIcon.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
+                        deathsIcon.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
                     }
                     rankString = String.valueOf(player.user.rank);
                     rank.setText(rankString);

@@ -191,12 +191,16 @@ public class BattleListFragment extends Fragment {
                     type.setVisibility(View.VISIBLE);
                     break;
                 case "fes":
-                    Splatfest splatfest = database.selectSplatfest(battle.splatfestID);
                     mode.setText("SP");
                     type.setVisibility(View.GONE);
                     fesMode.setVisibility(View.VISIBLE);
-                    alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
-                    bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+                    if(battle.myTheme.key.equals("alpha")){
+                        alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
+                        bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
+                    }else{
+                        alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
+                        bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
+                    }
                     break;
             }
             String url = "https://app.splatoon2.nintendo.net"+battle.user.user.weapon.url;

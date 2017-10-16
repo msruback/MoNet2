@@ -2,13 +2,21 @@ package com.mattrubacky.monet2;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.widget.ArrayAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by mattr on 9/22/2017.
@@ -234,6 +242,11 @@ public class SplatnetSQL {
         values.put(SplatnetContract.Splatfest.COLUMN_START_TIME,splatfest.times.start);
         values.put(SplatnetContract.Splatfest.COLUMN_END_TIME,splatfest.times.end);
 
+        if(!existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,splatfest.stage.id)){
+            insertStage(splatfest.stage);
+        }
+        values.put(SplatnetContract.Splatfest.COLUMN_STAGE,splatfest.stage.id);
+
         database.insert(SplatnetContract.Splatfest.TABLE_NAME, null, values);
 
         database.close();
@@ -254,6 +267,11 @@ public class SplatnetSQL {
         values.put(SplatnetContract.Splatfest.COLUMN_START_TIME,splatfest.times.start);
         values.put(SplatnetContract.Splatfest.COLUMN_END_TIME,splatfest.times.end);
         values.put(SplatnetContract.Splatfest.COLUMN_RESULT_TIME,splatfest.times.result);
+
+        if(!existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,splatfest.stage.id)){
+            insertStage(splatfest.stage);
+        }
+        values.put(SplatnetContract.Splatfest.COLUMN_STAGE,splatfest.stage.id);
 
         values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS,result.participants.alpha);
         values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS,result.teamScores.alphaSolo);
@@ -322,8 +340,7 @@ public class SplatnetSQL {
             colors.bravo = color;
             splatfest.colors = colors;
 
-            //todo for database v3, add stage to Splatfest in case future splatfests have different special stages.
-            splatfest.stage = selectStage(9999);
+            splatfest.stage = selectStage(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_STAGE)));
 
             SplatfestTimes times = new SplatfestTimes();
             times.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_START_TIME));
@@ -335,6 +352,20 @@ public class SplatnetSQL {
         cursor.close();
         database.close();
         return splatfest;
+    }
+    public void updateSplatfest(Splatfest splatfest){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(SplatnetContract.Splatfest.COLUMN_RESULT_TIME,splatfest.times.result);
+
+        values.put(SplatnetContract.Splatfest.COLUMN_STAGE,splatfest.stage.id);
+
+        String selection = SplatnetContract.Splatfest._ID + " LIKE ?";
+        String[] args = {String.valueOf(splatfest.id)};
+
+        database.update(SplatnetContract.Splatfest.TABLE_NAME, values,selection,args);
+        database.close();
     }
     public boolean isSplatfestUpdated(int id){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
@@ -383,6 +414,14 @@ public class SplatnetSQL {
                 values.put(SplatnetContract.Battle.COLUMN_FOE_SCORE,battle.otherTeamPercent);
                 values.put(SplatnetContract.Battle.COLUMN_FES,battle.splatfestID);
                 values.put(SplatnetContract.Battle.COLUMN_POWER,battle.fesPower);
+
+                values.put(SplatnetContract.Battle.COLUMN_MY_TEAM_COLOR,battle.myTheme.color.getColor());
+                values.put(SplatnetContract.Battle.COLUMN_MY_TEAM_KEY,battle.myTheme.key);
+                values.put(SplatnetContract.Battle.COLUMN_MY_TEAM_NAME,battle.myTheme.name);
+
+                values.put(SplatnetContract.Battle.COLUMN_OTHER_TEAM_COLOR,battle.otherTheme.color.getColor());
+                values.put(SplatnetContract.Battle.COLUMN_OTHER_TEAM_KEY,battle.otherTheme.key);
+                values.put(SplatnetContract.Battle.COLUMN_OTHER_TEAM_NAME,battle.otherTheme.name);
                 break;
             case "gachi":
                 values.put(SplatnetContract.Battle.COLUMN_ALLY_SCORE,battle.myTeamCount);
@@ -540,6 +579,13 @@ public class SplatnetSQL {
         cursor.close();
         database.close();
         return count;
+    }
+    public void deleteBattle(int id){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        String selection = SplatnetContract.Battle._ID+"=?";
+        String[] args = {String.valueOf(id)};
+        database.delete(SplatnetContract.Battle.TABLE_NAME, selection, args);
+        database.close();
     }
 
     //Players
@@ -1014,7 +1060,7 @@ public class SplatnetSQL {
 class SplatnetSQLHelper extends SQLiteOpenHelper {
 
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "splatnet";
 
     public SplatnetSQLHelper(Context context) {
@@ -1052,8 +1098,8 @@ class SplatnetSQLHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVer, int newVer) {
 
 
-        for(int i=oldVer+1;i<=newVer;i++){
-            switch(i){
+        for(int i=oldVer+1;i<=newVer;i++) {
+            switch (i) {
 
                 case 3:
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS weapon_locker");
@@ -1062,7 +1108,16 @@ class SplatnetSQLHelper extends SQLiteOpenHelper {
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS rotation");
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS shop");
 
-                    sqLiteDatabase.execSQL("ALTER TABLE "+ SplatnetContract.Battle.TABLE_NAME+" ADD COLUMN "+);
+                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_MY_TEAM_COLOR + " TEXT");
+                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_MY_TEAM_KEY + " TEXT");
+                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_MY_TEAM_NAME + " TEXT");
+
+                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_OTHER_TEAM_COLOR + " TEXT");
+                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_OTHER_TEAM_KEY + " TEXT");
+                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_OTHER_TEAM_NAME + " TEXT");
+
+                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Splatfest.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Splatfest.COLUMN_STAGE + " INTEGER REFERENCES stage(_id)");
+                    break;
             }
         }
 
