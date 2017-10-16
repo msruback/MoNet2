@@ -21,4 +21,10 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+
+        <item name="android:windowBackground">@drawable/repeat_squids</item>
+
+    </style>
+
 </resources>

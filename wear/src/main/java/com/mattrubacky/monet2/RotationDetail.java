@@ -151,7 +151,7 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Wearable.DataApi.addListener(googleApiClient, this);
-        if((schedules.regular.get(0).end*1000)<(new Date().getTime())) {
+        if(schedules.regular.size()==0||(schedules.regular.get(0).end*1000)<(new Date().getTime())) {
             updateRotationData.execute();
         }
     }

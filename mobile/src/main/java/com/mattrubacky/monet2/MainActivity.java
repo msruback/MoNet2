@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
 
-
         //Add titles
         titles = new ArrayList<String>();
         titles.add("Rotation");
@@ -246,6 +245,31 @@ public class MainActivity extends AppCompatActivity {
                     edit.commit();
                 }else{
 
+                }
+                Call<PastSplatfest> getSplatfests = splatnet.getPastSplatfests(cookie);
+                response = getSplatfests.execute();
+                if(response.isSuccessful()){
+                    PastSplatfest pastSplatfests = (PastSplatfest) response.body();
+                    Splatfest splatfest;
+                    SplatfestResult splatfestResult;
+                    boolean done;
+                    for(int i=0;i<pastSplatfests.splatfests.size();i++){
+                        done = false;
+                        splatfest = pastSplatfests.splatfests.get(i);
+                        if(!database.existsIn(SplatnetContract.Splatfest.TABLE_NAME, SplatnetContract.Splatfest._ID,splatfest.id)||!database.isSplatfestUpdated(splatfest.id)) {
+                            for (int j = 0; (!done) && j < pastSplatfests.splatfests.size(); j++) {
+                                splatfestResult = pastSplatfests.results.get(j);
+                                if (splatfest.id == splatfestResult.id) {
+                                    done = true;
+                                    if(!database.existsIn(SplatnetContract.Splatfest.TABLE_NAME, SplatnetContract.Splatfest._ID,splatfest.id)) {
+                                        database.insertSplatfest(splatfest, splatfestResult);
+                                    }else{
+                                        database.updateSplatfest(splatfest,splatfestResult);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();

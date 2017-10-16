@@ -127,6 +127,25 @@
                             android:layout_marginTop="5dp"
                             android:src="@drawable/battle_regular"/>
                         <RelativeLayout
+                            android:id="@+id/FesMode"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_toLeftOf="@+id/Rule"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/battle_splatfest_empty">
+                            <RelativeLayout
+                                android:id="@+id/Alpha"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/battle_splatfest_alpha"></RelativeLayout>
+                            <RelativeLayout
+                                android:id="@+id/Bravo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/battle_splatfest_bravo"></RelativeLayout>
+                        </RelativeLayout>
+                        <RelativeLayout
                             android:id="@+id/meterLayout"
                             android:layout_below="@+id/Rule"
                             android:layout_width="wrap_content"

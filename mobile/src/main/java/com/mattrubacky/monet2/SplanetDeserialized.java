@@ -743,6 +743,25 @@ class SplatfestNames implements Parcelable{
     @SerializedName("alpha_long")
     String alphaDesc;
 
+    protected SplatfestNames(Parcel in) {
+        bravo = in.readString();
+        bravoDesc = in.readString();
+        alpha = in.readString();
+        alphaDesc = in.readString();
+    }
+
+    public static final Creator<SplatfestNames> CREATOR = new Creator<SplatfestNames>() {
+        @Override
+        public SplatfestNames createFromParcel(Parcel in) {
+            return new SplatfestNames(in);
+        }
+
+        @Override
+        public SplatfestNames[] newArray(int size) {
+            return new SplatfestNames[size];
+        }
+    };
+
     @Override
     public int describeContents() {
         return 0;
@@ -750,7 +769,10 @@ class SplatfestNames implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(bravo);
+        dest.writeString(bravoDesc);
+        dest.writeString(alpha);
+        dest.writeString(alphaDesc);
     }
 }
 
@@ -891,6 +913,8 @@ class User{
     Gear clothes;
     @SerializedName("shoes")
     Gear shoes;
+    @SerializedName("fes_grade")
+    SplatfestGrade grade;
 }
 class Rank {
     public Rank(){}
@@ -1106,6 +1130,20 @@ class Battle{
     int fesPower;
     @SerializedName("estimate_gachi_power")
     int gachiPower;
+    @SerializedName("my_team_fes_theme")
+    TeamTheme myTheme;
+    @SerializedName("other_team_fes_theme")
+    TeamTheme otherTheme;
+
+}
+class TeamTheme{
+    public TeamTheme(){}
+    @SerializedName("color")
+    SplatfestColor color;
+    @SerializedName("key")
+    String key;
+    @SerializedName("name")
+    String name;
 }
 class Player{
     public Player(){}
@@ -1122,8 +1160,6 @@ class Player{
     int points;
     @SerializedName("special_count")
     int special;
-    @SerializedName("fes_grade")
-    SplatfestGrade grade;
 }
 class TeamResult{
     public TeamResult(){}

@@ -243,43 +243,7 @@ public class SettingsFragment extends Fragment {
 
     }
 
-    class CookieDialog extends Dialog {
-        public CookieDialog(Activity activity) {
-            super(activity);
-        }
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            setContentView(R.layout.dialog_cookie);
-            Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
-            final Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
-
-            RelativeLayout Submit = (RelativeLayout) findViewById(R.id.Submit);
-
-            TextView prompt = (TextView) findViewById(R.id.DialogPrompt);
-            final TextView cookieInput = (TextView) findViewById(R.id.CookieInput);
-
-            prompt.setTypeface(titleFont);
-            cookieInput.setTypeface(font);
-
-            Submit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    SharedPreferences.Editor edit = settings.edit();
-                    edit.putString("cookie",cookieInput.getText().toString());
-                    edit.commit();
-                    dismiss();
-                }
-            });
-
-
-
-        }
-    }
 
     class GearNotificationPickerDialog extends Dialog {
         int selected;

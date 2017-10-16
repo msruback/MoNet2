@@ -79,6 +79,18 @@ public class RotationFragment extends Fragment {
                 schedules.ranked = new ArrayList<TimePeriod>();
                 schedules.league = new ArrayList<TimePeriod>();
             }
+            if(schedules.regular==null){
+                schedules.regular = new ArrayList<>();
+            }
+            if(schedules.ranked==null){
+                schedules.ranked = new ArrayList<>();
+            }
+            if(schedules.league==null){
+                schedules.league = new ArrayList<>();
+            }
+            if(schedules.splatfest==null){
+                schedules.splatfest = new ArrayList<>();
+            }
         }else{
             schedules = new Schedules();
             schedules.regular = new ArrayList<TimePeriod>();
@@ -95,7 +107,7 @@ public class RotationFragment extends Fragment {
         customHandler = new android.os.Handler();
         updateUi();
 
-        if(salmonSchedule.schedule.size()!=0){
+        if(salmonSchedule.schedule!=null&&salmonSchedule.schedule.size()!=0){
             if(salmonSchedule.schedule.get(0).endTime< new Date().getTime()){
                 salmonSchedule.schedule.remove(0);
                 SharedPreferences.Editor edit = settings.edit();
@@ -107,13 +119,15 @@ public class RotationFragment extends Fragment {
                 salmonAlarm.setAlarm(getContext());
             }
         }
-        if(schedules.regular.size()==0){
+
+        //if(schedules.regular.size()==0){
             customHandler.post(update2Hours);
-        }else {
+        /*}else {
             if ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
                 do{
                     schedules.dequeue();
-                }while((schedules.regular.get(0).end * 1000)< new Date().getTime());
+                }while(schedules.regular.size()>0&&(schedules.regular.get(0).end * 1000)< new Date().getTime());
+
                 updateUi();
                 customHandler.post(update2Hours);
             }else{
@@ -134,7 +148,7 @@ public class RotationFragment extends Fragment {
                 Long nextUpdateTime = nextUpdate.getTimeInMillis()-now.getTimeInMillis();
                 customHandler.postDelayed(update2Hours, nextUpdateTime);
             }
-        }
+        }*/
 
         return rootView;
     }
@@ -177,26 +191,34 @@ public class RotationFragment extends Fragment {
     private void updateUi(){
         ListView scheduleList = (ListView) rootView.findViewById(R.id.ScheduleList);
 
+        if(schedules==null){
+            schedules = new Schedules();
+        }
+        if(salmonSchedule==null){
+            salmonSchedule= new SalmonSchedule();
+        }
+        if(salmonSchedule.schedule==null){
+            salmonSchedule.schedule = new ArrayList<>();
+        }
+
         ArrayList<String> rotation = new ArrayList<>();
-        if(schedules.regular.size()>0){
+        if(schedules.regular!=null&&schedules.regular.size()>0){
             rotation.add("regular");
         }
-        if(schedules.ranked.size()>0){
+        if(schedules.ranked!=null&&schedules.ranked.size()>0){
             rotation.add("ranked");
         }
-        if(schedules.league.size()>0){
+        if(schedules.league!=null&&schedules.league.size()>0){
             rotation.add("league");
         }
-        if(currentSplatfest.splatfests.size()>0){
-            if(currentSplatfest.splatfests.get(0).times.start<schedules.regular.get(0).start){
+        if(schedules.splatfest!=null&&currentSplatfest.splatfests.size()>0){
+            if(schedules.regular.size()==0||currentSplatfest.splatfests.get(0).times.start<schedules.regular.get(0).start){
                 rotation.add(0,"fes");
             }else{
                 rotation.add("fes");
             }
         }
-        if(salmonSchedule.schedule!=null&&salmonSchedule.schedule.size()>0){
-            rotation.add("salmon");
-        }
+        rotation.add("salmon");
 
 
         ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),rotation);
@@ -228,24 +250,24 @@ public class RotationFragment extends Fragment {
                     SplatnetSQL database = new SplatnetSQL(getContext());
                     for(int i=0;i<schedules.regular.size();i++){
                         if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.regular.get(i).a.id)){
-                            database.insertStage(schedules.regular.get(0).a);
+                            database.insertStage(schedules.regular.get(i).a);
                         }
                         if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.regular.get(i).b.id)){
-                            database.insertStage(schedules.regular.get(0).b);
+                            database.insertStage(schedules.regular.get(i).b);
                         }
 
                         if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.ranked.get(i).a.id)){
-                            database.insertStage(schedules.ranked.get(0).a);
+                            database.insertStage(schedules.ranked.get(i).a);
                         }
                         if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.ranked.get(i).b.id)){
-                            database.insertStage(schedules.ranked.get(0).b);
+                            database.insertStage(schedules.ranked.get(i).b);
                         }
 
                         if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.league.get(i).a.id)){
-                            database.insertStage(schedules.league.get(0).a);
+                            database.insertStage(schedules.league.get(i).a);
                         }
                         if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.league.get(i).b.id)){
-                            database.insertStage(schedules.league.get(0).b);
+                            database.insertStage(schedules.league.get(i).b);
                         }
                     }
                     Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie);
@@ -254,6 +276,9 @@ public class RotationFragment extends Fragment {
                         currentSplatfest = (CurrentSplatfest) response.body();
                         if(currentSplatfest.splatfests.size()>0){
                             schedules.setSplatfest(currentSplatfest.splatfests.get(0));
+                            if(!database.existsIn(SplatnetContract.Splatfest.TABLE_NAME, SplatnetContract.Splatfest._ID,currentSplatfest.splatfests.get(0).id)){
+                                database.insertSplatfest(currentSplatfest.splatfests.get(0));
+                            }
                         }
                     }else{
 
@@ -411,17 +436,23 @@ public class RotationFragment extends Fragment {
                     ListView SalmonTimes = (ListView) convertView.findViewById(R.id.SalmonTimes);
                     ImageView currentGear = (ImageView) convertView.findViewById(R.id.monthlyGear);
 
-
-                    String url = "https://app.splatoon2.nintendo.net" + monthlyGear.url;
-                    ImageHandler imageHandler = new ImageHandler();
-                    String imageDirName = monthlyGear.name.toLowerCase().replace(" ", "_");
-                    if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
-                        currentGear.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
-                    } else {
-                        Picasso.with(getContext()).load(url).into(currentGear);
-                        imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                    if(monthlyGear!=null) {
+                        String url = "https://app.splatoon2.nintendo.net" + monthlyGear.url;
+                        ImageHandler imageHandler = new ImageHandler();
+                        String imageDirName = monthlyGear.name.toLowerCase().replace(" ", "_");
+                        if (imageHandler.imageExists("weapon", imageDirName, getContext())) {
+                            currentGear.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                        } else {
+                            Picasso.with(getContext()).load(url).into(currentGear);
+                            imageHandler.downloadImage("weapon", imageDirName, url, getContext());
+                        }
                     }
-
+                    if(salmonSchedule == null){
+                        salmonSchedule = new SalmonSchedule();
+                    }
+                    if(salmonSchedule.schedule==null){
+                        salmonSchedule.schedule = new ArrayList<>();
+                    }
                     SalmonRunAdapter salmonRunAdapter = new SalmonRunAdapter(getContext(),salmonSchedule.schedule);
                     SalmonTimes.setAdapter(salmonRunAdapter);
 

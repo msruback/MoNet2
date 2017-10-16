@@ -295,6 +295,63 @@ public class SplatnetSQL {
         database.update(SplatnetContract.Splatfest.TABLE_NAME, values,selection,args);
         database.close();
     }
+    public Splatfest selectSplatfest(int id){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+
+        String query = "SELECT * FROM "+ SplatnetContract.Splatfest.TABLE_NAME+" WHERE "+ SplatnetContract.Splatfest._ID+" = "+id;
+        Cursor cursor = database.rawQuery(query,null);
+
+        Splatfest splatfest = new Splatfest();
+
+        if(cursor.moveToFirst()){
+            splatfest.id = id;
+
+            SplatfestNames names = new SplatfestNames();
+            names.alpha = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA));
+            names.alphaDesc = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_LONG));
+            names.bravo = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO));
+            names.bravoDesc = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_LONG));
+            splatfest.names = names;
+
+            SplatfestColor color = new SplatfestColor();
+            SplatfestColors colors = new SplatfestColors();
+            color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_COLOR));
+            colors.alpha = color;
+            color = new SplatfestColor();
+            color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_COLOR));
+            colors.bravo = color;
+            splatfest.colors = colors;
+
+            //todo for database v3, add stage to Splatfest in case future splatfests have different special stages.
+            splatfest.stage = selectStage(9999);
+
+            SplatfestTimes times = new SplatfestTimes();
+            times.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_START_TIME));
+            times.end = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_END_TIME));
+            times.announce = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ANNOUNCE_TIME));
+            times.result = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_RESULT_TIME));
+            splatfest.times = times;
+        }
+        cursor.close();
+        database.close();
+        return splatfest;
+    }
+    public boolean isSplatfestUpdated(int id){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        String select = "SELECT * FROM "+ SplatnetContract.Splatfest.TABLE_NAME + " WHERE "+ SplatnetContract.Splatfest._ID +" = ?";
+        String[] ids = {String.valueOf(id)};
+        Cursor cursor = database.rawQuery(select, ids);
+        cursor.moveToFirst();
+        if(cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_VOTE))==(long)0){
+            cursor.close();
+            database.close();
+            return false;
+        }else{
+            cursor.close();
+            database.close();
+            return true;
+        }
+    }
 
     /*public void insertFriend(){
         ContentValues values = new ContentValues();
@@ -509,7 +566,7 @@ public class SplatnetSQL {
                 values.put(SplatnetContract.Player.COLUMN_S_NUM,player.user.udamae.sPlus);
                 break;
             case "fes":
-                values.put(SplatnetContract.Player.COLUMN_FES_GRADE,player.grade.name);
+                values.put(SplatnetContract.Player.COLUMN_FES_GRADE,player.user.grade.name);
         }
 
         if(!existsIn(SplatnetContract.Weapon.TABLE_NAME, SplatnetContract.Weapon._ID,player.user.weapon.id)){
@@ -666,6 +723,9 @@ public class SplatnetSQL {
                 rank.rank = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_RANK));
                 rank.sPlus = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_S_NUM));
                 user.udamae = rank;
+                SplatfestGrade splatfestGrade = new SplatfestGrade();
+                splatfestGrade.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_FES_GRADE));
+                user.grade = splatfestGrade;
 
                 user.head = selectGear(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD)));
 
@@ -901,23 +961,6 @@ public class SplatnetSQL {
         return weapons;
     }
 
-    public void insertWeaponLocker(WeaponStats weaponStats){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(SplatnetContract.WeaponLocker._ID,weaponStats.weapon.id);
-        values.put(SplatnetContract.WeaponLocker.COLUMN_WEAPON,weaponStats.weapon.id);
-        values.put(SplatnetContract.WeaponLocker.COLUMN_LAST_USE_TIME,weaponStats.lastUsed);
-        values.put(SplatnetContract.WeaponLocker.COLUMN_WIN_COUNT,weaponStats.wins);
-        values.put(SplatnetContract.WeaponLocker.COLUMN_LOSE_COUNT,weaponStats.losses);
-        values.put(SplatnetContract.WeaponLocker.COLUMN_TOTAL_PAINT_POINT,weaponStats.totalPaintPoint);
-        values.put(SplatnetContract.WeaponLocker.COLUMN_MAX_WIN_METER,weaponStats.maxWinMeter);
-        values.put(SplatnetContract.WeaponLocker.COLUMN_WIN_METER,weaponStats.winMeter);
-
-        database.insert(SplatnetContract.WeaponLocker.TABLE_NAME, null, values);
-        database.close();
-    }
-
     public void insertCloset(Gear gear,GearSkills gearSkills,Battle battle){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -965,25 +1008,6 @@ public class SplatnetSQL {
         database.close();
     }
 
-    public void insertPostcard(StageStats stageStats){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(SplatnetContract.StagePostcards._ID,stageStats.stage.id);
-        values.put(SplatnetContract.StagePostcards.COLUMN_STAGE,stageStats.stage.id);
-        values.put(SplatnetContract.StagePostcards.COLUMN_RAINMAKER_WIN,stageStats.rainmakerWin);
-        values.put(SplatnetContract.StagePostcards.COLUMN_RAINMAKER_LOSE,stageStats.rainmakerLose);
-        values.put(SplatnetContract.StagePostcards.COLUMN_SPLATZONE_WIN,stageStats.splatzonesWin);
-        values.put(SplatnetContract.StagePostcards.COLUMN_SPLATZONE_LOSE,stageStats.splatzonesLose);
-        values.put(SplatnetContract.StagePostcards.COLUMN_TOWER_WIN,stageStats.towerWin);
-        values.put(SplatnetContract.StagePostcards.COLUMN_TOWER_LOSE,stageStats.towerLose);
-        values.put(SplatnetContract.StagePostcards.COLUMN_LAST_PLAY_TIME,stageStats.lastPlayed);
-
-
-        database.insert(SplatnetContract.StagePostcards.TABLE_NAME, null, values);
-        database.close();
-    }
-
 }
 
 
@@ -1001,56 +1025,46 @@ class SplatnetSQLHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
         //Tables without Foriegn Keys (Level 0 )
-        //sqLiteDatabase.execSQL(SplatnetContract.Skill.CREATE_TABLE);
-        //sqLiteDatabase.execSQL(SplatnetContract.Sub.CREATE_TABLE);
-        //sqLiteDatabase.execSQL(SplatnetContract.Special.CREATE_TABLE);
-        //sqLiteDatabase.execSQL(SplatnetContract.Stage.CREATE_TABLE);
-        //sqLiteDatabase.execSQL(SplatnetContract.Splatfest.CREATE_TABLE);
-        //sqLiteDatabase.execSQL(SplatnetContract.Friends.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Skill.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Sub.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Special.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Stage.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Splatfest.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Friends.CREATE_TABLE);
 
         //Tables with Foriegn Keys to Level 0 (Level 1)
-        //sqLiteDatabase.execSQL(SplatnetContract.Battle.CREATE_TABLE);
-       // sqLiteDatabase.execSQL(SplatnetContract.Brand.CREATE_TABLE);
-        //sqLiteDatabase.execSQL(SplatnetContract.Weapon.CREATE_TABLE);
-        //sqLiteDatabase.execSQL(SplatnetContract.SplatfestVotes.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.StagePostcards.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.ChunkBag.CREATE_TABLE);
-        //sqLiteDatabase.execSQL(SplatnetContract.Rotation.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Battle.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Brand.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Weapon.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.SplatfestVotes.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Rotation.CREATE_TABLE);
 
         //Tables with at least one Foriegn Key to Level 1 (Level 2)
-        //sqLiteDatabase.execSQL(SplatnetContract.Gear.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.WeaponLocker.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Gear.CREATE_TABLE);
 
         //Tables with at least one Foriegn Key to Level 2 (Level 3)
-        //sqLiteDatabase.execSQL(SplatnetContract.Player.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Player.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.Closet.CREATE_TABLE);
-        //sqLiteDatabase.execSQL(SplatnetContract.Shop.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Shop.CREATE_TABLE);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        //Level 3
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Player.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Closet.TABLE_NAME);
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Shop.TABLE_NAME);
-        //Level 2
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Gear.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.WeaponLocker.TABLE_NAME);
-        //Level 1
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Battle.TABLE_NAME);
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Brand.TABLE_NAME);
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Weapon.TABLE_NAME);
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.SplatfestVotes.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.StagePostcards.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.ChunkBag.TABLE_NAME);
-        ///sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Rotation.TABLE_NAME);
-        //Level 0
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Skill.TABLE_NAME);
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Sub.TABLE_NAME);
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Special.TABLE_NAME);
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Stage.TABLE_NAME);
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Splatfest.TABLE_NAME);
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SplatnetContract.Friends.TABLE_NAME);
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVer, int newVer) {
+
+
+        for(int i=oldVer+1;i<=newVer;i++){
+            switch(i){
+
+                case 3:
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS weapon_locker");
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS stage_postcards");
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS chunk_bag");
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS rotation");
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS shop");
+
+                    sqLiteDatabase.execSQL("ALTER TABLE "+ SplatnetContract.Battle.TABLE_NAME+" ADD COLUMN "+);
+            }
+        }
 
         onCreate(sqLiteDatabase);
     }

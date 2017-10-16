@@ -12,6 +12,7 @@
         android:backgroundTint="@color/turfPrimary">
 
         <RelativeLayout
+            android:id="@+id/Spots"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@drawable/repeat_spots"></RelativeLayout>
@@ -34,13 +35,42 @@
                 android:layout_alignParentStart="true"></RelativeLayout>
         </RelativeLayout>
 
-        <ImageView
+        <RelativeLayout
             android:id="@+id/type"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:paddingLeft="10dp"
-            android:src="@drawable/battle_regular"
-            android:layout_centerVertical="true" />
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/Type"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:src="@drawable/battle_regular" />
+
+            <RelativeLayout
+                android:id="@+id/FesMode"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/battle_splatfest_empty">
+
+                <RelativeLayout
+                    android:id="@+id/Alpha"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/battle_splatfest_alpha"></RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/Bravo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/battle_splatfest_bravo"></RelativeLayout>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/mode"
             android:layout_toRightOf="@+id/type"

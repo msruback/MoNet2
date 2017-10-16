@@ -107,7 +107,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 title.setTypeface(fontTitle);
                 updateRotationData = new UpdateRotationData();
                 updateRotationData.execute();
-                if(salmonSchedule.schedule.size()!=0){
+                if(salmonSchedule!=null&&salmonSchedule.schedule.size()!=0){
                     if(salmonSchedule.schedule.get(0).endTime<new Date().getTime()){
                         salmonSchedule.schedule.remove(0);
                     }
@@ -153,7 +153,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Wearable.DataApi.addListener(googleApiClient, this);
-        if(schedules.regular.size()==0||((schedules.regular.get(0).end*1000)<(new Date().getTime()))) {
+        if(schedules.regular==null||schedules.regular.size()==0||((schedules.regular.get(0).end*1000)<(new Date().getTime()))) {
             updateRotationData =new UpdateRotationData();
             updateRotationData.execute();
         }
@@ -196,23 +196,23 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
 
     private void updateUI(){
         ArrayList<String> rotation = new ArrayList<>();
-        if(schedules.regular.size()>0){
+        if(schedules.regular!=null&&schedules.regular.size()>0){
             rotation.add("regular");
         }
-        if(schedules.ranked.size()>0){
+        if(schedules.ranked!=null&&schedules.ranked.size()>0){
             rotation.add("ranked");
         }
-        if(schedules.league.size()>0){
+        if(schedules.league!=null&&schedules.league.size()>0){
             rotation.add("league");
         }
-        if(currentSplatfest.splatfests.size()>0){
-            if(currentSplatfest.splatfests.get(0).times.start<schedules.regular.get(0).start){
+        if(currentSplatfest.splatfests.size()>0&&schedules.splatfest!=null&&schedules.splatfest.size()>0){
+            if(schedules.regular.size()==0||currentSplatfest.splatfests.get(0).times.start<schedules.regular.get(0).start){
                 rotation.add(0,"fes");
             }else{
                 rotation.add("fes");
             }
         }
-        if(salmonSchedule.schedule!=null&&salmonSchedule.schedule.size()>0){
+        if(salmonSchedule!=null&&salmonSchedule.schedule!=null&&salmonSchedule.schedule.size()>0){
             rotation.add("salmon");
         }
         ListView rotationList = (ListView) stub.findViewById(R.id.ScheduleList);
@@ -399,6 +399,33 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
 
         @Override
         protected void onPostExecute(Void result) {
+            if(schedules==null){
+                schedules = new Schedules();
+            }
+            if(schedules.regular==null){
+                schedules.regular = new ArrayList<>();
+            }
+            if(schedules.ranked==null){
+                schedules.ranked = new ArrayList<>();
+            }
+            if(schedules.league==null){
+                schedules.league = new ArrayList<>();
+            }
+            if(schedules.splatfest==null){
+                schedules.splatfest = new ArrayList<>();
+            }
+            if(currentSplatfest==null){
+                currentSplatfest = new CurrentSplatfest();
+            }
+            if(currentSplatfest.splatfests==null){
+                currentSplatfest.splatfests = new ArrayList<>();
+            }
+            if(salmonSchedule==null){
+                salmonSchedule = new SalmonSchedule();
+            }
+            if(salmonSchedule.schedule==null){
+                salmonSchedule.schedule = new ArrayList<>();
+            }
             updateUI();
         }
 

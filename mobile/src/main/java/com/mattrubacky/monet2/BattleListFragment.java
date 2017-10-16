@@ -3,15 +3,13 @@ package com.mattrubacky.monet2;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -139,12 +136,16 @@ public class BattleListFragment extends Fragment {
             RelativeLayout item = (RelativeLayout) convertView.findViewById(R.id.item);
             item.setClipToOutline(true);
 
+            RelativeLayout fesMode = (RelativeLayout) convertView.findViewById(R.id.FesMode);
+            RelativeLayout alpha = (RelativeLayout) convertView.findViewById(R.id.Alpha);
+            RelativeLayout bravo = (RelativeLayout) convertView.findViewById(R.id.Bravo);
+
             TextView mode = (TextView) convertView.findViewById(R.id.mode);
             TextView map = (TextView) convertView.findViewById(R.id.map);
             TextView result = (TextView) convertView.findViewById(R.id.result);
 
             ImageView weapon = (ImageView) convertView.findViewById(R.id.weapon);
-            ImageView type = (ImageView) convertView.findViewById(R.id.type);
+            ImageView type = (ImageView) convertView.findViewById(R.id.Type);
 
             map.setText(battle.stage.name);
             map.setTypeface(font);
@@ -174,16 +175,28 @@ public class BattleListFragment extends Fragment {
                 case "regular":
                     type.setImageDrawable(getResources().getDrawable(R.drawable.battle_regular));
                     item.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.turf));
+                    fesMode.setVisibility(View.GONE);
+                    type.setVisibility(View.VISIBLE);
                     break;
                 case "gachi":
                     type.setImageDrawable(getResources().getDrawable(R.drawable.battle_ranked));
                     item.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.ranked));
+                    fesMode.setVisibility(View.GONE);
+                    type.setVisibility(View.VISIBLE);
                     break;
                 case "league":
                     type.setImageDrawable(getResources().getDrawable(R.drawable.battle_league));
                     item.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.league));
+                    fesMode.setVisibility(View.GONE);
+                    type.setVisibility(View.VISIBLE);
                     break;
                 case "fes":
+                    Splatfest splatfest = database.selectSplatfest(battle.splatfestID);
+                    mode.setText("SP");
+                    type.setVisibility(View.GONE);
+                    fesMode.setVisibility(View.VISIBLE);
+                    alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+                    bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
                     break;
             }
             String url = "https://app.splatoon2.nintendo.net"+battle.user.user.weapon.url;
@@ -205,6 +218,9 @@ public class BattleListFragment extends Fragment {
     private void updateUi(){
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
+        if (battles==null){
+            battles = new ArrayList<>();
+        }
         BattleAdapter battleAdapter = new BattleAdapter(getContext(),battles);
         ListView listView = (ListView) rootView.findViewById(R.id.battleList);
         listView.setAdapter(battleAdapter);

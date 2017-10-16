@@ -22,6 +22,12 @@ public final class SplatnetContract {
         public static final String COLUMN_FES = "fes";
         public static final String COLUMN_ELAPSED_TIME = "elapsed_time";
         public static final String COLUMN_START_TIME = "start_time";
+        public static final String COLUMN_MY_TEAM_COLOR = "my_team_color";
+        public static final String COLUMN_MY_TEAM_KEY = "my_team_key";
+        public static final String COLUMN_MY_TEAM_NAME = "my_team_name";
+        public static final String COLUMN_OTHER_TEAM_COLOR = "other_team_color";
+        public static final String COLUMN_OTHER_TEAM_KEY = "other_team_key";
+        public static final String COLUMN_OTHER_TEAM_NAME = "other_team_name";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
@@ -35,7 +41,13 @@ public final class SplatnetContract {
                 COLUMN_WIN_METER + " REAL, "+
                 COLUMN_FES + " INTEGER REFERENCES splatfest(_id), "+
                 COLUMN_START_TIME + " INTEGER, "+
-                COLUMN_ELAPSED_TIME +" INTEGER)";
+                COLUMN_ELAPSED_TIME +" INTEGER, "+
+                COLUMN_MY_TEAM_COLOR + " TEXT, "+
+                COLUMN_MY_TEAM_KEY + " TEXT, "+
+                COLUMN_MY_TEAM_NAME + " TEXT, "+
+                COLUMN_OTHER_TEAM_COLOR + " TEXT, "+
+                COLUMN_OTHER_TEAM_KEY + " TEXT, "+
+                COLUMN_OTHER_TEAM_NAME + " TEXT)";
     }
 
     public static class Player implements BaseColumns{
@@ -267,26 +279,7 @@ public final class SplatnetContract {
                 COLUMN_NAME + " TEXT)";
     }
 
-    public static class WeaponLocker implements BaseColumns{
-        public static final String TABLE_NAME = "weapon_locker";
-        public static final String COLUMN_WEAPON = "weapon";
-        public static final String COLUMN_WIN_METER = "win_meter";
-        public static final String COLUMN_WIN_COUNT = "win_count";
-        public static final String COLUMN_LOSE_COUNT = "lose_count";
-        public static final String COLUMN_TOTAL_PAINT_POINT = "total_paint_point";
-        public static final String COLUMN_MAX_WIN_METER = "max_win_meter";
-        public static final String COLUMN_LAST_USE_TIME = "last_use_time";
 
-        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
-                _ID + " INTEGER PRIMARY KEY, "+
-                COLUMN_WEAPON + " INTEGER REFERENCES weapon(_id), "+
-                COLUMN_WIN_METER + " REAL, "+
-                COLUMN_WIN_COUNT + " INTEGER, "+
-                COLUMN_LOSE_COUNT + " INTEGER, "+
-                COLUMN_TOTAL_PAINT_POINT + " INTEGER, "+
-                COLUMN_MAX_WIN_METER + " REAL, "+
-                COLUMN_LAST_USE_TIME + " INTEGER)";
-    }
 
     public static class Closet implements BaseColumns{
         public static final String TABLE_NAME = "closet";
@@ -307,38 +300,7 @@ public final class SplatnetContract {
                 COLUMN_LAST_USE_TIME + " INTEGER)";
     }
 
-    public static class StagePostcards implements BaseColumns{
-        public static final String TABLE_NAME = "stage_postcards";
-        public static final String COLUMN_STAGE = "stage";
-        public static final String COLUMN_SPLATZONE_WIN = "splatzone_win";
-        public static final String COLUMN_TOWER_WIN = "tower_win";//yagura
-        public static final String COLUMN_RAINMAKER_WIN = "rainmaker_win";//hoko
-        public static final String COLUMN_SPLATZONE_LOSE = "splatzone_lose";
-        public static final String COLUMN_TOWER_LOSE = "tower_lose";
-        public static final String COLUMN_RAINMAKER_LOSE = "rainmaker_lose";
-        public static final String COLUMN_LAST_PLAY_TIME = "last_play_time";
 
-        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
-                COLUMN_STAGE + " INTEGER REFERENCES stage(_id), "+
-                COLUMN_SPLATZONE_WIN + " INTEGER, "+
-                COLUMN_TOWER_WIN + " INTEGER, "+
-                COLUMN_RAINMAKER_WIN + " INTEGER, "+
-                COLUMN_SPLATZONE_LOSE + " INTEGER, "+
-                COLUMN_TOWER_LOSE + " INTEGER, "+
-                COLUMN_RAINMAKER_LOSE + " INTEGER, "+
-                COLUMN_LAST_PLAY_TIME +" INTEGER)";
-    }
-
-    public static class ChunkBag implements BaseColumns{
-        public static final String TABLE_NAME = "chunk_bag";
-        public static final String COLUMN_SKILL = "skill";
-        public static final String COLUMN_COUNT = "count";
-
-        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
-                _ID + " INTEGER PRIMARY KEY, "+
-                COLUMN_SKILL + " INTEGER REFERENCES skill(_id), "+
-                COLUMN_COUNT + " INTEGER)";
-    }
 
     public static class Rotation{
         public static final String TABLE_NAME = "rotation";

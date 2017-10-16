@@ -121,6 +121,12 @@ public class ShopFragment extends Fragment {
     private void updateUi(){
         RecyclerView currentMerch = (RecyclerView) getActivity().findViewById(R.id.CurrentMerch);
         currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        if(shop==null){
+            shop = new Annie();
+        }
+        if(shop.merch==null){
+            shop.merch = new ArrayList<>();
+        }
         MerchAdapter merchAdapter = new MerchAdapter(getContext(),shop.merch);
         currentMerch.setAdapter(merchAdapter);
         orderAdapter();
