@@ -7,10 +7,12 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class contains the result of a Battle, from the perspective of the user
  */
-class TeamResult implements Parcelable {
+public class TeamResult implements Parcelable {
     public TeamResult(){}
 
+    //The text of the result, either "VICTORY" or "DEFEAT"
     @SerializedName("name")
     String name;
 

@@ -7,17 +7,25 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represent a Weapon
+ * Weapon images are stored in the weapon directory
  */
-class Weapon implements Parcelable {
+public class Weapon implements Parcelable {
     public Weapon(){}
     @SerializedName("id")
     int id;
     @SerializedName("name")
     String name;
+
+    //The URL for the weapon image
     @SerializedName("image")
     String url;
+
+    //The Special Weapon this weapon has
     @SerializedName("special")
     Special special;
+
+    //The Sub Weapon this weapon has
     @SerializedName("sub")
     Sub sub;
 

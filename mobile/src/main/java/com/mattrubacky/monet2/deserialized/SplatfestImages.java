@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by mattr on 10/17/2017.
  * The images used in the splatfest
  * Part of the Splatfest Object
+ * Splatfest Images are stored in the splatfest directory
  */
 public class SplatfestImages implements Parcelable {
     public SplatfestImages(){}

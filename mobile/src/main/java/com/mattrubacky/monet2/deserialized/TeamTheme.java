@@ -7,13 +7,20 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class hold the Theme of a Splatfest Team
  */
-class TeamTheme implements Parcelable {
+public class TeamTheme implements Parcelable {
     public TeamTheme(){}
+
+    //The Color of the team
     @SerializedName("color")
     SplatfestColor color;
+
+    //Either "alpha" or "bravo", refering to whether the team is on Side Alpha or Side Bravo respectively.
     @SerializedName("key")
     String key;
+
+    //The short name of the side(Check SplatfestNames for more detail)
     @SerializedName("name")
     String name;
 

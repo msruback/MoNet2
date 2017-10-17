@@ -7,41 +7,73 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents an player's stats and gear
  */
 
 public class User implements Parcelable {
     public User(){}
 
+    //The user's unique id(does not apply to anyone but the user)
     @SerializedName("unique_id")
     String uniqueId;
+
+    //A player's unique id (does not apply to the user)
     @SerializedName("prinicipal_id")
     String id;
+
+    //The player's nickname
     @SerializedName("nickname")
     String name;
+
+    //The player's level
     @SerializedName("player_rank")
     int rank;
+
+    //The user's rank in Tower Control, is only available in the records endpoint
     @SerializedName("udemae_tower")
     Rank tower;
+
+    //The user's rank in Rainmaker, is only available in the records endpoint
     @SerializedName("udemae_rainmaker")
     Rank rainmaker;
+
+    //The user's rank in Splatzones, is only availably in the records endpoint
     @SerializedName("udemae_zones")
     Rank splatzones;
+
+    //The player's rank, is only available in the results and results/{battle_id} endpoints
     @SerializedName("udemae")
     Rank udamae;
+
+    //The player's weapon
     @SerializedName("weapon")
     Weapon weapon;
+
+    //The abilities on a player's headgear
     @SerializedName("head_skills")
     GearSkills headSkills;
+
+    //The abilities on a player's clothing
     @SerializedName("clothes_skills")
     GearSkills clothesSkills;
+
+    //The abilities on a player's shoes
     @SerializedName("shoes_skills")
     GearSkills shoeSkills;
+
+    //The player's headgear
     @SerializedName("head")
     Gear head;
+
+    //The player's clothing
     @SerializedName("clothes")
     Gear clothes;
+
+    //The player's shoes
     @SerializedName("shoes")
     Gear shoes;
+
+    //If the battle is a Splatfest Battle, the player's Splatfest Grade will be stored here, otherwise this is null
     @SerializedName("fes_grade")
     SplatfestGrade grade;
 
@@ -64,15 +96,15 @@ public class User implements Parcelable {
         grade = in.readParcelable(SplatfestGrade.class.getClassLoader());
     }
 
-    public static final Creator<Annie.User> CREATOR = new Creator<Annie.User>() {
+    public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
-        public Annie.User createFromParcel(Parcel in) {
-            return new Annie.User(in);
+        public User createFromParcel(Parcel in) {
+            return new User(in);
         }
 
         @Override
-        public Annie.User[] newArray(int size) {
-            return new Annie.User[size];
+        public User[] newArray(int size) {
+            return new User[size];
         }
     };
 

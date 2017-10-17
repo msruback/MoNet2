@@ -7,15 +7,19 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents a Sub Weapon, not to be confused with a Sub Ability
  */
-class Sub implements Parcelable {
+public class Sub implements Parcelable {
     public Sub(){
     }
 
     @SerializedName("id")
     int id;
+
     @SerializedName("name")
     String name;
+
+    //The base image of the sub weapon
     @SerializedName("image_a")
     String url;
 

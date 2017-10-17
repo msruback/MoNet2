@@ -9,14 +9,21 @@ import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents an Alert for a certain Stage
+ * It is used for just Stage Notifications
  */
 public class StageNotification implements Parcelable {
     public StageNotification(){}
 
+    //The Stage to be alerted about, if the id is -1, then stage does not matter
     @SerializedName("stage")
     Stage stage;
+
+    //The gamemode to be alerted about, if the string is "any", then type does not matter
     @SerializedName("type")
     String type;
+
+    //The rule to be alerted about, if the string is "any", then rule does not matter
     @SerializedName("rule")
     String rule;
     @SerializedName("notified")

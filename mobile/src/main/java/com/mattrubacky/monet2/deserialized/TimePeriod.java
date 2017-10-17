@@ -7,20 +7,33 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents a two hour time period of certain maps and a certain rule being available
  */
-class TimePeriod implements Parcelable {
+public class TimePeriod implements Parcelable {
     public TimePeriod(){}
 
+    //The gamemode the TimePeriod is in
     @SerializedName("game_mode")
     Gamemode gamemode;
+
+    //The rule available during this TimePeriod
     @SerializedName("rule")
     Rule rule;
-    @SerializedName("stage_b")
-    Stage b;
+
+    //A Stage available in this TimePeriod
     @SerializedName("stage_a")
     Stage a;
+    //Another Stage available in this TimePeriod
+    @SerializedName("stage_b")
+    Stage b;
+
+    //The time this TimePeriod starts
+    //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("start_time")
     Long start;
+
+    //The time this TimePeriod ends
+    //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("end_time")
     Long end;
 

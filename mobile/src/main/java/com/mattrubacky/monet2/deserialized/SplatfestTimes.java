@@ -10,23 +10,27 @@ import com.google.gson.annotations.SerializedName;
  * Contains the important times in a splatfest
  * Part of the Splatfest object
  */
-class SplatfestTimes implements Parcelable {
+public class SplatfestTimes implements Parcelable {
     public SplatfestTimes(){}
 
     //The time the Splatfest begins
+    //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("start")
     Long start;
 
     //The time the Splatfest ends
+    //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("end")
     Long end;
 
     //The time Pearl and Marina first annouced the Splatfest
+    //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("announce")
     Long announce;
 
     //The time Pearl and Marina announced the results of the Splatfest
     //Note: As results are only presented after the Splatfest is over, this is only present in the festivals/pasts endpoint
+    //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("result")
     Long result;
 

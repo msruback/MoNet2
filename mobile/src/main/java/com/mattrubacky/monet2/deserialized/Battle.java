@@ -66,7 +66,7 @@ public class Battle implements Parcelable{
     Long time;
 
     //The time the match started
-    //IMPORTANT: This is in seconds from epoch, Jave takes milliseconds from epoch,don't forget to multiply by 1000
+    //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("start_time")
     Long start;
 

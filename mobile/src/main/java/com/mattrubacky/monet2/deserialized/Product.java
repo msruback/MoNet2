@@ -28,7 +28,7 @@ public class Product implements Parcelable {
     Skill skill;
 
     //The time the gear stops being available
-    //IMPORTANT: This is in seconds from epoch, Jave takes milliseconds from epoch,don't forget to multiply by 1000
+    //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("end_time")
     Long endTime;
 
