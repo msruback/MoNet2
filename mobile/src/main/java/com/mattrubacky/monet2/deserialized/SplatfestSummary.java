@@ -13,17 +13,17 @@ public class SplatfestSummary{
 
     //The result in the Team Battle category
     @SerializedName("team")
-    int team;
+    public int team;
 
     //The result in the Solo Battle category
     @SerializedName("solo")
-    int solo;
+    public int solo;
 
     //The result of the Vote
     @SerializedName("vote")
-    int vote;
+    public int vote;
 
     //The result of the Splatfest Overall
     @SerializedName("total")
-    int total;
+    public int total;
 }

@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Stage;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.TimePeriod;
+import com.mattrubacky.monet2.deserialized.*;
+
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -54,8 +54,8 @@ public class LeagueRotation extends Fragment {
         mode.setText(timePeriod.rule.name);
         time.setText(startText+" - "+endText);
 
-        String url1 = "https://app.splatoon2.nintendo.net"+a.image;
-        String url2 = "https://app.splatoon2.nintendo.net"+b.image;
+        String url1 = "https://app.splatoon2.nintendo.net"+a.url;
+        String url2 = "https://app.splatoon2.nintendo.net"+b.url;
 
         ImageHandler imageHandler = new ImageHandler();
         String image1DirName = a.name.toLowerCase().replace(" ","_");

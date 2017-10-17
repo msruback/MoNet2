@@ -17,9 +17,9 @@ public class Annie {
 
     //The Gear that is ordered and currently awaiting pickup at Merch
     @SerializedName("ordered_info")
-    Ordered ordered;
+    public Ordered ordered;
     //Gear that is for sale currently in the shop
     @SerializedName("merchandises")
-    ArrayList<Product> merch;
+    public ArrayList<Product> merch;
 
 }

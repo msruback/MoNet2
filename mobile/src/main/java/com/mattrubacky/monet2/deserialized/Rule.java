@@ -13,11 +13,11 @@ public class Rule implements Parcelable {
     public Rule(){}
 
     @SerializedName("name")
-    String name;
+    public String name;
 
     //Name lowercase and with underscores
     @SerializedName("key")
-    String key;
+    public String key;
 
     protected Rule(Parcel in) {
         name = in.readString();

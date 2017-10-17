@@ -25,11 +25,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.PastSplatfest;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Record;
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestResult;
-import com.mattrubacky.monet2.deserialized.Timeline;
+
+import com.mattrubacky.monet2.deserialized.*;
 
 import java.io.IOException;
 import java.util.ArrayList;

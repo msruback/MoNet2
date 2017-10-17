@@ -14,13 +14,13 @@ public class Skill implements Parcelable {
     public Skill(){}
 
     @SerializedName("id")
-    int id;
+    public int id;
     @SerializedName("name")
-    String name;
+    public String name;
 
     //The URL of the Ability images
     @SerializedName("image")
-    String url;
+    public String url;
 
     protected Skill(Parcel in) {
         name = in.readString();

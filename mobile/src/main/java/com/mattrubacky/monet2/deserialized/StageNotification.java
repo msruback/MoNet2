@@ -17,15 +17,15 @@ public class StageNotification implements Parcelable {
 
     //The Stage to be alerted about, if the id is -1, then stage does not matter
     @SerializedName("stage")
-    Stage stage;
+    public Stage stage;
 
     //The gamemode to be alerted about, if the string is "any", then type does not matter
     @SerializedName("type")
-    String type;
+    public String type;
 
     //The rule to be alerted about, if the string is "any", then rule does not matter
     @SerializedName("rule")
-    String rule;
+    public String rule;
     @SerializedName("notified")
     ArrayList<TimePeriod> notified;
 

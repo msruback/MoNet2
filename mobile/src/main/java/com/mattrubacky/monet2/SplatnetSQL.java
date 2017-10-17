@@ -6,29 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.deserialized.Brand;
-import com.mattrubacky.monet2.deserialized.Gear;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.GearSkills;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Player;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Rank;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Rule;
-import com.mattrubacky.monet2.deserialized.Skill;
-import com.mattrubacky.monet2.deserialized.Special;
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.deserialized.SplatfestColor;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestColors;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestGrade;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestImages;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestNames;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestResult;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestTimes;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Stage;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Sub;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.TeamResult;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.TeamTheme;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.User;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Weapon;
+import com.mattrubacky.monet2.deserialized.*;
 
 import java.util.ArrayList;
 
@@ -193,7 +171,7 @@ public class SplatnetSQL {
 
         values.put(SplatnetContract.Stage._ID,stage.id);
         values.put(SplatnetContract.Stage.COLUMN_NAME,stage.name);
-        values.put(SplatnetContract.Stage.COLUMN_URL,stage.image);
+        values.put(SplatnetContract.Stage.COLUMN_URL,stage.url);
 
         database.insert(SplatnetContract.Stage.TABLE_NAME, null, values);
         database.close();
@@ -211,7 +189,7 @@ public class SplatnetSQL {
         if(cursor.moveToFirst()){
             stage.id = id;
             stage.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_NAME));
-            stage.image = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_URL));
+            stage.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_URL));
         }
         cursor.close();
         database.close();
@@ -232,7 +210,7 @@ public class SplatnetSQL {
 
                 stage.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Stage._ID));
                 stage.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_NAME));
-                stage.image = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_URL));
+                stage.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_URL));
                 stages.add(stage);
             } while (cursor.moveToPrevious());
         }

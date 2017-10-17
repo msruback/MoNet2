@@ -14,7 +14,7 @@ public class TeamResult implements Parcelable {
 
     //The text of the result, either "VICTORY" or "DEFEAT"
     @SerializedName("name")
-    String name;
+    public String name;
 
     protected TeamResult(Parcel in) {
         name = in.readString();

@@ -14,31 +14,31 @@ public class WeaponStats{
 
     //The casual mode "Freshness" meter current level
     @SerializedName("win_meter")
-    Float winMeter;
+    public Float winMeter;
 
     //The number of wins using this weapon
     @SerializedName("win_count")
-    int wins;
+    public int wins;
 
     //The number of losses using this weapon
     @SerializedName("lose_count")
-    int losses;
+    public int losses;
 
     //The last time this weapon was used
     @SerializedName("last_use_time")
-    Long lastUsed;
+    public Long lastUsed;
 
     //The max value of the "Freshness" meter, used to properly display the flag achieved
     @SerializedName("max_win_meter")
-    Float maxWinMeter;
+    public Float maxWinMeter;
 
     //The total amount inked with this weapon
     @SerializedName("total_paint_point")
-    Long totalPaintPoint;
+    public Long totalPaintPoint;
 
     //The weapon itself
     @SerializedName("weapon")
-    Weapon weapon;
+    public Weapon weapon;
 }
 
 

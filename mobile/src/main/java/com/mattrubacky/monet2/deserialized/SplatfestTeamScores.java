@@ -13,17 +13,17 @@ public class SplatfestTeamScores{
 
     //Alpha's wins in Solo Battles
     @SerializedName("alpha_solo")
-    int alphaSolo;
+    public int alphaSolo;
 
     //Alpha's wins in Team Battles
     @SerializedName("alpha_team")
-    int alphaTeam;
+    public int alphaTeam;
 
     //Bravo's wins in Solo Battles
     @SerializedName("bravo_solo")
-    int bravoSolo;
+    public int bravoSolo;
 
     //Bravo's wins in Team Battles
     @SerializedName("bravo_team")
-    int bravoTeam;
+    public int bravoTeam;
 }

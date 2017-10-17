@@ -15,19 +15,19 @@ public class Brand implements Parcelable{
     public Brand(){}
 
     @SerializedName("id")
-    int id;
+    public int id;
 
     //The name of the brand
     @SerializedName("name")
-    String name;
+    public String name;
 
     //Url of the brand url
     @SerializedName("image")
-    String url;
+    public String url;
 
     //The skill the brand is most likely to roll
     @SerializedName("frequent_skill")
-    Skill skill;
+    public Skill skill;
 
     protected Brand(Parcel in) {
         name = in.readString();

@@ -13,22 +13,22 @@ public class Records{
 
     //The stats the user has on various stages
     @SerializedName("stage_stats")
-    Map<Integer,StageStats> stageStats;
+    public Map<Integer,StageStats> stageStats;
 
     //Past Splatfest performance
     @SerializedName("fes_results")
-    Map<Integer,SplatfestRecords> splatfestRecords;
+    public Map<Integer,SplatfestRecords> splatfestRecords;
 
     //The Player currently
     @SerializedName("player")
-    User user;
+    public User user;
 
     //The player's id
     @SerializedName("unique_id")
-    String unique_id;
+    public String unique_id;
 
     //The stats the user has on their weapons
     @SerializedName("weapon_stats")
-    Map<Integer,WeaponStats> weaponStats;
+    public Map<Integer,WeaponStats> weaponStats;
 
 }

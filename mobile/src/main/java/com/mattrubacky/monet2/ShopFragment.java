@@ -19,9 +19,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.deserialized.Annie;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Ordered;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Product;
+
+import com.mattrubacky.monet2.deserialized.*;
+
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;

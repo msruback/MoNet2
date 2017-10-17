@@ -14,27 +14,27 @@ public class Player implements Parcelable {
 
     //The player's identity
     @SerializedName("player")
-    User user;
+    public User user;
 
     //The number of deaths the player had in the game
     @SerializedName("death_count")
-    int deaths;
+    public int deaths;
 
     //The number of kills the player had in the game, including assists
     @SerializedName("kill_count")
-    int kills;
+    public int kills;
 
     //The number of assists the player had in the game
     @SerializedName("assist_count")
-    int assists;
+    public int assists;
 
     //The amount the player inked in the game
     @SerializedName("game_paint_point")
-    int points;
+    public int points;
 
     //The amount of times the player used their special in the game
     @SerializedName("special_count")
-    int special;
+    public int special;
 
     protected Player(Parcel in) {
         user = in.readParcelable(User.class.getClassLoader());

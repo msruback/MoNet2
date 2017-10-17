@@ -12,5 +12,5 @@ public class StageNotifications{
     public StageNotifications(){
     }
     @SerializedName("notifications")
-    ArrayList<StageNotification> notifications;
+    public ArrayList<StageNotification> notifications;
 }

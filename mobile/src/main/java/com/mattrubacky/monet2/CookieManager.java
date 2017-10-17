@@ -18,6 +18,7 @@ import retrofit2.Retrofit;
 
 /**
  * Created by mattr on 9/12/2017.
+ * Probably pointless at this point
  */
 
 public class CookieManager {

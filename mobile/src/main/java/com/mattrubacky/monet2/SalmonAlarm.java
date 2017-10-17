@@ -12,8 +12,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SalmonRun;
-import com.mattrubacky.monet2.deserialized.SalmonSchedule;
+
+import com.mattrubacky.monet2.deserialized.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

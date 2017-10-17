@@ -17,15 +17,15 @@ public class GearNotification implements Parcelable {
 
     //The gear that notifications are requested for
     @SerializedName("gear")
-    Gear gear;
+    public Gear gear;
 
     //The ability that is requested for the gear. If the id is -1, abilities don't matter
     @SerializedName("ability")
-    Skill skill;
+    public Skill skill;
 
     //A list of Shop listings the user was already notified about
     @SerializedName("notified")
-    ArrayList<Product> notified;
+    public ArrayList<Product> notified;
 
     protected GearNotification(Parcel in) {
         gear = in.readParcelable(Gear.class.getClassLoader());

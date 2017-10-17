@@ -24,9 +24,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.ResultList;
-import com.mattrubacky.monet2.deserialized.Splatfest;
+
+import com.mattrubacky.monet2.deserialized.*;
+
+
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;

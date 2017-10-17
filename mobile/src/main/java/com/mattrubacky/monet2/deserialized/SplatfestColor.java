@@ -15,20 +15,20 @@ public class SplatfestColor implements Parcelable {
 
     //Blue value
     @SerializedName("b")
-    double b;
+    public double b;
 
     //Red value
     @SerializedName("r")
-    double r;
+    public double r;
 
     //Green value
     @SerializedName("g")
-    double g;
+    public double g;
 
     //The hex string
     //Note: This is not from the Splatnet API
     @SerializedName("color")
-    private String color;
+    public String color;
 
     //The method used to get/build the color
     public String getColor(){

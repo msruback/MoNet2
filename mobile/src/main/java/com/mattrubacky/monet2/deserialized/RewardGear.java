@@ -12,9 +12,9 @@ public class RewardGear{
     //The first date the gear is available
     //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("available_time")
-    long available;
+    public long available;
 
     //The gear itself
     @SerializedName("gear")
-    Gear gear;
+    public Gear gear;
 }

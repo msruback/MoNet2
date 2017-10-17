@@ -15,15 +15,15 @@ public class Stage implements Parcelable {
     public Stage(){}
 
     @SerializedName("id")
-    int id;
+    public int id;
 
     //The URL of the Stage image
     @SerializedName("image")
-    String url;
+    public String url;
 
     //The name of the Stage
     @SerializedName("name")
-    String name;
+    public String name;
 
     protected Stage(Parcel in) {
         id = in.readInt();

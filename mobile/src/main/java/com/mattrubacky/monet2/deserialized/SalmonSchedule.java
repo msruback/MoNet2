@@ -15,7 +15,7 @@ public class SalmonSchedule implements Parcelable {
     public SalmonSchedule(){}
 
     @SerializedName("schedule")
-    ArrayList<SalmonRun> schedule;
+    public ArrayList<SalmonRun> schedule;
 
     protected SalmonSchedule(Parcel in) {
         schedule = in.createTypedArrayList(SalmonRun.CREATOR);

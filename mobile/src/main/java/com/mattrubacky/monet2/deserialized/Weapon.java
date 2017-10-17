@@ -13,21 +13,21 @@ import com.google.gson.annotations.SerializedName;
 public class Weapon implements Parcelable {
     public Weapon(){}
     @SerializedName("id")
-    int id;
+    public int id;
     @SerializedName("name")
-    String name;
+    public String name;
 
     //The URL for the weapon image
     @SerializedName("image")
-    String url;
+    public String url;
 
     //The Special Weapon this weapon has
     @SerializedName("special")
-    Special special;
+    public Special special;
 
     //The Sub Weapon this weapon has
     @SerializedName("sub")
-    Sub sub;
+    public Sub sub;
 
     protected Weapon(Parcel in) {
         id = in.readInt();

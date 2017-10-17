@@ -11,11 +11,11 @@ public class SplatfestResult{
     public SplatfestResult(){}
 
     @SerializedName("festival_id")
-    int id;
+    public int id;
     @SerializedName("team_scores")
-    SplatfestTeamScores teamScores;
+    public SplatfestTeamScores teamScores;
     @SerializedName("summary")
-    SplatfestSummary summary;
+    public SplatfestSummary summary;
     @SerializedName("team_participants")
-    SplatfestParticipants participants;
+    public SplatfestParticipants participants;
 }

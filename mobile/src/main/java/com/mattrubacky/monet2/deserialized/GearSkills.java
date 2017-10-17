@@ -16,11 +16,11 @@ public class GearSkills implements Parcelable {
 
     //The main ability of a gear
     @SerializedName("main")
-    Skill main;
+    public Skill main;
 
     //The sub abilities of a gear
     @SerializedName("subs")
-    ArrayList<Skill> subs;
+    public ArrayList<Skill> subs;
 
     protected GearSkills(Parcel in) {
         main = in.readParcelable(Skill.class.getClassLoader());

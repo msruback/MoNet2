@@ -14,28 +14,28 @@ public class TimePeriod implements Parcelable {
 
     //The gamemode the TimePeriod is in
     @SerializedName("game_mode")
-    Gamemode gamemode;
+    public Gamemode gamemode;
 
     //The rule available during this TimePeriod
     @SerializedName("rule")
-    Rule rule;
+    public Rule rule;
 
     //A Stage available in this TimePeriod
     @SerializedName("stage_a")
-    Stage a;
+    public Stage a;
     //Another Stage available in this TimePeriod
     @SerializedName("stage_b")
-    Stage b;
+    public Stage b;
 
     //The time this TimePeriod starts
     //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("start_time")
-    Long start;
+    public Long start;
 
     //The time this TimePeriod ends
     //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("end_time")
-    Long end;
+    public Long end;
 
     protected TimePeriod(Parcel in) {
         gamemode = in.readParcelable(Gamemode.class.getClassLoader());

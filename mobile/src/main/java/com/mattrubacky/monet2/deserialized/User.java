@@ -15,67 +15,67 @@ public class User implements Parcelable {
 
     //The user's unique id(does not apply to anyone but the user)
     @SerializedName("unique_id")
-    String uniqueId;
+    public String uniqueId;
 
     //A player's unique id (does not apply to the user)
     @SerializedName("prinicipal_id")
-    String id;
+    public String id;
 
     //The player's nickname
     @SerializedName("nickname")
-    String name;
+    public String name;
 
     //The player's level
     @SerializedName("player_rank")
-    int rank;
+    public int rank;
 
     //The user's rank in Tower Control, is only available in the records endpoint
     @SerializedName("udemae_tower")
-    Rank tower;
+    public Rank tower;
 
     //The user's rank in Rainmaker, is only available in the records endpoint
     @SerializedName("udemae_rainmaker")
-    Rank rainmaker;
+    public Rank rainmaker;
 
     //The user's rank in Splatzones, is only availably in the records endpoint
     @SerializedName("udemae_zones")
-    Rank splatzones;
+    public Rank splatzones;
 
     //The player's rank, is only available in the results and results/{battle_id} endpoints
     @SerializedName("udemae")
-    Rank udamae;
+    public Rank udamae;
 
     //The player's weapon
     @SerializedName("weapon")
-    Weapon weapon;
+    public Weapon weapon;
 
     //The abilities on a player's headgear
     @SerializedName("head_skills")
-    GearSkills headSkills;
+    public GearSkills headSkills;
 
     //The abilities on a player's clothing
     @SerializedName("clothes_skills")
-    GearSkills clothesSkills;
+    public GearSkills clothesSkills;
 
     //The abilities on a player's shoes
     @SerializedName("shoes_skills")
-    GearSkills shoeSkills;
+    public GearSkills shoeSkills;
 
     //The player's headgear
     @SerializedName("head")
-    Gear head;
+    public Gear head;
 
     //The player's clothing
     @SerializedName("clothes")
-    Gear clothes;
+    public Gear clothes;
 
     //The player's shoes
     @SerializedName("shoes")
-    Gear shoes;
+    public Gear shoes;
 
     //If the battle is a Splatfest Battle, the player's Splatfest Grade will be stored here, otherwise this is null
     @SerializedName("fes_grade")
-    SplatfestGrade grade;
+    public SplatfestGrade grade;
 
     protected User(Parcel in) {
         uniqueId = in.readString();

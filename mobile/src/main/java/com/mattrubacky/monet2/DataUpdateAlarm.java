@@ -14,17 +14,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.deserialized.Annie;
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.GearNotification;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.GearNotifications;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Product;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.ResultList;
-import com.mattrubacky.monet2.deserialized.Schedules;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.StageNotification;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.StageNotifications;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.TimePeriod;
+
+import com.mattrubacky.monet2.deserialized.*;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

@@ -14,27 +14,27 @@ public class Splatfest implements Parcelable {
     public Splatfest(){}
 
     @SerializedName("festival_id")
-    int id;
+    public int id;
 
     //The time the splatfest starts and ends, as well as the time it was announced and results were posted
     @SerializedName("times")
-    SplatfestTimes times;
+    public SplatfestTimes times;
 
     //The colors in the splatfest
     @SerializedName("colors")
-    SplatfestColors colors;
+    public SplatfestColors colors;
 
     //The names of the sides
     @SerializedName("names")
-    SplatfestNames names;
+    public SplatfestNames names;
 
     //The Special Stage
     @SerializedName("special_stage")
-    Stage stage;
+    public Stage stage;
 
     //The Images in the Splatfest
     @SerializedName("images")
-    SplatfestImages images;
+    public SplatfestImages images;
 
 
     protected Splatfest(Parcel in) {

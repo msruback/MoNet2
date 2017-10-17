@@ -11,5 +11,5 @@ public class GrizzCo{
     public GrizzCo(){}
 
     @SerializedName("reward_gear")
-    RewardGear rewardGear;
+    public RewardGear rewardGear;
 }

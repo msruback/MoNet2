@@ -18,11 +18,11 @@ public class SplatfestColors implements Parcelable {
 
     //Side Alpha's colors.
     @SerializedName("alpha")
-    SplatfestColor alpha;
+    public SplatfestColor alpha;
 
     //Side Bravo's colors
     @SerializedName("bravo")
-    SplatfestColor bravo;
+    public SplatfestColor bravo;
 
     protected SplatfestColors(Parcel in) {
         alpha = in.readParcelable(SplatfestColor.class.getClassLoader());

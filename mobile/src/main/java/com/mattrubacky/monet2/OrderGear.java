@@ -8,9 +8,8 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.deserialized.Annie;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Ordered;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Product;
+
+import com.mattrubacky.monet2.deserialized.*;
 
 import java.io.IOException;
 

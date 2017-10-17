@@ -14,12 +14,12 @@ public class Gamemode implements Parcelable {
     }
     //The pretty name of the gamemode
     @SerializedName("name")
-    String name;
+    public String name;
     /**The name of the gamemode lowercase with underscores
      * This could be "regular", "gachi", "league", and "fes"
      */
     @SerializedName("key")
-    String key;
+    public String key;
 
     protected Gamemode(Parcel in) {
         name = in.readString();

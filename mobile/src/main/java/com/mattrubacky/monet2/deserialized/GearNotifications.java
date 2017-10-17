@@ -11,5 +11,5 @@ import java.util.ArrayList;
 public class GearNotifications{
     public GearNotifications(){}
     @SerializedName("notifications")
-    ArrayList<GearNotification> notifications;
+    public ArrayList<GearNotification> notifications;
 }

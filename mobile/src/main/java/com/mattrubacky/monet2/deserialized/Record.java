@@ -10,5 +10,5 @@ public class Record{
     public Record(){}
 
     @SerializedName("records")
-    Records records;
+    public Records records;
 }

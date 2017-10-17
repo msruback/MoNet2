@@ -19,9 +19,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Player;
-import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.*;
+
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -102,7 +101,7 @@ public class BattleInfo extends AppCompatActivity {
         rule.setText(battle.rule.name);
         stageName.setText(battle.stage.name);
 
-        String url = "https://app.splatoon2.nintendo.net"+battle.stage.image;
+        String url = "https://app.splatoon2.nintendo.net"+battle.stage.url;
 
         ImageHandler imageHandler = new ImageHandler();
         String imageDirName = battle.stage.name.toLowerCase().replace(" ", "_");

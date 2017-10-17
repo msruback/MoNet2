@@ -16,15 +16,15 @@ public class SplatfestImages implements Parcelable {
 
     //The background for both Alpha and Bravo
     @SerializedName("panel")
-    String panel;
+    public String panel;
 
     //Side Alpha's Logo
     @SerializedName("alpha")
-    String alpha;
+    public String alpha;
 
     //Side Bravo's Logo
     @SerializedName("bravo")
-    String bravo;
+    public String bravo;
 
     protected SplatfestImages(Parcel in) {
         panel = in.readString();

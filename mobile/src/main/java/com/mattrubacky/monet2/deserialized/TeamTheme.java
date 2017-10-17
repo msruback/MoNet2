@@ -14,15 +14,15 @@ public class TeamTheme implements Parcelable {
 
     //The Color of the team
     @SerializedName("color")
-    SplatfestColor color;
+    public SplatfestColor color;
 
     //Either "alpha" or "bravo", refering to whether the team is on Side Alpha or Side Bravo respectively.
     @SerializedName("key")
-    String key;
+    public String key;
 
     //The short name of the side(Check SplatfestNames for more detail)
     @SerializedName("name")
-    String name;
+    public String name;
 
     protected TeamTheme(Parcel in) {
         color = in.readParcelable(SplatfestColor.class.getClassLoader());

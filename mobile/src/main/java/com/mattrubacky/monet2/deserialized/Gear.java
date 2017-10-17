@@ -15,25 +15,25 @@ public class Gear implements Parcelable {
     public Gear(){}
 
     @SerializedName("id")
-    int id;
+    public int id;
     @SerializedName("name")
-    String name;
+    public String name;
 
     //The Brand of the Gear
     @SerializedName("brand")
-    Brand brand;
+    public Brand brand;
 
     //The URL of the gear url
     @SerializedName("image")
-    String url;
+    public String url;
 
     //The amount of ability slots a piece of gear has
     @SerializedName("rarity")
-    int rarity;
+    public int rarity;
 
     //The type of the gear, "head","clothes",and "shoe"
     @SerializedName("kind")
-    String kind;
+    public String kind;
 
     protected Gear(Parcel in) {
         name = in.readString();

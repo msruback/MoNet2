@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Stage;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.TimePeriod;
+import com.mattrubacky.monet2.deserialized.*;
+
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -60,9 +59,9 @@ public class SplatfestRotation extends Fragment {
         title3.setText(splatfest.stage.name);
         time.setText(startText+" - "+endText);
 
-        String url1 = "https://app.splatoon2.nintendo.net"+a.image;
-        String url2 = "https://app.splatoon2.nintendo.net"+b.image;
-        String url3 = "https://app.splatoon2.nintendo.net"+splatfest.stage.image;
+        String url1 = "https://app.splatoon2.nintendo.net"+a.url;
+        String url2 = "https://app.splatoon2.nintendo.net"+b.url;
+        String url3 = "https://app.splatoon2.nintendo.net"+splatfest.stage.url;
 
         ImageHandler imageHandler = new ImageHandler();
         String image1DirName = a.name.toLowerCase().replace(" ","_");

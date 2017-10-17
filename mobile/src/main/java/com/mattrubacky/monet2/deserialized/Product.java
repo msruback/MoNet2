@@ -13,24 +13,24 @@ public class Product implements Parcelable {
     public Product(){}
 
     @SerializedName("id")
-    String id;
+    public String id;
 
     //The Gear for sale
     @SerializedName("gear")
-    Gear gear;
+    public Gear gear;
 
     //The price of the gear
     @SerializedName("price")
-    String price;
+    public String price;
 
     //The Main Ability on the Gear
     @SerializedName("skill")
-    Skill skill;
+    public Skill skill;
 
     //The time the gear stops being available
     //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("end_time")
-    Long endTime;
+    public Long endTime;
 
     protected Product(Parcel in) {
         gear = in.readParcelable(Gear.class.getClassLoader());

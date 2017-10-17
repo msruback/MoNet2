@@ -7,9 +7,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.PastSplatfest;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.ResultList;
+
+import com.mattrubacky.monet2.deserialized.*;
 
 import java.io.IOException;
 import java.util.ArrayList;

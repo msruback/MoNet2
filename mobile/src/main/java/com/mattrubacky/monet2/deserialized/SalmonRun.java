@@ -19,22 +19,22 @@ public class SalmonRun implements Parcelable {
     //The time the shift starts
     //Note: This is in milliseconds from epoch
     @SerializedName("start")
-    long startTime;
+    public long startTime;
 
     //The time the shift ends
     //Note: This is in milliseconds from epoch
     @SerializedName("end")
-    long endTime;
+    public long endTime;
 
     //The Stage the shift will be on
     //Note: Currently this is only a String not a stage object
     @SerializedName("stage")
-    String stage;
+    public String stage;
 
     //The List of weapons available for the run, -1 is mystery
     //Note: Will always be size()==4, however items might be null
     @SerializedName("weapons")
-    ArrayList<Weapon> weapons;
+    public ArrayList<Weapon> weapons;
 
     protected SalmonRun(Parcel in) {
         startTime = in.readLong();

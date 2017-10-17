@@ -11,17 +11,17 @@ public class SplatfestRecords{
     public SplatfestRecords(){}
 
     @SerializedName("fes_id")
-    int id;
+    public int id;
 
     //Can't seem to figure out what this is for, it seems to be always 0
     @SerializedName("fes_point")
-    int points;
+    public int points;
 
     //The power the user is at
     @SerializedName("fes_power")
-    int power;
+    public int power;
 
     //The splatfest grade the user is at
     @SerializedName("fes_grade")
-    SplatfestGrade grade;
+    public SplatfestGrade grade;
 }

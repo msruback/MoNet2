@@ -28,13 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.deserialized.Gear;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.GearNotification;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.GearNotifications;
-import com.mattrubacky.monet2.deserialized.Skill;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Stage;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.StageNotification;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.StageNotifications;
+import com.mattrubacky.monet2.deserialized.*;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

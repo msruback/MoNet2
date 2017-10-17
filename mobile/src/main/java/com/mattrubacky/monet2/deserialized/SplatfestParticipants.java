@@ -12,9 +12,9 @@ public class SplatfestParticipants{
 
     //Side Alpha's participants
     @SerializedName("alpha")
-    int alpha;
+    public int alpha;
 
     //Side Bravo's participants
     @SerializedName("bravo")
-    int bravo;
+    public int bravo;
 }

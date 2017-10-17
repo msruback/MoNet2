@@ -27,13 +27,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
-import com.mattrubacky.monet2.deserialized.Gear;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SalmonRun;
-import com.mattrubacky.monet2.deserialized.SalmonSchedule;
-import com.mattrubacky.monet2.deserialized.Schedules;
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.TimePeriod;
+
+import com.mattrubacky.monet2.deserialized.*;
+
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;

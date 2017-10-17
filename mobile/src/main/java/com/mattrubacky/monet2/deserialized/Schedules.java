@@ -18,15 +18,15 @@ public class Schedules implements Parcelable {
 
     }
     @SerializedName("regular")
-    ArrayList<TimePeriod> regular;
+    public ArrayList<TimePeriod> regular;
     @SerializedName("gachi")
-    ArrayList<TimePeriod> ranked;
+    public ArrayList<TimePeriod> ranked;
     @SerializedName("league")
-    ArrayList<TimePeriod> league;
+    public ArrayList<TimePeriod> league;
 
     //splatfest is not in the Splatnet API, this is populated client side
     @SerializedName("fes")
-    ArrayList<TimePeriod> splatfest;
+    public ArrayList<TimePeriod> splatfest;
 
     //Dequeue the expired schedules
     public void dequeue(){

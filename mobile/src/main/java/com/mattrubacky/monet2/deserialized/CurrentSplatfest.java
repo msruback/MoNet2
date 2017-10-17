@@ -16,7 +16,7 @@ public class CurrentSplatfest implements Parcelable {
 
     //The list of upcoming and active splatfests. As far as I know this can only be size()==0||size()==1
     @SerializedName("festivals")
-    ArrayList<Splatfest> splatfests;
+    public ArrayList<Splatfest> splatfests;
 
     protected CurrentSplatfest(Parcel in) {
         splatfests = in.createTypedArrayList(Splatfest.CREATOR);

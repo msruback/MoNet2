@@ -13,10 +13,10 @@ public class PastSplatfest{
 
     //Past Festivals
     @SerializedName("festivals")
-    ArrayList<Splatfest> splatfests;
+    public ArrayList<Splatfest> splatfests;
 
     //Festival Results
     //IMPORTANT: The order of this array is not necessarily, and probably isn't the same as the order of the festival array
     @SerializedName("results")
-    ArrayList<SplatfestResult> results;
+    public ArrayList<SplatfestResult> results;
 }

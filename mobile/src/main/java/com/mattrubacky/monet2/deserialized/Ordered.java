@@ -11,14 +11,14 @@ public class Ordered{
 
     //The gear ordered
     @SerializedName("gear")
-    Gear gear;
+    public Gear gear;
 
     //The price
     @SerializedName("price")
-    String price;
+    public String price;
 
     //The main ability
     @SerializedName("skill")
-    Skill skill;
+    public Skill skill;
 
 }

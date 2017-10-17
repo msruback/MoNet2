@@ -11,34 +11,34 @@ public class StageStats{
 
     //The Stage in question
     @SerializedName("stage")
-    Stage stage;
+    public Stage stage;
 
     //The wins on this Stage under the Rainmaker rule
     @SerializedName("yagura_win")
-    int rainmakerWin;
+    public int rainmakerWin;
 
     //The losses on this Stage under the Rainmaker rule
     @SerializedName("yagura_lose")
-    int rainmakerLose;
+    public int rainmakerLose;
 
     //The wins on this Stage under the Splatzone rule
     @SerializedName("area_win")
-    int splatzonesWin;
+    public int splatzonesWin;
 
     //The losses on this Stage under the Splatzone rule
     @SerializedName("area_lose")
-    int splatzonesLose;
+    public int splatzonesLose;
 
     //The wins on this Stage under the Tower Control rule
     @SerializedName("hoko_win")
-    int towerWin;
+    public int towerWin;
 
     //The losses on this stage under the Tower Control rule
     @SerializedName("hoko_lose")
-    int towerLose;
+    public int towerLose;
 
     //The last time the user played on this stage
     //IMPORTANT: This is in seconds from epoch, Jave takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("last_play_time")
-    Long lastPlayed;
+    public Long lastPlayed;
 }

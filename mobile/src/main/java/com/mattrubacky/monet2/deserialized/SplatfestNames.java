@@ -15,19 +15,19 @@ public class SplatfestNames implements Parcelable {
 
     //The name of side Alpha
     @SerializedName("alpha_short")
-    String alpha;
+    public String alpha;
 
     //A brief description of side Alpha
     @SerializedName("alpha_long")
-    String alphaDesc;
+    public String alphaDesc;
 
     //The name of side Bravo
     @SerializedName("bravo_short")
-    String bravo;
+    public String bravo;
 
     //A brief description of side Bravo
     @SerializedName("bravo_long")
-    String bravoDesc;
+    public String bravoDesc;
 
     protected SplatfestNames(Parcel in) {
         bravo = in.readString();

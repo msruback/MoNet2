@@ -14,14 +14,14 @@ public class Sub implements Parcelable {
     }
 
     @SerializedName("id")
-    int id;
+    public int id;
 
     @SerializedName("name")
-    String name;
+    public String name;
 
     //The base image of the sub weapon
     @SerializedName("image_a")
-    String url;
+    public String url;
 
     protected Sub(Parcel in) {
         id = in.readInt();

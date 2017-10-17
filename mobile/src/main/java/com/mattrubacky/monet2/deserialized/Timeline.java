@@ -12,10 +12,10 @@ public class Timeline {
 
     //The User's unique id
     @SerializedName("unique_id")
-    String uniqueID;
+    public String uniqueID;
 
     //The info on Salmon Run
     //Note: coop is only full when Salmon Run is available, otherwise it is empty
     @SerializedName("coop")
-    GrizzCo currentRun;
+    public GrizzCo currentRun;
 }

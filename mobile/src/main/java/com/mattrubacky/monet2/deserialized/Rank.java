@@ -14,11 +14,11 @@ public class Rank implements Parcelable {
 
     //The Rank
     @SerializedName("name")
-    String rank;
+    public String rank;
 
     //If the rank is S+ this is the number after that, otherwise null
     @SerializedName("s_plus_number")
-    String sPlus;
+    public String sPlus;
 
     protected Rank(Parcel in) {
         rank = in.readString();

@@ -13,7 +13,7 @@ public class SplatfestGrade implements Parcelable {
     public SplatfestGrade(){
     }
     @SerializedName("name")
-    String name;
+    public String name;
 
     protected SplatfestGrade(Parcel in) {
         name = in.readString();
