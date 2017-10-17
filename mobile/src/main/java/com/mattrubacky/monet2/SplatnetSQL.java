@@ -242,6 +242,10 @@ public class SplatnetSQL {
         values.put(SplatnetContract.Splatfest.COLUMN_START_TIME,splatfest.times.start);
         values.put(SplatnetContract.Splatfest.COLUMN_END_TIME,splatfest.times.end);
 
+        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_PANEL,splatfest.images.panel);
+        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_ALPHA,splatfest.images.alpha);
+        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_BRAVO,splatfest.images.bravo);
+
         if(!existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,splatfest.stage.id)){
             insertStage(splatfest.stage);
         }
@@ -267,6 +271,10 @@ public class SplatnetSQL {
         values.put(SplatnetContract.Splatfest.COLUMN_START_TIME,splatfest.times.start);
         values.put(SplatnetContract.Splatfest.COLUMN_END_TIME,splatfest.times.end);
         values.put(SplatnetContract.Splatfest.COLUMN_RESULT_TIME,splatfest.times.result);
+
+        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_PANEL,splatfest.images.panel);
+        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_ALPHA,splatfest.images.alpha);
+        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_BRAVO,splatfest.images.bravo);
 
         if(!existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,splatfest.stage.id)){
             insertStage(splatfest.stage);
@@ -342,6 +350,12 @@ public class SplatnetSQL {
 
             splatfest.stage = selectStage(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_STAGE)));
 
+            SplatfestImages images = new SplatfestImages();
+            images.panel = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_IMAGE_PANEL));
+            images.alpha = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_IMAGE_ALPHA));
+            images.bravo = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_IMAGE_BRAVO));
+            splatfest.images = images;
+
             SplatfestTimes times = new SplatfestTimes();
             times.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_START_TIME));
             times.end = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_END_TIME));
@@ -360,6 +374,9 @@ public class SplatnetSQL {
         values.put(SplatnetContract.Splatfest.COLUMN_RESULT_TIME,splatfest.times.result);
 
         values.put(SplatnetContract.Splatfest.COLUMN_STAGE,splatfest.stage.id);
+        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_PANEL,splatfest.images.panel);
+        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_ALPHA,splatfest.images.alpha);
+        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_BRAVO,splatfest.images.bravo);
 
         String selection = SplatnetContract.Splatfest._ID + " LIKE ?";
         String[] args = {String.valueOf(splatfest.id)};
@@ -511,6 +528,22 @@ public class SplatnetSQL {
                         battle.myTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ALLY_SCORE));
                         battle.otherTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FOE_SCORE));
                         battle.splatfestID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FES));
+
+                        TeamTheme theme = new TeamTheme();
+                        SplatfestColor color = new SplatfestColor();
+                        color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_COLOR));
+                        theme.color = color;
+                        theme.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_KEY));
+                        theme.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_NAME));
+                        battle.myTheme = theme;
+
+                        theme = new TeamTheme();
+                        color = new SplatfestColor();
+                        color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_COLOR));
+                        theme.color = color;
+                        theme.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_KEY));
+                        theme.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_NAME));
+                        battle.otherTheme = theme;
                         break;
                 }
 
@@ -564,6 +597,22 @@ public class SplatnetSQL {
                     battle.myTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ALLY_SCORE));
                     battle.otherTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FOE_SCORE));
                     battle.splatfestID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FES));
+
+                    TeamTheme theme = new TeamTheme();
+                    SplatfestColor color = new SplatfestColor();
+                    color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_COLOR));
+                    theme.color = color;
+                    theme.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_KEY));
+                    theme.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_NAME));
+                    battle.myTheme = theme;
+
+                    theme = new TeamTheme();
+                    color = new SplatfestColor();
+                    color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_COLOR));
+                    theme.color = color;
+                    theme.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_KEY));
+                    theme.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_NAME));
+                    battle.otherTheme = theme;
                     break;
             }
         }
@@ -1117,10 +1166,12 @@ class SplatnetSQLHelper extends SQLiteOpenHelper {
                     sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_OTHER_TEAM_NAME + " TEXT");
 
                     sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Splatfest.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Splatfest.COLUMN_STAGE + " INTEGER REFERENCES stage(_id)");
+                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Splatfest.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Splatfest.COLUMN_IMAGE_PANEL + " INTEGER REFERENCES stage(_id)");
+                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Splatfest.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Splatfest.COLUMN_IMAGE_ALPHA + " INTEGER REFERENCES stage(_id)");
+                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Splatfest.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Splatfest.COLUMN_IMAGE_BRAVO + " INTEGER REFERENCES stage(_id)");
+
                     break;
             }
         }
-
-        onCreate(sqLiteDatabase);
     }
 }

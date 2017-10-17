@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -45,6 +46,9 @@ public class BattleInfo extends AppCompatActivity {
         RelativeLayout alpha = (RelativeLayout) findViewById(R.id.Alpha);
         RelativeLayout bravo = (RelativeLayout) findViewById(R.id.Bravo);
 
+        RelativeLayout allyCard = (RelativeLayout) findViewById(R.id.allies);
+        RelativeLayout foeCard = (RelativeLayout) findViewById(R.id.foes);
+
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
@@ -62,6 +66,8 @@ public class BattleInfo extends AppCompatActivity {
 
         ImageView stageImage = (ImageView) findViewById(R.id.StageImage);
         ImageView modeImage = (ImageView) findViewById(R.id.Mode);
+        ImageView allyImage = (ImageView) findViewById(R.id.AllyFesIcon);
+        ImageView foeImage = (ImageView) findViewById(R.id.FoeFesIcon);
 
         TextView stageName = (TextView) findViewById(R.id.StageName);
         TextView rule = (TextView) findViewById(R.id.Rule);
@@ -117,6 +123,8 @@ public class BattleInfo extends AppCompatActivity {
             case "regular":
                 modeImage.setImageDrawable(getResources().getDrawable(R.drawable.battle_regular));
 
+                allyImage.setVisibility(View.GONE);
+                foeImage.setVisibility(View.GONE);
                 fesMode.setVisibility(View.GONE);
                 power.setVisibility(View.GONE);
                 elapsedTime.setVisibility(View.GONE);
@@ -140,6 +148,8 @@ public class BattleInfo extends AppCompatActivity {
             case "gachi":
                 modeImage.setImageDrawable(getResources().getDrawable(R.drawable.battle_ranked));
 
+                allyImage.setVisibility(View.GONE);
+                foeImage.setVisibility(View.GONE);
                 fesMode.setVisibility(View.GONE);
 
                 elapsed = elapsedFormat.format(battle.time*1000);
@@ -169,6 +179,8 @@ public class BattleInfo extends AppCompatActivity {
             case "league":
                 modeImage.setImageDrawable(getResources().getDrawable(R.drawable.battle_league));
 
+                allyImage.setVisibility(View.GONE);
+                foeImage.setVisibility(View.GONE);
                 fesMode.setVisibility(View.GONE);
                 power.setVisibility(View.GONE);
 
@@ -193,12 +205,62 @@ public class BattleInfo extends AppCompatActivity {
                 foeCount.setText(percentCount);
                 break;
             case "fes":
+                Splatfest splatfest = database.selectSplatfest(battle.splatfestID);
+
+                allyCard.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
+                foeCard.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
+                allyMeter.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
+                foeMeter.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
                 if(battle.myTheme.key.equals("alpha")){
                     alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
                     bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
+
+                    url = "https://app.splatoon2.nintendo.net"+splatfest.images.alpha;
+
+                    imageHandler = new ImageHandler();
+                    imageDirName = splatfest.names.alpha.toLowerCase().replace(" ", "_");
+                    if (imageHandler.imageExists("splatfest", imageDirName, getApplicationContext())) {
+                        allyImage.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
+                    } else {
+                        Picasso.with(getApplicationContext()).load(url).into(allyImage);
+                        imageHandler.downloadImage("splatfest", imageDirName, url, getApplicationContext());
+                    }
+
+                    url = "https://app.splatoon2.nintendo.net"+splatfest.images.bravo;
+
+                    imageHandler = new ImageHandler();
+                    imageDirName = splatfest.names.bravo.toLowerCase().replace(" ", "_");
+                    if (imageHandler.imageExists("splatfest", imageDirName, getApplicationContext())) {
+                        foeImage.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
+                    } else {
+                        Picasso.with(getApplicationContext()).load(url).into(foeImage);
+                        imageHandler.downloadImage("splatfest", imageDirName, url, getApplicationContext());
+                    }
                 }else{
                     alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
                     bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
+
+                    url = "https://app.splatoon2.nintendo.net"+splatfest.images.bravo;
+
+                    imageHandler = new ImageHandler();
+                    imageDirName = splatfest.names.bravo.toLowerCase().replace(" ", "_");
+                    if (imageHandler.imageExists("splatfest", imageDirName, getApplicationContext())) {
+                        allyImage.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
+                    } else {
+                        Picasso.with(getApplicationContext()).load(url).into(allyImage);
+                        imageHandler.downloadImage("splatfest", imageDirName, url, getApplicationContext());
+                    }
+
+                    url = "https://app.splatoon2.nintendo.net"+splatfest.images.alpha;
+
+                    imageHandler = new ImageHandler();
+                    imageDirName = splatfest.names.alpha.toLowerCase().replace(" ", "_");
+                    if (imageHandler.imageExists("splatfest", imageDirName, getApplicationContext())) {
+                        foeImage.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                    } else {
+                        Picasso.with(getApplicationContext()).load(url).into(foeImage);
+                        imageHandler.downloadImage("weapon", imageDirName, url, getApplicationContext());
+                    }
                 }
 
                 modeImage.setVisibility(View.GONE);
@@ -228,8 +290,8 @@ public class BattleInfo extends AppCompatActivity {
         ArrayList<Player> allies = new ArrayList<>();
         allies.add(battle.user);
         allies.addAll(battle.myTeam);
-        PlayerAdapter allyAdapter = new PlayerAdapter(getApplicationContext(),allies,true);
-        PlayerAdapter foeAdapter = new PlayerAdapter(getApplicationContext(),battle.otherTeam,false);
+        PlayerAdapter allyAdapter = new PlayerAdapter(BattleInfo.this,allies,true);
+        PlayerAdapter foeAdapter = new PlayerAdapter(BattleInfo.this,battle.otherTeam,false);
 
         final ExpandableListView allyList = (ExpandableListView) findViewById(R.id.AllyList);
         final ExpandableListView foeList = (ExpandableListView) findViewById(R.id.FoeList);
@@ -374,14 +436,13 @@ public class BattleInfo extends AppCompatActivity {
             Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
             RelativeLayout card = (RelativeLayout) convertView.findViewById(R.id.playerCard);
+            card.setClipToOutline(true);
+
+            RelativeLayout specialIIconLayout = (RelativeLayout) convertView.findViewById(R.id.specialIcon);
+            RelativeLayout deathsIconLayout = (RelativeLayout) convertView.findViewById(R.id.deathsIcon);
+            RelativeLayout killsIconLayout = (RelativeLayout) convertView.findViewById(R.id.killsIcon);
 
             //Special Pieces
-            RelativeLayout specialBase = (RelativeLayout) convertView.findViewById(R.id.SpecialBase);
-            RelativeLayout specialColor = (RelativeLayout) convertView.findViewById(R.id.SpecialColor);
-            RelativeLayout specialOverlay = (RelativeLayout) convertView.findViewById(R.id.SpecialOverlay);
-
-            RelativeLayout killsIcon = (RelativeLayout) convertView.findViewById(R.id.KillsIcon);
-            RelativeLayout deathsIcon = (RelativeLayout) convertView.findViewById(R.id.DeathsIcon);
 
             TextView rank = (TextView) convertView.findViewById(R.id.Rank);
             TextView name = (TextView) convertView.findViewById(R.id.Name);
@@ -392,7 +453,7 @@ public class BattleInfo extends AppCompatActivity {
             TextView specialText = (TextView) convertView.findViewById(R.id.SpecialText);
 
             ImageView weapon = (ImageView) convertView.findViewById(R.id.Weapon);
-            ImageView specialOveride = (ImageView) convertView.findViewById(R.id.SpecialOveride);
+            ImageView specialIcon = (ImageView) convertView.findViewById(R.id.SpecialIcon);
 
             rank.setTypeface(font);
             name.setTypeface(font);
@@ -427,154 +488,15 @@ public class BattleInfo extends AppCompatActivity {
                 Picasso.with(context).load(url).into(weapon);
                 imageHandler.downloadImage("weapon", imageDirName, url, context);
             }
-
-            switch(player.user.weapon.special.id){
-                case 0://tentamissiles
-
-                    specialBase.setVisibility(View.VISIBLE);
-                    specialColor.setVisibility(View.VISIBLE);
-                    specialOverlay.setVisibility(View.VISIBLE);
-                    specialOveride.setVisibility(View.GONE);
-
-                    specialBase.setBackground(getResources().getDrawable(R.drawable.special_tentamissles_base));
-                    specialColor.setBackground(getResources().getDrawable(R.drawable.special_tentamissles_color));
-                    specialOverlay.setBackground(getResources().getDrawable(R.drawable.special_tentamissles_overlay));
-                    break;
-                case 1://ink armor
-
-                    specialBase.setVisibility(View.GONE);
-                    specialColor.setVisibility(View.VISIBLE);
-                    specialOverlay.setVisibility(View.VISIBLE);
-                    specialOveride.setVisibility(View.GONE);
-
-                    specialColor.setBackground(getResources().getDrawable(R.drawable.special_inkarmor_color));
-                    specialOverlay.setBackground(getResources().getDrawable(R.drawable.special_inkarmor_overlay));
-                    break;
-                case 2://splat bombs
-
-                    specialBase.setVisibility(View.VISIBLE);
-                    specialColor.setVisibility(View.VISIBLE);
-                    specialOverlay.setVisibility(View.VISIBLE);
-                    specialOveride.setVisibility(View.GONE);
-
-                    specialBase.setBackground(getResources().getDrawable(R.drawable.special_bombrush_splatbombs_base));
-                    specialColor.setBackground(getResources().getDrawable(R.drawable.special_bombrush_splatbombs_color));
-                    specialOverlay.setBackground(getResources().getDrawable(R.drawable.special_bombrush_splatbombs_overlay));
-                    break;
-                case 3://suction bombs
-                    specialBase.setVisibility(View.VISIBLE);
-                    specialColor.setVisibility(View.VISIBLE);
-                    specialOverlay.setVisibility(View.VISIBLE);
-                    specialOveride.setVisibility(View.GONE);
-
-                    specialBase.setBackground(getResources().getDrawable(R.drawable.special_bombrush_suctionbombs_base));
-                    specialColor.setBackground(getResources().getDrawable(R.drawable.special_bombrush_suctionbombs_color));
-                    specialOverlay.setBackground(getResources().getDrawable(R.drawable.special_bombrush_suctionbombs_overlay));
-                    break;
-                case 4:
-                    specialBase.setVisibility(View.GONE);
-                    specialColor.setVisibility(View.GONE);
-                    specialOverlay.setVisibility(View.GONE);
-                    specialOveride.setVisibility(View.VISIBLE);
-                    url = "https://app.splatoon2.nintendo.net"+player.user.weapon.special.url;
-
-                    imageHandler = new ImageHandler();
-                    imageDirName = player.user.weapon.special.name.toLowerCase().replace(" ", "_");
-                    if (imageHandler.imageExists("special", imageDirName, context)) {
-                        specialOveride.setImageBitmap(imageHandler.loadImage("special", imageDirName));
-                    } else {
-                        Picasso.with(context).load(url).into(specialOveride);
-                        imageHandler.downloadImage("special", imageDirName, url, context);
-                    }
-                    break;
-                case 5://curling bombs
-                    specialBase.setVisibility(View.VISIBLE);
-                    specialColor.setVisibility(View.VISIBLE);
-                    specialOverlay.setVisibility(View.VISIBLE);
-                    specialOveride.setVisibility(View.GONE);
-
-                    specialBase.setBackground(getResources().getDrawable(R.drawable.special_bombrush_curlingbombs_base));
-                    specialColor.setBackground(getResources().getDrawable(R.drawable.special_bombrush_curlingbombs_color));
-                    specialColor.setBackground(getResources().getDrawable(R.drawable.special_bombrush_curlingbombs_overlay));
-                    break;
-                case 6:
-                    url = "https://app.splatoon2.nintendo.net"+player.user.weapon.special.url;
-
-                    imageHandler = new ImageHandler();
-                    imageDirName = player.user.weapon.special.name.toLowerCase().replace(" ", "_");
-                    if (imageHandler.imageExists("special", imageDirName, context)) {
-                        specialOveride.setImageBitmap(imageHandler.loadImage("special", imageDirName));
-                    } else {
-                        Picasso.with(context).load(url).into(specialOveride);
-                        imageHandler.downloadImage("special", imageDirName, url, context);
-                    }
-                    break;
-                case 7://stingray
-                    specialBase.setVisibility(View.VISIBLE);
-                    specialColor.setVisibility(View.VISIBLE);
-                    specialOverlay.setVisibility(View.VISIBLE);
-                    specialOveride.setVisibility(View.GONE);
-
-                    specialBase.setBackground(getResources().getDrawable(R.drawable.special_stingray_base));
-                    specialColor.setBackground(getResources().getDrawable(R.drawable.special_stingray_color));
-                    specialOverlay.setBackground(getResources().getDrawable(R.drawable.special_stingray_overlay));
-                    break;
-                case 8://inkjet
-                    specialBase.setVisibility(View.VISIBLE);
-                    specialColor.setVisibility(View.VISIBLE);
-                    specialOverlay.setVisibility(View.VISIBLE);
-                    specialOveride.setVisibility(View.GONE);
-
-                    specialBase.setBackground(getResources().getDrawable(R.drawable.special_inkjet_base));
-                    specialColor.setBackground(getResources().getDrawable(R.drawable.special_inkjet_color));
-                    specialOverlay.setBackground(getResources().getDrawable(R.drawable.special_inkjet_overlay));
-                    break;
-                case 9://splashdown
-                    specialBase.setVisibility(View.VISIBLE);
-                    specialColor.setVisibility(View.VISIBLE);
-                    specialOverlay.setVisibility(View.VISIBLE);
-                    specialOveride.setVisibility(View.GONE);
-
-                    specialBase.setBackground(getResources().getDrawable(R.drawable.special_splashdown_base));
-                    specialColor.setBackground(getResources().getDrawable(R.drawable.special_splashdown_color));
-                    specialOverlay.setBackground(getResources().getDrawable(R.drawable.special_splashdown_overlay));
-                    break;
-                case 10://ink storm
-                    specialBase.setVisibility(View.GONE);
-                    specialColor.setVisibility(View.VISIBLE);
-                    specialOverlay.setVisibility(View.VISIBLE);
-                    specialOveride.setVisibility(View.GONE);
-
-                    specialColor.setBackground(getResources().getDrawable(R.drawable.special_inkstorm_color));
-                    specialOverlay.setBackground(getResources().getDrawable(R.drawable.special_inkstorm_overlay));
-                    break;
-                case 11://baller
-                    specialBase.setVisibility(View.GONE);
-                    specialColor.setVisibility(View.VISIBLE);
-                    specialOverlay.setVisibility(View.VISIBLE);
-                    specialOveride.setVisibility(View.GONE);
-
-                    specialColor.setBackground(getResources().getDrawable(R.drawable.special_baller_color));
-                    specialOverlay.setBackground(getResources().getDrawable(R.drawable.special_baller_overlay));
-                    break;
-                case 12://bubble blower
-                    specialBase.setVisibility(View.VISIBLE);
-                    specialColor.setVisibility(View.VISIBLE);
-                    specialOverlay.setVisibility(View.GONE);
-                    specialOveride.setVisibility(View.GONE);
-
-                    specialBase.setBackground(getResources().getDrawable(R.drawable.special_bubbleblower_base));
-                    specialColor.setBackground(getResources().getDrawable(R.drawable.special_bubbleblower_color));
-                    break;
-            }
+            //Set default colors
             if(isAlly){
-                specialColor.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.primary));
-                killsIcon.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.primary));
-                deathsIcon.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.primary));
+                specialIIconLayout.setBackgroundColor(getColor(R.color.colorPrimary));
+                killsIconLayout.setBackgroundColor(getColor(R.color.colorPrimary));
+                deathsIconLayout.setBackgroundColor(getColor(R.color.colorPrimary));
             }else{
-                specialColor.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.accent));
-                killsIcon.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.accent));
-                deathsIcon.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.accent));
+                specialIIconLayout.setBackgroundColor(getColor(R.color.colorAccent));
+                killsIconLayout.setBackgroundColor(getColor(R.color.colorAccent));
+                deathsIconLayout.setBackgroundColor(getColor(R.color.colorAccent));
             }
 
             String rankString;
@@ -604,17 +526,81 @@ public class BattleInfo extends AppCompatActivity {
                     break;
                 case "fes":
                     if(isAlly){
-                        specialColor.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
-                        killsIcon.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
-                        deathsIcon.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
+                        killsIconLayout.setBackgroundColor(Color.parseColor(battle.myTheme.color.getColor()));
+                        deathsIconLayout.setBackgroundColor(Color.parseColor(battle.myTheme.color.getColor()));
+                        specialIcon.setBackgroundColor(Color.parseColor(battle.myTheme.color.getColor()));
                     }else{
-                        specialColor.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
-                        killsIcon.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
-                        deathsIcon.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
+                        killsIconLayout.setBackgroundColor(Color.parseColor(battle.otherTheme.color.getColor()));
+                        deathsIconLayout.setBackgroundColor(Color.parseColor(battle.otherTheme.color.getColor()));
+                        specialIcon.setBackgroundColor(Color.parseColor(battle.otherTheme.color.getColor()));
                     }
                     rankString = String.valueOf(player.user.rank);
                     rank.setText(rankString);
                     fesGrade.setText(player.user.grade.name);
+                    break;
+            }
+
+            switch(player.user.weapon.special.id){
+                case 0://tentamissiles
+                    specialIcon.setImageDrawable(getDrawable(R.drawable.special_tentamissles));
+                    break;
+                case 1://ink armor
+                    specialIcon.setImageDrawable(getDrawable(R.drawable.special_inkarmor));
+                    break;
+                case 2://splat bombs
+                    specialIcon.setImageDrawable(getDrawable(R.drawable.special_bombrush_splatbombs));
+                    break;
+                case 3://suction bombs
+                    specialIcon.setImageDrawable(getDrawable(R.drawable.special_bombrush_suctionbombs));
+                    break;
+                case 4:
+                    killsIconLayout.setBackgroundColor(getColor(R.color.grey));
+
+                    url = "https://app.splatoon2.nintendo.net"+player.user.weapon.special.url;
+
+                    imageHandler = new ImageHandler();
+                    imageDirName = player.user.weapon.special.name.toLowerCase().replace(" ", "_");
+                    if (imageHandler.imageExists("special", imageDirName, context)) {
+                        specialIcon.setImageBitmap(imageHandler.loadImage("special", imageDirName));
+                    } else {
+                        Picasso.with(context).load(url).into(specialIcon);
+                        imageHandler.downloadImage("special", imageDirName, url, context);
+                    }
+                    break;
+                case 5://curling bombs
+                    specialIcon.setImageDrawable(getDrawable(R.drawable.special_bombrush_curlingbombs));
+                    break;
+                case 6:
+                    killsIconLayout.setBackgroundColor(getColor(R.color.grey));
+
+                    url = "https://app.splatoon2.nintendo.net"+player.user.weapon.special.url;
+
+                    imageHandler = new ImageHandler();
+                    imageDirName = player.user.weapon.special.name.toLowerCase().replace(" ", "_");
+                    if (imageHandler.imageExists("special", imageDirName, context)) {
+                        specialIcon.setImageBitmap(imageHandler.loadImage("special", imageDirName));
+                    } else {
+                        Picasso.with(context).load(url).into(specialIcon);
+                        imageHandler.downloadImage("special", imageDirName, url, context);
+                    }
+                    break;
+                case 7://stingray
+                    specialIcon.setImageDrawable(getDrawable(R.drawable.special_stingray));
+                    break;
+                case 8://inkjet
+                    specialIcon.setImageDrawable(getDrawable(R.drawable.special_inkjet));
+                    break;
+                case 9://splashdown
+                    specialIcon.setImageDrawable(getDrawable(R.drawable.special_splashdown));
+                    break;
+                case 10://ink storm
+                    specialIcon.setImageDrawable(getDrawable(R.drawable.special_inkstorm));
+                    break;
+                case 11://baller
+                    specialIcon.setImageDrawable(getDrawable(R.drawable.special_baller));
+                    break;
+                case 12://bubble blower
+                    specialIcon.setImageDrawable(getDrawable(R.drawable.special_bubbleblower));
                     break;
             }
             return convertView;

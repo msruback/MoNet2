@@ -535,6 +535,9 @@ class Splatfest implements Parcelable{
     SplatfestNames names;
     @SerializedName("special_stage")
     Stage stage;
+    @SerializedName("images")
+    SplatfestImages images;
+
 
     protected Splatfest(Parcel in) {
         id = in.readInt();
@@ -542,6 +545,7 @@ class Splatfest implements Parcelable{
         colors = in.readParcelable(SplatfestColors.class.getClassLoader());
         names = in.readParcelable(SplatfestNames.class.getClassLoader());
         stage = in.readParcelable(Stage.class.getClassLoader());
+        images = in.readParcelable(SplatfestImages.class.getClassLoader());
     }
 
     public static final Creator<Splatfest> CREATOR = new Creator<Splatfest>() {
@@ -568,6 +572,7 @@ class Splatfest implements Parcelable{
         dest.writeParcelable(colors, flags);
         dest.writeParcelable(names, flags);
         dest.writeParcelable(stage, flags);
+        dest.writeParcelable(images, flags);
     }
 }
 
@@ -773,6 +778,46 @@ class SplatfestNames implements Parcelable{
         dest.writeString(bravoDesc);
         dest.writeString(alpha);
         dest.writeString(alphaDesc);
+    }
+}
+class SplatfestImages implements Parcelable{
+    public SplatfestImages(){}
+
+    @SerializedName("panel")
+    String panel;
+    @SerializedName("alpha")
+    String alpha;
+    @SerializedName("bravo")
+    String bravo;
+
+    protected SplatfestImages(Parcel in) {
+        panel = in.readString();
+        alpha = in.readString();
+        bravo = in.readString();
+    }
+
+    public static final Creator<SplatfestImages> CREATOR = new Creator<SplatfestImages>() {
+        @Override
+        public SplatfestImages createFromParcel(Parcel in) {
+            return new SplatfestImages(in);
+        }
+
+        @Override
+        public SplatfestImages[] newArray(int size) {
+            return new SplatfestImages[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(panel);
+        dest.writeString(alpha);
+        dest.writeString(bravo);
     }
 }
 

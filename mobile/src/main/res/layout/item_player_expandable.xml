@@ -69,17 +69,14 @@
                 android:id="@+id/killsIcon"
                 android:layout_width="35dp"
                 android:layout_height="17.5dp"
-                android:layout_marginTop="11dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/icon_kills_base"></RelativeLayout>
-                <RelativeLayout
+                android:layout_marginTop="11dp"
+                android:background="@color/colorAccent"
+                android:padding="-1dp">
+                <ImageView
                     android:id="@+id/KillsIcon"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/icon_kills_color"
-                    android:backgroundTint="@color/colorPrimary"></RelativeLayout>
+                    android:layout_height="match_parent"
+                    android:src="@drawable/icon_kills"/>
             </RelativeLayout>
             <TextView
                 android:id="@+id/KillsText"
@@ -99,19 +96,16 @@
             android:layout_marginRight="10dp">
             <RelativeLayout
                 android:id="@+id/deathsIcon"
-                android:layout_width="35dp"
+                android:layout_width="33dp"
                 android:layout_height="17.5dp"
-                android:layout_marginTop="11dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/icon_deaths_base"></RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/DeathIcon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/icon_deaths_color"
-                    android:backgroundTint="@color/colorPrimary"></RelativeLayout>
+                android:layout_marginTop="11dp"
+                android:background="@color/colorAccent"
+                android:padding="-1dp">
+                <ImageView
+                    android:id="@+id/DeathsIcon"
+                    android:layout_width="33dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/icon_deaths"/>
             </RelativeLayout>
             <TextView
                 android:id="@+id/DeathsText"
@@ -132,33 +126,21 @@
             <RelativeLayout
                 android:id="@+id/specialIcon"
                 android:layout_width="30dp"
-                android:layout_height="30dp">
+                android:layout_height="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorAccent">
                 <ImageView
-                    android:id="@+id/SpecialOveride"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-                <RelativeLayout
-                    android:id="@+id/SpecialBase"
+                    android:id="@+id/SpecialIcon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/special_stingray_base"></RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/SpecialColor"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/special_stingray_color"
-                    android:backgroundTint="@color/pearl"></RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/SpecialOverlay"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/special_stingray_overlay"></RelativeLayout>
+                    android:src="@drawable/special_bombrush_curlingbombs"/>
             </RelativeLayout>
             <TextView
                 android:id="@+id/SpecialText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/specialIcon"
+                android:layout_marginTop="-2dp"
                 android:layout_centerHorizontal="true"
                 android:text="3"/>
         </RelativeLayout>

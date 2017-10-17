@@ -60,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         titles.add("Battles");
         titles.add("Settings");
 
+        //Just when I am too lazy to enter the token by hand
+        //SharedPreferences.Editor edit = settings.edit();
+        //edit.putString("cookie","iksm_token=");
+        //edit.commit();
+
         //Add fragments
         rotation = new RotationFragment();
         shop = new ShopFragment();

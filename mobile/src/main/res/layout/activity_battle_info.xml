@@ -250,15 +250,23 @@
                         android:background="@drawable/shape_card"
                         android:backgroundTint="@color/colorPrimary">
                         <RelativeLayout
+                            android:id="@+id/allyZigZag"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingBottom="10dp"
                             android:background="@drawable/repeat_zigzag">
+                            <ImageView
+                                android:id="@+id/AllyFesIcon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="10dp"
+                                android:rotation="-10"
+                                android:src="@drawable/vampire"/>
                             <TextView
                                 android:id="@+id/allyTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
+                                android:layout_toRightOf="@+id/AllyFesIcon"
                                 android:text="My Team"
                                 android:textSize="18sp" />
                             <ExpandableListView
@@ -284,15 +292,23 @@
                         android:background="@drawable/shape_card"
                         android:backgroundTint="@color/colorAccent">
                         <RelativeLayout
+                            android:id="@+id/foeZigZag"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingBottom="10dp"
                             android:background="@drawable/repeat_zigzag">
+                            <ImageView
+                                android:id="@+id/FoeFesIcon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="10dp"
+                                android:rotation="-10"
+                                android:src="@drawable/vampire"/>
                             <TextView
                                 android:id="@+id/foeTitle"
+                                android:layout_toRightOf="@+id/FoeFesIcon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
                                 android:text="Other Team"
                                 android:textSize="18sp" />
 

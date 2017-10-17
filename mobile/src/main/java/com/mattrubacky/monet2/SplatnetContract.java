@@ -233,6 +233,9 @@ public final class SplatnetContract {
         public static final String COLUMN_TEAM = "team";
         public static final String COLUMN_WINNER = "winner";
         public static final String COLUMN_STAGE = "stage";
+        public static final String COLUMN_IMAGE_PANEL = "image_panel";
+        public static final String COLUMN_IMAGE_ALPHA = "image_alpha";
+        public static final String COLUMN_IMAGE_BRAVO = "image_bravo";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
@@ -257,8 +260,11 @@ public final class SplatnetContract {
                 COLUMN_VOTE + " INTEGER, "+//0 alpha 1 bravo
                 COLUMN_SOLO + " INTEGER, "+//0 alpha 1 bravo
                 COLUMN_TEAM + " INTEGER, "+//0 alpha 1 bravo
-                COLUMN_WINNER + " INTEGER,"+
-                COLUMN_STAGE + " INTEGER REFERENCES stage(_id))";//0 alpha 1 bravo
+                COLUMN_WINNER + " INTEGER, "+//0 alpha 1 bravo
+                COLUMN_STAGE + " INTEGER REFERENCES stage(_id), " +
+                COLUMN_IMAGE_PANEL+ " TEXT, "+
+                COLUMN_IMAGE_ALPHA + " TEXT, "+
+                COLUMN_IMAGE_BRAVO + " TEXT)";
     }
 
     public static class SplatfestVotes implements BaseColumns{

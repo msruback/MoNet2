@@ -38,6 +38,7 @@ public class DebugActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.item_player_child);
+        new UpdateDataV3().execute();
     }
     class UpdateDataV3 extends AsyncTask<Void,Void,Void> {
 
@@ -86,7 +87,8 @@ public class DebugActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
         }
 
     }

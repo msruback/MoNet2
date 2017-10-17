@@ -139,6 +139,7 @@ public class BattleListFragment extends Fragment {
             RelativeLayout fesMode = (RelativeLayout) convertView.findViewById(R.id.FesMode);
             RelativeLayout alpha = (RelativeLayout) convertView.findViewById(R.id.Alpha);
             RelativeLayout bravo = (RelativeLayout) convertView.findViewById(R.id.Bravo);
+            RelativeLayout spots = (RelativeLayout) convertView.findViewById(R.id.Spots);
 
             TextView mode = (TextView) convertView.findViewById(R.id.mode);
             TextView map = (TextView) convertView.findViewById(R.id.map);
@@ -173,33 +174,41 @@ public class BattleListFragment extends Fragment {
 
             switch(battle.type){
                 case "regular":
+                    spots.setBackground(getResources().getDrawable(R.drawable.repeat_spots));
                     type.setImageDrawable(getResources().getDrawable(R.drawable.battle_regular));
                     item.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.turf));
                     fesMode.setVisibility(View.GONE);
                     type.setVisibility(View.VISIBLE);
                     break;
                 case "gachi":
+                    spots.setBackground(getResources().getDrawable(R.drawable.repeat_spots));
                     type.setImageDrawable(getResources().getDrawable(R.drawable.battle_ranked));
                     item.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.ranked));
                     fesMode.setVisibility(View.GONE);
                     type.setVisibility(View.VISIBLE);
                     break;
                 case "league":
+                    spots.setBackground(getResources().getDrawable(R.drawable.repeat_spots));
                     type.setImageDrawable(getResources().getDrawable(R.drawable.battle_league));
                     item.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.league));
                     fesMode.setVisibility(View.GONE);
                     type.setVisibility(View.VISIBLE);
                     break;
                 case "fes":
+                    spots.setBackground(getResources().getDrawable(R.drawable.repeat_spots_splatfest));
                     mode.setText("SP");
                     type.setVisibility(View.GONE);
                     fesMode.setVisibility(View.VISIBLE);
                     if(battle.myTheme.key.equals("alpha")){
                         alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
                         bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
+                        spots.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
+                        item.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
                     }else{
                         alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
                         bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
+                        spots.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
+                        item.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
                     }
                     break;
             }
