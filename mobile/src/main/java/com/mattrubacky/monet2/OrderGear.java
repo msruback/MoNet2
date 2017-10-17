@@ -1,16 +1,16 @@
 package com.mattrubacky.monet2;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
+import com.mattrubacky.monet2.deserialized.Annie;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Ordered;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Product;
 
 import java.io.IOException;
 

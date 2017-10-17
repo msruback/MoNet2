@@ -2,21 +2,35 @@ package com.mattrubacky.monet2;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import android.provider.BaseColumns;
-import android.widget.ArrayAdapter;
 
-import java.io.IOException;
+import com.mattrubacky.monet2.deserialized.Battle;
+import com.mattrubacky.monet2.deserialized.Brand;
+import com.mattrubacky.monet2.deserialized.Gear;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.GearSkills;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Player;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Rank;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Rule;
+import com.mattrubacky.monet2.deserialized.Skill;
+import com.mattrubacky.monet2.deserialized.Special;
+import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.SplatfestColor;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestColors;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestGrade;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestImages;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestNames;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestResult;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestTimes;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Stage;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Sub;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.TeamResult;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.TeamTheme;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.User;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Weapon;
+
 import java.util.ArrayList;
-
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by mattr on 9/22/2017.
@@ -639,7 +653,7 @@ public class SplatnetSQL {
 
     //Players
 
-    public void insertPlayer(Player player,String mode,int id,int type){
+    public void insertPlayer(Player player, String mode, int id, int type){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -1014,8 +1028,9 @@ public class SplatnetSQL {
     public Weapon selectWeapon(int id){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
-        String query = "SELECT * FROM "+ SplatnetContract.Weapon.TABLE_NAME+" WHERE "+ SplatnetContract.Weapon._ID+" = "+id;
-        Cursor cursor = database.rawQuery(query,null);
+        String whereClause = SplatnetContract.Weapon._ID +" = ?";
+        String[] args = new String[] {String.valueOf(id)};
+        Cursor cursor = database.query(SplatnetContract.Weapon.TABLE_NAME,null,whereClause,args,null,null,null);
 
         Weapon weapon = new Weapon();
 

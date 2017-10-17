@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -27,12 +26,14 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.wearable.DataItem;
-import com.google.android.gms.wearable.DataMap;
-import com.google.android.gms.wearable.DataMapItem;
-import com.google.android.gms.wearable.PutDataRequest;
-import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
+import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
+import com.mattrubacky.monet2.deserialized.Gear;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.SalmonRun;
+import com.mattrubacky.monet2.deserialized.SalmonSchedule;
+import com.mattrubacky.monet2.deserialized.Schedules;
+import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.TimePeriod;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;

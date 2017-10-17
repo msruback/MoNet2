@@ -3,16 +3,16 @@ package com.mattrubacky.monet2;
 /**
  * Created by mattr on 9/11/2017.
  */
-import android.preference.MultiSelectListPreference;
 
-import okhttp3.MultipartBody;
+import com.mattrubacky.monet2.deserialized.Annie;
+import com.mattrubacky.monet2.deserialized.Battle;
+import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
+import com.mattrubacky.monet2.deserialized.Schedules;
+import com.mattrubacky.monet2.deserialized.Timeline;
+
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -32,7 +32,7 @@ public interface Splatnet {
     Call<ResultList> get50Results(@Header("Cookie") String cookie);
 
     @GET("api/results/{battle}")
-    Call<Battle> getBattle(@Path("battle") String battle,@Header("Cookie") String Cookie);
+    Call<Battle> getBattle(@Path("battle") String battle, @Header("Cookie") String Cookie);
 
     @GET("api/records")
     Call<Record> getRecords(@Header("Cookie") String cookie);

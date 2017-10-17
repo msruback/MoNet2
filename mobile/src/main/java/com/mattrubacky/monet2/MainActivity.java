@@ -1,8 +1,6 @@
 package com.mattrubacky.monet2;
 
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +25,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.PastSplatfest;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Record;
+import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestResult;
+import com.mattrubacky.monet2.deserialized.Timeline;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Just when I am too lazy to enter the token by hand
         //SharedPreferences.Editor edit = settings.edit();
-        //edit.putString("cookie","iksm_token=");
+        //edit.putString("cookie","iksm_session=");
         //edit.commit();
 
         //Add fragments

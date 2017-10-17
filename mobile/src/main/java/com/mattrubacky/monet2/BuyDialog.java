@@ -2,7 +2,6 @@ package com.mattrubacky.monet2;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -19,16 +17,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.squareup.picasso.Downloader;
+import com.mattrubacky.monet2.deserialized.Annie;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Ordered;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Product;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Request;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.logging.Handler;
 
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

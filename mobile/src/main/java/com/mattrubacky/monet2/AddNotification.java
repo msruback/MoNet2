@@ -20,7 +20,6 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -29,10 +28,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.mattrubacky.monet2.deserialized.Gear;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.GearNotification;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.GearNotifications;
+import com.mattrubacky.monet2.deserialized.Skill;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Stage;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.StageNotification;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.StageNotifications;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class AddNotification extends AppCompatActivity {
 

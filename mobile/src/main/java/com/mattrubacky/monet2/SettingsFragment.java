@@ -29,11 +29,12 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.Releasable;
 import com.google.gson.Gson;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.GearNotification;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.GearNotifications;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.StageNotification;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.StageNotifications;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 

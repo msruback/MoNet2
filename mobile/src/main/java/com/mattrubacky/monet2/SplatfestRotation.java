@@ -2,7 +2,6 @@ package com.mattrubacky.monet2;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Stage;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.TimePeriod;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;

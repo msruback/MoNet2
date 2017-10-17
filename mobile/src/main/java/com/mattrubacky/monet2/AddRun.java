@@ -29,6 +29,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.google.gson.Gson;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.SalmonRun;
+import com.mattrubacky.monet2.deserialized.SalmonSchedule;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Weapon;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;

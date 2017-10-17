@@ -1,22 +1,18 @@
 package com.mattrubacky.monet2;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
-import com.google.android.gms.wearable.WearableListenerService;
 import com.google.gson.Gson;
-
-import java.util.Date;
+import com.mattrubacky.monet2.deserialized.SalmonSchedule;
+import com.mattrubacky.monet2.deserialized.Schedules;
 
 /**
  * Created by mattr on 9/30/2017.

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mattrubacky.monet2.deserialized.Battle;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.Player;
+import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -34,10 +36,7 @@ public class BattleInfo extends AppCompatActivity {
         setContentView(R.layout.activity_battle_info);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        int id = bundle.getInt("id");
-        SplatnetSQL database = new SplatnetSQL(getApplicationContext());
-        battle = database.selectBattle(id);
-
+        battle = bundle.getParcelable("battle");
 
         RelativeLayout meter = (RelativeLayout) findViewById(R.id.meter);
         meter.setClipToOutline(true);
@@ -205,7 +204,7 @@ public class BattleInfo extends AppCompatActivity {
                 foeCount.setText(percentCount);
                 break;
             case "fes":
-                Splatfest splatfest = database.selectSplatfest(battle.splatfestID);
+                Splatfest splatfest = bundle.getParcelable("splatfest");
 
                 allyCard.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
                 foeCard.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));

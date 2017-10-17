@@ -4,16 +4,16 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.google.gson.Gson;
+import com.mattrubacky.monet2.com.mattrubacky.deserialized.SalmonRun;
+import com.mattrubacky.monet2.deserialized.SalmonSchedule;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
