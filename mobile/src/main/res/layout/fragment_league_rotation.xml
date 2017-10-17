@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="match_parent"
-    tools:context="com.mattrubacky.monet2.LeagueRotation">
+    tools:context="com.mattrubacky.monet2.fragment.schedule.LeagueRotation">
 
     <RelativeLayout
         android:id="@+id/leagueTimeSection"

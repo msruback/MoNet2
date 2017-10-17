@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2;
+package com.mattrubacky.monet2.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 
+import com.mattrubacky.monet2.Splatnet;
 import com.mattrubacky.monet2.deserialized.*;
 
 import java.io.IOException;

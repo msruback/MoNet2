@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2;
+package com.mattrubacky.monet2.reciever;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -15,7 +15,14 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.google.gson.Gson;
 
+import com.mattrubacky.monet2.MainActivity;
+import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.Splatnet;
+import com.mattrubacky.monet2.sqlite.SplatnetContract;
+import com.mattrubacky.monet2.sqlite.SplatnetSQL;
+import com.mattrubacky.monet2.WearLink;
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.service.OrderGear;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

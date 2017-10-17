@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2;
+package com.mattrubacky.monet2.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -18,6 +18,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import com.mattrubacky.monet2.ImageHandler;
+import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.Splatnet;
 import com.mattrubacky.monet2.deserialized.*;
 
 import com.squareup.picasso.Picasso;

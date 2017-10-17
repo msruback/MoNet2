@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2;
+package com.mattrubacky.monet2.sqlite;
 
 import android.provider.BaseColumns;
 

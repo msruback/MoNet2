@@ -9,6 +9,8 @@ import android.os.Bundle;
 
 
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.sqlite.SplatnetContract;
+import com.mattrubacky.monet2.sqlite.SplatnetSQL;
 
 import java.io.IOException;
 import java.util.ArrayList;

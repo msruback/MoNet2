@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2;
+package com.mattrubacky.monet2.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,8 +28,13 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import com.mattrubacky.monet2.*;
+import com.mattrubacky.monet2.reciever.*;
+import com.mattrubacky.monet2.fragment.schedule.*;
 import com.mattrubacky.monet2.deserialized.*;
 
+import com.mattrubacky.monet2.sqlite.SplatnetContract;
+import com.mattrubacky.monet2.sqlite.SplatnetSQL;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2;
+package com.mattrubacky.monet2.reciever;
 
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -13,6 +13,8 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.google.gson.Gson;
 
+import com.mattrubacky.monet2.MainActivity;
+import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.*;
 
 import java.text.SimpleDateFormat;

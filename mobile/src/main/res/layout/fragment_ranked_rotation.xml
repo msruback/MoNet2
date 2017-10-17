@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    tools:context="com.mattrubacky.monet2.RankedRotation">
+    tools:context="com.mattrubacky.monet2.fragment.schedule.RankedRotation">
 
     <RelativeLayout
         android:id="@+id/rankedTimeSection"

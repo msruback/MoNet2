@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2;
+package com.mattrubacky.monet2.fragment.schedule;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mattrubacky.monet2.ImageHandler;
+import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.*;
 
 import com.squareup.picasso.Picasso;

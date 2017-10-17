@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2;
+package com.mattrubacky.monet2.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,8 +25,14 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import com.mattrubacky.monet2.BattleInfo;
+import com.mattrubacky.monet2.ImageHandler;
+import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.Splatnet;
+import com.mattrubacky.monet2.sqlite.SplatnetContract;
+import com.mattrubacky.monet2.sqlite.SplatnetSQL;
 import com.mattrubacky.monet2.deserialized.*;
-
+import com.mattrubacky.monet2.dialog.*;
 
 import com.squareup.picasso.Picasso;
 

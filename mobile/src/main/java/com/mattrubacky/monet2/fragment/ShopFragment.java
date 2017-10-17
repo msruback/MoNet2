@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2;
+package com.mattrubacky.monet2.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,8 +20,14 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import com.mattrubacky.monet2.ImageHandler;
+import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.Splatnet;
+import com.mattrubacky.monet2.sqlite.SplatnetContract;
+import com.mattrubacky.monet2.sqlite.SplatnetSQL;
 import com.mattrubacky.monet2.deserialized.*;
 
+import com.mattrubacky.monet2.dialog.BuyDialog;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;

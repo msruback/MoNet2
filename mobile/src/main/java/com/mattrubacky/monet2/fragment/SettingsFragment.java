@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2;
+package com.mattrubacky.monet2.fragment;
 
 
 import android.app.Activity;
@@ -31,7 +31,14 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import com.mattrubacky.monet2.AddNotification;
+import com.mattrubacky.monet2.reciever.BootReciever;
+import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
+import com.mattrubacky.monet2.ImageHandler;
+import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.reciever.SalmonAlarm;
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.dialog.*;
 
 import com.squareup.picasso.Picasso;
 

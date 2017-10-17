@@ -15,17 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
-            android:name=".DataUpdateAlarm"
+            android:name=".reciever.DataUpdateAlarm"
             android:enabled="true"
             android:exported="true"
             android:process=":remote" />
         <receiver
-            android:name=".SalmonAlarm"
+            android:name=".reciever.SalmonAlarm"
             android:enabled="true"
             android:exported="true"
             android:process=":remote" />
         <receiver
-            android:name=".BootReciever"
+            android:name=".reciever.BootReciever"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -38,7 +38,7 @@
         </receiver>
 
         <service
-            android:name=".OrderGear"
+            android:name=".service.OrderGear"
             android:exported="true" />
 
         <activity

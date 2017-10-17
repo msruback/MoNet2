@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.sqlite.SplatnetSQL;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
