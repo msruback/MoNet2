@@ -7,12 +7,17 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents the gamemode for a TimePeriod
  */
 public class Gamemode implements Parcelable {
     public Gamemode(){
     }
+    //The pretty name of the gamemode
     @SerializedName("name")
     String name;
+    /**The name of the gamemode lowercase with underscores
+     * This could be "regular", "gachi", "league", and "fes"
+     */
     @SerializedName("key")
     String key;
 

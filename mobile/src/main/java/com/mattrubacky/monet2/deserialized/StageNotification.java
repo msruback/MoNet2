@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by mattr on 10/17/2017.
  */
-class StageNotification implements Parcelable {
+public class StageNotification implements Parcelable {
     public StageNotification(){}
 
     @SerializedName("stage")

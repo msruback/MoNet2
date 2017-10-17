@@ -4,28 +4,35 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestColors;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestImages;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestNames;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.SplatfestTimes;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Stage;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents a Splatfest
+ * Present in the festivals/pasts and festivals/active endpoints
  */
 public class Splatfest implements Parcelable {
     public Splatfest(){}
 
     @SerializedName("festival_id")
     int id;
+
+    //The time the splatfest starts and ends, as well as the time it was announced and results were posted
     @SerializedName("times")
     SplatfestTimes times;
+
+    //The colors in the splatfest
     @SerializedName("colors")
     SplatfestColors colors;
+
+    //The names of the sides
     @SerializedName("names")
     SplatfestNames names;
+
+    //The Special Stage
     @SerializedName("special_stage")
     Stage stage;
+
+    //The Images in the Splatfest
     @SerializedName("images")
     SplatfestImages images;
 

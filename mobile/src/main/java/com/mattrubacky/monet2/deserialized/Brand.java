@@ -7,17 +7,25 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents an individual gear brand.
+ * Brand images are stored in brand
  */
 
 public class Brand implements Parcelable{
     public Brand(){}
 
-    @SerializedName("name")
-    String name;
     @SerializedName("id")
     int id;
+
+    //The name of the brand
+    @SerializedName("name")
+    String name;
+
+    //Url of the brand url
     @SerializedName("image")
     String url;
+
+    //The skill the brand is most likely to roll
     @SerializedName("frequent_skill")
     Skill skill;
 

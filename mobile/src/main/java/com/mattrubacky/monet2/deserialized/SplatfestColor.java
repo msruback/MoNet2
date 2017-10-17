@@ -7,37 +7,30 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents one side's color in a Splatfest
+ * Part of the Splatfest Object
  */
 public class SplatfestColor implements Parcelable {
     public SplatfestColor(){}
+
+    //Blue value
     @SerializedName("b")
     double b;
+
+    //Red value
     @SerializedName("r")
     double r;
+
+    //Green value
     @SerializedName("g")
     double g;
+
+    //The hex string
+    //Note: This is not from the Splatnet API
     @SerializedName("color")
-    String color;
+    private String color;
 
-    protected SplatfestColor(Parcel in) {
-        b = in.readDouble();
-        r = in.readDouble();
-        g = in.readDouble();
-        color = in.readString();
-    }
-
-    public static final Creator<SplatfestColor> CREATOR = new Creator<SplatfestColor>() {
-        @Override
-        public SplatfestColor createFromParcel(Parcel in) {
-            return new SplatfestColor(in);
-        }
-
-        @Override
-        public SplatfestColor[] newArray(int size) {
-            return new SplatfestColor[size];
-        }
-    };
-
+    //The method used to get/build the color
     public String getColor(){
         if(color==null) {
             StringBuilder builder = new StringBuilder();
@@ -74,6 +67,25 @@ public class SplatfestColor implements Parcelable {
                 return String.valueOf(num);
         }
     }
+
+    protected SplatfestColor(Parcel in) {
+        b = in.readDouble();
+        r = in.readDouble();
+        g = in.readDouble();
+        color = in.readString();
+    }
+
+    public static final Creator<SplatfestColor> CREATOR = new Creator<SplatfestColor>() {
+        @Override
+        public SplatfestColor createFromParcel(Parcel in) {
+            return new SplatfestColor(in);
+        }
+
+        @Override
+        public SplatfestColor[] newArray(int size) {
+            return new SplatfestColor[size];
+        }
+    };
 
     @Override
     public int describeContents() {

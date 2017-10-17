@@ -4,14 +4,20 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This is the gear the user ordered but has yet to pick up from Merch
  */
-class Ordered{
+public class Ordered{
     public Ordered(){}
 
+    //The gear ordered
     @SerializedName("gear")
     Gear gear;
+
+    //The price
     @SerializedName("price")
     String price;
+
+    //The main ability
     @SerializedName("skill")
     Skill skill;
 

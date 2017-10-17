@@ -7,18 +7,27 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class holds the various strings refering to both sides in a Splatfest
+ * Part of the Splatfest object
  */
-class SplatfestNames implements Parcelable {
+public class SplatfestNames implements Parcelable {
     public SplatfestNames(){}
 
-    @SerializedName("bravo_short")
-    String bravo;
-    @SerializedName("bravo_long")
-    String bravoDesc;
+    //The name of side Alpha
     @SerializedName("alpha_short")
     String alpha;
+
+    //A brief description of side Alpha
     @SerializedName("alpha_long")
     String alphaDesc;
+
+    //The name of side Bravo
+    @SerializedName("bravo_short")
+    String bravo;
+
+    //A brief description of side Bravo
+    @SerializedName("bravo_long")
+    String bravoDesc;
 
     protected SplatfestNames(Parcel in) {
         bravo = in.readString();

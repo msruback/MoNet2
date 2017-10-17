@@ -7,20 +7,27 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents a Stage
+ * It is used in both Schedules, Splatfests, and Battles
+ * Stage images are stored in the stage directory
  */
-class Stage implements Parcelable {
+public class Stage implements Parcelable {
     public Stage(){}
 
     @SerializedName("id")
     int id;
+
+    //The URL of the Stage image
     @SerializedName("image")
-    String image;
+    String url;
+
+    //The name of the Stage
     @SerializedName("name")
     String name;
 
     protected Stage(Parcel in) {
         id = in.readInt();
-        image = in.readString();
+        url = in.readString();
         name = in.readString();
     }
 
@@ -44,7 +51,7 @@ class Stage implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
-        dest.writeString(image);
+        dest.writeString(url);
         dest.writeString(name);
     }
 }

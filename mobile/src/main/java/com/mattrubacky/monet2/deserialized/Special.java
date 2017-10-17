@@ -18,6 +18,8 @@ public class Special implements Parcelable {
     int id;
     @SerializedName("name")
     String name;
+
+    //The URL of the basic url
     @SerializedName("image_a")
     String url;
 

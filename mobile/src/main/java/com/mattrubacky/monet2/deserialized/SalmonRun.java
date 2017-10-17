@@ -4,23 +4,35 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.Weapon;
 
 import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents a Salmon Run Shift
+ * Note: This is not from the Splatnet API
  */
-class SalmonRun implements Parcelable {
+public class SalmonRun implements Parcelable {
     public SalmonRun() {
     }
 
+    //The time the shift starts
+    //Note: This is in milliseconds from epoch
     @SerializedName("start")
     long startTime;
+
+    //The time the shift ends
+    //Note: This is in milliseconds from epoch
     @SerializedName("end")
     long endTime;
+
+    //The Stage the shift will be on
+    //Note: Currently this is only a String not a stage object
     @SerializedName("stage")
     String stage;
+
+    //The List of weapons available for the run, -1 is mystery
+    //Note: Will always be size()==4, however items might be null
     @SerializedName("weapons")
     ArrayList<Weapon> weapons;
 

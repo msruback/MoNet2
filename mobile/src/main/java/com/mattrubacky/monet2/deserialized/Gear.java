@@ -7,20 +7,31 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents an item of Gear(Headgear, Clothing, or Shoes)
+ * This is used by the Shop, Battles(Player Gear), and the Closet
+ * Gear images are stored in the gear directory
  */
 public class Gear implements Parcelable {
     public Gear(){}
 
-    @SerializedName("name")
-    String name;
-    @SerializedName("brand")
-    Brand brand;
-    @SerializedName("image")
-    String url;
-    @SerializedName("rarity")
-    int rarity;
     @SerializedName("id")
     int id;
+    @SerializedName("name")
+    String name;
+
+    //The Brand of the Gear
+    @SerializedName("brand")
+    Brand brand;
+
+    //The URL of the gear url
+    @SerializedName("image")
+    String url;
+
+    //The amount of ability slots a piece of gear has
+    @SerializedName("rarity")
+    int rarity;
+
+    //The type of the gear, "head","clothes",and "shoe"
     @SerializedName("kind")
     String kind;
 

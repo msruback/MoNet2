@@ -9,11 +9,16 @@ import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents the Abilities associated with gear
  */
-class GearSkills implements Parcelable {
+public class GearSkills implements Parcelable {
     public GearSkills(){}
+
+    //The main ability of a gear
     @SerializedName("main")
     Skill main;
+
+    //The sub abilities of a gear
     @SerializedName("subs")
     ArrayList<Skill> subs;
 

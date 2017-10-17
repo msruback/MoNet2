@@ -4,11 +4,7 @@ package com.mattrubacky.monet2;
  * Created by mattr on 9/11/2017.
  */
 
-import com.mattrubacky.monet2.deserialized.Annie;
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
-import com.mattrubacky.monet2.deserialized.Schedules;
-import com.mattrubacky.monet2.deserialized.Timeline;
+import com.mattrubacky.monet2.deserialized.*;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;

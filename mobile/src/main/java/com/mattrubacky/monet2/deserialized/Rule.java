@@ -7,13 +7,15 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents the rule a TimePeriod or a battle has(Turf War, Rainmaker, etc)
  */
-class Rule implements Parcelable {
+public class Rule implements Parcelable {
     public Rule(){}
 
     @SerializedName("name")
     String name;
 
+    //Name lowercase and with underscores
     @SerializedName("key")
     String key;
 

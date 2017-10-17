@@ -9,9 +9,11 @@ import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/17/2017.
- */ //Not Technically from Splatnet, but small enough to include as a tagalong
+ * The list of Salmon Run shifts
+ */
 public class SalmonSchedule implements Parcelable {
     public SalmonSchedule(){}
+
     @SerializedName("schedule")
     ArrayList<SalmonRun> schedule;
 

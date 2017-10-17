@@ -7,17 +7,28 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents a pieces of Gear for sale in the shop
  */
-class Product implements Parcelable {
+public class Product implements Parcelable {
     public Product(){}
-    @SerializedName("gear")
-    Gear gear;
-    @SerializedName("price")
-    String price;
+
     @SerializedName("id")
     String id;
+
+    //The Gear for sale
+    @SerializedName("gear")
+    Gear gear;
+
+    //The price of the gear
+    @SerializedName("price")
+    String price;
+
+    //The Main Ability on the Gear
     @SerializedName("skill")
     Skill skill;
+
+    //The time the gear stops being available
+    //IMPORTANT: This is in seconds from epoch, Jave takes milliseconds from epoch,don't forget to multiply by 1000
     @SerializedName("end_time")
     Long endTime;
 

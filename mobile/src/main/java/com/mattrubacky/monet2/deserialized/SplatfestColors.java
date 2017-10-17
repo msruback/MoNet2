@@ -7,12 +7,20 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class holds colors for both sides in a Splatfest
+ * Alpha is the first side, supported by Pearl
+ * Bravo is the second side, supported by Marina
+ * Part of the Splatfest Object
  */
-class SplatfestColors implements Parcelable {
+public class SplatfestColors implements Parcelable {
     public SplatfestColors(){
     }
+
+    //Side Alpha's colors.
     @SerializedName("alpha")
     SplatfestColor alpha;
+
+    //Side Bravo's colors
     @SerializedName("bravo")
     SplatfestColor bravo;
 

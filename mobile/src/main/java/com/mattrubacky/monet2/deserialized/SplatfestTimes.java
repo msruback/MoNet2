@@ -7,16 +7,26 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * Contains the important times in a splatfest
+ * Part of the Splatfest object
  */
 class SplatfestTimes implements Parcelable {
     public SplatfestTimes(){}
 
+    //The time the Splatfest begins
     @SerializedName("start")
     Long start;
+
+    //The time the Splatfest ends
     @SerializedName("end")
     Long end;
+
+    //The time Pearl and Marina first annouced the Splatfest
     @SerializedName("announce")
     Long announce;
+
+    //The time Pearl and Marina announced the results of the Splatfest
+    //Note: As results are only presented after the Splatfest is over, this is only present in the festivals/pasts endpoint
     @SerializedName("result")
     Long result;
 

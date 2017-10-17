@@ -4,24 +4,35 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.com.mattrubacky.deserialized.User;
 
 /**
  * Created by mattr on 10/17/2017.
+ * The stats of a player in a battle
  */
-class Player implements Parcelable {
+public class Player implements Parcelable {
     public Player(){}
 
+    //The player's identity
     @SerializedName("player")
     User user;
+
+    //The number of deaths the player had in the game
     @SerializedName("death_count")
     int deaths;
-    @SerializedName("assist_count")
-    int assists;
+
+    //The number of kills the player had in the game, including assists
     @SerializedName("kill_count")
     int kills;
+
+    //The number of assists the player had in the game
+    @SerializedName("assist_count")
+    int assists;
+
+    //The amount the player inked in the game
     @SerializedName("game_paint_point")
     int points;
+
+    //The amount of times the player used their special in the game
     @SerializedName("special_count")
     int special;
 

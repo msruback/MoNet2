@@ -9,13 +9,21 @@ import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents an Alert set for certain gear
+ * This is used for both Battle Gear Notifications and Shop Notifications
  */
-class GearNotification implements Parcelable {
+public class GearNotification implements Parcelable {
     public GearNotification(){}
+
+    //The gear that notifications are requested for
     @SerializedName("gear")
     Gear gear;
+
+    //The ability that is requested for the gear. If the id is -1, abilities don't matter
     @SerializedName("ability")
     Skill skill;
+
+    //A list of Shop listings the user was already notified about
     @SerializedName("notified")
     ArrayList<Product> notified;
 

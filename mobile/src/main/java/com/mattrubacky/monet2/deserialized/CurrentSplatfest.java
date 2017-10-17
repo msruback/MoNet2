@@ -9,9 +9,12 @@ import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This is the root of the response of the festivals/active endpoint
  */
 public class CurrentSplatfest implements Parcelable {
     public CurrentSplatfest(){}
+
+    //The list of upcoming and active splatfests. As far as I know this can only be size()==0||size()==1
     @SerializedName("festivals")
     ArrayList<Splatfest> splatfests;
 

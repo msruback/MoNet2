@@ -7,14 +7,21 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * The images used in the splatfest
+ * Part of the Splatfest Object
  */
-class SplatfestImages implements Parcelable {
+public class SplatfestImages implements Parcelable {
     public SplatfestImages(){}
 
+    //The background for both Alpha and Bravo
     @SerializedName("panel")
     String panel;
+
+    //Side Alpha's Logo
     @SerializedName("alpha")
     String alpha;
+
+    //Side Bravo's Logo
     @SerializedName("bravo")
     String bravo;
 

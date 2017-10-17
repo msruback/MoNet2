@@ -7,17 +7,20 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
- * This class represents individual abilities. Skill images are stored in the ability directory.
+ * This class represents individual abilities.
+ * Skill images are stored in the ability directory.
  */
 public class Skill implements Parcelable {
     public Skill(){}
 
-    @SerializedName("name")
-    String name;
-    @SerializedName("image")
-    String url;
     @SerializedName("id")
     int id;
+    @SerializedName("name")
+    String name;
+
+    //The URL of the Ability images
+    @SerializedName("image")
+    String url;
 
     protected Skill(Parcel in) {
         name = in.readString();

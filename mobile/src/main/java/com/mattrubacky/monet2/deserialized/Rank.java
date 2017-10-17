@@ -7,11 +7,16 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * This class represents a player's competitive rank in a game mode
  */
-class Rank implements Parcelable {
+public class Rank implements Parcelable {
     public Rank(){}
+
+    //The Rank
     @SerializedName("name")
     String rank;
+
+    //If the rank is S+ this is the number after that, otherwise null
     @SerializedName("s_plus_number")
     String sPlus;
 

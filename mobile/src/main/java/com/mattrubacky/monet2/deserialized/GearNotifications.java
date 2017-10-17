@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/17/2017.
+ * The class just wraps the GearNotification ArrayList to make deserialization easier
  */
-class GearNotifications{
-    public GearNotifications(){
-    }
+public class GearNotifications{
+    public GearNotifications(){}
     @SerializedName("notifications")
     ArrayList<GearNotification> notifications;
 }

@@ -7,8 +7,9 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 10/17/2017.
+ * A User's Grade in a splatfest
  */
-class SplatfestGrade implements Parcelable {
+public class SplatfestGrade implements Parcelable {
     public SplatfestGrade(){
     }
     @SerializedName("name")
