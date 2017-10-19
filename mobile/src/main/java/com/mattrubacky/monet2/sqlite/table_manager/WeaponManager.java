@@ -65,14 +65,15 @@ public class WeaponManager {
     }
 
     public void insert(){
+
+        subManager.insert();
+        specialManager.insert();
+
         if(toInsert.size()>0) {
             SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
             ContentValues values = new ContentValues();
 
             Integer[] keys = (Integer[]) toInsert.keySet().toArray();
-
-            subManager.insert();
-            specialManager.insert();
 
             Weapon weapon;
 

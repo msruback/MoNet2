@@ -67,21 +67,29 @@ public class StageManager {
 
             Integer[] keys = (Integer[]) toInsert.keySet().toArray();
 
+            String whereClause = SplatnetContract.Stage._ID +" = ?";
+            String[] args;
+            Cursor cursor = null;
+
             Stage stage;
             for (int i = 0; i < keys.length; i++) {
-                values = new ContentValues();
 
                 stage = toInsert.get(keys[i]);
 
-                values.put(SplatnetContract.Stage._ID, stage.id);
-                values.put(SplatnetContract.Stage.COLUMN_NAME, stage.name);
-                values.put(SplatnetContract.Stage.COLUMN_URL, stage.url);
+                args = new String[] {String.valueOf(stage.id)};
+                cursor = database.query(SplatnetContract.Stage.TABLE_NAME,null,whereClause,args,null,null,null);
+                if(cursor.getCount()==0) {
+                    values = new ContentValues();
+                    values.put(SplatnetContract.Stage._ID, stage.id);
+                    values.put(SplatnetContract.Stage.COLUMN_NAME, stage.name);
+                    values.put(SplatnetContract.Stage.COLUMN_URL, stage.url);
 
-                database.insert(SplatnetContract.Stage.TABLE_NAME, null, values);
+                    database.insert(SplatnetContract.Stage.TABLE_NAME, null, values);
+                }
             }
             database.close();
+            toInsert = new HashMap<>();
         }
-        toInsert = new HashMap<>();
     }
 
     public Stage select(int id){

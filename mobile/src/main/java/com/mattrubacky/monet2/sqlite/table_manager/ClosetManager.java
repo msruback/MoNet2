@@ -17,10 +17,14 @@ public class ClosetManager {
     HashMap<Integer,ClosetHanger> toUpdate;
     HashMap<Integer,ClosetHanger> toInsert;
     ArrayList<Integer> toSelect;
-    ArrayList<ClosetHanger> selected;
 
     public ClosetManager(Context context){
         this.context = context;
+
+        toInsert = new HashMap<>();  //using a hashmap to prevent duplicate entries
+        toUpdate = new HashMap<>();  //using a hashmap to prevent duplicate entries, and keep updates low
+        toSelect = new ArrayList<>();
+
     }
 
     private boolean exists(int id){

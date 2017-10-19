@@ -24,60 +24,59 @@ public class SubManager {
 
     public SubManager(Context context){
         this.context = context;
-        toInsert = new HashMap<>();
+        toInsert = new HashMap<>(); //using a hashmap to prevent duplicate entries
         toSelect = new ArrayList<>();
     }
-    public boolean exists(int id){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
 
-        String whereClause = SplatnetContract.Sub._ID +" = ?";
-        String[] args = new String[] {String.valueOf(id)};
-        Cursor cursor = database.query(SplatnetContract.Sub.TABLE_NAME,null,whereClause,args,null,null,null);
-
-        if(cursor.getCount()==0){
-            cursor.close();
-            database.close();
-            return false;
-        }else{
-            cursor.close();
-            database.close();
-            return true;
-        }
-    }
-
+    //Add a sub to be inserted
     public void addToInsert(Sub sub){
-        if(!exists(sub.id)) {
-            toInsert.put(sub.id, sub);
-        }
+        toInsert.put(sub.id, sub);
     }
+
+    //Add a sub to be selected
     public void addToSelect(int id){
         if(!toSelect.contains(id)){
             toSelect.add(id);
         }
     }
 
+    //Method to execute the insert
     public void insert(){
         if(toInsert.size()>0) {
             SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-            ContentValues values = new ContentValues();
+            ContentValues values;
 
             Integer[] keys = (Integer[]) toInsert.keySet().toArray();
 
+            String whereClause = SplatnetContract.Sub._ID +" = ?";
+            String[] args;
+            Cursor cursor = null;
+
             Sub sub;
             for (int i = 0; i < keys.length; i++) {
-                sub = new Sub();
+                sub = toInsert.get(keys[i]);
 
-                values.put(SplatnetContract.Sub._ID, sub.id);
-                values.put(SplatnetContract.Sub.COLUMN_NAME, sub.name);
-                values.put(SplatnetContract.Sub.COLUMN_URL, sub.url);
+                args = new String[] {String.valueOf(sub.id)};
+                cursor = database.query(SplatnetContract.Sub.TABLE_NAME,null,whereClause,args,null,null,null);
+                if(cursor.getCount()==0) {
+                    values = new ContentValues();
 
-                database.insert(SplatnetContract.Sub.TABLE_NAME, null, values);
+                    values.put(SplatnetContract.Sub._ID, sub.id);
+                    values.put(SplatnetContract.Sub.COLUMN_NAME, sub.name);
+                    values.put(SplatnetContract.Sub.COLUMN_URL, sub.url);
+
+                    database.insert(SplatnetContract.Sub.TABLE_NAME, null, values);
+                }
+            }
+            if(cursor!=null){
+                cursor.close();
             }
             database.close();
+            toInsert = new HashMap<>();
         }
-        toInsert = new HashMap<>();
     }
 
+    //Method to execute the select
     public HashMap<Integer,Sub> select(){
         HashMap<Integer,Sub> selected = new HashMap<>();
 
@@ -89,6 +88,7 @@ public class SubManager {
         StringBuilder builder = new StringBuilder();
         builder.append(SplatnetContract.Sub._ID+" = ?");
 
+        //build the select statement
         for(int i=1;i<toSelect.size();i++){
             builder.append(" OR "+SplatnetContract.Sub._ID+" = ?");
             args[i] = String.valueOf(toSelect.get(i));

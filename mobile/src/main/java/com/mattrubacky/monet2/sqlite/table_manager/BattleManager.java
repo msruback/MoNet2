@@ -171,8 +171,6 @@ public class BattleManager {
         String query = "SELECT * FROM "+ SplatnetContract.Battle.TABLE_NAME+ " WHERE "+ SplatnetContract.Battle._ID+ " = "+id;
         Cursor cursor = database.rawQuery(query,null);
 
-        ArrayList<PlayerDatabase> players = playerManager.select();
-
         Battle battle = new Battle();
         if(cursor.moveToFirst()) {
             battle.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle._ID));
@@ -242,6 +240,10 @@ public class BattleManager {
                     break;
             }
         }
+
+        HashMap<Integer,ArrayList<PlayerDatabase>> players = playerManager.select();
+        HashMap<Integer,Stage> stages = stageManager.select();
+
         cursor.close();
         database.close();
         return battle;

@@ -48,9 +48,7 @@ public class SpecialManager {
     }
 
     public void addToInsert(Special special){
-        if(!exists(special.id)) {
-            toInsert.put(special.id, special);
-        }
+        toInsert.put(special.id, special);
     }
     public void addToSelect(int id){
         if(!toSelect.contains(id)){
@@ -61,21 +59,34 @@ public class SpecialManager {
     public void insert(){
         if(toInsert.size()>0) {
             SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-            ContentValues values = new ContentValues();
+            ContentValues values;
 
             Integer[] keys = (Integer[]) toInsert.keySet().toArray();
 
+            String whereClause = SplatnetContract.Special._ID +" = ?";
+            String[] args;
+            Cursor cursor = null;
+
             Special special;
             for (int i = 0; i < keys.length; i++) {
+                values = new ContentValues();
                 special = new Special();
 
-                values.put(SplatnetContract.Special._ID, special.id);
-                values.put(SplatnetContract.Special.COLUMN_NAME, special.name);
-                values.put(SplatnetContract.Special.COLUMN_URL, special.url);
+                args = new String[] {String.valueOf(special.id)};
+                cursor = database.query(SplatnetContract.Special.TABLE_NAME,null,whereClause,args,null,null,null);
+                if(cursor.getCount()==0) {
 
-                database.insert(SplatnetContract.Special.TABLE_NAME, null, values);
+                    values.put(SplatnetContract.Special._ID, special.id);
+                    values.put(SplatnetContract.Special.COLUMN_NAME, special.name);
+                    values.put(SplatnetContract.Special.COLUMN_URL, special.url);
+
+                    database.insert(SplatnetContract.Special.TABLE_NAME, null, values);
+                }
             }
             database.close();
+            if(cursor!=null){
+                cursor.close();
+            }
         }
         toInsert = new HashMap<>();
     }
