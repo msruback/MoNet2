@@ -10,7 +10,7 @@ import android.os.Bundle;
 
 import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
-import com.mattrubacky.monet2.sqlite.SplatnetSQL;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class DebugActivity extends AppCompatActivity {
                 Splatnet splatnet = retrofit.create(Splatnet.class);
                 Response response;
                 ArrayList<Battle> list = new ArrayList<>();
-                SplatnetSQL database = new SplatnetSQL(getApplicationContext());
+                SplatnetSQLManager database = new SplatnetSQLManager(getApplicationContext());
                 response = splatnet.get50Results(cookie).execute();
                 if(response.isSuccessful()) {
                     ResultList results = (ResultList) response.body();

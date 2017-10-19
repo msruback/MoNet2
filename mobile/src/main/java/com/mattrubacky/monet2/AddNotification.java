@@ -29,7 +29,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.*;
-import com.mattrubacky.monet2.sqlite.SplatnetSQL;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -428,8 +428,8 @@ public class AddNotification extends AppCompatActivity {
 
             title.setTypeface(titleFont);
 
-            SplatnetSQL splatnetSQL = new SplatnetSQL(getApplicationContext());
-            gearList = splatnetSQL.getGear();
+            SplatnetSQLManager splatnetSQLManager = new SplatnetSQLManager(getApplicationContext());
+            gearList = splatnetSQLManager.getGear();
 
             final GearAdapter gearAdapter = new GearAdapter(getApplicationContext(),gearList);
 
@@ -487,13 +487,13 @@ public class AddNotification extends AppCompatActivity {
 
             title.setTypeface(titleFont);
 
-            SplatnetSQL splatnetSQL = new SplatnetSQL(getApplicationContext());
+            SplatnetSQLManager splatnetSQLManager = new SplatnetSQLManager(getApplicationContext());
             skills = new ArrayList<>();
             Skill anySkill = new Skill();
             anySkill.id = -1;
             anySkill.name = "Any";
             skills.add(anySkill);
-            skills.addAll(splatnetSQL.getSkills());
+            skills.addAll(splatnetSQLManager.getSkills());
 
             final SkillAdapter skillAdapter = new SkillAdapter(getApplicationContext(),skills);
 
@@ -552,13 +552,13 @@ public class AddNotification extends AppCompatActivity {
 
             title.setTypeface(titleFont);
 
-            SplatnetSQL splatnetSQL = new SplatnetSQL(getApplicationContext());
+            SplatnetSQLManager splatnetSQLManager = new SplatnetSQLManager(getApplicationContext());
             stages = new ArrayList<>();
             Stage anyStage = new Stage();
             anyStage.id = -1;
             anyStage.name = "Any";
             stages.add(anyStage);
-            stages.addAll(splatnetSQL.getStages());
+            stages.addAll(splatnetSQLManager.getStages());
 
             final StageAdapter stageAdapter = new StageAdapter(getApplicationContext(),stages);
 

@@ -32,7 +32,7 @@ import com.mattrubacky.monet2.reciever.BootReciever;
 import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
 import com.mattrubacky.monet2.reciever.SalmonAlarm;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
-import com.mattrubacky.monet2.sqlite.SplatnetSQL;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 String cookie = settings.getString("cookie","");
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
-                SplatnetSQL database = new SplatnetSQL(getApplicationContext());
+                SplatnetSQLManager database = new SplatnetSQLManager(getApplicationContext());
 
 
                 Call<Timeline> getTimeline = splatnet.getTimeline(cookie);

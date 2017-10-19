@@ -24,7 +24,7 @@ import com.mattrubacky.monet2.ImageHandler;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.Splatnet;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
-import com.mattrubacky.monet2.sqlite.SplatnetSQL;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.mattrubacky.monet2.deserialized.*;
 
 import com.mattrubacky.monet2.dialog.BuyDialog;
@@ -406,7 +406,7 @@ public class ShopFragment extends Fragment {
                 Response response = shopUpdate.execute();
                 if(response.isSuccessful()){
                     shop = (Annie) response.body();
-                    SplatnetSQL database = new SplatnetSQL(getContext());
+                    SplatnetSQLManager database = new SplatnetSQLManager(getContext());
                     for(int i=0;i<shop.merch.size();i++){
                         if(!database.existsIn(SplatnetContract.Gear.TABLE_NAME,SplatnetContract.Gear._ID,shop.merch.get(i).gear.id)){
                             database.insertGear(shop.merch.get(i).gear);

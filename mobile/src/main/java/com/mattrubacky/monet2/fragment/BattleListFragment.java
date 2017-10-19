@@ -30,7 +30,7 @@ import com.mattrubacky.monet2.ImageHandler;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.Splatnet;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
-import com.mattrubacky.monet2.sqlite.SplatnetSQL;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.dialog.*;
 
@@ -51,7 +51,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BattleListFragment extends Fragment {
     ViewGroup rootView;
-    SplatnetSQL database;
+    SplatnetSQLManager database;
     android.os.Handler customHandler;
     ArrayList<Battle> battles;
     UpdateBattleData updateBattleData;
@@ -63,7 +63,7 @@ public class BattleListFragment extends Fragment {
                 R.layout.fragment_battle_list, container, false);
 
         customHandler = new android.os.Handler();
-        database = new SplatnetSQL(getContext());
+        database = new SplatnetSQLManager(getContext());
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
         updateBattleData = new UpdateBattleData();

@@ -31,7 +31,7 @@ import android.widget.TimePicker;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.reciever.SalmonAlarm;
-import com.mattrubacky.monet2.sqlite.SplatnetSQL;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -442,13 +442,13 @@ public class AddRun extends AppCompatActivity {
 
             title.setTypeface(titleFont);
 
-            SplatnetSQL splatnetSQL = new SplatnetSQL(getApplicationContext());
+            SplatnetSQLManager splatnetSQLManager = new SplatnetSQLManager(getApplicationContext());
             weapons = new ArrayList<>();
             Weapon mystery = new Weapon();
             mystery.id =-1;
             mystery.name = "Mystery";
             weapons.add(mystery);
-            weapons.addAll(splatnetSQL.getWeapons());
+            weapons.addAll(splatnetSQLManager.getWeapons());
 
             final WeaponAdapter weaponAdapter = new WeaponAdapter(getApplicationContext(),weapons);
 

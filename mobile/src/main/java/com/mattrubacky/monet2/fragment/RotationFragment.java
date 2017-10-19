@@ -34,7 +34,7 @@ import com.mattrubacky.monet2.fragment.schedule.*;
 import com.mattrubacky.monet2.deserialized.*;
 
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
-import com.mattrubacky.monet2.sqlite.SplatnetSQL;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -249,7 +249,7 @@ public class RotationFragment extends Fragment {
                 Response response = rotationGet.execute();
                 if(response.isSuccessful()){
                     schedules = (Schedules) response.body();
-                    SplatnetSQL database = new SplatnetSQL(getContext());
+                    SplatnetSQLManager database = new SplatnetSQLManager(getContext());
                     for(int i=0;i<schedules.regular.size();i++){
                         if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.regular.get(i).a.id)){
                             database.insertStage(schedules.regular.get(i).a);

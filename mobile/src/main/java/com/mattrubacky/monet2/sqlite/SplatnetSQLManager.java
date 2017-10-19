@@ -4,9 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.sqlite.table_manager.BattleManager;
 
 import java.util.ArrayList;
 
@@ -14,13 +14,14 @@ import java.util.ArrayList;
  * Created by mattr on 9/22/2017.
  */
 
-public class SplatnetSQL {
+public class SplatnetSQLManager {
 
     Context context;
-    public SplatnetSQL(Context context){
+    BattleManager battleManager;
+
+    public SplatnetSQLManager(Context context){
         this.context = context;
     }
-
 
     public boolean existsIn(String tableName,String column, int id){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
@@ -404,230 +405,6 @@ public class SplatnetSQL {
 
     //Battles
 
-    public void insertBattle(Battle battle){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(SplatnetContract.Battle._ID,battle.id);
-        values.put(SplatnetContract.Battle.COLUMN_RESULT,battle.result.name);
-        values.put(SplatnetContract.Battle.COLUMN_RULE,battle.rule.name);
-        values.put(SplatnetContract.Battle.COLUMN_MODE,battle.type);
-        values.put(SplatnetContract.Battle.COLUMN_START_TIME,battle.start);
-        switch (battle.type){
-            case "regular":
-                values.put(SplatnetContract.Battle.COLUMN_ALLY_SCORE,battle.myTeamPercent);
-                values.put(SplatnetContract.Battle.COLUMN_FOE_SCORE,battle.otherTeamPercent);
-                break;
-            case "fes":
-                values.put(SplatnetContract.Battle.COLUMN_ALLY_SCORE,battle.myTeamPercent);
-                values.put(SplatnetContract.Battle.COLUMN_FOE_SCORE,battle.otherTeamPercent);
-                values.put(SplatnetContract.Battle.COLUMN_FES,battle.splatfestID);
-                values.put(SplatnetContract.Battle.COLUMN_POWER,battle.fesPower);
-
-                values.put(SplatnetContract.Battle.COLUMN_MY_TEAM_COLOR,battle.myTheme.color.getColor());
-                values.put(SplatnetContract.Battle.COLUMN_MY_TEAM_KEY,battle.myTheme.key);
-                values.put(SplatnetContract.Battle.COLUMN_MY_TEAM_NAME,battle.myTheme.name);
-
-                values.put(SplatnetContract.Battle.COLUMN_OTHER_TEAM_COLOR,battle.otherTheme.color.getColor());
-                values.put(SplatnetContract.Battle.COLUMN_OTHER_TEAM_KEY,battle.otherTheme.key);
-                values.put(SplatnetContract.Battle.COLUMN_OTHER_TEAM_NAME,battle.otherTheme.name);
-                break;
-            case "gachi":
-                values.put(SplatnetContract.Battle.COLUMN_ALLY_SCORE,battle.myTeamCount);
-                values.put(SplatnetContract.Battle.COLUMN_FOE_SCORE,battle.otherTeamCount);
-                values.put(SplatnetContract.Battle.COLUMN_POWER,battle.gachiPower);
-                values.put(SplatnetContract.Battle.COLUMN_ELAPSED_TIME,battle.time);
-                break;
-        }
-
-        if(existsIn(SplatnetContract.Closet.TABLE_NAME, SplatnetContract.Closet._ID,battle.user.user.head.id)){
-            updateCloset(battle.user.user.head,battle.user.user.headSkills,battle);
-        }else{
-            insertCloset(battle.user.user.head,battle.user.user.headSkills,battle);
-        }
-
-        if(existsIn(SplatnetContract.Closet.TABLE_NAME, SplatnetContract.Closet._ID,battle.user.user.clothes.id)){
-            updateCloset(battle.user.user.clothes,battle.user.user.clothesSkills,battle);
-        }else{
-            insertCloset(battle.user.user.clothes,battle.user.user.clothesSkills,battle);
-        }
-
-        if(existsIn(SplatnetContract.Closet.TABLE_NAME, SplatnetContract.Closet._ID,battle.user.user.shoes.id)){
-            updateCloset(battle.user.user.shoes,battle.user.user.shoeSkills,battle);
-        }else{
-            insertCloset(battle.user.user.shoes,battle.user.user.shoeSkills,battle);
-        }
-
-
-        if(!existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,battle.stage.id)){
-            insertStage(battle.stage);
-        }
-        values.put(SplatnetContract.Battle.COLUMN_STAGE,battle.stage.id);
-
-        database.insert(SplatnetContract.Battle.TABLE_NAME, null, values);
-        insertPlayer(battle.user,battle.type,battle.id,0);
-        for(int i=0;i<battle.myTeam.size();i++){
-            insertPlayer(battle.myTeam.get(i),battle.type,battle.id,1);
-        }
-        for(int i=0;i<battle.otherTeam.size();i++){
-            insertPlayer(battle.otherTeam.get(i),battle.type,battle.id,2);
-        }
-        database.close();
-    }
-
-    public ArrayList<Battle> selectBattles(int num){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
-
-        String query = "SELECT * FROM "+ SplatnetContract.Battle.TABLE_NAME;
-        Cursor cursor = database.rawQuery(query,null);
-
-        ArrayList<Battle> battles = new ArrayList<Battle>();
-
-        if(cursor.moveToLast()) {
-            do {
-                Battle battle = new Battle();
-                battle.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle._ID));
-                battle.type = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MODE));
-                battle.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_START_TIME));
-
-                Rule rule = new Rule();
-                rule.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
-                battle.rule = rule;
-
-                TeamResult teamResult = new TeamResult();
-                teamResult.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
-                battle.result = teamResult;
-
-                battle.stage = selectStage(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_STAGE)));
-
-                battle.user = selectPlayer(battle.id,0).get(0);
-                battle.myTeam = selectPlayer(battle.id,1);
-                battle.otherTeam = selectPlayer(battle.id,2);
-
-                switch (battle.type){
-                    case "regular":
-                        battle.myTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ALLY_SCORE));
-                        battle.otherTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FOE_SCORE));
-                        break;
-                    case "gachi":
-                        battle.gachiPower = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_POWER));
-                        battle.myTeamCount = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ALLY_SCORE));
-                        battle.otherTeamCount = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FOE_SCORE));
-                        battle.time = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ELAPSED_TIME));
-                        break;
-                    case "fes":
-                        battle.fesPower = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_POWER));
-                        battle.myTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ALLY_SCORE));
-                        battle.otherTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FOE_SCORE));
-                        battle.splatfestID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FES));
-
-                        TeamTheme theme = new TeamTheme();
-                        SplatfestColor color = new SplatfestColor();
-                        color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_COLOR));
-                        theme.color = color;
-                        theme.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_KEY));
-                        theme.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_NAME));
-                        battle.myTheme = theme;
-
-                        theme = new TeamTheme();
-                        color = new SplatfestColor();
-                        color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_COLOR));
-                        theme.color = color;
-                        theme.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_KEY));
-                        theme.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_NAME));
-                        battle.otherTheme = theme;
-                        break;
-                }
-
-                battles.add(battle);
-                num--;
-            } while (cursor.moveToPrevious()&&num>0);
-        }
-        cursor.close();
-        database.close();
-        return battles;
-    }
-    public Battle selectBattle(int id){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-
-        String query = "SELECT * FROM "+ SplatnetContract.Battle.TABLE_NAME+ " WHERE "+ SplatnetContract.Battle._ID+ " = "+id;
-        Cursor cursor = database.rawQuery(query,null);
-
-        Battle battle = new Battle();
-        if(cursor.moveToFirst()) {
-            battle.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle._ID));
-            battle.type = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MODE));
-            battle.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_START_TIME));
-
-            Rule rule = new Rule();
-            rule.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
-            battle.rule = rule;
-
-            TeamResult teamResult = new TeamResult();
-            teamResult.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
-            battle.result = teamResult;
-
-            battle.stage = selectStage(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_STAGE)));
-
-            battle.user = selectPlayer(battle.id,0).get(0);
-            battle.myTeam = selectPlayer(battle.id,1);
-            battle.otherTeam = selectPlayer(battle.id,2);
-
-            switch (battle.type){
-                case "regular":
-                    battle.myTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ALLY_SCORE));
-                    battle.otherTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FOE_SCORE));
-                    break;
-                case "gachi":
-                    battle.gachiPower = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_POWER));
-                    battle.myTeamCount = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ALLY_SCORE));
-                    battle.otherTeamCount = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FOE_SCORE));
-                    battle.time = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ELAPSED_TIME));
-                    break;
-                case "fes":
-                    battle.fesPower = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_POWER));
-                    battle.myTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ALLY_SCORE));
-                    battle.otherTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FOE_SCORE));
-                    battle.splatfestID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FES));
-
-                    TeamTheme theme = new TeamTheme();
-                    SplatfestColor color = new SplatfestColor();
-                    color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_COLOR));
-                    theme.color = color;
-                    theme.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_KEY));
-                    theme.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_NAME));
-                    battle.myTheme = theme;
-
-                    theme = new TeamTheme();
-                    color = new SplatfestColor();
-                    color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_COLOR));
-                    theme.color = color;
-                    theme.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_KEY));
-                    theme.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_NAME));
-                    battle.otherTheme = theme;
-                    break;
-            }
-        }
-        cursor.close();
-        database.close();
-        return battle;
-    }
-    public int battleCount(){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        String query = "SELECT * FROM "+ SplatnetContract.Battle.TABLE_NAME;
-        Cursor cursor = database.rawQuery(query,null);
-        int count = cursor.getCount();
-        cursor.close();
-        database.close();
-        return count;
-    }
-    public void deleteBattle(int id){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        String selection = SplatnetContract.Battle._ID+"=?";
-        String[] args = {String.valueOf(id)};
-        database.delete(SplatnetContract.Battle.TABLE_NAME, selection, args);
-        database.close();
-    }
 
     //Players
 
@@ -1099,72 +876,3 @@ public class SplatnetSQL {
 }
 
 
-class SplatnetSQLHelper extends SQLiteOpenHelper {
-
-
-    private static final int DATABASE_VERSION = 3;
-    public static final String DATABASE_NAME = "splatnet";
-
-    public SplatnetSQLHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
-        //Tables without Foriegn Keys (Level 0 )
-        sqLiteDatabase.execSQL(SplatnetContract.Skill.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Sub.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Special.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Stage.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Splatfest.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Friends.CREATE_TABLE);
-
-        //Tables with Foriegn Keys to Level 0 (Level 1)
-        sqLiteDatabase.execSQL(SplatnetContract.Battle.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Brand.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Weapon.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.SplatfestVotes.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Rotation.CREATE_TABLE);
-
-        //Tables with at least one Foriegn Key to Level 1 (Level 2)
-        sqLiteDatabase.execSQL(SplatnetContract.Gear.CREATE_TABLE);
-
-        //Tables with at least one Foriegn Key to Level 2 (Level 3)
-        sqLiteDatabase.execSQL(SplatnetContract.Player.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Closet.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Shop.CREATE_TABLE);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVer, int newVer) {
-
-
-        for(int i=oldVer+1;i<=newVer;i++) {
-            switch (i) {
-
-                case 3:
-                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS weapon_locker");
-                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS stage_postcards");
-                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS chunk_bag");
-                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS rotation");
-                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS shop");
-
-                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_MY_TEAM_COLOR + " TEXT");
-                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_MY_TEAM_KEY + " TEXT");
-                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_MY_TEAM_NAME + " TEXT");
-
-                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_OTHER_TEAM_COLOR + " TEXT");
-                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_OTHER_TEAM_KEY + " TEXT");
-                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_OTHER_TEAM_NAME + " TEXT");
-
-                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Splatfest.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Splatfest.COLUMN_STAGE + " INTEGER REFERENCES stage(_id)");
-                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Splatfest.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Splatfest.COLUMN_IMAGE_PANEL + " INTEGER REFERENCES stage(_id)");
-                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Splatfest.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Splatfest.COLUMN_IMAGE_ALPHA + " INTEGER REFERENCES stage(_id)");
-                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Splatfest.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Splatfest.COLUMN_IMAGE_BRAVO + " INTEGER REFERENCES stage(_id)");
-
-                    break;
-            }
-        }
-    }
-}
