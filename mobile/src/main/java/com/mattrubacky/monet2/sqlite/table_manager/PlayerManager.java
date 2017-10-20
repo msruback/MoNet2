@@ -56,125 +56,126 @@ public class PlayerManager {
     }
 
     public void insert(){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-
         gearManager.insert();
         weaponManager.insert();
         skillManager.insert();
+        if(toInsert.size()>0) {
+            SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
 
-        ContentValues values;
+            ContentValues values;
 
-        PlayerDatabase player;
+            PlayerDatabase player;
 
-        for(int i=0;i<toInsert.size();i++){
-            player = new PlayerDatabase();
-            values = new ContentValues();
+            for (int i = 0; i < toInsert.size(); i++) {
+                player = new PlayerDatabase();
+                values = new ContentValues();
 
-            values.put(SplatnetContract.Player.COLUMN_MODE,player.battleType);
-            values.put(SplatnetContract.Player.COLUMN_BATTLE,player.battleID);
-            values.put(SplatnetContract.Player.COLUMN_TYPE,player.playerType);
-            values.put(SplatnetContract.Player.COLUMN_ID,player.player.user.id);
-            values.put(SplatnetContract.Player.COLUMN_NAME,player.player.user.name);
-            values.put(SplatnetContract.Player.COLUMN_LEVEL,player.player.user.rank);
-            values.put(SplatnetContract.Player.COLUMN_POINT,player.player.points);
-            values.put(SplatnetContract.Player.COLUMN_KILL,player.player.kills);
-            values.put(SplatnetContract.Player.COLUMN_ASSIST,player.player.assists);
-            values.put(SplatnetContract.Player.COLUMN_DEATH,player.player.deaths);
-            values.put(SplatnetContract.Player.COLUMN_SPECIAL,player.player.special);
+                values.put(SplatnetContract.Player.COLUMN_MODE, player.battleType);
+                values.put(SplatnetContract.Player.COLUMN_BATTLE, player.battleID);
+                values.put(SplatnetContract.Player.COLUMN_TYPE, player.playerType);
+                values.put(SplatnetContract.Player.COLUMN_ID, player.player.user.id);
+                values.put(SplatnetContract.Player.COLUMN_NAME, player.player.user.name);
+                values.put(SplatnetContract.Player.COLUMN_LEVEL, player.player.user.rank);
+                values.put(SplatnetContract.Player.COLUMN_POINT, player.player.points);
+                values.put(SplatnetContract.Player.COLUMN_KILL, player.player.kills);
+                values.put(SplatnetContract.Player.COLUMN_ASSIST, player.player.assists);
+                values.put(SplatnetContract.Player.COLUMN_DEATH, player.player.deaths);
+                values.put(SplatnetContract.Player.COLUMN_SPECIAL, player.player.special);
 
-            switch (player.battleType){
-                case "gachi":
-                    values.put(SplatnetContract.Player.COLUMN_RANK,player.player.user.udamae.rank);
-                    values.put(SplatnetContract.Player.COLUMN_S_NUM,player.player.user.udamae.sPlus);
-                    break;
-                case "fes":
-                    values.put(SplatnetContract.Player.COLUMN_FES_GRADE,player.player.user.grade.name);
-            }
-
-
-            values.put(SplatnetContract.Player.COLUMN_WEAPON,player.player.user.weapon.id);
-
-
-            values.put(SplatnetContract.Player.COLUMN_HEAD,player.player.user.head.id);
-            values.put(SplatnetContract.Player.COLUMN_HEAD_MAIN,player.player.user.headSkills.main.id);
-
-            //Insert sub skills
-            if(player.player.user.headSkills.subs.get(0)!=null) {
-                values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_1,player.player.user.headSkills.subs.get(0).id);
-                if(player.player.user.headSkills.subs.get(1)!=null) {
-                    values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_2,player.player.user.headSkills.subs.get(1).id);
-                    if(player.player.user.headSkills.subs.get(2)!=null) {
-                        values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3,player.player.user.headSkills.subs.get(2).id);
-                    }else{
-                        values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3,-1);
-                    }
-                }else{
-
-                    values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_2,-1);
-                    values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3,-1);
+                switch (player.battleType) {
+                    case "gachi":
+                        values.put(SplatnetContract.Player.COLUMN_RANK, player.player.user.udamae.rank);
+                        values.put(SplatnetContract.Player.COLUMN_S_NUM, player.player.user.udamae.sPlus);
+                        break;
+                    case "fes":
+                        values.put(SplatnetContract.Player.COLUMN_FES_GRADE, player.player.user.grade.name);
                 }
-            }else{
-                values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_1,-1);
-                values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_2,-1);
-                values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3,-1);
-            }
 
 
-            values.put(SplatnetContract.Player.COLUMN_CLOTHES,player.player.user.clothes.id);
-            values.put(SplatnetContract.Player.COLUMN_CLOTHES_MAIN,player.player.user.clothesSkills.main.id);
+                values.put(SplatnetContract.Player.COLUMN_WEAPON, player.player.user.weapon.id);
 
-            //Insert sub skills
-            if(player.player.user.clothesSkills.subs.get(0)!=null) {
-                values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_1,player.player.user.clothesSkills.subs.get(0).id);
-                if(player.player.user.clothesSkills.subs.get(1)!=null) {
-                    values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2,player.player.user.clothesSkills.subs.get(1).id);
-                    if(player.player.user.clothesSkills.subs.get(2)!=null) {
-                        values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3,player.player.user.clothesSkills.subs.get(2).id);
-                    }else{
-                        values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3,-1);
+
+                values.put(SplatnetContract.Player.COLUMN_HEAD, player.player.user.head.id);
+                values.put(SplatnetContract.Player.COLUMN_HEAD_MAIN, player.player.user.headSkills.main.id);
+
+                //Insert sub skills
+                if (player.player.user.headSkills.subs.get(0) != null) {
+                    values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_1, player.player.user.headSkills.subs.get(0).id);
+                    if (player.player.user.headSkills.subs.get(1) != null) {
+                        values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_2, player.player.user.headSkills.subs.get(1).id);
+                        if (player.player.user.headSkills.subs.get(2) != null) {
+                            values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3, player.player.user.headSkills.subs.get(2).id);
+                        } else {
+                            values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3, -1);
+                        }
+                    } else {
+
+                        values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_2, -1);
+                        values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3, -1);
                     }
-                }else{
-
-                    values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2,-1);
-                    values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3,-1);
+                } else {
+                    values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_1, -1);
+                    values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_2, -1);
+                    values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3, -1);
                 }
-            }else{
-                values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_1,-1);
-                values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2,-1);
-                values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3,-1);
-            }
 
-            values.put(SplatnetContract.Player.COLUMN_SHOES,player.player.user.shoes.id);
-            values.put(SplatnetContract.Player.COLUMN_SHOES_MAIN,player.player.user.shoeSkills.main.id);
 
-            //Insert sub skills
-            if(player.player.user.shoeSkills.subs.get(0)!=null) {
-                values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_1,player.player.user.shoeSkills.subs.get(0).id);
-                if(player.player.user.shoeSkills.subs.get(1)!=null) {
+                values.put(SplatnetContract.Player.COLUMN_CLOTHES, player.player.user.clothes.id);
+                values.put(SplatnetContract.Player.COLUMN_CLOTHES_MAIN, player.player.user.clothesSkills.main.id);
 
-                    values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_2,player.player.user.shoeSkills.subs.get(1).id);
-                    if(player.player.user.shoeSkills.subs.get(2)!=null) {
+                //Insert sub skills
+                if (player.player.user.clothesSkills.subs.get(0) != null) {
+                    values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_1, player.player.user.clothesSkills.subs.get(0).id);
+                    if (player.player.user.clothesSkills.subs.get(1) != null) {
+                        values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2, player.player.user.clothesSkills.subs.get(1).id);
+                        if (player.player.user.clothesSkills.subs.get(2) != null) {
+                            values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3, player.player.user.clothesSkills.subs.get(2).id);
+                        } else {
+                            values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3, -1);
+                        }
+                    } else {
 
-                        values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3,player.player.user.shoeSkills.subs.get(2).id);
-                    }else{
-                        values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3,-1);
+                        values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2, -1);
+                        values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3, -1);
                     }
-                }else{
-
-                    values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_2,-1);
-                    values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3,-1);
+                } else {
+                    values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_1, -1);
+                    values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2, -1);
+                    values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3, -1);
                 }
-            }else{
-                values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_1,-1);
-                values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_2,-1);
-                values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3,-1);
+
+                values.put(SplatnetContract.Player.COLUMN_SHOES, player.player.user.shoes.id);
+                values.put(SplatnetContract.Player.COLUMN_SHOES_MAIN, player.player.user.shoeSkills.main.id);
+
+                //Insert sub skills
+                if (player.player.user.shoeSkills.subs.get(0) != null) {
+                    values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_1, player.player.user.shoeSkills.subs.get(0).id);
+                    if (player.player.user.shoeSkills.subs.get(1) != null) {
+
+                        values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_2, player.player.user.shoeSkills.subs.get(1).id);
+                        if (player.player.user.shoeSkills.subs.get(2) != null) {
+
+                            values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3, player.player.user.shoeSkills.subs.get(2).id);
+                        } else {
+                            values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3, -1);
+                        }
+                    } else {
+
+                        values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_2, -1);
+                        values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3, -1);
+                    }
+                } else {
+                    values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_1, -1);
+                    values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_2, -1);
+                    values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3, -1);
+                }
+
+
+                database.insert(SplatnetContract.Player.TABLE_NAME, null, values);
             }
-
-
-            database.insert(SplatnetContract.Player.TABLE_NAME, null, values);
+            database.close();
+            toInsert = new ArrayList<>();
         }
-        database.close();
-        toInsert = new ArrayList<>();
     }
 
     public HashMap<Integer,ArrayList<PlayerDatabase>> select(){

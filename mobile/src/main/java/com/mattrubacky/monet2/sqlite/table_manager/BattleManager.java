@@ -108,59 +108,71 @@ public class BattleManager {
 
     //Call this method to finalize the insert
     public void insert(){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        ContentValues values;
-        Battle battle;
+        if(toInsert.size()>0) {
+            SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+            ContentValues values;
+            Battle battle;
 
-        //Insert other tables
-        playerManager.insert(); //playerManager needs to insert before closetManager to prevent Closet from referencing gear not in the database and to keep things simple
-        closetManager.insert();
-        stageManager.insert();
+            //Insert other tables
+            playerManager.insert(); //playerManager needs to insert before closetManager to prevent Closet from referencing gear not in the database and to keep things simple
+            closetManager.insert();
+            stageManager.insert();
 
-        for(int i=0;i<toInsert.size();i++) {
-            values = new ContentValues();
-            battle = toInsert.get(i);
+            String whereClause = SplatnetContract.Battle._ID + " = ?";
+            String[] args;
+            Cursor cursor = null;
 
+            for (int i = 0; i < toInsert.size(); i++) {
+                values = new ContentValues();
+                battle = toInsert.get(i);
 
-            values.put(SplatnetContract.Battle._ID, battle.id);
-            values.put(SplatnetContract.Battle.COLUMN_RESULT, battle.result.name);
-            values.put(SplatnetContract.Battle.COLUMN_RULE, battle.rule.name);
-            values.put(SplatnetContract.Battle.COLUMN_MODE, battle.type);
-            values.put(SplatnetContract.Battle.COLUMN_START_TIME, battle.start);
-            switch (battle.type) {
-                case "regular":
-                    values.put(SplatnetContract.Battle.COLUMN_ALLY_SCORE, battle.myTeamPercent);
-                    values.put(SplatnetContract.Battle.COLUMN_FOE_SCORE, battle.otherTeamPercent);
-                    break;
-                case "fes":
-                    values.put(SplatnetContract.Battle.COLUMN_ALLY_SCORE, battle.myTeamPercent);
-                    values.put(SplatnetContract.Battle.COLUMN_FOE_SCORE, battle.otherTeamPercent);
-                    values.put(SplatnetContract.Battle.COLUMN_FES, battle.splatfestID);
-                    values.put(SplatnetContract.Battle.COLUMN_POWER, battle.fesPower);
+                args = new String[]{String.valueOf(battle.id)};
+                cursor = database.query(SplatnetContract.Sub.TABLE_NAME, null, whereClause, args, null, null, null);
+                if (cursor.getCount() == 0) {
 
-                    values.put(SplatnetContract.Battle.COLUMN_MY_TEAM_COLOR, battle.myTheme.color.getColor());
-                    values.put(SplatnetContract.Battle.COLUMN_MY_TEAM_KEY, battle.myTheme.key);
-                    values.put(SplatnetContract.Battle.COLUMN_MY_TEAM_NAME, battle.myTheme.name);
+                    values.put(SplatnetContract.Battle._ID, battle.id);
+                    values.put(SplatnetContract.Battle.COLUMN_RESULT, battle.result.name);
+                    values.put(SplatnetContract.Battle.COLUMN_RULE, battle.rule.name);
+                    values.put(SplatnetContract.Battle.COLUMN_MODE, battle.type);
+                    values.put(SplatnetContract.Battle.COLUMN_START_TIME, battle.start);
+                    switch (battle.type) {
+                        case "regular":
+                            values.put(SplatnetContract.Battle.COLUMN_ALLY_SCORE, battle.myTeamPercent);
+                            values.put(SplatnetContract.Battle.COLUMN_FOE_SCORE, battle.otherTeamPercent);
+                            break;
+                        case "fes":
+                            values.put(SplatnetContract.Battle.COLUMN_ALLY_SCORE, battle.myTeamPercent);
+                            values.put(SplatnetContract.Battle.COLUMN_FOE_SCORE, battle.otherTeamPercent);
+                            values.put(SplatnetContract.Battle.COLUMN_FES, battle.splatfestID);
+                            values.put(SplatnetContract.Battle.COLUMN_POWER, battle.fesPower);
 
-                    values.put(SplatnetContract.Battle.COLUMN_OTHER_TEAM_COLOR, battle.otherTheme.color.getColor());
-                    values.put(SplatnetContract.Battle.COLUMN_OTHER_TEAM_KEY, battle.otherTheme.key);
-                    values.put(SplatnetContract.Battle.COLUMN_OTHER_TEAM_NAME, battle.otherTheme.name);
-                    break;
-                case "gachi":
-                    values.put(SplatnetContract.Battle.COLUMN_ALLY_SCORE, battle.myTeamCount);
-                    values.put(SplatnetContract.Battle.COLUMN_FOE_SCORE, battle.otherTeamCount);
-                    values.put(SplatnetContract.Battle.COLUMN_POWER, battle.gachiPower);
-                    values.put(SplatnetContract.Battle.COLUMN_ELAPSED_TIME, battle.time);
-                    break;
+                            values.put(SplatnetContract.Battle.COLUMN_MY_TEAM_COLOR, battle.myTheme.color.getColor());
+                            values.put(SplatnetContract.Battle.COLUMN_MY_TEAM_KEY, battle.myTheme.key);
+                            values.put(SplatnetContract.Battle.COLUMN_MY_TEAM_NAME, battle.myTheme.name);
+
+                            values.put(SplatnetContract.Battle.COLUMN_OTHER_TEAM_COLOR, battle.otherTheme.color.getColor());
+                            values.put(SplatnetContract.Battle.COLUMN_OTHER_TEAM_KEY, battle.otherTheme.key);
+                            values.put(SplatnetContract.Battle.COLUMN_OTHER_TEAM_NAME, battle.otherTheme.name);
+                            break;
+                        case "gachi":
+                            values.put(SplatnetContract.Battle.COLUMN_ALLY_SCORE, battle.myTeamCount);
+                            values.put(SplatnetContract.Battle.COLUMN_FOE_SCORE, battle.otherTeamCount);
+                            values.put(SplatnetContract.Battle.COLUMN_POWER, battle.gachiPower);
+                            values.put(SplatnetContract.Battle.COLUMN_ELAPSED_TIME, battle.time);
+                            break;
+                    }
+
+                    values.put(SplatnetContract.Battle.COLUMN_STAGE, battle.stage.id);
+
+                    database.insert(SplatnetContract.Battle.TABLE_NAME, null, values);
+                }
             }
 
-            values.put(SplatnetContract.Battle.COLUMN_STAGE, battle.stage.id);
-
-            database.insert(SplatnetContract.Battle.TABLE_NAME, null, values);
+            cursor.close();
+            database.close();
+            //Clear toInsert
+            toInsert = new ArrayList<>();
         }
-        database.close();
-        //Clear toInsert
-        toInsert = new ArrayList<>();
     }
 
     //Call this method to select one battle(like what is needed for BattleInfo)
@@ -168,8 +180,17 @@ public class BattleManager {
     public Battle select(int id){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
 
-        String query = "SELECT * FROM "+ SplatnetContract.Battle.TABLE_NAME+ " WHERE "+ SplatnetContract.Battle._ID+ " = "+id;
-        Cursor cursor = database.rawQuery(query,null);
+        String[] args = new String[toSelect.size()];
+        args[0] = String.valueOf(toSelect.get(0));
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(SplatnetContract.Battle._ID+" = ?");
+
+        String whereClause = builder.toString();
+
+        Cursor cursor = database.query(SplatnetContract.Battle.TABLE_NAME,null,whereClause,args,null,null,null);
+
+        HashMap<Integer,ArrayList<PlayerDatabase>> playerHashMap = playerManager.select();
 
         Battle battle = new Battle();
         if(cursor.moveToFirst()) {
@@ -188,9 +209,14 @@ public class BattleManager {
             //Only one stage is needed from the database, so further optimisation isn't possible
             battle.stage = stageManager.select(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_STAGE)));
 
-            PlayerDatabase player;
+
+            ArrayList<PlayerDatabase> players = playerHashMap.get(battle.id);
+
             battle.myTeam = new ArrayList<>();
             battle.otherTeam = new ArrayList<>();
+
+            PlayerDatabase player;
+
             for(int i=0;i<players.size();i++){
                 player = players.get(i);
                 switch (player.playerType){
@@ -241,9 +267,6 @@ public class BattleManager {
             }
         }
 
-        HashMap<Integer,ArrayList<PlayerDatabase>> players = playerManager.select();
-        HashMap<Integer,Stage> stages = stageManager.select();
-
         cursor.close();
         database.close();
         return battle;
@@ -253,11 +276,23 @@ public class BattleManager {
     public ArrayList<Battle> select(){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
 
-        String query = "SELECT * FROM "+ SplatnetContract.Battle.TABLE_NAME+ " WHERE "+ SplatnetContract.Battle._ID+ " = "+id;
-        Cursor cursor = database.rawQuery(query,null);
+        String[] args = new String[toSelect.size()];
+        args[0] = String.valueOf(toSelect.get(0));
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(SplatnetContract.Battle._ID+" = ?");
+
+        //build the select statement
+        for(int i=1;i<toSelect.size();i++){
+            builder.append(" OR "+SplatnetContract.Battle._ID+" = ?");
+            args[i] = String.valueOf(toSelect.get(i));
+        }
+
+        String whereClause = builder.toString();
+
+        Cursor cursor = database.query(SplatnetContract.Battle.TABLE_NAME,null,whereClause,args,null,null,null);
 
         HashMap<Integer,ArrayList<PlayerDatabase>> playerMap = playerManager.select();
-        HashMap<Integer,Stage> stageMap = stageManager.select();
 
         ArrayList<Integer> stageIDs = new ArrayList<>();
         int stageID;
