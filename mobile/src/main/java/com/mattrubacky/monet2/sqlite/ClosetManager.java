@@ -1,11 +1,10 @@
-package com.mattrubacky.monet2.sqlite.table_manager;
+package com.mattrubacky.monet2.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.sqlite.*;
 import com.mattrubacky.monet2.deserialized.*;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.HashMap;
  * Created by mattr on 10/17/2017.
  */
 
-public class ClosetManager {
+class ClosetManager {
     Context context;
     HashMap<Integer,ClosetHanger> toUpdate;
     HashMap<Integer,ClosetHanger> toInsert;

@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.Splatnet;
+import com.mattrubacky.monet2.splatnet_interface.Splatnet;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.mattrubacky.monet2.helper.WearLink;

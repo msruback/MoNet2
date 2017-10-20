@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.sqlite.table_manager;
+package com.mattrubacky.monet2.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.mattrubacky.monet2.deserialized.*;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
-import com.mattrubacky.monet2.sqlite.SplatnetSQLHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +14,7 @@ import java.util.HashMap;
  * Created by mattr on 10/18/2017.
  */
 
-public class SplatfestManager {
+class SplatfestManager {
     Context context;
     ArrayList<SplatfestDatabase> toInsert;
     ArrayList<Integer> toSelect;

@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.sqlite.table_manager;
+package com.mattrubacky.monet2.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.mattrubacky.monet2.deserialized.*;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
-import com.mattrubacky.monet2.sqlite.SplatnetSQLHelper;
 
 /**
  * Created by mattr on 10/18/2017.
  */
 
-public class GearManager {
+class GearManager {
     Context context;
     HashMap<Integer,Gear> toInsert;
     ArrayList<Integer> toSelect;
@@ -81,6 +79,42 @@ public class GearManager {
         }
     }
 
+    public Gear select(int id){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+
+        String[] args = new String[toSelect.size()];
+        args[0] = String.valueOf(toSelect.get(0));
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(SplatnetContract.Gear._ID+" = ?");
+
+        String whereClause = builder.toString();
+
+        Cursor cursor = database.query(SplatnetContract.Gear.TABLE_NAME,null,whereClause,args,null,null,null);
+
+        int brandID;
+
+        Gear gear = new Gear();;
+
+        if(cursor.moveToFirst()){
+
+            gear.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear._ID));
+            gear.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_NAME));
+            gear.kind = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_KIND));
+            gear.rarity = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_RARITY));
+            gear.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_URL));
+
+            brandID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_BRAND));
+            brandManager.addToSelect(brandID);
+
+            HashMap<Integer,Brand> brandHashMap = brandManager.select();
+            gear.brand = brandHashMap.get(brandID);
+        }
+        cursor.close();
+        database.close();
+        return gear;
+    }
+
     public HashMap<Integer,Gear> select(){
         HashMap<Integer,Gear> selected = new HashMap<>();
 
@@ -135,6 +169,60 @@ public class GearManager {
             selected.put(gear.id,gear);
         }
 
+        return selected;
+    }
+    public ArrayList<Gear> selectAll(){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+
+        String[] args = new String[toSelect.size()];
+        args[0] = String.valueOf(toSelect.get(0));
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(SplatnetContract.Gear._ID+" = ?");
+
+        for(int i=1;i<toSelect.size();i++){
+            builder.append(" OR "+SplatnetContract.Gear._ID+" = ?");
+            args[i] = String.valueOf(toSelect.get(i));
+        }
+
+        String whereClause = builder.toString();
+
+        Cursor cursor = database.query(SplatnetContract.Gear.TABLE_NAME,null,whereClause,args,null,null,null);
+
+        ArrayList<Gear> gears = new ArrayList<>();
+        ArrayList<Gear> selected = new ArrayList<>();
+
+        ArrayList<Integer> brandIDs = new ArrayList<>();
+        int brandID;
+
+        Gear gear;
+
+        if(cursor.moveToFirst()){
+            do{
+                gear = new Gear();
+
+                gear.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear._ID));
+                gear.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_NAME));
+                gear.kind = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_KIND));
+                gear.rarity = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_RARITY));
+                gear.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_URL));
+
+                brandID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_BRAND));
+                brandManager.addToSelect(brandID);
+                brandIDs.add(brandID);
+
+                gears.add(gear);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        HashMap<Integer,Brand> brandHashMap = brandManager.select();
+
+        for(int i=0;i<gears.size();i++){
+            gear = gears.get(i);
+            gear.brand = brandHashMap.get(brandIDs.get(i));
+            selected.add(gear);
+        }
         return selected;
     }
 }

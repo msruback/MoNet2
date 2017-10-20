@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.splatnet_interface.Splatnet;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 

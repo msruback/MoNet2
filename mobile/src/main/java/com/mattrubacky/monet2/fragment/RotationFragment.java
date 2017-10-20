@@ -35,6 +35,7 @@ import com.mattrubacky.monet2.reciever.*;
 import com.mattrubacky.monet2.fragment.schedule.*;
 import com.mattrubacky.monet2.deserialized.*;
 
+import com.mattrubacky.monet2.splatnet_interface.Splatnet;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.squareup.picasso.Picasso;

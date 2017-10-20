@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2;
+package com.mattrubacky.monet2.splatnet_interface;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;

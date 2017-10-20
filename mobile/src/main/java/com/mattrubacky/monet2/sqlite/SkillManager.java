@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.sqlite.table_manager;
+package com.mattrubacky.monet2.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -17,7 +17,7 @@ import com.mattrubacky.monet2.sqlite.SplatnetSQLHelper;
  * Created by mattr on 10/18/2017.
  */
 
-public class SkillManager {
+class SkillManager {
     Context context;
     HashMap<Integer,Skill> toInsert;
     ArrayList<Integer> toSelect;
@@ -121,5 +121,28 @@ public class SkillManager {
         cursor.close();
         database.close();
         return selected;
+    }
+
+    public ArrayList<Skill> selectAll(){
+        ArrayList<Skill> skills = new ArrayList<>();
+
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+
+        Cursor cursor = database.query(SplatnetContract.Skill.TABLE_NAME,null,null,null,null,null,null);
+
+        Skill skill;
+
+        if(cursor.moveToFirst()){
+            do{
+                skill = new Skill();
+                skill.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Skill._ID));
+                skill.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Skill.COLUMN_NAME));
+                skill.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Skill.COLUMN_URL));
+                skills.add(skill);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return skills;
     }
 }

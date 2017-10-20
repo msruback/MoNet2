@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 
-import com.mattrubacky.monet2.Splatnet;
+import com.mattrubacky.monet2.splatnet_interface.Splatnet;
 import com.mattrubacky.monet2.deserialized.*;
 
 import java.io.IOException;

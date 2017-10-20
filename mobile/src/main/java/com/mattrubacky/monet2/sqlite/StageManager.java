@@ -1,24 +1,22 @@
-package com.mattrubacky.monet2.sqlite.table_manager;
+package com.mattrubacky.monet2.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.Splatnet;
 import com.mattrubacky.monet2.deserialized.Stage;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * Created by mattr on 10/17/2017.
  */
 
-public class StageManager {
+class StageManager {
 
     Context context;
     HashMap<Integer,Stage> toInsert;

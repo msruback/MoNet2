@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.sqlite.table_manager;
+package com.mattrubacky.monet2.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -17,7 +17,7 @@ import java.util.HashMap;
  * Created by mattr on 10/18/2017.
  */
 
-public class SubManager {
+class SubManager {
     Context context;
     HashMap<Integer,Sub> toInsert;
     ArrayList<Integer> toSelect;

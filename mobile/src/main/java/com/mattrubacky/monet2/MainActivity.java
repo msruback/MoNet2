@@ -31,6 +31,7 @@ import com.mattrubacky.monet2.fragment.*;
 import com.mattrubacky.monet2.reciever.BootReciever;
 import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
 import com.mattrubacky.monet2.reciever.SalmonAlarm;
+import com.mattrubacky.monet2.splatnet_interface.Splatnet;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
