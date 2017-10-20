@@ -33,7 +33,6 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SplatnetContract.Brand.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.Weapon.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.SplatfestVotes.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Rotation.CREATE_TABLE);
 
         //Tables with at least one Foriegn Key to Level 1 (Level 2)
         sqLiteDatabase.execSQL(SplatnetContract.Gear.CREATE_TABLE);
@@ -41,7 +40,6 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
         //Tables with at least one Foriegn Key to Level 2 (Level 3)
         sqLiteDatabase.execSQL(SplatnetContract.Player.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.Closet.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Shop.CREATE_TABLE);
     }
 
     @Override

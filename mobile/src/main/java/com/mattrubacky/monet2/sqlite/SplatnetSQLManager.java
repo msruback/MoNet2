@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.sqlite.table_manager.BattleManager;
+import com.mattrubacky.monet2.sqlite.table_manager.SplatfestManager;
+import com.mattrubacky.monet2.sqlite.table_manager.StageManager;
 
 import java.util.ArrayList;
 
@@ -166,242 +168,52 @@ public class SplatnetSQLManager {
         return special;
     }
 
-    public void insertStage(Stage stage){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(SplatnetContract.Stage._ID,stage.id);
-        values.put(SplatnetContract.Stage.COLUMN_NAME,stage.name);
-        values.put(SplatnetContract.Stage.COLUMN_URL,stage.url);
-
-        database.insert(SplatnetContract.Stage.TABLE_NAME, null, values);
-        database.close();
-
+    public void insertStages(ArrayList<Stage> stages){
+        StageManager stageManager = new StageManager(context);
     }
 
     public Stage selectStage(int id){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
-
-        String query = "SELECT * FROM "+ SplatnetContract.Stage.TABLE_NAME+" WHERE "+ SplatnetContract.Stage._ID+" = "+id;
-        Cursor cursor = database.rawQuery(query,null);
-
-        Stage stage = new Stage();
-
-        if(cursor.moveToFirst()){
-            stage.id = id;
-            stage.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_NAME));
-            stage.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_URL));
-        }
-        cursor.close();
-        database.close();
-        return stage;
+        StageManager stageManager = new StageManager(context);
+        return stageManager.select(id);
     }
 
     public ArrayList<Stage> getStages(){
-        ArrayList<Stage> stages = new ArrayList<>();
+        StageManager stageManager = new StageManager(context);
+        return stageManager.selectAll();
+    }
 
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
-
-        String query = "SELECT * FROM "+ SplatnetContract.Stage.TABLE_NAME+"";
-        Cursor cursor = database.rawQuery(query,null);
-
-        if(cursor.moveToLast()) {
-            do {
-                Stage stage = new Stage();
-
-                stage.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Stage._ID));
-                stage.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_NAME));
-                stage.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Stage.COLUMN_URL));
-                stages.add(stage);
-            } while (cursor.moveToPrevious());
+    public void insertSplatfests(ArrayList<Splatfest> splatfests){
+        SplatfestManager splatfestManager = new SplatfestManager(context);
+        for(int i=0;i<splatfests.size();i++){
+            splatfestManager.addToInsert(splatfests.get(i));
         }
-        cursor.close();
-        database.close();
-        return stages;
+        splatfestManager.insert();
     }
 
-    public void insertSplatfest(Splatfest splatfest){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(SplatnetContract.Splatfest._ID,splatfest.id);
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA,splatfest.names.alpha);
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_LONG,splatfest.names.alphaDesc);
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_COLOR,splatfest.colors.alpha.getColor());
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO,splatfest.names.bravo);
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_LONG,splatfest.names.bravoDesc);
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_COLOR,splatfest.colors.bravo.getColor());
-        values.put(SplatnetContract.Splatfest.COLUMN_ANNOUNCE_TIME,splatfest.times.announce);
-        values.put(SplatnetContract.Splatfest.COLUMN_START_TIME,splatfest.times.start);
-        values.put(SplatnetContract.Splatfest.COLUMN_END_TIME,splatfest.times.end);
-
-        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_PANEL,splatfest.images.panel);
-        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_ALPHA,splatfest.images.alpha);
-        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_BRAVO,splatfest.images.bravo);
-
-        if(!existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,splatfest.stage.id)){
-            insertStage(splatfest.stage);
+    public void insertSplatfests(ArrayList<Splatfest> splatfests,ArrayList<SplatfestResult> results){
+        SplatfestManager splatfestManager = new SplatfestManager(context);
+        boolean done;
+        Splatfest splatfest;
+        SplatfestResult result;
+        for(int i=0;i<splatfests.size();i++){
+            done = false;
+            splatfest = splatfests.get(i);
+            for (int j = 0; (!done) && j < results.size(); j++) {
+                result = results.get(j);
+                if (splatfest.id == result.id) {
+                    done = true;
+                    splatfestManager.addToInsert(splatfest,result);
+                }
+            }
         }
-        values.put(SplatnetContract.Splatfest.COLUMN_STAGE,splatfest.stage.id);
-
-        database.insert(SplatnetContract.Splatfest.TABLE_NAME, null, values);
-
-        database.close();
+        splatfestManager.insert();
     }
 
-    public void insertSplatfest(Splatfest splatfest,SplatfestResult result){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(SplatnetContract.Splatfest._ID,splatfest.id);
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA,splatfest.names.alpha);
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_LONG,splatfest.names.alphaDesc);
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_COLOR,splatfest.colors.alpha.getColor());
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO,splatfest.names.bravo);
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_LONG,splatfest.names.bravoDesc);
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_COLOR,splatfest.colors.bravo.getColor());
-        values.put(SplatnetContract.Splatfest.COLUMN_ANNOUNCE_TIME,splatfest.times.announce);
-        values.put(SplatnetContract.Splatfest.COLUMN_START_TIME,splatfest.times.start);
-        values.put(SplatnetContract.Splatfest.COLUMN_END_TIME,splatfest.times.end);
-        values.put(SplatnetContract.Splatfest.COLUMN_RESULT_TIME,splatfest.times.result);
-
-        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_PANEL,splatfest.images.panel);
-        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_ALPHA,splatfest.images.alpha);
-        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_BRAVO,splatfest.images.bravo);
-
-        if(!existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,splatfest.stage.id)){
-            insertStage(splatfest.stage);
-        }
-        values.put(SplatnetContract.Splatfest.COLUMN_STAGE,splatfest.stage.id);
-
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS,result.participants.alpha);
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS,result.teamScores.alphaSolo);
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS,result.teamScores.alphaTeam);
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS,result.participants.bravo);
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS,result.teamScores.bravoSolo);
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS,result.teamScores.bravoTeam);
-
-        values.put(SplatnetContract.Splatfest.COLUMN_VOTE,result.summary.vote);
-        values.put(SplatnetContract.Splatfest.COLUMN_SOLO,result.summary.solo);
-        values.put(SplatnetContract.Splatfest.COLUMN_TEAM,result.summary.team);
-        values.put(SplatnetContract.Splatfest.COLUMN_WINNER,result.summary.total);
-
-        database.insert(SplatnetContract.Splatfest.TABLE_NAME, null, values);
-        database.close();
+    public SplatfestDatabase selectSplatfest(int id){
+        SplatfestManager splatfestManager = new SplatfestManager(context);
+        SplatfestDatabase splatfestDatabase = splatfestManager.select(id);
+        return splatfestDatabase;
     }
-
-    public void updateSplatfest(Splatfest splatfest,SplatfestResult result){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(SplatnetContract.Splatfest.COLUMN_RESULT_TIME,splatfest.times.result);
-
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS,result.participants.alpha);
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS,result.teamScores.alphaSolo);
-        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS,result.teamScores.alphaTeam);
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS,result.participants.bravo);
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS,result.teamScores.bravoSolo);
-        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS,result.teamScores.bravoTeam);
-
-        values.put(SplatnetContract.Splatfest.COLUMN_VOTE,result.summary.vote);
-        values.put(SplatnetContract.Splatfest.COLUMN_SOLO,result.summary.solo);
-        values.put(SplatnetContract.Splatfest.COLUMN_TEAM,result.summary.team);
-        values.put(SplatnetContract.Splatfest.COLUMN_WINNER,result.summary.total);
-
-        String selection = SplatnetContract.Splatfest._ID + " LIKE ?";
-        String[] args = {String.valueOf(splatfest.id)};
-
-        database.update(SplatnetContract.Splatfest.TABLE_NAME, values,selection,args);
-        database.close();
-    }
-    public Splatfest selectSplatfest(int id){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
-
-        String query = "SELECT * FROM "+ SplatnetContract.Splatfest.TABLE_NAME+" WHERE "+ SplatnetContract.Splatfest._ID+" = "+id;
-        Cursor cursor = database.rawQuery(query,null);
-
-        Splatfest splatfest = new Splatfest();
-
-        if(cursor.moveToFirst()){
-            splatfest.id = id;
-
-            SplatfestNames names = new SplatfestNames();
-            names.alpha = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA));
-            names.alphaDesc = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_LONG));
-            names.bravo = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO));
-            names.bravoDesc = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_LONG));
-            splatfest.names = names;
-
-            SplatfestColor color = new SplatfestColor();
-            SplatfestColors colors = new SplatfestColors();
-            color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_COLOR));
-            colors.alpha = color;
-            color = new SplatfestColor();
-            color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_COLOR));
-            colors.bravo = color;
-            splatfest.colors = colors;
-
-            splatfest.stage = selectStage(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_STAGE)));
-
-            SplatfestImages images = new SplatfestImages();
-            images.panel = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_IMAGE_PANEL));
-            images.alpha = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_IMAGE_ALPHA));
-            images.bravo = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_IMAGE_BRAVO));
-            splatfest.images = images;
-
-            SplatfestTimes times = new SplatfestTimes();
-            times.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_START_TIME));
-            times.end = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_END_TIME));
-            times.announce = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ANNOUNCE_TIME));
-            times.result = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_RESULT_TIME));
-            splatfest.times = times;
-        }
-        cursor.close();
-        database.close();
-        return splatfest;
-    }
-    public void updateSplatfest(Splatfest splatfest){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(SplatnetContract.Splatfest.COLUMN_RESULT_TIME,splatfest.times.result);
-
-        values.put(SplatnetContract.Splatfest.COLUMN_STAGE,splatfest.stage.id);
-        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_PANEL,splatfest.images.panel);
-        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_ALPHA,splatfest.images.alpha);
-        values.put(SplatnetContract.Splatfest.COLUMN_IMAGE_BRAVO,splatfest.images.bravo);
-
-        String selection = SplatnetContract.Splatfest._ID + " LIKE ?";
-        String[] args = {String.valueOf(splatfest.id)};
-
-        database.update(SplatnetContract.Splatfest.TABLE_NAME, values,selection,args);
-        database.close();
-    }
-    public boolean isSplatfestUpdated(int id){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        String select = "SELECT * FROM "+ SplatnetContract.Splatfest.TABLE_NAME + " WHERE "+ SplatnetContract.Splatfest._ID +" = ?";
-        String[] ids = {String.valueOf(id)};
-        Cursor cursor = database.rawQuery(select, ids);
-        cursor.moveToFirst();
-        if(cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_VOTE))==(long)0){
-            cursor.close();
-            database.close();
-            return false;
-        }else{
-            cursor.close();
-            database.close();
-            return true;
-        }
-    }
-
-    /*public void insertFriend(){
-        ContentValues values = new ContentValues();
-
-        values.put();
-
-        database.insert(SplatnetContract.Friends.TABLE_NAME, null, values)
-    }*/
-
 
     //Battles
 

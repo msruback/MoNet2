@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2;
+package com.mattrubacky.monet2.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;

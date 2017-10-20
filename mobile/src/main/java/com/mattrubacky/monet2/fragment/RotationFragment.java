@@ -29,6 +29,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import com.mattrubacky.monet2.*;
+import com.mattrubacky.monet2.helper.ImageHandler;
+import com.mattrubacky.monet2.helper.WearLink;
 import com.mattrubacky.monet2.reciever.*;
 import com.mattrubacky.monet2.fragment.schedule.*;
 import com.mattrubacky.monet2.deserialized.*;

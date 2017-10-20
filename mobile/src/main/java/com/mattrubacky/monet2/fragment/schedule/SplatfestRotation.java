@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.ImageHandler;
+import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.*;
 

@@ -26,7 +26,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import com.mattrubacky.monet2.BattleInfo;
-import com.mattrubacky.monet2.ImageHandler;
+import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.Splatnet;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;

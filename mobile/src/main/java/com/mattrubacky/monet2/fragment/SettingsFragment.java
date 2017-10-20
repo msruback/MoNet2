@@ -34,7 +34,7 @@ import com.google.gson.Gson;
 import com.mattrubacky.monet2.AddNotification;
 import com.mattrubacky.monet2.reciever.BootReciever;
 import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
-import com.mattrubacky.monet2.ImageHandler;
+import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.reciever.SalmonAlarm;
 import com.mattrubacky.monet2.deserialized.*;

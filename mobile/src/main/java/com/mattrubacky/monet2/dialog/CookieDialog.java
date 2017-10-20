@@ -46,7 +46,8 @@ public class CookieDialog extends Dialog {
             public void onClick(View v) {
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
                 SharedPreferences.Editor edit = settings.edit();
-                edit.putString("cookie",cookieInput.getText().toString());
+                String cookie = "iksm_token="+cookieInput.getText().toString();
+                edit.putString("cookie",cookie);
                 edit.commit();
                 dismiss();
             }
