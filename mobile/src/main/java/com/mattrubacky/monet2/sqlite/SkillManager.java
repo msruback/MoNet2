@@ -58,7 +58,7 @@ class SkillManager {
         SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        Integer[] keys = (Integer[]) toInsert.keySet().toArray();
+        Object[] keys = toInsert.keySet().toArray();
 
         String whereClause = SplatnetContract.Skill._ID +" = ?";
         String[] args;
@@ -68,17 +68,22 @@ class SkillManager {
         for (int i = 0; i < keys.length; i++) {
             skill = toInsert.get(keys[i]);
 
-            values.put(SplatnetContract.Skill._ID,skill.id);
-            values.put(SplatnetContract.Skill.COLUMN_NAME,skill.name);
-            values.put(SplatnetContract.Skill.COLUMN_URL,skill.url);
+            args = new String[] {String.valueOf(skill.id)};
+            cursor = database.query(SplatnetContract.Skill.TABLE_NAME,null,whereClause,args,null,null,null);
+            if(cursor.getCount()==0) {
 
-            if(skill.id>13){
-                values.put(SplatnetContract.Skill.COLUMN_CHUNKABLE,false);
-            }else{
-                values.put(SplatnetContract.Skill.COLUMN_CHUNKABLE,true);
+                values.put(SplatnetContract.Skill._ID, skill.id);
+                values.put(SplatnetContract.Skill.COLUMN_NAME, skill.name);
+                values.put(SplatnetContract.Skill.COLUMN_URL, skill.url);
+
+                if (skill.id > 13) {
+                    values.put(SplatnetContract.Skill.COLUMN_CHUNKABLE, false);
+                } else {
+                    values.put(SplatnetContract.Skill.COLUMN_CHUNKABLE, true);
+                }
+
+                database.insert(SplatnetContract.Skill.TABLE_NAME, null, values);
             }
-
-            database.insert(SplatnetContract.Skill.TABLE_NAME, null, values);
         }
         toInsert = new HashMap<>();
         database.close();

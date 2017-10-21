@@ -51,7 +51,7 @@ class BrandManager {
             SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
             ContentValues values;
 
-            Integer[] keys = (Integer[]) toInsert.keySet().toArray();
+            Object[] keys = toInsert.keySet().toArray();
 
             skillManager.insert();
 

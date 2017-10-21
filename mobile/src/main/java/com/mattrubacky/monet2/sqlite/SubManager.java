@@ -46,7 +46,7 @@ class SubManager {
             SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
             ContentValues values;
 
-            Integer[] keys = (Integer[]) toInsert.keySet().toArray();
+            Object[] keys = toInsert.keySet().toArray();
 
             String whereClause = SplatnetContract.Sub._ID +" = ?";
             String[] args;

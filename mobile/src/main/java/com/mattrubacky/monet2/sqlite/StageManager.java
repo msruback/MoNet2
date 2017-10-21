@@ -63,7 +63,7 @@ class StageManager {
 
             ContentValues values;
 
-            Integer[] keys = (Integer[]) toInsert.keySet().toArray();
+            Object[] keys = toInsert.keySet().toArray();
 
             String whereClause = SplatnetContract.Stage._ID +" = ?";
             String[] args;

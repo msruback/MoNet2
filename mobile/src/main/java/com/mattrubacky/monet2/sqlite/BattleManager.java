@@ -125,7 +125,7 @@ class BattleManager {
                 battle = toInsert.get(i);
 
                 args = new String[]{String.valueOf(battle.id)};
-                cursor = database.query(SplatnetContract.Sub.TABLE_NAME, null, whereClause, args, null, null, null);
+                cursor = database.query(SplatnetContract.Battle.TABLE_NAME, null, whereClause, args, null, null, null);
                 if (cursor.getCount() == 0) {
 
                     values.put(SplatnetContract.Battle._ID, battle.id);
@@ -174,12 +174,12 @@ class BattleManager {
     }
 
     //Call this method to select one battle(like what is needed for BattleInfo)
-    //Performance is still improved as Players are selected in one statment, rather than eight
+    //Performance is still improved as Players are selected in one statement, rather than eight
     public Battle select(int id){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
 
-        String[] args = new String[toSelect.size()];
-        args[0] = String.valueOf(toSelect.get(0));
+        String[] args = new String[1];
+        args[0] = String.valueOf(id);
 
         StringBuilder builder = new StringBuilder();
         builder.append(SplatnetContract.Battle._ID+" = ?");
@@ -187,8 +187,6 @@ class BattleManager {
         String whereClause = builder.toString();
 
         Cursor cursor = database.query(SplatnetContract.Battle.TABLE_NAME,null,whereClause,args,null,null,null);
-
-        HashMap<Integer,ArrayList<PlayerDatabase>> playerHashMap = playerManager.select();
 
         Battle battle = new Battle();
         if(cursor.moveToFirst()) {
@@ -207,6 +205,9 @@ class BattleManager {
             //Only one stage is needed from the database, so further optimisation isn't possible
             battle.stage = stageManager.select(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_STAGE)));
 
+            playerManager.addToSelect(battle.id);
+
+            HashMap<Integer,ArrayList<PlayerDatabase>> playerHashMap = playerManager.select();
 
             ArrayList<PlayerDatabase> players = playerHashMap.get(battle.id);
 

@@ -63,7 +63,7 @@ class SplatfestManager {
 
                 splatfest = toInsert.get(i);
                 args = new String[] {String.valueOf(splatfest.splatfest.id)};
-                cursor = database.query(SplatnetContract.Sub.TABLE_NAME,null,whereClause,args,null,null,null);
+                cursor = database.query(SplatnetContract.Splatfest.TABLE_NAME,null,whereClause,args,null,null,null);
                 if(cursor.getCount()==0) {
                     values.put(SplatnetContract.Splatfest._ID,splatfest.splatfest.id);
                     values.put(SplatnetContract.Splatfest.COLUMN_ALPHA,splatfest.splatfest.names.alpha);
@@ -100,6 +100,7 @@ class SplatfestManager {
                     database.insert(SplatnetContract.Splatfest.TABLE_NAME, null, values);
                 }else{
                     //If the splatfest is already inserted, but needs to be updated, and an update is available, then the splatfest gets updated
+                    cursor.moveToFirst();
                     if(cursor.getLong(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_RESULT_TIME))==0&&splatfest.result!=null){
                         values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS, splatfest.result.participants.alpha);
                         values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS, splatfest.result.teamScores.alphaSolo);

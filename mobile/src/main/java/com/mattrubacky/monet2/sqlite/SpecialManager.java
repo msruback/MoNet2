@@ -8,6 +8,7 @@ import android.widget.GridLayout;
 
 import com.mattrubacky.monet2.deserialized.Special;
 import com.mattrubacky.monet2.deserialized.Sub;
+import com.mattrubacky.monet2.dialog.LoadingDialog;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLHelper;
 
@@ -23,6 +24,7 @@ class SpecialManager {
     Context context;
     HashMap<Integer,Special> toInsert;
     ArrayList<Integer> toSelect;
+    LoadingDialog dialog;
 
     public SpecialManager(Context context){
         this.context = context;
@@ -61,7 +63,7 @@ class SpecialManager {
             SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
             ContentValues values;
 
-            Integer[] keys = (Integer[]) toInsert.keySet().toArray();
+            Object[] keys = toInsert.keySet().toArray();
 
             String whereClause = SplatnetContract.Special._ID +" = ?";
             String[] args;
@@ -114,11 +116,13 @@ class SpecialManager {
         Special special;
 
         if(cursor.moveToFirst()){
-            special = new Special();
-            special.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Special._ID));
-            special.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_NAME));
-            special.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_URL));
-            selected.put(special.id,special);
+            do {
+                special = new Special();
+                special.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Special._ID));
+                special.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_NAME));
+                special.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_URL));
+                selected.put(special.id, special);
+            }while(cursor.moveToNext());
         }
         cursor.close();
         database.close();

@@ -56,7 +56,7 @@ class WeaponManager {
     }
 
     public void addToSelect(int id){
-        if(toSelect.contains(id)) {
+        if(!toSelect.contains(id)) {
             toSelect.add(id);
         }
     }
@@ -70,20 +70,28 @@ class WeaponManager {
             SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
             ContentValues values = new ContentValues();
 
-            Integer[] keys = (Integer[]) toInsert.keySet().toArray();
+            Object[] keys = toInsert.keySet().toArray();
 
             Weapon weapon;
+
+            String whereClause = SplatnetContract.Weapon._ID +" = ?";
+            String[] args;
+            Cursor cursor = null;
 
             for(int i=0;i<keys.length;i++) {
                 weapon = toInsert.get(keys[i]);
 
-                values.put(SplatnetContract.Weapon._ID, weapon.id);
-                values.put(SplatnetContract.Weapon.COLUMN_NAME, weapon.name);
-                values.put(SplatnetContract.Weapon.COLUMN_URL, weapon.url);
-                values.put(SplatnetContract.Weapon.COLUMN_SUB, weapon.sub.id);
-                values.put(SplatnetContract.Weapon.COLUMN_SPECIAL, weapon.special.id);
+                args = new String[] {String.valueOf(weapon.id)};
+                cursor = database.query(SplatnetContract.Weapon.TABLE_NAME,null,whereClause,args,null,null,null);
+                if(cursor.getCount()==0) {
+                    values.put(SplatnetContract.Weapon._ID, weapon.id);
+                    values.put(SplatnetContract.Weapon.COLUMN_NAME, weapon.name);
+                    values.put(SplatnetContract.Weapon.COLUMN_URL, weapon.url);
+                    values.put(SplatnetContract.Weapon.COLUMN_SUB, weapon.sub.id);
+                    values.put(SplatnetContract.Weapon.COLUMN_SPECIAL, weapon.special.id);
 
-                database.insert(SplatnetContract.Weapon.TABLE_NAME, null, values);
+                    database.insert(SplatnetContract.Weapon.TABLE_NAME, null, values);
+                }
             }
             database.close();
         }

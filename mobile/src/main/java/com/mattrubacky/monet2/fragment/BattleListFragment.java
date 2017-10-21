@@ -87,7 +87,21 @@ public class BattleListFragment extends Fragment {
                 String idString = battleNumber.getText().toString();
                 int id = Integer.parseInt(idString);
                 if(database.hasBattle(id)) {
-                    new GetBattleData(id).execute();
+                    LoadingDialog dialog = new LoadingDialog(getActivity(),"Loading Battle "+id);
+                    dialog.setCancelable(false);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.show();
+                    Bundle bundle = new Bundle();
+                    Battle battle = database.selectBattle(id);
+                    bundle.putParcelable("battle",battle);
+                    if(battle.type.equals("fes")){
+                        Splatfest splatfest = database.selectSplatfest(battle.splatfestID).splatfest;
+                        bundle.putParcelable("splatfest",splatfest);
+                    }
+                    Intent intent = new Intent(getContext(),BattleInfo.class);
+                    intent.putExtras(bundle);
+                    dialog.dismiss();
+                    startActivity(intent);
                 }else{
                     Toast.makeText(getContext(),"Invalid Battle Number",Toast.LENGTH_SHORT);
                     battleNumber.setText("");
@@ -247,7 +261,21 @@ public class BattleListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int battleId = battles.get(position).id;
-                new GetBattleData(battleId).execute();
+                LoadingDialog dialog = new LoadingDialog(getActivity(),"Loading Battle "+battleId);
+                dialog.setCancelable(false);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+                Bundle bundle = new Bundle();
+                Battle battle = database.selectBattle(battleId);
+                bundle.putParcelable("battle",battle);
+                if(battle.type.equals("fes")){
+                    Splatfest splatfest = database.selectSplatfest(battle.splatfestID).splatfest;
+                    bundle.putParcelable("splatfest",splatfest);
+                }
+                Intent intent = new Intent(getContext(),BattleInfo.class);
+                intent.putExtras(bundle);
+                dialog.dismiss();
+                startActivity(intent);
             }
         });
 
@@ -315,44 +343,5 @@ public class BattleListFragment extends Fragment {
             customHandler.postDelayed(this, nextUpdateTime);
         }
     };
-
-    private class GetBattleData extends AsyncTask<Void,Void,Void> {
-
-        int id;
-        Bundle bundle;
-        LoadingDialog dialog;
-
-        public GetBattleData(int battleID){
-            id = battleID;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            bundle = new Bundle();
-            dialog = new LoadingDialog(getActivity(),"Loading Battle "+id);
-            dialog.setCancelable(false);
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.show();
-        }
-        @Override
-        protected Void doInBackground(Void... params) {
-            Battle battle = database.selectBattle(id);
-            bundle.putParcelable("battle",battle);
-            if(battle.type.equals("fes")){
-                Splatfest splatfest = database.selectSplatfest(battle.splatfestID).splatfest;
-                bundle.putParcelable("splatfest",splatfest);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            dialog.dismiss();
-            Intent intent = new Intent(getContext(),BattleInfo.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
-
-    }
 
 }
