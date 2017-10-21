@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -242,7 +243,7 @@ public class ShopFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(final MerchAdapter.ViewHolder holder, int position) {
+        public void onBindViewHolder(final MerchAdapter.ViewHolder holder, final int position) {
             final Product product  = input.get(position);
             Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
             ImageHandler imageHandler = new ImageHandler();
@@ -301,6 +302,13 @@ public class ShopFragment extends Fragment {
                 Picasso.with(context).load(abilityUrl).into(holder.mainAbility);
                 imageHandler.downloadImage("ability",abilityLocation,abilityUrl,context);
             }
+
+            holder.mainAbility.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(),product.skill.name,Toast.LENGTH_SHORT).show();
+                }
+            });
 
             //Set the number of slots the gear has
             if(product.gear.rarity==1){

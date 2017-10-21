@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -147,6 +148,13 @@ public class BuyDialog extends Dialog{
                 Picasso.with(getContext()).load(abilityUrl).into(mainAbility);
                 imageHandler.downloadImage("ability", abilityLocation, abilityUrl, getContext());
             }
+
+            mainAbility.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(),toBuy.skill.name,Toast.LENGTH_SHORT).show();
+                }
+            });
 
             //Set the number of slots the gear has
             if (toBuy.gear.rarity == 1) {
@@ -343,6 +351,20 @@ public class BuyDialog extends Dialog{
                 Picasso.with(getContext()).load(abilityUrl).into(orderedMainAbility);
                 imageHandler.downloadImage("ability", abilityLocation, abilityUrl, getContext());
             }
+
+            orderingMainAbility.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(),toBuy.skill.name,Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            orderedMainAbility.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(),alreadyOrdered.skill.name,Toast.LENGTH_SHORT).show();
+                }
+            });
 
             //Set the number of slots the gear has
             if (toBuy.gear.rarity == 1) {
