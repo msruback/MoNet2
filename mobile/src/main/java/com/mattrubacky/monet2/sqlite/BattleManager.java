@@ -36,7 +36,7 @@ class BattleManager {
         toSelect = new ArrayList<>();
     }
 
-    private boolean exists(int id){
+    public boolean exists(int id){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
 
         String whereClause = SplatnetContract.Battle._ID +" = ?";

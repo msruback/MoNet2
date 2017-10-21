@@ -253,37 +253,25 @@ public class RotationFragment extends Fragment {
                 if(response.isSuccessful()){
                     schedules = (Schedules) response.body();
                     SplatnetSQLManager database = new SplatnetSQLManager(getContext());
+                    ArrayList<Stage> stages = new ArrayList<>();
                     for(int i=0;i<schedules.regular.size();i++){
-                        if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.regular.get(i).a.id)){
-                            database.insertStage(schedules.regular.get(i).a);
-                        }
-                        if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.regular.get(i).b.id)){
-                            database.insertStage(schedules.regular.get(i).b);
-                        }
+                        stages.add(schedules.regular.get(i).a);
+                        stages.add(schedules.regular.get(i).b);
 
-                        if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.ranked.get(i).a.id)){
-                            database.insertStage(schedules.ranked.get(i).a);
-                        }
-                        if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.ranked.get(i).b.id)){
-                            database.insertStage(schedules.ranked.get(i).b);
-                        }
+                        stages.add(schedules.ranked.get(i).a);
+                        stages.add(schedules.ranked.get(i).b);
 
-                        if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.league.get(i).a.id)){
-                            database.insertStage(schedules.league.get(i).a);
-                        }
-                        if(!database.existsIn(SplatnetContract.Stage.TABLE_NAME, SplatnetContract.Stage._ID,schedules.league.get(i).b.id)){
-                            database.insertStage(schedules.league.get(i).b);
-                        }
+                        stages.add(schedules.league.get(i).a);
+                        stages.add(schedules.league.get(i).b);
                     }
+                    database.insertStages(stages);
                     Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie);
                     response = getSplatfest.execute();
                     if(response.isSuccessful()){
                         currentSplatfest = (CurrentSplatfest) response.body();
                         if(currentSplatfest.splatfests.size()>0){
                             schedules.setSplatfest(currentSplatfest.splatfests.get(0));
-                            if(!database.existsIn(SplatnetContract.Splatfest.TABLE_NAME, SplatnetContract.Splatfest._ID,currentSplatfest.splatfests.get(0).id)){
-                                database.insertSplatfest(currentSplatfest.splatfests.get(0));
-                            }
+                            database.insertSplatfests(currentSplatfest.splatfests);
                         }
                     }else{
 

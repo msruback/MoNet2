@@ -212,10 +212,9 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                     response = splatnet.getBattle(String.valueOf(results.resultIds.get(i).id),cookie).execute();
                     Battle battle = (Battle) response.body();
                     battles.add(battle);
-                    if (!database.existsIn(SplatnetContract.Battle.TABLE_NAME, SplatnetContract.Battle._ID, results.resultIds.get(i).id)) {
-                        database.insertBattle(battle);
-                    }
+
                 }
+                database.insertBattles(battles);
 
                 SharedPreferences.Editor edit = settings.edit();
                 String json;

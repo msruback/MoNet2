@@ -240,9 +240,9 @@ public class MainActivity extends AppCompatActivity {
                         String json = gson.toJson(timeline.currentRun.rewardGear.gear);
                         edit.putString("reward_gear", json);
                         edit.commit();
-                        if (!database.existsIn(SplatnetContract.Gear.TABLE_NAME, SplatnetContract.Gear._ID, timeline.currentRun.rewardGear.gear.id)) {
-                            database.insertGear(timeline.currentRun.rewardGear.gear);
-                        }
+                        ArrayList<Gear> gear = new ArrayList<>();
+                        gear.add(timeline.currentRun.rewardGear.gear);
+                        database.insertGear(gear);
                     }
                 }else{
                 }
@@ -265,23 +265,7 @@ public class MainActivity extends AppCompatActivity {
                     Splatfest splatfest;
                     SplatfestResult splatfestResult;
                     boolean done;
-                    for(int i=0;i<pastSplatfests.splatfests.size();i++){
-                        done = false;
-                        splatfest = pastSplatfests.splatfests.get(i);
-                        if(!database.existsIn(SplatnetContract.Splatfest.TABLE_NAME, SplatnetContract.Splatfest._ID,splatfest.id)||!database.isSplatfestUpdated(splatfest.id)) {
-                            for (int j = 0; (!done) && j < pastSplatfests.splatfests.size(); j++) {
-                                splatfestResult = pastSplatfests.results.get(j);
-                                if (splatfest.id == splatfestResult.id) {
-                                    done = true;
-                                    if(!database.existsIn(SplatnetContract.Splatfest.TABLE_NAME, SplatnetContract.Splatfest._ID,splatfest.id)) {
-                                        database.insertSplatfest(splatfest, splatfestResult);
-                                    }else{
-                                        database.updateSplatfest(splatfest,splatfestResult);
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    database.insertSplatfests(pastSplatfests.splatfests,pastSplatfests.results);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

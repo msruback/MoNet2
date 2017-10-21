@@ -287,8 +287,6 @@ public final class SplatnetContract {
                 COLUMN_NAME + " TEXT)";
     }
 
-
-
     public static class Closet implements BaseColumns{
         public static final String TABLE_NAME = "closet";
         public static final String COLUMN_GEAR = "gear";
@@ -307,40 +305,5 @@ public final class SplatnetContract {
                 COLUMN_SUB_3 + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_LAST_USE_TIME + " INTEGER)";
     }
-
-
-
-    public static class Rotation{
-        public static final String TABLE_NAME = "rotation";
-        public static final String COLUMN_STAGE_A = "stage_a";
-        public static final String COLUMN_STAGE_B = "stage_b";
-        public static final String COLUMN_MODE = "mode";
-        public static final String COLUMN_RULE = "rule";
-        public static final String COLUMN_START = "start";
-        public static final String COLUMN_END = "end";
-
-        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
-                COLUMN_STAGE_A + " INTEGER REFERENCES stage(_id), "+
-                COLUMN_STAGE_B + " INTEGER REFERENCES stage(_id), "+
-                COLUMN_MODE + " TEXT, "+
-                COLUMN_RULE + " TEXT, "+
-                COLUMN_START + " INTEGER, "+
-                COLUMN_END + " INTEGER)";
-    }
-
-    public static class Shop{
-        public static final String TABLE_NAME = "shop";
-        public static final String COLUMN_GEAR = "gear";
-        public static final String COLUMN_MAIN = "main";
-        public static final String COLUMN_PRICE = "price";
-        public static final String COLUMN_END = "end";
-
-        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
-                COLUMN_GEAR + " INTEGER REFERENCES gear(_id), "+
-                COLUMN_MAIN + " INTEGER REFERENCES skill(_id), "+
-                COLUMN_PRICE + " INTEGER, "+
-                COLUMN_END + " INTEGER)";
-    }
-
 
 }

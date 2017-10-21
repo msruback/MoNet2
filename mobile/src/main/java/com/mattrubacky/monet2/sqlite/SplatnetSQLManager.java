@@ -17,7 +17,6 @@ import java.util.HashMap;
 public class SplatnetSQLManager {
 
     Context context;
-    BattleManager battleManager;
 
     public SplatnetSQLManager(Context context){
         this.context = context;
@@ -157,7 +156,7 @@ public class SplatnetSQLManager {
     //Battle Methods
 
     public void insertBattles(ArrayList<Battle> battles){
-        battleManager = new BattleManager(context);
+        BattleManager battleManager = new BattleManager(context);
         for(int i=0;i<battles.size();i++){
             battleManager.addToInsert(battles.get(i));
         }
@@ -165,7 +164,7 @@ public class SplatnetSQLManager {
     }
 
     public Battle selectBattle(int id){
-        battleManager = new BattleManager(context);
+        BattleManager battleManager = new BattleManager(context);
         return battleManager.select(id);
     }
 
@@ -177,6 +176,15 @@ public class SplatnetSQLManager {
         return  battleManager.select();
     }
 
+    public boolean hasBattle(int id){
+        BattleManager battleManager = new BattleManager(context);
+        return battleManager.exists(id);
+    }
+
+    public int battleCount(){
+        BattleManager battleManager = new BattleManager(context);
+        return battleManager.battleCount();
+    }
     //Players
 
     public void insertPlayer(Player player, String mode, int id, int type){

@@ -407,11 +407,11 @@ public class ShopFragment extends Fragment {
                 if(response.isSuccessful()){
                     shop = (Annie) response.body();
                     SplatnetSQLManager database = new SplatnetSQLManager(getContext());
+                    ArrayList<Gear> gear = new ArrayList<>();
                     for(int i=0;i<shop.merch.size();i++){
-                        if(!database.existsIn(SplatnetContract.Gear.TABLE_NAME,SplatnetContract.Gear._ID,shop.merch.get(i).gear.id)){
-                            database.insertGear(shop.merch.get(i).gear);
-                        }
+                        gear.add(shop.merch.get(i).gear);
                     }
+                    database.insertGear(gear);
                 }else{
 
                 }

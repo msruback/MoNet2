@@ -86,7 +86,7 @@ public class BattleListFragment extends Fragment {
                 EditText battleNumber = (EditText) rootView.findViewById(R.id.BattleNumber);
                 String idString = battleNumber.getText().toString();
                 int id = Integer.parseInt(idString);
-                if(database.existsIn(SplatnetContract.Battle.TABLE_NAME, SplatnetContract.Battle._ID,id)) {
+                if(database.hasBattle(id)) {
                     new GetBattleData(id).execute();
                 }else{
                     Toast.makeText(getContext(),"Invalid Battle Number",Toast.LENGTH_SHORT);
@@ -277,10 +277,9 @@ public class BattleListFragment extends Fragment {
                         response = splatnet.getBattle(String.valueOf(results.resultIds.get(i).id), cookie).execute();
                         Battle battle = (Battle) response.body();
                         list.add(battle);
-                        if (!database.existsIn(SplatnetContract.Battle.TABLE_NAME, SplatnetContract.Battle._ID, results.resultIds.get(i).id)) {
-                            database.insertBattle(battle);
-                        }
+
                     }
+                    database.insertBattles(list);
                 }
                 battles = list;
 
@@ -340,7 +339,7 @@ public class BattleListFragment extends Fragment {
             Battle battle = database.selectBattle(id);
             bundle.putParcelable("battle",battle);
             if(battle.type.equals("fes")){
-                Splatfest splatfest = database.selectSplatfest(battle.splatfestID);
+                Splatfest splatfest = database.selectSplatfest(battle.splatfestID).splatfest;
                 bundle.putParcelable("splatfest",splatfest);
             }
             return null;
