@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/21/2017.
+ *
+ * This Adapter populates the Rank Card in RotationFragment
  */
 
 public class RankAdapter extends FragmentStatePagerAdapter {

@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/21/2017.
+ *
+ * This adapter populates the list of Salmon runs in the Salmon Run Card in RotationFragment
  */
 
 public class SalmonRunAdapter extends ArrayAdapter<SalmonRun> {

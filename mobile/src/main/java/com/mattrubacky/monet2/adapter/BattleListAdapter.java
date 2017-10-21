@@ -22,6 +22,8 @@ import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/21/2017.
+ *
+ * This Adapter fills up the battle list in BattleListFragment
  */
 
 public class BattleListAdapter extends ArrayAdapter<Battle> {

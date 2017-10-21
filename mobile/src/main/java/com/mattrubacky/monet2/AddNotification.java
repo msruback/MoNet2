@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.mattrubacky.monet2.adapter.GearPickerAdapter;
 import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
@@ -432,7 +433,7 @@ public class AddNotification extends AppCompatActivity {
             SplatnetSQLManager splatnetSQLManager = new SplatnetSQLManager(getApplicationContext());
             gearList = splatnetSQLManager.getGear();
 
-            final GearAdapter gearAdapter = new GearAdapter(getApplicationContext(),gearList);
+            final GearPickerAdapter gearAdapter = new GearPickerAdapter(getApplicationContext(),gearList);
 
             gearListView.setAdapter(gearAdapter);
 
@@ -590,51 +591,7 @@ public class AddNotification extends AppCompatActivity {
         }
     }
 
-    private class GearAdapter extends ArrayAdapter<Gear> {
-        public GearAdapter(Context context, ArrayList<Gear> input) {
-            super(context, 0, input);
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
 
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_weapon_picker, parent, false);
-            }
-            Gear gear = getItem(position);
-
-            RelativeLayout imageBackground = (RelativeLayout) convertView.findViewById(R.id.image);
-
-            switch (gear.kind) {
-                case "head":
-                    imageBackground.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.head));
-                    break;
-                case "clothes":
-                    imageBackground.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.clothes));
-                    break;
-                case "shoes":
-                    imageBackground.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.shoes));
-                    break;
-            }
-
-            ImageView image = (ImageView) convertView.findViewById(R.id.Image);
-            TextView weaponName = (TextView) convertView.findViewById(R.id.WeaponName);
-
-            weaponName.setText(gear.name);
-
-            String url = "https://app.splatoon2.nintendo.net"+gear.url;
-
-            ImageHandler imageHandler = new ImageHandler();
-            String imageDirName = gear.name.toLowerCase().replace(" ","_");
-            if(imageHandler.imageExists("gear",imageDirName,getContext())){
-                image.setImageBitmap(imageHandler.loadImage("gear",imageDirName));
-            }else{
-                Picasso.with(getContext()).load(url).into(image);
-                imageHandler.downloadImage("gear",imageDirName,url,getContext());
-            }
-
-            return convertView;
-        }
-    }
 
     private class SkillAdapter extends ArrayAdapter<Skill> {
         public SkillAdapter(Context context, ArrayList<Skill> input) {

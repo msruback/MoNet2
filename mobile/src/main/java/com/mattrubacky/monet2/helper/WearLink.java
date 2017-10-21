@@ -18,8 +18,7 @@ import com.mattrubacky.monet2.deserialized.*;
  * Created by mattr on 9/30/2017.
  */
 
-public class WearLink
-        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class WearLink implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient googleApiClient;
     private boolean nodeConnected = false;
     Context context;

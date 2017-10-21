@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/21/2017.
+ *
+ * This adapter populates the League Card in RotationFragment
  */
 
 public class LeagueAdapter extends FragmentStatePagerAdapter {
