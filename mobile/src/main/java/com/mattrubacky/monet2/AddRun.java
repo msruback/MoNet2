@@ -234,6 +234,7 @@ public class AddRun extends AppCompatActivity {
                 salmonRun.weapons.add(weapon2);
                 salmonRun.weapons.add(weapon3);
                 salmonRun.weapons.add(weapon4);
+                salmonRun.notified = false;
                 salmonRun.stage = stageInput.getText().toString();
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 Gson gson = new Gson();
@@ -261,10 +262,6 @@ public class AddRun extends AppCompatActivity {
                 String json = gson.toJson(schedule);
                 edit.putString("salmonRunSchedule",json);
                 edit.commit();
-
-                SalmonAlarm salmonAlarm = new SalmonAlarm();
-                salmonAlarm.cancelAlarm(getApplicationContext());
-                salmonAlarm.setAlarm(getApplicationContext());
 
                 Intent intent = new Intent(getBaseContext(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -15,6 +15,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.google.gson.Gson;
 
+import com.mattrubacky.monet2.BattleInfo;
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.splatnet_interface.Splatnet;
@@ -56,8 +57,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
 
     }
 
-    public void setAlarm(Context context)
-    {
+    public void setAlarmDelayed(Context context){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Long alarmTime, alarmSpacing;
         Calendar calendar = Calendar.getInstance();
@@ -121,8 +121,68 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, DataUpdateAlarm.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+alarmTime,alarmSpacing, pi); // Millisec * Second * Minute
+    }
+
+    public void setAlarm(Context context)
+    {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Long alarmSpacing;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MINUTE,0);
+        int hour;
+        switch(settings.getInt("updateInterval",0)){
+            case 0:
+                calendar.add(Calendar.HOUR_OF_DAY,1);
+                alarmSpacing = Long.valueOf(1000*60*60);
+                break;
+            case 1:
+                hour = 2 - calendar.get(Calendar.HOUR_OF_DAY)%2;
+                calendar.add(Calendar.HOUR_OF_DAY,hour);
+                alarmSpacing = Long.valueOf(1000*60*60*2);
+                break;
+            case 2:
+                hour = 4 - calendar.get(Calendar.HOUR_OF_DAY)%4;
+                calendar.add(Calendar.HOUR_OF_DAY,hour);
+                alarmSpacing = Long.valueOf(1000*60*60*4);
+                break;
+            case 3:
+                hour = 6 - calendar.get(Calendar.HOUR_OF_DAY)%6;
+                calendar.add(Calendar.HOUR_OF_DAY,hour);
+                alarmSpacing = Long.valueOf(1000*60*60*6);
+                break;
+            case 4:
+                hour = 8 - calendar.get(Calendar.HOUR_OF_DAY)%8;
+                calendar.add(Calendar.HOUR_OF_DAY,hour);
+                alarmSpacing = Long.valueOf(1000*60*60*8);
+                break;
+            case 5:
+                hour = 10 - calendar.get(Calendar.HOUR_OF_DAY)%10;
+                calendar.add(Calendar.HOUR_OF_DAY,hour);
+                alarmSpacing = Long.valueOf(1000*60*60*10);
+                break;
+            case 6:
+                hour = 12 - calendar.get(Calendar.HOUR_OF_DAY)%12;
+                calendar.add(Calendar.HOUR_OF_DAY,hour);
+                alarmSpacing = Long.valueOf(1000*60*60*12);
+                break;
+            case 7:
+                hour = 24 - calendar.get(Calendar.HOUR_OF_DAY);
+                calendar.add(Calendar.HOUR_OF_DAY,hour);
+                alarmSpacing = Long.valueOf(1000*60*60*24);
+                break;
+            default:
+                calendar.set(Calendar.MINUTE,0);
+                calendar.add(Calendar.HOUR_OF_DAY,1);
+                alarmSpacing = Long.valueOf(1000*60*60);
+                break;
+        }
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(context, DataUpdateAlarm.class);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),alarmSpacing, pi); // Millisec * Second * Minute
     }
+
     public void cancelAlarm(Context context)
     {
         Intent intent = new Intent(context, DataUpdateAlarm.class);
@@ -130,6 +190,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
     }
+
     public boolean isAlarmSet(Context context){
         Intent intent = new Intent(context, DataUpdateAlarm.class);
         return (PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE) != null);
@@ -278,9 +339,11 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
         }
         for(int i=0;i<numTimePeriods;i++){
             TimePeriod timePeriod = timePeriods.get(i);
-            if(timePeriod.rule.key.equals(notification.rule)||notification.rule.equals("any")){
-                if(notification.stage.id == timePeriod.a.id||notification.stage.id == timePeriod.b.id||notification.stage.id==-1){
-                    postStageNotification(timePeriod,notification);
+            if(timePeriod.gamemode.key.equals(notification.type)||notification.type.equals("any")) {
+                if (timePeriod.rule.key.equals(notification.rule) || notification.rule.equals("any")) {
+                    if (notification.stage.id == timePeriod.a.id || notification.stage.id == timePeriod.b.id || notification.stage.id == -1) {
+                        postStageNotification(timePeriod, notification);
+                    }
                 }
             }
         }
@@ -319,6 +382,70 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
         SharedPreferences.Editor edit = settings.edit();
         edit.putString("gearNotifications",gson.toJson(gearNotifications));
         edit.commit();
+    }
+
+    private void findBattleGearNotifications(ArrayList<Battle> battles){
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        GearNotifications gearNotifications = gson.fromJson(settings.getString("gearNotifications",""),GearNotifications.class);
+        Battle battle;
+        GearNotification currentNotification = new GearNotification();
+        for(int i=0;i<3;i++) {
+            battle = battles.get(i);
+            for (int j = 0; j < gearNotifications.notifications.size(); j++) {
+                currentNotification = gearNotifications.notifications.get(j);
+                for (int k = 0; k < battle.myTeam.size(); k++) {
+                    switch (currentNotification.gear.kind) {
+                        case "head":
+                            if (currentNotification.gear.id == battle.myTeam.get(k).user.head.id) {
+                                if(currentNotification.skill.id == battle.myTeam.get(k).user.headSkills.main.id||currentNotification.skill.id==-1) {
+                                    postBattleGearNotification(currentNotification, battle.myTeam.get(k), true, battle);
+                                }
+                            }
+                            break;
+                        case "clothes":
+                            if (currentNotification.gear.id == battle.myTeam.get(k).user.clothes.id) {
+                                if(currentNotification.skill.id == battle.myTeam.get(k).user.clothesSkills.main.id||currentNotification.skill.id==-1) {
+                                    postBattleGearNotification(currentNotification, battle.myTeam.get(k), true, battle);
+                                }
+                            }
+                            break;
+                        case "shoes":
+                            if (currentNotification.gear.id == battle.myTeam.get(k).user.shoes.id) {
+                                if(currentNotification.skill.id == battle.myTeam.get(k).user.shoeSkills.main.id||currentNotification.skill.id==-1) {
+                                    postBattleGearNotification(currentNotification, battle.myTeam.get(k), true, battle);
+                                }
+                            }
+                            break;
+                    }
+                }
+                for (int k = 0; k < battle.myTeam.size(); k++) {
+                    switch (currentNotification.gear.kind) {
+                        case "head":
+                            if (currentNotification.gear.id == battle.myTeam.get(k).user.head.id) {
+                                if(currentNotification.skill.id == battle.myTeam.get(k).user.headSkills.main.id||currentNotification.skill.id==-1) {
+                                    postBattleGearNotification(currentNotification, battle.myTeam.get(k), false, battle);
+                                }
+                            }
+                            break;
+                        case "clothes":
+                            if (currentNotification.gear.id == battle.myTeam.get(k).user.clothes.id) {
+                                if(currentNotification.skill.id == battle.myTeam.get(k).user.clothesSkills.main.id||currentNotification.skill.id==-1) {
+                                    postBattleGearNotification(currentNotification, battle.myTeam.get(k), false, battle);
+                                }
+                            }
+                            break;
+                        case "shoes":
+                            if (currentNotification.gear.id == battle.myTeam.get(k).user.shoes.id) {
+                                if(currentNotification.skill.id == battle.myTeam.get(k).user.shoeSkills.main.id||currentNotification.skill.id==-1) {
+                                    postBattleGearNotification(currentNotification, battle.myTeam.get(k), false, battle);
+                                }
+                            }
+                            break;
+                    }
+                }
+            }
+        }
     }
 
     private void postStageNotification(TimePeriod timePeriod,StageNotification stageNotification){
@@ -395,6 +522,50 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                 .setContentIntent(shopIntentPending)
                 .setColor(context.getResources().getColor(R.color.colorPrimary))
                 .addAction(R.drawable.char_annie,"Order",orderIntentPending)
+                .build();
+        notification.defaults = Notification.DEFAULT_ALL;
+        notificationManager.notify((int) (new Date().getTime()%10000), notification);
+    }
+
+    private void postBattleGearNotification(GearNotification gearNotification, Player player,boolean isAlly, Battle battle){
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        Intent battleGearIntent = new Intent(context, BattleInfo.class);
+        Bundle bundle = new Bundle();
+        if(battle.type.equals("fes")){
+            SplatnetSQLManager database = new SplatnetSQLManager(context);
+            Splatfest splatfest = database.selectSplatfest(battle.splatfestID).splatfest;
+            bundle.putParcelable("splatfest",splatfest);
+        }
+        bundle.putParcelable("battle",battle);
+        battleGearIntent.putExtras(bundle);
+
+        PendingIntent battleGearIntentPending = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), battleGearIntent, 0);
+
+        String title = "Grab some "+gearNotification.gear.name+" from Merch!";
+        StringBuilder contentBuilder = new StringBuilder();
+
+        if(isAlly){
+            contentBuilder.append("Your Ally, ");
+        }else{
+            contentBuilder.append("Your Opponent, ");
+        }
+        contentBuilder.append(player.user.name);
+        contentBuilder.append(" had the ");
+        contentBuilder.append(gearNotification.gear.name);
+        if(gearNotification.skill.id!=-1){
+            contentBuilder.append(" with ");
+            contentBuilder.append(gearNotification.skill.name);
+        }
+        contentBuilder.append(" you were looking for!");
+
+        String content = contentBuilder.toString();
+        Notification notification  = new Notification.Builder(context)
+                .setContentTitle(title)
+                .setStyle(new Notification.BigTextStyle().bigText(content))
+                .setSmallIcon(R.drawable.char_judd)
+                .setContentIntent(battleGearIntentPending)
+                .setColor(context.getResources().getColor(R.color.colorPrimary))
                 .build();
         notification.defaults = Notification.DEFAULT_ALL;
         notificationManager.notify((int) (new Date().getTime()%10000), notification);
