@@ -37,7 +37,9 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SplatnetContract.SplatfestVotes.CREATE_TABLE);
 
         //Tables with at least one Foriegn Key to Level 1 (Level 2)
-        sqLiteDatabase.execSQL(SplatnetContract.Gear.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Head.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Clothes.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Shoe.CREATE_TABLE);
 
         //Tables with at least one Foriegn Key to Level 2 (Level 3)
         sqLiteDatabase.execSQL(SplatnetContract.Player.CREATE_TABLE);

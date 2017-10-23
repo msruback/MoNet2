@@ -37,6 +37,7 @@ import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -83,7 +84,43 @@ public class MainActivity extends AppCompatActivity {
 
         DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
         if(settings.getBoolean("autoUpdate",false)){
-            dataUpdateAlarm.setAlarm(MainActivity.this);
+            Long lastUpdate = settings.getLong("lastUpdate",0);
+            Calendar calendar = Calendar.getInstance();
+            int hour;
+            switch(settings.getInt("updateInterval",0)){
+                case 0:
+                    lastUpdate += Long.valueOf(1000*60*60);
+                    break;
+                case 1:
+                    lastUpdate += Long.valueOf(1000*60*60*2);
+                    break;
+                case 2:
+                    lastUpdate += Long.valueOf(1000*60*60*4);
+                    break;
+                case 3:
+                    lastUpdate += Long.valueOf(1000*60*60*6);;
+                    break;
+                case 4:
+                    lastUpdate += Long.valueOf(1000*60*60*8);
+                    break;
+                case 5:
+                    lastUpdate += Long.valueOf(1000*60*60*10);
+                    break;
+                case 6:
+                    lastUpdate += Long.valueOf(1000*60*60*12);
+                    break;
+                case 7:
+                    lastUpdate += Long.valueOf(1000*60*60*24);
+                    break;
+                default:
+                    lastUpdate += Long.valueOf(1000*60*60);
+                    break;
+            }
+            if(lastUpdate<calendar.getTimeInMillis()){
+                dataUpdateAlarm.setAlarm(MainActivity.this);
+            }else{
+                dataUpdateAlarm.setAlarmDelayed(MainActivity.this);
+            }
             ComponentName receiver = new ComponentName(MainActivity.this, BootReciever.class);
             PackageManager pm = getPackageManager();
             pm.setComponentEnabledSetting(receiver,

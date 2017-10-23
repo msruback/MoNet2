@@ -44,8 +44,9 @@ public class SalmonAlarm extends WakefulBroadcastReceiver {
         String time = sdf.format(run.endTime);
         String title = "Grizz Co. Now Hiring!";
         String content;
+        schedule.schedule.get(0).notified = false;
         SharedPreferences.Editor edit = settings.edit();
-        edit.putLong("salmonNotified",run.endTime);
+        edit.putString("salmonRunSchedule",gson.toJson(schedule));
         edit.commit();
 
         if(!run.stage.equals("")){
@@ -82,7 +83,7 @@ public class SalmonAlarm extends WakefulBroadcastReceiver {
         SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
         if(schedule.schedule.size()>0) {
             SalmonRun run = schedule.schedule.get(0);
-            if(run.endTime == settings.getLong("salmonNotified",0)){
+            if(run.notified){
                 run = schedule.schedule.get(1);
             }
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

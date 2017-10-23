@@ -36,11 +36,16 @@ public class SalmonRun implements Parcelable {
     @SerializedName("weapons")
     public ArrayList<Weapon> weapons;
 
+    @SerializedName("notified")
+    public boolean notified;
+
+
     protected SalmonRun(Parcel in) {
         startTime = in.readLong();
         endTime = in.readLong();
         stage = in.readString();
         weapons = in.createTypedArrayList(Weapon.CREATOR);
+        notified = in.readByte() != 0;
     }
 
     public static final Creator<SalmonRun> CREATOR = new Creator<SalmonRun>() {
@@ -66,5 +71,6 @@ public class SalmonRun implements Parcelable {
         dest.writeLong(endTime);
         dest.writeString(stage);
         dest.writeTypedList(weapons);
+        dest.writeByte((byte) (notified ? 1 : 0));
     }
 }
