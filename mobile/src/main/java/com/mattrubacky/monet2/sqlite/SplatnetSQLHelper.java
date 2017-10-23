@@ -11,7 +11,7 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
 
 
     private Context context;
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "splatnet";
 
     public SplatnetSQLHelper(Context context) {
@@ -80,7 +80,6 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
                     sqLiteDatabase.execSQL(SplatnetContract.Clothes.CREATE_TABLE);
                     sqLiteDatabase.execSQL(SplatnetContract.Shoe.CREATE_TABLE);
 
-                    new GearManager(context).updateTo4();
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS gear");
                     break;
             }
