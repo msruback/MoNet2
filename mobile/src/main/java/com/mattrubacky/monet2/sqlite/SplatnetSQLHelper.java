@@ -10,11 +10,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SplatnetSQLHelper extends SQLiteOpenHelper {
 
 
+    private Context context;
     private static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "splatnet";
 
     public SplatnetSQLHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -69,6 +71,17 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
                     sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Splatfest.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Splatfest.COLUMN_IMAGE_ALPHA + " INTEGER REFERENCES stage(_id)");
                     sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Splatfest.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Splatfest.COLUMN_IMAGE_BRAVO + " INTEGER REFERENCES stage(_id)");
 
+                    break;
+                case 4:
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS closet");
+                    sqLiteDatabase.execSQL(SplatnetContract.Closet.CREATE_TABLE);
+
+                    sqLiteDatabase.execSQL(SplatnetContract.Head.CREATE_TABLE);
+                    sqLiteDatabase.execSQL(SplatnetContract.Clothes.CREATE_TABLE);
+                    sqLiteDatabase.execSQL(SplatnetContract.Shoe.CREATE_TABLE);
+
+                    new GearManager(context).updateTo4();
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS gear");
                     break;
             }
         }
