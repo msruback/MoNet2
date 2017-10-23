@@ -57,6 +57,8 @@ class ClosetManager {
 
                 values.put(SplatnetContract.Closet._ID,closetHanger.gear.id);
                 values.put(SplatnetContract.Closet.COLUMN_GEAR,closetHanger.gear.id);
+                values.put(SplatnetContract.Closet.COLUMN_KIND,closetHanger.gear.kind);
+
                 values.put(SplatnetContract.Closet.COLUMN_MAIN,closetHanger.skills.main.id);
 
                 values.put(SplatnetContract.Closet.COLUMN_LAST_USE_TIME,closetHanger.time);
@@ -108,7 +110,7 @@ class ClosetManager {
         ClosetHanger closetHanger = new ClosetHanger();
 
         if(cursor.moveToFirst()){
-            closetHanger.gear = gearManager.select(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_GEAR)));
+            closetHanger.gear = gearManager.select(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_GEAR)),cursor.getString(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_KIND)));
 
             skillManager.addToSelect(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_MAIN)));
 
@@ -150,6 +152,9 @@ class ClosetManager {
         ArrayList<Integer> gearIDs = new ArrayList<>();
         int gearID;
 
+        ArrayList<String> gearKinds = new ArrayList<>();
+        String gearKind;
+
         ArrayList<Integer> mainIDs = new ArrayList<>();
         int mainID;
 
@@ -160,8 +165,12 @@ class ClosetManager {
             closetHanger = new ClosetHanger();
 
             gearID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_GEAR));
-            gearManager.addToSelect(gearID);
+            gearKind = cursor.getString(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_KIND));
+
+            gearManager.addToSelect(gearID,gearKind);
+
             gearIDs.add(gearID);
+            gearKinds.add(gearKind);
 
             mainID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_MAIN));
             skillManager.addToSelect(mainID);
@@ -185,10 +194,21 @@ class ClosetManager {
         }
         cursor.close();
         database.close();
-        HashMap<Integer,Gear> gearHashMap = gearManager.select();
+        ArrayList<HashMap<Integer,Gear>> gearList = gearManager.select();
+        HashMap<Integer,Gear> gearHashMap = new HashMap<>();
         HashMap<Integer,Skill> skillHashMap = skillManager.select();
         for(int i=0;i<hangers.size();i++){
             closetHanger = hangers.get(i);
+            switch(gearKinds.get(i)) {
+                case "head":
+                    gearHashMap = gearList.get(0);
+                    break;
+                case "clothes":
+                    gearHashMap = gearList.get(1);
+                    break;
+                case "shoes":
+                    gearHashMap = gearList.get(2);
+            }
             closetHanger.gear = gearHashMap.get(gearIDs.get(i));
 
             closetHanger.skills.main = skillHashMap.get(mainIDs.get(i));

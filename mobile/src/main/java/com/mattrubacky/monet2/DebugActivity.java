@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
 import com.mattrubacky.monet2.splatnet_interface.Splatnet;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
@@ -28,26 +29,8 @@ public class DebugActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.item_player_child);
-        new UpdateDataV3().execute();
-    }
-    class UpdateDataV3 extends AsyncTask<Void,Void,Void> {
-
-        @Override
-        protected void onPreExecute() {}
-        @Override
-        protected Void doInBackground(Void... params) {
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            String cookie = settings.getString("cookie","");
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-            startActivity(intent);
-        }
-
+        DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
+        dataUpdateAlarm.setAlarm(DebugActivity.this);
     }
 
 }

@@ -118,10 +118,10 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                 alarmSpacing = Long.valueOf(1000*60*60);
                 break;
         }
-        AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, DataUpdateAlarm.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+alarmTime,alarmSpacing, pi); // Millisec * Second * Minute
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),alarmSpacing, pi); // Millisec * Second * Minute
     }
     public void cancelAlarm(Context context)
     {
@@ -298,7 +298,9 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                 if(notification.notified==null){
                     notification.notified = new ArrayList<>();
                 }
-                if(notification.gear.id == product.gear.id){
+                if(notification.gear.id == product.gear.id&&notification.gear.kind.equals(product.gear.kind)){
+                    System.out.println("Gear: "+product.gear.name+" ID: "+product.gear.id);
+                    System.out.println("Notification: "+notification.gear.name+"ID: "+notification.gear.id);
                     boolean notified = false;
                     for(int k=0;k<notification.notified.size();k++){
                         if(notification.notified.get(k).id.equals(product.gear.id)){

@@ -201,15 +201,15 @@ public class SplatnetSQLManager {
         gearManager.insert();
     }
 
-    public Gear selectGear(int id){
+    public Gear selectGear(int id,String kind){
         GearManager gearManager = new GearManager(context);
-        return gearManager.select(id);
+        return gearManager.select(id,kind);
     }
 
-    public HashMap<Integer,Gear> selectGear(ArrayList<Integer> ids){
+    public ArrayList<HashMap<Integer,Gear>> selectGear(ArrayList<Integer> ids, ArrayList<String> kinds){
         GearManager gearManager = new GearManager(context);
         for(int i=0;i<ids.size();i++){
-            gearManager.addToSelect(ids.get(i));
+            gearManager.addToSelect(ids.get(i),kinds.get(i));
         }
         return gearManager.select();
     }

@@ -99,17 +99,17 @@ public final class SplatnetContract {
                 COLUMN_RANK + " TEXT, "+
                 COLUMN_S_NUM + " TEXT, "+
                 COLUMN_FES_GRADE + " TEXT, "+
-                COLUMN_HEAD + " INTEGER REFERENCES gear(_id), "+
+                COLUMN_HEAD + " INTEGER REFERENCES head(_id), "+
                 COLUMN_HEAD_MAIN + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_HEAD_SUB_1 + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_HEAD_SUB_2 + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_HEAD_SUB_3 + " INTEGER REFERENCES skill(_id), "+
-                COLUMN_CLOTHES + " INTEGER REFERENCES gear(_id), "+
+                COLUMN_CLOTHES + " INTEGER REFERENCES clothes(_id), "+
                 COLUMN_CLOTHES_MAIN + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_CLOTHES_SUB_1 + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_CLOTHES_SUB_2 + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_CLOTHES_SUB_3 + " INTEGER REFERENCES skill(_id), "+
-                COLUMN_SHOES + " INTEGER REFERENCES gear(_id), "+
+                COLUMN_SHOES + " INTEGER REFERENCES shoe(_id), "+
                 COLUMN_SHOES_MAIN + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_SHOES_SUB_1 + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_SHOES_SUB_2 + " INTEGER REFERENCES skill(_id), "+
@@ -119,6 +119,57 @@ public final class SplatnetContract {
 
     public static class Gear implements BaseColumns{
         public static final String TABLE_NAME = "gear";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_KIND = "kind";
+        public static final String COLUMN_RARITY = "rarity";
+        public static final String COLUMN_BRAND = "brand";
+        public static final String COLUMN_URL = "url";
+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                _ID + " INTEGER PRIMARY KEY, "+
+                COLUMN_NAME + " TEXT, "+
+                COLUMN_BRAND +" INTEGER REFERENCES brand(_id), "+
+                COLUMN_KIND + " TEXT, "+
+                COLUMN_RARITY + " INTEGER, "+
+                COLUMN_URL + " TEXT)";
+    }
+
+    public static class Head implements BaseColumns{
+        public static final String TABLE_NAME = "head";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_KIND = "kind";
+        public static final String COLUMN_RARITY = "rarity";
+        public static final String COLUMN_BRAND = "brand";
+        public static final String COLUMN_URL = "url";
+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                _ID + " INTEGER PRIMARY KEY, "+
+                COLUMN_NAME + " TEXT, "+
+                COLUMN_BRAND +" INTEGER REFERENCES brand(_id), "+
+                COLUMN_KIND + " TEXT, "+
+                COLUMN_RARITY + " INTEGER, "+
+                COLUMN_URL + " TEXT)";
+    }
+
+    public static class Clothes implements BaseColumns{
+        public static final String TABLE_NAME = "clothes";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_KIND = "kind";
+        public static final String COLUMN_RARITY = "rarity";
+        public static final String COLUMN_BRAND = "brand";
+        public static final String COLUMN_URL = "url";
+
+        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
+                _ID + " INTEGER PRIMARY KEY, "+
+                COLUMN_NAME + " TEXT, "+
+                COLUMN_BRAND +" INTEGER REFERENCES brand(_id), "+
+                COLUMN_KIND + " TEXT, "+
+                COLUMN_RARITY + " INTEGER, "+
+                COLUMN_URL + " TEXT)";
+    }
+
+    public static class Shoe implements BaseColumns{
+        public static final String TABLE_NAME = "shoe";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_KIND = "kind";
         public static final String COLUMN_RARITY = "rarity";
@@ -290,6 +341,7 @@ public final class SplatnetContract {
     public static class Closet implements BaseColumns{
         public static final String TABLE_NAME = "closet";
         public static final String COLUMN_GEAR = "gear";
+        public static final String COLUMN_KIND = "kind";
         public static final String COLUMN_MAIN = "main";
         public static final String COLUMN_SUB_1 = "sub_1";
         public static final String COLUMN_SUB_2 = "sub_2";
@@ -298,7 +350,8 @@ public final class SplatnetContract {
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
-                COLUMN_GEAR + " INTEGER REFERENCES gear(_id), "+
+                COLUMN_GEAR + " INTEGER, "+
+                COLUMN_KIND + " TEXT, "+
                 COLUMN_MAIN + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_SUB_1 + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_SUB_2 + " INTEGER REFERENCES skill(_id), "+

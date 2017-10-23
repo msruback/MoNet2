@@ -255,7 +255,7 @@ class PlayerManager {
                 //Head
 
                 headID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD));
-                gearManager.addToSelect(headID);
+                gearManager.addToSelect(headID,"head");
                 headIDs.add(headID);
 
                 headMainID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_MAIN));
@@ -277,7 +277,7 @@ class PlayerManager {
                 //Clothes
 
                 clothesID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_CLOTHES));
-                gearManager.addToSelect(clothesID);
+                gearManager.addToSelect(clothesID,"clothes");
                 clothesIDs.add(clothesID);
 
                 clothesMainID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_CLOTHES_MAIN));
@@ -299,7 +299,7 @@ class PlayerManager {
                 //Shoes
 
                 shoeID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SHOES));
-                gearManager.addToSelect(shoeID);
+                gearManager.addToSelect(shoeID,"shoes");
                 shoeIDs.add(clothesID);
 
                 shoeMainID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SHOES_MAIN));
@@ -332,7 +332,7 @@ class PlayerManager {
         cursor.close();
         database.close();
 
-        HashMap<Integer,Gear> gearHashMap = gearManager.select();
+        ArrayList<HashMap<Integer,Gear>> gearHashMap = gearManager.select();
         HashMap<Integer,Skill> skillHashMap = skillManager.select();
         HashMap<Integer,Weapon> weaponHashMap = weaponManager.select();
 
@@ -343,7 +343,7 @@ class PlayerManager {
         for(int i=0;i<players.size();i++){
             player = players.get(i);
 
-            player.player.user.head = gearHashMap.get(headIDs.get(i));
+            player.player.user.head = gearHashMap.get(0).get(headIDs.get(i));
 
             headSkills = new GearSkills();
             headSkills.main = skillHashMap.get(headMainIDs.get(i));
@@ -353,7 +353,7 @@ class PlayerManager {
             headSkills.subs.add(skillHashMap.get(headSub3IDs.get(i)));
             player.player.user.headSkills = headSkills;
 
-            player.player.user.clothes = gearHashMap.get(clothesIDs.get(i));
+            player.player.user.clothes = gearHashMap.get(1).get(clothesIDs.get(i));
 
             clothesSkills = new GearSkills();
             clothesSkills.main = skillHashMap.get(clothesMainIDs.get(i));
@@ -363,7 +363,7 @@ class PlayerManager {
             clothesSkills.subs.add(skillHashMap.get(clothesSub3IDs.get(i)));
             player.player.user.clothesSkills = clothesSkills;
 
-            player.player.user.shoes = gearHashMap.get(shoeIDs.get(i));
+            player.player.user.shoes = gearHashMap.get(2).get(shoeIDs.get(i));
 
             shoeSkills = new GearSkills();
             shoeSkills.main = skillHashMap.get(shoeMainIDs.get(i));
