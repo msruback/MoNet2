@@ -28,9 +28,7 @@ public class DebugActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.item_player_child);
-        DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
-        dataUpdateAlarm.setAlarm(DebugActivity.this);
+        setContentView(R.layout.activity_weapon_stats);
     }
 
 }

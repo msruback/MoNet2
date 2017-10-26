@@ -176,20 +176,7 @@ public class ClothesManager {
     public ArrayList<Gear> selectAll(){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
-        String[] args = new String[toSelect.size()];
-        args[0] = String.valueOf(toSelect.get(0));
-
-        StringBuilder builder = new StringBuilder();
-        builder.append(SplatnetContract.Clothes._ID+" = ?");
-
-        for(int i=1;i<toSelect.size();i++){
-            builder.append(" OR "+SplatnetContract.Clothes._ID+" = ?");
-            args[i] = String.valueOf(toSelect.get(i));
-        }
-
-        String whereClause = builder.toString();
-
-        Cursor cursor = database.query(SplatnetContract.Clothes.TABLE_NAME,null,whereClause,args,null,null,null);
+        Cursor cursor = database.query(SplatnetContract.Clothes.TABLE_NAME,null,null,null,null,null,null);
 
         ArrayList<Gear> gears = new ArrayList<>();
         ArrayList<Gear> selected = new ArrayList<>();

@@ -33,4 +33,6 @@
     <color name="merchHead">#ee156e</color>
     <color name="merchClothes">#1dd6ad</color>
     <color name="merchShoe">#e66900</color>
+
+    <color name="weapon">#ffee33</color>
 </resources>
