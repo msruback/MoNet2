@@ -31,190 +31,229 @@
             android:textSize="30sp" />
     </android.support.v7.widget.Toolbar>
 
-    <ScrollView
+    <RelativeLayout
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="-20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="-10dp"
-        android:layout_below="@+id/toolbar">
+        android:layout_height="match_parent">
+
         <RelativeLayout
+            android:id="@+id/nameLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="70dp"
+            android:layout_marginTop="-5dp"
+            android:background="@color/weapon"
+            android:elevation="5dp"
+            android:rotation="4">
 
             <RelativeLayout
-                android:id="@+id/nameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/repeat_stripes"></RelativeLayout>
+
+            <TextView
+                android:id="@+id/Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/Flag"
+                android:text="Sloshing Machine"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/Flag"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/icon_flag" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/numberLayout"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:background="@color/offWhite"
+            android:elevation="3dp"
+            android:rotation="-1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/repeat_stripes"
+                android:scaleY="-1"></RelativeLayout>
+
+            <TextView
+                android:id="@+id/Number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:text="9999999" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/weaponLayout"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/numberLayout"
+            android:layout_marginTop="-10dp"
+            android:background="@drawable/repeat_squids">
+
+            <ImageView
+                android:id="@+id/WeaponImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/weapon_sloshing_machine" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/statLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/weaponLayout"
+            android:layout_marginTop="-15dp"
+            android:elevation="3dp">
+
+            <RelativeLayout
+                android:id="@+id/moreInfo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/weapon"
-                android:layout_marginTop="-5dp"
-                android:elevation="5dp"
-                android:rotation="4">
+                android:elevation="6dp"
+                android:rotation="-1.5">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/repeat_stripes"></RelativeLayout>
+                    android:background="@drawable/repeat_stripes">
 
-                <TextView
-                    android:id="@+id/Name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/Flag"
-                    android:text="Sloshing Machine"
-                    android:textSize="20sp" />
+                    <RelativeLayout
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/skill_background"
+                        android:backgroundTint="@color/transparentgrey">
 
-                <ImageView
-                    android:id="@+id/Flag"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="15dp"
-                    android:src="@drawable/icon_flag" />
+                        <ImageView
+                            android:id="@+id/Sub"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/autobomb" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/skill_background"
+                        android:backgroundTint="@color/transparentgrey">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/inkstorm" />
+                    </RelativeLayout>
+                </RelativeLayout>
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/numberLayout"
-                android:layout_width="match_parent"
-                android:layout_height="85dp"
-                android:background="@color/offWhite"
-                android:elevation="3dp"
-                android:rotation="-1">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/repeat_stripes"
-                    android:scaleY="-1"></RelativeLayout>
-
-                <TextView
-                    android:id="@+id/Number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="15dp"
-                    android:text="9999999" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/weaponLayout"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_below="@+id/numberLayout"
-                android:layout_marginTop="-10dp"
-                android:background="@drawable/repeat_squids">
-
-                <ImageView
-                    android:id="@+id/WeaponImage"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/weapon_sloshing_machine" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/statLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/weaponLayout"
-                android:layout_marginTop="-15dp"
+                android:layout_below="@+id/moreInfo"
+                android:layout_marginTop="-5dp"
+                android:background="@color/offWhite"
                 android:elevation="3dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/repeat_spots">
+
                     <RelativeLayout
-                        android:id="@+id/moreInfo"
+                        android:id="@+id/generalStats"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/weapon"
-                        android:rotation="-1.5"
-                        android:elevation="6dp">
+                        android:layout_height="200dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/weapon"
+                        android:elevation="5dp"
+                        android:rotation="1">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/repeat_stripes">
-                            <RelativeLayout
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:layout_marginLeft="20dp"
-                                android:layout_centerVertical="true"
-                                android:background="@drawable/skill_background"
-                                android:backgroundTint="@color/transparentgrey">
-                                <ImageView
-                                    android:id="@+id/Sub"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/autobomb"/>
-                            </RelativeLayout>
-                            <RelativeLayout
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:layout_marginRight="20dp"
-                                android:layout_centerVertical="true"
-                                android:layout_alignParentRight="true"
-                                android:background="@drawable/skill_background"
-                                android:backgroundTint="@color/transparentgrey">
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/inkstorm"/>
-                            </RelativeLayout>
-                        </RelativeLayout>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/moreInfo"
-                        android:layout_marginTop="-5dp"
-                        android:background="@color/offWhite"
-                        android:elevation="3dp">
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/repeat_spots">
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:background="@drawable/repeat_zigzag">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="-5dp"
+                                android:src="@drawable/extra_product"
+                                android:tint="@color/offWhite" />
+
                             <RelativeLayout
                                 android:id="@+id/winOutline"
                                 android:layout_width="match_parent"
-                                android:layout_height="50dp"
-                                android:layout_marginRight="30dp"
+                                android:layout_height="40dp"
                                 android:layout_marginLeft="30dp"
-                                android:layout_marginTop="20dp"
-                                android:padding="5dp"
+                                android:layout_marginRight="30dp"
+                                android:layout_marginTop="30dp"
                                 android:background="@drawable/shape_card"
-                                android:backgroundTint="@color/darkgrey">
+                                android:backgroundTint="@color/offWhiteDark"
+                                android:padding="5dp">
+
                                 <RelativeLayout
                                     android:id="@+id/WinLossMeter"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:background="@drawable/shape_card"
-                                    android:backgroundTint="@color/darkgrey">
+                                    android:backgroundTint="@color/offWhiteDark">
+
                                     <RelativeLayout
                                         android:id="@+id/Wins"
                                         android:layout_width="100dp"
                                         android:layout_height="match_parent"
                                         android:background="@color/colorPrimary">
+
                                         <TextView
                                             android:id="@+id/WinText"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerInParent="true"
-                                            android:text="50"/>
+                                            android:text="50" />
                                     </RelativeLayout>
+
                                     <RelativeLayout
                                         android:id="@+id/Losses"
                                         android:layout_width="100dp"
                                         android:layout_height="match_parent"
                                         android:layout_alignParentRight="true"
                                         android:background="@color/colorAccent">
+
                                         <TextView
                                             android:id="@+id/LossText"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerInParent="true"
-                                            android:text="50"/>
+                                            android:text="50" />
                                     </RelativeLayout>
+
                                     <RelativeLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -223,29 +262,79 @@
                             </RelativeLayout>
 
                             <RelativeLayout
+                                android:id="@+id/inkedLayout"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="40dp"
                                 android:layout_below="@id/winOutline"
-                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="30dp"
                                 android:layout_marginRight="30dp"
-                                android:layout_marginLeft="30dp">
+                                android:layout_marginTop="15dp"
+                                android:background="@drawable/shape_card"
+                                android:backgroundTint="@color/transparentgrey">
+
                                 <TextView
                                     android:id="@+id/InkedTitleText"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Total Inked :"/>
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/shape_card"
+                                    android:backgroundTint="@color/primary"
+                                    android:gravity="center"
+                                    android:padding="10dp"
+                                    android:text="Total Inked"
+                                    android:textSize="16sp" />
+
                                 <TextView
                                     android:id="@+id/InkedText"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_toRightOf="@+id/InkedTitleText"
+                                    android:layout_centerVertical="true"
                                     android:layout_marginLeft="10dp"
-                                    android:text="888p"/>
+                                    android:layout_toRightOf="@+id/InkedTitleText"
+                                    android:text="888p"
+                                    android:textSize="16sp" />
                             </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/lastLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/inkedLayout"
+                                android:layout_marginBottom="15dp"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                android:layout_marginTop="15dp"
+                                android:background="@drawable/shape_card"
+                                android:backgroundTint="@color/transparentgrey">
+
+                                <TextView
+                                    android:id="@+id/LastTitleText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/shape_card"
+                                    android:backgroundTint="@color/primary"
+                                    android:gravity="center"
+                                    android:padding="10dp"
+                                    android:text="Last Used"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:id="@+id/LastText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_toRightOf="@+id/LastTitleText"
+                                    android:text="888p"
+                                    android:textSize="16sp" />
+                            </RelativeLayout>
+
                         </RelativeLayout>
+
                     </RelativeLayout>
+
                 </RelativeLayout>
+            </RelativeLayout>
         </RelativeLayout>
-    </ScrollView>
+    </RelativeLayout>
 
 </RelativeLayout>
