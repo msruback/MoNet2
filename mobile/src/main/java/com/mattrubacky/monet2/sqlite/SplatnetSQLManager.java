@@ -193,6 +193,12 @@ public class SplatnetSQLManager {
         playerManager.insert();
     }
 
+    public ArrayList<Player> getPlayerStats(int id,String type){
+        PlayerManager playerManager = new PlayerManager(context);
+        return playerManager.selectStats(id,type);
+    }
+
+    //Gear
     public void insertGear(ArrayList<Gear> gear){
         GearManager gearManager = new GearManager(context);
         for(int i=0;i<gear.size();i++){
