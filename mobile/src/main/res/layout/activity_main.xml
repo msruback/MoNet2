@@ -31,7 +31,6 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!-- The main content view -->
         <FrameLayout
             android:id="@+id/frame_container"
             android:layout_width="match_parent"
@@ -41,17 +40,18 @@
 
         <!-- The navigation drawer -->
 
-        <ListView
+        <ExpandableListView
             android:id="@+id/left_drawer"
             android:layout_width="240dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:layout_marginTop="56dp"
             android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
-            android:layout_marginTop="56dp"
             android:padding="10dp"
-            android:background="@drawable/grey_stripes"></ListView>
+            android:groupIndicator="@null"
+            android:background="@drawable/grey_stripes"></ExpandableListView>
 
     </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>

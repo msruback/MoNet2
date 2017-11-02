@@ -185,7 +185,7 @@ public class BattleListFragment extends Fragment {
             String cookie = settings.getString("cookie","");
 
             try {
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
                 Response response;
                 ArrayList<Battle> list = new ArrayList<>();

@@ -21,11 +21,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import com.mattrubacky.monet2.adapter.NavAdapter;
 import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.fragment.*;
 import com.mattrubacky.monet2.reciever.BootReciever;
@@ -48,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     ActionBarDrawerToggle actionBarDrawerToggle;
     DrawerLayout drawerLayout;
-    ListView drawerList;
-    ArrayList<String> titles;
+    ExpandableListView drawerList;
+    ArrayList<String> titles,children;
     Fragment rotation,shop,battleList,settingsFrag;
 
     @Override
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (ListView) findViewById(R.id.left_drawer);
+        drawerList = (ExpandableListView) findViewById(R.id.left_drawer);
 
         //Add titles
         titles = new ArrayList<String>();
@@ -67,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
         titles.add(settings.getString("name","User"));
         titles.add("Battles");
         titles.add("Settings");
+
+        children = new ArrayList<String>();
+        children.add("Weapon Locker");
+        children.add("Closet");
+        children.add("Stages");
+        children.add("Splatfests");
+        children.add("Campaign");
 
         //Just when I am too lazy to enter the token by hand
         //SharedPreferences.Editor edit = settings.edit();
@@ -181,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        drawerList.setAdapter(new NavAdapter(getApplicationContext(),titles));
+        drawerList.setAdapter(new NavAdapter(getApplicationContext(),titles,children));
 
 
         drawerLayout.setScrimColor(ContextCompat.getColor(getApplicationContext(), R.color.transparentgrey2));
@@ -190,78 +199,77 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
-        drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
+        drawerList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener(){
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View view, int position, long id) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                switch(position){
+                    case 0:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container, rotation)
+                                .commit();
+                        drawerLayout.closeDrawer(drawerList);
+                        break;
+                    case 1:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container, shop)
+                                .commit();
 
-    }
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
+                        drawerLayout.closeDrawer(drawerList);
+                        break;
+                    case 2://Stats expands
+                        break;
+                    case 3:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,battleList)
+                                .commit();
+                        drawerLayout.closeDrawer(drawerList);
+                        break;
+                    case 4:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,settingsFrag)
+                                .commit();
+                        drawerLayout.closeDrawer(drawerList);
+                        break;
+                }
 
+                // Insert the fragment by replacing any existing fragment
 
-    /** Swaps fragments*/
-    private void selectItem(int position) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        switch(position){
-            case 0:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.frame_container, rotation)
-                        .commit();
-                break;
-            case 1:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.frame_container, shop)
-                        .commit();
-                break;
-            //Stats fragments go here
-            case 2:
-                break;
-            case 3:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.frame_container,battleList)
-                        .commit();
-                break;
-            case 4:
-                fragmentManager.beginTransaction()
-                    .replace(R.id.frame_container,settingsFrag)
-                    .commit();
-                break;
-        }
-
-        // Insert the fragment by replacing any existing fragment
-
-        // Highlight the selected item, update the title, and close the drawer
-        drawerList.setItemChecked(position, true);
-        drawerLayout.closeDrawer(drawerList);
-    }
-    private class NavAdapter extends ArrayAdapter<String> {
-        public NavAdapter(Context context, ArrayList<String> input) {
-            super(context, 0, input);
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_nav, parent, false);
+                // Highlight the selected item, update the title, and close the drawer
+                drawerList.setItemChecked(position, true);
+                return false;
             }
-            Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
+        });
+
+        //Handle navigatation to stat page
+        drawerList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                return false;
+            }
+        });
+
+        //Handle stat children clicks
+        drawerList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                switch(childPosition){
+                    case 0:
+                        break;
+                }
+                return false;
+            }
+        });
 
 
-            TextView title = (TextView) convertView.findViewById(R.id.Title);
-            title.setText(getItem(position));
-            title.setTypeface(font);
-            return convertView;
-        }
     }
     private Runnable updateTimeline = new Runnable() {
         public void run() {
             try{
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 String cookie = settings.getString("cookie","");
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
                 SplatnetSQLManager database = new SplatnetSQLManager(getApplicationContext());
 

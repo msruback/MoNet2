@@ -1,5 +1,8 @@
 package com.mattrubacky.monet2.deserialized;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.deserialized.Weapon;
 
@@ -9,7 +12,7 @@ import com.mattrubacky.monet2.deserialized.Weapon;
  * For use in the Weapon Locker
  */
 
-public class WeaponStats{
+public class WeaponStats implements Parcelable{
     public WeaponStats(){}
 
     //The casual mode "Freshness" meter current level
@@ -39,6 +42,36 @@ public class WeaponStats{
     //The weapon itself
     @SerializedName("weapon")
     public Weapon weapon;
+
+    protected WeaponStats(Parcel in) {
+        wins = in.readInt();
+        losses = in.readInt();
+        weapon = in.readParcelable(Weapon.class.getClassLoader());
+    }
+
+    public static final Creator<WeaponStats> CREATOR = new Creator<WeaponStats>() {
+        @Override
+        public WeaponStats createFromParcel(Parcel in) {
+            return new WeaponStats(in);
+        }
+
+        @Override
+        public WeaponStats[] newArray(int size) {
+            return new WeaponStats[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(wins);
+        dest.writeInt(losses);
+        dest.writeParcelable(weapon, flags);
+    }
 }
 
 

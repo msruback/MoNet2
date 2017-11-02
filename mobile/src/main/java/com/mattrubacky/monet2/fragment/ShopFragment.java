@@ -290,7 +290,7 @@ public class ShopFragment extends Fragment {
                 holder.brand.setImageBitmap(imageHandler.loadImage("brand",brandLocation));
             }else{
                 Picasso.with(context).load(brandUrl).into(holder.brand);
-                imageHandler.downloadImage("brand",gearLocation,brandUrl,context);
+                imageHandler.downloadImage("brand",brandLocation,brandUrl,context);
             }
 
             //Set the ability image

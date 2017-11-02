@@ -37,18 +37,14 @@ class BattleManager {
     }
 
     public boolean exists(int id){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
-        String whereClause = SplatnetContract.Battle._ID +" = ?";
-        String[] args = new String[] {String.valueOf(id)};
-        Cursor cursor = database.query(SplatnetContract.Battle.TABLE_NAME,null,whereClause,args,null,null,null);
+        String sql = "SELECT COUNT(*) FROM " + SplatnetContract.Battle.TABLE_NAME +" WHERE "+ SplatnetContract.Battle._ID+" = "+id;
 
-        if(cursor.getCount()==0){
-            cursor.close();
+        if(0==database.compileStatement(sql).simpleQueryForLong()){
             database.close();
             return false;
         }else{
-            cursor.close();
             database.close();
             return true;
         }
@@ -61,7 +57,7 @@ class BattleManager {
         stageManager.addToInsert(battle.stage);
 
         //Need to avoid duplicates, might be a place for further optimization in the future
-        if(exists(battle.id)) {
+        if(!exists(battle.id)) {
             toInsert.add(battle);
 
             closetManager.addToInsert(battle.user.user.head,battle.user.user.headSkills,battle);
@@ -123,11 +119,7 @@ class BattleManager {
             for (int i = 0; i < toInsert.size(); i++) {
                 values = new ContentValues();
                 battle = toInsert.get(i);
-
                 args = new String[]{String.valueOf(battle.id)};
-                cursor = database.query(SplatnetContract.Battle.TABLE_NAME, null, whereClause, args, null, null, null);
-                if (cursor.getCount() == 0) {
-
                     values.put(SplatnetContract.Battle._ID, battle.id);
                     values.put(SplatnetContract.Battle.COLUMN_RESULT, battle.result.name);
                     values.put(SplatnetContract.Battle.COLUMN_RULE, battle.rule.name);
@@ -161,12 +153,9 @@ class BattleManager {
                     }
 
                     values.put(SplatnetContract.Battle.COLUMN_STAGE, battle.stage.id);
-
                     database.insert(SplatnetContract.Battle.TABLE_NAME, null, values);
-                }
             }
 
-            cursor.close();
             database.close();
             //Clear toInsert
             toInsert = new ArrayList<>();
