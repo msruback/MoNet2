@@ -164,6 +164,7 @@
                             android:backgroundTint="@color/transparentgrey">
 
                             <ImageView
+                                android:id="@+id/Special"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:src="@drawable/inkstorm" />
@@ -376,6 +377,7 @@
                                     android:textSize="16sp" />
 
                                 <RelativeLayout
+                                    android:id="@+id/InkMeter"
                                     android:layout_width="match_parent"
                                     android:layout_height="60dp"
                                     android:layout_below="@+id/InkTitle"
@@ -480,6 +482,7 @@
                                         android:src="@drawable/shape_line" />
 
                                     <TextView
+                                        android:id="@+id/InkMaximum"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -530,6 +533,7 @@
                                     android:textSize="16sp" />
 
                                 <RelativeLayout
+                                    android:id="@+id/KillMeter"
                                     android:layout_width="match_parent"
                                     android:layout_height="60dp"
                                     android:layout_below="@+id/KillTitle"
@@ -634,6 +638,7 @@
                                         android:src="@drawable/shape_line" />
 
                                     <TextView
+                                        android:id="@+id/KillMaximum"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -684,6 +689,7 @@
                                     android:textSize="16sp" />
 
                                 <RelativeLayout
+                                    android:id="@+id/DeathMeter"
                                     android:layout_width="match_parent"
                                     android:layout_height="60dp"
                                     android:layout_below="@+id/DeathTitle"
@@ -788,6 +794,7 @@
                                         android:src="@drawable/shape_line" />
 
                                     <TextView
+                                        android:id="@+id/DeathMaximum"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentBottom="true"
@@ -835,106 +842,121 @@
                                     android:padding="10dp"
                                     android:text="Special Spread"
                                     android:textSize="16sp"/>
+
+                                <RelativeLayout
+                                    android:id="@+id/SpecialMeter"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:layout_below="@+id/SpecialTitle"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_marginTop="10dp">
+
+                                    <ImageView
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:layout_alignLeft="@+id/SpecialLowerWhisker"
+                                        android:layout_marginLeft="-20dp"
+                                        android:rotation="90"
+                                        android:src="@drawable/shape_line" />
+
                                     <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="60dp"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_marginRight="15dp"
-                                        android:layout_marginLeft="15dp"
-                                        android:layout_below="@+id/SpecialTitle">
-                                        <ImageView
-                                            android:layout_width="40dp"
-                                            android:layout_height="40dp"
-                                            android:layout_alignLeft="@+id/SpecialLowerWhisker"
-                                            android:layout_marginLeft="-20dp"
-                                            android:src="@drawable/shape_line"
-                                            android:rotation="90"/>
+                                        android:id="@+id/SpecialLowerWhisker"
+                                        android:layout_width="50dp"
+                                        android:layout_height="3dp"
+                                        android:layout_marginTop="20dp"
+                                        android:background="@drawable/shape_line"></RelativeLayout>
+
+                                    <TextView
+                                        android:id="@+id/SpecialMinimum"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignLeft="@+id/SpecialLowerWhisker"
+                                        android:layout_alignParentBottom="true"
+                                        android:text="0"
+                                        android:textSize="16sp" />
+
+                                    <RelativeLayout
+                                        android:id="@+id/specialBox"
+                                        android:layout_width="110dp"
+                                        android:layout_height="40dp"
+                                        android:layout_toRightOf="@+id/SpecialLowerWhisker"
+                                        android:background="@drawable/shape_card"
+                                        android:backgroundTint="@color/offWhiteDark"
+                                        android:padding="5dp">
+
                                         <RelativeLayout
-                                            android:id="@+id/SpecialLowerWhisker"
+                                            android:id="@+id/SpecialLowerBox"
                                             android:layout_width="50dp"
-                                            android:layout_height="3dp"
-                                            android:layout_marginTop="20dp"
-                                            android:background="@drawable/shape_line"></RelativeLayout>
-                                        <TextView
-                                            android:id="@+id/SpecialMinimum"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_alignLeft="@+id/SpecialLowerWhisker"
-                                            android:layout_alignParentBottom="true"
-                                            android:text="0"
-                                            android:textSize="16sp"/>
+                                            android:layout_height="match_parent"
+                                            android:background="@color/colorPrimary"></RelativeLayout>
+
                                         <RelativeLayout
-                                            android:id="@+id/specialBox"
-                                            android:layout_width="110dp"
-                                            android:layout_height="40dp"
-                                            android:layout_toRightOf="@+id/SpecialLowerWhisker"
-                                            android:padding="5dp"
-                                            android:background="@drawable/shape_card"
-                                            android:backgroundTint="@color/offWhiteDark">
-                                            <RelativeLayout
-                                                android:id="@+id/SpecialLowerBox"
-                                                android:layout_width="50dp"
-                                                android:layout_height="match_parent"
-                                                android:background="@color/colorPrimary"></RelativeLayout>
-                                            <RelativeLayout
-                                                android:id="@+id/SpecialUpperBox"
-                                                android:layout_width="50dp"
-                                                android:layout_height="match_parent"
-                                                android:layout_alignParentRight="true"
-                                                android:background="@color/colorAccent"/>
-                                            <RelativeLayout
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-                                                android:background="@drawable/repeat_stripes">
-                                            </RelativeLayout>
-                                        </RelativeLayout>
-                                        <TextView
-                                            android:id="@+id/SpecialLowerQuartile"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_alignParentBottom="true"
-                                            android:layout_alignLeft="@+id/specialBox"
-                                            android:text="0"
-                                            android:textSize="16sp"/>
-                                        <TextView
-                                            android:id="@+id/SpecialMedian"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_alignParentBottom="true"
-                                            android:layout_alignLeft="@+id/specialBox"
-                                            android:layout_marginLeft="50dp"
-                                            android:text="0"
-                                            android:textSize="16sp"/>
-                                        <TextView
-                                            android:id="@+id/SpecialUpperQuartile"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_alignParentBottom="true"
-                                            android:layout_alignRight="@+id/specialBox"
-                                            android:text="0"
-                                            android:textSize="16sp"/>
-                                        <RelativeLayout
-                                            android:id="@+id/SpecialUpperWhisker"
+                                            android:id="@+id/SpecialUpperBox"
                                             android:layout_width="50dp"
-                                            android:layout_height="3dp"
-                                            android:layout_toRightOf="@+id/specialBox"
-                                            android:layout_marginTop="20dp"
-                                            android:background="@drawable/shape_line"></RelativeLayout>
-                                        <ImageView
-                                            android:layout_width="40dp"
-                                            android:layout_height="40dp"
-                                            android:layout_alignRight="@+id/SpecialUpperWhisker"
-                                            android:layout_marginRight="-20dp"
-                                            android:src="@drawable/shape_line"
-                                            android:rotation="90"/>
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_alignParentBottom="true"
-                                            android:layout_alignRight="@+id/SpecialUpperWhisker"
-                                            android:text="0"
-                                            android:textSize="16sp"/>
+                                            android:layout_height="match_parent"
+                                            android:layout_alignParentRight="true"
+                                            android:background="@color/colorAccent" />
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="@drawable/repeat_stripes"></RelativeLayout>
                                     </RelativeLayout>
+
+                                    <TextView
+                                        android:id="@+id/SpecialLowerQuartile"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignLeft="@+id/specialBox"
+                                        android:layout_alignParentBottom="true"
+                                        android:text="0"
+                                        android:textSize="16sp" />
+
+                                    <TextView
+                                        android:id="@+id/SpecialMedian"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignLeft="@+id/specialBox"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_marginLeft="50dp"
+                                        android:text="0"
+                                        android:textSize="16sp" />
+
+                                    <TextView
+                                        android:id="@+id/SpecialUpperQuartile"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_alignRight="@+id/specialBox"
+                                        android:text="0"
+                                        android:textSize="16sp" />
+
+                                    <RelativeLayout
+                                        android:id="@+id/SpecialUpperWhisker"
+                                        android:layout_width="50dp"
+                                        android:layout_height="3dp"
+                                        android:layout_marginTop="20dp"
+                                        android:layout_toRightOf="@+id/specialBox"
+                                        android:background="@drawable/shape_line"></RelativeLayout>
+
+                                    <ImageView
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:layout_alignRight="@+id/SpecialUpperWhisker"
+                                        android:layout_marginRight="-20dp"
+                                        android:rotation="90"
+                                        android:src="@drawable/shape_line" />
+
+                                    <TextView
+                                        android:id="@+id/SpecialMaximum"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentBottom="true"
+                                        android:layout_alignRight="@+id/SpecialUpperWhisker"
+                                        android:text="0"
+                                        android:textSize="16sp" />
+                                </RelativeLayout>
                             </RelativeLayout>
                         </RelativeLayout>
 

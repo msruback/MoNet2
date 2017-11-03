@@ -65,8 +65,7 @@ public class RotationFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_rotation, container, false);
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
-        Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
+
         updateRotationData = new UpdateRotationData();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();

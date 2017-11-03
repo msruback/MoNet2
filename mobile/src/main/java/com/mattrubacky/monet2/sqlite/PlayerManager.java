@@ -404,16 +404,16 @@ class PlayerManager {
         //build the select statement
         switch (itemType){
             case "weapon":
-                builder.append(SplatnetContract.Player.COLUMN_WEAPON);
+                builder.append(" AND "+SplatnetContract.Player.COLUMN_WEAPON+" = ?");
                 break;
             case "head":
-                builder.append(SplatnetContract.Player.COLUMN_HEAD);
+                builder.append(" AND "+SplatnetContract.Player.COLUMN_HEAD+" = ?");
                 break;
             case "clothes":
-                builder.append(SplatnetContract.Player.COLUMN_CLOTHES);
+                builder.append(" AND "+SplatnetContract.Player.COLUMN_CLOTHES+" = ?");
                 break;
             case "shoes":
-                builder.append(SplatnetContract.Player.COLUMN_SHOES);
+                builder.append(" AND "+SplatnetContract.Player.COLUMN_SHOES+" = ?");
         }
 
         String whereClause = builder.toString();
