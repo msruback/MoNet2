@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ExpandableListView drawerList;
     ArrayList<String> titles,children;
-    Fragment rotation,shop,battleList,settingsFrag;
+    Fragment rotation,shop,battleList,settingsFrag,weaponLocker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
         shop = new ShopFragment();
         battleList = new BattleListFragment();
         settingsFrag = new SettingsFragment();
+
+        weaponLocker = new WeaponLockerFragment();
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -147,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     PackageManager.DONT_KILL_APP);
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        final FragmentManager fragmentManager = getSupportFragmentManager();
         Intent intent = getIntent();
         switch(intent.getIntExtra("fragment",0)){
             case 0:
@@ -162,6 +164,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             //Stats fragments go here
             case 2:
+                switch (intent.getIntExtra("stats",0)){
+                    case 0://Player page reserved
+                        break;
+                    case 1://
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,weaponLocker)
+                                .commit();
+                        break;
+                }
                 break;
             case 3:
                 fragmentManager.beginTransaction()
@@ -256,6 +267,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 switch(childPosition){
                     case 0:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,weaponLocker)
+                                .commit();
                         break;
                 }
                 return false;

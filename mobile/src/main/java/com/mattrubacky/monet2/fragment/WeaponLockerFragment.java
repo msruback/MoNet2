@@ -38,6 +38,7 @@ import com.mattrubacky.monet2.dialog.CookieDialog;
 import com.mattrubacky.monet2.dialog.GearNotificationPickerDialog;
 import com.mattrubacky.monet2.dialog.StageNotificationPickerDialog;
 import com.mattrubacky.monet2.helper.ImageHandler;
+import com.mattrubacky.monet2.helper.StatCalc;
 import com.mattrubacky.monet2.reciever.BootReciever;
 import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
 import com.mattrubacky.monet2.reciever.SalmonAlarm;
@@ -190,7 +191,15 @@ public class WeaponLockerFragment extends Fragment {
             int itemPosition = currentMerch.indexOfChild(v);
             Intent intent = new Intent(getActivity(), WeaponLockerDetail.class);
             Bundle bundle = new Bundle();
-            bundle.putParcelable("stats",weaponStatsList.get(itemPosition));
+            WeaponStats weaponStats = weaponStatsList.get(itemPosition);
+
+            StatCalc statCalc = new StatCalc(getContext(),weaponStats.weapon);
+            weaponStats.inkStats = statCalc.getInkStats();
+            weaponStats.killStats = statCalc.getKillStats();
+            weaponStats.deathStats = statCalc.getDeathStats();
+            weaponStats.specialStats = statCalc.getSpecialStats();
+
+            bundle.putParcelable("stats",weaponStats);
             intent.putExtras(bundle);
             startActivity(intent);
         }
