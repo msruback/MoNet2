@@ -43,10 +43,35 @@ public class WeaponStats implements Parcelable{
     @SerializedName("weapon")
     public Weapon weapon;
 
+    @SerializedName("inkStats")
+    public int[] inkStats;
+
+    @SerializedName("killStats")
+    public int[] killStats;
+
+    @SerializedName("deathStats")
+    public int[] deathStats;
+
+    @SerializedName("specialStats")
+    public int[] specialStats;
+
+    @SerializedName("numGames")
+    public long numGames;
+
+
     protected WeaponStats(Parcel in) {
+        winMeter = in.readFloat();
         wins = in.readInt();
         losses = in.readInt();
+        lastUsed = in.readLong();
+        maxWinMeter = in.readFloat();
+        totalPaintPoint = in.readLong();
         weapon = in.readParcelable(Weapon.class.getClassLoader());
+        inkStats = in.createIntArray();
+        killStats = in.createIntArray();
+        deathStats = in.createIntArray();
+        specialStats = in.createIntArray();
+        numGames = in.readLong();
     }
 
     public static final Creator<WeaponStats> CREATOR = new Creator<WeaponStats>() {
@@ -68,9 +93,18 @@ public class WeaponStats implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeFloat(winMeter);
         dest.writeInt(wins);
         dest.writeInt(losses);
+        dest.writeLong(lastUsed);
+        dest.writeFloat(maxWinMeter);
+        dest.writeLong(totalPaintPoint);
         dest.writeParcelable(weapon, flags);
+        dest.writeIntArray(inkStats);
+        dest.writeIntArray(killStats);
+        dest.writeIntArray(deathStats);
+        dest.writeIntArray(specialStats);
+        dest.writeLong(numGames);
     }
 }
 
