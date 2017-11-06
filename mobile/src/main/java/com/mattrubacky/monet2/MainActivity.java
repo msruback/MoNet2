@@ -253,18 +253,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Handle navigatation to stat page
-        drawerList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                return false;
-            }
-        });
-
         //Handle stat children clicks
         drawerList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                System.out.println(childPosition);
                 switch(childPosition){
                     case 0:
                         fragmentManager.beginTransaction()

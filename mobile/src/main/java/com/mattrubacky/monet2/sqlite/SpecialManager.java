@@ -96,38 +96,41 @@ class SpecialManager {
     public HashMap<Integer,Special> select(){
         HashMap<Integer,Special> selected = new HashMap<>();
 
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+        if(toSelect.size()>0) {
 
-        String[] args = new String[toSelect.size()];
-        args[0] = String.valueOf(toSelect.get(0));
+            SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(SplatnetContract.Special._ID+" = ?");
+            String[] args = new String[toSelect.size()];
+            args[0] = String.valueOf(toSelect.get(0));
 
-        for(int i=1;i<toSelect.size();i++){
-            builder.append(" OR "+SplatnetContract.Special._ID+" = ?");
-            args[i] = String.valueOf(toSelect.get(i));
+            StringBuilder builder = new StringBuilder();
+            builder.append(SplatnetContract.Special._ID + " = ?");
+
+            for (int i = 1; i < toSelect.size(); i++) {
+                builder.append(" OR " + SplatnetContract.Special._ID + " = ?");
+                args[i] = String.valueOf(toSelect.get(i));
+            }
+
+            String whereClause = builder.toString();
+
+            Cursor cursor = database.query(SplatnetContract.Special.TABLE_NAME, null, whereClause, args, null, null, null);
+
+            Special special;
+
+            if (cursor.moveToFirst()) {
+                do {
+                    special = new Special();
+                    special.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Special._ID));
+                    special.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_NAME));
+                    special.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_URL));
+                    selected.put(special.id, special);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            database.close();
+
+            toSelect = new ArrayList<>();
         }
-
-        String whereClause = builder.toString();
-
-        Cursor cursor = database.query(SplatnetContract.Special.TABLE_NAME,null,whereClause,args,null,null,null);
-
-        Special special;
-
-        if(cursor.moveToFirst()){
-            do {
-                special = new Special();
-                special.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Special._ID));
-                special.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_NAME));
-                special.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_URL));
-                selected.put(special.id, special);
-            }while(cursor.moveToNext());
-        }
-        cursor.close();
-        database.close();
-
-        toSelect = new ArrayList<>();
 
         return selected;
     }

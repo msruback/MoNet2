@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.WeaponLockerDetail;
 import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.Product;
+import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.deserialized.Records;
 import com.mattrubacky.monet2.deserialized.ResultList;
 import com.mattrubacky.monet2.deserialized.WeaponStats;
@@ -49,6 +51,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -64,12 +67,13 @@ public class WeaponLockerFragment extends Fragment {
     SharedPreferences settings;
     ArrayList<WeaponStats> weaponStatsList;
     UpdateBattleData updateBattleData;
+    RecyclerView weaponList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_settings, container, false);
+        rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_weapon_locker, container, false);
 
         settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
@@ -81,7 +85,10 @@ public class WeaponLockerFragment extends Fragment {
     }
 
     private void updateUi(){
-        RecyclerView weaponList = (RecyclerView) rootView.findViewById(R.id.WeaponList);
+        weaponList = (RecyclerView) rootView.findViewById(R.id.WeaponList);
+        WeaponAdapter weaponAdapter = new WeaponAdapter(getContext(),weaponStatsList);
+        weaponList.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        weaponList.setAdapter(weaponAdapter);
     }
 
     private class UpdateBattleData extends AsyncTask<Void,Void,Void> {
@@ -99,11 +106,13 @@ public class WeaponLockerFragment extends Fragment {
                 Response response;
                 ArrayList<Battle> list = new ArrayList<>();
                 response = splatnet.getRecords(cookie).execute();
+                weaponStatsList = new ArrayList<>();
                 if(response.isSuccessful()){
-                    Records records = (Records) response.body();
-                    Integer[] keys = (Integer[]) records.weaponStats.keySet().toArray();
+                    Record records = (Record) response.body();
+                    Integer[] keys = new Integer[2];
+                    keys = records.records.weaponStats.keySet().toArray(keys);
                     for(int i=0;i<keys.length;i++){
-                        weaponStatsList.add(records.weaponStats.get(keys[i]));
+                        weaponStatsList.add(records.records.weaponStats.get(keys[i]));
                     }
                 }
 
@@ -122,11 +131,11 @@ public class WeaponLockerFragment extends Fragment {
 
     class WeaponAdapter extends RecyclerView.Adapter<WeaponLockerFragment.WeaponAdapter.ViewHolder>{
 
-        private ArrayList<Product> input = new ArrayList<Product>();
+        private ArrayList<WeaponStats> input = new ArrayList<WeaponStats>();
         private LayoutInflater inflater;
         private Context context;
 
-        public WeaponAdapter(Context context, ArrayList<Product> input) {
+        public WeaponAdapter(Context context, ArrayList<WeaponStats> input) {
             this.inflater = LayoutInflater.from(context);
             this.input = input;
             this.context = context;
@@ -134,7 +143,7 @@ public class WeaponLockerFragment extends Fragment {
         }
         @Override
         public WeaponLockerFragment.WeaponAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = inflater.inflate(R.layout.item_merch, parent, false);
+            View view = inflater.inflate(R.layout.item_weapon, parent, false);
             WeaponLockerFragment.WeaponAdapter.ViewHolder viewHolder = new WeaponLockerFragment.WeaponAdapter.ViewHolder(view);
             view.setOnClickListener(new WeaponLockerFragment.WeaponClickListener());
             return viewHolder;
@@ -176,7 +185,7 @@ public class WeaponLockerFragment extends Fragment {
             public ViewHolder(View itemView) {
                 super(itemView);
 
-                weapon = (ImageView) itemView.findViewById(R.id.Weapon);
+                weapon = (ImageView) itemView.findViewById(R.id.WeaponImage);
                 name = (TextView) itemView.findViewById(R.id.Name);
             }
 
@@ -187,8 +196,7 @@ public class WeaponLockerFragment extends Fragment {
     class WeaponClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);
-            int itemPosition = currentMerch.indexOfChild(v);
+            int itemPosition = weaponList.getChildAdapterPosition(v);
             Intent intent = new Intent(getActivity(), WeaponLockerDetail.class);
             Bundle bundle = new Bundle();
             WeaponStats weaponStats = weaponStatsList.get(itemPosition);
@@ -198,6 +206,7 @@ public class WeaponLockerFragment extends Fragment {
             weaponStats.killStats = statCalc.getKillStats();
             weaponStats.deathStats = statCalc.getDeathStats();
             weaponStats.specialStats = statCalc.getSpecialStats();
+            weaponStats.numGames = statCalc.getNum();
 
             bundle.putParcelable("stats",weaponStats);
             intent.putExtras(bundle);

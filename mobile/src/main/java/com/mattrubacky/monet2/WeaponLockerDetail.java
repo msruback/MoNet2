@@ -5,7 +5,9 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -42,50 +44,8 @@ public class WeaponLockerDetail extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        RelativeLayout winLossMeter = (RelativeLayout) findViewById(R.id.WinLossMeter);
-        RelativeLayout wins = (RelativeLayout) findViewById(R.id.Wins);
-        RelativeLayout losses = (RelativeLayout) findViewById(R.id.Losses);
-
-        winLossMeter.setClipToOutline(true);
-
-        RelativeLayout inkMeter = (RelativeLayout) findViewById(R.id.InkMeter);
-        RelativeLayout inkLowerWhisker = (RelativeLayout) findViewById(R.id.InkLowerWhisker);
-        RelativeLayout inkBox = (RelativeLayout) findViewById(R.id.inkBox);
-        RelativeLayout inkLowerBox = (RelativeLayout) findViewById(R.id.InkLowerBox);
-        RelativeLayout inkUpperBox = (RelativeLayout) findViewById(R.id.InkUpperBox);
-        RelativeLayout inkUpperWhisker = (RelativeLayout) findViewById(R.id.InkUpperWhisker);
-
-        inkBox.setClipToOutline(true);
-
-        RelativeLayout killMeter = (RelativeLayout) findViewById(R.id.KillMeter);
-        RelativeLayout killLowerWhisker = (RelativeLayout) findViewById(R.id.KillLowerWhisker);
-        RelativeLayout killBox = (RelativeLayout) findViewById(R.id.killBox);
-        RelativeLayout killLowerBox = (RelativeLayout) findViewById(R.id.KillLowerBox);
-        RelativeLayout killUpperBox = (RelativeLayout) findViewById(R.id.KillUpperBox);
-        RelativeLayout killUpperWhisker = (RelativeLayout) findViewById(R.id.KillUpperWhisker);
-
-        killBox.setClipToOutline(true);
-
-        RelativeLayout deathMeter = (RelativeLayout) findViewById(R.id.DeathMeter);
-        RelativeLayout deathLowerWhisker = (RelativeLayout) findViewById(R.id.DeathLowerWhisker);
-        RelativeLayout deathBox = (RelativeLayout) findViewById(R.id.deathBox);
-        RelativeLayout deathLowerBox = (RelativeLayout) findViewById(R.id.DeathLowerBox);
-        RelativeLayout deathUpperBox = (RelativeLayout) findViewById(R.id.DeathUpperBox);
-        RelativeLayout deathUpperWhisker = (RelativeLayout) findViewById(R.id.DeathUpperWhisker);
-
-        deathBox.setClipToOutline(true);
-
-        RelativeLayout specialMeter = (RelativeLayout) findViewById(R.id.SpecialMeter);
-        RelativeLayout specialLowerWhisker = (RelativeLayout) findViewById(R.id.SpecialLowerWhisker);
-        RelativeLayout specialBox = (RelativeLayout) findViewById(R.id.specialBox);
-        RelativeLayout specialLowerBox = (RelativeLayout) findViewById(R.id.SpecialLowerBox);
-        RelativeLayout specialUpperBox = (RelativeLayout) findViewById(R.id.SpecialUpperBox);
-        RelativeLayout specialUpperWhisker = (RelativeLayout) findViewById(R.id.SpecialUpperWhisker);
-
-        specialBox.setClipToOutline(true);
-
         ImageView flag = (ImageView) findViewById(R.id.Flag);
-        ImageView weapon = (ImageView) findViewById(R.id.Weapon);
+        ImageView weapon = (ImageView) findViewById(R.id.WeaponImage);
         ImageView sub = (ImageView) findViewById(R.id.Sub);
         ImageView special = (ImageView) findViewById(R.id.Special);
 
@@ -97,34 +57,6 @@ public class WeaponLockerDetail extends AppCompatActivity {
         TextView inked = (TextView) findViewById(R.id.InkedText);
         TextView lastUsedTitle = (TextView) findViewById(R.id.LastTitleText);
         TextView lastUsed = (TextView) findViewById(R.id.LastText);
-
-        TextView inkTitle = (TextView) findViewById(R.id.InkTitle);
-        TextView inkMinimum = (TextView) findViewById(R.id.InkMinimum);
-        TextView inkLowerQuartile = (TextView) findViewById(R.id.InkLowerQuartile);
-        TextView inkMedian = (TextView) findViewById(R.id.InkMedian);
-        TextView inkUpperQuartile = (TextView) findViewById(R.id.InkUpperQuartile);
-        TextView inkMaximum = (TextView) findViewById(R.id.InkMaximum);
-
-        TextView killTitle = (TextView) findViewById(R.id.KillTitle);
-        TextView killMinimum = (TextView) findViewById(R.id.KillMinimum);
-        TextView killLowerQuartile = (TextView) findViewById(R.id.KillLowerQuartile);
-        TextView killMedian = (TextView) findViewById(R.id.KillMedian);
-        TextView killUpperQuartile = (TextView) findViewById(R.id.KillUpperQuartile);
-        TextView killMaximum = (TextView) findViewById(R.id.KillMaximum);
-
-        TextView deathTitle = (TextView) findViewById(R.id.DeathTitle);
-        TextView deathMinimum = (TextView) findViewById(R.id.DeathMinimum);
-        TextView deathLowerQuartile = (TextView) findViewById(R.id.DeathLowerQuartile);
-        TextView deathMedian = (TextView) findViewById(R.id.DeathMedian);
-        TextView deathUpperQuartile = (TextView) findViewById(R.id.DeathUpperQuartile);
-        TextView deathMaximum = (TextView) findViewById(R.id.DeathMaximum);
-
-        TextView specialTitle = (TextView) findViewById(R.id.SpecialTitle);
-        TextView specialMinimum = (TextView) findViewById(R.id.SpecialMinimum);
-        TextView specialLowerQuartile = (TextView) findViewById(R.id.SpecialLowerQuartile);
-        TextView specialMedian = (TextView) findViewById(R.id.SpecialMedian);
-        TextView specialUpperQuartile = (TextView) findViewById(R.id.SpecialUpperQuartile);
-        TextView specialMaximum = (TextView) findViewById(R.id.SpecialMaximum);
 
         name.setTypeface(fontTitle);
         number.setTypeface(font);
@@ -197,22 +129,108 @@ public class WeaponLockerDetail extends AppCompatActivity {
             imageHandler.downloadImage("special",dirName,url,getApplicationContext());
         }
 
-        //Handle Win Loss Meter
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    public void updateUI(){
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
+        Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
+
+        RelativeLayout winLossMeter = (RelativeLayout) findViewById(R.id.WinLossMeter);
+        RelativeLayout wins = (RelativeLayout) findViewById(R.id.Wins);
+        RelativeLayout losses = (RelativeLayout) findViewById(R.id.Losses);
+
+        winLossMeter.setClipToOutline(true);
+
+        RelativeLayout inkCard = (RelativeLayout) findViewById(R.id.inkStats);
+        RelativeLayout inkMeter = (RelativeLayout) findViewById(R.id.InkMeter);
+        RelativeLayout inkLowerWhisker = (RelativeLayout) findViewById(R.id.InkLowerWhisker);
+        RelativeLayout inkBox = (RelativeLayout) findViewById(R.id.InkBox);
+        RelativeLayout inkLowerBox = (RelativeLayout) findViewById(R.id.InkLowerBox);
+        RelativeLayout inkUpperBox = (RelativeLayout) findViewById(R.id.InkUpperBox);
+        RelativeLayout inkUpperWhisker = (RelativeLayout) findViewById(R.id.InkUpperWhisker);
+
+        inkBox.setClipToOutline(true);
+
+        RelativeLayout killCard = (RelativeLayout) findViewById(R.id.killStats);
+        RelativeLayout killMeter = (RelativeLayout) findViewById(R.id.KillMeter);
+        RelativeLayout killLowerWhisker = (RelativeLayout) findViewById(R.id.KillLowerWhisker);
+        RelativeLayout killBox = (RelativeLayout) findViewById(R.id.KillBox);
+        RelativeLayout killLowerBox = (RelativeLayout) findViewById(R.id.KillLowerBox);
+        RelativeLayout killUpperBox = (RelativeLayout) findViewById(R.id.KillUpperBox);
+        RelativeLayout killUpperWhisker = (RelativeLayout) findViewById(R.id.KillUpperWhisker);
+
+        killBox.setClipToOutline(true);
+
+        RelativeLayout deathCard = (RelativeLayout) findViewById(R.id.deathStats);
+        RelativeLayout deathMeter = (RelativeLayout) findViewById(R.id.DeathMeter);
+        RelativeLayout deathLowerWhisker = (RelativeLayout) findViewById(R.id.DeathLowerWhisker);
+        RelativeLayout deathBox = (RelativeLayout) findViewById(R.id.DeathBox);
+        RelativeLayout deathLowerBox = (RelativeLayout) findViewById(R.id.DeathLowerBox);
+        RelativeLayout deathUpperBox = (RelativeLayout) findViewById(R.id.DeathUpperBox);
+        RelativeLayout deathUpperWhisker = (RelativeLayout) findViewById(R.id.DeathUpperWhisker);
+
+        deathBox.setClipToOutline(true);
+
+        RelativeLayout specialCard = (RelativeLayout) findViewById(R.id.specialStats);
+        RelativeLayout specialMeter = (RelativeLayout) findViewById(R.id.SpecialMeter);
+        RelativeLayout specialLowerWhisker = (RelativeLayout) findViewById(R.id.SpecialLowerWhisker);
+        RelativeLayout specialBox = (RelativeLayout) findViewById(R.id.SpecialBox);
+        RelativeLayout specialLowerBox = (RelativeLayout) findViewById(R.id.SpecialLowerBox);
+        RelativeLayout specialUpperBox = (RelativeLayout) findViewById(R.id.SpecialUpperBox);
+        RelativeLayout specialUpperWhisker = (RelativeLayout) findViewById(R.id.SpecialUpperWhisker);
+
+        specialBox.setClipToOutline(true);
+
+        TextView inkTitle = (TextView) findViewById(R.id.InkTitle);
+        TextView inkMinimum = (TextView) findViewById(R.id.InkMinimum);
+        TextView inkLowerQuartile = (TextView) findViewById(R.id.InkLowerQuartile);
+        TextView inkMedian = (TextView) findViewById(R.id.InkMedian);
+        TextView inkUpperQuartile = (TextView) findViewById(R.id.InkUpperQuartile);
+        TextView inkMaximum = (TextView) findViewById(R.id.InkMaximum);
+
+        TextView killTitle = (TextView) findViewById(R.id.KillTitle);
+        TextView killMinimum = (TextView) findViewById(R.id.KillMinimum);
+        TextView killLowerQuartile = (TextView) findViewById(R.id.KillLowerQuartile);
+        TextView killMedian = (TextView) findViewById(R.id.KillMedian);
+        TextView killUpperQuartile = (TextView) findViewById(R.id.KillUpperQuartile);
+        TextView killMaximum = (TextView) findViewById(R.id.KillMaximum);
+
+        TextView deathTitle = (TextView) findViewById(R.id.DeathTitle);
+        TextView deathMinimum = (TextView) findViewById(R.id.DeathMinimum);
+        TextView deathLowerQuartile = (TextView) findViewById(R.id.DeathLowerQuartile);
+        TextView deathMedian = (TextView) findViewById(R.id.DeathMedian);
+        TextView deathUpperQuartile = (TextView) findViewById(R.id.DeathUpperQuartile);
+        TextView deathMaximum = (TextView) findViewById(R.id.DeathMaximum);
+
+        TextView specialTitle = (TextView) findViewById(R.id.SpecialTitle);
+        TextView specialMinimum = (TextView) findViewById(R.id.SpecialMinimum);
+        TextView specialLowerQuartile = (TextView) findViewById(R.id.SpecialLowerQuartile);
+        TextView specialMedian = (TextView) findViewById(R.id.SpecialMedian);
+        TextView specialUpperQuartile = (TextView) findViewById(R.id.SpecialUpperQuartile);
+        TextView specialMaximum = (TextView) findViewById(R.id.SpecialMaximum);
+
 
         ViewGroup.LayoutParams layoutParams = wins.getLayoutParams();
 
-        int meterWidth = winLossMeter.getLayoutParams().width;
-        int total = weaponStats.wins+weaponStats.losses;
-        int width = weaponStats.wins/total;
+        int meterWidth = winLossMeter.getWidth();
+        float total = weaponStats.wins+weaponStats.losses;
+        float width = weaponStats.wins/total;
 
-        width *= meterWidth;
-        layoutParams.width = width;
+        width *= 250;
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
         wins.setLayoutParams(layoutParams);
 
         layoutParams = losses.getLayoutParams();
         width = weaponStats.losses/total;
-        width *= meterWidth;
-        layoutParams.width = width;
+        width *= 250;
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
         losses.setLayoutParams(layoutParams);
 
         //Ink card
@@ -224,42 +242,66 @@ public class WeaponLockerDetail extends AppCompatActivity {
         inkUpperQuartile.setTypeface(font);
         inkMaximum.setTypeface(font);
 
-        inkMinimum.setText(weaponStats.inkStats[0]);
-        inkLowerQuartile.setText(weaponStats.inkStats[1]);
-        inkMedian.setText(weaponStats.inkStats[2]);
-        inkUpperQuartile.setText(weaponStats.inkStats[3]);
-        inkMaximum.setText(weaponStats.inkStats[4]);
+        inkMinimum.setText(String.valueOf(weaponStats.inkStats[0]));
+        inkLowerQuartile.setText(String.valueOf(weaponStats.inkStats[1]));
+        inkMedian.setText(String.valueOf(weaponStats.inkStats[2]));
+        inkUpperQuartile.setText(String.valueOf(weaponStats.inkStats[3]));
+        inkMaximum.setText(String.valueOf(weaponStats.inkStats[4]));
 
-        int range = weaponStats.inkStats[4] - weaponStats.inkStats[0];
-        layoutParams = inkMeter.getLayoutParams();
-        meterWidth = layoutParams.width;
+        if(weaponStats.inkStats[1]==weaponStats.inkStats[0]){
+            inkLowerQuartile.setVisibility(View.GONE);
+        }
+        if(weaponStats.inkStats[2]==weaponStats.inkStats[1]){
+            inkMedian.setVisibility(View.GONE);
+        }
+        if(weaponStats.inkStats[3]==weaponStats.inkStats[2]){
+            inkUpperQuartile.setVisibility(View.GONE);
+        }
+        if(weaponStats.inkStats[4]==weaponStats.inkStats[3]){
+            inkMaximum.setVisibility(View.GONE);
+        }
 
-        //Need to position the inkMedian TextView so as to line it up with the center line
+        float range = weaponStats.inkStats[4] - weaponStats.inkStats[0];
+        meterWidth = inkMeter.getMeasuredWidth();
+
         ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) inkMedian.getLayoutParams();
-        marginLayoutParams.leftMargin=((weaponStats.inkStats[2]-weaponStats.inkStats[1])/range)*(meterWidth/range);
-        inkMedian.setLayoutParams(marginLayoutParams);
 
-        layoutParams = inkLowerWhisker.getLayoutParams();
-        layoutParams.width = ((weaponStats.inkStats[1]-weaponStats.inkStats[0])/range)*(meterWidth/range);
-        inkLowerWhisker.setLayoutParams(layoutParams);
+        if(range!=0) {
+            //Need to position the inkMedian TextView so as to line it up with the center line
+            width = (((weaponStats.inkStats[2] - weaponStats.inkStats[1])/range) * (270));
+            marginLayoutParams.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            inkMedian.setLayoutParams(marginLayoutParams);
 
-        layoutParams = inkBox.getLayoutParams();
-        layoutParams.width = ((weaponStats.inkStats[3]-weaponStats.inkStats[1])/range)*(meterWidth/range);
-        inkBox.setLayoutParams(layoutParams);
+            layoutParams = inkLowerWhisker.getLayoutParams();
+            width = ((weaponStats.inkStats[1] - weaponStats.inkStats[0])/range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            inkLowerWhisker.setLayoutParams(layoutParams);
 
-        layoutParams = inkLowerBox.getLayoutParams();
-        layoutParams.width = ((weaponStats.inkStats[2]-weaponStats.inkStats[1])/range)*(meterWidth/range);
-        inkLowerBox.setLayoutParams(layoutParams);
+            layoutParams = inkBox.getLayoutParams();
+            width = ((weaponStats.inkStats[3] - weaponStats.inkStats[1])/range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            inkBox.setLayoutParams(layoutParams);
 
-        layoutParams = inkUpperBox.getLayoutParams();
-        layoutParams.width = ((weaponStats.inkStats[3]-weaponStats.inkStats[2])/range)*(meterWidth/range);
-        inkUpperBox.setLayoutParams(layoutParams);
+            layoutParams = inkLowerBox.getLayoutParams();
+            width = ((weaponStats.inkStats[2] - weaponStats.inkStats[1])/range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            inkLowerBox.setLayoutParams(layoutParams);
 
-        layoutParams = inkUpperWhisker.getLayoutParams();
-        layoutParams.width = ((weaponStats.inkStats[4]-weaponStats.inkStats[3])/range)*(meterWidth/range);
-        inkUpperWhisker.setLayoutParams(layoutParams);
+            layoutParams = inkUpperBox.getLayoutParams();
+            width = ((weaponStats.inkStats[3] - weaponStats.inkStats[2])/range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            inkUpperBox.setLayoutParams(layoutParams);
+
+            layoutParams = inkUpperWhisker.getLayoutParams();
+            width = ((weaponStats.inkStats[4] - weaponStats.inkStats[3])/range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            inkUpperWhisker.setLayoutParams(layoutParams);
+        }else{
+            inkCard.setVisibility(View.GONE);
+        }
 
         //Kill card
+
 
         killTitle.setTypeface(fontTitle);
         killMinimum.setTypeface(font);
@@ -268,39 +310,62 @@ public class WeaponLockerDetail extends AppCompatActivity {
         killUpperQuartile.setTypeface(font);
         killMaximum.setTypeface(font);
 
-        killMinimum.setText(weaponStats.killStats[0]);
-        killLowerQuartile.setText(weaponStats.killStats[1]);
-        killMedian.setText(weaponStats.killStats[2]);
-        killUpperQuartile.setText(weaponStats.killStats[3]);
-        killMaximum.setText(weaponStats.killStats[4]);
+        killMinimum.setText(String.valueOf(weaponStats.killStats[0]));
+        killLowerQuartile.setText(String.valueOf(weaponStats.killStats[1]));
+        killMedian.setText(String.valueOf(weaponStats.killStats[2]));
+        killUpperQuartile.setText(String.valueOf(weaponStats.killStats[3]));
+        killMaximum.setText(String.valueOf(weaponStats.killStats[4]));
+
+        if(weaponStats.killStats[1]==weaponStats.killStats[0]){
+            killLowerQuartile.setVisibility(View.GONE);
+        }
+        if(weaponStats.killStats[2]==weaponStats.killStats[1]){
+            killMedian.setVisibility(View.GONE);
+        }
+        if(weaponStats.killStats[3]==weaponStats.killStats[2]){
+            killUpperQuartile.setVisibility(View.GONE);
+        }
+        if(weaponStats.killStats[4]==weaponStats.killStats[3]){
+            killMaximum.setVisibility(View.GONE);
+        }
 
         range = weaponStats.killStats[4] - weaponStats.killStats[0];
         layoutParams = killMeter.getLayoutParams();
         meterWidth = layoutParams.width;
 
-        marginLayoutParams = (ViewGroup.MarginLayoutParams) killMedian.getLayoutParams();
-        marginLayoutParams.leftMargin = ((weaponStats.killStats[2]-weaponStats.killStats[3])/range)*(meterWidth/range);
-        killMedian.setLayoutParams(marginLayoutParams);
+        if(range!=0) {
+            marginLayoutParams = (ViewGroup.MarginLayoutParams) killMedian.getLayoutParams();
+            width = (((weaponStats.killStats[2] - weaponStats.killStats[1]) / range) * (270));
+            marginLayoutParams.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            killMedian.setLayoutParams(marginLayoutParams);
 
-        layoutParams = killLowerWhisker.getLayoutParams();
-        layoutParams.width = ((weaponStats.killStats[1]-weaponStats.killStats[0])/range)*(meterWidth/range);
-        killLowerWhisker.setLayoutParams(layoutParams);
+            layoutParams = killLowerWhisker.getLayoutParams();
+            width = ((weaponStats.killStats[1] - weaponStats.killStats[0]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            killLowerWhisker.setLayoutParams(layoutParams);
 
-        layoutParams = killBox.getLayoutParams();
-        layoutParams.width = ((weaponStats.killStats[3]-weaponStats.killStats[1])/range)*(meterWidth/range);
-        killBox.setLayoutParams(layoutParams);
+            layoutParams = killBox.getLayoutParams();
+            width = ((weaponStats.killStats[3] - weaponStats.killStats[1]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            killBox.setLayoutParams(layoutParams);
 
-        layoutParams = killLowerBox.getLayoutParams();
-        layoutParams.width = ((weaponStats.killStats[2]-weaponStats.killStats[1])/range)*(meterWidth/range);
-        killLowerBox.setLayoutParams(layoutParams);
+            layoutParams = killLowerBox.getLayoutParams();
+            width = ((weaponStats.killStats[2] - weaponStats.killStats[1]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            killLowerBox.setLayoutParams(layoutParams);
 
-        layoutParams = killUpperBox.getLayoutParams();
-        layoutParams.width = ((weaponStats.killStats[3]-weaponStats.killStats[2])/range)*(meterWidth/range);
-        killUpperBox.setLayoutParams(layoutParams);
+            layoutParams = killUpperBox.getLayoutParams();
+            width = ((weaponStats.killStats[3] - weaponStats.killStats[2]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            killUpperBox.setLayoutParams(layoutParams);
 
-        layoutParams = killUpperWhisker.getLayoutParams();
-        layoutParams.width = ((weaponStats.killStats[4]-weaponStats.killStats[3])/range)*(meterWidth/range);
-        killUpperWhisker.setLayoutParams(layoutParams);
+            layoutParams = killUpperWhisker.getLayoutParams();
+            width = ((weaponStats.killStats[4] - weaponStats.killStats[3]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            killUpperWhisker.setLayoutParams(layoutParams);
+        }else{
+            killCard.setVisibility(View.GONE);
+        }
 
         //Death Card
 
@@ -311,39 +376,62 @@ public class WeaponLockerDetail extends AppCompatActivity {
         deathUpperQuartile.setTypeface(font);
         deathMaximum.setTypeface(font);
 
-        deathMinimum.setText(weaponStats.deathStats[0]);
-        deathLowerQuartile.setText(weaponStats.deathStats[1]);
-        deathMedian.setText(weaponStats.deathStats[2]);
-        deathUpperQuartile.setText(weaponStats.deathStats[3]);
-        deathMaximum.setText(weaponStats.deathStats[4]);
+        deathMinimum.setText(String.valueOf(weaponStats.deathStats[0]));
+        deathLowerQuartile.setText(String.valueOf(weaponStats.deathStats[1]));
+        deathMedian.setText(String.valueOf(weaponStats.deathStats[2]));
+        deathUpperQuartile.setText(String.valueOf(weaponStats.deathStats[3]));
+        deathMaximum.setText(String.valueOf(weaponStats.deathStats[4]));
+
+        if(weaponStats.deathStats[1]==weaponStats.deathStats[0]){
+            deathLowerQuartile.setVisibility(View.GONE);
+        }
+        if(weaponStats.deathStats[2]==weaponStats.deathStats[1]){
+            deathMedian.setVisibility(View.GONE);
+        }
+        if(weaponStats.deathStats[3]==weaponStats.deathStats[2]){
+            deathUpperQuartile.setVisibility(View.GONE);
+        }
+        if(weaponStats.deathStats[4]==weaponStats.deathStats[3]){
+            deathMaximum.setVisibility(View.GONE);
+        }
 
         range = weaponStats.deathStats[4] - weaponStats.deathStats[0];
         layoutParams = deathMeter.getLayoutParams();
         meterWidth = layoutParams.width;
 
-        marginLayoutParams = (ViewGroup.MarginLayoutParams) deathMedian.getLayoutParams();
-        marginLayoutParams.leftMargin = ((weaponStats.deathStats[2]-weaponStats.deathStats[3])/range)*(meterWidth/range);
-        deathMedian.setLayoutParams(marginLayoutParams);
+        if(range!=0) {
+            marginLayoutParams = (ViewGroup.MarginLayoutParams) deathMedian.getLayoutParams();
+            width = (((weaponStats.deathStats[2] - weaponStats.deathStats[1]) / range) * (270));
+            marginLayoutParams.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            deathMedian.setLayoutParams(marginLayoutParams);
 
-        layoutParams = deathLowerWhisker.getLayoutParams();
-        layoutParams.width = ((weaponStats.deathStats[1]-weaponStats.deathStats[0])/range)*(meterWidth/range);
-        deathLowerWhisker.setLayoutParams(layoutParams);
+            layoutParams = deathLowerWhisker.getLayoutParams();
+            width = ((weaponStats.deathStats[1] - weaponStats.deathStats[0]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            deathLowerWhisker.setLayoutParams(layoutParams);
 
-        layoutParams = deathBox.getLayoutParams();
-        layoutParams.width = ((weaponStats.deathStats[3]-weaponStats.deathStats[1])/range)*(meterWidth/range);
-        deathBox.setLayoutParams(layoutParams);
+            layoutParams = deathBox.getLayoutParams();
+            width = ((weaponStats.deathStats[3] - weaponStats.deathStats[1]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            deathBox.setLayoutParams(layoutParams);
 
-        layoutParams = deathLowerBox.getLayoutParams();
-        layoutParams.width = ((weaponStats.deathStats[2]-weaponStats.deathStats[1])/range)*(meterWidth/range);
-        deathLowerBox.setLayoutParams(layoutParams);
+            layoutParams = deathLowerBox.getLayoutParams();
+            width = ((weaponStats.deathStats[2] - weaponStats.deathStats[1]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            deathLowerBox.setLayoutParams(layoutParams);
 
-        layoutParams = deathUpperBox.getLayoutParams();
-        layoutParams.width = ((weaponStats.deathStats[3]-weaponStats.deathStats[2])/range)*(meterWidth/range);
-        deathUpperBox.setLayoutParams(layoutParams);
+            layoutParams = deathUpperBox.getLayoutParams();
+            width = ((weaponStats.deathStats[3] - weaponStats.deathStats[2]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            deathUpperBox.setLayoutParams(layoutParams);
 
-        layoutParams = deathUpperWhisker.getLayoutParams();
-        layoutParams.width = ((weaponStats.deathStats[4]-weaponStats.deathStats[3])/range)*(meterWidth/range);
-        deathUpperWhisker.setLayoutParams(layoutParams);
+            layoutParams = deathUpperWhisker.getLayoutParams();
+            width = ((weaponStats.deathStats[4] - weaponStats.deathStats[3]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            deathUpperWhisker.setLayoutParams(layoutParams);
+        }else{
+            deathCard.setVisibility(View.GONE);
+        }
 
         //Special Card
 
@@ -354,40 +442,62 @@ public class WeaponLockerDetail extends AppCompatActivity {
         specialUpperQuartile.setTypeface(font);
         specialMaximum.setTypeface(font);
 
-        specialMinimum.setText(weaponStats.specialStats[0]);
-        specialLowerQuartile.setText(weaponStats.specialStats[1]);
-        specialMedian.setText(weaponStats.specialStats[2]);
-        specialUpperQuartile.setText(weaponStats.specialStats[3]);
-        specialMaximum.setText(weaponStats.specialStats[4]);
+        specialMinimum.setText(String.valueOf(weaponStats.specialStats[0]));
+        specialLowerQuartile.setText(String.valueOf(weaponStats.specialStats[1]));
+        specialMedian.setText(String.valueOf(weaponStats.specialStats[2]));
+        specialUpperQuartile.setText(String.valueOf(weaponStats.specialStats[3]));
+        specialMaximum.setText(String.valueOf(weaponStats.specialStats[4]));
+
+        if(weaponStats.specialStats[1]==weaponStats.specialStats[0]){
+            specialLowerQuartile.setVisibility(View.GONE);
+        }
+        if(weaponStats.specialStats[2]==weaponStats.specialStats[1]){
+            specialMedian.setVisibility(View.GONE);
+        }
+        if(weaponStats.specialStats[3]==weaponStats.specialStats[2]){
+            specialUpperQuartile.setVisibility(View.GONE);
+        }
+        if(weaponStats.specialStats[4]==weaponStats.specialStats[3]){
+            specialMaximum.setVisibility(View.GONE);
+        }
 
         range = weaponStats.specialStats[4] - weaponStats.specialStats[0];
         layoutParams = specialMeter.getLayoutParams();
         meterWidth = layoutParams.width;
 
-        marginLayoutParams = (ViewGroup.MarginLayoutParams) specialMedian.getLayoutParams();
-        marginLayoutParams.leftMargin = ((weaponStats.specialStats[2]-weaponStats.specialStats[3])/range)*(meterWidth/range);
-        specialMedian.setLayoutParams(marginLayoutParams);
+        if(range!=0) {
+            marginLayoutParams = (ViewGroup.MarginLayoutParams) specialMedian.getLayoutParams();
+            width = (((weaponStats.specialStats[2] - weaponStats.specialStats[1]) / range) * (270));
+            marginLayoutParams.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            specialMedian.setLayoutParams(marginLayoutParams);
 
-        layoutParams = specialLowerWhisker.getLayoutParams();
-        layoutParams.width = ((weaponStats.specialStats[1]-weaponStats.specialStats[0])/range)*(meterWidth/range);
-        specialLowerWhisker.setLayoutParams(layoutParams);
+            layoutParams = specialLowerWhisker.getLayoutParams();
+            width = ((weaponStats.specialStats[1] - weaponStats.specialStats[0]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            specialLowerWhisker.setLayoutParams(layoutParams);
 
-        layoutParams = specialBox.getLayoutParams();
-        layoutParams.width = ((weaponStats.specialStats[3]-weaponStats.specialStats[1])/range)*(meterWidth/range);
-        specialBox.setLayoutParams(layoutParams);
+            layoutParams = specialBox.getLayoutParams();
+            width = ((weaponStats.specialStats[3] - weaponStats.specialStats[1]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            specialBox.setLayoutParams(layoutParams);
 
-        layoutParams = specialLowerBox.getLayoutParams();
-        layoutParams.width = ((weaponStats.specialStats[2]-weaponStats.specialStats[1])/range)*(meterWidth/range);
-        specialLowerBox.setLayoutParams(layoutParams);
+            layoutParams = specialLowerBox.getLayoutParams();
+            width = ((weaponStats.specialStats[2] - weaponStats.specialStats[1]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            specialLowerBox.setLayoutParams(layoutParams);
 
-        layoutParams = specialUpperBox.getLayoutParams();
-        layoutParams.width = ((weaponStats.specialStats[3]-weaponStats.specialStats[2])/range)*(meterWidth/range);
-        specialUpperBox.setLayoutParams(layoutParams);
+            layoutParams = specialUpperBox.getLayoutParams();
+            width = ((weaponStats.specialStats[3] - weaponStats.specialStats[2]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            specialUpperBox.setLayoutParams(layoutParams);
 
-        layoutParams = specialUpperWhisker.getLayoutParams();
-        layoutParams.width = ((weaponStats.specialStats[4]-weaponStats.specialStats[3])/range)*(meterWidth/range);
-        specialUpperWhisker.setLayoutParams(layoutParams);
-
+            layoutParams = specialUpperWhisker.getLayoutParams();
+            width = ((weaponStats.specialStats[4] - weaponStats.specialStats[3]) / range) * (270);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+            specialUpperWhisker.setLayoutParams(layoutParams);
+        }else{
+            specialCard.setVisibility(View.GONE);
+        }
     }
 
     @Override

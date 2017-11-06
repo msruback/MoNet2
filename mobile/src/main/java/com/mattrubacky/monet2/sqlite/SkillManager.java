@@ -95,36 +95,38 @@ class SkillManager {
     public HashMap<Integer,Skill> select(){
         HashMap<Integer,Skill> selected = new HashMap<>();
 
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+        if(toSelect.size()>0) {
+            SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
-        String[] args = new String[toSelect.size()];
-        args[0] = String.valueOf(toSelect.get(0));
+            String[] args = new String[toSelect.size()];
+            args[0] = String.valueOf(toSelect.get(0));
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(SplatnetContract.Skill._ID+" = ?");
+            StringBuilder builder = new StringBuilder();
+            builder.append(SplatnetContract.Skill._ID + " = ?");
 
-        for(int i=1;i<toSelect.size();i++){
-            builder.append(" OR "+SplatnetContract.Skill._ID+" = ?");
-            args[i] = String.valueOf(toSelect.get(i));
+            for (int i = 1; i < toSelect.size(); i++) {
+                builder.append(" OR " + SplatnetContract.Skill._ID + " = ?");
+                args[i] = String.valueOf(toSelect.get(i));
+            }
+
+            String whereClause = builder.toString();
+
+            Cursor cursor = database.query(SplatnetContract.Skill.TABLE_NAME, null, whereClause, args, null, null, null);
+
+            Skill skill;
+
+            if (cursor.moveToFirst()) {
+                do {
+                    skill = new Skill();
+                    skill.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Skill._ID));
+                    skill.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Skill.COLUMN_NAME));
+                    skill.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Skill.COLUMN_URL));
+                    selected.put(skill.id, skill);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            database.close();
         }
-
-        String whereClause = builder.toString();
-
-        Cursor cursor = database.query(SplatnetContract.Skill.TABLE_NAME,null,whereClause,args,null,null,null);
-
-        Skill skill;
-
-        if(cursor.moveToFirst()){
-            do{
-                skill = new Skill();
-                skill.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Skill._ID));
-                skill.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Skill.COLUMN_NAME));
-                skill.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Skill.COLUMN_URL));
-                selected.put(skill.id,skill);
-            }while(cursor.moveToNext());
-        }
-        cursor.close();
-        database.close();
         return selected;
     }
 

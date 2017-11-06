@@ -119,58 +119,59 @@ public class ShoeManager {
 
     public HashMap<Integer,Gear> select(){
         HashMap<Integer,Gear> selected = new HashMap<>();
+        if(toSelect.size()>0) {
+            SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+            String[] args = new String[toSelect.size()];
+            args[0] = String.valueOf(toSelect.get(0));
 
-        String[] args = new String[toSelect.size()];
-        args[0] = String.valueOf(toSelect.get(0));
+            StringBuilder builder = new StringBuilder();
+            builder.append(SplatnetContract.Shoe._ID + " = ?");
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(SplatnetContract.Shoe._ID+" = ?");
+            for (int i = 1; i < toSelect.size(); i++) {
+                builder.append(" OR " + SplatnetContract.Shoe._ID + " = ?");
+                args[i] = String.valueOf(toSelect.get(i));
+            }
 
-        for(int i=1;i<toSelect.size();i++){
-            builder.append(" OR "+SplatnetContract.Shoe._ID+" = ?");
-            args[i] = String.valueOf(toSelect.get(i));
+            String whereClause = builder.toString();
+
+            Cursor cursor = database.query(SplatnetContract.Shoe.TABLE_NAME, null, whereClause, args, null, null, null);
+
+            ArrayList<Gear> gears = new ArrayList<>();
+
+            ArrayList<Integer> brandIDs = new ArrayList<>();
+            int brandID;
+
+            Gear gear;
+
+            if (cursor.moveToFirst()) {
+                do {
+                    gear = new Gear();
+
+                    gear.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Shoe._ID));
+                    gear.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Shoe.COLUMN_NAME));
+                    gear.kind = cursor.getString(cursor.getColumnIndex(SplatnetContract.Shoe.COLUMN_KIND));
+                    gear.rarity = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Shoe.COLUMN_RARITY));
+                    gear.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Shoe.COLUMN_URL));
+
+                    brandID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Shoe.COLUMN_BRAND));
+                    brandManager.addToSelect(brandID);
+                    brandIDs.add(brandID);
+
+                    gears.add(gear);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            database.close();
+            HashMap<Integer, Brand> brandHashMap = brandManager.select();
+
+            for (int i = 0; i < gears.size(); i++) {
+                gear = gears.get(i);
+                gear.brand = brandHashMap.get(brandIDs.get(i));
+                selected.put(gear.id, gear);
+            }
+
         }
-
-        String whereClause = builder.toString();
-
-        Cursor cursor = database.query(SplatnetContract.Shoe.TABLE_NAME,null,whereClause,args,null,null,null);
-
-        ArrayList<Gear> gears = new ArrayList<>();
-
-        ArrayList<Integer> brandIDs = new ArrayList<>();
-        int brandID;
-
-        Gear gear;
-
-        if(cursor.moveToFirst()){
-            do{
-                gear = new Gear();
-
-                gear.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Shoe._ID));
-                gear.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Shoe.COLUMN_NAME));
-                gear.kind = cursor.getString(cursor.getColumnIndex(SplatnetContract.Shoe.COLUMN_KIND));
-                gear.rarity = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Shoe.COLUMN_RARITY));
-                gear.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Shoe.COLUMN_URL));
-
-                brandID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Shoe.COLUMN_BRAND));
-                brandManager.addToSelect(brandID);
-                brandIDs.add(brandID);
-
-                gears.add(gear);
-            }while(cursor.moveToNext());
-        }
-        cursor.close();
-        database.close();
-        HashMap<Integer,Brand> brandHashMap = brandManager.select();
-
-        for(int i=0;i<gears.size();i++){
-            gear = gears.get(i);
-            gear.brand = brandHashMap.get(brandIDs.get(i));
-            selected.put(gear.id,gear);
-        }
-
         return selected;
     }
     public ArrayList<Gear> selectAll(){

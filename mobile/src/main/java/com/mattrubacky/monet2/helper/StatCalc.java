@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class StatCalc {
     private int[] inkStats,killStats,deathStats,specialStats;
+    private int num;
 
     //WeaponStat constructor
     public StatCalc(Context context, Weapon weapon){
@@ -24,6 +25,8 @@ public class StatCalc {
         SplatnetSQLManager database = new SplatnetSQLManager(context);
 
         players = database.getPlayerStats(weapon.id,"weapon");
+
+        num = players.size();
 
         inkStats = new int[5];
         killStats = new int[5];
@@ -46,10 +49,12 @@ public class StatCalc {
 
         }
 
-        inkStats = calcStats(sort(ink));
-        killStats = calcStats(sort(kill));
-        deathStats = calcStats(sort(death));
-        specialStats = calcStats(sort(special));
+        if(players.size()>5) {
+            inkStats = calcStats(sort(ink));
+            killStats = calcStats(sort(kill));
+            deathStats = calcStats(sort(death));
+            specialStats = calcStats(sort(special));
+        }
 
     }
 
@@ -59,6 +64,9 @@ public class StatCalc {
     }
 
     private ArrayList<Integer> sort(ArrayList<Integer> data){
+        if(data.size()<=1){
+            return data;
+        }
         if(data.size()==2){
             if(data.get(0)<=data.get(1)){
                 return data;
@@ -68,18 +76,19 @@ public class StatCalc {
                 data.add(hold);
                 return data;
             }
-        }else {
+        }else{
             int pivot = data.get(0);
             ArrayList<Integer> lower = new ArrayList<>();
             ArrayList<Integer> upper = new ArrayList<>();
             for(int i=1;i<data.size();i++){
-                if(pivot<data.get(i)){
+                if(pivot>data.get(i)){
                     lower.add(data.get(i));
                 }else{
                     upper.add(data.get(i));
                 }
             }
             ArrayList<Integer> result = sort(lower);
+            result.add(pivot);
             result.addAll(sort(upper));
             return result;
         }
@@ -137,6 +146,10 @@ public class StatCalc {
 
     public int[] getSpecialStats(){
         return specialStats;
+    }
+
+    public int getNum(){
+        return num;
     }
 
 }

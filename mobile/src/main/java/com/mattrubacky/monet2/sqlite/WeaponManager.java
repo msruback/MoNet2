@@ -100,67 +100,69 @@ class WeaponManager {
     }
 
     public HashMap<Integer,Weapon> select(){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
-        String[] args = new String[toSelect.size()];
-        args[0] = String.valueOf(toSelect.get(0));
+        HashMap<Integer, Weapon> selected = new HashMap<>();
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(SplatnetContract.Weapon._ID+" = ?");
+        if(toSelect.size()>0) {
+            SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
-        for(int i=1;i<toSelect.size();i++){
-            builder.append(" OR "+SplatnetContract.Weapon._ID+" = ?");
-            args[i] = String.valueOf(toSelect.get(i));
+            String[] args = new String[toSelect.size()];
+            args[0] = String.valueOf(toSelect.get(0));
+
+            StringBuilder builder = new StringBuilder();
+            builder.append(SplatnetContract.Weapon._ID + " = ?");
+
+            for (int i = 1; i < toSelect.size(); i++) {
+                builder.append(" OR " + SplatnetContract.Weapon._ID + " = ?");
+                args[i] = String.valueOf(toSelect.get(i));
+            }
+
+            String whereClause = builder.toString();
+
+            Cursor cursor = database.query(SplatnetContract.Weapon.TABLE_NAME, null, whereClause, args, null, null, null);
+
+            ArrayList<Weapon> weapons = new ArrayList<>();
+            ArrayList<Integer> subIDs = new ArrayList<>();
+            ArrayList<Integer> specialIDs = new ArrayList<>();
+
+            int subID, specialID;
+
+            Weapon weapon;
+
+            if (cursor.moveToFirst()) {
+                do {
+                    weapon = new Weapon();
+                    weapon.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon._ID));
+                    weapon.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_NAME));
+                    weapon.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_URL));
+
+                    subID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SUB));
+                    subIDs.add(subID);
+                    subManager.addToSelect(subID);
+
+                    specialID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SPECIAL));
+                    specialIDs.add(specialID);
+                    specialManager.addToSelect(specialID);
+
+                    weapons.add(weapon);
+                } while (cursor.moveToNext());
+            }
+
+            HashMap<Integer, Sub> subHashMap = subManager.select();
+            HashMap<Integer, Special> specialHashMap = specialManager.select();
+
+            for (int i = 0; i < subIDs.size(); i++) {
+                weapon = weapons.get(i);
+                weapon.sub = subHashMap.get(subIDs.get(i));
+                weapon.special = specialHashMap.get(specialIDs.get(i));
+                selected.put(weapon.id, weapon);
+            }
+
+            cursor.close();
+            database.close();
+
+            toSelect = new ArrayList<>();
         }
-
-        String whereClause = builder.toString();
-
-        Cursor cursor = database.query(SplatnetContract.Weapon.TABLE_NAME,null,whereClause,args,null,null,null);
-
-        HashMap<Integer,Weapon> selected = new HashMap<>();
-
-        ArrayList<Weapon> weapons = new ArrayList<>();
-        ArrayList<Integer> subIDs = new ArrayList<>();
-        ArrayList<Integer> specialIDs= new ArrayList<>();
-
-        int subID,specialID;
-
-        Weapon weapon;
-
-        if(cursor.moveToFirst()){
-            do {
-                weapon = new Weapon();
-                weapon.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon._ID));
-                weapon.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_NAME));
-                weapon.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_URL));
-
-                subID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SUB));
-                subIDs.add(subID);
-                subManager.addToSelect(subID);
-
-                specialID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SPECIAL));
-                specialIDs.add(specialID);
-                specialManager.addToSelect(specialID);
-
-                weapons.add(weapon);
-            }while(cursor.moveToNext());
-        }
-
-        HashMap<Integer,Sub> subHashMap = subManager.select();
-        HashMap<Integer,Special> specialHashMap = specialManager.select();
-
-        for(int i=0;i<subIDs.size();i++){
-            weapon = weapons.get(i);
-            weapon.sub = subHashMap.get(subIDs.get(i));
-            weapon.special = specialHashMap.get(specialIDs.get(i));
-            selected.put(weapon.id,weapon);
-        }
-
-        cursor.close();
-        database.close();
-
-        toSelect = new ArrayList<>();
-
         return selected;
     }
 

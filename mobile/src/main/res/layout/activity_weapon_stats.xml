@@ -120,7 +120,7 @@
             <RelativeLayout
                 android:id="@+id/statLayout"
                 android:layout_width="match_parent"
-                android:layout_height="880dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/weaponLayout"
                 android:layout_marginTop="-15dp"
                 android:elevation="3dp">
@@ -174,7 +174,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/moreInfo"
                     android:layout_marginTop="-5dp"
                     android:background="@color/offWhite"
@@ -182,7 +182,7 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@drawable/repeat_spots">
 
                         <RelativeLayout
@@ -214,8 +214,9 @@
 
                                 <RelativeLayout
                                     android:id="@+id/winOutline"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="40dp"
+                                    android:layout_centerHorizontal="true"
                                     android:layout_marginLeft="30dp"
                                     android:layout_marginRight="30dp"
                                     android:layout_marginTop="30dp"
@@ -225,7 +226,7 @@
 
                                     <RelativeLayout
                                         android:id="@+id/WinLossMeter"
-                                        android:layout_width="match_parent"
+                                        android:layout_width="250dp"
                                         android:layout_height="match_parent"
                                         android:background="@drawable/shape_card"
                                         android:backgroundTint="@color/offWhiteDark">
@@ -378,9 +379,10 @@
 
                                 <RelativeLayout
                                     android:id="@+id/InkMeter"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="270dp"
                                     android:layout_height="60dp"
                                     android:layout_below="@+id/InkTitle"
+                                    android:layout_centerHorizontal="true"
                                     android:layout_marginLeft="15dp"
                                     android:layout_marginRight="15dp"
                                     android:layout_marginTop="10dp">
@@ -407,34 +409,42 @@
                                         android:layout_alignLeft="@+id/InkLowerWhisker"
                                         android:layout_alignParentBottom="true"
                                         android:text="0"
-                                        android:textSize="16sp" />
+                                        android:textSize="14sp" />
 
                                     <RelativeLayout
                                         android:id="@+id/inkBox"
-                                        android:layout_width="110dp"
-                                        android:layout_height="40dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:layout_toRightOf="@+id/InkLowerWhisker"
                                         android:background="@drawable/shape_card"
                                         android:backgroundTint="@color/offWhiteDark"
                                         android:padding="5dp">
 
                                         <RelativeLayout
-                                            android:id="@+id/InkLowerBox"
-                                            android:layout_width="50dp"
-                                            android:layout_height="match_parent"
-                                            android:background="@color/colorPrimary"></RelativeLayout>
+                                            android:id="@+id/InkBox"
+                                            android:layout_width="110dp"
+                                            android:layout_height="30dp"
+                                            android:background="@drawable/shape_card"
+                                            android:backgroundTint="@color/offWhiteDark">
 
-                                        <RelativeLayout
-                                            android:id="@+id/InkUpperBox"
-                                            android:layout_width="50dp"
-                                            android:layout_height="match_parent"
-                                            android:layout_alignParentRight="true"
-                                            android:background="@color/colorAccent" />
+                                            <RelativeLayout
+                                                android:id="@+id/InkLowerBox"
+                                                android:layout_width="50dp"
+                                                android:layout_height="match_parent"
+                                                android:background="@color/colorPrimary"></RelativeLayout>
 
-                                        <RelativeLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:background="@drawable/repeat_stripes"></RelativeLayout>
+                                            <RelativeLayout
+                                                android:id="@+id/InkUpperBox"
+                                                android:layout_width="50dp"
+                                                android:layout_height="match_parent"
+                                                android:layout_alignParentRight="true"
+                                                android:background="@color/colorAccent" />
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/repeat_stripes"></RelativeLayout>
+                                        </RelativeLayout>
                                     </RelativeLayout>
 
                                     <TextView
@@ -444,7 +454,7 @@
                                         android:layout_alignLeft="@+id/inkBox"
                                         android:layout_alignParentBottom="true"
                                         android:text="0"
-                                        android:textSize="16sp" />
+                                        android:textSize="14sp" />
 
                                     <TextView
                                         android:id="@+id/InkMedian"
@@ -454,16 +464,16 @@
                                         android:layout_alignParentBottom="true"
                                         android:layout_marginLeft="50dp"
                                         android:text="0"
-                                        android:textSize="16sp" />
+                                        android:textSize="14sp" />
 
                                     <TextView
                                         android:id="@+id/InkUpperQuartile"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_alignLeft="@+id/InkUpperWhisker"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_alignRight="@+id/inkBox"
                                         android:text="0"
-                                        android:textSize="16sp" />
+                                        android:textSize="14sp" />
 
                                     <RelativeLayout
                                         android:id="@+id/InkUpperWhisker"
@@ -488,7 +498,7 @@
                                         android:layout_alignParentBottom="true"
                                         android:layout_alignRight="@+id/InkUpperWhisker"
                                         android:text="0"
-                                        android:textSize="16sp" />
+                                        android:textSize="14sp" />
                                 </RelativeLayout>
                             </RelativeLayout>
                         </RelativeLayout>
@@ -567,30 +577,38 @@
 
                                     <RelativeLayout
                                         android:id="@+id/killBox"
-                                        android:layout_width="110dp"
-                                        android:layout_height="40dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:layout_toRightOf="@+id/KillLowerWhisker"
                                         android:background="@drawable/shape_card"
                                         android:backgroundTint="@color/offWhiteDark"
                                         android:padding="5dp">
 
                                         <RelativeLayout
-                                            android:id="@+id/KillLowerBox"
-                                            android:layout_width="50dp"
-                                            android:layout_height="match_parent"
-                                            android:background="@color/colorPrimary"></RelativeLayout>
+                                            android:id="@+id/KillBox"
+                                            android:layout_width="110dp"
+                                            android:layout_height="30dp"
+                                            android:background="@drawable/shape_card"
+                                            android:backgroundTint="@color/offWhiteDark">
 
-                                        <RelativeLayout
-                                            android:id="@+id/KillUpperBox"
-                                            android:layout_width="50dp"
-                                            android:layout_height="match_parent"
-                                            android:layout_alignParentRight="true"
-                                            android:background="@color/colorAccent" />
+                                            <RelativeLayout
+                                                android:id="@+id/KillLowerBox"
+                                                android:layout_width="50dp"
+                                                android:layout_height="match_parent"
+                                                android:background="@color/colorPrimary"></RelativeLayout>
 
-                                        <RelativeLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:background="@drawable/repeat_stripes"></RelativeLayout>
+                                            <RelativeLayout
+                                                android:id="@+id/KillUpperBox"
+                                                android:layout_width="50dp"
+                                                android:layout_height="match_parent"
+                                                android:layout_alignParentRight="true"
+                                                android:background="@color/colorAccent" />
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/repeat_stripes"></RelativeLayout>
+                                        </RelativeLayout>
                                     </RelativeLayout>
 
                                     <TextView
@@ -616,8 +634,8 @@
                                         android:id="@+id/KillUpperQuartile"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_alignLeft="@+id/KillUpperWhisker"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_alignRight="@+id/killBox"
                                         android:text="0"
                                         android:textSize="16sp" />
 
@@ -723,30 +741,38 @@
 
                                     <RelativeLayout
                                         android:id="@+id/deathBox"
-                                        android:layout_width="110dp"
-                                        android:layout_height="40dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:layout_toRightOf="@+id/DeathLowerWhisker"
                                         android:background="@drawable/shape_card"
                                         android:backgroundTint="@color/offWhiteDark"
                                         android:padding="5dp">
 
                                         <RelativeLayout
-                                            android:id="@+id/DeathLowerBox"
-                                            android:layout_width="50dp"
-                                            android:layout_height="match_parent"
-                                            android:background="@color/colorPrimary"></RelativeLayout>
+                                            android:id="@+id/DeathBox"
+                                            android:layout_width="110dp"
+                                            android:layout_height="30dp"
+                                            android:background="@drawable/shape_card"
+                                            android:backgroundTint="@color/offWhiteDark">
 
-                                        <RelativeLayout
-                                            android:id="@+id/DeathUpperBox"
-                                            android:layout_width="50dp"
-                                            android:layout_height="match_parent"
-                                            android:layout_alignParentRight="true"
-                                            android:background="@color/colorAccent" />
+                                            <RelativeLayout
+                                                android:id="@+id/DeathLowerBox"
+                                                android:layout_width="50dp"
+                                                android:layout_height="match_parent"
+                                                android:background="@color/colorPrimary"></RelativeLayout>
 
-                                        <RelativeLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:background="@drawable/repeat_stripes"></RelativeLayout>
+                                            <RelativeLayout
+                                                android:id="@+id/DeathUpperBox"
+                                                android:layout_width="50dp"
+                                                android:layout_height="match_parent"
+                                                android:layout_alignParentRight="true"
+                                                android:background="@color/colorAccent" />
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/repeat_stripes"></RelativeLayout>
+                                        </RelativeLayout>
                                     </RelativeLayout>
 
                                     <TextView
@@ -772,8 +798,8 @@
                                         android:id="@+id/DeathUpperQuartile"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_alignLeft="@+id/DeathUpperWhisker"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_alignRight="@+id/deathBox"
                                         android:text="0"
                                         android:textSize="16sp" />
 
@@ -810,6 +836,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="130dp"
                             android:layout_below="@+id/deathStats"
+                            android:layout_marginBottom="20dp"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="20dp"
@@ -832,6 +859,7 @@
                                     android:layout_marginTop="-5dp"
                                     android:src="@drawable/extra_product"
                                     android:tint="@color/offWhite" />
+
                                 <TextView
                                     android:id="@+id/SpecialTitle"
                                     android:layout_width="wrap_content"
@@ -841,7 +869,7 @@
                                     android:gravity="center"
                                     android:padding="10dp"
                                     android:text="Special Spread"
-                                    android:textSize="16sp"/>
+                                    android:textSize="16sp" />
 
                                 <RelativeLayout
                                     android:id="@+id/SpecialMeter"
@@ -878,30 +906,38 @@
 
                                     <RelativeLayout
                                         android:id="@+id/specialBox"
-                                        android:layout_width="110dp"
-                                        android:layout_height="40dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:layout_toRightOf="@+id/SpecialLowerWhisker"
                                         android:background="@drawable/shape_card"
                                         android:backgroundTint="@color/offWhiteDark"
                                         android:padding="5dp">
 
                                         <RelativeLayout
-                                            android:id="@+id/SpecialLowerBox"
-                                            android:layout_width="50dp"
-                                            android:layout_height="match_parent"
-                                            android:background="@color/colorPrimary"></RelativeLayout>
+                                            android:id="@+id/SpecialBox"
+                                            android:layout_width="110dp"
+                                            android:layout_height="30dp"
+                                            android:background="@drawable/shape_card"
+                                            android:backgroundTint="@color/offWhiteDark">
 
-                                        <RelativeLayout
-                                            android:id="@+id/SpecialUpperBox"
-                                            android:layout_width="50dp"
-                                            android:layout_height="match_parent"
-                                            android:layout_alignParentRight="true"
-                                            android:background="@color/colorAccent" />
+                                            <RelativeLayout
+                                                android:id="@+id/SpecialLowerBox"
+                                                android:layout_width="50dp"
+                                                android:layout_height="match_parent"
+                                                android:background="@color/colorPrimary"></RelativeLayout>
 
-                                        <RelativeLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:background="@drawable/repeat_stripes"></RelativeLayout>
+                                            <RelativeLayout
+                                                android:id="@+id/SpecialUpperBox"
+                                                android:layout_width="50dp"
+                                                android:layout_height="match_parent"
+                                                android:layout_alignParentRight="true"
+                                                android:background="@color/colorAccent" />
+
+                                            <RelativeLayout
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/repeat_stripes"></RelativeLayout>
+                                        </RelativeLayout>
                                     </RelativeLayout>
 
                                     <TextView
@@ -927,8 +963,8 @@
                                         android:id="@+id/SpecialUpperQuartile"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_alignLeft="@+id/SpecialUpperWhisker"
                                         android:layout_alignParentBottom="true"
-                                        android:layout_alignRight="@+id/specialBox"
                                         android:text="0"
                                         android:textSize="16sp" />
 
