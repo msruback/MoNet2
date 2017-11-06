@@ -1,7 +1,9 @@
 package com.mattrubacky.monet2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.WeaponStats;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
@@ -136,6 +139,8 @@ public class WeaponLockerDetail extends AppCompatActivity {
         super.onResume();
         updateUI();
     }
+
+
 
     public void updateUI(){
 

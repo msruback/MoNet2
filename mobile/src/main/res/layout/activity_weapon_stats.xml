@@ -188,7 +188,7 @@
                         <RelativeLayout
                             android:id="@+id/generalStats"
                             android:layout_width="match_parent"
-                            android:layout_height="200dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="20dp"
@@ -270,7 +270,7 @@
                                 <RelativeLayout
                                     android:id="@+id/inkedLayout"
                                     android:layout_width="match_parent"
-                                    android:layout_height="40dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_below="@id/winOutline"
                                     android:layout_marginLeft="30dp"
                                     android:layout_marginRight="30dp"
@@ -281,7 +281,7 @@
                                     <TextView
                                         android:id="@+id/InkedTitleText"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
+                                        android:layout_height="wrap_content"
                                         android:background="@drawable/shape_card"
                                         android:backgroundTint="@color/primary"
                                         android:gravity="center"
@@ -303,7 +303,7 @@
                                 <RelativeLayout
                                     android:id="@+id/lastLayout"
                                     android:layout_width="match_parent"
-                                    android:layout_height="40dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_below="@id/inkedLayout"
                                     android:layout_marginBottom="15dp"
                                     android:layout_marginLeft="30dp"
@@ -315,7 +315,7 @@
                                     <TextView
                                         android:id="@+id/LastTitleText"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
+                                        android:layout_height="wrap_content"
                                         android:background="@drawable/shape_card"
                                         android:backgroundTint="@color/primary"
                                         android:gravity="center"

@@ -263,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction()
                                 .replace(R.id.frame_container,weaponLocker)
                                 .commit();
+                        drawerLayout.closeDrawer(drawerList);
                         break;
                 }
                 return false;

@@ -27,6 +27,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.WeaponLockerDetail;
 import com.mattrubacky.monet2.deserialized.Battle;
@@ -34,6 +35,7 @@ import com.mattrubacky.monet2.deserialized.Product;
 import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.deserialized.Records;
 import com.mattrubacky.monet2.deserialized.ResultList;
+import com.mattrubacky.monet2.deserialized.Schedules;
 import com.mattrubacky.monet2.deserialized.WeaponStats;
 import com.mattrubacky.monet2.dialog.BuyDialog;
 import com.mattrubacky.monet2.dialog.CookieDialog;
@@ -65,6 +67,7 @@ public class WeaponLockerFragment extends Fragment {
 
     ViewGroup rootView;
     SharedPreferences settings;
+    Record records;
     ArrayList<WeaponStats> weaponStatsList;
     UpdateBattleData updateBattleData;
     RecyclerView weaponList;
@@ -82,6 +85,31 @@ public class WeaponLockerFragment extends Fragment {
 
         return rootView;
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor edit = settings.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(records);
+        edit.putString("records",json);
+        edit.commit();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Gson gson = new Gson();
+        records = gson.fromJson(settings.getString("records",""),Record.class);
+        Integer[] keys = new Integer[2];
+        keys = records.records.weaponStats.keySet().toArray(keys);
+        weaponStatsList = new ArrayList<>();
+        for(int i=0;i<keys.length;i++){
+            weaponStatsList.add(records.records.weaponStats.get(keys[i]));
+        }
     }
 
     private void updateUi(){
@@ -104,13 +132,12 @@ public class WeaponLockerFragment extends Fragment {
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
                 Response response;
-                ArrayList<Battle> list = new ArrayList<>();
                 response = splatnet.getRecords(cookie).execute();
-                weaponStatsList = new ArrayList<>();
                 if(response.isSuccessful()){
-                    Record records = (Record) response.body();
+                    records = (Record) response.body();
                     Integer[] keys = new Integer[2];
                     keys = records.records.weaponStats.keySet().toArray(keys);
+                    weaponStatsList = new ArrayList<>();
                     for(int i=0;i<keys.length;i++){
                         weaponStatsList.add(records.records.weaponStats.get(keys[i]));
                     }
