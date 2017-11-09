@@ -8,17 +8,31 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 /**
- * Created by mattr on 10/17/2017.
- * The list of Salmon Run shifts
+ * Created by mattr on 11/9/2017.
  */
-public class SalmonSchedule implements Parcelable {
+
+public class SalmonSchedule implements Parcelable{
     public SalmonSchedule(){}
 
-    @SerializedName("schedule")
-    public ArrayList<SalmonRun> schedule;
+    @SerializedName("details")
+    ArrayList<SalmonRunDetail> details;
+    @SerializedName("schedules")
+    ArrayList<SalmonRun> times;
 
     protected SalmonSchedule(Parcel in) {
-        schedule = in.createTypedArrayList(SalmonRun.CREATOR);
+        details = in.createTypedArrayList(SalmonRunDetail.CREATOR);
+        times = in.createTypedArrayList(SalmonRun.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(details);
+        dest.writeTypedList(times);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<SalmonSchedule> CREATOR = new Creator<SalmonSchedule>() {
@@ -32,14 +46,4 @@ public class SalmonSchedule implements Parcelable {
             return new SalmonSchedule[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(schedule);
-    }
 }
