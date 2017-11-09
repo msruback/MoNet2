@@ -30,7 +30,7 @@ public class SalmonRotationDetail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.fragment_turf_rotation, container, false);
+                R.layout.fragment_salmon_rotation_detail, container, false);
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
 
         TextView time = (TextView) rootView.findViewById(R.id.Time);

@@ -145,7 +145,6 @@ public class ScheduleAdapter extends ArrayAdapter<String> {
                     }
                 });
 
-                ListView SalmonTimes = (ListView) convertView.findViewById(R.id.SalmonTimes);
                 ImageView currentGear = (ImageView) convertView.findViewById(R.id.monthlyGear);
 
                 if(monthlyGear!=null) {
@@ -159,14 +158,12 @@ public class ScheduleAdapter extends ArrayAdapter<String> {
                         imageHandler.downloadImage("weapon", imageDirName, url, getContext());
                     }
                 }
-                if(salmonSchedule == null){
-                    salmonSchedule = new SalmonSchedule();
-                }
-                if(salmonSchedule.schedule==null){
-                    salmonSchedule.schedule = new ArrayList<>();
-                }
-                SalmonRunAdapter salmonRunAdapter = new SalmonRunAdapter(getContext(),salmonSchedule.schedule);
-                SalmonTimes.setAdapter(salmonRunAdapter);
+
+                ViewPager SalmonPager = (ViewPager) convertView.findViewById(R.id.SalmonPager);
+                TabLayout salmonDots = (TabLayout) convertView.findViewById(R.id.SalmonDots);
+                salmonDots.setupWithViewPager(SalmonPager, true);
+                PagerAdapter salmonAdapter = new SalmonAdapter(childFragmentManager, salmonSchedule);
+                SalmonPager.setAdapter(salmonAdapter);
 
                 break;
         }
