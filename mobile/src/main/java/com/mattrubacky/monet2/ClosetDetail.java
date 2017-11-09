@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.ClosetHanger;
-import com.mattrubacky.monet2.deserialized.WeaponStats;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
@@ -52,7 +51,10 @@ public class ClosetDetail extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        RelativeLayout nameLayout = (RelativeLayout) findViewById(R.id.nameLayout);
+        RelativeLayout moreInfoLayout = (RelativeLayout) findViewById(R.id.moreInfo);
 
+        ImageView brand = (ImageView) findViewById(R.id.Brand);
         ImageView gear = (ImageView) findViewById(R.id.GearImage);
         ImageView main = (ImageView) findViewById(R.id.Main);
         ImageView sub1 = (ImageView) findViewById(R.id.Sub1);
@@ -61,29 +63,45 @@ public class ClosetDetail extends AppCompatActivity {
 
         TextView name = (TextView) findViewById(R.id.Name);
         TextView number = (TextView) findViewById(R.id.Number);
-        TextView winText = (TextView) findViewById(R.id.WinText);
-        TextView lossText = (TextView) findViewById(R.id.LossText);
-        TextView inkedTitle = (TextView) findViewById(R.id.InkedTitleText);
-        TextView inked = (TextView) findViewById(R.id.InkedText);
-        TextView lastUsedTitle = (TextView) findViewById(R.id.LastTitleText);
-        TextView lastUsed = (TextView) findViewById(R.id.LastText);
 
         name.setTypeface(fontTitle);
         number.setTypeface(font);
-        winText.setTypeface(font);
-        lossText.setTypeface(font);
-        inkedTitle.setTypeface(font);
-        inked.setTypeface(font);
-        lastUsedTitle.setTypeface(font);
-        lastUsed.setTypeface(font);
+
+        name.setText(hanger.gear.name);
+        number.setText(hanger.numGames);
+
+        //Handle Colors
+        switch(hanger.gear.kind){
+            case "head":
+                nameLayout.setBackgroundTintList(getResources().getColorStateList(R.color.head));
+                moreInfoLayout.setBackgroundTintList(getResources().getColorStateList(R.color.head));
+                break;
+            case "clothes":
+                nameLayout.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
+                moreInfoLayout.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
+                break;
+            case "shoes":
+                nameLayout.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
+                moreInfoLayout.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
+                break;
+        }
 
         //Handle Brand
-
-        //Handle Subs
         ImageHandler imageHandler = new ImageHandler();
 
-        String dirName = hanger.skills.main.name.toLowerCase().replaceAll(" ","_");
-        String url = "https://app.splatoon2.nintendo.net"+hanger.skills.main.url;
+        String dirName = hanger.gear.brand.name.toLowerCase().replaceAll(" ","_");
+        String url = "https://app.splatoon2.nintendo.net"+hanger.gear.brand.url;
+        if(imageHandler.imageExists("brand",dirName,getApplicationContext())){
+            brand.setImageBitmap(imageHandler.loadImage("brand",dirName));
+        }else{
+            Picasso.with(getApplicationContext()).load(url).into(brand);
+            imageHandler.downloadImage("brand",dirName,url,getApplicationContext());
+        }
+
+        //Handle Subs
+
+        dirName = hanger.skills.main.name.toLowerCase().replaceAll(" ","_");
+        url = "https://app.splatoon2.nintendo.net"+hanger.skills.main.url;
 
         if(imageHandler.imageExists("ability",dirName,getApplicationContext())){
             main.setImageBitmap(imageHandler.loadImage("ability",dirName));
@@ -239,6 +257,28 @@ public class ClosetDetail extends AppCompatActivity {
 
 
         ViewGroup.LayoutParams layoutParams;
+
+        //Handle Colors
+        switch(hanger.gear.kind){
+            case "head":
+                inkCard.setBackgroundTintList(getResources().getColorStateList(R.color.head));
+                killCard.setBackgroundTintList(getResources().getColorStateList(R.color.head));
+                deathCard.setBackgroundTintList(getResources().getColorStateList(R.color.head));
+                specialCard.setBackgroundTintList(getResources().getColorStateList(R.color.head));
+                break;
+            case "clothes":
+                inkCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
+                killCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
+                deathCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
+                specialCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));;
+                break;
+            case "shoes":
+                inkCard.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
+                killCard.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
+                deathCard.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
+                specialCard.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
+                break;
+        }
 
 
         //Ink card

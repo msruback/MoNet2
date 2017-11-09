@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:rotation="1">
 
     <RelativeLayout
         android:id="@+id/SalmonRun"
         android:layout_width="300dp"
-        android:layout_height="360dp"
+        android:layout_height="385dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
         android:background="@drawable/shape_card"
@@ -39,44 +40,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/extra_product" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/salmonProduct"
-                android:layout_marginEnd="5dp"
-                android:elevation="4dp">
-
-                <Button
-                    android:id="@+id/AddRun"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/shape_card"
-                    android:backgroundTint="@color/salmonAccent"
-                    android:text="+"
-                    android:textColor="@color/offWhite"
-                    android:textSize="22sp"></Button>
-
-                <RelativeLayout
-                    android:layout_width="13dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/shape_card"
-                    android:backgroundTint="@color/salmonAccent"></RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="5dp"
-                    android:layout_height="13dp"
-                    android:layout_marginLeft="33dp"
-                    android:layout_marginTop="27dp"
-                    android:background="@drawable/shape_card"
-                    android:backgroundTint="@color/salmonAccent"></RelativeLayout>
-
-            </RelativeLayout>
-
-
             <TextView
                 android:id="@+id/salmonName"
                 android:layout_width="wrap_content"
@@ -93,7 +56,7 @@
         <RelativeLayout
             android:id="@+id/relativeLayout3"
             android:layout_width="match_parent"
-            android:layout_height="275dp"
+            android:layout_height="300dp"
             android:layout_marginTop="85dp"
             android:background="@drawable/shape_card"
             android:backgroundTint="@color/offWhite">
@@ -103,28 +66,23 @@
                 android:layout_height="30dp"
                 android:background="@color/offWhite"></RelativeLayout>
 
-            <RelativeLayout
+            <android.support.v4.view.ViewPager
+                android:id="@+id/SalmonPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/repeat_spots">
+                android:layout_height="280dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"></android.support.v4.view.ViewPager>
 
-                <ImageView
-                    android:id="@+id/salmonLogo"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/salmon_run_watermark"
-                    android:backgroundTint="#a89b9b9b" />
-            </RelativeLayout>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/SalmonDots"
+                app:tabBackground="@drawable/tab_salmon_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="280dp" />
 
-            <ListView
-                android:id="@+id/SalmonTimes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </ListView>
         </RelativeLayout>
 
     </RelativeLayout>

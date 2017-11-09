@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ExpandableListView drawerList;
     ArrayList<String> titles,children;
-    Fragment rotation,shop,battleList,settingsFrag,weaponLocker;
+    Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         settingsFrag = new SettingsFragment();
 
         weaponLocker = new WeaponLockerFragment();
+        closet = new ClosetFragment();
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -262,6 +263,12 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         fragmentManager.beginTransaction()
                                 .replace(R.id.frame_container,weaponLocker)
+                                .commit();
+                        drawerLayout.closeDrawer(drawerList);
+                        break;
+                    case 1:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,closet)
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
                         break;

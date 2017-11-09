@@ -60,6 +60,41 @@ public class StatCalc {
 
     //GearStats constructor
     public StatCalc(Context context, Gear gear){
+        ArrayList<Player> players;
+        ArrayList<Integer> ink,kill,death,special;
+        SplatnetSQLManager database = new SplatnetSQLManager(context);
+
+        players = database.getPlayerStats(gear.id,gear.kind);
+
+        num = players.size();
+
+        inkStats = new int[5];
+        killStats = new int[5];
+        deathStats = new int[5];
+        specialStats = new int[5];
+
+        ink = new ArrayList<>();
+        kill = new ArrayList<>();
+        death = new ArrayList<>();
+        special = new ArrayList<>();
+
+        Player player;
+        for(int i=0;i<players.size();i++){
+            player = players.get(i);
+
+            ink.add(player.points);
+            kill.add(player.kills);
+            death.add(player.deaths);
+            special.add(player.special);
+
+        }
+
+        if(players.size()>5) {
+            inkStats = calcStats(sort(ink));
+            killStats = calcStats(sort(kill));
+            deathStats = calcStats(sort(death));
+            specialStats = calcStats(sort(special));
+        }
 
     }
 
