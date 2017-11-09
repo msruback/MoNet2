@@ -38,6 +38,9 @@ class ClosetManager {
 
         toInsert.put(gear.id,hanger);
     }
+    public void addToInsert(ClosetHanger hanger){
+        toInsert.put(hanger.gear.id,hanger);
+    }
 
     public void insert(){
         if(toInsert.size()>0){
@@ -50,10 +53,26 @@ class ClosetManager {
             String[] args;
             Cursor cursor = null;
 
+            int id;
+
             ClosetHanger closetHanger;
             for(int i=0;i<keys.length;i++){
                 values = new ContentValues();
                 closetHanger = toInsert.get(keys[i]);
+
+                id = closetHanger.gear.id;
+                id*=10;
+                switch (closetHanger.gear.kind){
+                    case "head":
+                        id+=1;
+                        break;
+                    case "clothes":
+                        id+=2;
+                        break;
+                    case "shoes":
+                        id+=3;
+                        break;
+                }
 
                 values.put(SplatnetContract.Closet._ID,closetHanger.gear.id);
                 values.put(SplatnetContract.Closet.COLUMN_GEAR,closetHanger.gear.id);
@@ -210,6 +229,8 @@ class ClosetManager {
                     gearHashMap = gearList.get(2);
             }
             closetHanger.gear = gearHashMap.get(gearIDs.get(i));
+
+            closetHanger.skills = new GearSkills();
 
             closetHanger.skills.main = skillHashMap.get(mainIDs.get(i));
 

@@ -1,15 +1,11 @@
 package com.mattrubacky.monet2.fragment;
 
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,43 +13,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.WeaponLockerDetail;
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.deserialized.Product;
 import com.mattrubacky.monet2.deserialized.Record;
-import com.mattrubacky.monet2.deserialized.Records;
-import com.mattrubacky.monet2.deserialized.ResultList;
-import com.mattrubacky.monet2.deserialized.Schedules;
 import com.mattrubacky.monet2.deserialized.WeaponStats;
-import com.mattrubacky.monet2.dialog.BuyDialog;
-import com.mattrubacky.monet2.dialog.CookieDialog;
-import com.mattrubacky.monet2.dialog.GearNotificationPickerDialog;
-import com.mattrubacky.monet2.dialog.StageNotificationPickerDialog;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StatCalc;
-import com.mattrubacky.monet2.reciever.BootReciever;
-import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
-import com.mattrubacky.monet2.reciever.SalmonAlarm;
 import com.mattrubacky.monet2.splatnet_interface.Splatnet;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Set;
 
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -69,7 +44,7 @@ public class WeaponLockerFragment extends Fragment {
     SharedPreferences settings;
     Record records;
     ArrayList<WeaponStats> weaponStatsList;
-    UpdateBattleData updateBattleData;
+    UpdateRecords updateRecords;
     RecyclerView weaponList;
 
     @Override
@@ -80,8 +55,8 @@ public class WeaponLockerFragment extends Fragment {
 
         settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        updateBattleData = new UpdateBattleData();
-        updateBattleData.execute();
+        updateRecords = new UpdateRecords();
+        updateRecords.execute();
 
         return rootView;
 
@@ -119,7 +94,7 @@ public class WeaponLockerFragment extends Fragment {
         weaponList.setAdapter(weaponAdapter);
     }
 
-    private class UpdateBattleData extends AsyncTask<Void,Void,Void> {
+    private class UpdateRecords extends AsyncTask<Void,Void,Void> {
 
         @Override
         protected void onPreExecute() {}
@@ -185,11 +160,11 @@ public class WeaponLockerFragment extends Fragment {
 
             String url = "https://app.splatoon2.nintendo.net"+weaponStats.weapon.url;
             String location = weaponStats.weapon.name.toLowerCase().replace(" ","_");
-            if(imageHandler.imageExists("brand",location,context)){
+            if(imageHandler.imageExists("weapon",location,context)){
                 holder.weapon.setImageBitmap(imageHandler.loadImage("weapon",location));
             }else{
                 Picasso.with(context).load(url).into(holder.weapon);
-                imageHandler.downloadImage("brand",location,url,context);
+                imageHandler.downloadImage("weapon",location,url,context);
             }
 
             holder.name.setText(weaponStats.weapon.name);

@@ -241,6 +241,20 @@ public class SplatnetSQLManager {
         return closetManager.selectAll();
     }
 
+    public void restructureCloset(){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+        ArrayList<ClosetHanger> closetHangers = getCloset();
+
+        database.execSQL("DROP TABLE IF EXISTS closet");
+
+        database.execSQL(SplatnetContract.Closet.CREATE_TABLE);
+        ClosetManager closetManager = new ClosetManager(context);
+        for(int i=0;i<closetHangers.size();i++){
+            closetManager.addToInsert(closetHangers.get(i));
+        }
+        closetManager.insert();
+    }
+
 
 }
 
