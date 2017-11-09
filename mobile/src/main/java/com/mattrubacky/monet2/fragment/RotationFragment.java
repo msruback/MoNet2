@@ -104,7 +104,7 @@ public class RotationFragment extends Fragment {
 
         customHandler = new android.os.Handler();
         updateUi();
-
+        /*
         if(salmonSchedule.schedule!=null&&salmonSchedule.schedule.size()!=0){
             if(salmonSchedule.schedule.get(0).endTime< new Date().getTime()){
                 salmonSchedule.schedule.remove(0);
@@ -118,9 +118,9 @@ public class RotationFragment extends Fragment {
             }
         }
 
-        //if(schedules.regular.size()==0){
+        if(schedules.regular.size()==0){
             customHandler.post(update2Hours);
-        /*}else {
+        }else {
             if ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
                 do{
                     schedules.dequeue();
@@ -195,8 +195,11 @@ public class RotationFragment extends Fragment {
         if(salmonSchedule==null){
             salmonSchedule= new SalmonSchedule();
         }
-        if(salmonSchedule.schedule==null){
-            salmonSchedule.schedule = new ArrayList<>();
+        if(salmonSchedule.details==null){
+            salmonSchedule.details = new ArrayList<>();
+        }
+        if(salmonSchedule.times==null){
+            salmonSchedule.times = new ArrayList<>();
         }
 
         ArrayList<String> rotation = new ArrayList<>();
@@ -271,6 +274,11 @@ public class RotationFragment extends Fragment {
                     }
                 }else{
 
+                }
+                Call<SalmonSchedule> salmonGet = splatnet.getSalmonSchedule(cookie);
+                response = salmonGet.execute();
+                if(response.isSuccessful()){
+                    salmonSchedule = (SalmonSchedule) response.body();
                 }
 
             } catch (MalformedURLException e) {

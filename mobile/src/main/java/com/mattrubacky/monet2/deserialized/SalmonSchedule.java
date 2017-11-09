@@ -9,15 +9,16 @@ import java.util.ArrayList;
 
 /**
  * Created by mattr on 11/9/2017.
+ * This is the root of the api/coop_schedules, it contains a list of detailed Salmon Runs and a list of Salmon Run times
  */
 
 public class SalmonSchedule implements Parcelable{
     public SalmonSchedule(){}
 
     @SerializedName("details")
-    ArrayList<SalmonRunDetail> details;
+    public ArrayList<SalmonRunDetail> details;
     @SerializedName("schedules")
-    ArrayList<SalmonRun> times;
+    public ArrayList<SalmonRun> times;
 
     protected SalmonSchedule(Parcel in) {
         details = in.createTypedArrayList(SalmonRunDetail.CREATOR);

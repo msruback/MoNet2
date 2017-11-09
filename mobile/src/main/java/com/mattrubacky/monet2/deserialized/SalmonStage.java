@@ -7,15 +7,15 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 11/9/2017.
- */
+ * This class represents the stages in Salmon Run. These stages only contain a name and an image, no id or anything else */
 
 public class SalmonStage implements Parcelable{
     public SalmonStage(){}
 
     @SerializedName("name")
-    String name;
+    public String name;
     @SerializedName("image")
-    String url;
+    public String url;
 
     protected SalmonStage(Parcel in) {
         name = in.readString();

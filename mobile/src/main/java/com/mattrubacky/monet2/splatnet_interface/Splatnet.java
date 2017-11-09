@@ -39,6 +39,9 @@ public interface Splatnet {
     @GET("/api/schedules")
     Call<Schedules> getSchedules(@Header("Cookie") String cookie);
 
+    @GET("/api/coop_schedules")
+    Call<SalmonSchedule> getSalmonSchedule(@Header("Cookie") String cookie);
+
     @GET("api/data/stages")
     Call<ResponseBody> getStages(@Header("Cookie") String cookie);
 

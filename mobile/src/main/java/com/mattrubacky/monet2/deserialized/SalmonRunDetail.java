@@ -9,19 +9,20 @@ import java.util.ArrayList;
 
 /**
  * Created by mattr on 11/9/2017.
+ * This class describes the next two Salmon Runs, which have extra details in knowing the stage and weapons available.
  */
 
 public class SalmonRunDetail implements Parcelable{
     public SalmonRunDetail(){}
 
     @SerializedName("stage")
-    SalmonStage stage;
+    public SalmonStage stage;
     @SerializedName("weapons")
-    ArrayList<Weapon> weapons;
+    public ArrayList<Weapon> weapons;
     @SerializedName("start_time")
-    long start;
+    public long start;
     @SerializedName("end_time")
-    long end;
+    public long end;
 
     protected SalmonRunDetail(Parcel in) {
         stage = in.readParcelable(SalmonStage.class.getClassLoader());

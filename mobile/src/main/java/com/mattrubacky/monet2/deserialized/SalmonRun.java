@@ -7,16 +7,17 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by mattr on 11/9/2017.
+ * This Class describes the SalmonRun Start and End Times
+ * An Important Note is that this contains not only the times for runs not in details, but the ones in details as well
  */
 
 public class SalmonRun implements Parcelable{
     public SalmonRun(){}
 
     @SerializedName("start_time")
-    long start;
-
+    public long start;
     @SerializedName("end_time")
-    long end;
+    public long end;
 
     protected SalmonRun(Parcel in) {
         start = in.readLong();
