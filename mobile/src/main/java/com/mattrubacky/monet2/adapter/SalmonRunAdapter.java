@@ -47,8 +47,8 @@ public class SalmonRunAdapter extends ArrayAdapter<SalmonRun> {
 
         SimpleDateFormat sdf = new SimpleDateFormat("M/d h a");
 
-        String startText = sdf.format(salmonRun.start);
-        String endText = sdf.format(salmonRun.end);
+        String startText = sdf.format(salmonRun.start*1000);
+        String endText = sdf.format(salmonRun.end*1000);
 
         time.setText(startText + " to " + endText);
 
