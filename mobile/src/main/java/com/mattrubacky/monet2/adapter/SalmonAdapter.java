@@ -31,7 +31,7 @@ public class SalmonAdapter extends FragmentStatePagerAdapter {
 
         Bundle bundle = new Bundle();
         Fragment salmon;
-        if(position>schedule.details.size()){
+        if(position>schedule.details.size()-1){
             bundle.putParcelableArrayList("salmon_runs",schedule.times);
             salmon = new SalmonRotation();
         }else {

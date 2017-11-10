@@ -12,6 +12,7 @@
         android:layout_centerHorizontal="true"
         android:text="10/2 8 AM - 10/3 8 AM"
         android:layout_marginTop="5dp"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColor="@color/offWhite"/>
 
 </RelativeLayout>

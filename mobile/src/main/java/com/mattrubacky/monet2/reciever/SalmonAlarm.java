@@ -75,7 +75,7 @@ public class SalmonAlarm extends WakefulBroadcastReceiver {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
-        if(schedule.details.size()>0) {
+        if(schedule.details!=null&&schedule.details.size()>0) {
             SalmonRunDetail run = schedule.details.get(0);
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(context, SalmonAlarm.class);

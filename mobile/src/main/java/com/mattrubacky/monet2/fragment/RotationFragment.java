@@ -104,6 +104,7 @@ public class RotationFragment extends Fragment {
 
         customHandler = new android.os.Handler();
         updateUi();
+        new UpdateRotationData().execute();
         /*
         if(salmonSchedule.schedule!=null&&salmonSchedule.schedule.size()!=0){
             if(salmonSchedule.schedule.get(0).endTime< new Date().getTime()){
@@ -219,7 +220,10 @@ public class RotationFragment extends Fragment {
                 rotation.add("fes");
             }
         }
-        rotation.add("salmon");
+
+        if(salmonSchedule.details!=null&&salmonSchedule.details.size()>0){
+            rotation.add("salmon");
+        }
 
 
         ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),rotation,getChildFragmentManager(),schedules,currentSplatfest,salmonSchedule,monthlyGear);
@@ -279,6 +283,8 @@ public class RotationFragment extends Fragment {
                 response = salmonGet.execute();
                 if(response.isSuccessful()){
                     salmonSchedule = (SalmonSchedule) response.body();
+                }else{
+
                 }
 
             } catch (MalformedURLException e) {
