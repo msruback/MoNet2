@@ -38,25 +38,37 @@ public class SalmonAlarm extends WakefulBroadcastReceiver {
         Intent rotationIntent = new Intent(context, MainActivity.class);
         rotationIntent.putExtra("fragment",0);
         PendingIntent rotationIntentPending = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), rotationIntent, 0);
-        SimpleDateFormat sdf = new SimpleDateFormat("M/d h a");
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE M/d h a");
         String time = sdf.format(schedule.details.get(0).end*1000);
         String title = "Grizz Co. Now Hiring!";
         String content;
+        StringBuilder contentBuilder = new StringBuilder();
 
-        if(!run.stage.equals("")){
-            if(run.weapons.get(0)!=null&&run.weapons.get(1)!=null&&run.weapons.get(2)!=null&&run.weapons.get(3)!=null){
-                if(run.weapons.get(0).id==-1){
-                    content = "Grizz Co. is now hiring until "+time+" for shifts at "+run.stage+
-                            ".\n Weapons to be provided on location.";
-                }else {
-                    content = "Grizz Co. is now hiring until " + time + " for shifts at " + run.stage + ".\n Workers will be provided the "+
-                            run.weapons.get(0).name+", "+run.weapons.get(1).name+", "+run.weapons.get(2).name+", and "+run.weapons.get(3).name+".";
-                }
+        if(run.weapons.get(0)==null&&run.weapons.get(1)==null&&run.weapons.get(2)==null&&run.weapons.get(3)==null){
+            content = "Grizz Co. is now hiring until "+time+" for shifts at "+run.stage.name+".\n Weapons to be provided on location.";
+        }else {
+            contentBuilder.append("Grizz Co. is now hiring until " + time + " for shifts at " + run.stage.name + ".\n Workers will be provided ");
+            if(run.weapons.get(0)==null){
+                contentBuilder.append("a Mystery Weapon, ");
             }else{
-                content = "Grizz Co. is now hiring until "+time+" for shifts at "+run.stage+".";
+                contentBuilder.append("the "+run.weapons.get(0).name+", ");
             }
-        }else{
-            content = "Grizz Co. is now hiring until "+time+".";
+            if(run.weapons.get(1)==null){
+                contentBuilder.append("a Mystery Weapon, ");
+            }else{
+                contentBuilder.append("the "+run.weapons.get(1).name+", ");
+            }
+            if(run.weapons.get(2)==null){
+                contentBuilder.append("a Mystery Weapon, and ");
+            }else{
+                contentBuilder.append("the "+run.weapons.get(2).name+", and ");
+            }
+            if(run.weapons.get(3)==null){
+                contentBuilder.append("a Mystery Weapon, ");
+            }else{
+                contentBuilder.append("the "+run.weapons.get(3).name+".");
+            }
+            content = contentBuilder.toString();
         }
         Notification notification  = new Notification.Builder(context)
                 .setContentTitle(title)

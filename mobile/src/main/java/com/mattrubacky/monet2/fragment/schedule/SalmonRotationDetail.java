@@ -48,7 +48,7 @@ public class SalmonRotationDetail extends Fragment {
         Bundle bundle = this.getArguments();
         SalmonRunDetail detail = bundle.getParcelable("detail");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("M/d h a");
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE M/d h a");
         String startText = sdf.format(detail.start*1000);
         String endText = sdf.format(detail.end*1000);
         time.setText(startText + " to " + endText);
