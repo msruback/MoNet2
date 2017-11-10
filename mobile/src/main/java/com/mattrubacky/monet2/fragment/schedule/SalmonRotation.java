@@ -36,8 +36,6 @@ public class SalmonRotation extends Fragment {
 
         Bundle bundle = this.getArguments();
         ArrayList<SalmonRun> salmonRuns = bundle.getParcelableArrayList("salmon_runs");
-        salmonRuns.remove(0);
-        salmonRuns.remove(0);
 
         ListView salmonList = (ListView) rootView.findViewById(R.id.SalmonList);
         SalmonRunAdapter adapter = new SalmonRunAdapter(getContext(),salmonRuns);
