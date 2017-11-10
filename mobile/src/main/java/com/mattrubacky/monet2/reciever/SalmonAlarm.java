@@ -33,21 +33,15 @@ public class SalmonAlarm extends WakefulBroadcastReceiver {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
-        SalmonRun run = schedule.schedule.get(0);
-
+        SalmonRunDetail run = schedule.details.get(0);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         Intent rotationIntent = new Intent(context, MainActivity.class);
         rotationIntent.putExtra("fragment",0);
         PendingIntent rotationIntentPending = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), rotationIntent, 0);
         SimpleDateFormat sdf = new SimpleDateFormat("M/d h a");
-        System.out.println(run.stage);
-        String time = sdf.format(run.endTime);
+        String time = sdf.format(schedule.details.get(0).end*1000);
         String title = "Grizz Co. Now Hiring!";
         String content;
-        schedule.schedule.get(0).notified = false;
-        SharedPreferences.Editor edit = settings.edit();
-        edit.putString("salmonRunSchedule",gson.toJson(schedule));
-        edit.commit();
 
         if(!run.stage.equals("")){
             if(run.weapons.get(0)!=null&&run.weapons.get(1)!=null&&run.weapons.get(2)!=null&&run.weapons.get(3)!=null){
@@ -81,15 +75,12 @@ public class SalmonAlarm extends WakefulBroadcastReceiver {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
-        if(schedule.schedule.size()>0) {
-            SalmonRun run = schedule.schedule.get(0);
-            if(run.notified){
-                run = schedule.schedule.get(1);
-            }
+        if(schedule.details.size()>0) {
+            SalmonRunDetail run = schedule.details.get(0);
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(context, SalmonAlarm.class);
             PendingIntent intentPending = PendingIntent.getBroadcast(context, 1, intent, 0);
-            am.set(AlarmManager.RTC_WAKEUP,run.startTime, intentPending);
+            am.set(AlarmManager.RTC_WAKEUP,run.start*1000, intentPending);
         }
     }
 

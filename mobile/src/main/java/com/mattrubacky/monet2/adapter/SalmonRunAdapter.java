@@ -1,22 +1,15 @@
 package com.mattrubacky.monet2.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.AddRun;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.*;
-import com.mattrubacky.monet2.helper.ImageHandler;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
