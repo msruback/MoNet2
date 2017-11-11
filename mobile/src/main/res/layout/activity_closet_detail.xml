@@ -54,27 +54,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/repeat_stripes"></RelativeLayout>
-                <ImageView
-                    android:id="@+id/Brand"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/Name"
-                    android:src="@drawable/brand_annaki"/>
-
-                <TextView
-                    android:id="@+id/Name"
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_alignParentRight="true"
-                    android:text="Sloshing Machine"
-                    android:textSize="20sp"
-                    android:textColor="@color/offWhite"/>
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/transparentwhite">
+                    <ImageView
+                        android:id="@+id/Brand"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_alignParentBottom="true"
+                        android:src="@drawable/brand_annaki"/>
+                    <TextView
+                        android:id="@+id/Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toRightOf="@+id/Brand"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="3dp"
+                        android:text="Sloshing Machine"
+                        android:textSize="20sp"
+                        android:textColor="@color/offWhite"/>
+                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -146,8 +156,9 @@
                             android:layout_height="55dp"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="20dp"
+                            android:padding="2dp"
                             android:background="@drawable/skill_background"
-                            android:backgroundTint="@color/transparentgrey">
+                            android:backgroundTint="@color/transparentwhite">
 
                             <ImageView
                                 android:id="@+id/Main"
@@ -163,8 +174,9 @@
                             android:layout_toRightOf="@+id/main"
                             android:layout_marginLeft="15dp"
                             android:layout_centerVertical="true"
+                            android:padding="2dp"
                             android:background="@drawable/skill_background"
-                            android:backgroundTint="@color/transparentgrey">
+                            android:backgroundTint="@color/transparentwhite">
 
                             <ImageView
                                 android:id="@+id/Sub1"
@@ -179,8 +191,9 @@
                             android:layout_toRightOf="@+id/sub1"
                             android:layout_marginLeft="10dp"
                             android:layout_centerVertical="true"
+                            android:padding="2dp"
                             android:background="@drawable/skill_background"
-                            android:backgroundTint="@color/transparentgrey">
+                            android:backgroundTint="@color/transparentwhite">
 
                             <ImageView
                                 android:id="@+id/Sub2"
@@ -196,8 +209,9 @@
                             android:layout_marginLeft="10dp"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="20dp"
+                            android:padding="2dp"
                             android:background="@drawable/skill_background"
-                            android:backgroundTint="@color/transparentgrey">
+                            android:backgroundTint="@color/transparentwhite">
 
                             <ImageView
                                 android:id="@+id/Sub3"

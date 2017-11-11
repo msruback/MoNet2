@@ -54,7 +54,7 @@ public class ClosetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_weapon_locker, container, false);
+        rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_closet, container, false);
 
         settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
@@ -73,11 +73,14 @@ public class ClosetFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
+        updateUi();
     }
 
     private void updateUi(){
-
+        gearListView = (RecyclerView) rootView.findViewById(R.id.GearList);
+        GearAdapter gearAdapter = new GearAdapter(getContext(),gearList);
+        gearListView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        gearListView.setAdapter(gearAdapter);
     }
 
     class GearAdapter extends RecyclerView.Adapter<GearAdapter.ViewHolder>{
@@ -94,7 +97,7 @@ public class ClosetFragment extends Fragment {
         }
         @Override
         public GearAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = inflater.inflate(R.layout.item_weapon, parent, false);
+            View view = inflater.inflate(R.layout.item_gear, parent, false);
             GearAdapter.ViewHolder viewHolder = new GearAdapter.ViewHolder(view);
             view.setOnClickListener(new GearClickListener());
             return viewHolder;

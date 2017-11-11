@@ -15,6 +15,7 @@
     <color name="transparentgrey2">#9e9a9a9a</color>
     <color name="transparent">#00ffffff</color>
     <color name="darkGreyTrans">#76242424</color>
+    <color name="transparentwhite">#72e8e8e8</color>
 
     <!--Battles-->
     <color name="turfPrimary">#19d719</color>

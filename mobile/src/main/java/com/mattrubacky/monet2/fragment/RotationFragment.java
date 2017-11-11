@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +57,8 @@ public class RotationFragment extends Fragment {
     SalmonSchedule salmonSchedule;
     Gear monthlyGear;
     CurrentSplatfest currentSplatfest;
+    int nextUpdate;
+    long lastUpdate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,55 +104,38 @@ public class RotationFragment extends Fragment {
 
         customHandler = new android.os.Handler();
         updateUi();
-        new UpdateRotationData().execute();
-        /*
-        if(salmonSchedule.schedule!=null&&salmonSchedule.schedule.size()!=0){
-            if(salmonSchedule.schedule.get(0).endTime< new Date().getTime()){
-                salmonSchedule.schedule.remove(0);
-                SharedPreferences.Editor edit = settings.edit();
-                String json = gson.toJson(salmonSchedule);
-                edit.putString("salmonRunSchedule",json);
-                edit.commit();
-                SalmonAlarm salmonAlarm = new SalmonAlarm();
-                salmonAlarm.cancelAlarm(getContext());
-                salmonAlarm.setAlarm(getContext());
-            }
-        }
-
-        if(schedules.regular.size()==0){
+        int curHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        if(curHour>settings.getInt("nextUpdate",-1)){
             customHandler.post(update2Hours);
-        }else {
-            if ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
-                do{
-                    schedules.dequeue();
-                }while(schedules.regular.size()>0&&(schedules.regular.get(0).end * 1000)< new Date().getTime());
+        }else{
 
-                updateUi();
-                customHandler.post(update2Hours);
-            }else{
-                Calendar now = Calendar.getInstance();
-                now.setTime(new Date());
-                Calendar nextUpdate = Calendar.getInstance();
-                nextUpdate.setTimeInMillis(now.getTimeInMillis());
-                int hour = now.get(Calendar.HOUR);
-                if(now.get(Calendar.HOUR)%2==0){
-                    hour+=2;
+            Calendar now = Calendar.getInstance();
+            now.setTime(new Date());
+            Calendar nextUpdateCal = Calendar.getInstance();
+            int hour = now.get(Calendar.HOUR);
+            if(schedules.regular!=null&&schedules.splatfest!=null&&schedules.regular.size()>0&&schedules.splatfest.size()>0){
+                if(schedules.regular.get(0).end<schedules.splatfest.get(0).end){
+                    nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
+                    lastUpdate = schedules.regular.get(0).start;
                 }else{
-                    hour+=1;
+                    nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
+                    lastUpdate = schedules.splatfest.get(0).start;
                 }
-                nextUpdate.set(Calendar.HOUR,hour);
-                nextUpdate.set(Calendar.MINUTE,0);
-                nextUpdate.set(Calendar.SECOND,0);
-                nextUpdate.set(Calendar.MILLISECOND,0);
-                Long nextUpdateTime = nextUpdate.getTimeInMillis()-now.getTimeInMillis();
-                customHandler.postDelayed(update2Hours, nextUpdateTime);
+            }else if(schedules.regular!=null&&schedules.regular.size()>0){
+                nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
+                lastUpdate = schedules.regular.get(0).start;
+            }else if (schedules.splatfest!=null&&schedules.splatfest.size()>0){
+                nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
+                lastUpdate = schedules.splatfest.get(0).start;
             }
-        }*/
+            Long nextUpdateTime = nextUpdateCal.getTimeInMillis()-now.getTimeInMillis();
+
+            nextUpdate = nextUpdateCal.get(Calendar.HOUR_OF_DAY);
+            customHandler.postDelayed(update2Hours,nextUpdateTime);
+        }
 
         return rootView;
     }
-
-
 
     @Override
     public void onPause() {
@@ -166,7 +149,10 @@ public class RotationFragment extends Fragment {
         edit.putString("salmonRunSchedule",json);
         json = gson.toJson(currentSplatfest);
         edit.putString("currentSplatfest",json);
+        edit.putInt("nextUpdate",nextUpdate);
+        edit.putLong("lastUpdate",lastUpdate);
         edit.commit();
+
         wearLink.closeConnection();
         updateRotationData.cancel(true);
         customHandler.removeCallbacks(update2Hours);
@@ -177,12 +163,16 @@ public class RotationFragment extends Fragment {
         super.onResume();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
+        super.onCreate(new Bundle());
         schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
         monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
         salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
         currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
         wearLink.openConnection();
+        updateUi();
     }
+
+
 
 
     //Get Rotation Data
@@ -213,7 +203,7 @@ public class RotationFragment extends Fragment {
         if(schedules.league!=null&&schedules.league.size()>0){
             rotation.add("league");
         }
-        if(schedules.splatfest!=null&&currentSplatfest.splatfests.size()>0){
+        if(schedules.splatfest!=null&&currentSplatfest.splatfests.size()>0&&schedules.splatfest.size()>0){
             if(schedules.regular.size()==0||currentSplatfest.splatfests.get(0).times.start<schedules.regular.get(0).start){
                 rotation.add(0,"fes");
             }else{
@@ -309,20 +299,22 @@ public class RotationFragment extends Fragment {
             updateRotationData.execute();
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());
-            Calendar nextUpdate = Calendar.getInstance();
-            nextUpdate.setTimeInMillis(now.getTimeInMillis());
+            Calendar nextUpdateCal = Calendar.getInstance();
             int hour = now.get(Calendar.HOUR);
-            if(now.get(Calendar.HOUR)%2==0){
-                hour+=2;
-            }else{
-                hour+=1;
+            if(schedules.regular!=null&&schedules.splatfest!=null&&schedules.regular.size()>0&&schedules.splatfest.size()>0){
+                if(schedules.regular.get(0).end<schedules.splatfest.get(0).end){
+                    nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
+                }else{
+                    nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
+                }
+            }else if(schedules.regular!=null&&schedules.regular.size()>0){
+                nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
+            }else if (schedules.splatfest!=null&&schedules.splatfest.size()>0){
+                nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
             }
-            int zero = 0;
-            nextUpdate.set(Calendar.HOUR,hour);
-            nextUpdate.set(Calendar.MINUTE,0);
-            nextUpdate.set(Calendar.SECOND,0);
-            nextUpdate.set(Calendar.MILLISECOND,0);
-            Long nextUpdateTime = nextUpdate.getTimeInMillis()-now.getTimeInMillis();
+            Long nextUpdateTime = nextUpdateCal.getTimeInMillis()-now.getTimeInMillis();
+
+            nextUpdate = nextUpdateCal.get(Calendar.HOUR_OF_DAY);
             customHandler.postDelayed(this, nextUpdateTime);
         }
     };

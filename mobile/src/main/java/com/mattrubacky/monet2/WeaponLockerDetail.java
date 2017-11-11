@@ -508,11 +508,7 @@ public class WeaponLockerDetail extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(getBaseContext(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("fragment",2);
-            intent.putExtra("stats",1);
-            startActivity(intent);
+            super.onBackPressed();
         }
         return super.onOptionsItemSelected(menuItem);
     }

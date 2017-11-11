@@ -181,35 +181,37 @@ class ClosetManager {
         int sub1ID,sub2ID,sub3ID;
 
         if(cursor.moveToFirst()){
-            closetHanger = new ClosetHanger();
+            do {
+                closetHanger = new ClosetHanger();
 
-            gearID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_GEAR));
-            gearKind = cursor.getString(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_KIND));
+                gearID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_GEAR));
+                gearKind = cursor.getString(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_KIND));
 
-            gearManager.addToSelect(gearID,gearKind);
+                gearManager.addToSelect(gearID, gearKind);
 
-            gearIDs.add(gearID);
-            gearKinds.add(gearKind);
+                gearIDs.add(gearID);
+                gearKinds.add(gearKind);
 
-            mainID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_MAIN));
-            skillManager.addToSelect(mainID);
-            mainIDs.add(mainID);
+                mainID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_MAIN));
+                skillManager.addToSelect(mainID);
+                mainIDs.add(mainID);
 
-            sub1ID=cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_SUB_1));
-            skillManager.addToSelect(sub1ID);
-            sub1IDs.add(sub1ID);
+                sub1ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_SUB_1));
+                skillManager.addToSelect(sub1ID);
+                sub1IDs.add(sub1ID);
 
-            sub2ID=cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_SUB_2));
-            skillManager.addToSelect(sub2ID);
-            sub2IDs.add(sub2ID);
+                sub2ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_SUB_2));
+                skillManager.addToSelect(sub2ID);
+                sub2IDs.add(sub2ID);
 
-            sub3ID=cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_SUB_3));
-            skillManager.addToSelect(sub3ID);
-            sub3IDs.add(sub3ID);
+                sub3ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_SUB_3));
+                skillManager.addToSelect(sub3ID);
+                sub3IDs.add(sub3ID);
 
-            closetHanger.time = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_LAST_USE_TIME));
+                closetHanger.time = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_LAST_USE_TIME));
 
-            hangers.add(closetHanger);
+                hangers.add(closetHanger);
+            }while(cursor.moveToNext());
         }
         cursor.close();
         database.close();

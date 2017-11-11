@@ -185,6 +185,11 @@ public class SplatnetSQLManager {
         BattleManager battleManager = new BattleManager(context);
         return battleManager.battleCount();
     }
+
+    public ArrayList<Battle> getBattles(){
+        BattleManager battleManager = new BattleManager(context);
+        return  battleManager.selectAll();
+    }
     //Players
 
     public void insertPlayer(Player player, String mode, int id, int type){
@@ -236,10 +241,19 @@ public class SplatnetSQLManager {
         closetManager.insert();
     }
 
+    public void insertCloset(ArrayList<ClosetHanger> gear){
+        ClosetManager closetManager = new ClosetManager(context);
+        for(int i=0;i<gear.size();i++){
+            closetManager.addToInsert(gear.get(i));
+        }
+        closetManager.insert();
+    }
+
     public ArrayList<ClosetHanger> getCloset(){
         ClosetManager closetManager = new ClosetManager(context);
         return closetManager.selectAll();
     }
+
 
     public void restructureCloset(){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();

@@ -24,8 +24,6 @@ public class SalmonAdapter extends FragmentStatePagerAdapter {
     public SalmonAdapter(FragmentManager fm, SalmonSchedule schedule) {
         super(fm);
         this.schedule = schedule;
-        schedule.times.remove(0);
-        schedule.times.remove(0);
     }
 
     @Override

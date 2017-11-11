@@ -146,10 +146,11 @@ public class ScheduleAdapter extends ArrayAdapter<String> {
                 salmonDots.setupWithViewPager(SalmonPager, true);
                 PagerAdapter salmonAdapter = new SalmonAdapter(childFragmentManager, salmonSchedule);
                 SalmonPager.setAdapter(salmonAdapter);
-
                 break;
         }
-
+        for(int i=0;i<childFragmentManager.getBackStackEntryCount();i++){
+            childFragmentManager.popBackStack();
+        }
         return convertView;
     }
 }

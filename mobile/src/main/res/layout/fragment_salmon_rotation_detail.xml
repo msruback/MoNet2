@@ -38,17 +38,18 @@
         <RelativeLayout
             android:id="@+id/timeLayout"
             android:layout_width="270dp"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_marginTop="5dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/banner_normal"
+            android:background="@drawable/banner_salmon"
             android:backgroundTint="@color/salmonAccent"
             android:elevation="3dp">
             <TextView
                 android:id="@+id/Time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="7dp"
                 android:text="11/9 7 AM to 11/10 7 AM"
                 android:textColor="@color/offWhite"
                 android:textSize="15sp"/>
@@ -63,8 +64,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/shape_card"
-                android:backgroundTint="@color/rankPrimary"
+                android:background="@drawable/salmon_egg"
                 android:elevation="3dp">
                 <ImageView
                     android:id="@+id/Weapon1Image"
@@ -80,8 +80,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/weapon1"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/shape_card"
-                android:backgroundTint="@color/rankPrimary"
+                android:background="@drawable/salmon_egg"
                 android:elevation="3dp">
                 <ImageView
                     android:id="@+id/Weapon2Image"
@@ -97,8 +96,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/weapon2"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/shape_card"
-                android:backgroundTint="@color/rankPrimary"
+                android:background="@drawable/salmon_egg"
                 android:elevation="3dp">
                 <ImageView
                     android:id="@+id/Weapon3Image"
@@ -114,8 +112,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/weapon3"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/shape_card"
-                android:backgroundTint="@color/rankPrimary"
+                android:background="@drawable/salmon_egg"
                 android:elevation="3dp">
                 <ImageView
                     android:id="@+id/Weapon4Image"

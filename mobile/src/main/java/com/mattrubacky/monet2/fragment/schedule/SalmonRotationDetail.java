@@ -77,7 +77,7 @@ public class SalmonRotationDetail extends Fragment {
                 imageHandler.downloadImage("weapon",imageDirName,url,getContext());
             }
         }else{
-            weapon1Image.setImageDrawable(getResources().getDrawable(R.drawable.skill_blank));
+            weapon1Image.setImageDrawable(getResources().getDrawable(R.drawable.weapon_mystery));
         }
 
         if(detail.weapons.get(1)!=null){
@@ -91,7 +91,7 @@ public class SalmonRotationDetail extends Fragment {
                 imageHandler.downloadImage("weapon",imageDirName,url,getContext());
             }
         }else{
-            weapon2Image.setImageDrawable(getResources().getDrawable(R.drawable.skill_blank));
+            weapon2Image.setImageDrawable(getResources().getDrawable(R.drawable.weapon_mystery));
         }
 
         if(detail.weapons.get(2)!=null){
@@ -105,7 +105,7 @@ public class SalmonRotationDetail extends Fragment {
                 imageHandler.downloadImage("weapon",imageDirName,url,getContext());
             }
         }else{
-            weapon3Image.setImageDrawable(getResources().getDrawable(R.drawable.skill_blank));
+            weapon3Image.setImageDrawable(getResources().getDrawable(R.drawable.weapon_mystery));
         }
 
         if(detail.weapons.get(3)!=null){
@@ -119,7 +119,7 @@ public class SalmonRotationDetail extends Fragment {
                 imageHandler.downloadImage("weapon",imageDirName,url,getContext());
             }
         }else{
-            weapon4Image.setImageDrawable(getResources().getDrawable(R.drawable.skill_blank));
+            weapon4Image.setImageDrawable(getResources().getDrawable(R.drawable.weapon_mystery));
         }
 
 

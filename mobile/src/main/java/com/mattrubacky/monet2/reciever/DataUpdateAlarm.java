@@ -54,6 +54,40 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
 
         new UpdateData().execute();
 
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor edit = settings.edit();
+
+        int lastUpdate = settings.getInt("last_update",0);
+        switch(settings.getInt("updateInterval",0)){
+            case 0:
+                lastUpdate += 1;
+                break;
+            case 1:
+                lastUpdate += 2;
+                break;
+            case 2:
+                lastUpdate += 4;
+                break;
+            case 3:
+                lastUpdate += 6;;
+                break;
+            case 4:
+                lastUpdate += 8;
+                break;
+            case 5:
+                lastUpdate += 10;
+                break;
+            case 6:
+                lastUpdate += 12;
+                break;
+            case 7:
+                lastUpdate += 24;
+                break;
+            default:
+                lastUpdate += 1;
+                break;
+        }
+        edit.putInt("last_update",lastUpdate);
 
     }
 

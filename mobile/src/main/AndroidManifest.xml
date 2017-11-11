@@ -56,7 +56,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".DebugActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"></activity>

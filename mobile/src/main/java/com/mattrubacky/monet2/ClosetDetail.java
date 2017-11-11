@@ -33,7 +33,7 @@ public class ClosetDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weapon_stats);
+        setContentView(R.layout.activity_closet_detail);
 
         Bundle bundle = getIntent().getExtras();
 
@@ -68,7 +68,7 @@ public class ClosetDetail extends AppCompatActivity {
         number.setTypeface(font);
 
         name.setText(hanger.gear.name);
-        number.setText(hanger.numGames);
+        number.setText(String.valueOf(hanger.numGames));
 
         //Handle Colors
         switch(hanger.gear.kind){
@@ -181,11 +181,6 @@ public class ClosetDetail extends AppCompatActivity {
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
-        RelativeLayout winLossMeter = (RelativeLayout) findViewById(R.id.WinLossMeter);
-        RelativeLayout wins = (RelativeLayout) findViewById(R.id.Wins);
-        RelativeLayout losses = (RelativeLayout) findViewById(R.id.Losses);
-
-        winLossMeter.setClipToOutline(true);
 
         RelativeLayout inkCard = (RelativeLayout) findViewById(R.id.inkStats);
         RelativeLayout inkMeter = (RelativeLayout) findViewById(R.id.InkMeter);
@@ -548,11 +543,7 @@ public class ClosetDetail extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
-            Intent intent = new Intent(getBaseContext(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("fragment",2);
-            intent.putExtra("stats",2);
-            startActivity(intent);
+            super.onBackPressed();
         }
         return super.onOptionsItemSelected(menuItem);
     }

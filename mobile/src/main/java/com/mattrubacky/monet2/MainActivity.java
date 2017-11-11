@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     ExpandableListView drawerList;
     ArrayList<String> titles,children;
     Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet;
+    FragmentManager fragmentManager;
+    ArrayList<String> backStack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ExpandableListView) findViewById(R.id.left_drawer);
+        fragmentManager = getSupportFragmentManager();
+        backStack = new ArrayList<>();
 
         //Add titles
         titles = new ArrayList<String>();
@@ -91,47 +95,49 @@ public class MainActivity extends AppCompatActivity {
         weaponLocker = new WeaponLockerFragment();
         closet = new ClosetFragment();
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-
         DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
         if(settings.getBoolean("autoUpdate",false)){
-            Long lastUpdate = settings.getLong("lastUpdate",0);
+            int lastUpdate = settings.getInt("last_update",0);
             Calendar calendar = Calendar.getInstance();
-            int hour;
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
             switch(settings.getInt("updateInterval",0)){
                 case 0:
-                    lastUpdate += Long.valueOf(1000*60*60);
+                    lastUpdate += 1;
                     break;
                 case 1:
-                    lastUpdate += Long.valueOf(1000*60*60*2);
+                    lastUpdate += 2;
                     break;
                 case 2:
-                    lastUpdate += Long.valueOf(1000*60*60*4);
+                    lastUpdate += 4;
                     break;
                 case 3:
-                    lastUpdate += Long.valueOf(1000*60*60*6);;
+                    lastUpdate += 6;;
                     break;
                 case 4:
-                    lastUpdate += Long.valueOf(1000*60*60*8);
+                    lastUpdate += 8;
                     break;
                 case 5:
-                    lastUpdate += Long.valueOf(1000*60*60*10);
+                    lastUpdate += 10;
                     break;
                 case 6:
-                    lastUpdate += Long.valueOf(1000*60*60*12);
+                    lastUpdate += 12;
                     break;
                 case 7:
-                    lastUpdate += Long.valueOf(1000*60*60*24);
+                    lastUpdate += 24;
                     break;
                 default:
-                    lastUpdate += Long.valueOf(1000*60*60);
+                    lastUpdate += 1;
                     break;
             }
-            if(lastUpdate<calendar.getTimeInMillis()){
+            SharedPreferences.Editor edit = settings.edit();
+            if(hour>lastUpdate){
                 dataUpdateAlarm.setAlarm(MainActivity.this);
+                edit.putInt("last_update",hour);
+                edit.commit();
             }else{
                 dataUpdateAlarm.setAlarmDelayed(MainActivity.this);
+                edit.putInt("last_update",lastUpdate);
+                edit.commit();
             }
             ComponentName receiver = new ComponentName(MainActivity.this, BootReciever.class);
             PackageManager pm = getPackageManager();
@@ -150,18 +156,19 @@ public class MainActivity extends AppCompatActivity {
                     PackageManager.DONT_KILL_APP);
         }
 
-        final FragmentManager fragmentManager = getSupportFragmentManager();
         Intent intent = getIntent();
         switch(intent.getIntExtra("fragment",0)){
             case 0:
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_container, rotation)
                         .commit();
+                backStack.add(0,"rotation");
                 break;
             case 1:
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_container, shop)
                         .commit();
+                backStack.add(0,"shop");
                 break;
             //Stats fragments go here
             case 2:
@@ -172,6 +179,13 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction()
                                 .replace(R.id.frame_container,weaponLocker)
                                 .commit();
+                        backStack.add(0,"weaponlocker");
+                        break;
+                    case 2:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,closet)
+                                .commit();
+                        backStack.add(0,"closet");
                         break;
                 }
                 break;
@@ -179,11 +193,13 @@ public class MainActivity extends AppCompatActivity {
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_container,battleList)
                         .commit();
+                backStack.add(0,"battlelist");
                 break;
             case 4:
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_container,settingsFrag)
                         .commit();
+                backStack.add(0,"settings");
                 break;
         }
 
@@ -215,20 +231,20 @@ public class MainActivity extends AppCompatActivity {
         drawerList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener(){
             @Override
             public boolean onGroupClick(ExpandableListView parent, View view, int position, long id) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
                 switch(position){
                     case 0:
                         fragmentManager.beginTransaction()
                                 .replace(R.id.frame_container, rotation)
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"rotation");
                         break;
                     case 1:
                         fragmentManager.beginTransaction()
                                 .replace(R.id.frame_container, shop)
                                 .commit();
-
                         drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"shop");
                         break;
                     case 2://Stats expands
                         break;
@@ -237,12 +253,14 @@ public class MainActivity extends AppCompatActivity {
                                 .replace(R.id.frame_container,battleList)
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"battlelist");
                         break;
                     case 4:
                         fragmentManager.beginTransaction()
                                 .replace(R.id.frame_container,settingsFrag)
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"settingsfrag");
                         break;
                 }
 
@@ -265,12 +283,14 @@ public class MainActivity extends AppCompatActivity {
                                 .replace(R.id.frame_container,weaponLocker)
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"weaponlocker");
                         break;
                     case 1:
                         fragmentManager.beginTransaction()
                                 .replace(R.id.frame_container,closet)
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"closet");
                         break;
                 }
                 return false;
@@ -279,6 +299,59 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(backStack==null){
+            backStack = new ArrayList<>();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(backStack.size()>1){
+            String back = backStack.get(1);
+            backStack.remove(0);
+            backStack.remove(0);
+            switch(back){
+                case "rotation":
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container, rotation)
+                            .commit();
+                    break;
+                case "shop":
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container, shop)
+                            .commit();
+                    break;
+                //Stats fragments go here
+                case "weaponlocker":
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container,weaponLocker)
+                            .commit();
+                    break;
+                case "closet":
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container,closet)
+                            .commit();
+                    break;
+                case "battlelist":
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container,battleList)
+                            .commit();
+                    break;
+                case "settings":
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container,settingsFrag)
+                            .commit();
+                    break;
+            }
+        }else {
+            super.onBackPressed();
+        }
+    }
+
     private Runnable updateTimeline = new Runnable() {
         public void run() {
             try{

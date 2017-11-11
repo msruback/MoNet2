@@ -80,10 +80,12 @@ public class WeaponLockerFragment extends Fragment {
         Gson gson = new Gson();
         records = gson.fromJson(settings.getString("records",""),Record.class);
         Integer[] keys = new Integer[2];
-        keys = records.records.weaponStats.keySet().toArray(keys);
-        weaponStatsList = new ArrayList<>();
-        for(int i=0;i<keys.length;i++){
-            weaponStatsList.add(records.records.weaponStats.get(keys[i]));
+        if(records!=null) {
+            keys = records.records.weaponStats.keySet().toArray(keys);
+            weaponStatsList = new ArrayList<>();
+            for (int i = 0; i < keys.length; i++) {
+                weaponStatsList.add(records.records.weaponStats.get(keys[i]));
+            }
         }
     }
 
