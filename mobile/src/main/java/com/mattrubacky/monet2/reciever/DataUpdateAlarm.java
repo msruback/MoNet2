@@ -245,6 +245,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
             Schedules schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
             StageNotifications stageNotifications = gson.fromJson(settings.getString("stageNotifications",""),StageNotifications.class);
             CurrentSplatfest currentSplatfest = gson.fromJson(settings.getString("currentSplatfest",""),CurrentSplatfest.class);
+            Record record = gson.fromJson(settings.getString("records",""),Record.class);
 
 
             SplatnetSQLManager database = new SplatnetSQLManager(context);
@@ -313,6 +314,11 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                     database.insertBattles(battles);
                 }
 
+                response = splatnet.getRecords(cookie).execute();
+                if(response.isSuccessful()){
+                    record = (Record) response.body();
+                }
+
                 SharedPreferences.Editor edit = settings.edit();
                 String json;
 
@@ -327,6 +333,9 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
 
                 json = gson.toJson(battles);
                 edit.putString("recentBattles",json);
+
+                json = gson.toJson(record);
+                edit.putString("records",json);
 
                 edit.commit();
                 WearLink wearLink = new WearLink(context);

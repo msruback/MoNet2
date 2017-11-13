@@ -46,7 +46,6 @@ public class ClosetFragment extends Fragment {
 
     ViewGroup rootView;
     SharedPreferences settings;
-    Record records;
     ArrayList<ClosetHanger> gearList;
     RecyclerView gearListView;
 
@@ -67,7 +66,6 @@ public class ClosetFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-
     }
 
     @Override

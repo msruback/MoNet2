@@ -13,6 +13,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +25,7 @@ import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.WeaponLockerDetail;
 import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.deserialized.WeaponStats;
+import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StatCalc;
 import com.mattrubacky.monet2.splatnet_interface.Splatnet;
@@ -98,8 +102,17 @@ public class WeaponLockerFragment extends Fragment {
 
     private class UpdateRecords extends AsyncTask<Void,Void,Void> {
 
+        ImageView loading;
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+            loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
+
+            RotateAnimation animation = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF,0.5f);
+            animation.setInterpolator(new LinearInterpolator());
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setDuration(1000);
+            loading.startAnimation(animation);
+            loading.setVisibility(View.VISIBLE);}
         @Override
         protected Void doInBackground(Void... params) {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -118,10 +131,16 @@ public class WeaponLockerFragment extends Fragment {
                     for(int i=0;i<keys.length;i++){
                         weaponStatsList.add(records.records.weaponStats.get(keys[i]));
                     }
+                }else if(response.code()==403){
+                    AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
+                    alertDialog.show();
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
+                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
+                alertDialog.show();
+                return null;
             }
             return null;
         }
@@ -129,6 +148,8 @@ public class WeaponLockerFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             updateUi();
+            loading.setAnimation(null);
+            loading.setVisibility(View.GONE);
         }
 
     }

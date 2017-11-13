@@ -29,6 +29,7 @@ import com.google.gson.Gson;
 
 import com.mattrubacky.monet2.adapter.NavAdapter;
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.fragment.*;
 import com.mattrubacky.monet2.reciever.BootReciever;
 import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet;
     FragmentManager fragmentManager;
     ArrayList<String> backStack;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -368,6 +370,7 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Timeline timeline = (Timeline) response.body();
                     SharedPreferences.Editor edit = settings.edit();
+
                     if(timeline.currentRun.rewardGear!=null) {
                         Gson gson = new Gson();
                         String json = gson.toJson(timeline.currentRun.rewardGear.gear);
@@ -377,31 +380,41 @@ public class MainActivity extends AppCompatActivity {
                         gear.add(timeline.currentRun.rewardGear.gear);
                         database.insertGear(gear);
                     }
-                }else{
-                }
-                Call<Record> getRecords = splatnet.getRecords(cookie);
-                response = getRecords.execute();
-                if(response.isSuccessful()){
-                    Record record = (Record) response.body();
-                    SharedPreferences.Editor edit = settings.edit();
-                    Gson gson = new Gson();
-                    edit.putString("unique_id",record.records.unique_id);
-                    edit.putString("name",record.records.user.name);
-                    edit.commit();
-                }else{
+                    Call<Record> getRecords = splatnet.getRecords(cookie);
+                    response = getRecords.execute();
 
+                    if(response.isSuccessful()){
+                        Record record = (Record) response.body();
+                        edit = settings.edit();
+                        Gson gson = new Gson();
+                        edit.putString("unique_id",record.records.unique_id);
+                        edit.putString("name",record.records.user.name);
+                        edit.commit();
+
+                        Call<PastSplatfest> getSplatfests = splatnet.getPastSplatfests(cookie);
+                        response = getSplatfests.execute();
+                        if(response.isSuccessful()){
+                            PastSplatfest pastSplatfests = (PastSplatfest) response.body();
+                            database.insertSplatfests(pastSplatfests.splatfests,pastSplatfests.results);
+                        }else if(response.code()==403){
+                            AlertDialog alertDialog = new AlertDialog(MainActivity.this,"Error: Cookie is invalid, please obtain a new cookie");
+                            alertDialog.show();
+                        }
+
+                    }else if(response.code()==403){
+                        AlertDialog alertDialog = new AlertDialog(MainActivity.this,"Error: Cookie is invalid, please obtain a new cookie");
+                        alertDialog.show();
+                    }
+
+                }else if(response.code()==403){
+                    AlertDialog alertDialog = new AlertDialog(MainActivity.this,"Error: Cookie is invalid, please obtain a new cookie");
+                    alertDialog.show();
                 }
-                Call<PastSplatfest> getSplatfests = splatnet.getPastSplatfests(cookie);
-                response = getSplatfests.execute();
-                if(response.isSuccessful()){
-                    PastSplatfest pastSplatfests = (PastSplatfest) response.body();
-                    Splatfest splatfest;
-                    SplatfestResult splatfestResult;
-                    boolean done;
-                    database.insertSplatfests(pastSplatfests.splatfests,pastSplatfests.results);
-                }
+
             } catch (IOException e) {
                 e.printStackTrace();
+                AlertDialog alertDialog = new AlertDialog(MainActivity.this,"Error: Could not reach Splatnet");
+                alertDialog.show();
             }
         }
     };

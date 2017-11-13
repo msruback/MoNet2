@@ -13,6 +13,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -177,8 +180,18 @@ public class BattleListFragment extends Fragment {
 
     private class UpdateBattleData extends AsyncTask<Void,Void,Void> {
 
+        ImageView loading;
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+            loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
+
+            RotateAnimation animation = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF,0.5f);
+            animation.setInterpolator(new LinearInterpolator());
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setDuration(1000);
+            loading.startAnimation(animation);
+            loading.setVisibility(View.VISIBLE);
+        }
         @Override
         protected Void doInBackground(Void... params) {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -197,14 +210,19 @@ public class BattleListFragment extends Fragment {
                         response = splatnet.getBattle(String.valueOf(results.resultIds.get(i).id), cookie).execute();
                         Battle battle = (Battle) response.body();
                         list.add(battle);
-
                     }
                     database.insertBattles(list);
+                }else if(response.code()==403){
+                    AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
+                    alertDialog.show();
                 }
                 battles = list;
 
             } catch (IOException e) {
                 e.printStackTrace();
+                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
+                alertDialog.show();
+                return null;
             }
             return null;
         }
@@ -212,6 +230,8 @@ public class BattleListFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             updateUi();
+            loading.setAnimation(null);
+            loading.setVisibility(View.GONE);
         }
 
     }

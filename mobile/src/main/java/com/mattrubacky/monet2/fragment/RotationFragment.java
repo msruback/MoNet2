@@ -12,6 +12,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -23,6 +26,7 @@ import com.google.gson.Gson;
 import com.mattrubacky.monet2.*;
 import com.mattrubacky.monet2.adapter.*;
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.fragment.schedule.*;
 import com.mattrubacky.monet2.helper.*;
 import com.mattrubacky.monet2.reciever.*;
@@ -95,7 +99,7 @@ public class RotationFragment extends Fragment {
             schedules.ranked = new ArrayList<TimePeriod>();
             schedules.league = new ArrayList<TimePeriod>();
         }
-        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedule\":[]}"),SalmonSchedule.class);
+        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
         monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
         currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
 
@@ -105,6 +109,8 @@ public class RotationFragment extends Fragment {
         customHandler = new android.os.Handler();
         updateUi();
         int curHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        updateRotationData = new UpdateRotationData();
+        updateRotationData.execute();
         if(curHour>settings.getInt("nextUpdate",-1)){
             customHandler.post(update2Hours);
         }else{
@@ -225,8 +231,18 @@ public class RotationFragment extends Fragment {
 
     private class UpdateRotationData extends AsyncTask<Void,Void,Void> {
 
+        ImageView loading;
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+            loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
+
+            RotateAnimation animation = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF,0.5f);
+            animation.setInterpolator(new LinearInterpolator());
+            animation.setRepeatCount(Animation.INFINITE);
+            animation.setDuration(1000);
+            loading.startAnimation(animation);
+            loading.setVisibility(View.VISIBLE);
+        }
         @Override
         protected Void doInBackground(Void... params) {
             try {
@@ -281,6 +297,9 @@ public class RotationFragment extends Fragment {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
+                alertDialog.show();
+                return null;
             }
             return null;
         }
@@ -288,6 +307,8 @@ public class RotationFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             updateUi();
+            loading.setAnimation(null);
+            loading.setVisibility(View.GONE);
         }
 
     }

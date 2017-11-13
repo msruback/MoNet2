@@ -54,4 +54,13 @@
             android:background="@drawable/grey_stripes"></ExpandableListView>
 
     </android.support.v4.widget.DrawerLayout>
+
+    <ImageView
+        android:id="@+id/loading_indicator"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/load_circle"
+        android:visibility="gone" />
 </RelativeLayout>
