@@ -15,8 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.StagePickerAdapter;
-import com.mattrubacky.monet2.deserialized.Stage;
+import com.mattrubacky.monet2.adapter.SkillPickerAdapter;
+import com.mattrubacky.monet2.deserialized.Skill;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
@@ -25,13 +25,13 @@ import java.util.ArrayList;
  * Created by mattr on 11/13/2017.
  */
 
-public class StagePickerDialog extends Dialog {
+public class SkillPickerDialog extends Dialog {
     int selected;
-    ArrayList<Stage> stages;
-    Stage result;
-    public StagePickerDialog(Activity activity) {
+    ArrayList<Skill> skills;
+    Skill result;
+    public SkillPickerDialog(Activity activity) {
         super(activity);
-        result = new Stage();
+        result = new Skill();
     }
 
     @Override
@@ -46,28 +46,28 @@ public class StagePickerDialog extends Dialog {
 
         RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
         TextView title = (TextView) findViewById(R.id.title);
-        final ListView stageList = (ListView) findViewById(R.id.ItemList);
+        final ListView skillList = (ListView) findViewById(R.id.ItemList);
         Button submit = (Button) findViewById(R.id.Submit);
         Button cancel = (Button) findViewById(R.id.Cancel);
 
-        title.setText("Pick Stage");
+        title.setText("Pick Ability");
 
         title.setTypeface(titleFont);
 
         SplatnetSQLManager splatnetSQLManager = new SplatnetSQLManager(getContext());
-        stages = new ArrayList<>();
-        Stage anyStage = new Stage();
-        anyStage.id = -1;
-        anyStage.name = "Any";
-        stages.add(anyStage);
-        stages.addAll(splatnetSQLManager.getStages());
+        skills = new ArrayList<>();
+        Skill anySkill = new Skill();
+        anySkill.id = -1;
+        anySkill.name = "Any";
+        skills.add(anySkill);
+        skills.addAll(splatnetSQLManager.getSkills());
 
-        final StagePickerAdapter stageAdapter = new StagePickerAdapter(getContext(),stages);
+        final SkillPickerAdapter skillAdapter = new SkillPickerAdapter(getContext(),skills);
 
-        stageList.setAdapter(stageAdapter);
+        skillList.setAdapter(skillAdapter);
 
         card.setClipToOutline(true);
-        stageList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        skillList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selected = position;
@@ -77,7 +77,7 @@ public class StagePickerDialog extends Dialog {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result = stages.get(selected);
+                result = skills.get(selected);
                 dismiss();
             }
         });
@@ -88,8 +88,7 @@ public class StagePickerDialog extends Dialog {
             }
         });
     }
-
-    public Stage getResult(){
-        return result;
+    public Skill getResult(){
+        return  result;
     }
 }

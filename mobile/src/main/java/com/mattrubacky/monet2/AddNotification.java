@@ -3,6 +3,7 @@ package com.mattrubacky.monet2;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -31,6 +32,9 @@ import com.mattrubacky.monet2.adapter.GearPickerAdapter;
 import com.mattrubacky.monet2.adapter.SkillPickerAdapter;
 import com.mattrubacky.monet2.adapter.StagePickerAdapter;
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.dialog.GearPickerDialog;
+import com.mattrubacky.monet2.dialog.SkillPickerDialog;
+import com.mattrubacky.monet2.dialog.StagePickerDialog;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
@@ -41,6 +45,10 @@ public class AddNotification extends AppCompatActivity {
     private GearNotification gearNotification;
     private StageNotification stageNotification;
     TextView gearInput,abilityInput,stageInput;
+
+    StagePickerDialog stagePickerDialog;
+    GearPickerDialog gearPickerDialog;
+    SkillPickerDialog skillPickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,16 +112,30 @@ public class AddNotification extends AppCompatActivity {
             gearInput.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    GearPickerDialog gearPickerDialog = new GearPickerDialog(AddNotification.this);
+                    gearPickerDialog = new GearPickerDialog(AddNotification.this);
                     gearPickerDialog.show();
+                    gearPickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            Gear gear = gearPickerDialog.getResult();
+                            gearInput.setText(gear.name);
+                        }
+                    });
                 }
             });
 
             abilityInput.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SkillPickerDialog skillPickerDialog = new SkillPickerDialog(AddNotification.this);
+                    skillPickerDialog = new SkillPickerDialog(AddNotification.this);
                     skillPickerDialog.show();
+                    skillPickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            Skill skill = skillPickerDialog.getResult();
+                            abilityInput.setText(skill.name);
+                        }
+                    });
                 }
             });
 
@@ -288,10 +310,19 @@ public class AddNotification extends AppCompatActivity {
             stageInput.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    StagePickerDialog dialog = new StagePickerDialog(AddNotification.this);
-                    dialog.show();
+                    stagePickerDialog = new StagePickerDialog(AddNotification.this);
+                    stagePickerDialog.show();
+                    stagePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            Stage stage = stagePickerDialog.getResult();
+                            stageInput.setText(stage.name);
+                        }
+                    });
                 }
             });
+
+
             modeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -398,193 +429,5 @@ public class AddNotification extends AppCompatActivity {
             super.onBackPressed();
         }
         return super.onOptionsItemSelected(menuItem);
-    }
-
-    class GearPickerDialog extends Dialog {
-        int selected;
-        ArrayList<Gear> gearList;
-        public GearPickerDialog(Activity activity) {
-            super(activity);
-        }
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            setContentView(R.layout.dialog_item_picker);
-            Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
-
-            selected =-1;
-
-            RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
-            TextView title = (TextView) findViewById(R.id.title);
-            final ListView gearListView = (ListView) findViewById(R.id.ItemList);
-            Button submit = (Button) findViewById(R.id.Submit);
-            Button cancel = (Button) findViewById(R.id.Cancel);
-
-            title.setText("Pick Gear");
-
-            title.setTypeface(titleFont);
-
-            SplatnetSQLManager splatnetSQLManager = new SplatnetSQLManager(getApplicationContext());
-            gearList = splatnetSQLManager.getGear();
-
-            final GearPickerAdapter gearAdapter = new GearPickerAdapter(getApplicationContext(),gearList);
-
-            gearListView.setAdapter(gearAdapter);
-
-            card.setClipToOutline(true);
-            gearListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    selected = position;
-                }
-            });
-
-            submit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    gearNotification.gear = gearList.get(selected);
-                    gearInput.setText(gearNotification.gear.name);
-                    dismiss();
-                }
-            });
-            cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismiss();
-                }
-            });
-        }
-    }
-
-    class SkillPickerDialog extends Dialog {
-        int selected;
-        ArrayList<Skill> skills;
-        public SkillPickerDialog(Activity activity) {
-            super(activity);
-        }
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            setContentView(R.layout.dialog_item_picker);
-            Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
-
-            selected =-1;
-
-            RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
-            TextView title = (TextView) findViewById(R.id.title);
-            final ListView skillList = (ListView) findViewById(R.id.ItemList);
-            Button submit = (Button) findViewById(R.id.Submit);
-            Button cancel = (Button) findViewById(R.id.Cancel);
-
-            title.setText("Pick Ability");
-
-            title.setTypeface(titleFont);
-
-            SplatnetSQLManager splatnetSQLManager = new SplatnetSQLManager(getApplicationContext());
-            skills = new ArrayList<>();
-            Skill anySkill = new Skill();
-            anySkill.id = -1;
-            anySkill.name = "Any";
-            skills.add(anySkill);
-            skills.addAll(splatnetSQLManager.getSkills());
-
-            final SkillPickerAdapter skillAdapter = new SkillPickerAdapter(getApplicationContext(),skills);
-
-            skillList.setAdapter(skillAdapter);
-
-            card.setClipToOutline(true);
-            skillList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    selected = position;
-                }
-            });
-
-            submit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    gearNotification.skill = skills.get(selected);
-                    abilityInput.setText(gearNotification.skill.name);
-                    dismiss();
-                }
-            });
-            cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismiss();
-                }
-            });
-        }
-    }
-
-
-    class StagePickerDialog extends Dialog {
-        int selected;
-        ArrayList<Stage> stages;
-        public StagePickerDialog(Activity activity) {
-            super(activity);
-        }
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            setContentView(R.layout.dialog_item_picker);
-            Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
-
-            selected =-1;
-
-            RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
-            TextView title = (TextView) findViewById(R.id.title);
-            final ListView stageList = (ListView) findViewById(R.id.ItemList);
-            Button submit = (Button) findViewById(R.id.Submit);
-            Button cancel = (Button) findViewById(R.id.Cancel);
-
-            title.setText("Pick Stage");
-
-            title.setTypeface(titleFont);
-
-            SplatnetSQLManager splatnetSQLManager = new SplatnetSQLManager(getApplicationContext());
-            stages = new ArrayList<>();
-            Stage anyStage = new Stage();
-            anyStage.id = -1;
-            anyStage.name = "Any";
-            stages.add(anyStage);
-            stages.addAll(splatnetSQLManager.getStages());
-
-            final StagePickerAdapter stageAdapter = new StagePickerAdapter(getApplicationContext(),stages);
-
-            stageList.setAdapter(stageAdapter);
-
-            card.setClipToOutline(true);
-            stageList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    selected = position;
-                }
-            });
-
-            submit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    stageNotification.stage = stages.get(selected);
-                    stageInput.setText(stageNotification.stage.name);
-                    dismiss();
-                }
-            });
-            cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismiss();
-                }
-            });
-        }
     }
 }
