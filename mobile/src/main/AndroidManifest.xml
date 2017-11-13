@@ -56,11 +56,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".DebugActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddNotification"
             android:screenOrientation="portrait" />
@@ -70,7 +69,8 @@
         <activity
             android:name=".WeaponLockerDetail"
             android:screenOrientation="portrait" />
-        <activity android:name=".ClosetDetail"></activity>
+        <activity android:name=".ClosetDetail" />
+        <activity android:name=".AddGear"></activity>
     </application>
 
 </manifest>

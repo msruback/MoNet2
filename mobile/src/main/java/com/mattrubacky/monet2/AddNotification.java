@@ -20,7 +20,6 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -29,10 +28,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.adapter.GearPickerAdapter;
+import com.mattrubacky.monet2.adapter.SkillPickerAdapter;
+import com.mattrubacky.monet2.adapter.StagePickerAdapter;
 import com.mattrubacky.monet2.deserialized.*;
-import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -392,6 +391,7 @@ public class AddNotification extends AppCompatActivity {
         }
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
@@ -494,7 +494,7 @@ public class AddNotification extends AppCompatActivity {
             skills.add(anySkill);
             skills.addAll(splatnetSQLManager.getSkills());
 
-            final SkillAdapter skillAdapter = new SkillAdapter(getApplicationContext(),skills);
+            final SkillPickerAdapter skillAdapter = new SkillPickerAdapter(getApplicationContext(),skills);
 
             skillList.setAdapter(skillAdapter);
 
@@ -559,7 +559,7 @@ public class AddNotification extends AppCompatActivity {
             stages.add(anyStage);
             stages.addAll(splatnetSQLManager.getStages());
 
-            final StageAdapter stageAdapter = new StageAdapter(getApplicationContext(),stages);
+            final StagePickerAdapter stageAdapter = new StagePickerAdapter(getApplicationContext(),stages);
 
             stageList.setAdapter(stageAdapter);
 
@@ -585,64 +585,6 @@ public class AddNotification extends AppCompatActivity {
                     dismiss();
                 }
             });
-        }
-    }
-
-
-
-    private class SkillAdapter extends ArrayAdapter<Skill> {
-        public SkillAdapter(Context context, ArrayList<Skill> input) {
-            super(context, 0, input);
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_skill_picker, parent, false);
-            }
-            Skill skill = getItem(position);
-
-            ImageView image = (ImageView) convertView.findViewById(R.id.Image);
-            TextView weaponName = (TextView) convertView.findViewById(R.id.SkillName);
-            if(skill.id ==-1) {
-                weaponName.setText("Any");
-                image.setImageDrawable(getResources().getDrawable(R.drawable.skill_blank));
-            }else{
-                weaponName.setText(skill.name);
-
-                String url = "https://app.splatoon2.nintendo.net" + skill.url;
-
-                ImageHandler imageHandler = new ImageHandler();
-                String imageDirName = skill.name.toLowerCase().replace(" ", "_");
-                if (imageHandler.imageExists("ability", imageDirName, getContext())) {
-                    image.setImageBitmap(imageHandler.loadImage("ability", imageDirName));
-                } else {
-                    Picasso.with(getContext()).load(url).into(image);
-                    imageHandler.downloadImage("ability", imageDirName, url, getContext());
-                }
-            }
-
-            return convertView;
-        }
-    }
-
-    private class StageAdapter extends ArrayAdapter<Stage> {
-        public StageAdapter(Context context, ArrayList<Stage> input) {
-            super(context, 0, input);
-        }
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_stage_picker, parent, false);
-            }
-            Stage stage = getItem(position);
-
-            TextView stageName = (TextView) convertView.findViewById(R.id.StageName);
-
-            stageName.setText(stage.name);
-
-            return convertView;
         }
     }
 }

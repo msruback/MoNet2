@@ -63,4 +63,15 @@
         android:layout_alignParentRight="true"
         android:src="@drawable/load_circle"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/AddButton"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentRight="true"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:text="+"
+        android:textSize="35sp"
+        android:visibility="gone" />
 </RelativeLayout>

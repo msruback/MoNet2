@@ -88,15 +88,15 @@ public class SalmonAlarm extends WakefulBroadcastReceiver {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
-        int day =0;
+        int day = 0;
         Calendar calendar = Calendar.getInstance();
         if(schedule.details!=null&&schedule.details.size()>0) {
             SalmonRunDetail run = schedule.details.get(0);
-            calendar.setTimeInMillis(run.start);
+            calendar.setTimeInMillis(run.start*1000);
             day = calendar.get(Calendar.DAY_OF_MONTH);
             if(day==settings.getInt("salmonDay",-1)){
                 run = schedule.details.get(1);
-                calendar.setTimeInMillis(run.start);
+                calendar.setTimeInMillis(run.start*1000);
                 day = calendar.get(Calendar.DAY_OF_MONTH);
             }
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

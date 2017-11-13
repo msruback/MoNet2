@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet;
     FragmentManager fragmentManager;
     ArrayList<String> backStack;
+    TextView addButton;
 
 
     @Override
@@ -96,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
         weaponLocker = new WeaponLockerFragment();
         closet = new ClosetFragment();
+
+        addButton = (TextView) findViewById(R.id.AddButton);
 
         DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
         if(settings.getBoolean("autoUpdate",false)){
@@ -165,12 +168,14 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.frame_container, rotation)
                         .commit();
                 backStack.add(0,"rotation");
+                addButton.setVisibility(View.GONE);
                 break;
             case 1:
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_container, shop)
                         .commit();
                 backStack.add(0,"shop");
+                addButton.setVisibility(View.GONE);
                 break;
             //Stats fragments go here
             case 2:
@@ -182,12 +187,14 @@ public class MainActivity extends AppCompatActivity {
                                 .replace(R.id.frame_container,weaponLocker)
                                 .commit();
                         backStack.add(0,"weaponlocker");
+                        addButton.setVisibility(View.GONE);
                         break;
                     case 2:
                         fragmentManager.beginTransaction()
                                 .replace(R.id.frame_container,closet)
                                 .commit();
                         backStack.add(0,"closet");
+                        addButton.setVisibility(View.VISIBLE);
                         break;
                 }
                 break;
@@ -196,12 +203,14 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.frame_container,battleList)
                         .commit();
                 backStack.add(0,"battlelist");
+                addButton.setVisibility(View.GONE);
                 break;
             case 4:
                 fragmentManager.beginTransaction()
                         .replace(R.id.frame_container,settingsFrag)
                         .commit();
                 backStack.add(0,"settings");
+                addButton.setVisibility(View.GONE);
                 break;
         }
 
@@ -240,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
                         backStack.add(0,"rotation");
+                        addButton.setVisibility(View.GONE);
                         break;
                     case 1:
                         fragmentManager.beginTransaction()
@@ -247,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
                         backStack.add(0,"shop");
+                        addButton.setVisibility(View.GONE);
                         break;
                     case 2://Stats expands
                         break;
@@ -256,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
                         backStack.add(0,"battlelist");
+                        addButton.setVisibility(View.GONE);
                         break;
                     case 4:
                         fragmentManager.beginTransaction()
@@ -263,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
                         backStack.add(0,"settingsfrag");
+                        addButton.setVisibility(View.GONE);
                         break;
                 }
 
@@ -286,6 +299,7 @@ public class MainActivity extends AppCompatActivity {
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
                         backStack.add(0,"weaponlocker");
+                        addButton.setVisibility(View.GONE);
                         break;
                     case 1:
                         fragmentManager.beginTransaction()
@@ -293,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
                         backStack.add(0,"closet");
+                        addButton.setVisibility(View.VISIBLE);
                         break;
                 }
                 return false;
