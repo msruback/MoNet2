@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.WeaponLockerDetail;
+import com.mattrubacky.monet2.adapter.WeaponAdapter;
 import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.deserialized.WeaponStats;
 import com.mattrubacky.monet2.dialog.AlertDialog;
@@ -95,7 +96,26 @@ public class WeaponLockerFragment extends Fragment {
 
     private void updateUi(){
         weaponList = (RecyclerView) rootView.findViewById(R.id.WeaponList);
-        WeaponAdapter weaponAdapter = new WeaponAdapter(getContext(),weaponStatsList);
+        WeaponAdapter weaponAdapter = new WeaponAdapter(getContext(), weaponStatsList, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int itemPosition = weaponList.getChildAdapterPosition(v);
+                Intent intent = new Intent(getActivity(), WeaponLockerDetail.class);
+                Bundle bundle = new Bundle();
+                WeaponStats weaponStats = weaponStatsList.get(itemPosition);
+
+                StatCalc statCalc = new StatCalc(getContext(),weaponStats.weapon);
+                weaponStats.inkStats = statCalc.getInkStats();
+                weaponStats.killStats = statCalc.getKillStats();
+                weaponStats.deathStats = statCalc.getDeathStats();
+                weaponStats.specialStats = statCalc.getSpecialStats();
+                weaponStats.numGames = statCalc.getNum();
+
+                bundle.putParcelable("stats",weaponStats);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
         weaponList.setLayoutManager(new GridLayoutManager(getContext(), 2));
         weaponList.setAdapter(weaponAdapter);
     }
@@ -152,90 +172,5 @@ public class WeaponLockerFragment extends Fragment {
             loading.setVisibility(View.GONE);
         }
 
-    }
-
-    class WeaponAdapter extends RecyclerView.Adapter<WeaponLockerFragment.WeaponAdapter.ViewHolder>{
-
-        private ArrayList<WeaponStats> input = new ArrayList<WeaponStats>();
-        private LayoutInflater inflater;
-        private Context context;
-
-        public WeaponAdapter(Context context, ArrayList<WeaponStats> input) {
-            this.inflater = LayoutInflater.from(context);
-            this.input = input;
-            this.context = context;
-
-        }
-        @Override
-        public WeaponLockerFragment.WeaponAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = inflater.inflate(R.layout.item_weapon, parent, false);
-            WeaponLockerFragment.WeaponAdapter.ViewHolder viewHolder = new WeaponLockerFragment.WeaponAdapter.ViewHolder(view);
-            view.setOnClickListener(new WeaponLockerFragment.WeaponClickListener());
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(final WeaponLockerFragment.WeaponAdapter.ViewHolder holder, final int position) {
-            Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
-            ImageHandler imageHandler = new ImageHandler();
-
-            WeaponStats weaponStats = weaponStatsList.get(position);
-
-            String url = "https://app.splatoon2.nintendo.net"+weaponStats.weapon.url;
-            String location = weaponStats.weapon.name.toLowerCase().replace(" ","_");
-            if(imageHandler.imageExists("weapon",location,context)){
-                holder.weapon.setImageBitmap(imageHandler.loadImage("weapon",location));
-            }else{
-                Picasso.with(context).load(url).into(holder.weapon);
-                imageHandler.downloadImage("weapon",location,url,context);
-            }
-
-            holder.name.setText(weaponStats.weapon.name);
-            holder.name.setTypeface(font);
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return input.size();
-        }
-
-
-
-        public class ViewHolder extends RecyclerView.ViewHolder{
-            ImageView weapon;
-            TextView name;
-
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-
-                weapon = (ImageView) itemView.findViewById(R.id.WeaponImage);
-                name = (TextView) itemView.findViewById(R.id.Name);
-            }
-
-        }
-
-    }
-
-    class WeaponClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            int itemPosition = weaponList.getChildAdapterPosition(v);
-            Intent intent = new Intent(getActivity(), WeaponLockerDetail.class);
-            Bundle bundle = new Bundle();
-            WeaponStats weaponStats = weaponStatsList.get(itemPosition);
-
-            StatCalc statCalc = new StatCalc(getContext(),weaponStats.weapon);
-            weaponStats.inkStats = statCalc.getInkStats();
-            weaponStats.killStats = statCalc.getKillStats();
-            weaponStats.deathStats = statCalc.getDeathStats();
-            weaponStats.specialStats = statCalc.getSpecialStats();
-            weaponStats.numGames = statCalc.getNum();
-
-            bundle.putParcelable("stats",weaponStats);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
     }
 }
