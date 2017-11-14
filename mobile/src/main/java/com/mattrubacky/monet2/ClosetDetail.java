@@ -54,6 +54,7 @@ public class ClosetDetail extends AppCompatActivity {
         RelativeLayout nameLayout = (RelativeLayout) findViewById(R.id.nameLayout);
         RelativeLayout moreInfoLayout = (RelativeLayout) findViewById(R.id.moreInfo);
 
+        ImageView editGear = (ImageView) findViewById(R.id.EditGear);
         ImageView brand = (ImageView) findViewById(R.id.Brand);
         ImageView gear = (ImageView) findViewById(R.id.GearImage);
         ImageView main = (ImageView) findViewById(R.id.Main);
@@ -165,6 +166,18 @@ public class ClosetDetail extends AppCompatActivity {
             Picasso.with(getApplicationContext()).load(url).into(gear);
             imageHandler.downloadImage("gear",dirName,url,getApplicationContext());
         }
+
+        editGear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClosetDetail.this,AddGear.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("type","edit");
+                bundle.putParcelable("hanger",hanger);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
     }
 

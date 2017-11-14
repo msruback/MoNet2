@@ -164,8 +164,7 @@
                         android:id="@+id/Main"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="2dp"
-                        android:src="@drawable/skill_main_ink_saver"/>
+                        android:layout_margin="2dp"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/sub1"
@@ -184,8 +183,7 @@
                         android:id="@+id/Sub1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="2dp"
-                        android:src="@drawable/skill_main_ink_saver"/>
+                        android:layout_margin="2dp"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/sub2"
@@ -204,8 +202,7 @@
                         android:id="@+id/Sub2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="2dp"
-                        android:src="@drawable/skill_main_ink_saver"/>
+                        android:layout_margin="2dp"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/sub3"
@@ -224,8 +221,7 @@
                         android:id="@+id/Sub3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="2dp"
-                        android:src="@drawable/skill_main_ink_saver"/>
+                        android:layout_margin="2dp"/>
                 </RelativeLayout>
 
             </RelativeLayout>
@@ -255,31 +251,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Submit" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/Delete"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/Submit"
-            android:layout_marginStart="32dp"
-            android:background="@drawable/banner_normal"
-            android:backgroundTint="@color/colorAccent"
-            android:elevation="4dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/repeat_stripes"></RelativeLayout>
-
-            <TextView
-                android:id="@+id/DeleteText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Delete" />
 
         </RelativeLayout>
 

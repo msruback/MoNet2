@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
                 backStack.add(0,"rotation");
                 addButton.setVisibility(View.GONE);
+                addButton.setOnClickListener(null);
                 break;
             case 1:
                 fragmentManager.beginTransaction()
@@ -176,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
                 backStack.add(0,"shop");
                 addButton.setVisibility(View.GONE);
+                addButton.setOnClickListener(null);
                 break;
             //Stats fragments go here
             case 2:
@@ -188,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
                                 .commit();
                         backStack.add(0,"weaponlocker");
                         addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
                         break;
                     case 2:
                         fragmentManager.beginTransaction()
@@ -195,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                                 .commit();
                         backStack.add(0,"closet");
                         addButton.setVisibility(View.VISIBLE);
+                        addButton.setOnClickListener(new addGearClickListener());
                         break;
                 }
                 break;
@@ -204,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
                 backStack.add(0,"battlelist");
                 addButton.setVisibility(View.GONE);
+                addButton.setOnClickListener(null);
                 break;
             case 4:
                 fragmentManager.beginTransaction()
@@ -211,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
                         .commit();
                 backStack.add(0,"settings");
                 addButton.setVisibility(View.GONE);
+                addButton.setOnClickListener(null);
                 break;
         }
 
@@ -250,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawer(drawerList);
                         backStack.add(0,"rotation");
                         addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
                         break;
                     case 1:
                         fragmentManager.beginTransaction()
@@ -258,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawer(drawerList);
                         backStack.add(0,"shop");
                         addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
                         break;
                     case 2://Stats expands
                         break;
@@ -268,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawer(drawerList);
                         backStack.add(0,"battlelist");
                         addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
                         break;
                     case 4:
                         fragmentManager.beginTransaction()
@@ -276,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawer(drawerList);
                         backStack.add(0,"settingsfrag");
                         addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
                         break;
                 }
 
@@ -300,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawer(drawerList);
                         backStack.add(0,"weaponlocker");
                         addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
                         break;
                     case 1:
                         fragmentManager.beginTransaction()
@@ -308,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawer(drawerList);
                         backStack.add(0,"closet");
                         addButton.setVisibility(View.VISIBLE);
+                        addButton.setOnClickListener(new addGearClickListener());
                         break;
                 }
                 return false;
@@ -315,6 +327,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    class addGearClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this,AddGear.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("type","add");
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 
     @Override
