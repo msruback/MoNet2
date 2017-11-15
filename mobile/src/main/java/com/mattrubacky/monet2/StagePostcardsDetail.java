@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 
-public class StagePostcards extends AppCompatActivity {
+public class StagePostcardsDetail extends AppCompatActivity {
 
     StageStats stageStats;
 
@@ -70,7 +70,7 @@ public class StagePostcards extends AppCompatActivity {
         //Handle normal stat text
         name.setText(stageStats.stage.name);
 
-        String numGames = String.valueOf(stageStats.splatzonesWin+stageStats.splatzonesLose+stageStats.rainmakerWin+stageStats.rainmakerLose+stageStats.towerWin+stageStats.towerLose);
+        String numGames = stageStats.numGames +"/"+(stageStats.splatzonesWin+stageStats.splatzonesLose+stageStats.rainmakerWin+stageStats.rainmakerLose+stageStats.towerWin+stageStats.towerLose);
         number.setText(numGames);
 
         zoneWinText.setText(String.valueOf(stageStats.splatzonesWin));
@@ -93,7 +93,7 @@ public class StagePostcards extends AppCompatActivity {
         if(imageHandler.imageExists("stage",dirName,getApplicationContext())){
             stage.setImageBitmap(imageHandler.loadImage("stage",dirName));
         }else{
-            Picasso.with(getApplicationContext()).load(url).into(stage);
+            Picasso.with(getApplicationContext()).load(url).resize(1280,720).into(stage);
             imageHandler.downloadImage("stage",dirName,url,getApplicationContext());
         }
 
@@ -113,23 +113,35 @@ public class StagePostcards extends AppCompatActivity {
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
+        RelativeLayout zoneMeter = (RelativeLayout) findViewById(R.id.zoneMeter);
         RelativeLayout zoneWinLossMeter = (RelativeLayout) findViewById(R.id.ZoneWinLossMeter);
         RelativeLayout zoneWins = (RelativeLayout) findViewById(R.id.ZoneWins);
         RelativeLayout zoneLosses = (RelativeLayout) findViewById(R.id.ZoneLosses);
 
         zoneWinLossMeter.setClipToOutline(true);
+        if(stageStats.splatzonesLose==0&&stageStats.splatzonesWin==0){
+            zoneMeter.setVisibility(View.GONE);
+        }
 
+        RelativeLayout rainmakerMeter = (RelativeLayout) findViewById(R.id.rainmakerMeter);
         RelativeLayout rainmakerWinLossMeter = (RelativeLayout) findViewById(R.id.RainmakerWinLossMeter);
         RelativeLayout rainmakerWins = (RelativeLayout) findViewById(R.id.RainmakerWins);
         RelativeLayout rainmakerLosses = (RelativeLayout) findViewById(R.id.RainmakerLosses);
 
         rainmakerWinLossMeter.setClipToOutline(true);
+        if(stageStats.rainmakerWin==0&&stageStats.rainmakerLose==0){
+            rainmakerMeter.setVisibility(View.GONE);
+        }
 
+        RelativeLayout towerMeter = (RelativeLayout) findViewById(R.id.towerMeter);
         RelativeLayout towerWinLossMeter = (RelativeLayout) findViewById(R.id.TowerWinLossMeter);
         RelativeLayout towerWins = (RelativeLayout) findViewById(R.id.TowerWins);
         RelativeLayout towerLosses = (RelativeLayout) findViewById(R.id.TowerLosses);
 
         zoneWinLossMeter.setClipToOutline(true);
+        if(stageStats.towerWin==0&&stageStats.towerLose==0){
+            towerMeter.setVisibility(View.GONE);
+        }
 
         RelativeLayout inkCard = (RelativeLayout) findViewById(R.id.inkStats);
         RelativeLayout inkMeter = (RelativeLayout) findViewById(R.id.InkMeter);

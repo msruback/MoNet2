@@ -413,7 +413,7 @@
                                         android:backgroundTint="@color/marina"
                                         android:gravity="center"
                                         android:padding="10dp"
-                                        android:text="Last Used"
+                                        android:text="Last Played"
                                         android:textSize="16sp" />
 
                                     <TextView

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.Gear;
 import com.mattrubacky.monet2.deserialized.Player;
+import com.mattrubacky.monet2.deserialized.Stage;
 import com.mattrubacky.monet2.deserialized.Weapon;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
@@ -96,6 +97,45 @@ public class StatCalc {
             specialStats = calcStats(sort(special));
         }
 
+    }
+
+    //StageStats constructor
+    public StatCalc(Context context,Stage stage){
+        ArrayList<Battle> battles;
+        ArrayList<Integer> ink,kill,death,special;
+        SplatnetSQLManager database = new SplatnetSQLManager(context);
+
+        battles = database.getBattleStats(stage.id,"stage");
+
+        num = battles.size();
+
+        inkStats = new int[5];
+        killStats = new int[5];
+        deathStats = new int[5];
+        specialStats = new int[5];
+
+        ink = new ArrayList<>();
+        kill = new ArrayList<>();
+        death = new ArrayList<>();
+        special = new ArrayList<>();
+
+        Player player;
+        for(int i=0;i<battles.size();i++){
+            player = battles.get(i).user;
+
+            ink.add(player.points);
+            kill.add(player.kills);
+            death.add(player.deaths);
+            special.add(player.special);
+
+        }
+
+        if(battles.size()>5) {
+            inkStats = calcStats(sort(ink));
+            killStats = calcStats(sort(kill));
+            deathStats = calcStats(sort(death));
+            specialStats = calcStats(sort(special));
+        }
     }
 
     private ArrayList<Integer> sort(ArrayList<Integer> data){

@@ -45,10 +45,6 @@ public class StageStats implements Parcelable{
     @SerializedName("last_play_time")
     public Long lastPlayed;
 
-    //The weapon itself
-    @SerializedName("weapon")
-    public Weapon weapon;
-
     @SerializedName("inkStats")
     public int[] inkStats;
 
@@ -73,7 +69,6 @@ public class StageStats implements Parcelable{
         towerWin = in.readInt();
         towerLose = in.readInt();
         lastPlayed = in.readLong();
-        weapon = in.readParcelable(Weapon.class.getClassLoader());
         inkStats = in.createIntArray();
         killStats = in.createIntArray();
         deathStats = in.createIntArray();
@@ -91,7 +86,6 @@ public class StageStats implements Parcelable{
         dest.writeInt(towerWin);
         dest.writeInt(towerLose);
         dest.writeLong(lastPlayed);
-        dest.writeParcelable(weapon, flags);
         dest.writeIntArray(inkStats);
         dest.writeIntArray(killStats);
         dest.writeIntArray(deathStats);

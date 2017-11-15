@@ -190,6 +190,11 @@ public class SplatnetSQLManager {
         BattleManager battleManager = new BattleManager(context);
         return  battleManager.selectAll();
     }
+
+    public ArrayList<Battle> getBattleStats(int id,String type){
+        BattleManager battleManager = new BattleManager(context);
+        return battleManager.getStats(id,type);
+    }
     //Players
 
     public void insertPlayer(Player player, String mode, int id, int type){

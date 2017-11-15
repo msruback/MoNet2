@@ -71,7 +71,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ClosetDetail" />
         <activity android:name=".AddGear" />
-        <activity android:name=".StagePostcards"></activity>
+        <activity android:name=".StagePostcardsDetail"></activity>
     </application>
 
 </manifest>

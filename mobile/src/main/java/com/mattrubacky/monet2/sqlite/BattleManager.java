@@ -566,6 +566,8 @@ class BattleManager {
 
             ArrayList<PlayerDatabase> players = playerMap.get(battle.id);
             PlayerDatabase player;
+            battle.myTeam = new ArrayList<>();
+            battle.otherTeam = new ArrayList<>();
             for (int j = 0; j < players.size(); j++) {
                 player = players.get(j);
                 switch (player.playerType) {

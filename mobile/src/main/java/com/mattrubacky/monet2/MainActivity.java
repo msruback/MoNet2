@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ExpandableListView drawerList;
     ArrayList<String> titles,children;
-    Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet;
+    Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet,stagePostcards;
     FragmentManager fragmentManager;
     ArrayList<String> backStack;
     TextView addButton;
@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         weaponLocker = new WeaponLockerFragment();
         closet = new ClosetFragment();
+        stagePostcards = new StagePostcardsFragment();
 
         addButton = (TextView) findViewById(R.id.AddButton);
 
@@ -199,6 +200,14 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"closet");
                         addButton.setVisibility(View.VISIBLE);
                         addButton.setOnClickListener(new addGearClickListener());
+                        break;
+                    case 3:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,stagePostcards)
+                                .commit();
+                        backStack.add(0,"stagepostcards");
+                        addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
                         break;
                 }
                 break;
@@ -321,6 +330,15 @@ public class MainActivity extends AppCompatActivity {
                         addButton.setVisibility(View.VISIBLE);
                         addButton.setOnClickListener(new addGearClickListener());
                         break;
+                    case 2:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,stagePostcards)
+                                .commit();
+                        drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"stagepostcards");
+                        addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
+                        break;
                 }
                 return false;
             }
@@ -384,6 +402,13 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     addButton.setVisibility(View.VISIBLE);
                     addButton.setOnClickListener(new addGearClickListener());
+                    break;
+                case "stagepostcards":
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container,stagePostcards)
+                            .commit();
+                    addButton.setVisibility(View.GONE);
+                    addButton.setOnClickListener(null);
                     break;
                 case "battlelist":
                     fragmentManager.beginTransaction()
