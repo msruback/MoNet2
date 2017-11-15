@@ -473,4 +473,118 @@ class BattleManager {
         toSelect = new ArrayList<>();
         return battles;
     }
+
+    public ArrayList<Battle> getStats(int id, String type){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+
+        String[] args = new String[1];
+        args[0] = String.valueOf(id);
+
+        StringBuilder builder = new StringBuilder();
+        switch (type){
+            case "stage":
+                builder.append(SplatnetContract.Battle.COLUMN_STAGE+" = ?");
+                break;
+        }
+
+
+
+        String whereClause = builder.toString();
+
+        Cursor cursor = database.query(SplatnetContract.Battle.TABLE_NAME,null,whereClause,args,null,null,null);
+
+        ArrayList<Integer> stageIDs = new ArrayList<>();
+        int stageID;
+
+        ArrayList<Battle> battles = new ArrayList<>();
+        ArrayList<Battle> battleList = new ArrayList<>();
+        Battle battle;
+        if(cursor.moveToFirst()) {
+            do {
+                battle = new Battle();
+                battle.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle._ID));
+                battle.type = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MODE));
+                battle.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_START_TIME));
+
+                Rule rule = new Rule();
+                rule.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
+                battle.rule = rule;
+
+                TeamResult teamResult = new TeamResult();
+                teamResult.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
+                battle.result = teamResult;
+
+                //The stage ids can only be gathered while retrieving the battle info
+                stageID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_STAGE));
+                stageIDs.add(stageID);
+                stageManager.addToSelect(stageID);
+
+                playerManager.addToSelect(battle.id);
+
+                switch (battle.type) {
+                    case "regular":
+                        battle.myTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ALLY_SCORE));
+                        battle.otherTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FOE_SCORE));
+                        break;
+                    case "gachi":
+                        battle.gachiPower = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_POWER));
+                        battle.myTeamCount = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ALLY_SCORE));
+                        battle.otherTeamCount = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FOE_SCORE));
+                        battle.time = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ELAPSED_TIME));
+                        break;
+                    case "fes":
+                        battle.fesPower = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_POWER));
+                        battle.myTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_ALLY_SCORE));
+                        battle.otherTeamPercent = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FOE_SCORE));
+                        battle.splatfestID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FES));
+
+                        TeamTheme theme = new TeamTheme();
+                        SplatfestColor color = new SplatfestColor();
+                        color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_COLOR));
+                        theme.color = color;
+                        theme.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_KEY));
+                        theme.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MY_TEAM_NAME));
+                        battle.myTheme = theme;
+
+                        theme = new TeamTheme();
+                        color = new SplatfestColor();
+                        color.color = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_COLOR));
+                        theme.color = color;
+                        theme.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_KEY));
+                        theme.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_OTHER_TEAM_NAME));
+                        battle.otherTheme = theme;
+                        break;
+                }
+                battleList.add(battle);
+            }while(cursor.moveToNext());
+        }
+        HashMap<Integer,Stage> stageHashMap = stageManager.select();
+        HashMap<Integer,ArrayList<PlayerDatabase>> playerMap = playerManager.select();
+        for(int i=0;i<stageIDs.size();i++){
+            battle = battleList.get(i);
+            battle.stage = stageHashMap.get(stageIDs.get(i));
+
+            ArrayList<PlayerDatabase> players = playerMap.get(battle.id);
+            PlayerDatabase player;
+            for (int j = 0; j < players.size(); j++) {
+                player = players.get(j);
+                switch (player.playerType) {
+                    case 0:
+                        battle.user = player.player;
+                        break;
+                    case 1:
+                        battle.myTeam.add(player.player);
+                        break;
+                    case 2:
+                        battle.otherTeam.add(player.player);
+                }
+            }
+
+            battles.add(battle);
+        }
+        cursor.close();
+        database.close();
+        toSelect = new ArrayList<>();
+        return battles;
+    }
 }

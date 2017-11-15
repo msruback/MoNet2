@@ -360,32 +360,44 @@ public class MainActivity extends AppCompatActivity {
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container, rotation)
                             .commit();
+                    addButton.setVisibility(View.GONE);
+                    addButton.setOnClickListener(null);
                     break;
                 case "shop":
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container, shop)
                             .commit();
+                    addButton.setVisibility(View.GONE);
+                    addButton.setOnClickListener(null);
                     break;
                 //Stats fragments go here
                 case "weaponlocker":
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container,weaponLocker)
                             .commit();
+                    addButton.setVisibility(View.GONE);
+                    addButton.setOnClickListener(null);
                     break;
                 case "closet":
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container,closet)
                             .commit();
+                    addButton.setVisibility(View.VISIBLE);
+                    addButton.setOnClickListener(new addGearClickListener());
                     break;
                 case "battlelist":
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container,battleList)
                             .commit();
+                    addButton.setVisibility(View.GONE);
+                    addButton.setOnClickListener(null);
                     break;
                 case "settings":
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container,settingsFrag)
                             .commit();
+                    addButton.setVisibility(View.GONE);
+                    addButton.setOnClickListener(null);
                     break;
             }
         }else {
