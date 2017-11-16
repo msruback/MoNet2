@@ -213,8 +213,6 @@ public class ClosetDetail extends AppCompatActivity {
         deathTitle.setTypeface(fontTitle);
         specialTitle.setTypeface(fontTitle);
 
-        ViewGroup.LayoutParams layoutParams;
-
         //Handle Colors
         switch(hanger.gear.kind){
             case "head":

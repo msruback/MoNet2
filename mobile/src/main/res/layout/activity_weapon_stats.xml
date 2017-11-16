@@ -380,13 +380,12 @@
                                 <RelativeLayout
                                     android:id="@+id/InkMeter"
                                     android:layout_width="270dp"
-                                    android:layout_height="60dp"
+                                    android:layout_height="80dp"
                                     android:layout_below="@+id/InkTitle"
                                     android:layout_centerHorizontal="true"
                                     android:layout_marginLeft="15dp"
                                     android:layout_marginRight="15dp"
-                                    android:layout_marginTop="10dp">
-                                </RelativeLayout>
+                                    android:layout_marginTop="10dp"></RelativeLayout>
                             </RelativeLayout>
                         </RelativeLayout>
 
@@ -432,12 +431,11 @@
                                 <RelativeLayout
                                     android:id="@+id/KillMeter"
                                     android:layout_width="match_parent"
-                                    android:layout_height="60dp"
+                                    android:layout_height="80dp"
                                     android:layout_below="@+id/KillTitle"
                                     android:layout_marginLeft="15dp"
                                     android:layout_marginRight="15dp"
-                                    android:layout_marginTop="10dp">
-                                </RelativeLayout>
+                                    android:layout_marginTop="10dp"></RelativeLayout>
                             </RelativeLayout>
                         </RelativeLayout>
 
@@ -483,12 +481,11 @@
                                 <RelativeLayout
                                     android:id="@+id/DeathMeter"
                                     android:layout_width="match_parent"
-                                    android:layout_height="60dp"
+                                    android:layout_height="80dp"
                                     android:layout_below="@+id/DeathTitle"
                                     android:layout_marginLeft="15dp"
                                     android:layout_marginRight="15dp"
-                                    android:layout_marginTop="10dp">
-                                </RelativeLayout>
+                                    android:layout_marginTop="10dp"></RelativeLayout>
                             </RelativeLayout>
                         </RelativeLayout>
 
@@ -535,12 +532,11 @@
                                 <RelativeLayout
                                     android:id="@+id/SpecialMeter"
                                     android:layout_width="match_parent"
-                                    android:layout_height="60dp"
+                                    android:layout_height="80dp"
                                     android:layout_below="@+id/SpecialTitle"
                                     android:layout_marginLeft="15dp"
                                     android:layout_marginRight="15dp"
-                                    android:layout_marginTop="10dp">
-                                </RelativeLayout>
+                                    android:layout_marginTop="10dp"></RelativeLayout>
                             </RelativeLayout>
                         </RelativeLayout>
 

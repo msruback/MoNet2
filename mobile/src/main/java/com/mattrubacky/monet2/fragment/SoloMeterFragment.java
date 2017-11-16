@@ -63,13 +63,19 @@ public class SoloMeterFragment extends Fragment {
             LowerQuartile.setVisibility(View.GONE);
         }
         if(stats[2]==stats[1]){
+            LowerQuartile.setVisibility(View.GONE);
+        }
+        if(stats[2]==stats[0]){
             Median.setVisibility(View.GONE);
         }
         if(stats[3]==stats[2]){
-            UpperQuartile.setVisibility(View.GONE);
+            Median.setVisibility(View.GONE);
         }
         if(stats[4]==stats[3]){
-            Maximum.setVisibility(View.GONE);
+            UpperQuartile.setVisibility(View.GONE);
+        }
+        if(stats[4]==stats[2]){
+            Median.setVisibility(View.GONE);
         }
 
         float range = stats[4] - stats[0];

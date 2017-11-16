@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mattrubacky.monet2.SplatfestStats">
+    tools:context="com.mattrubacky.monet2.SplatfestDetail">
 
 
     <RelativeLayout
@@ -180,7 +180,7 @@
                                     </RelativeLayout>
 
                                     <RelativeLayout
-                                        android:id="@+id/inkedLayout"
+                                        android:id="@+id/gradeLayout"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_below="@id/winOutline"
@@ -216,7 +216,7 @@
                                         android:id="@+id/lastLayout"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_below="@id/inkedLayout"
+                                        android:layout_below="@id/gradeLayout"
                                         android:layout_marginBottom="15dp"
                                         android:layout_marginLeft="30dp"
                                         android:layout_marginRight="30dp"

@@ -70,10 +70,14 @@
         <activity
             android:name=".WeaponLockerDetail"
             android:screenOrientation="portrait" />
-        <activity android:name=".ClosetDetail" />
-        <activity android:name=".AddGear" />
-        <activity android:name=".StagePostcardsDetail" />
-        <activity android:name=".SplatfestStats"></activity>
+        <activity android:name=".ClosetDetail"
+            android:screenOrientation="portrait" />
+        <activity android:name=".AddGear"
+            android:screenOrientation="portrait" />
+        <activity android:name=".StagePostcardsDetail"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SplatfestDetail"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

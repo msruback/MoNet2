@@ -1,5 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="315dp">
+
+    <RelativeLayout
+        android:id="@+id/winOutline"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/offWhiteDark"
+        android:padding="5dp">
+
+        <RelativeLayout
+            android:id="@+id/WinLossMeter"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/offWhiteDark">
+
+            <RelativeLayout
+                android:id="@+id/Wins"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary">
+
+                <TextView
+                    android:id="@+id/WinText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="50" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Losses"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/colorAccent">
+
+                <TextView
+                    android:id="@+id/LossText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="50" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/repeat_stripes"></RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/gradeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/winOutline"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/transparentgrey">
+
+        <TextView
+            android:id="@+id/GradeTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/primary"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Grade"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/GradeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/GradeTitleText"
+            android:text="888p"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/disconnectLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gradeLayout"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/transparentgrey">
+
+        <TextView
+            android:id="@+id/DisconnectTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/primary"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Disconnects"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/LastText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/DisconnectTitleText"
+            android:text="888p"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/powerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/disconnectLayout"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/transparentgrey">
+
+        <TextView
+            android:id="@+id/PowerTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/primary"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Power"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/PowerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/PowerTitleText"
+            android:text="888p"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/timeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/powerLayout"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/transparentgrey">
+
+        <TextView
+            android:id="@+id/TimeTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/primary"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Time Played"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/TimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/TimeTitleText"
+            android:text="888p"
+            android:textSize="16sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

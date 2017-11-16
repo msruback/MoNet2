@@ -1,6 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="315dp">
+
+    <RelativeLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/AlphaImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/vampire" />
+
+        <ImageView
+            android:id="@+id/BravoImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/scifi" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/voteMeter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/VoteTitle"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/banner_normal"
+            android:backgroundTint="@color/marina"
+            android:gravity="center"
+            android:text="Votes" />
+
+        <RelativeLayout
+            android:id="@+id/voteWinOutline"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/VoteTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/offWhiteDark"
+            android:padding="5dp">
+
+            <RelativeLayout
+                android:id="@+id/VoteWinLossMeter"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/offWhiteDark">
+
+                <RelativeLayout
+                    android:id="@+id/VoteWins"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary">
+
+                    <TextView
+                        android:id="@+id/VoteWinText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="50" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/VoteLosses"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/colorAccent">
+
+                    <TextView
+                        android:id="@+id/VoteLossText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="50" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/repeat_stripes"></RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/soloMeter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/voteMeter"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/SoloTitle"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/banner_normal"
+            android:backgroundTint="@color/marina"
+            android:gravity="center"
+            android:text="Solo Wins" />
+
+        <RelativeLayout
+            android:id="@+id/soloWinOutline"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/SoloTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/offWhiteDark"
+            android:padding="5dp">
+
+            <RelativeLayout
+                android:id="@+id/SoloWinLossMeter"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/offWhiteDark">
+
+                <RelativeLayout
+                    android:id="@+id/SoloWins"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary">
+
+                    <TextView
+                        android:id="@+id/SoloWinText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="50" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/SoloLosses"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/colorAccent">
+
+                    <TextView
+                        android:id="@+id/SoloLossText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="50" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/repeat_stripes"></RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/teamMeter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/soloMeter"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/TeamTitle"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/banner_normal"
+            android:backgroundTint="@color/marina"
+            android:gravity="center"
+            android:text="Team Wins" />
+
+        <RelativeLayout
+            android:id="@+id/teamWinOutline"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/TeamTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/offWhiteDark"
+            android:padding="5dp">
+
+            <RelativeLayout
+                android:id="@+id/TeamWinLossMeter"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/offWhiteDark">
+
+                <RelativeLayout
+                    android:id="@+id/TeamWins"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary">
+
+                    <TextView
+                        android:id="@+id/TeamWinText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="50" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/TeamLosses"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/colorAccent">
+
+                    <TextView
+                        android:id="@+id/TeamLossText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="50" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/repeat_stripes"></RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
