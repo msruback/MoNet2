@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/hook"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/extra_hook"
+            android:backgroundTint="@color/marina">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/dialogCard"
+            android:layout_width="250dp"
+            android:layout_height="410dp"
+            android:layout_below="@+id/hook"
+            android:layout_centerInParent="true"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/offWhite">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/repeatable_spots">
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/bar"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/marina"
+                android:elevation="4dp">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Votes"
+                    android:textSize="22sp" />
+                <RelativeLayout
+                    android:layout_width="125dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/pearl">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Alpha"
+                        android:textSize="20sp"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="125dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/marina">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Bravo"
+                        android:textSize="20sp"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/ItemList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/bar"
+                android:choiceMode="none"
+                android:listSelector="@color/transparentgrey2" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
