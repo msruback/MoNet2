@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="270dp"
+    android:layout_height="60dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignLeft="@+id/LowerWhisker"
+            android:layout_marginLeft="-20dp"
+            android:rotation="90"
+            android:src="@drawable/shape_line" />
+
+    <RelativeLayout
+        android:id="@+id/LowerWhisker"
+        android:layout_width="50dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_line"></RelativeLayout>
+
+        <TextView
+            android:id="@+id/Minimum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/LowerWhisker"
+            android:layout_alignParentBottom="true"
+            android:text="0"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:id="@+id/box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/LowerWhisker"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/offWhiteDark"
+            android:padding="5dp">
+
+            <RelativeLayout
+                android:id="@+id/Box"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/offWhiteDark">
+
+                <RelativeLayout
+                    android:id="@+id/LowerBox"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"></RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/UpperBox"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/colorAccent" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/repeat_stripes"></RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/LowerQuartile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/box"
+            android:layout_alignParentBottom="true"
+            android:text="0"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/Median"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/box"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="50dp"
+            android:text="0"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/UpperQuartile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/UpperWhisker"
+            android:layout_alignParentBottom="true"
+            android:text="0"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:id="@+id/UpperWhisker"
+            android:layout_width="50dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/box"
+            android:background="@drawable/shape_line"></RelativeLayout>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignRight="@+id/UpperWhisker"
+            android:layout_marginRight="-20dp"
+            android:rotation="90"
+            android:src="@drawable/shape_line" />
+
+        <TextView
+            android:id="@+id/Maximum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/UpperWhisker"
+            android:text="0"
+            android:textSize="14sp" />
+</RelativeLayout>

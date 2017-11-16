@@ -17,7 +17,8 @@ public final class SplatnetContract {
         public static final String COLUMN_FOE_SCORE = "foe_score";
         public static final String COLUMN_RULE = "rule";
         public static final String COLUMN_MODE = "mode";
-        public static final String COLUMN_POWER ="power";
+        public static final String COLUMN_POWER = "power";
+        public static final String COLUMN_FES_POINT = "fes_point";
         public static final String COLUMN_WIN_METER ="win_meter";
         public static final String COLUMN_FES = "fes";
         public static final String COLUMN_ELAPSED_TIME = "elapsed_time";
@@ -38,6 +39,7 @@ public final class SplatnetContract {
                 COLUMN_RULE + " TEXT, "+
                 COLUMN_MODE + " TEXT, "+
                 COLUMN_POWER + " INTEGER, "+
+                COLUMN_FES_POINT + " INTEGER, "+
                 COLUMN_WIN_METER + " REAL, "+
                 COLUMN_FES + " INTEGER REFERENCES splatfest(_id), "+
                 COLUMN_START_TIME + " INTEGER, "+

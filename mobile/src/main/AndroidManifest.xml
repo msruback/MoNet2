@@ -56,7 +56,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".DebugActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
@@ -71,7 +72,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ClosetDetail" />
         <activity android:name=".AddGear" />
-        <activity android:name=".StagePostcardsDetail"></activity>
+        <activity android:name=".StagePostcardsDetail" />
+        <activity android:name=".SplatfestStats"></activity>
     </application>
 
 </manifest>

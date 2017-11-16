@@ -82,6 +82,9 @@ public class Battle implements Parcelable{
     @SerializedName("my_estimate_fes_power")
     public int fesPower;
 
+    @SerializedName("fes_point")
+    public int fesPoint;
+
     //For ranked battles, this will contain the power level of the match, null otherwise
     @SerializedName("estimate_gachi_power")
     public int gachiPower;

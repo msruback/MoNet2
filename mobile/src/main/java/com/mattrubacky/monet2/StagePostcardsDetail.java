@@ -138,7 +138,7 @@ public class StagePostcardsDetail extends AppCompatActivity {
         RelativeLayout towerWins = (RelativeLayout) findViewById(R.id.TowerWins);
         RelativeLayout towerLosses = (RelativeLayout) findViewById(R.id.TowerLosses);
 
-        zoneWinLossMeter.setClipToOutline(true);
+        towerWinLossMeter.setClipToOutline(true);
         if(stageStats.towerWin==0&&stageStats.towerLose==0){
             towerMeter.setVisibility(View.GONE);
         }
