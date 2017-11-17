@@ -13,7 +13,7 @@ public class SplatfestRecords{
     @SerializedName("fes_id")
     public int id;
 
-    //Can't seem to figure out what this is for, it seems to be always 0
+    //The number of points progressed to the next grade
     @SerializedName("fes_point")
     public int points;
 
