@@ -25,6 +25,42 @@ public class SplatfestStats implements Parcelable{
     @SerializedName("played")
     public long timePlayed;
 
+    @SerializedName("playerInkStats")
+    public int[] playerInkStats;
+
+    @SerializedName("playerKillStats")
+    public int[] playerKillStats;
+
+    @SerializedName("playerDeathStats")
+    public int[] playerDeathStats;
+
+    @SerializedName("playerSpecialStats")
+    public int[] playerSpecialStats;
+
+    @SerializedName("playerInkAverage")
+    public float playerInkAverage;
+
+    @SerializedName("playerKillAverage")
+    public float playerKillAverage;
+
+    @SerializedName("playerDeathAverage")
+    public float playerDeathAverage;
+
+    @SerializedName("playerSpecialAverage")
+    public float playerSpecialAverage;
+
+    @SerializedName("teamInkStats")
+    public int[] teamInkStats;
+
+    @SerializedName("teamKillStats")
+    public int[] teamKillStats;
+
+    @SerializedName("teamDeathStats")
+    public int[] teamDeathStats;
+
+    @SerializedName("teamSpecialStats")
+    public int[] teamSpecialStats;
+
     protected SplatfestStats(Parcel in) {
         wins = in.readInt();
         losses = in.readInt();
@@ -32,6 +68,18 @@ public class SplatfestStats implements Parcelable{
         disconnects = in.readInt();
         power = in.readInt();
         timePlayed = in.readLong();
+        playerInkStats = in.createIntArray();
+        playerKillStats = in.createIntArray();
+        playerDeathStats = in.createIntArray();
+        playerSpecialStats = in.createIntArray();
+        playerInkAverage = in.readFloat();
+        playerKillAverage = in.readFloat();
+        playerDeathAverage = in.readFloat();
+        playerSpecialAverage = in.readFloat();
+        teamInkStats = in.createIntArray();
+        teamKillStats = in.createIntArray();
+        teamDeathStats = in.createIntArray();
+        teamSpecialStats = in.createIntArray();
     }
 
     @Override
@@ -42,6 +90,18 @@ public class SplatfestStats implements Parcelable{
         dest.writeInt(disconnects);
         dest.writeInt(power);
         dest.writeLong(timePlayed);
+        dest.writeIntArray(playerInkStats);
+        dest.writeIntArray(playerKillStats);
+        dest.writeIntArray(playerDeathStats);
+        dest.writeIntArray(playerSpecialStats);
+        dest.writeFloat(playerInkAverage);
+        dest.writeFloat(playerKillAverage);
+        dest.writeFloat(playerDeathAverage);
+        dest.writeFloat(playerSpecialAverage);
+        dest.writeIntArray(teamInkStats);
+        dest.writeIntArray(teamKillStats);
+        dest.writeIntArray(teamDeathStats);
+        dest.writeIntArray(teamSpecialStats);
     }
 
     @Override

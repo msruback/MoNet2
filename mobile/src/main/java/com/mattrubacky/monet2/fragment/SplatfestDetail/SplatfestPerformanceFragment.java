@@ -1,5 +1,7 @@
 package com.mattrubacky.monet2.fragment.SplatfestDetail;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +13,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestStats;
+import com.mattrubacky.monet2.sqlite.SplatnetContract;
 
 import java.text.SimpleDateFormat;
 
@@ -26,9 +30,10 @@ public class SplatfestPerformanceFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_solo_meter, container, false);
+        rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_splatfest_performance, container, false);
         Bundle bundle = this.getArguments();
 
+        Splatfest splatfest = bundle.getParcelable("splatfest");
         SplatfestStats stats = bundle.getParcelable("stats");
 
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
@@ -65,6 +70,11 @@ public class SplatfestPerformanceFragment extends Fragment{
         gradeText.setText(stats.grade);
         disconnectText.setText(String.valueOf(stats.disconnects));
         powerText.setText(String.valueOf(stats.power));
+
+        gradeTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        disconnectTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        powerTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        playedTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
 
         SimpleDateFormat format = new SimpleDateFormat("h:mm");
         playedText.setText(format.format(stats.timePlayed));

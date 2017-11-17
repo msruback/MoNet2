@@ -1,5 +1,7 @@
 package com.mattrubacky.monet2.fragment.SplatfestDetail;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -33,7 +35,7 @@ public class SplatfestResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_solo_meter, container, false);
+        rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_splatfest_results, container, false);
         Bundle bundle = this.getArguments();
 
         Splatfest splatfest = bundle.getParcelable("splatfest");
@@ -81,6 +83,10 @@ public class SplatfestResultFragment extends Fragment {
         bravoSoloText.setText(String.valueOf(result.teamScores.bravoSolo));
         alphaTeamText.setText(String.valueOf(result.teamScores.alphaTeam));
         bravoTeamText.setText(String.valueOf(result.teamScores.bravoTeam));
+
+        voteTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        soloTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        teamTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
 
         ImageHandler imageHandler = new ImageHandler();
         String imageDirName = splatfest.names.alpha.toLowerCase().replace(" ", "_");
