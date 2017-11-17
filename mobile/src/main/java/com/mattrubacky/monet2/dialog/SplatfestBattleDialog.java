@@ -1,0 +1,89 @@
+package com.mattrubacky.monet2.dialog;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.mattrubacky.monet2.BattleInfo;
+import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.adapter.SplatfestBattleAdapter;
+import com.mattrubacky.monet2.adapter.VoteAdapter;
+import com.mattrubacky.monet2.deserialized.Battle;
+import com.mattrubacky.monet2.deserialized.NicknameIcon;
+import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.SplatfestColor;
+import com.mattrubacky.monet2.deserialized.SplatfestVotes;
+
+import java.util.ArrayList;
+
+/**
+ * Created by mattr on 11/16/2017.
+ */
+
+public class SplatfestBattleDialog extends Dialog {
+    ArrayList<Battle> battles;
+    SplatfestColor color;
+    Splatfest splatfest;
+
+    public SplatfestBattleDialog(Activity activity, ArrayList<Battle> battles, Splatfest splatfest,SplatfestColor color) {
+        super(activity);
+        this.battles = battles;
+        this.color = color;
+        this.splatfest = splatfest;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setBackgroundDrawable(new ColorDrawable(getContext().getResources().getColor(R.color.transparent)));
+        setContentView(R.layout.dialog_battle_list);
+
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
+        Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
+
+        RelativeLayout hook = (RelativeLayout) findViewById(R.id.hook);
+        RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
+        RelativeLayout bar = (RelativeLayout) findViewById(R.id.bar);
+
+        card.setClipToOutline(true);
+
+        TextView title = (TextView) findViewById(R.id.title);
+
+        ListView list = (ListView) findViewById(R.id.ItemList);
+
+        title.setTypeface(fontTitle);
+
+        hook.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(color.getColor())));
+        bar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(color.getColor())));
+
+        SplatfestBattleAdapter adapter = new SplatfestBattleAdapter(getContext(),battles);
+
+        list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), BattleInfo.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("battle",battles.get(position));
+                bundle.putParcelable("splatfest",splatfest);
+                intent.putExtras(bundle);
+                getContext().startActivity(intent);
+            }
+        });
+
+
+    }
+}

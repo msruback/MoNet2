@@ -57,7 +57,7 @@ public interface Splatnet {
     @GET("api/festivals/{id}/rankings")
     Call<ResponseBody> getSplatfestRanks(@Header("Cookie") String cookie);
 
-    @GET("nickname_and_icon{id}")
+    @GET("nickname_and_icon?id={id}")
     Call<ResponseBody> getNicknameIcon(@Path("id") String id,@Header("Cookie") String cookie);
 
     @GET("api/onlineshop/merchandises")

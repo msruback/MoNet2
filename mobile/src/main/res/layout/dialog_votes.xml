@@ -50,30 +50,38 @@
                     android:layout_marginTop="10dp"
                     android:text="Votes"
                     android:textSize="22sp" />
+
                 <RelativeLayout
+                    android:id="@+id/AlphaButton"
                     android:layout_width="125dp"
                     android:layout_height="40dp"
                     android:layout_alignParentBottom="true"
                     android:background="@color/pearl">
+
                     <TextView
+                        android:id="@+id/AlphaText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="Alpha"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
                 </RelativeLayout>
+
                 <RelativeLayout
+                    android:id="@+id/BravoButton"
                     android:layout_width="125dp"
                     android:layout_height="40dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:background="@color/marina">
+
                     <TextView
+                        android:id="@+id/BravoText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="Bravo"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
                 </RelativeLayout>
 
             </RelativeLayout>
