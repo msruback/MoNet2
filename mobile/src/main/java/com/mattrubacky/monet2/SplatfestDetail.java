@@ -1,5 +1,6 @@
 package com.mattrubacky.monet2;
 
+import android.app.Dialog;
 import android.graphics.Typeface;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -18,8 +19,12 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.adapter.FesAdapter;
 import com.mattrubacky.monet2.adapter.SplatfestPerformanceAdapter;
 import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.SplatfestColor;
 import com.mattrubacky.monet2.deserialized.SplatfestResult;
 import com.mattrubacky.monet2.deserialized.SplatfestStats;
+import com.mattrubacky.monet2.deserialized.SplatfestVotes;
+import com.mattrubacky.monet2.dialog.SplatfestBattleDialog;
+import com.mattrubacky.monet2.dialog.VoteDialog;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.SoloMeterFragment;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.TeamMeterFragment;
 import com.mattrubacky.monet2.helper.ImageHandler;
@@ -32,6 +37,7 @@ public class SplatfestDetail extends AppCompatActivity {
     Splatfest splatfest;
     SplatfestResult result;
     SplatfestStats stats;
+    SplatfestVotes votes;
 
     RelativeLayout inkMeter,killMeter,deathMeter,specialMeter;
     Fragment inkSolo,inkTeam,killSolo,killTeam,deathSolo,deathTeam,specialSolo,specialTeam;
@@ -48,6 +54,7 @@ public class SplatfestDetail extends AppCompatActivity {
         splatfest = bundle.getParcelable("splatfest");
         result = bundle.getParcelable("result");
         stats = bundle.getParcelable("stats");
+        votes = bundle.getParcelable("votes");
 
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
@@ -78,7 +85,7 @@ public class SplatfestDetail extends AppCompatActivity {
         RelativeLayout votesButton = (RelativeLayout) findViewById(R.id.VotesButton);
         RelativeLayout battlesButton = (RelativeLayout) findViewById(R.id.BattlesButton);
 
-        TextView splatfestTime = (TextView) findViewById(R.id.SplatfestTime);
+        final TextView splatfestTime = (TextView) findViewById(R.id.SplatfestTime);
         TextView inkTitle = (TextView) findViewById(R.id.InkTitle);
         final TextView inkButton = (TextView) findViewById(R.id.InkButton);
         TextView killTitle = (TextView) findViewById(R.id.KillTitle);
@@ -133,155 +140,197 @@ public class SplatfestDetail extends AppCompatActivity {
         generalPager.setAdapter(performanceAdapter);
 
         //Stat Cards
+        Bundle meterBundle;
 
-        inkSolo = new SoloMeterFragment();
-        Bundle meterBundle = new Bundle();
-        meterBundle.putIntArray("stats",stats.playerInkStats);
-        inkSolo.setArguments(meterBundle);
+        if(stats.playerInkStats[0]!=stats.playerInkStats[4]) {
+            inkSolo = new SoloMeterFragment();
+            meterBundle = new Bundle();
+            meterBundle.putIntArray("stats",stats.playerInkStats);
+            inkSolo.setArguments(meterBundle);
 
-        inkTeam = new TeamMeterFragment();
-        meterBundle = new Bundle();
-        meterBundle.putIntArray("stats",stats.teamInkStats);
-        meterBundle.putFloat("average",stats.playerInkAverage);
-        inkTeam.setArguments(meterBundle);
+            inkTeam = new TeamMeterFragment();
+            meterBundle = new Bundle();
+            meterBundle.putIntArray("stats",stats.teamInkStats);
+            meterBundle.putFloat("average",stats.playerInkAverage);
+            inkTeam.setArguments(meterBundle);
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.InkMeter,inkSolo)
-                .commit();
-        inkToggle = false;
+            fragmentManager.beginTransaction()
+                    .replace(R.id.InkMeter,inkSolo)
+                    .commit();
+            inkToggle = false;
 
-        inkButton.setOnClickListener(new View.OnClickListener() {
+            inkButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (inkToggle) {
+                        //On Team
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.InkMeter, inkSolo)
+                                .commit();
+                        inkToggle = false;
+                        inkButton.setText("Solo");
+                    } else {
+                        //On Solo
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.InkMeter, inkTeam)
+                                .commit();
+                        inkToggle = true;
+                        inkButton.setText("Team");
+                    }
+                }
+            });
+        }else{
+            inkStats.setVisibility(View.GONE);
+        }
+
+        if(stats.playerKillStats[0]!=stats.playerKillStats[4]) {
+            killSolo = new SoloMeterFragment();
+            meterBundle = new Bundle();
+            meterBundle.putIntArray("stats", stats.playerKillStats);
+            killSolo.setArguments(meterBundle);
+
+            killTeam = new TeamMeterFragment();
+            meterBundle = new Bundle();
+            meterBundle.putIntArray("stats", stats.teamKillStats);
+            meterBundle.putFloat("average", stats.playerKillAverage);
+            killTeam.setArguments(meterBundle);
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.KillMeter, killSolo)
+                    .commit();
+            killToggle = false;
+
+            killButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (killToggle) {
+                        //On Team
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.KillMeter, killSolo)
+                                .commit();
+                        killToggle = false;
+                        killButton.setText("Solo");
+                    } else {
+                        //On Solo
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.KillMeter, killTeam)
+                                .commit();
+                        killToggle = true;
+                        killButton.setText("Team");
+                    }
+                }
+            });
+        }else{
+            killStats.setVisibility(View.GONE);
+        }
+
+        if(stats.playerDeathStats[0]!=stats.playerDeathStats[4]) {
+            deathSolo = new SoloMeterFragment();
+            meterBundle = new Bundle();
+            meterBundle.putIntArray("stats", stats.playerDeathStats);
+            deathSolo.setArguments(meterBundle);
+
+            deathTeam = new TeamMeterFragment();
+            meterBundle = new Bundle();
+            meterBundle.putIntArray("stats", stats.teamDeathStats);
+            meterBundle.putFloat("average", stats.playerDeathAverage);
+            deathTeam.setArguments(meterBundle);
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.DeathMeter, deathSolo)
+                    .commit();
+            deathToggle = false;
+
+            deathButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (deathToggle) {
+                        //On Team
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.DeathMeter, deathSolo)
+                                .commit();
+                        deathToggle = false;
+                        deathButton.setText("Solo");
+                    } else {
+                        //On Solo
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.DeathMeter, deathTeam)
+                                .commit();
+                        deathToggle = true;
+                        deathButton.setText("Team");
+                    }
+                }
+            });
+        }else{
+            deathStats.setVisibility(View.GONE);
+        }
+
+        if(stats.playerSpecialStats[0]!=stats.playerSpecialStats[4]) {
+            specialSolo = new SoloMeterFragment();
+            meterBundle = new Bundle();
+            meterBundle.putIntArray("stats", stats.playerSpecialStats);
+            specialSolo.setArguments(meterBundle);
+
+            specialTeam = new TeamMeterFragment();
+            meterBundle = new Bundle();
+            meterBundle.putIntArray("stats", stats.teamSpecialStats);
+            meterBundle.putFloat("average", stats.playerSpecialAverage);
+            specialTeam.setArguments(meterBundle);
+
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.SpecialMeter, specialSolo)
+                    .commit();
+            specialToggle = false;
+
+            specialButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (specialToggle) {
+                        //On Team
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.SpecialMeter, specialSolo)
+                                .commit();
+                        specialToggle = false;
+                        specialButton.setText("Solo");
+                    } else {
+                        //On Solo
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.SpecialMeter, specialTeam)
+                                .commit();
+                        specialToggle = true;
+                        specialButton.setText("Team");
+                    }
+                }
+            });
+        }else{
+            specialStats.setVisibility(View.GONE);
+        }
+
+        votesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(inkToggle){
-                    //On Team
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.InkMeter, inkSolo)
-                            .commit();
-                    inkToggle = false;
-                    inkButton.setText("Solo");
-                }else{
-                    //On Solo
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.InkMeter, inkTeam)
-                            .commit();
-                    inkToggle = true;
-                    inkButton.setText("Team");
-                }
+                Dialog dialog = new VoteDialog(SplatfestDetail.this,votes,splatfest);
+                dialog.show();
             }
         });
-
-        killSolo = new SoloMeterFragment();
-        meterBundle = new Bundle();
-        meterBundle.putIntArray("stats",stats.playerKillStats);
-        killSolo.setArguments(meterBundle);
-
-        killTeam = new TeamMeterFragment();
-        meterBundle = new Bundle();
-        meterBundle.putIntArray("stats",stats.teamKillStats);
-        meterBundle.putFloat("average",stats.playerKillAverage);
-        killTeam.setArguments(meterBundle);
-
-        fragmentManager.beginTransaction()
-                .replace(R.id.KillMeter,killSolo)
-                .commit();
-        killToggle = false;
-
-        killButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(killToggle){
-                    //On Team
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.KillMeter,killSolo)
-                            .commit();
-                    killToggle = false;
-                    killButton.setText("Solo");
-                }else{
-                    //On Solo
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.KillMeter,killTeam)
-                            .commit();
-                    killToggle = true;
-                    killButton.setText("Team");
+        if(stats.battles!=null||stats.battles.size()>0) {
+            battlesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SplatfestColor color;
+                    if (stats.grade.contains(splatfest.names.alpha)) {
+                        color = splatfest.colors.alpha;
+                    } else {
+                        color = splatfest.colors.bravo;
+                    }
+                    Dialog dialog = new SplatfestBattleDialog(SplatfestDetail.this, stats.battles, splatfest, color);
+                    dialog.show();
                 }
-            }
-        });
-
-        deathSolo = new SoloMeterFragment();
-        meterBundle = new Bundle();
-        meterBundle.putIntArray("stats",stats.playerDeathStats);
-        deathSolo.setArguments(meterBundle);
-
-        deathTeam = new TeamMeterFragment();
-        meterBundle = new Bundle();
-        meterBundle.putIntArray("stats",stats.teamDeathStats);
-        meterBundle.putFloat("average",stats.playerDeathAverage);
-        deathTeam.setArguments(meterBundle);
-
-        fragmentManager.beginTransaction()
-                .replace(R.id.DeathMeter,deathSolo)
-                .commit();
-        deathToggle = false;
-
-        deathButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(deathToggle){
-                    //On Team
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.DeathMeter,deathSolo)
-                            .commit();
-                    deathToggle = false;
-                    deathButton.setText("Solo");
-                }else{
-                    //On Solo
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.DeathMeter,deathTeam)
-                            .commit();
-                    deathToggle = true;
-                    deathButton.setText("Team");
-                }
-            }
-        });
-
-        specialSolo = new SoloMeterFragment();
-        meterBundle = new Bundle();
-        meterBundle.putIntArray("stats",stats.playerSpecialStats);
-        specialSolo.setArguments(meterBundle);
-
-        specialTeam = new TeamMeterFragment();
-        meterBundle = new Bundle();
-        meterBundle.putIntArray("stats",stats.teamSpecialStats);
-        meterBundle.putFloat("average",stats.playerSpecialAverage);
-        specialTeam.setArguments(meterBundle);
-
-
-        fragmentManager.beginTransaction()
-                .replace(R.id.SpecialMeter,specialSolo)
-                .commit();
-        specialToggle = false;
-
-        specialButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(specialToggle){
-                    //On Team
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.SpecialMeter,specialSolo)
-                            .commit();
-                    specialToggle = false;
-                    specialButton.setText("Solo");
-                }else{
-                    //On Solo
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.SpecialMeter,specialTeam)
-                            .commit();
-                    specialToggle = true;
-                    specialButton.setText("Team");
-                }
-            }
-        });
+            });
+        }else{
+            battlesButton.setVisibility(View.GONE);
+        }
 
     }
 }
