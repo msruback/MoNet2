@@ -15,8 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.deserialized.StageStats;
-import com.mattrubacky.monet2.fragment.SoloMeterFragment;
-import com.mattrubacky.monet2.fragment.schedule.TurfRotation;
+import com.mattrubacky.monet2.fragment.SplatfestDetail.SoloMeterFragment;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 

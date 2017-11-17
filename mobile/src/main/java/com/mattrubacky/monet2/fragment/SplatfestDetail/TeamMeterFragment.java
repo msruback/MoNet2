@@ -1,8 +1,7 @@
-package com.mattrubacky.monet2.fragment;
+package com.mattrubacky.monet2.fragment.SplatfestDetail;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -14,21 +13,21 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.R;
 
 /**
- * Created by mattr on 11/16/2017.
- * This Fragment is the implementation of the
+ * Created by mattr on 11/17/2017.
  */
 
-public class SoloMeterFragment extends Fragment {
+public class TeamMeterFragment extends Fragment {
     ViewGroup rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_solo_meter, container, false);
+        rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_team_meter, container, false);
         Bundle bundle = this.getArguments();
 
         int[] stats = bundle.getIntArray("stats");
+        float average = bundle.getFloat("average");
 
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
@@ -38,6 +37,7 @@ public class SoloMeterFragment extends Fragment {
         RelativeLayout LowerBox = (RelativeLayout) rootView.findViewById(R.id.LowerBox);
         RelativeLayout UpperBox = (RelativeLayout) rootView.findViewById(R.id.UpperBox);
         RelativeLayout UpperWhisker = (RelativeLayout) rootView.findViewById(R.id.UpperWhisker);
+        RelativeLayout Player = (RelativeLayout) rootView.findViewById(R.id.Player);
 
         Box.setClipToOutline(true);
 
@@ -111,6 +111,11 @@ public class SoloMeterFragment extends Fragment {
         width = ((stats[4] - stats[3])/range) * (270);
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
         UpperWhisker.setLayoutParams(layoutParams);
+
+        marginLayoutParams = (ViewGroup.MarginLayoutParams) Player.getLayoutParams();
+        width = (float) ((average - stats[0] - 7.5) *(270));
+        marginLayoutParams.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        Player.setLayoutParams(marginLayoutParams);
 
         return rootView;
     }

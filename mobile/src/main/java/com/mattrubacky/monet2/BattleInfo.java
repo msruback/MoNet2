@@ -216,8 +216,6 @@ public class BattleInfo extends AppCompatActivity {
                     bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
 
                     url = "https://app.splatoon2.nintendo.net"+splatfest.images.alpha;
-
-                    imageHandler = new ImageHandler();
                     imageDirName = splatfest.names.alpha.toLowerCase().replace(" ", "_");
                     if (imageHandler.imageExists("splatfest", imageDirName, getApplicationContext())) {
                         allyImage.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
@@ -227,8 +225,6 @@ public class BattleInfo extends AppCompatActivity {
                     }
 
                     url = "https://app.splatoon2.nintendo.net"+splatfest.images.bravo;
-
-                    imageHandler = new ImageHandler();
                     imageDirName = splatfest.names.bravo.toLowerCase().replace(" ", "_");
                     if (imageHandler.imageExists("splatfest", imageDirName, getApplicationContext())) {
                         foeImage.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
@@ -241,8 +237,6 @@ public class BattleInfo extends AppCompatActivity {
                     bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
 
                     url = "https://app.splatoon2.nintendo.net"+splatfest.images.bravo;
-
-                    imageHandler = new ImageHandler();
                     imageDirName = splatfest.names.bravo.toLowerCase().replace(" ", "_");
                     if (imageHandler.imageExists("splatfest", imageDirName, getApplicationContext())) {
                         allyImage.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
@@ -252,8 +246,6 @@ public class BattleInfo extends AppCompatActivity {
                     }
 
                     url = "https://app.splatoon2.nintendo.net"+splatfest.images.alpha;
-
-                    imageHandler = new ImageHandler();
                     imageDirName = splatfest.names.alpha.toLowerCase().replace(" ", "_");
                     if (imageHandler.imageExists("splatfest", imageDirName, getApplicationContext())) {
                         foeImage.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));

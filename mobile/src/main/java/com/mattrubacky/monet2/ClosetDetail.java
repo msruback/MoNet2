@@ -1,33 +1,23 @@
 package com.mattrubacky.monet2;
 
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.ClosetHanger;
-import com.mattrubacky.monet2.fragment.SoloMeterFragment;
+import com.mattrubacky.monet2.fragment.SplatfestDetail.SoloMeterFragment;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
 
 public class ClosetDetail extends AppCompatActivity {
 
