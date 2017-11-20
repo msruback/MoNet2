@@ -1,5 +1,7 @@
 package com.mattrubacky.monet2.fragment.SplatfestDetail;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.SplatfestColors;
 
 /**
  * Created by mattr on 11/17/2017.
@@ -28,6 +32,7 @@ public class TeamMeterFragment extends Fragment {
 
         int[] stats = bundle.getIntArray("stats");
         float average = bundle.getFloat("average");
+        SplatfestColors colors = bundle.getParcelable("colors");
 
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
@@ -40,6 +45,9 @@ public class TeamMeterFragment extends Fragment {
         RelativeLayout Player = (RelativeLayout) rootView.findViewById(R.id.Player);
 
         Box.setClipToOutline(true);
+
+        UpperBox.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(colors.bravo.getColor())));
+        LowerBox.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(colors.alpha.getColor())));
 
         TextView Minimum = (TextView) rootView.findViewById(R.id.Minimum);
         TextView LowerQuartile = (TextView) rootView.findViewById(R.id.LowerQuartile);
@@ -113,7 +121,7 @@ public class TeamMeterFragment extends Fragment {
         UpperWhisker.setLayoutParams(layoutParams);
 
         marginLayoutParams = (ViewGroup.MarginLayoutParams) Player.getLayoutParams();
-        width = (float) ((average - stats[0] - 7.5) *(270));
+        width = (float) ((average - stats[0])/range) * (270);
         marginLayoutParams.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
         Player.setLayoutParams(marginLayoutParams);
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="315dp">
+    android:layout_height="335dp">
 
     <RelativeLayout
         android:layout_width="250dp"
@@ -93,6 +93,23 @@
                     android:background="@drawable/repeat_stripes"></RelativeLayout>
             </RelativeLayout>
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/voteWinOutline">
+            <TextView
+                android:id="@+id/alphaVotePercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="51%"/>
+            <TextView
+                android:id="@+id/bravoVotePercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="51%"/>
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -100,7 +117,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/voteMeter"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="5dp">
 
         <TextView
             android:id="@+id/SoloTitle"
@@ -167,6 +184,23 @@
                     android:background="@drawable/repeat_stripes"></RelativeLayout>
             </RelativeLayout>
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/soloWinOutline">
+            <TextView
+                android:id="@+id/alphaSoloPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="51%"/>
+            <TextView
+                android:id="@+id/bravoSoloPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="51%"/>
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -174,7 +208,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/soloMeter"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="5dp">
 
         <TextView
             android:id="@+id/TeamTitle"
@@ -240,6 +274,23 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/repeat_stripes"></RelativeLayout>
             </RelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/teamWinOutline">
+            <TextView
+                android:id="@+id/alphaTeamPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="51%"/>
+            <TextView
+                android:id="@+id/bravoTeamPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="51%"/>
         </RelativeLayout>
     </RelativeLayout>
 

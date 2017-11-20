@@ -23,6 +23,7 @@ import com.mattrubacky.monet2.SplatfestDetail;
 import com.mattrubacky.monet2.WeaponLockerDetail;
 import com.mattrubacky.monet2.adapter.SplatfestAdapter;
 import com.mattrubacky.monet2.adapter.WeaponAdapter;
+import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
 import com.mattrubacky.monet2.deserialized.PastSplatfest;
 import com.mattrubacky.monet2.deserialized.Record;
@@ -110,6 +111,7 @@ public class SplatfestStatsFragment extends Fragment {
 
                 bundle.putParcelable("splatfest",splatfest);
                 bundle.putParcelable("result",result);
+                StatCalc statCalc = new StatCalc(getContext(),splatfest);
                 bundle.putString("grade",records.records.splatfestRecords.get(splatfest.id).grade.name);
                 bundle.putInt("power",records.records.splatfestRecords.get(splatfest.id).power);
                 //Need to get votes

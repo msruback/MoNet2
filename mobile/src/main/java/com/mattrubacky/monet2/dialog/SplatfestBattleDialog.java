@@ -33,13 +33,14 @@ import java.util.ArrayList;
 
 public class SplatfestBattleDialog extends Dialog {
     ArrayList<Battle> battles;
-    SplatfestColor color;
+    SplatfestColor color,otherColor;
     Splatfest splatfest;
 
-    public SplatfestBattleDialog(Activity activity, ArrayList<Battle> battles, Splatfest splatfest,SplatfestColor color) {
+    public SplatfestBattleDialog(Activity activity, ArrayList<Battle> battles, Splatfest splatfest,SplatfestColor color,SplatfestColor otherColor) {
         super(activity);
         this.battles = battles;
         this.color = color;
+        this.otherColor = otherColor;
         this.splatfest = splatfest;
     }
 
@@ -68,7 +69,7 @@ public class SplatfestBattleDialog extends Dialog {
         hook.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(color.getColor())));
         bar.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(color.getColor())));
 
-        SplatfestBattleAdapter adapter = new SplatfestBattleAdapter(getContext(),battles);
+        SplatfestBattleAdapter adapter = new SplatfestBattleAdapter(getContext(),battles,otherColor);
 
         list.setAdapter(adapter);
 

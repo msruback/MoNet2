@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.SplatfestColors;
 import com.mattrubacky.monet2.deserialized.SplatfestStats;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
 
@@ -43,6 +44,12 @@ public class SplatfestPerformanceFragment extends Fragment{
         RelativeLayout winLossMeter = (RelativeLayout) rootView.findViewById(R.id.WinLossMeter);
         RelativeLayout wins = (RelativeLayout) rootView.findViewById(R.id.Wins);
         RelativeLayout losses = (RelativeLayout) rootView.findViewById(R.id.Losses);
+        RelativeLayout meterLayout = (RelativeLayout) rootView.findViewById(R.id.winOutline);
+        RelativeLayout disconnects = (RelativeLayout) rootView.findViewById(R.id.disconnectLayout);
+        RelativeLayout timePlayedLayout = (RelativeLayout) rootView.findViewById(R.id.timeLayout);
+
+        wins.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+        losses.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
 
         TextView winText = (TextView) rootView.findViewById(R.id.WinText);
         TextView lossText = (TextView) rootView.findViewById(R.id.LossText);
@@ -92,6 +99,12 @@ public class SplatfestPerformanceFragment extends Fragment{
 
         float total = stats.wins+stats.losses+stats.disconnects;
         float width = stats.wins/total;
+
+        if(total==0){
+            meterLayout.setVisibility(View.GONE);
+            disconnects.setVisibility(View.GONE);
+            timePlayedLayout.setVisibility(View.GONE);
+        }
 
         width *= 250;
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());

@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/offWhite"
-                android:textSize="30sp" />
+                android:textSize="25sp" />
         </android.support.v7.widget.Toolbar>
 
         <ScrollView
@@ -50,12 +50,10 @@
                 <ImageView
                     android:id="@+id/PanelImage"
                     android:layout_width="match_parent"
-                    android:layout_height="210dp"
-                    android:layout_below="@+id/numberLayout"
-                    android:background="@drawable/splatfest">
-
-
-                </ImageView>
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/splatfest"/>
 
                 <RelativeLayout
                     android:id="@+id/statLayout"
@@ -75,11 +73,9 @@
                         android:rotation="-1.5">
 
                         <RelativeLayout
-                            android:id="@+id/moreStripes"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/repeat_stripes_splatfest"
-                            android:backgroundTint="@color/marina">
+                            android:background="@drawable/repeat_stripes">
                             <TextView
                                 android:id="@+id/SplatfestTime"
                                 android:layout_width="wrap_content"
@@ -87,7 +83,6 @@
                                 android:layout_centerInParent="true"
                                 android:padding="5dp"
                                 android:text="11/17/17 11 PM to 11/18/17 11 PM"
-                                android:textColor="@color/offWhite"
                                 android:background="@drawable/shape_card"
                                 android:backgroundTint="@color/marina"
                                 android:textSize="16sp"/>
@@ -137,7 +132,7 @@
                                     <android.support.v4.view.ViewPager
                                         android:id="@+id/GeneralStatsPager"
                                         android:layout_width="match_parent"
-                                        android:layout_height="330dp"
+                                        android:layout_height="335dp"
                                         android:layout_marginTop="35dp"></android.support.v4.view.ViewPager>
                                     <android.support.design.widget.TabLayout
                                         android:id="@+id/GeneralDots"

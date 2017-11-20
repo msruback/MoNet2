@@ -1,5 +1,7 @@
 package com.mattrubacky.monet2.fragment.SplatfestDetail;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.deserialized.SplatfestColors;
 
 /**
  * Created by mattr on 11/16/2017.
@@ -29,6 +32,7 @@ public class SoloMeterFragment extends Fragment {
         Bundle bundle = this.getArguments();
 
         int[] stats = bundle.getIntArray("stats");
+        SplatfestColors colors = bundle.getParcelable("colors");
 
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
@@ -40,6 +44,11 @@ public class SoloMeterFragment extends Fragment {
         RelativeLayout UpperWhisker = (RelativeLayout) rootView.findViewById(R.id.UpperWhisker);
 
         Box.setClipToOutline(true);
+
+        if(colors!=null){
+            UpperBox.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(colors.bravo.getColor())));
+            LowerBox.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(colors.alpha.getColor())));
+        }
 
         TextView Minimum = (TextView) rootView.findViewById(R.id.Minimum);
         TextView LowerQuartile = (TextView) rootView.findViewById(R.id.LowerQuartile);

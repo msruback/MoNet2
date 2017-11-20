@@ -130,6 +130,7 @@ public class BattleListFragment extends Fragment {
         edit.putString("recentBattles",json);
         edit.commit();
         updateBattleData.cancel(true);
+        customHandler.removeCallbacks(update2Hours);
     }
 
     @Override

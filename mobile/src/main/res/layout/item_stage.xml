@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="310dp" android:layout_height="220dp">
     <RelativeLayout
+        android:id="@+id/alpha"
         android:layout_width="295dp"
         android:layout_height="165dp"
         android:layout_centerInParent="true"
@@ -13,6 +14,7 @@
             android:background="@drawable/repeat_stripes"></RelativeLayout>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/bravo"
         android:layout_width="295dp"
         android:layout_height="165dp"
         android:layout_centerInParent="true"

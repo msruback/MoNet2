@@ -21,6 +21,7 @@ public class StatCalc {
     private int[] inkStats,killStats,deathStats,specialStats;
     private int num;
     private SplatfestStats splatfestStats;
+    private ArrayList<Battle> battles;
 
     //WeaponStat constructor
     public StatCalc(Context context, Weapon weapon){
@@ -143,7 +144,6 @@ public class StatCalc {
 
     //Splatfest constructor, does not get power or grade
     public StatCalc(Context context, Splatfest splatfest){
-        ArrayList<Battle> battles;
         ArrayList<Integer> playerInk,playerKill,playerDeath,playerSpecial,teamInk,teamKill,teamDeath,teamSpecial;
         SplatnetSQLManager database = new SplatnetSQLManager(context);
 
@@ -326,6 +326,10 @@ public class StatCalc {
 
     public SplatfestStats getSplatfestStats(){
         return splatfestStats;
+    }
+
+    public ArrayList<Battle> getBattles(){
+        return battles;
     }
 
 }

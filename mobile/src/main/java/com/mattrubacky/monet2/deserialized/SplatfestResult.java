@@ -21,6 +21,8 @@ public class SplatfestResult implements Parcelable{
     public SplatfestSummary summary;
     @SerializedName("team_participants")
     public SplatfestParticipants participants;
+    @SerializedName("rates")
+    public SplatfestRates rates;
 
 
     protected SplatfestResult(Parcel in) {
@@ -28,6 +30,7 @@ public class SplatfestResult implements Parcelable{
         teamScores = in.readParcelable(SplatfestTeamScores.class.getClassLoader());
         summary = in.readParcelable(SplatfestSummary.class.getClassLoader());
         participants = in.readParcelable(SplatfestParticipants.class.getClassLoader());
+        rates = in.readParcelable(SplatfestRates.class.getClassLoader());
     }
 
     @Override
@@ -36,6 +39,7 @@ public class SplatfestResult implements Parcelable{
         dest.writeParcelable(teamScores, flags);
         dest.writeParcelable(summary, flags);
         dest.writeParcelable(participants, flags);
+        dest.writeParcelable(rates, flags);
     }
 
     @Override

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.ResultList;
 import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.SplatfestColors;
 import com.mattrubacky.monet2.deserialized.SplatfestResult;
 import com.mattrubacky.monet2.deserialized.SplatfestStats;
 import com.mattrubacky.monet2.helper.ImageHandler;
@@ -54,6 +55,13 @@ public class SplatfestResultFragment extends Fragment {
         RelativeLayout alphaTeam = (RelativeLayout) rootView.findViewById(R.id.TeamWins);
         RelativeLayout bravoTeam = (RelativeLayout) rootView.findViewById(R.id.TeamLosses);
 
+        alphaVote.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+        bravoVote.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        alphaSolo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+        bravoSolo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        alphaTeam.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+        bravoTeam.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+
         ImageView alphaImage = (ImageView) rootView.findViewById(R.id.AlphaImage);
         ImageView bravoImage = (ImageView) rootView.findViewById(R.id.BravoImage);
 
@@ -67,22 +75,41 @@ public class SplatfestResultFragment extends Fragment {
         TextView alphaTeamText = (TextView) rootView.findViewById(R.id.TeamWinText);
         TextView bravoTeamText = (TextView) rootView.findViewById(R.id.TeamLossText);
 
+        TextView alphaVotePercent = (TextView) rootView.findViewById(R.id.alphaVotePercent);
+        TextView bravoVotePercent = (TextView) rootView.findViewById(R.id.bravoVotePercent);
+        TextView alphaSoloPercent = (TextView) rootView.findViewById(R.id.alphaSoloPercent);
+        TextView bravoSoloPercent = (TextView) rootView.findViewById(R.id.bravoSoloPercent);
+        TextView alphaTeamPercent = (TextView) rootView.findViewById(R.id.alphaTeamPercent);
+        TextView bravoTeamPercent = (TextView) rootView.findViewById(R.id.bravoTeamPercent);
+
         voteTitle.setTypeface(fontTitle);
         alphaVoteText.setTypeface(font);
         bravoVoteText.setTypeface(font);
+        alphaVotePercent.setTypeface(fontTitle);
+        bravoVotePercent.setTypeface(fontTitle);
         soloTitle.setTypeface(fontTitle);
         alphaSoloText.setTypeface(font);
         bravoSoloText.setTypeface(font);
+        alphaSoloPercent.setTypeface(fontTitle);
+        bravoSoloPercent.setTypeface(fontTitle);
         teamTitle.setTypeface(fontTitle);
         alphaTeamText.setTypeface(font);
         bravoTeamText.setTypeface(font);
+        alphaTeamPercent.setTypeface(fontTitle);
+        bravoTeamPercent.setTypeface(fontTitle);
 
         alphaVoteText.setText(String.valueOf(result.participants.alpha));
         bravoVoteText.setText(String.valueOf(result.participants.bravo));
+        alphaVotePercent.setText(result.rates.vote.alpha+"%");
+        bravoVotePercent.setText(result.rates.vote.bravo+"%");
         alphaSoloText.setText(String.valueOf(result.teamScores.alphaSolo));
         bravoSoloText.setText(String.valueOf(result.teamScores.bravoSolo));
+        alphaSoloPercent.setText(result.rates.solo.alpha+"%");
+        bravoSoloPercent.setText(result.rates.solo.bravo+"%");
         alphaTeamText.setText(String.valueOf(result.teamScores.alphaTeam));
         bravoTeamText.setText(String.valueOf(result.teamScores.bravoTeam));
+        alphaTeamPercent.setText(result.rates.team.alpha+"%");
+        bravoTeamPercent.setText(result.rates.team.bravo+"%");
 
         voteTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
         soloTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));

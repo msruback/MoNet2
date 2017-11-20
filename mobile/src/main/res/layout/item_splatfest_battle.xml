@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/WeaponImage"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/weapon_sloshing_machine"/>
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+    <RelativeLayout
+        android:id="@+id/weaponLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/marina"
+        android:layout_marginLeft="15dp">
+        <ImageView
+            android:id="@+id/WeaponImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/weapon_sloshing_machine"/>
+    </RelativeLayout>
     <TextView
         android:id="@+id/BattleNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/WeaponImage"
+        android:layout_toRightOf="@+id/weaponLayout"
         android:layout_centerVertical="true"
         android:text="#870"
         android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/Stage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/BattleNumber"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"
+        android:text="Manta Maria"
+        android:textSize="15sp"/>
 </RelativeLayout>

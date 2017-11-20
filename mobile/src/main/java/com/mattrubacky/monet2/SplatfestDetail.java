@@ -2,6 +2,8 @@ package com.mattrubacky.monet2;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -12,12 +14,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.adapter.SplatfestPerformanceAdapter;
+import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestColor;
 import com.mattrubacky.monet2.deserialized.SplatfestDatabase;
@@ -37,6 +41,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -50,9 +55,11 @@ public class SplatfestDetail extends AppCompatActivity {
     SplatfestStats stats;
     SplatfestVotes votes;
 
-    RelativeLayout inkMeter,killMeter,deathMeter,specialMeter;
+    RelativeLayout inkMeter,killMeter,deathMeter,specialMeter,votesButton;
     Fragment inkSolo,inkTeam,killSolo,killTeam,deathSolo,deathTeam,specialSolo,specialTeam;
     boolean inkToggle,killToggle,deathToggle,specialToggle;
+
+    ArrayList<Battle> battles;
 
     FragmentManager fragmentManager;
 
@@ -66,6 +73,7 @@ public class SplatfestDetail extends AppCompatActivity {
         result = bundle.getParcelable("result");
         StatCalc statCalc = new StatCalc(getApplicationContext(),splatfest);
         stats = statCalc.getSplatfestStats();
+        battles = statCalc.getBattles();
 
         stats.grade = bundle.getString("grade");
         stats.power = bundle.getInt("power");
@@ -90,7 +98,6 @@ public class SplatfestDetail extends AppCompatActivity {
 
         ImageView panel = (ImageView) findViewById(R.id.PanelImage);
         RelativeLayout moreInfo = (RelativeLayout) findViewById(R.id.moreInfo);
-        RelativeLayout moreStripes = (RelativeLayout) findViewById(R.id.moreStripes);
         RelativeLayout generalStats = (RelativeLayout) findViewById(R.id.generalStats);
         RelativeLayout inkStats = (RelativeLayout) findViewById(R.id.inkStats);
         inkMeter = (RelativeLayout) findViewById(R.id.InkMeter);
@@ -100,8 +107,10 @@ public class SplatfestDetail extends AppCompatActivity {
         deathMeter = (RelativeLayout) findViewById(R.id.DeathMeter);
         RelativeLayout specialStats = (RelativeLayout) findViewById(R.id.specialStats);
         specialMeter = (RelativeLayout) findViewById(R.id.SpecialMeter);
-        RelativeLayout votesButton = (RelativeLayout) findViewById(R.id.VotesButton);
+        RelativeLayout extraStats = (RelativeLayout) findViewById(R.id.extraStats);
+        votesButton = (RelativeLayout) findViewById(R.id.VotesButton);
         RelativeLayout battlesButton = (RelativeLayout) findViewById(R.id.BattlesButton);
+
 
         final TextView splatfestTime = (TextView) findViewById(R.id.SplatfestTime);
         TextView inkTitle = (TextView) findViewById(R.id.InkTitle);
@@ -114,6 +123,29 @@ public class SplatfestDetail extends AppCompatActivity {
         final TextView specialButton = (TextView) findViewById(R.id.SpecialButton);
         TextView votesButtonText = (TextView) findViewById(R.id.VotesButtonText);
         TextView battlesButtonText = (TextView) findViewById(R.id.BattlesButtonText);
+
+        //Colors
+
+        moreInfo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+        generalStats.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+        inkStats.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+        killStats.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+        deathStats.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+        specialStats.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+        extraStats.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+
+        splatfestTime.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        inkTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        inkButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        killTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        killButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        deathTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        deathButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        specialTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        specialButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        votesButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        battlesButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+
 
         ViewPager generalPager = (ViewPager) findViewById(R.id.GeneralStatsPager);
         TabLayout generalDots = (TabLayout) findViewById(R.id.GeneralDots);
@@ -169,12 +201,14 @@ public class SplatfestDetail extends AppCompatActivity {
             inkSolo = new SoloMeterFragment();
             meterBundle = new Bundle();
             meterBundle.putIntArray("stats",stats.playerInkStats);
+            meterBundle.putParcelable("colors",splatfest.colors);
             inkSolo.setArguments(meterBundle);
 
             inkTeam = new TeamMeterFragment();
             meterBundle = new Bundle();
             meterBundle.putIntArray("stats",stats.teamInkStats);
             meterBundle.putFloat("average",stats.playerInkAverage);
+            meterBundle.putParcelable("colors",splatfest.colors);
             inkTeam.setArguments(meterBundle);
 
             fragmentManager.beginTransaction()
@@ -210,12 +244,14 @@ public class SplatfestDetail extends AppCompatActivity {
             killSolo = new SoloMeterFragment();
             meterBundle = new Bundle();
             meterBundle.putIntArray("stats", stats.playerKillStats);
+            meterBundle.putParcelable("colors",splatfest.colors);
             killSolo.setArguments(meterBundle);
 
             killTeam = new TeamMeterFragment();
             meterBundle = new Bundle();
             meterBundle.putIntArray("stats", stats.teamKillStats);
             meterBundle.putFloat("average", stats.playerKillAverage);
+            meterBundle.putParcelable("colors",splatfest.colors);
             killTeam.setArguments(meterBundle);
 
             fragmentManager.beginTransaction()
@@ -251,12 +287,14 @@ public class SplatfestDetail extends AppCompatActivity {
             deathSolo = new SoloMeterFragment();
             meterBundle = new Bundle();
             meterBundle.putIntArray("stats", stats.playerDeathStats);
+            meterBundle.putParcelable("colors",splatfest.colors);
             deathSolo.setArguments(meterBundle);
 
             deathTeam = new TeamMeterFragment();
             meterBundle = new Bundle();
             meterBundle.putIntArray("stats", stats.teamDeathStats);
             meterBundle.putFloat("average", stats.playerDeathAverage);
+            meterBundle.putParcelable("colors",splatfest.colors);
             deathTeam.setArguments(meterBundle);
 
             fragmentManager.beginTransaction()
@@ -292,12 +330,14 @@ public class SplatfestDetail extends AppCompatActivity {
             specialSolo = new SoloMeterFragment();
             meterBundle = new Bundle();
             meterBundle.putIntArray("stats", stats.playerSpecialStats);
+            meterBundle.putParcelable("colors",splatfest.colors);
             specialSolo.setArguments(meterBundle);
 
             specialTeam = new TeamMeterFragment();
             meterBundle = new Bundle();
             meterBundle.putIntArray("stats", stats.teamSpecialStats);
             meterBundle.putFloat("average", stats.playerSpecialAverage);
+            meterBundle.putParcelable("colors",splatfest.colors);
             specialTeam.setArguments(meterBundle);
 
 
@@ -330,36 +370,46 @@ public class SplatfestDetail extends AppCompatActivity {
             specialStats.setVisibility(View.GONE);
         }
 
-        if(votes!=null) {
-            votesButton.setOnClickListener(new View.OnClickListener() {
+        votesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new VoteDialog(SplatfestDetail.this, votes, splatfest);
+                dialog.show();
+            }
+        });
+        if(votes==null){
+            votesButton.setVisibility(View.GONE);
+        }
+        if(battles!=null||battles.size()>0) {
+            battlesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Dialog dialog = new VoteDialog(SplatfestDetail.this, votes, splatfest);
+                    SplatfestColor color,otherColor;
+                    if (stats.grade.contains(splatfest.names.alpha)) {
+                        color = splatfest.colors.alpha;
+                        otherColor = splatfest.colors.bravo;
+                    } else {
+                        color = splatfest.colors.bravo;
+                        otherColor = splatfest.colors.alpha;
+                    }
+                    Dialog dialog = new SplatfestBattleDialog(SplatfestDetail.this, battles, splatfest, color,otherColor);
                     dialog.show();
                 }
             });
         }else{
-            votesButton.setVisibility(View.GONE);
+            battlesButton.setVisibility(View.GONE);
         }
-//        if(stats.battles!=null||stats.battles.size()>0) {
-//            battlesButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    SplatfestColor color;
-//                    if (stats.grade.contains(splatfest.names.alpha)) {
-//                        color = splatfest.colors.alpha;
-//                    } else {
-//                        color = splatfest.colors.bravo;
-//                    }
-//                    Dialog dialog = new SplatfestBattleDialog(SplatfestDetail.this, stats.battles, splatfest, color);
-//                    dialog.show();
-//                }
-//            });
-//        }else{
-//            battlesButton.setVisibility(View.GONE);
-//        }
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(menuItem);
+    }
+
     private class UpdateVotes extends AsyncTask<Void,Void,Void> {
 
         @Override
@@ -394,6 +444,9 @@ public class SplatfestDetail extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
+            if(votes!=null){
+                votesButton.setVisibility(View.VISIBLE);
+            }
         }
 
     }
