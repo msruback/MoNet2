@@ -1,7 +1,10 @@
 package com.mattrubacky.monet2.fragment.schedule;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,20 +12,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.mattrubacky.monet2.StagePostcardsDetail;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.*;
 
+import com.mattrubacky.monet2.helper.StatCalc;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
 public class TurfRotation extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_turf_rotation, container, false);
@@ -41,8 +48,8 @@ public class TurfRotation extends Fragment {
         Bundle bundle = this.getArguments();
         TimePeriod timePeriod = bundle.getParcelable("timePeriod");
 
-        Stage a = timePeriod.a;
-        Stage b = timePeriod.b;
+        final Stage a = timePeriod.a;
+        final Stage b = timePeriod.b;
         Date startTime = new Date((timePeriod.start*1000));
         SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
         String startText = sdf.format(startTime);
@@ -73,6 +80,62 @@ public class TurfRotation extends Fragment {
             Picasso.with(getContext()).load(url2).resize(1280,720).into(image2);
             imageHandler.downloadImage("stage",image2DirName,url2,getContext());
         }
+
+        image1.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(getActivity(),StagePostcardsDetail.class);
+
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                Gson gson = new Gson();
+                Record records = gson.fromJson(settings.getString("records",""),Record.class);
+
+                StageStats stats = records.records.stageStats.get(a.id);
+
+                if(stats!=null) {
+                    StatCalc calc = new StatCalc(getContext(), a);
+                    stats.inkStats = calc.getInkStats();
+                    stats.killStats = calc.getKillStats();
+                    stats.deathStats = calc.getDeathStats();
+                    stats.specialStats = calc.getSpecialStats();
+                    stats.numGames = calc.getNum();
+
+                    Bundle intentBundle = new Bundle();
+                    intentBundle.putParcelable("stats", stats);
+                    intent.putExtras(intentBundle);
+                    startActivity(intent);
+                }
+                return false;
+            }
+        });
+
+        image2.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(getActivity(),StagePostcardsDetail.class);
+
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                Gson gson = new Gson();
+                Record records = gson.fromJson(settings.getString("records",""),Record.class);
+
+                StageStats stats = records.records.stageStats.get(b.id);
+
+                if(stats!=null) {
+                    StatCalc calc = new StatCalc(getContext(), b);
+                    stats.inkStats = calc.getInkStats();
+                    stats.killStats = calc.getKillStats();
+                    stats.deathStats = calc.getDeathStats();
+                    stats.specialStats = calc.getSpecialStats();
+                    stats.numGames = calc.getNum();
+
+                    Bundle intentBundle = new Bundle();
+                    intentBundle.putParcelable("stats", stats);
+                    intent.putExtras(intentBundle);
+                    startActivity(intent);
+                }
+                return false;
+            }
+        });
 
         return rootView;
     }

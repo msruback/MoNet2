@@ -16,7 +16,7 @@
     <RelativeLayout
         android:id="@+id/card"
         android:layout_width="150dp"
-        android:layout_height="160dp"
+        android:layout_height="175dp"
         android:layout_below="@+id/hook"
         android:layout_centerHorizontal="true"
         android:background="@drawable/shape_card"
@@ -25,8 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/repeat_stripes"
-            android:paddingTop="22dp"
-            android:paddingBottom="38dp">
+            android:paddingTop="25dp"
+            android:paddingBottom="35dp">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -40,6 +40,7 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
                         android:padding="2dp"
                         android:background="@drawable/skill_background"
                         android:backgroundTint="@color/darkGreyTrans">
@@ -65,7 +66,7 @@
             android:id="@+id/Add"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="130dp"
             android:layout_marginLeft="15dp"
             android:gravity="left"
             android:text="+"
@@ -75,7 +76,7 @@
             android:id="@+id/Count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="125dp"
+            android:layout_marginTop="135dp"
             android:layout_centerHorizontal="true"
             android:text="30"
             android:textSize="15sp"/>
@@ -83,7 +84,7 @@
             android:id="@+id/Sub"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="130dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
             android:gravity="right"

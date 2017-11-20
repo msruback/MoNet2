@@ -216,6 +216,11 @@ public class SplatnetSQLManager {
         closetManager.insert();
     }
 
+    public ClosetHanger selectCloset(int id,String kind){
+        ClosetManager closetManager = new ClosetManager(context);
+        return closetManager.select(id,kind);
+    }
+
 
 }
 

@@ -1,7 +1,10 @@
 package com.mattrubacky.monet2.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,10 +15,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mattrubacky.monet2.ClosetDetail;
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.deserialized.ClosetHanger;
+import com.mattrubacky.monet2.deserialized.Gear;
 import com.mattrubacky.monet2.deserialized.Product;
 import com.mattrubacky.monet2.fragment.ShopFragment;
 import com.mattrubacky.monet2.helper.ImageHandler;
+import com.mattrubacky.monet2.helper.StatCalc;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -30,12 +38,14 @@ public class MerchAdapter extends RecyclerView.Adapter<MerchAdapter.ViewHolder>{
     private ArrayList<Product> input = new ArrayList<Product>();
     private LayoutInflater inflater;
     private Context context;
+    private Activity activity;
     private View.OnClickListener onClickListener;
 
-    public MerchAdapter(Context context, ArrayList<Product> input, View.OnClickListener onClickListener) {
-        this.inflater = LayoutInflater.from(context);
+    public MerchAdapter(Activity activity, ArrayList<Product> input, View.OnClickListener onClickListener) {
+        this.inflater = LayoutInflater.from(activity);
         this.input = input;
-        this.context = context;
+        this.context = activity;
+        this.activity = activity;
         this.onClickListener = onClickListener;
 
     }
@@ -44,6 +54,31 @@ public class MerchAdapter extends RecyclerView.Adapter<MerchAdapter.ViewHolder>{
         View view = inflater.inflate(R.layout.item_merch, parent, false);
         MerchAdapter.ViewHolder viewHolder = new MerchAdapter.ViewHolder(view);
         view.setOnClickListener(onClickListener);
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                RecyclerView currentMerch = (RecyclerView) activity.findViewById(R.id.CurrentMerch);
+                int itemPosition = currentMerch.indexOfChild(v);
+                Intent intent = new Intent(activity, ClosetDetail.class);
+                SplatnetSQLManager database = new SplatnetSQLManager(activity);
+                Product gear = input.get(itemPosition);
+                ClosetHanger hanger = database.selectCloset(gear.gear.id,gear.gear.kind);
+
+                StatCalc statCalc = new StatCalc(context,gear.gear);
+                hanger.inkStats = statCalc.getInkStats();
+                hanger.killStats = statCalc.getKillStats();
+                hanger.deathStats = statCalc.getDeathStats();
+                hanger.specialStats = statCalc.getSpecialStats();
+                hanger.numGames = statCalc.getNum();
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("stats",hanger);
+                intent.putExtras(bundle);
+
+                activity.startActivity(intent);
+                return false;
+            }
+        });
         return viewHolder;
     }
 

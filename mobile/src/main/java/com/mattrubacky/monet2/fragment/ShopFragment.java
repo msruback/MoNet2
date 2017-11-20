@@ -76,7 +76,7 @@ public class ShopFragment extends Fragment {
         updateShopData = new UpdateShopData();
         RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);
         currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        MerchAdapter merchAdapter = new MerchAdapter(getContext(), shop.merch, new View.OnClickListener() {
+        MerchAdapter merchAdapter = new MerchAdapter(getActivity(), shop.merch, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);
@@ -146,7 +146,7 @@ public class ShopFragment extends Fragment {
         if(shop.merch==null){
             shop.merch = new ArrayList<>();
         }
-        MerchAdapter merchAdapter = new MerchAdapter(getContext(), shop.merch, new View.OnClickListener() {
+        MerchAdapter merchAdapter = new MerchAdapter(getActivity(), shop.merch, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);

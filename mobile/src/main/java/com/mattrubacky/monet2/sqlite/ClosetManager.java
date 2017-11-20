@@ -17,6 +17,7 @@ import java.util.HashMap;
 class ClosetManager {
     Context context;
     HashMap<Integer,ClosetHanger> toInsert;
+    ArrayList<Integer> toSelect;
     GearManager gearManager;
     SkillManager skillManager;
 
@@ -40,6 +41,22 @@ class ClosetManager {
     }
     public void addToInsert(ClosetHanger hanger){
         toInsert.put(hanger.gear.id,hanger);
+    }
+
+    public void addToSelect(int id,String kind){
+        id*=10;
+        switch (kind){
+            case "head":
+                id+=1;
+                break;
+            case "clothes":
+                id+=2;
+                break;
+            case "shoes":
+                id+=3;
+                break;
+        }
+        toSelect.add(id);
     }
 
     public void insert(){
@@ -74,7 +91,7 @@ class ClosetManager {
                         break;
                 }
 
-                values.put(SplatnetContract.Closet._ID,closetHanger.gear.id);
+                values.put(SplatnetContract.Closet._ID,id);
                 values.put(SplatnetContract.Closet.COLUMN_GEAR,closetHanger.gear.id);
                 values.put(SplatnetContract.Closet.COLUMN_KIND,closetHanger.gear.kind);
 
@@ -113,8 +130,21 @@ class ClosetManager {
         }
     }
 
-    public ClosetHanger select(int id){
+    public ClosetHanger select(int id,String kind){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+
+        id*=10;
+        switch (kind){
+            case "head":
+                id+=1;
+                break;
+            case "clothes":
+                id+=2;
+                break;
+            case "shoes":
+                id+=3;
+                break;
+        }
 
         String[] args = new String[1];
         args[0] = String.valueOf(id);
