@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ExpandableListView drawerList;
     ArrayList<String> titles,children;
-    Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet,stagePostcards,splatfestStats;
+    Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet,stagePostcards,chunkBag,splatfestStats;
     FragmentManager fragmentManager;
     ArrayList<String> backStack;
     TextView addButton;
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         weaponLocker = new WeaponLockerFragment();
         closet = new ClosetFragment();
         stagePostcards = new StagePostcardsFragment();
-
+        chunkBag = new ChunkBagFragment();
         splatfestStats = new SplatfestStatsFragment();
 
         addButton = (TextView) findViewById(R.id.AddButton);
@@ -215,6 +215,12 @@ public class MainActivity extends AppCompatActivity {
                         addButton.setOnClickListener(null);
                         break;
                     case 4:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,chunkBag)
+                                .commit();
+                        backStack.add(0,"chunkbag");
+                        addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
                         break;
                     case 5:
                         fragmentManager.beginTransaction()
@@ -356,6 +362,13 @@ public class MainActivity extends AppCompatActivity {
                         addButton.setOnClickListener(null);
                         break;
                     case 3:
+                        fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container,chunkBag)
+                            .commit();
+                        drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"chunkbag");
+                        addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
                         break;
                     case 4:
                         fragmentManager.beginTransaction()
@@ -433,6 +446,13 @@ public class MainActivity extends AppCompatActivity {
                 case "stagepostcards":
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container,stagePostcards)
+                            .commit();
+                    addButton.setVisibility(View.GONE);
+                    addButton.setOnClickListener(null);
+                    break;
+                case "chunkbag":
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container,chunkBag)
                             .commit();
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);

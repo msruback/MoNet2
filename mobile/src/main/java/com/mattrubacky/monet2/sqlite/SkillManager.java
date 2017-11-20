@@ -152,4 +152,26 @@ class SkillManager {
         database.close();
         return skills;
     }
+    public ArrayList<Skill> selectChunkable(){
+        ArrayList<Skill> skills = new ArrayList<>();
+
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+
+        Cursor cursor = database.query(SplatnetContract.Skill.TABLE_NAME,null, SplatnetContract.Skill.COLUMN_CHUNKABLE+" = ?",new String[]{"1"},null,null,null);
+
+        Skill skill;
+
+        if(cursor.moveToFirst()){
+            do{
+                skill = new Skill();
+                skill.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Skill._ID));
+                skill.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Skill.COLUMN_NAME));
+                skill.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Skill.COLUMN_URL));
+                skills.add(skill);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return skills;
+    }
 }

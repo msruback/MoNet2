@@ -35,67 +35,9 @@ public class SplatnetSQLManager {
         return skillManager.selectAll();
     }
 
-
-    public void insertSub(Sub sub){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(SplatnetContract.Sub._ID,sub.id);
-        values.put(SplatnetContract.Sub.COLUMN_NAME,sub.name);
-        values.put(SplatnetContract.Sub.COLUMN_URL,sub.url);
-
-        database.insert(SplatnetContract.Sub.TABLE_NAME, null, values);
-        database.close();
-
-    }
-
-    public Sub selectSub(int id){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
-
-        String query = "SELECT * FROM "+ SplatnetContract.Sub.TABLE_NAME+" WHERE "+ SplatnetContract.Sub._ID+" = "+id;
-        Cursor cursor = database.rawQuery(query,null);
-
-        Sub sub = new Sub();
-
-        if(cursor.moveToFirst()){
-            sub.id = id;
-            sub.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Sub.COLUMN_NAME));
-            sub.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Sub.COLUMN_URL));
-        }
-        cursor.close();
-        database.close();
-        return sub;
-    }
-
-    public void insertSpecial(Special special){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(SplatnetContract.Special._ID,special.id);
-        values.put(SplatnetContract.Special.COLUMN_NAME,special.name);
-        values.put(SplatnetContract.Special.COLUMN_URL,special.url);
-
-        database.insert(SplatnetContract.Special.TABLE_NAME, null, values);
-        database.close();
-
-    }
-
-    public Special selectSpecial(int id){
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
-
-        String query = "SELECT * FROM "+ SplatnetContract.Special.TABLE_NAME+" WHERE "+ SplatnetContract.Special._ID+" = "+id;
-        Cursor cursor = database.rawQuery(query,null);
-
-        Special special = new Special();
-
-        if(cursor.moveToFirst()){
-            special.id = id;
-            special.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_NAME));
-            special.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_URL));
-        }
-        cursor.close();
-        database.close();
-        return special;
+    public ArrayList<Skill> getChunkable(){
+        SkillManager skillManager = new SkillManager(context);
+        return skillManager.selectChunkable();
     }
 
     //Stage Methods

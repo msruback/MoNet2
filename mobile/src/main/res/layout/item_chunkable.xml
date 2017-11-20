@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="170dp" android:layout_height="220dp">
+
+    <RelativeLayout
+        android:id="@+id/hook"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/extra_hook"
+        android:backgroundTint="@color/weapon">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/card"
+        android:layout_width="150dp"
+        android:layout_height="160dp"
+        android:layout_below="@+id/hook"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/weapon">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/repeat_stripes"
+            android:paddingTop="22dp"
+            android:paddingBottom="38dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/offWhite">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/repeat_circles">
+                    <RelativeLayout
+                        android:id="@+id/skillImage"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_centerHorizontal="true"
+                        android:padding="2dp"
+                        android:background="@drawable/skill_background"
+                        android:backgroundTint="@color/darkGreyTrans">
+
+                        <ImageView
+                            android:id="@+id/SkillImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/skill_main_ink_saver" />
+                    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/Name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/skillImage"
+                        android:layout_centerHorizontal="true"
+                        android:text="Ink Saver Main"
+                        android:textSize="15sp"/>
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/Add"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="left"
+            android:text="+"
+            android:textSize="20sp"
+            android:textColor="@color/grey"/>
+        <TextView
+            android:id="@+id/Count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="125dp"
+            android:layout_centerHorizontal="true"
+            android:text="30"
+            android:textSize="15sp"/>
+        <TextView
+            android:id="@+id/Sub"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:gravity="right"
+            android:text="-"
+            android:textSize="20sp"
+            android:textColor="@color/grey"/>
+    </RelativeLayout>
+</RelativeLayout>
