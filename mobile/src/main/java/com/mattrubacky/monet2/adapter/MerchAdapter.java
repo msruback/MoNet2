@@ -64,18 +64,21 @@ public class MerchAdapter extends RecyclerView.Adapter<MerchAdapter.ViewHolder>{
                 Product gear = input.get(itemPosition);
                 ClosetHanger hanger = database.selectCloset(gear.gear.id,gear.gear.kind);
 
-                StatCalc statCalc = new StatCalc(context,gear.gear);
-                hanger.inkStats = statCalc.getInkStats();
-                hanger.killStats = statCalc.getKillStats();
-                hanger.deathStats = statCalc.getDeathStats();
-                hanger.specialStats = statCalc.getSpecialStats();
-                hanger.numGames = statCalc.getNum();
+                if(hanger!=null) {
+                    StatCalc statCalc = new StatCalc(context, gear.gear);
 
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("stats",hanger);
-                intent.putExtras(bundle);
+                    hanger.inkStats = statCalc.getInkStats();
+                    hanger.killStats = statCalc.getKillStats();
+                    hanger.deathStats = statCalc.getDeathStats();
+                    hanger.specialStats = statCalc.getSpecialStats();
+                    hanger.numGames = statCalc.getNum();
 
-                activity.startActivity(intent);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("stats", hanger);
+                    intent.putExtras(bundle);
+
+                    activity.startActivity(intent);
+                }
                 return false;
             }
         });

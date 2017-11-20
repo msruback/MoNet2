@@ -79,6 +79,10 @@ public class AddGear extends AppCompatActivity {
         if(bundle.getString("type").equals("add")) {
             hanger = new ClosetHanger();
             hanger.skills = new GearSkills();
+            hanger.skills.subs = new ArrayList<>();
+            hanger.skills.subs.add(null);
+            hanger.skills.subs.add(null);
+            hanger.skills.subs.add(null);
 
             title.setText("Add Gear");
 
@@ -92,6 +96,7 @@ public class AddGear extends AppCompatActivity {
                         public void onDismiss(DialogInterface dialog) {
                             Gear gear = gearPickerDialog.getResult();
                             gearInput.setText(gear.name);
+                            hanger.gear = gear;
                         }
                     });
                 }

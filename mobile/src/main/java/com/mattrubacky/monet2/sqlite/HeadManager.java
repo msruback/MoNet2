@@ -84,8 +84,8 @@ public class HeadManager {
     public Gear select(int id){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
-        String[] args = new String[toSelect.size()];
-        args[0] = String.valueOf(toSelect.get(0));
+        String[] args = new String[1];
+        args[0] = String.valueOf(id);
 
         StringBuilder builder = new StringBuilder();
         builder.append(SplatnetContract.Head._ID+" = ?");
@@ -114,6 +114,7 @@ public class HeadManager {
         }
         cursor.close();
         database.close();
+
         return gear;
     }
 
