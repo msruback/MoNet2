@@ -5,6 +5,8 @@ import android.content.Context;
 import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.Gear;
 import com.mattrubacky.monet2.deserialized.Player;
+import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.SplatfestStats;
 import com.mattrubacky.monet2.deserialized.Stage;
 import com.mattrubacky.monet2.deserialized.Weapon;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 public class StatCalc {
     private int[] inkStats,killStats,deathStats,specialStats;
     private int num;
+    private SplatfestStats splatfestStats;
 
     //WeaponStat constructor
     public StatCalc(Context context, Weapon weapon){
@@ -138,6 +141,92 @@ public class StatCalc {
         }
     }
 
+    //Splatfest constructor, does not get power or grade
+    public StatCalc(Context context, Splatfest splatfest){
+        ArrayList<Battle> battles;
+        ArrayList<Integer> playerInk,playerKill,playerDeath,playerSpecial,teamInk,teamKill,teamDeath,teamSpecial;
+        SplatnetSQLManager database = new SplatnetSQLManager(context);
+
+        battles = database.getBattleStats(splatfest.id,"splatfest");
+
+        splatfestStats = new SplatfestStats();
+        splatfestStats.battles = battles;
+
+        int low = battles.get(0).id;
+        int high = battles.get(battles.size()-1).id;
+
+        splatfestStats.disconnects = (high-low)-battles.size();
+        splatfestStats.timePlayed = (battles.size())*180000;
+
+        splatfestStats.playerInkStats = new int[5];
+        splatfestStats.playerKillStats = new int[5];
+        splatfestStats.playerDeathStats = new int[5];
+        splatfestStats.playerSpecialStats = new int[5];
+
+        splatfestStats.teamInkStats = new int[5];
+        splatfestStats.teamKillStats = new int[5];
+        splatfestStats.teamDeathStats = new int[5];
+        splatfestStats.teamSpecialStats = new int[5];
+
+        splatfestStats.playerInkAverage = 0;
+        splatfestStats.playerKillAverage = 0;
+        splatfestStats.playerDeathAverage = 0;
+        splatfestStats.playerSpecialAverage = 0;
+
+        playerInk = new ArrayList<>();
+        playerKill = new ArrayList<>();
+        playerDeath = new ArrayList<>();
+        playerSpecial = new ArrayList<>();
+
+        teamInk = new ArrayList<>();
+        teamKill = new ArrayList<>();
+        teamDeath = new ArrayList<>();
+        teamSpecial = new ArrayList<>();
+
+        Player player;
+        Battle battle;
+        for(int i=0;i<battles.size();i++){
+            battle = battles.get(i);
+
+            playerInk.add(battle.user.points);
+            playerKill.add(battle.user.kills);
+            playerDeath.add(battle.user.deaths);
+            playerSpecial.add(battle.user.special);
+
+            splatfestStats.playerInkAverage += battle.user.points;
+            splatfestStats.playerKillAverage += battle.user.kills;
+            splatfestStats.playerDeathAverage += battle.user.deaths;
+            splatfestStats.playerSpecialAverage += battle.user.special;
+
+            for(int j=0;j<battle.myTeam.size();j++){
+                player = battle.myTeam.get(j);
+
+                teamInk.add(player.points);
+                teamKill.add(player.kills);
+                teamDeath.add(player.deaths);
+                teamSpecial.add(player.special);
+            }
+
+        }
+
+        if(battles.size()>5) {
+            splatfestStats.playerInkStats = calcStats(sort(playerInk));
+            splatfestStats.playerKillStats = calcStats(sort(playerKill));
+            splatfestStats.playerDeathStats = calcStats(sort(playerDeath));
+            splatfestStats.playerSpecialStats = calcStats(sort(playerSpecial));
+
+            splatfestStats.playerInkAverage /= battles.size();
+            splatfestStats.playerKillAverage /= battles.size();
+            splatfestStats.playerDeathAverage /= battles.size();
+            splatfestStats.playerSpecialAverage /= battles.size();
+
+            splatfestStats.teamInkStats = calcStats(sort(teamInk));
+            splatfestStats.teamKillStats = calcStats(sort(teamKill));
+            splatfestStats.teamDeathStats = calcStats(sort(teamDeath));
+            splatfestStats.teamSpecialStats = calcStats(sort(teamSpecial));
+        }
+    }
+
     private ArrayList<Integer> sort(ArrayList<Integer> data){
         if(data.size()<=1){
             return data;
@@ -225,6 +314,10 @@ public class StatCalc {
 
     public int getNum(){
         return num;
+    }
+
+    public SplatfestStats getSplatfestStats(){
+        return splatfestStats;
     }
 
 }

@@ -18,7 +18,6 @@ public final class SplatnetContract {
         public static final String COLUMN_RULE = "rule";
         public static final String COLUMN_MODE = "mode";
         public static final String COLUMN_POWER = "power";
-        public static final String COLUMN_FES_POINT = "fes_point";
         public static final String COLUMN_WIN_METER ="win_meter";
         public static final String COLUMN_FES = "fes";
         public static final String COLUMN_ELAPSED_TIME = "elapsed_time";
@@ -39,7 +38,6 @@ public final class SplatnetContract {
                 COLUMN_RULE + " TEXT, "+
                 COLUMN_MODE + " TEXT, "+
                 COLUMN_POWER + " INTEGER, "+
-                COLUMN_FES_POINT + " INTEGER, "+
                 COLUMN_WIN_METER + " REAL, "+
                 COLUMN_FES + " INTEGER REFERENCES splatfest(_id), "+
                 COLUMN_START_TIME + " INTEGER, "+
@@ -335,6 +333,7 @@ public final class SplatnetContract {
     public static class Friends implements BaseColumns{
         public static final String TABLE_NAME = "friends";
         public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_URL = "url";
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " TEXT PRIMARY KEY, "+ //Yes text ids are not ideal, blame Nintendo
                 COLUMN_NAME + " TEXT)";

@@ -254,7 +254,11 @@ public class RotationFragment extends Fragment {
 
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
                 cookie = settings.getString("cookie","");
-                Call<Schedules> rotationGet = splatnet.getSchedules(cookie);
+                String uniqueId = settings.getString("unique_id","");
+
+                Call<Schedules> rotationGet = splatnet.getSchedules(cookie,uniqueId);
+
+
                 Response response = rotationGet.execute();
                 if(response.isSuccessful()){
                     schedules = (Schedules) response.body();
@@ -271,7 +275,7 @@ public class RotationFragment extends Fragment {
                         stages.add(schedules.league.get(i).b);
                     }
                     database.insertStages(stages);
-                    Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie);
+                    Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie,uniqueId);
                     response = getSplatfest.execute();
                     if(response.isSuccessful()){
                         currentSplatfest = (CurrentSplatfest) response.body();
@@ -279,18 +283,21 @@ public class RotationFragment extends Fragment {
                             schedules.setSplatfest(currentSplatfest.splatfests.get(0));
                             database.insertSplatfests(currentSplatfest.splatfests);
                         }
-                    }else{
-
+                    }else if(response.code()==403){
+                        AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
+                        alertDialog.show();
                     }
-                }else{
-
+                }else if(response.code()==403){
+                    AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
+                    alertDialog.show();
                 }
-                Call<SalmonSchedule> salmonGet = splatnet.getSalmonSchedule(cookie);
+                Call<SalmonSchedule> salmonGet = splatnet.getSalmonSchedule(cookie,uniqueId);
                 response = salmonGet.execute();
                 if(response.isSuccessful()){
                     salmonSchedule = (SalmonSchedule) response.body();
-                }else{
-
+                }else if(response.code()==403){
+                    AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
+                    alertDialog.show();
                 }
 
             } catch (MalformedURLException e) {

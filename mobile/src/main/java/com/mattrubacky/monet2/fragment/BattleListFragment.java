@@ -196,6 +196,7 @@ public class BattleListFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
             String cookie = settings.getString("cookie","");
+            String uniqueId = settings.getString("unique_id","");
 
             try {
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
@@ -203,11 +204,11 @@ public class BattleListFragment extends Fragment {
                 Response response;
                 ArrayList<Battle> list = new ArrayList<>();
 
-                response = splatnet.get50Results(cookie).execute();
+                response = splatnet.get50Results(cookie,uniqueId).execute();
                 if(response.isSuccessful()) {
                     ResultList results = (ResultList) response.body();
                     for (int i = 0; i < results.resultIds.size(); i++) {
-                        response = splatnet.getBattle(String.valueOf(results.resultIds.get(i).id), cookie).execute();
+                        response = splatnet.getBattle(String.valueOf(results.resultIds.get(i).id), cookie,uniqueId).execute();
                         Battle battle = (Battle) response.body();
                         list.add(battle);
                     }

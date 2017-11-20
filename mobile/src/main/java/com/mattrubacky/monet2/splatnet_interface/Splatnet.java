@@ -19,49 +19,49 @@ import retrofit2.http.Path;
 
 public interface Splatnet {
     @GET("/")
-    Call<ResponseBody> getHomepage(@Header("X-GameWebToken") String token);
+    Call<ResponseBody> getHomepage(@Header("X-GameWebToken") String token, @Header("X-Unique-Id") String uniqueId);
 
     @GET("/api/timeline")
-    Call<Timeline> getTimeline(@Header("Cookie") String Cookie);
+    Call<Timeline> getTimeline(@Header("Cookie") String Cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/results")
-    Call<ResultList> get50Results(@Header("Cookie") String cookie);
+    Call<ResultList> get50Results(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/results/{battle}")
-    Call<Battle> getBattle(@Path("battle") String battle, @Header("Cookie") String Cookie);
+    Call<Battle> getBattle(@Path("battle") String battle, @Header("Cookie") String Cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/records")
-    Call<Record> getRecords(@Header("Cookie") String cookie);
+    Call<Record> getRecords(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/records/hero")
-    Call<ResponseBody> getHeroData(@Header("Cookie") String cookie);
+    Call<ResponseBody> getHeroData(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("/api/schedules")
-    Call<Schedules> getSchedules(@Header("Cookie") String cookie);
+    Call<Schedules> getSchedules(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("/api/coop_schedules")
-    Call<SalmonSchedule> getSalmonSchedule(@Header("Cookie") String cookie);
+    Call<SalmonSchedule> getSalmonSchedule(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/data/stages")
-    Call<ResponseBody> getStages(@Header("Cookie") String cookie);
+    Call<ResponseBody> getStages(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/festivals/active")
-    Call<CurrentSplatfest> getActiveSplatfests(@Header("Cookie") String cookie);
+    Call<CurrentSplatfest> getActiveSplatfests(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/festivals/pasts")
-    Call<PastSplatfest> getPastSplatfests(@Header("Cookie") String cookie);
+    Call<PastSplatfest> getPastSplatfests(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/festivals/{id}/votes")
-    Call<ResponseBody> getSplatfestVotes(@Header("Cookie") String cookie);
+    Call<SplatfestVotes> getSplatfestVotes(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/festivals/{id}/rankings")
-    Call<ResponseBody> getSplatfestRanks(@Header("Cookie") String cookie);
+    Call<ResponseBody> getSplatfestRanks(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("nickname_and_icon?id={id}")
-    Call<ResponseBody> getNicknameIcon(@Path("id") String id,@Header("Cookie") String cookie);
+    Call<NicknameRequest> getNicknameIcon(@Path("id") String id,@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/onlineshop/merchandises")
-    Call<Annie> getShop(@Header("Cookie") String cookie);
+    Call<Annie> getShop(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @Headers({
             "Accept: */*",
@@ -75,16 +75,16 @@ public interface Splatnet {
     Call<ResponseBody> orderMerch(@Path("id") String id, @Header("X-Unique-Id") String uniqueId, @Part("override") RequestBody override, @Header("Cookie") String cookie);
 
     @GET("api/share/profile")
-    Call<ResponseBody> shareProfile(@Header("Cookie") String Cookie);
+    Call<ResponseBody> shareProfile(@Header("Cookie") String Cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/share/results/summary")
-    Call<ResponseBody> shareSummary(@Header("Cookie") String Cookie);
+    Call<ResponseBody> shareSummary(@Header("Cookie") String Cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/share/results/{battle}")
-    Call<ResponseBody> shareBattle(@Path("battle") String battle,@Header("Cookie") String Cookie);
+    Call<ResponseBody> shareBattle(@Path("battle") String battle,@Header("Cookie") String Cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/share/challenges/{challenge}")
-    Call<ResponseBody> shareChallenge(@Path("challenge") String challenge,@Header("Cookie") String Cookie);
+    Call<ResponseBody> shareChallenge(@Path("challenge") String challenge,@Header("Cookie") String Cookie, @Header("X-Unique-Id") String uniqueId);
 
 
 

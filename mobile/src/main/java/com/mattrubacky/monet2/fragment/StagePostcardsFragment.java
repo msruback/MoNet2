@@ -137,12 +137,13 @@ public class StagePostcardsFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
             String cookie = settings.getString("cookie","");
+            String uniqueId = settings.getString("unique_id","");
 
             try {
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
                 Response response;
-                response = splatnet.getRecords(cookie).execute();
+                response = splatnet.getRecords(cookie,uniqueId).execute();
                 if(response.isSuccessful()){
                     records = (Record) response.body();
                     Integer[] keys = new Integer[2];

@@ -280,9 +280,11 @@ public class ShopFragment extends Fragment {
             try{
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
                 String cookie = settings.getString("cookie","");
+                String uniqueId = settings.getString("unique_id","");
+
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
-                Call<Annie> shopUpdate = splatnet.getShop(cookie);
+                Call<Annie> shopUpdate = splatnet.getShop(cookie,uniqueId);
                 Response response = shopUpdate.execute();
                 if(response.isSuccessful()){
                     shop = (Annie) response.body();

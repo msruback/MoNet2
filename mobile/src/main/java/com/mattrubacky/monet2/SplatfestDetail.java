@@ -134,6 +134,7 @@ public class SplatfestDetail extends AppCompatActivity {
         splatfestTime.setText(time.toString());
 
         fragmentManager = getSupportFragmentManager();
+
         SplatfestPerformanceAdapter performanceAdapter = new SplatfestPerformanceAdapter(fragmentManager,splatfest,result,stats);
 
         generalDots.setupWithViewPager(generalPager, true);

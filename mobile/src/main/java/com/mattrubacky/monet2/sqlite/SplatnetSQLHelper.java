@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.mattrubacky.monet2.splatnet_interface.Splatnet;
+
 /**
  * Created by mattr on 10/17/2017.
  */
@@ -85,9 +87,10 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS gear");
                     break;
                 case 5:
-                    sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_FES_POINT + " INTEGER");
-                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS splatfest");
-                    sqLiteDatabase.execSQL(SplatnetContract.Splatfest.CREATE_TABLE);
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS friends");
+
+                    sqLiteDatabase.execSQL(SplatnetContract.Friends.CREATE_TABLE);
+
                     break;
             }
         }

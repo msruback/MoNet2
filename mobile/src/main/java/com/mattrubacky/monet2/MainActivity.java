@@ -435,12 +435,13 @@ public class MainActivity extends AppCompatActivity {
             try{
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 String cookie = settings.getString("cookie","");
+                String uniqueId = settings.getString("unique_id","");
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
                 SplatnetSQLManager database = new SplatnetSQLManager(getApplicationContext());
 
 
-                Call<Timeline> getTimeline = splatnet.getTimeline(cookie);
+                Call<Timeline> getTimeline = splatnet.getTimeline(cookie,uniqueId);
                 Response response = getTimeline.execute();
 
                 if(response.isSuccessful()){
@@ -456,7 +457,7 @@ public class MainActivity extends AppCompatActivity {
                         gear.add(timeline.currentRun.rewardGear.gear);
                         database.insertGear(gear);
                     }
-                    Call<Record> getRecords = splatnet.getRecords(cookie);
+                    Call<Record> getRecords = splatnet.getRecords(cookie,uniqueId);
                     response = getRecords.execute();
 
                     if(response.isSuccessful()){
@@ -467,7 +468,7 @@ public class MainActivity extends AppCompatActivity {
                         edit.putString("name",record.records.user.name);
                         edit.commit();
 
-                        Call<PastSplatfest> getSplatfests = splatnet.getPastSplatfests(cookie);
+                        Call<PastSplatfest> getSplatfests = splatnet.getPastSplatfests(cookie,uniqueId);
                         response = getSplatfests.execute();
                         if(response.isSuccessful()){
                             PastSplatfest pastSplatfests = (PastSplatfest) response.body();

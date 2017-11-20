@@ -45,14 +45,7 @@ public class VoteAdapter extends ArrayAdapter<NicknameIcon> {
 
         String url = "https://app.splatoon2.nintendo.net"+player.url;
 
-        ImageHandler imageHandler = new ImageHandler();
-        String imageDirName = player.id;
-        if(imageHandler.imageExists("player",imageDirName,getContext())){
-            image.setImageBitmap(imageHandler.loadImage("player",imageDirName));
-        }else{
-            Picasso.with(getContext()).load(url).into(image);
-            imageHandler.downloadImage("player",imageDirName,url,getContext());
-        }
+        Picasso.with(getContext()).load(url).into(image);
 
         return convertView;
     }
