@@ -318,26 +318,6 @@ public final class SplatnetContract {
                 COLUMN_IMAGE_BRAVO + " TEXT)";
     }
 
-    public static class SplatfestVotes implements BaseColumns{
-        public static final String TABLE_NAME = "splatfest_votes";
-        public static final String COLUMN_PLAYER = "player";
-        public static final String COLUMN_FES = "fes";
-        public static final String COLUMN_VOTE = "vote";
-
-        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
-                COLUMN_PLAYER +" TEXT REFERENCES friends(_id), "+
-                COLUMN_FES + " INTEGER REFERENCES splatfest(_id), "+
-                COLUMN_VOTE + " INTEGER)";//0 alpha 1 bravo
-    }
-
-    public static class Friends implements BaseColumns{
-        public static final String TABLE_NAME = "friends";
-        public static final String COLUMN_NAME = "name";
-        public static final String COLUMN_URL = "url";
-        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
-                _ID + " TEXT PRIMARY KEY, "+ //Yes text ids are not ideal, blame Nintendo
-                COLUMN_NAME + " TEXT)";
-    }
 
     public static class Closet implements BaseColumns{
         public static final String TABLE_NAME = "closet";

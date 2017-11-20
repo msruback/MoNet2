@@ -30,13 +30,11 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SplatnetContract.Special.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.Stage.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.Splatfest.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.Friends.CREATE_TABLE);
 
         //Tables with Foriegn Keys to Level 0 (Level 1)
         sqLiteDatabase.execSQL(SplatnetContract.Battle.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.Brand.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.Weapon.CREATE_TABLE);
-        sqLiteDatabase.execSQL(SplatnetContract.SplatfestVotes.CREATE_TABLE);
 
         //Tables with at least one Foriegn Key to Level 1 (Level 2)
         sqLiteDatabase.execSQL(SplatnetContract.Head.CREATE_TABLE);
@@ -88,9 +86,7 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
                     break;
                 case 5:
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS friends");
-
-                    sqLiteDatabase.execSQL(SplatnetContract.Friends.CREATE_TABLE);
-
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS splatfest_votes");
                     break;
             }
         }

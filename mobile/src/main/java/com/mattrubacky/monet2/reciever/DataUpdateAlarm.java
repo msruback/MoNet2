@@ -238,6 +238,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
         protected Void doInBackground(Void... params) {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
             String cookie = settings.getString("cookie","");
+            String uniqueId = settings.getString("unique_id","");
             Gson gson = new Gson();
 
             ArrayList<Battle> battles = new ArrayList<>();
@@ -255,11 +256,11 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                 Splatnet splatnet = retrofit.create(Splatnet.class);
                 Response response;
 
-                Call<Schedules> rotationGet = splatnet.getSchedules(cookie);
+                Call<Schedules> rotationGet = splatnet.getSchedules(cookie,uniqueId);
                 response = rotationGet.execute();
                 if(response.isSuccessful()){
                     schedules = (Schedules) response.body();
-                    Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie);
+                    Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie,uniqueId);
                     response = getSplatfest.execute();
                     if(response.isSuccessful()){
                         currentSplatfest = (CurrentSplatfest) response.body();
@@ -292,7 +293,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                 }
 
 
-                Call<Annie> shopUpdate = splatnet.getShop(cookie);
+                Call<Annie> shopUpdate = splatnet.getShop(cookie,uniqueId);
                 response = shopUpdate.execute();
                 if(response.isSuccessful()){
                     shop = (Annie) response.body();
@@ -302,11 +303,11 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                 findShopNotifications(shop);
 
 
-                response = splatnet.get50Results(cookie).execute();
+                response = splatnet.get50Results(cookie,uniqueId).execute();
                 if(response.isSuccessful()) {
                     ResultList results = (ResultList) response.body();
                     for (int i = 0; i < results.resultIds.size(); i++) {
-                        response = splatnet.getBattle(String.valueOf(results.resultIds.get(i).id), cookie).execute();
+                        response = splatnet.getBattle(String.valueOf(results.resultIds.get(i).id), cookie,uniqueId).execute();
                         Battle battle = (Battle) response.body();
                         battles.add(battle);
 
@@ -314,7 +315,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
                     database.insertBattles(battles);
                 }
 
-                response = splatnet.getRecords(cookie).execute();
+                response = splatnet.getRecords(cookie,uniqueId).execute();
                 if(response.isSuccessful()){
                     record = (Record) response.body();
                 }

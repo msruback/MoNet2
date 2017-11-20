@@ -52,10 +52,10 @@ public interface Splatnet {
     Call<PastSplatfest> getPastSplatfests(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/festivals/{id}/votes")
-    Call<SplatfestVotes> getSplatfestVotes(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
+    Call<SplatfestVotes> getSplatfestVotes(@Path("id") String id,@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/festivals/{id}/rankings")
-    Call<ResponseBody> getSplatfestRanks(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
+    Call<ResponseBody> getSplatfestRanks(@Path("id") String id,@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("nickname_and_icon?id={id}")
     Call<NicknameRequest> getNicknameIcon(@Path("id") String id,@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);

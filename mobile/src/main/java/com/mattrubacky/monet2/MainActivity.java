@@ -53,10 +53,12 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ExpandableListView drawerList;
     ArrayList<String> titles,children;
-    Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet,stagePostcards;
+    Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet,stagePostcards,splatfestStats;
     FragmentManager fragmentManager;
     ArrayList<String> backStack;
     TextView addButton;
+    Record record;
+    PastSplatfest pastSplatfests;
 
 
     @Override
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         children.add("Weapon Locker");
         children.add("Closet");
         children.add("Stages");
+        children.add("Ability Chunks");
         children.add("Splatfests");
         children.add("Campaign");
 
@@ -98,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
         weaponLocker = new WeaponLockerFragment();
         closet = new ClosetFragment();
         stagePostcards = new StagePostcardsFragment();
+
+        splatfestStats = new SplatfestStatsFragment();
 
         addButton = (TextView) findViewById(R.id.AddButton);
 
@@ -206,6 +211,17 @@ public class MainActivity extends AppCompatActivity {
                                 .replace(R.id.frame_container,stagePostcards)
                                 .commit();
                         backStack.add(0,"stagepostcards");
+                        addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,splatfestStats)
+                                .commit();
+                        drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"splatfestStats");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
                         break;
@@ -339,6 +355,17 @@ public class MainActivity extends AppCompatActivity {
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
                         break;
+                    case 3:
+                        break;
+                    case 4:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,splatfestStats)
+                                .commit();
+                        drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"splatfestStats");
+                        addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
+                        break;
                 }
                 return false;
             }
@@ -410,6 +437,14 @@ public class MainActivity extends AppCompatActivity {
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);
                     break;
+                case "splatfeststats":
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container,splatfestStats)
+                            .commit();
+                    drawerLayout.closeDrawer(drawerList);
+                    addButton.setVisibility(View.GONE);
+                    addButton.setOnClickListener(null);
+                    break;
                 case "battlelist":
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container,battleList)
@@ -461,7 +496,7 @@ public class MainActivity extends AppCompatActivity {
                     response = getRecords.execute();
 
                     if(response.isSuccessful()){
-                        Record record = (Record) response.body();
+                        record = (Record) response.body();
                         edit = settings.edit();
                         Gson gson = new Gson();
                         edit.putString("unique_id",record.records.unique_id);
@@ -471,7 +506,7 @@ public class MainActivity extends AppCompatActivity {
                         Call<PastSplatfest> getSplatfests = splatnet.getPastSplatfests(cookie,uniqueId);
                         response = getSplatfests.execute();
                         if(response.isSuccessful()){
-                            PastSplatfest pastSplatfests = (PastSplatfest) response.body();
+                            pastSplatfests = (PastSplatfest) response.body();
                             database.insertSplatfests(pastSplatfests.splatfests,pastSplatfests.results);
                         }else if(response.code()==403){
                             AlertDialog alertDialog = new AlertDialog(MainActivity.this,"Error: Cookie is invalid, please obtain a new cookie");

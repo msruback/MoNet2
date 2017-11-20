@@ -63,8 +63,6 @@ public class SplatfestStats implements Parcelable{
     @SerializedName("teamSpecialStats")
     public int[] teamSpecialStats;
 
-    @SerializedName("battles")
-    public ArrayList<Battle> battles;
 
 
     protected SplatfestStats(Parcel in) {
@@ -86,7 +84,6 @@ public class SplatfestStats implements Parcelable{
         teamKillStats = in.createIntArray();
         teamDeathStats = in.createIntArray();
         teamSpecialStats = in.createIntArray();
-        battles = in.createTypedArrayList(Battle.CREATOR);
     }
 
     @Override
@@ -109,7 +106,6 @@ public class SplatfestStats implements Parcelable{
         dest.writeIntArray(teamKillStats);
         dest.writeIntArray(teamDeathStats);
         dest.writeIntArray(teamSpecialStats);
-        dest.writeTypedList(battles);
     }
 
     @Override

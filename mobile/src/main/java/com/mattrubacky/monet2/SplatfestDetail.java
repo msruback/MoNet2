@@ -1,11 +1,13 @@
 package com.mattrubacky.monet2;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,24 +15,33 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.adapter.FesAdapter;
 import com.mattrubacky.monet2.adapter.SplatfestPerformanceAdapter;
 import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestColor;
+import com.mattrubacky.monet2.deserialized.SplatfestDatabase;
 import com.mattrubacky.monet2.deserialized.SplatfestResult;
 import com.mattrubacky.monet2.deserialized.SplatfestStats;
 import com.mattrubacky.monet2.deserialized.SplatfestVotes;
+import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.dialog.SplatfestBattleDialog;
 import com.mattrubacky.monet2.dialog.VoteDialog;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.SoloMeterFragment;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.TeamMeterFragment;
 import com.mattrubacky.monet2.helper.ImageHandler;
+import com.mattrubacky.monet2.helper.StatCalc;
+import com.mattrubacky.monet2.splatnet_interface.Splatnet;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SplatfestDetail extends AppCompatActivity {
 
@@ -53,8 +64,15 @@ public class SplatfestDetail extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         splatfest = bundle.getParcelable("splatfest");
         result = bundle.getParcelable("result");
-        stats = bundle.getParcelable("stats");
-        votes = bundle.getParcelable("votes");
+        StatCalc statCalc = new StatCalc(getApplicationContext(),splatfest);
+        stats = statCalc.getSplatfestStats();
+
+        stats.grade = bundle.getString("grade");
+        stats.power = bundle.getInt("power");
+
+
+        votes = null;
+        new UpdateVotes().execute();
 
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
@@ -135,10 +153,14 @@ public class SplatfestDetail extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        SplatfestPerformanceAdapter performanceAdapter = new SplatfestPerformanceAdapter(fragmentManager,splatfest,result,stats);
+        if(stats.timePlayed>0||result!=null) {
+            SplatfestPerformanceAdapter performanceAdapter = new SplatfestPerformanceAdapter(fragmentManager, splatfest, result, stats);
 
-        generalDots.setupWithViewPager(generalPager, true);
-        generalPager.setAdapter(performanceAdapter);
+            generalDots.setupWithViewPager(generalPager, true);
+            generalPager.setAdapter(performanceAdapter);
+        }else{
+            generalStats.setVisibility(View.GONE);
+        }
 
         //Stat Cards
         Bundle meterBundle;
@@ -308,29 +330,70 @@ public class SplatfestDetail extends AppCompatActivity {
             specialStats.setVisibility(View.GONE);
         }
 
-        votesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Dialog dialog = new VoteDialog(SplatfestDetail.this,votes,splatfest);
-                dialog.show();
-            }
-        });
-        if(stats.battles!=null||stats.battles.size()>0) {
-            battlesButton.setOnClickListener(new View.OnClickListener() {
+        if(votes!=null) {
+            votesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SplatfestColor color;
-                    if (stats.grade.contains(splatfest.names.alpha)) {
-                        color = splatfest.colors.alpha;
-                    } else {
-                        color = splatfest.colors.bravo;
-                    }
-                    Dialog dialog = new SplatfestBattleDialog(SplatfestDetail.this, stats.battles, splatfest, color);
+                    Dialog dialog = new VoteDialog(SplatfestDetail.this, votes, splatfest);
                     dialog.show();
                 }
             });
         }else{
-            battlesButton.setVisibility(View.GONE);
+            votesButton.setVisibility(View.GONE);
+        }
+//        if(stats.battles!=null||stats.battles.size()>0) {
+//            battlesButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    SplatfestColor color;
+//                    if (stats.grade.contains(splatfest.names.alpha)) {
+//                        color = splatfest.colors.alpha;
+//                    } else {
+//                        color = splatfest.colors.bravo;
+//                    }
+//                    Dialog dialog = new SplatfestBattleDialog(SplatfestDetail.this, stats.battles, splatfest, color);
+//                    dialog.show();
+//                }
+//            });
+//        }else{
+//            battlesButton.setVisibility(View.GONE);
+//        }
+
+    }
+    private class UpdateVotes extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+        @Override
+        protected Void doInBackground(Void... params) {
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            String cookie = settings.getString("cookie","");
+            String uniqueId = settings.getString("unique_id","");
+
+            try {
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
+                Splatnet splatnet = retrofit.create(Splatnet.class);
+                Call<SplatfestVotes> getVotes = splatnet.getSplatfestVotes(String.valueOf(splatfest.id),cookie,uniqueId);
+                Response response = getVotes.execute();
+                if(response.isSuccessful()){
+                    votes = (SplatfestVotes) response.body();
+                }else if(response.code()==403){
+                    AlertDialog alertDialog = new AlertDialog(SplatfestDetail.this,"Error: Cookie is invalid, please obtain a new cookie");
+                    alertDialog.show();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                AlertDialog alertDialog = new AlertDialog(SplatfestDetail.this,"Error: Could not reach Splatnet");
+                alertDialog.show();
+                return null;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
         }
 
     }

@@ -150,13 +150,6 @@ public class StatCalc {
         battles = database.getBattleStats(splatfest.id,"splatfest");
 
         splatfestStats = new SplatfestStats();
-        splatfestStats.battles = battles;
-
-        int low = battles.get(0).id;
-        int high = battles.get(battles.size()-1).id;
-
-        splatfestStats.disconnects = (high-low)-battles.size();
-        splatfestStats.timePlayed = (battles.size())*180000;
 
         splatfestStats.playerInkStats = new int[5];
         splatfestStats.playerKillStats = new int[5];
@@ -172,6 +165,8 @@ public class StatCalc {
         splatfestStats.playerKillAverage = 0;
         splatfestStats.playerDeathAverage = 0;
         splatfestStats.playerSpecialAverage = 0;
+        splatfestStats.wins = 0;
+        splatfestStats.losses = 0;
 
         playerInk = new ArrayList<>();
         playerKill = new ArrayList<>();
@@ -183,47 +178,60 @@ public class StatCalc {
         teamDeath = new ArrayList<>();
         teamSpecial = new ArrayList<>();
 
-        Player player;
-        Battle battle;
-        for(int i=0;i<battles.size();i++){
-            battle = battles.get(i);
+        if(battles.size()>0) {
+            int low = battles.get(0).id;
+            int high = battles.get(battles.size() - 1).id;
 
-            playerInk.add(battle.user.points);
-            playerKill.add(battle.user.kills);
-            playerDeath.add(battle.user.deaths);
-            playerSpecial.add(battle.user.special);
+            splatfestStats.disconnects = (high - low) - battles.size();
+            splatfestStats.timePlayed = (battles.size()) * 180000;
 
-            splatfestStats.playerInkAverage += battle.user.points;
-            splatfestStats.playerKillAverage += battle.user.kills;
-            splatfestStats.playerDeathAverage += battle.user.deaths;
-            splatfestStats.playerSpecialAverage += battle.user.special;
+            Player player;
+            Battle battle;
+            for (int i = 0; i < battles.size(); i++) {
+                battle = battles.get(i);
 
-            for(int j=0;j<battle.myTeam.size();j++){
-                player = battle.myTeam.get(j);
+                playerInk.add(battle.user.points);
+                playerKill.add(battle.user.kills);
+                playerDeath.add(battle.user.deaths);
+                playerSpecial.add(battle.user.special);
+                if (battle.result.name.equals("VICTORY")) {
+                    splatfestStats.wins++;
+                } else {
+                    splatfestStats.losses++;
+                }
 
-                teamInk.add(player.points);
-                teamKill.add(player.kills);
-                teamDeath.add(player.deaths);
-                teamSpecial.add(player.special);
+                splatfestStats.playerInkAverage += battle.user.points;
+                splatfestStats.playerKillAverage += battle.user.kills;
+                splatfestStats.playerDeathAverage += battle.user.deaths;
+                splatfestStats.playerSpecialAverage += battle.user.special;
+
+                for (int j = 0; j < battle.myTeam.size(); j++) {
+                    player = battle.myTeam.get(j);
+
+                    teamInk.add(player.points);
+                    teamKill.add(player.kills);
+                    teamDeath.add(player.deaths);
+                    teamSpecial.add(player.special);
+                }
+
             }
 
-        }
+            if (battles.size() > 5) {
+                splatfestStats.playerInkStats = calcStats(sort(playerInk));
+                splatfestStats.playerKillStats = calcStats(sort(playerKill));
+                splatfestStats.playerDeathStats = calcStats(sort(playerDeath));
+                splatfestStats.playerSpecialStats = calcStats(sort(playerSpecial));
 
-        if(battles.size()>5) {
-            splatfestStats.playerInkStats = calcStats(sort(playerInk));
-            splatfestStats.playerKillStats = calcStats(sort(playerKill));
-            splatfestStats.playerDeathStats = calcStats(sort(playerDeath));
-            splatfestStats.playerSpecialStats = calcStats(sort(playerSpecial));
+                splatfestStats.playerInkAverage /= battles.size();
+                splatfestStats.playerKillAverage /= battles.size();
+                splatfestStats.playerDeathAverage /= battles.size();
+                splatfestStats.playerSpecialAverage /= battles.size();
 
-            splatfestStats.playerInkAverage /= battles.size();
-            splatfestStats.playerKillAverage /= battles.size();
-            splatfestStats.playerDeathAverage /= battles.size();
-            splatfestStats.playerSpecialAverage /= battles.size();
-
-            splatfestStats.teamInkStats = calcStats(sort(teamInk));
-            splatfestStats.teamKillStats = calcStats(sort(teamKill));
-            splatfestStats.teamDeathStats = calcStats(sort(teamDeath));
-            splatfestStats.teamSpecialStats = calcStats(sort(teamSpecial));
+                splatfestStats.teamInkStats = calcStats(sort(teamInk));
+                splatfestStats.teamKillStats = calcStats(sort(teamKill));
+                splatfestStats.teamDeathStats = calcStats(sort(teamDeath));
+                splatfestStats.teamSpecialStats = calcStats(sort(teamSpecial));
+            }
         }
     }
 

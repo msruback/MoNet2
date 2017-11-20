@@ -485,6 +485,9 @@ class BattleManager {
             case "stage":
                 builder.append(SplatnetContract.Battle.COLUMN_STAGE+" = ?");
                 break;
+            case "splatfest":
+                builder.append(SplatnetContract.Battle.COLUMN_FES+" = ?");
+                break;
         }
 
 

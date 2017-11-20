@@ -21,6 +21,7 @@ import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.SplatfestDetail;
 import com.mattrubacky.monet2.WeaponLockerDetail;
+import com.mattrubacky.monet2.adapter.SplatfestAdapter;
 import com.mattrubacky.monet2.adapter.WeaponAdapter;
 import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
 import com.mattrubacky.monet2.deserialized.PastSplatfest;
@@ -54,7 +55,6 @@ public class SplatfestStatsFragment extends Fragment {
     SharedPreferences settings;
     Record records;
     PastSplatfest splatfests;
-    SplatfestVotes votes;
     UpdateRecords updateRecords;
     RecyclerView splatfestList;
 
@@ -101,25 +101,23 @@ public class SplatfestStatsFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), SplatfestDetail.class);
                 Bundle bundle = new Bundle();
                 Splatfest splatfest = splatfests.splatfests.get(itemPosition);
-                SplatfestResult splatfestResult = null;
+                SplatfestResult result = null;
                 for(int i=0;i<splatfests.results.size();i++){
-                    if(splatfest.id == splatfestResult.id){
-                        splatfestResult = splatfests.results.get(i);
+                    if(splatfest.id == splatfests.results.get(i).id){
+                        result = splatfests.results.get(i);
                     }
                 }
 
-                StatCalc statCalc = new StatCalc(getContext(),splatfest);
-                SplatfestStats stats = statCalc.getSplatfestStats();
-
                 bundle.putParcelable("splatfest",splatfest);
-                bundle.putParcelable("result",splatfestResult);
-                bundle.putParcelable("stats",stats);
+                bundle.putParcelable("result",result);
+                bundle.putString("grade",records.records.splatfestRecords.get(splatfest.id).grade.name);
+                bundle.putInt("power",records.records.splatfestRecords.get(splatfest.id).power);
                 //Need to get votes
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
-        splatfestList.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        splatfestList.setLayoutManager(new GridLayoutManager(getContext(), 1));
         splatfestList.setAdapter(splatfestAdapter);
     }
 

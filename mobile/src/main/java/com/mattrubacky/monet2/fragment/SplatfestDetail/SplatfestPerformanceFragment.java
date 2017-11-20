@@ -18,6 +18,7 @@ import com.mattrubacky.monet2.deserialized.SplatfestStats;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by mattr on 11/17/2017.
@@ -76,6 +77,11 @@ public class SplatfestPerformanceFragment extends Fragment{
         powerTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
         playedTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        stats.timePlayed+=calendar.getTimeInMillis();
         SimpleDateFormat format = new SimpleDateFormat("h:mm");
         playedText.setText(format.format(stats.timePlayed));
 
