@@ -118,7 +118,7 @@ class ClosetManager {
                     values.put(SplatnetContract.Closet.COLUMN_SUB_3,-1);
                 }
 
-                args = new String[] {String.valueOf(closetHanger.gear.id)};
+                args = new String[] {String.valueOf(id)};
                 cursor = database.query(SplatnetContract.Closet.TABLE_NAME,null,whereClause,args,null,null,null);
                 if(cursor.getCount()==0) {
                     database.insert(SplatnetContract.Closet.TABLE_NAME, null, values);

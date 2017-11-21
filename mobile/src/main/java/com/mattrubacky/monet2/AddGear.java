@@ -3,6 +3,7 @@ package com.mattrubacky.monet2;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -30,6 +31,7 @@ import com.mattrubacky.monet2.dialog.GearNotificationPickerDialog;
 import com.mattrubacky.monet2.dialog.GearPickerDialog;
 import com.mattrubacky.monet2.dialog.SkillPickerDialog;
 import com.mattrubacky.monet2.helper.ImageHandler;
+import com.mattrubacky.monet2.helper.StatCalc;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.squareup.picasso.Picasso;
 
@@ -40,6 +42,7 @@ public class AddGear extends AppCompatActivity {
     GearPickerDialog gearPickerDialog;
     SkillPickerDialog skillPickerDialog;
     ClosetHanger hanger;
+    boolean isEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,8 @@ public class AddGear extends AppCompatActivity {
             hanger.skills.subs.add(null);
             hanger.skills.subs.add(null);
 
+            isEdit = false;
+
             title.setText("Add Gear");
 
             gearInput.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +110,8 @@ public class AddGear extends AppCompatActivity {
             hanger = bundle.getParcelable("hanger");
 
             title.setText("Edit Gear");
+
+            isEdit = true;
 
             gearInput.setText(hanger.gear.name);
 
@@ -184,7 +191,7 @@ public class AddGear extends AppCompatActivity {
                     public void onDismiss(DialogInterface dialog) {
                         Skill skill = skillPickerDialog.getResult();
                         hanger.skills.subs.remove(0);
-                        hanger.skills.subs.add(skill);
+                        hanger.skills.subs.add(0,skill);
                         ImageHandler imageHandler = new ImageHandler();
                         String dirName = skill.name.toLowerCase().replaceAll(" ","_");
                         String url = "https://app.splatoon2.nintendo.net" +skill.url;
@@ -256,7 +263,24 @@ public class AddGear extends AppCompatActivity {
                 ArrayList<ClosetHanger> hangers = new ArrayList<ClosetHanger>();
                 hangers.add(hanger);
                 database.insertCloset(hangers);
-                AddGear.super.onBackPressed();
+                if(isEdit){
+                    Intent intent = new Intent(AddGear.this, ClosetDetail.class);
+                    Bundle intentBundle = new Bundle();
+                    StatCalc statCalc = new StatCalc(getApplicationContext(),hanger.gear);
+                    hanger.inkStats = statCalc.getInkStats();
+                    hanger.killStats = statCalc.getKillStats();
+                    hanger.deathStats = statCalc.getDeathStats();
+                    hanger.specialStats = statCalc.getSpecialStats();
+                    hanger.numGames = statCalc.getNum();
+                    intentBundle.putParcelable("stats",hanger);
+                    intent.putExtras(intentBundle);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(AddGear.this, MainActivity.class);
+                    intent.putExtra("fragment", 2);
+                    intent.putExtra("stats", 2);
+                    startActivity(intent);
+                }
             }
         });
 
