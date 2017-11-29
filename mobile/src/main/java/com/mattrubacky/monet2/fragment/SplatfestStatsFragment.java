@@ -80,7 +80,9 @@ public class SplatfestStatsFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         SharedPreferences.Editor edit = settings.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(records);
+        String json = gson.toJson(splatfests);
+        edit.putString("splatfests",json);
+        json = gson.toJson(records);
         edit.putString("records",json);
         edit.commit();
     }
@@ -90,7 +92,9 @@ public class SplatfestStatsFragment extends Fragment {
         super.onResume();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
+        splatfests = gson.fromJson(settings.getString("splatfests",""),PastSplatfest.class);
         records = gson.fromJson(settings.getString("records",""),Record.class);
+        updateUi();
     }
 
     private void updateUi(){

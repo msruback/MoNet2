@@ -118,7 +118,10 @@ public class AddNotification extends AppCompatActivity {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
                             Gear gear = gearPickerDialog.getResult();
-                            gearInput.setText(gear.name);
+                            if(gear!=null) {
+                                gearInput.setText(gear.name);
+                                gearNotification.gear = gear;
+                            }
                         }
                     });
                 }
@@ -133,7 +136,10 @@ public class AddNotification extends AppCompatActivity {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
                             Skill skill = skillPickerDialog.getResult();
-                            abilityInput.setText(skill.name);
+                            if(skill!= null) {
+                                abilityInput.setText(skill.name);
+                                gearNotification.skill = skill;
+                            }
                         }
                     });
                 }
@@ -156,12 +162,12 @@ public class AddNotification extends AppCompatActivity {
                         edit.putString("gearNotifications", json);
                         edit.commit();
 
-                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                        Intent intent = new Intent(AddNotification.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("fragment", 4);
                         startActivity(intent);
                     }else{
-                        Toast.makeText(getApplicationContext(),"Please Select a Gear",Toast.LENGTH_SHORT);
+                        Toast.makeText(AddNotification.this,"Please Select a Gear",Toast.LENGTH_SHORT);
                     }
 
                 }

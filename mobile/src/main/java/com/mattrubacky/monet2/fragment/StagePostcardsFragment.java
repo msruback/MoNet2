@@ -89,6 +89,7 @@ public class StagePostcardsFragment extends Fragment {
                 stageStatsList.add(records.records.stageStats.get(keys[i]));
             }
         }
+        updateUi();
     }
 
     private void updateUi(){

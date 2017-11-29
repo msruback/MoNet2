@@ -32,7 +32,6 @@ public class GearPickerDialog extends Dialog {
 
     public GearPickerDialog(Activity activity) {
         super(activity);
-        result = new Gear();
     }
 
     @Override

@@ -107,9 +107,6 @@ public class ShopFragment extends Fragment {
         noOrderText.setTypeface(font);
         merchTitle.setTypeface(titleFont);
 
-        customHandler = new android.os.Handler();
-        customHandler.post(updateNeeded);
-
         while(shop.merch.size()>0&&(shop.merch.get(0).endTime*1000)<new Date().getTime()){
             shop.merch.remove(0);
         }
@@ -135,6 +132,9 @@ public class ShopFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
+        updateUi();
+        customHandler = new android.os.Handler();
+        customHandler.post(updateNeeded);
     }
 
     private void updateUi(){

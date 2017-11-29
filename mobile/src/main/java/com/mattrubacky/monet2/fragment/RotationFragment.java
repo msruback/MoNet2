@@ -106,40 +106,6 @@ public class RotationFragment extends Fragment {
 
         wearLink = new WearLink(getContext());
 
-        customHandler = new android.os.Handler();
-        updateUi();
-        int curHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        updateRotationData = new UpdateRotationData();
-        updateRotationData.execute();
-        if(curHour>settings.getInt("nextUpdate",-1)){
-            customHandler.post(update2Hours);
-        }else{
-
-            Calendar now = Calendar.getInstance();
-            now.setTime(new Date());
-            Calendar nextUpdateCal = Calendar.getInstance();
-            int hour = now.get(Calendar.HOUR);
-            if(schedules.regular!=null&&schedules.splatfest!=null&&schedules.regular.size()>0&&schedules.splatfest.size()>0){
-                if(schedules.regular.get(0).end<schedules.splatfest.get(0).end){
-                    nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
-                    lastUpdate = schedules.regular.get(0).start;
-                }else{
-                    nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
-                    lastUpdate = schedules.splatfest.get(0).start;
-                }
-            }else if(schedules.regular!=null&&schedules.regular.size()>0){
-                nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
-                lastUpdate = schedules.regular.get(0).start;
-            }else if (schedules.splatfest!=null&&schedules.splatfest.size()>0){
-                nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
-                lastUpdate = schedules.splatfest.get(0).start;
-            }
-            Long nextUpdateTime = nextUpdateCal.getTimeInMillis()-now.getTimeInMillis();
-
-            nextUpdate = nextUpdateCal.get(Calendar.HOUR_OF_DAY);
-            customHandler.postDelayed(update2Hours,nextUpdateTime);
-        }
-
         return rootView;
     }
 
@@ -175,7 +141,40 @@ public class RotationFragment extends Fragment {
         salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
         currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
         wearLink.openConnection();
+
+        customHandler = new android.os.Handler();
         updateUi();
+        int curHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        updateRotationData = new UpdateRotationData();
+        updateRotationData.execute();
+        if(curHour>settings.getInt("nextUpdate",-1)){
+            customHandler.post(update2Hours);
+        }else{
+
+            Calendar now = Calendar.getInstance();
+            now.setTime(new Date());
+            Calendar nextUpdateCal = Calendar.getInstance();
+            int hour = now.get(Calendar.HOUR);
+            if(schedules.regular!=null&&schedules.splatfest!=null&&schedules.regular.size()>0&&schedules.splatfest.size()>0){
+                if(schedules.regular.get(0).end<schedules.splatfest.get(0).end){
+                    nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
+                    lastUpdate = schedules.regular.get(0).start;
+                }else{
+                    nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
+                    lastUpdate = schedules.splatfest.get(0).start;
+                }
+            }else if(schedules.regular!=null&&schedules.regular.size()>0){
+                nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
+                lastUpdate = schedules.regular.get(0).start;
+            }else if (schedules.splatfest!=null&&schedules.splatfest.size()>0){
+                nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
+                lastUpdate = schedules.splatfest.get(0).start;
+            }
+            Long nextUpdateTime = nextUpdateCal.getTimeInMillis()-now.getTimeInMillis();
+
+            nextUpdate = nextUpdateCal.get(Calendar.HOUR_OF_DAY);
+            customHandler.postDelayed(update2Hours,nextUpdateTime);
+        }
     }
 
 
