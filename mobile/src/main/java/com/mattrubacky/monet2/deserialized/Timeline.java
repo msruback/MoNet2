@@ -18,4 +18,7 @@ public class Timeline {
     //Note: coop is only full when Salmon Run is available, otherwise it is empty
     @SerializedName("coop")
     public GrizzCo currentRun;
+
+    @SerializedName("weapon_availability")
+    WeaponAvailabilities sheldon;
 }
