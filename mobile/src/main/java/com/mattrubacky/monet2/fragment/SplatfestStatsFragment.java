@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ import com.mattrubacky.monet2.deserialized.PastSplatfest;
 import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.deserialized.Records;
 import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.SplatfestRecords;
 import com.mattrubacky.monet2.deserialized.SplatfestResult;
 import com.mattrubacky.monet2.deserialized.SplatfestStats;
 import com.mattrubacky.monet2.deserialized.SplatfestVote;
@@ -40,6 +42,10 @@ import com.mattrubacky.monet2.splatnet_interface.Splatnet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -94,6 +100,16 @@ public class SplatfestStatsFragment extends Fragment {
         Gson gson = new Gson();
         splatfests = gson.fromJson(settings.getString("splatfests",""),PastSplatfest.class);
         records = gson.fromJson(settings.getString("records",""),Record.class);
+        if(records==null){
+            records = new Record();
+            records.records = new Records();
+            records.records.splatfestRecords = Collections.emptyMap();;
+        }
+        if(splatfests==null){
+            splatfests = new PastSplatfest();
+            splatfests.splatfests = new ArrayList<>();
+            splatfests.results = new ArrayList<>();
+        }
         updateUi();
     }
 

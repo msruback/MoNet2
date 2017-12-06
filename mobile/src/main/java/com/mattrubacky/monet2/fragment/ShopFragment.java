@@ -124,6 +124,10 @@ public class ShopFragment extends Fragment {
         edit.commit();
         updateShopData.cancel(true);
         customHandler.removeCallbacks(updateNeeded);
+
+        ImageView loading = (ImageView) getActivity().findViewById(R.id.loading_indicator);
+        loading.setVisibility(View.GONE);
+        loading.setAnimation(null);
     }
 
     @Override
@@ -263,6 +267,7 @@ public class ShopFragment extends Fragment {
     private class UpdateShopData extends AsyncTask<Void,Void,Void> {
 
         ImageView loading;
+        boolean isUnconn,isUnauth;
 
         @Override
         protected void onPreExecute() {
@@ -274,6 +279,9 @@ public class ShopFragment extends Fragment {
             animation.setDuration(1000);
             loading.startAnimation(animation);
             loading.setVisibility(View.VISIBLE);
+
+            isUnconn = false;
+            isUnauth = false;
         }
         @Override
         protected Void doInBackground(Void... params) {
@@ -295,13 +303,13 @@ public class ShopFragment extends Fragment {
                     }
                     database.insertGear(gear);
                 }else if(response.code()==403){
-                    AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
-                    alertDialog.show();
+                    isUnauth = true;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
-                alertDialog.show();
+
+                isUnconn = true;
+
                 return null;
             }
             return null;
@@ -310,6 +318,15 @@ public class ShopFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             updateUi();
+
+            if(isUnconn){
+                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
+                alertDialog.show();
+            }else if(isUnauth){
+                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
+                alertDialog.show();
+            }
+
             loading.setAnimation(null);
             loading.setVisibility(View.GONE);
         }

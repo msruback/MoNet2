@@ -13,7 +13,7 @@
     <color name="darkgrey">#4f4f4f</color>
     <color name="transparentgrey">#5d9a9a9a</color>
     <color name="transparentgrey2">#9e9a9a9a</color>
-    <color name="transparent">#00ffffff</color>
+    <color name="transparent">#00000000</color>
     <color name="darkGreyTrans">#76242424</color>
     <color name="transparentwhite">#72e8e8e8</color>
 

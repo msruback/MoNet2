@@ -73,6 +73,10 @@ public class StagePostcardsFragment extends Fragment {
         String json = gson.toJson(records);
         edit.putString("records",json);
         edit.commit();
+
+        ImageView loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
+        loading.setVisibility(View.GONE);
+        loading.setAnimation(null);
     }
 
     @Override
@@ -124,6 +128,7 @@ public class StagePostcardsFragment extends Fragment {
     private class UpdateRecords extends AsyncTask<Void,Void,Void> {
 
         ImageView loading;
+        boolean isUnconn,isUnauth;
         @Override
         protected void onPreExecute() {
             loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
@@ -133,7 +138,11 @@ public class StagePostcardsFragment extends Fragment {
             animation.setRepeatCount(Animation.INFINITE);
             animation.setDuration(1000);
             loading.startAnimation(animation);
-            loading.setVisibility(View.VISIBLE);}
+            loading.setVisibility(View.VISIBLE);
+
+            isUnconn = false;
+            isUnauth = false;
+        }
         @Override
         protected Void doInBackground(Void... params) {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -154,14 +163,12 @@ public class StagePostcardsFragment extends Fragment {
                         stageStatsList.add(records.records.stageStats.get(keys[i]));
                     }
                 }else if(response.code()==403){
-                    AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
-                    alertDialog.show();
+                    isUnauth = true;
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
-                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
-                alertDialog.show();
+                isUnconn = true;
                 return null;
             }
             return null;
@@ -170,6 +177,15 @@ public class StagePostcardsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             updateUi();
+
+            if(isUnconn){
+                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
+                alertDialog.show();
+            }else if(isUnauth){
+                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
+                alertDialog.show();
+            }
+
             loading.setAnimation(null);
             loading.setVisibility(View.GONE);
         }

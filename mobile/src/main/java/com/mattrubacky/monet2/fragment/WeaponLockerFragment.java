@@ -76,6 +76,10 @@ public class WeaponLockerFragment extends Fragment {
         String json = gson.toJson(records);
         edit.putString("records",json);
         edit.commit();
+
+        ImageView loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
+        loading.setVisibility(View.GONE);
+        loading.setAnimation(null);
     }
 
     @Override
@@ -122,6 +126,7 @@ public class WeaponLockerFragment extends Fragment {
 
     private class UpdateRecords extends AsyncTask<Void,Void,Void> {
 
+        boolean isUnconn,isUnauth;
         ImageView loading;
         @Override
         protected void onPreExecute() {
@@ -132,7 +137,11 @@ public class WeaponLockerFragment extends Fragment {
             animation.setRepeatCount(Animation.INFINITE);
             animation.setDuration(1000);
             loading.startAnimation(animation);
-            loading.setVisibility(View.VISIBLE);}
+            loading.setVisibility(View.VISIBLE);
+
+            isUnconn = false;
+            isUnauth = false;
+        }
         @Override
         protected Void doInBackground(Void... params) {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -153,14 +162,12 @@ public class WeaponLockerFragment extends Fragment {
                         weaponStatsList.add(records.records.weaponStats.get(keys[i]));
                     }
                 }else if(response.code()==403){
-                    AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
-                    alertDialog.show();
+                    isUnauth = true;
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
-                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
-                alertDialog.show();
+                isUnconn = true;
                 return null;
             }
             return null;
@@ -169,6 +176,15 @@ public class WeaponLockerFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             updateUi();
+
+            if(isUnconn){
+                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
+                alertDialog.show();
+            }else if(isUnauth){
+                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
+                alertDialog.show();
+            }
+
             loading.setAnimation(null);
             loading.setVisibility(View.GONE);
         }

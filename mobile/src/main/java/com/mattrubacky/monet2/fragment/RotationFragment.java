@@ -115,6 +115,7 @@ public class RotationFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         SharedPreferences.Editor edit = settings.edit();
         Gson gson = new Gson();
+
         String json = gson.toJson(schedules);
         edit.putString("rotationState",json);
         json = gson.toJson(salmonSchedule);
@@ -128,6 +129,10 @@ public class RotationFragment extends Fragment {
         wearLink.closeConnection();
         updateRotationData.cancel(true);
         customHandler.removeCallbacks(update2Hours);
+
+        ImageView loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
+        loading.setVisibility(View.GONE);
+        loading.setAnimation(null);
     }
 
     @Override
@@ -231,6 +236,7 @@ public class RotationFragment extends Fragment {
     private class UpdateRotationData extends AsyncTask<Void,Void,Void> {
 
         ImageView loading;
+        boolean isUnconn,isUnauth;
         @Override
         protected void onPreExecute() {
             loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
@@ -241,6 +247,9 @@ public class RotationFragment extends Fragment {
             animation.setDuration(1000);
             loading.startAnimation(animation);
             loading.setVisibility(View.VISIBLE);
+
+            isUnconn = false;
+            isUnauth = false;
         }
         @Override
         protected Void doInBackground(Void... params) {
@@ -283,28 +292,26 @@ public class RotationFragment extends Fragment {
                             database.insertSplatfests(currentSplatfest.splatfests);
                         }
                     }else if(response.code()==403){
-                        AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
-                        alertDialog.show();
+                        isUnauth = true;
                     }
                 }else if(response.code()==403){
-                    AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
-                    alertDialog.show();
+                    isUnauth = true;
                 }
                 Call<SalmonSchedule> salmonGet = splatnet.getSalmonSchedule(cookie,uniqueId);
                 response = salmonGet.execute();
                 if(response.isSuccessful()){
                     salmonSchedule = (SalmonSchedule) response.body();
                 }else if(response.code()==403){
-                    AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
-                    alertDialog.show();
+                    isUnauth = true;
                 }
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
-                alertDialog.show();
+
+                isUnconn = true;
+
                 return null;
             }
             return null;
@@ -313,6 +320,13 @@ public class RotationFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             updateUi();
+            if(isUnconn){
+                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
+                alertDialog.show();
+            }else if(isUnauth){
+                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
+                alertDialog.show();
+            }
             loading.setAnimation(null);
             loading.setVisibility(View.GONE);
         }

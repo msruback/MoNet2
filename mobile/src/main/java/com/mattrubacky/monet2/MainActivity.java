@@ -390,7 +390,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class addGearClickListener implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(MainActivity.this,AddGear.class);
@@ -530,25 +529,14 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()){
                             pastSplatfests = (PastSplatfest) response.body();
                             database.insertSplatfests(pastSplatfests.splatfests,pastSplatfests.results);
-                        }else if(response.code()==403){
-                            AlertDialog alertDialog = new AlertDialog(MainActivity.this,"Error: Cookie is invalid, please obtain a new cookie");
-                            alertDialog.show();
                         }
 
-                    }else if(response.code()==403){
-                        AlertDialog alertDialog = new AlertDialog(MainActivity.this,"Error: Cookie is invalid, please obtain a new cookie");
-                        alertDialog.show();
                     }
 
-                }else if(response.code()==403){
-                    AlertDialog alertDialog = new AlertDialog(MainActivity.this,"Error: Cookie is invalid, please obtain a new cookie");
-                    alertDialog.show();
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
-                AlertDialog alertDialog = new AlertDialog(MainActivity.this,"Error: Could not reach Splatnet");
-                alertDialog.show();
             }
         }
     };
