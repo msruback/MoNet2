@@ -64,7 +64,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp">
                     <TextView
-                        android:id="@+id/Name"
+                        android:id="@+id/Honor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -72,7 +72,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="3dp"
                         android:text="Super Octo Hunter"
-                        android:textSize="20sp"
+                        android:textSize="25sp"
                         android:textColor="@color/offWhite"/>
                 </RelativeLayout>
 
@@ -133,11 +133,12 @@
                         android:background="@drawable/repeat_stripes">
 
                         <TextView
+                            android:id="@+id/PercentComplete"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="605%"
-                            android:textSize="25sp"
+                            android:text="605% Complete"
+                            android:textSize="30sp"
                             android:textColor="@color/offWhite"/>
                     </RelativeLayout>
                 </RelativeLayout>
@@ -186,7 +187,221 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="30dp">
+                                    <ListView
+                                        android:id="@+id/WeaponList"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"></ListView>
+                                </RelativeLayout>
 
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/world1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_below="@+id/weaponsOverall"
+                            android:background="@drawable/shape_card"
+                            android:backgroundTint="@color/grey"
+                            android:elevation="5dp"
+                            android:rotation="-.8">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/repeat_zigzag">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="-5dp"
+                                    android:src="@drawable/extra_product"
+                                    android:tint="@color/offWhite" />
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="30dp">
+                                    <ListView
+                                        android:id="@+id/World1List"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"></ListView>
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/world2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_below="@+id/world1"
+                            android:background="@drawable/shape_card"
+                            android:backgroundTint="@color/grey"
+                            android:elevation="5dp"
+                            android:rotation="1.3">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/repeat_zigzag">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="-5dp"
+                                    android:src="@drawable/extra_product"
+                                    android:tint="@color/offWhite" />
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="30dp">
+                                    <ListView
+                                        android:id="@+id/World2List"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"></ListView>
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/world3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_below="@+id/world2"
+                            android:background="@drawable/shape_card"
+                            android:backgroundTint="@color/grey"
+                            android:elevation="5dp"
+                            android:rotation=".4">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/repeat_zigzag">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="-5dp"
+                                    android:src="@drawable/extra_product"
+                                    android:tint="@color/offWhite" />
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="30dp">
+                                    <ListView
+                                        android:id="@+id/World3List"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"></ListView>
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/world4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_below="@+id/world3"
+                            android:background="@drawable/shape_card"
+                            android:backgroundTint="@color/grey"
+                            android:elevation="5dp"
+                            android:rotation="-1">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/repeat_zigzag">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="-5dp"
+                                    android:src="@drawable/extra_product"
+                                    android:tint="@color/offWhite" />
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="30dp">
+                                    <ListView
+                                        android:id="@+id/World4List"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"></ListView>
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/world5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_below="@+id/world4"
+                            android:background="@drawable/shape_card"
+                            android:backgroundTint="@color/grey"
+                            android:elevation="5dp"
+                            android:rotation=".8">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/repeat_zigzag">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="-5dp"
+                                    android:src="@drawable/extra_product"
+                                    android:tint="@color/offWhite" />
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="30dp">
+                                    <ListView
+                                        android:id="@+id/World5List"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"></ListView>
                                 </RelativeLayout>
 
                             </RelativeLayout>
