@@ -1,11 +1,8 @@
 package com.mattrubacky.monet2.fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,30 +10,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.mattrubacky.monet2.ClosetDetail;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.WeaponLockerDetail;
 import com.mattrubacky.monet2.adapter.GearAdapter;
 import com.mattrubacky.monet2.deserialized.ClosetHanger;
-import com.mattrubacky.monet2.deserialized.Record;
-import com.mattrubacky.monet2.deserialized.WeaponStats;
-import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StatCalc;
-import com.mattrubacky.monet2.splatnet_interface.Splatnet;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
-import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**

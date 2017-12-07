@@ -24,7 +24,6 @@ import com.mattrubacky.monet2.adapter.SplatfestPerformanceAdapter;
 import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestColor;
-import com.mattrubacky.monet2.deserialized.SplatfestDatabase;
 import com.mattrubacky.monet2.deserialized.SplatfestResult;
 import com.mattrubacky.monet2.deserialized.SplatfestStats;
 import com.mattrubacky.monet2.deserialized.SplatfestVotes;
@@ -35,8 +34,7 @@ import com.mattrubacky.monet2.fragment.SplatfestDetail.SoloMeterFragment;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.TeamMeterFragment;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StatCalc;
-import com.mattrubacky.monet2.splatnet_interface.Splatnet;
-import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
+import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;

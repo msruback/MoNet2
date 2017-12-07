@@ -19,15 +19,12 @@ import android.widget.ImageView;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.StagePostcardsDetail;
-import com.mattrubacky.monet2.WeaponLockerDetail;
 import com.mattrubacky.monet2.adapter.StageAdapter;
-import com.mattrubacky.monet2.adapter.WeaponAdapter;
 import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.deserialized.StageStats;
-import com.mattrubacky.monet2.deserialized.WeaponStats;
 import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.helper.StatCalc;
-import com.mattrubacky.monet2.splatnet_interface.Splatnet;
+import com.mattrubacky.monet2.splatnet.Splatnet;
 
 import java.io.IOException;
 import java.util.ArrayList;

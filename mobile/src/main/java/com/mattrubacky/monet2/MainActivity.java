@@ -1,8 +1,6 @@
 package com.mattrubacky.monet2;
 
-import android.app.NotificationManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -16,26 +14,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
 import com.mattrubacky.monet2.adapter.NavAdapter;
 import com.mattrubacky.monet2.deserialized.*;
-import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.fragment.*;
 import com.mattrubacky.monet2.reciever.BootReciever;
 import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
 import com.mattrubacky.monet2.reciever.SalmonAlarm;
-import com.mattrubacky.monet2.splatnet_interface.Splatnet;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
+import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.io.IOException;

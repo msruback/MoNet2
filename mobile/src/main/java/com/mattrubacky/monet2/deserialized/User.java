@@ -29,6 +29,10 @@ public class User implements Parcelable {
     @SerializedName("player_rank")
     public int rank;
 
+    //The player's star rank
+    @SerializedName("star_rank")
+    public int starRank;
+
     //The user's rank in Tower Control, is only available in the records endpoint
     @SerializedName("udemae_tower")
     public Rank tower;

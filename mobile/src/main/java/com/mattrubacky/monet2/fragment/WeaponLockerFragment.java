@@ -1,9 +1,7 @@
 package com.mattrubacky.monet2.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -17,8 +15,6 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.R;
@@ -27,10 +23,8 @@ import com.mattrubacky.monet2.adapter.WeaponAdapter;
 import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.deserialized.WeaponStats;
 import com.mattrubacky.monet2.dialog.AlertDialog;
-import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StatCalc;
-import com.mattrubacky.monet2.splatnet_interface.Splatnet;
-import com.squareup.picasso.Picasso;
+import com.mattrubacky.monet2.splatnet.Splatnet;
 
 import java.io.IOException;
 import java.util.ArrayList;

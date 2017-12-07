@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.splatnet_interface.Splatnet;
+import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.mattrubacky.monet2.deserialized.*;
 
 import com.squareup.picasso.Picasso;

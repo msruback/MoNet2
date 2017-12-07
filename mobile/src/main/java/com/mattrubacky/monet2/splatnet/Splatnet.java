@@ -1,10 +1,12 @@
-package com.mattrubacky.monet2.splatnet_interface;
+package com.mattrubacky.monet2.splatnet;
 
 /**
  * Created by mattr on 9/11/2017.
  */
 
 import com.mattrubacky.monet2.deserialized.*;
+
+import java.util.ArrayList;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -34,7 +36,7 @@ public interface Splatnet {
     Call<Record> getRecords(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/records/hero")
-    Call<ResponseBody> getHeroData(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
+    Call<CampaignRecords> getHeroData(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("/api/schedules")
     Call<Schedules> getSchedules(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
@@ -43,7 +45,7 @@ public interface Splatnet {
     Call<SalmonSchedule> getSalmonSchedule(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/data/stages")
-    Call<ResponseBody> getStages(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
+    Call<ArrayList<Stage>> getStages(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/festivals/active")
     Call<CurrentSplatfest> getActiveSplatfests(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);

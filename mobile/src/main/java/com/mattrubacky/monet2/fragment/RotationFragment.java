@@ -1,12 +1,8 @@
 package com.mattrubacky.monet2.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,11 +11,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -27,18 +20,14 @@ import com.mattrubacky.monet2.*;
 import com.mattrubacky.monet2.adapter.*;
 import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.dialog.AlertDialog;
-import com.mattrubacky.monet2.fragment.schedule.*;
 import com.mattrubacky.monet2.helper.*;
-import com.mattrubacky.monet2.reciever.*;
-import com.mattrubacky.monet2.splatnet_interface.Splatnet;
+import com.mattrubacky.monet2.splatnet.Splatnet;
+import com.mattrubacky.monet2.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 
-import com.squareup.picasso.Picasso;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -52,7 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by mattr on 9/14/2017.
  */
 
-public class RotationFragment extends Fragment {
+public class RotationFragment extends Fragment implements SplatnetConnected{
     Schedules schedules;
     android.os.Handler customHandler;
     ViewGroup rootView;
@@ -63,6 +52,7 @@ public class RotationFragment extends Fragment {
     CurrentSplatfest currentSplatfest;
     int nextUpdate;
     long lastUpdate;
+    int tries;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -147,11 +137,11 @@ public class RotationFragment extends Fragment {
         currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
         wearLink.openConnection();
 
+        tries = 0;
+
         customHandler = new android.os.Handler();
-        updateUi();
+        update();
         int curHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        updateRotationData = new UpdateRotationData();
-        updateRotationData.execute();
         if(curHour>settings.getInt("nextUpdate",-1)){
             customHandler.post(update2Hours);
         }else{
@@ -187,7 +177,8 @@ public class RotationFragment extends Fragment {
 
     //Get Rotation Data
 
-    private void updateUi(){
+    @Override
+    public void update(){
         ListView scheduleList = (ListView) rootView.findViewById(R.id.ScheduleList);
 
         if(schedules==null){
@@ -319,7 +310,7 @@ public class RotationFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            updateUi();
+            update();
             if(isUnconn){
                 AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
                 alertDialog.show();
@@ -341,7 +332,6 @@ public class RotationFragment extends Fragment {
             Calendar now = Calendar.getInstance();
             now.setTime(new Date());
             Calendar nextUpdateCal = Calendar.getInstance();
-            int hour = now.get(Calendar.HOUR);
             if(schedules.regular!=null&&schedules.splatfest!=null&&schedules.regular.size()>0&&schedules.splatfest.size()>0){
                 if(schedules.regular.get(0).end<schedules.splatfest.get(0).end){
                     nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
@@ -353,8 +343,18 @@ public class RotationFragment extends Fragment {
             }else if (schedules.splatfest!=null&&schedules.splatfest.size()>0){
                 nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
             }
+
+            if(tries==2){
+                nextUpdateCal.setTime(new Date());
+                nextUpdateCal.add(Calendar.HOUR_OF_DAY,2);
+                tries = 0;
+            }
+
             Long nextUpdateTime = nextUpdateCal.getTimeInMillis()-now.getTimeInMillis();
 
+            if(nextUpdateTime<0){
+                tries++;
+            }
             nextUpdate = nextUpdateCal.get(Calendar.HOUR_OF_DAY);
             customHandler.postDelayed(this, nextUpdateTime);
         }
