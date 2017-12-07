@@ -10,6 +10,6 @@ public class Honor {
     public Honor(){}
 
     @SerializedName("name")
-    String name;
+    public String name;
 
 }

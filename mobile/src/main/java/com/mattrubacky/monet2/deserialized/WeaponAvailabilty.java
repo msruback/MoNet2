@@ -11,7 +11,7 @@ public class WeaponAvailabilty {
     public WeaponAvailabilty(){}
 
     @SerializedName("release_time")
-    Long release;
+    public Long release;
     @SerializedName("weapon")
-    Weapon weapon;
+    public Weapon weapon;
 }

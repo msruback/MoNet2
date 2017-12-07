@@ -12,7 +12,7 @@ public class CampaignStageInfo {
     public CampaignStageInfo(){}
 
     @SerializedName("clear_weapons")
-    Map<Integer,CampaignWeapon> weapons;
+    public Map<Integer,CampaignWeapon> weapons;
     @SerializedName("stage")
-    CampaignStage stage;
+    public CampaignStage stage;
 }

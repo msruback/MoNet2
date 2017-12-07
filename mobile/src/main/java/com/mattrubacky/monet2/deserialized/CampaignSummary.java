@@ -12,9 +12,9 @@ public class CampaignSummary {
     public CampaignSummary(){}
 
     @SerializedName("clear_rate")
-    double clear;
+    public double clear;
     @SerializedName("honor")
-    Honor honor;
+    public Honor honor;
     @SerializedName("weapon_cleared_info")
-    Map<Integer,Boolean> cleared;
+    public Map<Integer,Boolean> cleared;
 }

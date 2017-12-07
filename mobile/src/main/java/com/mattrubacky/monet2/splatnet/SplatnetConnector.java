@@ -36,11 +36,13 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
     public SplatnetConnector(SplatnetConnected caller, Activity activity,Context context){
         this.caller = caller;
         this.activity = activity;
+        this.context = context;
         requests = new ArrayList<>();
         isReciever = false;
     }
     public SplatnetConnector(SplatnetConnected caller, Context context){
         this.caller = caller;
+        this.context = context;
         requests = new ArrayList<>();
         isReciever = true;
     }
@@ -76,6 +78,7 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
             String uniqueId = settings.getString("unique_id","");
             for(int i=0;i<requests.size();i++){
                 SplatnetRequest request = requests.get(i);
+                request.setup(splatnet,cookie,uniqueId);
                 request.run();
             }
         }catch(SplatnetUnauthorizedException e){
@@ -110,6 +113,16 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
             if(!isUnconn&&!isUnauth){
                 caller.update();
             }
+        }
+    }
+
+    @Override
+    protected void onCancelled() {
+        super.onCancelled();
+        if(!isReciever) {
+            ImageView loading = (ImageView) activity.findViewById(R.id.loading_indicator);
+            loading.setVisibility(View.GONE);
+            loading.setAnimation(null);
         }
     }
 }

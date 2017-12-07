@@ -12,9 +12,9 @@ import java.util.Map;
 public class CampaignRecords {
     public CampaignRecords(){}
     @SerializedName("weapon_map")
-    Map<Integer,CampaignWeapon> weaponMap;
+    public Map<Integer,CampaignWeapon> weaponMap;
     @SerializedName("summary")
-    CampaignSummary summary;
+    public CampaignSummary summary;
     @SerializedName("stage_infos")
-    ArrayList<CampaignStageInfo> info;
+    public ArrayList<CampaignStageInfo> info;
 }

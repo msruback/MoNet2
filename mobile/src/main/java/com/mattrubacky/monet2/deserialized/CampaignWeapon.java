@@ -10,11 +10,11 @@ public class CampaignWeapon {
     public CampaignWeapon(){}
 
     @SerializedName("category")
-    int category;
+    public int category;
     @SerializedName("image")
-    String url;
+    public String url;
     @SerializedName("weapon_level")
-    int level;
+    public int level;
     @SerializedName("clear_time")
-    long time;
+    public long time;
 }

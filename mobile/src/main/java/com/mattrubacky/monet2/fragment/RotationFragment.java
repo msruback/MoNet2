@@ -21,8 +21,11 @@ import com.mattrubacky.monet2.adapter.*;
 import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.helper.*;
+import com.mattrubacky.monet2.splatnet.CoopSchedulesRequest;
+import com.mattrubacky.monet2.splatnet.SchedulesRequest;
 import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.splatnet.SplatnetConnector;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 
@@ -46,13 +49,10 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
     android.os.Handler customHandler;
     ViewGroup rootView;
     WearLink wearLink;
-    UpdateRotationData updateRotationData;
     SalmonSchedule salmonSchedule;
     Gear monthlyGear;
     CurrentSplatfest currentSplatfest;
-    int nextUpdate;
-    long lastUpdate;
-    int tries;
+    SplatnetConnector connector;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +60,6 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
         rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_rotation, container, false);
 
-        updateRotationData = new UpdateRotationData();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         if(settings.contains("rotationState")) {
@@ -102,27 +101,9 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
     @Override
     public void onPause() {
         super.onPause();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        SharedPreferences.Editor edit = settings.edit();
-        Gson gson = new Gson();
-
-        String json = gson.toJson(schedules);
-        edit.putString("rotationState",json);
-        json = gson.toJson(salmonSchedule);
-        edit.putString("salmonRunSchedule",json);
-        json = gson.toJson(currentSplatfest);
-        edit.putString("currentSplatfest",json);
-        edit.putInt("nextUpdate",nextUpdate);
-        edit.putLong("lastUpdate",lastUpdate);
-        edit.commit();
 
         wearLink.closeConnection();
-        updateRotationData.cancel(true);
-        customHandler.removeCallbacks(update2Hours);
-
-        ImageView loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
-        loading.setVisibility(View.GONE);
-        loading.setAnimation(null);
+        connector.cancel(true);
     }
 
     @Override
@@ -137,39 +118,13 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
         currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
         wearLink.openConnection();
 
-        tries = 0;
-
         customHandler = new android.os.Handler();
         update();
-        int curHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        if(curHour>settings.getInt("nextUpdate",-1)){
-            customHandler.post(update2Hours);
-        }else{
 
-            Calendar now = Calendar.getInstance();
-            now.setTime(new Date());
-            Calendar nextUpdateCal = Calendar.getInstance();
-            int hour = now.get(Calendar.HOUR);
-            if(schedules.regular!=null&&schedules.splatfest!=null&&schedules.regular.size()>0&&schedules.splatfest.size()>0){
-                if(schedules.regular.get(0).end<schedules.splatfest.get(0).end){
-                    nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
-                    lastUpdate = schedules.regular.get(0).start;
-                }else{
-                    nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
-                    lastUpdate = schedules.splatfest.get(0).start;
-                }
-            }else if(schedules.regular!=null&&schedules.regular.size()>0){
-                nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
-                lastUpdate = schedules.regular.get(0).start;
-            }else if (schedules.splatfest!=null&&schedules.splatfest.size()>0){
-                nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
-                lastUpdate = schedules.splatfest.get(0).start;
-            }
-            Long nextUpdateTime = nextUpdateCal.getTimeInMillis()-now.getTimeInMillis();
-
-            nextUpdate = nextUpdateCal.get(Calendar.HOUR_OF_DAY);
-            customHandler.postDelayed(update2Hours,nextUpdateTime);
-        }
+        connector = new SplatnetConnector(this, getActivity(),getContext());
+        connector.addRequest(new SchedulesRequest(getContext()));
+        connector.addRequest(new CoopSchedulesRequest(getContext()));
+        connector.execute();
     }
 
 
@@ -180,6 +135,16 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
     @Override
     public void update(){
         ListView scheduleList = (ListView) rootView.findViewById(R.id.ScheduleList);
+
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Gson gson = new Gson();
+
+        schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
+        monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
+        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
+        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
+        wearLink.openConnection();
 
         if(schedules==null){
             schedules = new Schedules();
@@ -223,140 +188,4 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
         wearLink.sendRotation(schedules);
         wearLink.sendSalmon(salmonSchedule);
     }
-
-    private class UpdateRotationData extends AsyncTask<Void,Void,Void> {
-
-        ImageView loading;
-        boolean isUnconn,isUnauth;
-        @Override
-        protected void onPreExecute() {
-            loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
-
-            RotateAnimation animation = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF,0.5f);
-            animation.setInterpolator(new LinearInterpolator());
-            animation.setRepeatCount(Animation.INFINITE);
-            animation.setDuration(1000);
-            loading.startAnimation(animation);
-            loading.setVisibility(View.VISIBLE);
-
-            isUnconn = false;
-            isUnauth = false;
-        }
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                String cookie;
-
-                //Create Splatnet manager
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
-                Splatnet splatnet = retrofit.create(Splatnet.class);
-
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-                cookie = settings.getString("cookie","");
-                String uniqueId = settings.getString("unique_id","");
-
-                Call<Schedules> rotationGet = splatnet.getSchedules(cookie,uniqueId);
-
-
-                Response response = rotationGet.execute();
-                if(response.isSuccessful()){
-                    schedules = (Schedules) response.body();
-                    SplatnetSQLManager database = new SplatnetSQLManager(getContext());
-                    ArrayList<Stage> stages = new ArrayList<>();
-                    for(int i=0;i<schedules.regular.size();i++){
-                        stages.add(schedules.regular.get(i).a);
-                        stages.add(schedules.regular.get(i).b);
-
-                        stages.add(schedules.ranked.get(i).a);
-                        stages.add(schedules.ranked.get(i).b);
-
-                        stages.add(schedules.league.get(i).a);
-                        stages.add(schedules.league.get(i).b);
-                    }
-                    database.insertStages(stages);
-                    Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie,uniqueId);
-                    response = getSplatfest.execute();
-                    if(response.isSuccessful()){
-                        currentSplatfest = (CurrentSplatfest) response.body();
-                        if(currentSplatfest.splatfests.size()>0){
-                            schedules.setSplatfest(currentSplatfest.splatfests.get(0));
-                            database.insertSplatfests(currentSplatfest.splatfests);
-                        }
-                    }else if(response.code()==403){
-                        isUnauth = true;
-                    }
-                }else if(response.code()==403){
-                    isUnauth = true;
-                }
-                Call<SalmonSchedule> salmonGet = splatnet.getSalmonSchedule(cookie,uniqueId);
-                response = salmonGet.execute();
-                if(response.isSuccessful()){
-                    salmonSchedule = (SalmonSchedule) response.body();
-                }else if(response.code()==403){
-                    isUnauth = true;
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-
-                isUnconn = true;
-
-                return null;
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            update();
-            if(isUnconn){
-                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
-                alertDialog.show();
-            }else if(isUnauth){
-                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
-                alertDialog.show();
-            }
-            loading.setAnimation(null);
-            loading.setVisibility(View.GONE);
-        }
-
-    }
-
-    private Runnable update2Hours = new Runnable()
-    {
-        public void run() {
-            updateRotationData = new UpdateRotationData();
-            updateRotationData.execute();
-            Calendar now = Calendar.getInstance();
-            now.setTime(new Date());
-            Calendar nextUpdateCal = Calendar.getInstance();
-            if(schedules.regular!=null&&schedules.splatfest!=null&&schedules.regular.size()>0&&schedules.splatfest.size()>0){
-                if(schedules.regular.get(0).end<schedules.splatfest.get(0).end){
-                    nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
-                }else{
-                    nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
-                }
-            }else if(schedules.regular!=null&&schedules.regular.size()>0){
-                nextUpdateCal.setTimeInMillis(schedules.regular.get(0).end*1000);
-            }else if (schedules.splatfest!=null&&schedules.splatfest.size()>0){
-                nextUpdateCal.setTimeInMillis(schedules.splatfest.get(0).end*1000);
-            }
-
-            if(tries==2){
-                nextUpdateCal.setTime(new Date());
-                nextUpdateCal.add(Calendar.HOUR_OF_DAY,2);
-                tries = 0;
-            }
-
-            Long nextUpdateTime = nextUpdateCal.getTimeInMillis()-now.getTimeInMillis();
-
-            if(nextUpdateTime<0){
-                tries++;
-            }
-            nextUpdate = nextUpdateCal.get(Calendar.HOUR_OF_DAY);
-            customHandler.postDelayed(this, nextUpdateTime);
-        }
-    };
 }

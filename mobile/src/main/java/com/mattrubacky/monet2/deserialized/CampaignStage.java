@@ -10,9 +10,9 @@ public class CampaignStage {
     public CampaignStage(){}
 
     @SerializedName("area")
-    int area;
+    public int area;
     @SerializedName("id")
-    int id;
+    public int id;
     @SerializedName("is_boss")
-    boolean isBoss;
+    public boolean isBoss;
 }

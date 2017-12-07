@@ -20,5 +20,5 @@ public class Timeline {
     public GrizzCo currentRun;
 
     @SerializedName("weapon_availability")
-    WeaponAvailabilities sheldon;
+    public WeaponAvailabilities sheldon;
 }

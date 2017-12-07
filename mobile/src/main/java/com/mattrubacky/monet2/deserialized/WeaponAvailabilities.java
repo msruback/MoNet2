@@ -12,5 +12,5 @@ public class WeaponAvailabilities {
     public WeaponAvailabilities(){}
 
     @SerializedName("availablities")
-    ArrayList<WeaponAvailabilty> newWeapons;
+    public ArrayList<WeaponAvailabilty> newWeapons;
 }
