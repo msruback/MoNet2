@@ -167,7 +167,6 @@ public class ShopFragment extends Fragment {
         orderAdapter();
     }
 
-    //Adapters
     public void orderAdapter(){
         Ordered ordered = shop.ordered;
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
