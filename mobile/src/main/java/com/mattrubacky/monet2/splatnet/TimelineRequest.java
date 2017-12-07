@@ -31,35 +31,33 @@ public class TimelineRequest extends SplatnetRequest{
     }
 
     @Override
-    public void run() throws SplatnetUnauthorizedException, MalformedURLException, IOException {
+    protected void manageResponse(Response response) {
+        timeline = (Timeline) response.body();
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         SplatnetSQLManager database = new SplatnetSQLManager(context);
+        SharedPreferences.Editor edit = settings.edit();
 
-        Call<Timeline> getTimeline = splatnet.getTimeline(cookie,uniqueID);
-        Response response = getTimeline.execute();
-
-        if(response.isSuccessful()) {
-            timeline = (Timeline) response.body();
-            SharedPreferences.Editor edit = settings.edit();
-
-            //Handle Salmon Run gear
-            if (timeline.currentRun.rewardGear != null) {
-                Gson gson = new Gson();
-                String json = gson.toJson(timeline.currentRun.rewardGear.gear);
-                edit.putString("reward_gear", json);
-                edit.commit();
-                ArrayList<Gear> gear = new ArrayList<>();
-                gear.add(timeline.currentRun.rewardGear.gear);
-                database.insertGear(gear);
-            }
-
-            //Handle New Weapons
-            if(timeline.sheldon.newWeapons.size()>0){
-                //push notification after notification overhaul
-            }
+        //Handle Salmon Run gear
+        if (timeline.currentRun.rewardGear != null) {
+            Gson gson = new Gson();
+            String json = gson.toJson(timeline.currentRun.rewardGear.gear);
+            edit.putString("reward_gear", json);
+            edit.commit();
+            ArrayList<Gear> gear = new ArrayList<>();
+            gear.add(timeline.currentRun.rewardGear.gear);
+            database.insertGear(gear);
         }
 
+        //Handle New Weapons
+        if(timeline.sheldon.newWeapons.size()>0){
+            //push notification after notification overhaul
+        }
+    }
+
+    @Override
+    public void setup(Splatnet splatnet, String cookie, String uniqueID) {
+        call = splatnet.getTimeline(cookie,uniqueID);
     }
 
     @Override

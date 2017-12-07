@@ -28,19 +28,20 @@ public class ActiveSplatfestRequest extends SplatnetRequest{
     }
 
     @Override
-    public void run() throws SplatnetUnauthorizedException, MalformedURLException, IOException {
-        Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie,uniqueID);
-        Response response = getSplatfest.execute();
-        if(response.isSuccessful()) {
-            currentSplatfest = (CurrentSplatfest) response.body();
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            SharedPreferences.Editor edit = settings.edit();
-            Gson gson = new Gson();
+    protected void manageResponse(Response response){
+        currentSplatfest = (CurrentSplatfest) response.body();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor edit = settings.edit();
+        Gson gson = new Gson();
 
-            String json = gson.toJson(currentSplatfest);
-            edit.putString("currentSplatfest",json);
-            edit.commit();
-        }
+        String json = gson.toJson(currentSplatfest);
+        edit.putString("currentSplatfest",json);
+        edit.commit();
+    }
+
+    @Override
+    public void setup(Splatnet splatnet, String cookie, String uniqueID) {
+        call = splatnet.getActiveSplatfests(cookie,uniqueID);
     }
 
     @Override

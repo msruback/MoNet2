@@ -17,7 +17,7 @@ import retrofit2.Response;
 public abstract class SplatnetRequest {
     protected Call call;
 
-    protected abstract void manageResponse(Response response);
+    protected abstract void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException;
     public abstract void setup(Splatnet splatnet, String cookie, String uniqueID);
 
     public void run() throws SplatnetUnauthorizedException,MalformedURLException,IOException{

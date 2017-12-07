@@ -25,12 +25,13 @@ public class SplatfestVoteRequest extends SplatnetRequest {
     }
 
     @Override
-    public void run() throws SplatnetUnauthorizedException, MalformedURLException, IOException {
-        Call<SplatfestVotes> getVotes = splatnet.getSplatfestVotes(String.valueOf(id),cookie,uniqueID);
-        Response response = getVotes.execute();
-        if(response.isSuccessful()) {
-            votes = (SplatfestVotes) response.body();
-        }
+    protected void manageResponse(Response response){
+        votes = (SplatfestVotes) response.body();
+    }
+
+    @Override
+    public void setup(Splatnet splatnet, String cookie, String uniqueID) {
+        call = splatnet.getSplatfestVotes(String.valueOf(id),cookie,uniqueID);
     }
 
     @Override

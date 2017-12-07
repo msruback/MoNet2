@@ -24,12 +24,14 @@ public class StagesRequest extends SplatnetRequest{
     public StagesRequest(){}
 
     @Override
-    public void run() throws SplatnetUnauthorizedException, MalformedURLException, IOException {
-        Call<ArrayList<Stage>> getStages = splatnet.getStages(cookie,uniqueID);
-        Response response = getStages.execute();
-        if(response.isSuccessful()){
-            stages = (ArrayList<Stage>) response.body();
-        }
+    protected void manageResponse(Response response) {
+
+        stages = (ArrayList<Stage>) response.body();
+    }
+
+    @Override
+    public void setup(Splatnet splatnet, String cookie, String uniqueID) {
+        call = splatnet.getStages(cookie,uniqueID);
     }
 
     @Override

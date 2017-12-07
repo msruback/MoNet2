@@ -29,18 +29,19 @@ public class ShopRequest extends SplatnetRequest {
     }
 
     @Override
-    public void run() throws SplatnetUnauthorizedException, MalformedURLException, IOException {
-        Call<Annie> shopUpdate = splatnet.getShop(cookie,uniqueID);
-        Response response = shopUpdate.execute();
-        if(response.isSuccessful()) {
-            shop = (Annie) response.body();
-            SplatnetSQLManager database = new SplatnetSQLManager(context);
-            ArrayList<Gear> gear = new ArrayList<>();
-            for (int i = 0; i < shop.merch.size(); i++) {
-                gear.add(shop.merch.get(i).gear);
-            }
-            database.insertGear(gear);
+    protected void manageResponse(Response response){
+        shop = (Annie) response.body();
+        SplatnetSQLManager database = new SplatnetSQLManager(context);
+        ArrayList<Gear> gear = new ArrayList<>();
+        for (int i = 0; i < shop.merch.size(); i++) {
+            gear.add(shop.merch.get(i).gear);
         }
+        database.insertGear(gear);
+    }
+
+    @Override
+    public void setup(Splatnet splatnet, String cookie, String uniqueID) {
+        call = splatnet.getShop(cookie,uniqueID);
     }
 
     @Override

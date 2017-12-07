@@ -28,20 +28,21 @@ public class CoopSchedulesRequest extends SplatnetRequest {
     }
 
     @Override
-    public void run() throws SplatnetUnauthorizedException, MalformedURLException, IOException {
-        Call<SalmonSchedule> salmonGet = splatnet.getSalmonSchedule(cookie,uniqueID);
-        Response response = salmonGet.execute();
-        if(response.isSuccessful()) {
-            salmonSchedule = (SalmonSchedule) response.body();
+    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
+        salmonSchedule = (SalmonSchedule) response.body();
 
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            SharedPreferences.Editor edit = settings.edit();
-            Gson gson = new Gson();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor edit = settings.edit();
+        Gson gson = new Gson();
 
-            String json = gson.toJson(salmonSchedule);
-            edit.putString("salmonRunSchedule",json);
-            edit.commit();
-        }
+        String json = gson.toJson(salmonSchedule);
+        edit.putString("salmonRunSchedule",json);
+        edit.commit();
+    }
+
+    @Override
+    public void setup(Splatnet splatnet, String cookie, String uniqueID) {
+        call = splatnet.getSalmonSchedule(cookie,uniqueID);
     }
 
     @Override

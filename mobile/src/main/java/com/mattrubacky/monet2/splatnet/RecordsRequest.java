@@ -18,11 +18,14 @@ public class RecordsRequest extends SplatnetRequest {
     private Record records;
 
     @Override
-    public void run() throws SplatnetUnauthorizedException, MalformedURLException, IOException {
-        Response response = splatnet.getRecords(cookie,uniqueID).execute();
-        if(response.isSuccessful()) {
-            records = (Record) response.body();
-        }
+    protected void manageResponse(Response response){
+
+        records = (Record) response.body();
+    }
+
+    @Override
+    public void setup(Splatnet splatnet, String cookie, String uniqueID) {
+        call = splatnet.getRecords(cookie,uniqueID);
     }
 
     @Override
