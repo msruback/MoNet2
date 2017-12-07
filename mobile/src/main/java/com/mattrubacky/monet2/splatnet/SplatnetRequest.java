@@ -9,4 +9,5 @@ import java.net.MalformedURLException;
 
 public interface SplatnetRequest {
     public void run() throws SplatnetUnauthorizedException,MalformedURLException,IOException;
+    public void setup(Splatnet splatnet,String cookie,String uniqueID);
 }

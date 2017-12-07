@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 /**
  * Created by mattr on 12/6/2017.
  */
@@ -65,8 +68,15 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
+            Splatnet splatnet = retrofit.create(Splatnet.class);
+
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+            String cookie = settings.getString("cookie","");
+            String uniqueId = settings.getString("unique_id","");
             for(int i=0;i<requests.size();i++){
-                requests.get(i).run();
+                SplatnetRequest request = requests.get(i);
+                request.run();
             }
         }catch(SplatnetUnauthorizedException e){
             e.printStackTrace();
