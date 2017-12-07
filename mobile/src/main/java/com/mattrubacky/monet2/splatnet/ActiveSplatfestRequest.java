@@ -2,6 +2,7 @@ package com.mattrubacky.monet2.splatnet;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
@@ -22,6 +23,7 @@ public class ActiveSplatfestRequest implements SplatnetRequest{
     private Splatnet splatnet;
     private String cookie,uniqueID;
     private Context context;
+    private CurrentSplatfest currentSplatfest;
 
     public ActiveSplatfestRequest(Context context){
         this.context = context;
@@ -32,7 +34,7 @@ public class ActiveSplatfestRequest implements SplatnetRequest{
         Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie,uniqueID);
         Response response = getSplatfest.execute();
         if(response.isSuccessful()) {
-            CurrentSplatfest currentSplatfest = (CurrentSplatfest) response.body();
+            currentSplatfest = (CurrentSplatfest) response.body();
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor edit = settings.edit();
             Gson gson = new Gson();
@@ -48,5 +50,11 @@ public class ActiveSplatfestRequest implements SplatnetRequest{
         this.splatnet = splatnet;
         this.cookie = cookie;
         this.uniqueID = uniqueID;
+    }
+
+    @Override
+    public Bundle result(Bundle bundle) {
+        bundle.putParcelable("currentSplatfest",currentSplatfest);
+        return bundle;
     }
 }

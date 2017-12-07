@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.animation.Animation;
@@ -32,17 +33,22 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
     private ImageView loading;
     private boolean isUnconn,isUnauth,isReciever;
     private Context context;
+    private Bundle result;
 
     public SplatnetConnector(SplatnetConnected caller, Activity activity,Context context){
         this.caller = caller;
         this.activity = activity;
         this.context = context;
+
+        result = new Bundle();
         requests = new ArrayList<>();
         isReciever = false;
     }
     public SplatnetConnector(SplatnetConnected caller, Context context){
         this.caller = caller;
         this.context = context;
+
+        result = new Bundle();
         requests = new ArrayList<>();
         isReciever = true;
     }
@@ -80,6 +86,7 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
                 SplatnetRequest request = requests.get(i);
                 request.setup(splatnet,cookie,uniqueId);
                 request.run();
+                result = request.result(result);
             }
         }catch(SplatnetUnauthorizedException e){
             e.printStackTrace();
@@ -105,13 +112,13 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
                 AlertDialog alertDialog = new AlertDialog(activity, "Error: Cookie is invalid, please obtain a new cookie");
                 alertDialog.show();
             }else{
-                caller.update();
+                caller.update(this.result);
             }
             loading.setAnimation(null);
             loading.setVisibility(View.GONE);
         }else{
             if(!isUnconn&&!isUnauth){
-                caller.update();
+                caller.update(this.result);
             }
         }
     }

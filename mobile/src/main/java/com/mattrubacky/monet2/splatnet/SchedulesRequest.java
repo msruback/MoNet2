@@ -2,6 +2,7 @@ package com.mattrubacky.monet2.splatnet;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
@@ -28,6 +29,7 @@ public class SchedulesRequest implements SplatnetRequest {
     private String cookie,uniqueID;
     private Context context;
     private ActiveSplatfestRequest splatfestRequest;
+    private Schedules schedules;
 
     public SchedulesRequest(Context context){
         this.context = context;
@@ -40,7 +42,7 @@ public class SchedulesRequest implements SplatnetRequest {
         Call<Schedules> rotationGet = splatnet.getSchedules(cookie,uniqueID);
         Response response = rotationGet.execute();
         if(response.isSuccessful()) {
-            Schedules schedules = (Schedules) response.body();
+            schedules = (Schedules) response.body();
             SplatnetSQLManager database = new SplatnetSQLManager(context);
             ArrayList<Stage> stages = new ArrayList<>();
             for(int i=0;i<schedules.regular.size();i++){
@@ -71,5 +73,11 @@ public class SchedulesRequest implements SplatnetRequest {
         this.cookie = cookie;
         this.uniqueID = uniqueID;
         splatfestRequest.setup(splatnet,cookie,uniqueID);
+    }
+
+    @Override
+    public Bundle result(Bundle bundle) {
+        bundle.putParcelable("schedules",schedules);
+        return splatfestRequest.result(bundle);
     }
 }

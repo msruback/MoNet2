@@ -119,7 +119,7 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
         wearLink.openConnection();
 
         customHandler = new android.os.Handler();
-        update();
+        updateUI();
 
         connector = new SplatnetConnector(this, getActivity(),getContext());
         connector.addRequest(new SchedulesRequest(getContext()));
@@ -133,17 +133,16 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
     //Get Rotation Data
 
     @Override
-    public void update(){
+    public void update(Bundle bundle){
+        schedules = bundle.getParcelable("schedules");
+        salmonSchedule = bundle.getParcelable("salmonSchedule");
+        currentSplatfest = bundle.getParcelable("currentSplatfest");
+        updateUI();
+    }
+
+    public void updateUI(){
         ListView scheduleList = (ListView) rootView.findViewById(R.id.ScheduleList);
 
-
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        Gson gson = new Gson();
-
-        schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
-        monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
-        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
-        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
         wearLink.openConnection();
 
         if(schedules==null){

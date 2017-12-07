@@ -2,6 +2,7 @@ package com.mattrubacky.monet2.splatnet;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
@@ -25,6 +26,7 @@ public class TimelineRequest implements SplatnetRequest{
     private Splatnet splatnet;
     private String cookie,uniqueID;
     private Context context;
+    private Timeline timeline;
 
     public TimelineRequest(Context context){
         this.context = context;
@@ -40,7 +42,7 @@ public class TimelineRequest implements SplatnetRequest{
         Response response = getTimeline.execute();
 
         if(response.isSuccessful()) {
-            Timeline timeline = (Timeline) response.body();
+            timeline = (Timeline) response.body();
             SharedPreferences.Editor edit = settings.edit();
 
             //Handle Salmon Run gear
@@ -67,5 +69,11 @@ public class TimelineRequest implements SplatnetRequest{
         this.splatnet = splatnet;
         this.cookie = cookie;
         this.uniqueID = uniqueID;
+    }
+
+    @Override
+    public Bundle result(Bundle bundle) {
+        bundle.putParcelable("timeline",timeline);
+        return bundle;
     }
 }

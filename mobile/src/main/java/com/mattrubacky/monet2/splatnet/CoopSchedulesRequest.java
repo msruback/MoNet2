@@ -2,6 +2,7 @@ package com.mattrubacky.monet2.splatnet;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
@@ -21,6 +22,7 @@ public class CoopSchedulesRequest implements SplatnetRequest {
     private Splatnet splatnet;
     private String cookie,uniqueID;
     private Context context;
+    private SalmonSchedule salmonSchedule;
 
     public CoopSchedulesRequest(Context context){
         this.context = context;
@@ -31,7 +33,7 @@ public class CoopSchedulesRequest implements SplatnetRequest {
         Call<SalmonSchedule> salmonGet = splatnet.getSalmonSchedule(cookie,uniqueID);
         Response response = salmonGet.execute();
         if(response.isSuccessful()) {
-            SalmonSchedule salmonSchedule = (SalmonSchedule) response.body();
+            salmonSchedule = (SalmonSchedule) response.body();
 
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
             SharedPreferences.Editor edit = settings.edit();
@@ -48,5 +50,11 @@ public class CoopSchedulesRequest implements SplatnetRequest {
         this.splatnet = splatnet;
         this.cookie = cookie;
         this.uniqueID = uniqueID;
+    }
+
+    @Override
+    public Bundle result(Bundle bundle) {
+        bundle.putParcelable("salmonSchedule",salmonSchedule);
+        return bundle;
     }
 }

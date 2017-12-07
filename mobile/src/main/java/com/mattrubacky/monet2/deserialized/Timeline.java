@@ -1,5 +1,8 @@
 package com.mattrubacky.monet2.deserialized;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.deserialized.GrizzCo;
 
@@ -7,7 +10,7 @@ import com.mattrubacky.monet2.deserialized.GrizzCo;
  * Created by mattr on 10/17/2017.
  * The root of the timeline endpoint
  */
-public class Timeline {
+public class Timeline implements Parcelable{
     public Timeline(){}
 
     //The User's unique id
@@ -21,4 +24,34 @@ public class Timeline {
 
     @SerializedName("weapon_availability")
     public WeaponAvailabilities sheldon;
+
+    protected Timeline(Parcel in) {
+        uniqueID = in.readString();
+        currentRun = in.readParcelable(GrizzCo.class.getClassLoader());
+        sheldon = in.readParcelable(WeaponAvailabilities.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(uniqueID);
+        dest.writeParcelable(currentRun, flags);
+        dest.writeParcelable(sheldon, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Timeline> CREATOR = new Creator<Timeline>() {
+        @Override
+        public Timeline createFromParcel(Parcel in) {
+            return new Timeline(in);
+        }
+
+        @Override
+        public Timeline[] newArray(int size) {
+            return new Timeline[size];
+        }
+    };
 }
