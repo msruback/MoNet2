@@ -31,7 +31,7 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
     private Activity activity;
     private ArrayList<SplatnetRequest> requests;
     private ImageView loading;
-    private boolean isUnconn,isUnauth,isReciever;
+    private boolean isUnconn,isUnauth,hasUI;
     private Context context;
     private Bundle result;
 
@@ -42,15 +42,17 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
 
         result = new Bundle();
         requests = new ArrayList<>();
-        isReciever = false;
+        hasUI = true;
     }
+
+    //Constructor to not use UI changes
     public SplatnetConnector(SplatnetConnected caller, Context context){
         this.caller = caller;
         this.context = context;
 
         result = new Bundle();
         requests = new ArrayList<>();
-        isReciever = true;
+        hasUI = false;
     }
 
     public void addRequest(SplatnetRequest request){
@@ -59,7 +61,7 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected void onPreExecute() {
-        if(!isReciever) {
+        if(hasUI) {
             loading = (ImageView) activity.findViewById(R.id.loading_indicator);
 
             RotateAnimation animation = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -104,7 +106,7 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-        if(!isReciever) {
+        if(hasUI) {
             if (isUnconn) {
                 AlertDialog alertDialog = new AlertDialog(activity, "Error: Could not reach Splatnet");
                 alertDialog.show();
@@ -126,7 +128,7 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onCancelled() {
         super.onCancelled();
-        if(!isReciever) {
+        if(hasUI) {
             ImageView loading = (ImageView) activity.findViewById(R.id.loading_indicator);
             loading.setVisibility(View.GONE);
             loading.setAnimation(null);

@@ -1,5 +1,6 @@
 package com.mattrubacky.monet2.splatnet;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 
@@ -10,8 +11,17 @@ import java.net.MalformedURLException;
  * Created by mattr on 12/6/2017.
  */
 
-public interface SplatnetRequest {
-    public void run() throws SplatnetUnauthorizedException,MalformedURLException,IOException;
-    public void setup(Splatnet splatnet,String cookie,String uniqueID);
-    public Bundle result(Bundle bundle);
+public abstract class SplatnetRequest {
+    protected Splatnet splatnet;
+    protected String cookie, uniqueID;
+
+    public abstract void run() throws SplatnetUnauthorizedException,MalformedURLException,IOException;
+    public void setup(Splatnet splatnet, String cookie, String uniqueID){
+        this.splatnet = splatnet;
+        this.cookie = cookie;
+        this.uniqueID = uniqueID;
+    }
+    public Bundle result(Bundle bundle){
+        return bundle;
+    }
 }

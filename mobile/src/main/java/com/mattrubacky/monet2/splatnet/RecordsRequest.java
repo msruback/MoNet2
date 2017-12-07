@@ -9,14 +9,9 @@ import java.net.MalformedURLException;
  * Created by mattr on 12/6/2017.
  */
 
-public class RecordsRequest implements SplatnetRequest {
+public class RecordsRequest extends SplatnetRequest {
     @Override
     public void run() throws SplatnetUnauthorizedException, MalformedURLException, IOException {
-
-    }
-
-    @Override
-    public void setup(Splatnet splatnet, String cookie, String uniqueID) {
 
     }
 

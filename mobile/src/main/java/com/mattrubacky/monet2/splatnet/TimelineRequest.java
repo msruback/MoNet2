@@ -21,10 +21,8 @@ import retrofit2.Response;
  * Created by mattr on 12/6/2017.
  */
 
-public class TimelineRequest implements SplatnetRequest{
+public class TimelineRequest extends SplatnetRequest{
 
-    private Splatnet splatnet;
-    private String cookie,uniqueID;
     private Context context;
     private Timeline timeline;
 
@@ -62,13 +60,6 @@ public class TimelineRequest implements SplatnetRequest{
             }
         }
 
-    }
-
-    @Override
-    public void setup(Splatnet splatnet, String cookie, String uniqueID) {
-        this.splatnet = splatnet;
-        this.cookie = cookie;
-        this.uniqueID = uniqueID;
     }
 
     @Override

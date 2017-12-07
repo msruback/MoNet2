@@ -23,10 +23,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by mattr on 12/6/2017.
  */
 
-public class SchedulesRequest implements SplatnetRequest {
+public class SchedulesRequest extends SplatnetRequest {
 
-    private Splatnet splatnet;
-    private String cookie,uniqueID;
     private Context context;
     private ActiveSplatfestRequest splatfestRequest;
     private Schedules schedules;
@@ -65,14 +63,6 @@ public class SchedulesRequest implements SplatnetRequest {
             edit.putString("rotationState",json);
             edit.commit();
         }
-    }
-
-    @Override
-    public void setup(Splatnet splatnet, String cookie, String uniqueID) {
-        this.splatnet = splatnet;
-        this.cookie = cookie;
-        this.uniqueID = uniqueID;
-        splatfestRequest.setup(splatnet,cookie,uniqueID);
     }
 
     @Override

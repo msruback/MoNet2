@@ -18,10 +18,8 @@ import retrofit2.Response;
  * Created by mattr on 12/6/2017.
  */
 
-public class ActiveSplatfestRequest implements SplatnetRequest{
+public class ActiveSplatfestRequest extends SplatnetRequest{
 
-    private Splatnet splatnet;
-    private String cookie,uniqueID;
     private Context context;
     private CurrentSplatfest currentSplatfest;
 
@@ -43,13 +41,6 @@ public class ActiveSplatfestRequest implements SplatnetRequest{
             edit.putString("currentSplatfest",json);
             edit.commit();
         }
-    }
-
-    @Override
-    public void setup(Splatnet splatnet, String cookie, String uniqueID) {
-        this.splatnet = splatnet;
-        this.cookie = cookie;
-        this.uniqueID = uniqueID;
     }
 
     @Override

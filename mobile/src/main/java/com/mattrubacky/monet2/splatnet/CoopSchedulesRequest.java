@@ -18,9 +18,8 @@ import retrofit2.Response;
  * Created by mattr on 12/6/2017.
  */
 
-public class CoopSchedulesRequest implements SplatnetRequest {
-    private Splatnet splatnet;
-    private String cookie,uniqueID;
+public class CoopSchedulesRequest extends SplatnetRequest {
+
     private Context context;
     private SalmonSchedule salmonSchedule;
 
@@ -43,13 +42,6 @@ public class CoopSchedulesRequest implements SplatnetRequest {
             edit.putString("salmonRunSchedule",json);
             edit.commit();
         }
-    }
-
-    @Override
-    public void setup(Splatnet splatnet, String cookie, String uniqueID) {
-        this.splatnet = splatnet;
-        this.cookie = cookie;
-        this.uniqueID = uniqueID;
     }
 
     @Override
