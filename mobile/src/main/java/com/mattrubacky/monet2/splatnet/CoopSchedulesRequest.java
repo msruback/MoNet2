@@ -7,9 +7,11 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.SalmonSchedule;
+import com.mattrubacky.monet2.deserialized.Schedules;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -43,6 +45,23 @@ public class CoopSchedulesRequest extends SplatnetRequest {
     @Override
     public void setup(Splatnet splatnet, String cookie, String uniqueID) {
         call = splatnet.getSalmonSchedule(cookie,uniqueID);
+    }
+
+    @Override
+    public boolean shouldUpdate(){
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        long now = new Date().getTime();
+        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
+        if(salmonSchedule.details!=null&&salmonSchedule.details.size()>0){
+            if((salmonSchedule.details.get(0).end*1000)<now){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

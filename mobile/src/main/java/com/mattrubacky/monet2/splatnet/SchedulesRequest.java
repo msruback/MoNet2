@@ -14,6 +14,7 @@ import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -65,6 +66,38 @@ public class SchedulesRequest extends SplatnetRequest {
         String json = gson.toJson(schedules);
         edit.putString("rotationState",json);
         edit.commit();
+    }
+
+    @Override
+    public boolean shouldUpdate(){
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        long now = new Date().getTime();
+        schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
+        if(schedules.regular!=null&&schedules.regular.size()>0&&schedules.splatfest!=null&&schedules.splatfest.size()>0){
+            if(schedules.regular.get(0).end<schedules.splatfest.get(0).end){
+                if((schedules.splatfest.get(0).end*1000)<now){
+                    return true;
+                }
+                return false;
+            }else{
+                if((schedules.regular.get(0).end*1000)<now){
+                    return true;
+                }
+                return false;
+            }
+        }else if(schedules.regular!=null&&schedules.regular.size()>0){
+            if((schedules.regular.get(0).end*1000)<now){
+                return true;
+            }
+            return false;
+        }else if(schedules.splatfest!=null&&schedules.splatfest.size()>0){
+            if((schedules.splatfest.get(0).end*1000)<now){
+                return true;
+            }
+            return false;
+        }
+        return true;
     }
 
     @Override

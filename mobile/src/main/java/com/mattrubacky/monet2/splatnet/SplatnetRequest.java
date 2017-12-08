@@ -21,14 +21,24 @@ public abstract class SplatnetRequest {
     public abstract void setup(Splatnet splatnet, String cookie, String uniqueID);
 
     public void run() throws SplatnetUnauthorizedException,MalformedURLException,IOException{
-        Response response = call.execute();
-        if(response.isSuccessful()){
-            manageResponse(response);
+        if(shouldUpdate()){
+            Response response = call.execute();
+            if (response.isSuccessful()) {
+                manageResponse(response);
+            } else {
+                throw new SplatnetUnauthorizedException("User Authentication Failed");
+            }
         }else{
-            throw new SplatnetUnauthorizedException("User Authentication Failed");
+            handleNoUpdate();
         }
     }
+
     public Bundle result(Bundle bundle){
         return bundle;
     }
+
+    public boolean shouldUpdate(){
+        return true;
+    }
+    public void handleNoUpdate(){}
 }
