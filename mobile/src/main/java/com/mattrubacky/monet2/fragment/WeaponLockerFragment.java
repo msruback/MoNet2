@@ -24,7 +24,10 @@ import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.deserialized.WeaponStats;
 import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.helper.StatCalc;
+import com.mattrubacky.monet2.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.splatnet.Splatnet;
+import com.mattrubacky.monet2.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.splatnet.SplatnetConnector;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,14 +40,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by mattr on 11/1/2017.
  */
 
-public class WeaponLockerFragment extends Fragment {
+public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
 
     ViewGroup rootView;
     SharedPreferences settings;
     Record records;
     ArrayList<WeaponStats> weaponStatsList;
-    UpdateRecords updateRecords;
     RecyclerView weaponList;
+    SplatnetConnector splatnetConnector;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,9 +57,6 @@ public class WeaponLockerFragment extends Fragment {
 
         settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        updateRecords = new UpdateRecords();
-        updateRecords.execute();
-
         return rootView;
 
     }
@@ -64,16 +64,7 @@ public class WeaponLockerFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        SharedPreferences.Editor edit = settings.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(records);
-        edit.putString("records",json);
-        edit.commit();
-
-        ImageView loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
-        loading.setVisibility(View.GONE);
-        loading.setAnimation(null);
+        splatnetConnector.cancel(true);
     }
 
     @Override
@@ -90,9 +81,13 @@ public class WeaponLockerFragment extends Fragment {
                 weaponStatsList.add(records.records.weaponStats.get(keys[i]));
             }
         }
+        updateUI();
+        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
+        splatnetConnector.addRequest(new RecordsRequest(getContext()));
+        splatnetConnector.execute();
     }
 
-    private void updateUi(){
+    private void updateUI(){
         weaponList = (RecyclerView) rootView.findViewById(R.id.WeaponList);
         WeaponAdapter weaponAdapter = new WeaponAdapter(getContext(), weaponStatsList, new View.OnClickListener() {
             @Override
@@ -118,70 +113,17 @@ public class WeaponLockerFragment extends Fragment {
         weaponList.setAdapter(weaponAdapter);
     }
 
-    private class UpdateRecords extends AsyncTask<Void,Void,Void> {
+    @Override
+    public void update(Bundle bundle) {
+        records = bundle.getParcelable("records");
 
-        boolean isUnconn,isUnauth;
-        ImageView loading;
-        @Override
-        protected void onPreExecute() {
-            loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
-
-            RotateAnimation animation = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF,0.5f);
-            animation.setInterpolator(new LinearInterpolator());
-            animation.setRepeatCount(Animation.INFINITE);
-            animation.setDuration(1000);
-            loading.startAnimation(animation);
-            loading.setVisibility(View.VISIBLE);
-
-            isUnconn = false;
-            isUnauth = false;
-        }
-        @Override
-        protected Void doInBackground(Void... params) {
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String cookie = settings.getString("cookie","");
-            String uniqueId = settings.getString("unique_id","");
-
-            try {
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
-                Splatnet splatnet = retrofit.create(Splatnet.class);
-                Response response;
-                response = splatnet.getRecords(cookie,uniqueId).execute();
-                if(response.isSuccessful()){
-                    records = (Record) response.body();
-                    Integer[] keys = new Integer[2];
-                    keys = records.records.weaponStats.keySet().toArray(keys);
-                    weaponStatsList = new ArrayList<>();
-                    for(int i=0;i<keys.length;i++){
-                        weaponStatsList.add(records.records.weaponStats.get(keys[i]));
-                    }
-                }else if(response.code()==403){
-                    isUnauth = true;
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                isUnconn = true;
-                return null;
-            }
-            return null;
+        Integer[] keys = new Integer[2];
+        keys = records.records.weaponStats.keySet().toArray(keys);
+        weaponStatsList = new ArrayList<>();
+        for (int i = 0; i < keys.length; i++) {
+            weaponStatsList.add(records.records.weaponStats.get(keys[i]));
         }
 
-        @Override
-        protected void onPostExecute(Void result) {
-            updateUi();
-
-            if(isUnconn){
-                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
-                alertDialog.show();
-            }else if(isUnauth){
-                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
-                alertDialog.show();
-            }
-
-            loading.setAnimation(null);
-            loading.setVisibility(View.GONE);
-        }
-
+        updateUI();
     }
 }

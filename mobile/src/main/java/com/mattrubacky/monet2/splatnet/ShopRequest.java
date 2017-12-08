@@ -48,6 +48,14 @@ public class ShopRequest extends SplatnetRequest {
             gear.add(shop.merch.get(i).gear);
         }
         database.insertGear(gear);
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor edit = settings.edit();
+        Gson gson = new Gson();
+
+        String json = gson.toJson(shop);
+        edit.putString("shopState",json);
+        edit.commit();
     }
 
     @Override

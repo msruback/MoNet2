@@ -1,7 +1,11 @@
 package com.mattrubacky.monet2.splatnet;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
+import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.Record;
 
 import java.io.IOException;
@@ -16,10 +20,22 @@ import retrofit2.Response;
 public class RecordsRequest extends SplatnetRequest {
 
     private Record records;
+    private Context context;
+
+    public RecordsRequest(Context context){
+        this.context = context;
+    }
 
     @Override
     protected void manageResponse(Response response){
         records = (Record) response.body();
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor edit = settings.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(records);
+        edit.putString("records",json);
+        edit.commit();
     }
 
     @Override

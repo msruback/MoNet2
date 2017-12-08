@@ -27,7 +27,11 @@ import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestResult;
 import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.helper.StatCalc;
+import com.mattrubacky.monet2.splatnet.PastSplatfestRequest;
+import com.mattrubacky.monet2.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.splatnet.Splatnet;
+import com.mattrubacky.monet2.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.splatnet.SplatnetConnector;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,13 +46,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by mattr on 11/15/2017.
  */
 
-public class SplatfestStatsFragment extends Fragment {
+public class SplatfestStatsFragment extends Fragment implements SplatnetConnected{
     ViewGroup rootView;
     SharedPreferences settings;
     Record records;
     PastSplatfest splatfests;
-    UpdateRecords updateRecords;
     RecyclerView splatfestList;
+
+    SplatnetConnector splatnetConnector;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,8 +63,6 @@ public class SplatfestStatsFragment extends Fragment {
 
         settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        updateRecords = new UpdateRecords();
-        updateRecords.execute();
 
         return rootView;
 
@@ -68,14 +71,7 @@ public class SplatfestStatsFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        SharedPreferences.Editor edit = settings.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(splatfests);
-        edit.putString("splatfests",json);
-        json = gson.toJson(records);
-        edit.putString("records",json);
-        edit.commit();
+        splatnetConnector.cancel(true);
     }
 
     @Override
@@ -95,10 +91,15 @@ public class SplatfestStatsFragment extends Fragment {
             splatfests.splatfests = new ArrayList<>();
             splatfests.results = new ArrayList<>();
         }
-        updateUi();
+        updateUI();
+
+        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
+        splatnetConnector.addRequest(new PastSplatfestRequest(getContext()));
+        splatnetConnector.addRequest(new RecordsRequest(getContext()));
+        splatnetConnector.execute();
     }
 
-    private void updateUi(){
+    private void updateUI(){
         splatfestList = (RecyclerView) rootView.findViewById(R.id.SplatfestList);
         SplatfestAdapter splatfestAdapter = new SplatfestAdapter(getContext(), splatfests, new View.OnClickListener() {
             @Override
@@ -128,60 +129,9 @@ public class SplatfestStatsFragment extends Fragment {
         splatfestList.setAdapter(splatfestAdapter);
     }
 
-    private class UpdateRecords extends AsyncTask<Void,Void,Void> {
-
-        ImageView loading;
-        @Override
-        protected void onPreExecute() {
-            loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
-
-            RotateAnimation animation = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF,0.5f);
-            animation.setInterpolator(new LinearInterpolator());
-            animation.setRepeatCount(Animation.INFINITE);
-            animation.setDuration(1000);
-            loading.startAnimation(animation);
-            loading.setVisibility(View.VISIBLE);}
-        @Override
-        protected Void doInBackground(Void... params) {
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String cookie = settings.getString("cookie","");
-            String uniqueId = settings.getString("unique_id","");
-
-            try {
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
-                Splatnet splatnet = retrofit.create(Splatnet.class);
-                Call<PastSplatfest> getSplatfest = splatnet.getPastSplatfests(cookie,uniqueId);
-                Response response = getSplatfest.execute();
-                if(response.isSuccessful()){
-                    splatfests = (PastSplatfest) response.body();
-                    Call<Record> getRecords = splatnet.getRecords(cookie,uniqueId);
-                    response = getRecords.execute();
-                    if(response.isSuccessful()){
-                        records = (Record) response.body();
-                    }else if(response.code()==403){
-                        AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
-                        alertDialog.show();
-                    }
-                }else if(response.code()==403){
-                    AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
-                    alertDialog.show();
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
-                alertDialog.show();
-                return null;
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            updateUi();
-            loading.setAnimation(null);
-            loading.setVisibility(View.GONE);
-        }
-
+    @Override
+    public void update(Bundle bundle) {
+        splatfests = bundle.getParcelable("pastSplatfests");
+        records = bundle.getParcelable("records");
     }
 }
