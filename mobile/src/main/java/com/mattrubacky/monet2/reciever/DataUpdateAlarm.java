@@ -18,7 +18,14 @@ import com.google.gson.Gson;
 import com.mattrubacky.monet2.BattleInfo;
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.splatnet.CoopSchedulesRequest;
+import com.mattrubacky.monet2.splatnet.RecordsRequest;
+import com.mattrubacky.monet2.splatnet.ResultsRequest;
+import com.mattrubacky.monet2.splatnet.SchedulesRequest;
+import com.mattrubacky.monet2.splatnet.ShopRequest;
 import com.mattrubacky.monet2.splatnet.Splatnet;
+import com.mattrubacky.monet2.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.splatnet.SplatnetConnector;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.mattrubacky.monet2.helper.WearLink;
 import com.mattrubacky.monet2.deserialized.*;
@@ -40,7 +47,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by mattr on 9/26/2017.
  */
 
-public class DataUpdateAlarm extends WakefulBroadcastReceiver {
+public class DataUpdateAlarm extends WakefulBroadcastReceiver implements SplatnetConnected{
 
     Context context;
     PowerManager.WakeLock wl;
@@ -51,7 +58,13 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
         wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
         wl.acquire();
 
-        new UpdateData().execute();
+        SplatnetConnector splatnetConnector = new SplatnetConnector(this,context);
+        splatnetConnector.addRequest(new SchedulesRequest(context));
+        splatnetConnector.addRequest(new CoopSchedulesRequest(context));
+        splatnetConnector.addRequest(new ShopRequest(context));
+        splatnetConnector.addRequest(new RecordsRequest(context));
+        splatnetConnector.addRequest(new ResultsRequest(context));
+        splatnetConnector.execute();
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor edit = settings.edit();
@@ -229,128 +242,41 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver {
         return (PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE) != null);
     }
 
-    private class UpdateData extends AsyncTask<Void,Void,Void> {
+    @Override
+    public void update(Bundle bundle) {
 
-        @Override
-        protected void onPreExecute() {}
-        @Override
-        protected Void doInBackground(Void... params) {
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-            String cookie = settings.getString("cookie","");
-            String uniqueId = settings.getString("unique_id","");
-            Gson gson = new Gson();
-
-            ArrayList<Battle> battles = new ArrayList<>();
-            Annie shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
-            Schedules schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
-            StageNotifications stageNotifications = gson.fromJson(settings.getString("stageNotifications",""),StageNotifications.class);
-            CurrentSplatfest currentSplatfest = gson.fromJson(settings.getString("currentSplatfest",""),CurrentSplatfest.class);
-            Record record = gson.fromJson(settings.getString("records",""),Record.class);
+        Schedules schedules = bundle.getParcelable("schedules");
+        Annie shop = bundle.getParcelable("shop");
+        ArrayList<Battle> battles = bundle.getParcelableArrayList("battles");
 
 
-            SplatnetSQLManager database = new SplatnetSQLManager(context);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
 
-            try {
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
-                Splatnet splatnet = retrofit.create(Splatnet.class);
-                Response response;
+        StageNotifications stageNotifications = gson.fromJson(settings.getString("stageNotifications",""),StageNotifications.class);
 
-                Call<Schedules> rotationGet = splatnet.getSchedules(cookie,uniqueId);
-                response = rotationGet.execute();
-                if(response.isSuccessful()){
-                    schedules = (Schedules) response.body();
-                    Call<CurrentSplatfest> getSplatfest = splatnet.getActiveSplatfests(cookie,uniqueId);
-                    response = getSplatfest.execute();
-                    if(response.isSuccessful()){
-                        currentSplatfest = (CurrentSplatfest) response.body();
-                        if(currentSplatfest.splatfests.size()>0){
-                            schedules.setSplatfest(currentSplatfest.splatfests.get(0));
-                        }
-                    }else{
-
-                    }
-                }else{
-
-                }
-                for(int i=0;i<stageNotifications.notifications.size();i++){
-                    switch(stageNotifications.notifications.get(i).type){
-                        case "any":
-                            findStageNotifications(schedules.regular,stageNotifications.notifications.get(i));
-                            findStageNotifications(schedules.ranked,stageNotifications.notifications.get(i));
-                            findStageNotifications(schedules.league,stageNotifications.notifications.get(i));
-                            break;
-                        case "regular":
-                            findStageNotifications(schedules.regular,stageNotifications.notifications.get(i));
-                            break;
-                        case "gachi":
-                            findStageNotifications(schedules.ranked,stageNotifications.notifications.get(i));
-                            break;
-                        case "league":
-                            findStageNotifications(schedules.league,stageNotifications.notifications.get(i));
-                            break;
-                    }
-                }
-
-
-                Call<Annie> shopUpdate = splatnet.getShop(cookie,uniqueId);
-                response = shopUpdate.execute();
-                if(response.isSuccessful()){
-                    shop = (Annie) response.body();
-                }else{
-
-                }
-                findShopNotifications(shop);
-
-
-                response = splatnet.get50Results(cookie,uniqueId).execute();
-                if(response.isSuccessful()) {
-                    ResultList results = (ResultList) response.body();
-                    for (int i = 0; i < results.resultIds.size(); i++) {
-                        response = splatnet.getBattle(String.valueOf(results.resultIds.get(i).id), cookie,uniqueId).execute();
-                        Battle battle = (Battle) response.body();
-                        battles.add(battle);
-
-                    }
-                    database.insertBattles(battles);
-                }
-
-                response = splatnet.getRecords(cookie,uniqueId).execute();
-                if(response.isSuccessful()){
-                    record = (Record) response.body();
-                }
-
-                SharedPreferences.Editor edit = settings.edit();
-                String json;
-
-                json = gson.toJson(schedules);
-                edit.putString("rotationState",json);
-
-                json = gson.toJson(currentSplatfest);
-                edit.putString("currentSplatfest",json);
-
-                json = gson.toJson(shop);
-                edit.putString("shopState",json);
-
-                json = gson.toJson(battles);
-                edit.putString("recentBattles",json);
-
-                json = gson.toJson(record);
-                edit.putString("records",json);
-
-                edit.commit();
-                WearLink wearLink = new WearLink(context);
-
-            } catch (IOException e) {
-                e.printStackTrace();
+        for(int i=0;i<stageNotifications.notifications.size();i++){
+            switch(stageNotifications.notifications.get(i).type){
+                case "any":
+                    findStageNotifications(schedules.regular,stageNotifications.notifications.get(i));
+                    findStageNotifications(schedules.ranked,stageNotifications.notifications.get(i));
+                    findStageNotifications(schedules.league,stageNotifications.notifications.get(i));
+                    break;
+                case "regular":
+                    findStageNotifications(schedules.regular,stageNotifications.notifications.get(i));
+                    break;
+                case "gachi":
+                    findStageNotifications(schedules.ranked,stageNotifications.notifications.get(i));
+                    break;
+                case "league":
+                    findStageNotifications(schedules.league,stageNotifications.notifications.get(i));
+                    break;
             }
-            return null;
         }
 
-        @Override
-        protected void onPostExecute(Void result) {
-            wl.release();
-        }
 
+        findShopNotifications(shop);
+        findBattleGearNotifications(battles);
     }
 
     private void findStageNotifications(ArrayList<TimePeriod> timePeriods, StageNotification notification){

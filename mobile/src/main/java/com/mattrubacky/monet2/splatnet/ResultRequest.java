@@ -22,7 +22,7 @@ public class ResultRequest extends SplatnetRequest {
 
     @Override
     protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
-        Battle battle = (Battle) response.body();
+        battle = (Battle) response.body();
     }
 
     @Override
