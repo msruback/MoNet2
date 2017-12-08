@@ -25,7 +25,10 @@ import com.mattrubacky.monet2.adapter.MerchAdapter;
 import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.splatnet.ShopRequest;
 import com.mattrubacky.monet2.splatnet.Splatnet;
+import com.mattrubacky.monet2.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.splatnet.SplatnetConnector;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.mattrubacky.monet2.deserialized.*;
 
@@ -46,13 +49,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by mattr on 9/15/2017.
  */
 
-public class ShopFragment extends Fragment {
+public class ShopFragment extends Fragment implements SplatnetConnected {
     ViewGroup rootView;
-    android.os.Handler customHandler;
-    UpdateShopData updateShopData;
     Annie shop;
+    SplatnetConnector splatnetConnector;
+    SplatnetConnected connected;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_shop, container, false);
@@ -69,28 +73,7 @@ public class ShopFragment extends Fragment {
             shop = new Annie();
             shop.merch = new ArrayList<Product>();
         }
-        updateShopData = new UpdateShopData();
-        RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);
-        currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        MerchAdapter merchAdapter = new MerchAdapter(getActivity(), shop.merch, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);
-                int itemPosition = currentMerch.indexOfChild(v);
-                BuyDialog buyDialog = new BuyDialog(getActivity(),shop.merch.get(itemPosition),shop.ordered);
-                buyDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        updateUi();
-                        updateShopData = new UpdateShopData();
-                        updateShopData.execute();
-                    }
-                });
-                buyDialog.show();
-            }
-        });
-        currentMerch.setAdapter(merchAdapter);
-        orderAdapter();
+        connected = this;
 
         Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
@@ -112,18 +95,8 @@ public class ShopFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        SharedPreferences.Editor edit = settings.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(shop);
-        edit.putString("shopState",json);
-        edit.commit();
-        updateShopData.cancel(true);
-        customHandler.removeCallbacks(updateNeeded);
 
-        ImageView loading = (ImageView) getActivity().findViewById(R.id.loading_indicator);
-        loading.setVisibility(View.GONE);
-        loading.setAnimation(null);
+        splatnetConnector.cancel(true);
     }
 
     @Override
@@ -132,12 +105,14 @@ public class ShopFragment extends Fragment {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
         Gson gson = new Gson();
         shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
-        updateUi();
-        customHandler = new android.os.Handler();
-        customHandler.post(updateNeeded);
+        updateUI();
+        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
+        splatnetConnector.addRequest(new ShopRequest(getContext()));
+        splatnetConnector.execute();
+
     }
 
-    private void updateUi(){
+    private void updateUI(){
         RecyclerView currentMerch = (RecyclerView) getActivity().findViewById(R.id.CurrentMerch);
         currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
         if(shop==null){
@@ -151,15 +126,7 @@ public class ShopFragment extends Fragment {
             public void onClick(View v) {
                 RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);
                 int itemPosition = currentMerch.indexOfChild(v);
-                BuyDialog buyDialog = new BuyDialog(getActivity(),shop.merch.get(itemPosition),shop.ordered);
-                buyDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        updateUi();
-                        updateShopData = new UpdateShopData();
-                        updateShopData.execute();
-                    }
-                });
+                BuyDialog buyDialog = new BuyDialog(getActivity(),connected,shop.merch.get(itemPosition),shop.ordered);
                 buyDialog.show();
             }
         });
@@ -259,96 +226,10 @@ public class ShopFragment extends Fragment {
 
     }
 
-    private class UpdateShopData extends AsyncTask<Void,Void,Void> {
-
-        ImageView loading;
-        boolean isUnconn,isUnauth;
-
-        @Override
-        protected void onPreExecute() {
-            loading =(ImageView) getActivity().findViewById(R.id.loading_indicator);
-
-            RotateAnimation animation = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF,0.5f);
-            animation.setInterpolator(new LinearInterpolator());
-            animation.setRepeatCount(Animation.INFINITE);
-            animation.setDuration(1000);
-            loading.startAnimation(animation);
-            loading.setVisibility(View.VISIBLE);
-
-            isUnconn = false;
-            isUnauth = false;
-        }
-        @Override
-        protected Void doInBackground(Void... params) {
-            try{
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-                String cookie = settings.getString("cookie","");
-                String uniqueId = settings.getString("unique_id","");
-
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
-                Splatnet splatnet = retrofit.create(Splatnet.class);
-                Call<Annie> shopUpdate = splatnet.getShop(cookie,uniqueId);
-                Response response = shopUpdate.execute();
-                if(response.isSuccessful()){
-                    shop = (Annie) response.body();
-                    SplatnetSQLManager database = new SplatnetSQLManager(getContext());
-                    ArrayList<Gear> gear = new ArrayList<>();
-                    for(int i=0;i<shop.merch.size();i++){
-                        gear.add(shop.merch.get(i).gear);
-                    }
-                    database.insertGear(gear);
-                }else if(response.code()==403){
-                    isUnauth = true;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-
-                isUnconn = true;
-
-                return null;
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            updateUi();
-
-            if(isUnconn){
-                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Could not reach Splatnet");
-                alertDialog.show();
-            }else if(isUnauth){
-                AlertDialog alertDialog = new AlertDialog(getActivity(),"Error: Cookie is invalid, please obtain a new cookie");
-                alertDialog.show();
-            }
-
-            loading.setAnimation(null);
-            loading.setVisibility(View.GONE);
-        }
-
-    }
-
-    public Runnable updateNeeded = new Runnable()
-    {
-        public void run() {
-            updateShopData = new UpdateShopData();
-            updateShopData.execute();
-            Calendar now = Calendar.getInstance();
-            now.setTime(new Date());
-            Calendar nextUpdate = Calendar.getInstance();
-            nextUpdate.setTimeInMillis(now.getTimeInMillis());
-            int hour = now.get(Calendar.HOUR);
-            hour++;
-            nextUpdate.set(Calendar.HOUR,hour);
-            nextUpdate.set(Calendar.MINUTE,0);
-            nextUpdate.set(Calendar.SECOND,0);
-            nextUpdate.set(Calendar.MILLISECOND,0);
-            Long nextUpdateTime = nextUpdate.getTimeInMillis()-now.getTimeInMillis();
-            customHandler.postDelayed(this, nextUpdateTime);
-        }
-    };
-    public void update(){
-        updateNeeded.run();
+    @Override
+    public void update(Bundle bundle) {
+        shop = bundle.getParcelable("shop");
+        updateUI();
     }
 
 }

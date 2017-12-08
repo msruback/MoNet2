@@ -60,7 +60,7 @@ public interface Splatnet {
     Call<ResponseBody> getSplatfestRanks(@Path("id") String id,@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("nickname_and_icon?id={id}")
-    Call<NicknameRequest> getNicknameIcon(@Path("id") String id,@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
+    Call<NicknameIcons> getNicknameIcon(@Path("id") String id,@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/onlineshop/merchandises")
     Call<Annie> getShop(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
@@ -74,7 +74,7 @@ public interface Splatnet {
     })
     @Multipart
     @POST("api/onlineshop/order/{id}")
-    Call<ResponseBody> orderMerch(@Path("id") String id, @Header("X-Unique-Id") String uniqueId, @Part("override") RequestBody override, @Header("Cookie") String cookie);
+    Call<ResponseBody> orderMerch(@Path("id") String id, @Part("override") RequestBody override, @Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/share/profile")
     Call<ResponseBody> shareProfile(@Header("Cookie") String Cookie, @Header("X-Unique-Id") String uniqueId);

@@ -11,12 +11,12 @@ import java.util.ArrayList;
  * Created by mattr on 11/16/2017.
  */
 
-public class NicknameRequest implements Parcelable{
-    public NicknameRequest(){}
+public class NicknameIcons implements Parcelable{
+    public NicknameIcons(){}
     @SerializedName("nickname_and_icons")
     public ArrayList<NicknameIcon> nicknameIcons;
 
-    protected NicknameRequest(Parcel in) {
+    protected NicknameIcons(Parcel in) {
         nicknameIcons = in.createTypedArrayList(NicknameIcon.CREATOR);
     }
 
@@ -30,15 +30,15 @@ public class NicknameRequest implements Parcelable{
         return 0;
     }
 
-    public static final Creator<NicknameRequest> CREATOR = new Creator<NicknameRequest>() {
+    public static final Creator<NicknameIcons> CREATOR = new Creator<NicknameIcons>() {
         @Override
-        public NicknameRequest createFromParcel(Parcel in) {
-            return new NicknameRequest(in);
+        public NicknameIcons createFromParcel(Parcel in) {
+            return new NicknameIcons(in);
         }
 
         @Override
-        public NicknameRequest[] newArray(int size) {
-            return new NicknameRequest[size];
+        public NicknameIcons[] newArray(int size) {
+            return new NicknameIcons[size];
         }
     };
 }

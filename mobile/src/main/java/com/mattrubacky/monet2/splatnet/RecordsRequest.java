@@ -19,7 +19,6 @@ public class RecordsRequest extends SplatnetRequest {
 
     @Override
     protected void manageResponse(Response response){
-
         records = (Record) response.body();
     }
 

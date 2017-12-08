@@ -21,9 +21,13 @@ import com.google.gson.Gson;
 
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.splatnet.OrderRequest;
+import com.mattrubacky.monet2.splatnet.ShopRequest;
 import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.mattrubacky.monet2.deserialized.*;
 
+import com.mattrubacky.monet2.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.splatnet.SplatnetConnector;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -42,14 +46,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class BuyDialog extends Dialog{
-    Product toBuy;
-    Ordered alreadyOrdered;
-    LoadingDialog loadingDialog;
-    public BuyDialog(Activity activity,Product product,Ordered ordered) {
+    private Product toBuy;
+    private Ordered alreadyOrdered;
+    private SplatnetConnected caller;
+    private Activity activity;
+
+    public BuyDialog(Activity activity,SplatnetConnected caller,Product product,Ordered ordered) {
         super(activity);
-        loadingDialog = new LoadingDialog(activity,"Ordering");
+        this.activity = activity;
         toBuy = product;
         alreadyOrdered = ordered;
+        this.caller = caller;
     }
 
     @Override
@@ -87,9 +94,10 @@ public class BuyDialog extends Dialog{
             orderButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loadingDialog.show();
-                    Thread t = new Thread(orderGear);
-                    t.start();
+                    SplatnetConnector splatnetConnector = new SplatnetConnector(caller,activity,getContext());
+                    splatnetConnector.addRequest(new OrderRequest(toBuy.id));
+                    splatnetConnector.addRequest(new ShopRequest(getContext(),true));
+                    splatnetConnector.execute();
                     dismiss();
                 }
             });
@@ -238,9 +246,10 @@ public class BuyDialog extends Dialog{
             orderButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    loadingDialog.show();
-                    Thread t = new Thread(orderGear);
-                    t.start();
+                    SplatnetConnector splatnetConnector = new SplatnetConnector(caller,activity,getContext());
+                    splatnetConnector.addRequest(new OrderRequest(toBuy.id));
+                    splatnetConnector.addRequest(new ShopRequest(getContext(),true));
+                    splatnetConnector.execute();
                     dismiss();
                 }
             });
@@ -410,35 +419,4 @@ public class BuyDialog extends Dialog{
         }
 
     }
-
-    private Runnable orderGear = new Runnable() {
-        public void run() {
-            try{
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-                String cookie = settings.getString("cookie","");
-                String id = settings.getString("unique_id","");
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
-                Splatnet splatnet = retrofit.create(Splatnet.class);
-                RequestBody override = RequestBody.create(MediaType.parse("text/plain"), "1");
-                Call<ResponseBody> buy = splatnet.orderMerch(toBuy.id,id,override,cookie);
-                okhttp3.Request request = buy.request();
-                Response response = buy.execute();
-                System.out.println("Code: "+response.code());
-                loadingDialog.dismiss();
-                Gson gson = new Gson();
-                Annie shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
-                shop.ordered = new Ordered();
-                shop.ordered.gear = toBuy.gear;
-                shop.ordered.price = toBuy.price;
-                shop.ordered.skill = toBuy.skill;
-
-                SharedPreferences.Editor edit = settings.edit();
-
-                edit.putString("shopState",gson.toJson(shop));
-                edit.commit();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    };
 }

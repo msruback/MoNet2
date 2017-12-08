@@ -3,14 +3,19 @@ package com.mattrubacky.monet2.service;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 
+import com.mattrubacky.monet2.splatnet.OrderRequest;
+import com.mattrubacky.monet2.splatnet.ShopRequest;
 import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.splatnet.SplatnetConnector;
 
 import java.io.IOException;
 
@@ -26,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by mattr on 10/5/2017.
  */
 
-public class OrderGear extends Service {
+public class OrderGear extends Service implements SplatnetConnected {
 
     Product buying;
 
@@ -42,37 +47,14 @@ public class OrderGear extends Service {
         super.onStartCommand(intent,flags,startId);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         buying = intent.getExtras().getParcelable("product");
-        Thread thread = new Thread(orderGear);
-        thread.start();
-
+        SplatnetConnector splatnetConnector = new SplatnetConnector(this,getApplicationContext());
+        splatnetConnector.addRequest(new OrderRequest(buying.id));
+        splatnetConnector.addRequest(new ShopRequest(getApplicationContext(),true));
+        splatnetConnector.execute();
         return START_NOT_STICKY;
     }
-    private Runnable orderGear = new Runnable() {
-        public void run() {
-            try{
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                String cookie = settings.getString("cookie","");
-                String id = settings.getString("unique_id","");
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
-                Splatnet splatnet = retrofit.create(Splatnet.class);
-                RequestBody override = RequestBody.create(MediaType.parse("text/plain"), "1");
-                Call<ResponseBody> buy = splatnet.orderMerch(buying.id,id,override,cookie);
-                okhttp3.Request request = buy.request();
-                Response response = buy.execute();
-                Gson gson = new Gson();
-                Annie shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
-                shop.ordered = new Ordered();
-                shop.ordered.gear = buying.gear;
-                shop.ordered.price = buying.price;
-                shop.ordered.skill = buying.skill;
 
-                SharedPreferences.Editor edit = settings.edit();
-
-                edit.putString("shopState",gson.toJson(shop));
-                edit.commit();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    };
+    @Override
+    public void update(Bundle bundle) {
+    }
 }
