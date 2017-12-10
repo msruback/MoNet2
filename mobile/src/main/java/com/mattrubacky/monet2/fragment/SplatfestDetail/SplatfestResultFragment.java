@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.sax.RootElement;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,6 +99,32 @@ public class SplatfestResultFragment extends Fragment {
         alphaTeamPercent.setTypeface(fontTitle);
         bravoTeamPercent.setTypeface(fontTitle);
 
+        float total = result.participants.alpha +result.participants.bravo;
+        double alphaPercent = (result.participants.alpha/total)*100;
+        double bravoPercent = (result.participants.bravo/total)*100;
+
+        alphaPercent = Math.round(alphaPercent);
+        bravoPercent = Math.round(bravoPercent);
+        alphaVotePercent.setText(((int)alphaPercent)+"%");
+        bravoVotePercent.setText(((int)bravoPercent)+"%");
+
+        total = result.teamScores.alphaSolo+result.teamScores.bravoSolo;
+        alphaPercent = (result.teamScores.alphaSolo/total)*100;
+        bravoPercent = (result.teamScores.bravoSolo/total)*100;
+
+        alphaPercent = Math.round(alphaPercent);
+        bravoPercent = Math.round(bravoPercent);
+        alphaSoloPercent.setText(((int)alphaPercent)+"%");
+        bravoSoloPercent.setText(((int)bravoPercent)+"%");
+
+        total = result.teamScores.alphaTeam+result.teamScores.bravoTeam;
+        alphaPercent = (result.teamScores.alphaTeam/total)*100;
+        bravoPercent = (result.teamScores.bravoTeam/total)*100;
+        alphaPercent = Math.round(alphaPercent);
+        bravoPercent = Math.round(bravoPercent);
+        alphaTeamPercent.setText(((int)alphaPercent)+"%");
+        bravoTeamPercent.setText(((int)bravoPercent)+"%");
+
         alphaVoteText.setText(String.valueOf(result.participants.alpha));
         bravoVoteText.setText(String.valueOf(result.participants.bravo));
         alphaSoloText.setText(String.valueOf(result.teamScores.alphaSolo));
@@ -132,7 +159,7 @@ public class SplatfestResultFragment extends Fragment {
         teamMeter.setClipToOutline(true);
 
         ViewGroup.LayoutParams layoutParams = alphaVote.getLayoutParams();
-        float total = result.participants.alpha+result.participants.bravo;
+        total = result.participants.alpha+result.participants.bravo;
         float width = result.participants.alpha/total;
         width *= 250;
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());

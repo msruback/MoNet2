@@ -36,6 +36,7 @@ public class SplatfestVoteRequest extends SplatnetRequest {
 
     @Override
     public Bundle result(Bundle bundle) {
+        bundle.putParcelable("votes",votes);
         return bundle;
     }
 }

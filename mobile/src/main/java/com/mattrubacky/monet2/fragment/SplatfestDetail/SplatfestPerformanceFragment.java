@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,7 +17,9 @@ import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestColors;
 import com.mattrubacky.monet2.deserialized.SplatfestStats;
+import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.sqlite.SplatnetContract;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -47,6 +50,7 @@ public class SplatfestPerformanceFragment extends Fragment{
         RelativeLayout meterLayout = (RelativeLayout) rootView.findViewById(R.id.winOutline);
         RelativeLayout disconnects = (RelativeLayout) rootView.findViewById(R.id.disconnectLayout);
         RelativeLayout timePlayedLayout = (RelativeLayout) rootView.findViewById(R.id.timeLayout);
+        RelativeLayout imageLayout = (RelativeLayout) rootView.findViewById(R.id.imageLayout);
 
         wins.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
         losses.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
@@ -61,6 +65,8 @@ public class SplatfestPerformanceFragment extends Fragment{
         TextView powerText = (TextView) rootView.findViewById(R.id.PowerText);
         TextView playedTitle = (TextView) rootView.findViewById(R.id.TimeTitleText);
         TextView playedText = (TextView) rootView.findViewById(R.id.TimeText);
+
+        ImageView image = (ImageView) rootView.findViewById(R.id.Image);
 
         winText.setTypeface(font);
         lossText.setTypeface(font);
@@ -104,6 +110,26 @@ public class SplatfestPerformanceFragment extends Fragment{
             meterLayout.setVisibility(View.GONE);
             disconnects.setVisibility(View.GONE);
             timePlayedLayout.setVisibility(View.GONE);
+            imageLayout.setVisibility(View.VISIBLE);
+
+            ImageHandler imageHandler = new ImageHandler();
+            String imageDirName,url;
+            if(stats.grade.contains(splatfest.names.alpha)) {
+                imageDirName = splatfest.names.alpha.toLowerCase().replace(" ", "_");
+                url = "https://app.splatoon2.nintendo.net" + splatfest.images.alpha;
+            }else {
+                imageDirName = splatfest.names.bravo.toLowerCase().replace(" ", "_");
+                url = "https://app.splatoon2.nintendo.net" + splatfest.images.bravo;
+            }
+            if (imageHandler.imageExists("splatfest", imageDirName, getContext())) {
+                image.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
+            } else {
+                Picasso.with(getContext()).load(url).into(image);
+                imageHandler.downloadImage("splatfest", imageDirName, url, getContext());
+            }
+
+        }else{
+            imageLayout.setVisibility(View.GONE);
         }
 
         width *= 250;

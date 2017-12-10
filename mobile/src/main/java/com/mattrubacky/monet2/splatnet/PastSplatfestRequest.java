@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.mattrubacky.monet2.deserialized.Battle;
+import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
 import com.mattrubacky.monet2.deserialized.PastSplatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestDatabase;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Response;
 
@@ -28,6 +32,10 @@ public class PastSplatfestRequest extends SplatnetRequest {
     public PastSplatfestRequest(Context context){
         this.context = context;
         activeSplatfestRequest = new ActiveSplatfestRequest(context);
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        splatfests = gson.fromJson(settings.getString("splatfests","[]"),new TypeToken<ArrayList<SplatfestDatabase>>(){}.getType());
     }
 
     @Override
@@ -39,6 +47,30 @@ public class PastSplatfestRequest extends SplatnetRequest {
         SplatnetSQLManager database = new SplatnetSQLManager(context);
         database.insertSplatfests(pastSplatfest.splatfests,pastSplatfest.results);
         splatfests = database.getSplatfests();
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor edit = settings.edit();
+        Gson gson = new Gson();
+
+        String json = gson.toJson(splatfests);
+        edit.putString("splatfests",json);
+        edit.commit();
+
+    }
+
+    @Override
+    public boolean shouldUpdate(){
+
+        long now = new Date().getTime();
+        if(splatfests.size()>0){
+            for(int i=0;i<splatfests.size();i++){
+                if(splatfests.get(i).result.participants.alpha==0&&(splatfests.get(i).splatfest.times.end*1000)<now){
+                    return true;
+                }
+            }
+            return false;
+        }
+        return true;
     }
 
     @Override

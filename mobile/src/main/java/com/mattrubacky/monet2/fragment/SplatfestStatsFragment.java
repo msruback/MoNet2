@@ -82,7 +82,7 @@ public class SplatfestStatsFragment extends Fragment implements SplatnetConnecte
         splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
         splatnetConnector.addRequest(new PastSplatfestRequest(getContext()));
         splatnetConnector.addRequest(new RecordsRequest(getContext()));
-
+        update(splatnetConnector.getCurrentData());
         splatnetConnector.execute();
     }
 
@@ -115,8 +115,40 @@ public class SplatfestStatsFragment extends Fragment implements SplatnetConnecte
 
     @Override
     public void update(Bundle bundle) {
-        splatfests = bundle.getParcelableArrayList("splatfests");
+        splatfests =  bundle.getParcelableArrayList("splatfests");
+        splatfests = sort(splatfests);
         records = bundle.getParcelable("records");
         updateUI();
+    }
+
+    private ArrayList<SplatfestDatabase> sort(ArrayList<SplatfestDatabase> data){
+        if(data.size()<=1){
+            return data;
+        }
+        if(data.size()==2){
+            if(data.get(0).splatfest.times.end>=data.get(1).splatfest.times.end){
+                return data;
+            }else{
+                SplatfestDatabase hold = data.get(0);
+                data.remove(0);
+                data.add(hold);
+                return data;
+            }
+        }else {
+            SplatfestDatabase pivot = data.get(0);
+            ArrayList<SplatfestDatabase> lower = new ArrayList<>();
+            ArrayList<SplatfestDatabase> upper = new ArrayList<>();
+            for (int i = 1; i < data.size(); i++) {
+                if (pivot.splatfest.times.end < data.get(i).splatfest.times.end) {
+                    lower.add(data.get(i));
+                } else {
+                    upper.add(data.get(i));
+                }
+            }
+            ArrayList<SplatfestDatabase> result = sort(lower);
+            result.add(pivot);
+            result.addAll(sort(upper));
+            return result;
+        }
     }
 }

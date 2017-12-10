@@ -34,7 +34,10 @@ import com.mattrubacky.monet2.fragment.SplatfestDetail.SoloMeterFragment;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.TeamMeterFragment;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StatCalc;
+import com.mattrubacky.monet2.splatnet.SplatfestVoteRequest;
 import com.mattrubacky.monet2.splatnet.Splatnet;
+import com.mattrubacky.monet2.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.splatnet.SplatnetConnector;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -46,7 +49,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SplatfestDetail extends AppCompatActivity {
+public class SplatfestDetail extends AppCompatActivity implements SplatnetConnected{
 
     Splatfest splatfest;
     SplatfestResult result;
@@ -60,6 +63,8 @@ public class SplatfestDetail extends AppCompatActivity {
     ArrayList<Battle> battles;
 
     FragmentManager fragmentManager;
+
+    SplatnetConnector splatnetConnector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +83,10 @@ public class SplatfestDetail extends AppCompatActivity {
 
 
         votes = null;
-        new UpdateVotes().execute();
+
+        splatnetConnector = new SplatnetConnector(this,this);
+        splatnetConnector.addRequest(new SplatfestVoteRequest(splatfest.id));
+        splatnetConnector.execute();
 
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
@@ -378,7 +386,7 @@ public class SplatfestDetail extends AppCompatActivity {
         if(votes==null){
             votesButton.setVisibility(View.GONE);
         }
-        if(battles!=null||battles.size()>0) {
+        if(battles!=null&&battles.size()>0) {
             battlesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -408,44 +416,11 @@ public class SplatfestDetail extends AppCompatActivity {
         return super.onOptionsItemSelected(menuItem);
     }
 
-    private class UpdateVotes extends AsyncTask<Void,Void,Void> {
-
-        @Override
-        protected void onPreExecute() {
+    @Override
+    public void update(Bundle bundle) {
+        votes = bundle.getParcelable("votes");
+        if(votes!=null){
+            votesButton.setVisibility(View.VISIBLE);
         }
-        @Override
-        protected Void doInBackground(Void... params) {
-            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            String cookie = settings.getString("cookie","");
-            String uniqueId = settings.getString("unique_id","");
-
-            try {
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
-                Splatnet splatnet = retrofit.create(Splatnet.class);
-                Call<SplatfestVotes> getVotes = splatnet.getSplatfestVotes(String.valueOf(splatfest.id),cookie,uniqueId);
-                Response response = getVotes.execute();
-                if(response.isSuccessful()){
-                    votes = (SplatfestVotes) response.body();
-                }else if(response.code()==403){
-                    AlertDialog alertDialog = new AlertDialog(SplatfestDetail.this,"Error: Cookie is invalid, please obtain a new cookie");
-                    alertDialog.show();
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                AlertDialog alertDialog = new AlertDialog(SplatfestDetail.this,"Error: Could not reach Splatnet");
-                alertDialog.show();
-                return null;
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            if(votes!=null){
-                votesButton.setVisibility(View.VISIBLE);
-            }
-        }
-
     }
 }

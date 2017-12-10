@@ -92,10 +92,43 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/disconnectLayout"
+        android:id="@+id/powerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/gradeLayout"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/transparentgrey">
+
+        <TextView
+            android:id="@+id/PowerTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/primary"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Power"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/PowerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/PowerTitleText"
+            android:text="888p"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/disconnectLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/powerLayout"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -126,43 +159,10 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/powerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/disconnectLayout"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/shape_card"
-        android:backgroundTint="@color/transparentgrey">
-
-        <TextView
-            android:id="@+id/PowerTitleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_card"
-            android:backgroundTint="@color/primary"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Power"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/PowerText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/PowerTitleText"
-            android:text="888p"
-            android:textSize="16sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
         android:id="@+id/timeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/powerLayout"
+        android:layout_below="@id/disconnectLayout"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -189,6 +189,18 @@
             android:layout_toRightOf="@+id/TimeTitleText"
             android:text="888p"
             android:textSize="16sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/imageLayout"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/powerLayout"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:id="@+id/Image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/vampire"/>
     </RelativeLayout>
 
 </RelativeLayout>
