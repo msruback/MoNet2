@@ -94,6 +94,11 @@ public class SplatnetSQLManager {
         SplatfestDatabase splatfestDatabase = splatfestManager.select(id);
         return splatfestDatabase;
     }
+    public ArrayList<SplatfestDatabase> getSplatfests(){
+        SplatfestManager splatfestManager = new SplatfestManager(context);
+
+        return splatfestManager.selectAll();
+    }
 
     //Battle Methods
 

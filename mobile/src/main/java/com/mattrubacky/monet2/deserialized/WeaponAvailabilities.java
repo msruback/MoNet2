@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class WeaponAvailabilities implements Parcelable{
     public WeaponAvailabilities(){}
 
-    @SerializedName("availablities")
+    @SerializedName("availabilities")
     public ArrayList<WeaponAvailabilty> newWeapons;
 
     protected WeaponAvailabilities(Parcel in) {

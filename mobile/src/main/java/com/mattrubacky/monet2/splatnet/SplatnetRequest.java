@@ -17,7 +17,13 @@ import retrofit2.Response;
 public abstract class SplatnetRequest {
     protected Call call;
 
+    //SplatnetRequests that store data should retrieve that data in the constructor
+    //In case of failure to reach Splatnet, this will ensure valid data is not overwritten
+
+    //Manage response should handle any transformation and storing of the data once recieved
     protected abstract void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException;
+
+    //Setup should define the retrofit request "call" will be
     public abstract void setup(Splatnet splatnet, String cookie, String uniqueID);
 
     public void run() throws SplatnetUnauthorizedException,MalformedURLException,IOException{
@@ -28,17 +34,16 @@ public abstract class SplatnetRequest {
             } else {
                 throw new SplatnetUnauthorizedException("User Authentication Failed");
             }
-        }else{
-            handleNoUpdate();
         }
     }
 
+    //If data is expected to be returned as a result, this method should be overridden and the data should be inserted into the bundle
     public Bundle result(Bundle bundle){
         return bundle;
     }
 
+    //If one can determine if data is out of date, this method should be overridden by a method that determines if the currently stored data is out of date
     public boolean shouldUpdate(){
         return true;
     }
-    public void handleNoUpdate(){}
 }

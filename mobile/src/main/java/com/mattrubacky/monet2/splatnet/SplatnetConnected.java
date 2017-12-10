@@ -7,5 +7,6 @@ import android.os.Bundle;
  */
 
 public interface SplatnetConnected {
-    public void update(Bundle bundle);
+    //The update method should be used to pull the data requested out of the bundle
+    void update(Bundle bundle);
 }

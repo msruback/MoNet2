@@ -47,13 +47,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RotationFragment extends Fragment implements SplatnetConnected{
-    Schedules schedules;
     ViewGroup rootView;
     WearLink wearLink;
+    SplatnetConnector connector;
+
+    Schedules schedules;
     SalmonSchedule salmonSchedule;
     Gear monthlyGear;
     CurrentSplatfest currentSplatfest;
-    SplatnetConnector connector;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,18 +90,15 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
         connector.execute();
     }
 
-
-
-
-    //Get Rotation Data
-
     @Override
     public void update(Bundle bundle){
         schedules = bundle.getParcelable("schedules");
         salmonSchedule = bundle.getParcelable("salmonSchedule");
         currentSplatfest = bundle.getParcelable("currentSplatfest");
         Timeline timeline = bundle.getParcelable("timeline");
-        monthlyGear = timeline.currentRun.rewardGear.gear;
+        if(timeline.currentRun!=null&&timeline.currentRun.rewardGear!=null) {
+            monthlyGear = timeline.currentRun.rewardGear.gear;
+        }
         updateUI();
     }
 
@@ -130,7 +128,6 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
         if(salmonSchedule.details.size()>0){
             rotation.add("salmon");
         }
-
 
         ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),rotation,getChildFragmentManager(),schedules,currentSplatfest,salmonSchedule,monthlyGear);
         scheduleList.setAdapter(scheduleAdapter);

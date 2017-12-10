@@ -55,10 +55,12 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
         hasUI = false;
     }
 
+    //Method to add a request to the list
     public void addRequest(SplatnetRequest request){
         requests.add(request);
     }
 
+    //Method to get data requested that is currently stored
     public Bundle getCurrentData(){
         Bundle bundle = new Bundle();
         for(int i=0;i<requests.size();i++){

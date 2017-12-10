@@ -32,7 +32,7 @@ public class TimelineRequest extends SplatnetRequest{
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
-        timeline = gson.fromJson(settings.getString("timeline",""),Timeline.class);
+        timeline = gson.fromJson(settings.getString("timeline","{}"),Timeline.class);
     }
 
     @Override
