@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.Gear;
+import com.mattrubacky.monet2.deserialized.Schedules;
 import com.mattrubacky.monet2.deserialized.Timeline;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
@@ -24,10 +25,14 @@ import retrofit2.Response;
 public class TimelineRequest extends SplatnetRequest{
 
     private Context context;
-    private Timeline timeline;
+    protected Timeline timeline;
 
     public TimelineRequest(Context context){
         this.context = context;
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        timeline = gson.fromJson(settings.getString("timeline",""),Timeline.class);
     }
 
     @Override
@@ -38,12 +43,13 @@ public class TimelineRequest extends SplatnetRequest{
         SplatnetSQLManager database = new SplatnetSQLManager(context);
         SharedPreferences.Editor edit = settings.edit();
 
+        Gson gson = new Gson();
+        String json = gson.toJson(timeline);
+        edit.putString("timeline", json);
+        edit.commit();
+
         //Handle Salmon Run gear
         if (timeline.currentRun.rewardGear != null) {
-            Gson gson = new Gson();
-            String json = gson.toJson(timeline.currentRun.rewardGear.gear);
-            edit.putString("reward_gear", json);
-            edit.commit();
             ArrayList<Gear> gear = new ArrayList<>();
             gear.add(timeline.currentRun.rewardGear.gear);
             database.insertGear(gear);

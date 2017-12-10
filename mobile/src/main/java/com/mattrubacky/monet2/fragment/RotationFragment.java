@@ -22,10 +22,12 @@ import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.helper.*;
 import com.mattrubacky.monet2.splatnet.CoopSchedulesRequest;
+import com.mattrubacky.monet2.splatnet.MonthlyGearRequest;
 import com.mattrubacky.monet2.splatnet.SchedulesRequest;
 import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.splatnet.TimelineRequest;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 
@@ -46,7 +48,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RotationFragment extends Fragment implements SplatnetConnected{
     Schedules schedules;
-    android.os.Handler customHandler;
     ViewGroup rootView;
     WearLink wearLink;
     SalmonSchedule salmonSchedule;
@@ -59,39 +60,6 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_rotation, container, false);
-
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        Gson gson = new Gson();
-        if(settings.contains("rotationState")) {
-            schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
-            if(schedules == null){
-                schedules = new Schedules();
-                schedules.regular = new ArrayList<TimePeriod>();
-                schedules.ranked = new ArrayList<TimePeriod>();
-                schedules.league = new ArrayList<TimePeriod>();
-            }
-            if(schedules.regular==null){
-                schedules.regular = new ArrayList<>();
-            }
-            if(schedules.ranked==null){
-                schedules.ranked = new ArrayList<>();
-            }
-            if(schedules.league==null){
-                schedules.league = new ArrayList<>();
-            }
-            if(schedules.splatfest==null){
-                schedules.splatfest = new ArrayList<>();
-            }
-        }else{
-            schedules = new Schedules();
-            schedules.regular = new ArrayList<TimePeriod>();
-            schedules.ranked = new ArrayList<TimePeriod>();
-            schedules.league = new ArrayList<TimePeriod>();
-        }
-        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
-        monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
-        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
-
 
         wearLink = new WearLink(getContext());
 
@@ -109,21 +77,15 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        Gson gson = new Gson();
-        super.onCreate(new Bundle());
-        schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
-        monthlyGear = gson.fromJson(settings.getString("reward_gear",""),Gear.class);
-        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
-        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
         wearLink.openConnection();
-
-        customHandler = new android.os.Handler();
-        updateUI();
 
         connector = new SplatnetConnector(this, getActivity(),getContext());
         connector.addRequest(new SchedulesRequest(getContext()));
         connector.addRequest(new CoopSchedulesRequest(getContext()));
+        connector.addRequest(new MonthlyGearRequest(getContext()));
+
+        update(connector.getCurrentData());
+
         connector.execute();
     }
 
@@ -137,6 +99,8 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
         schedules = bundle.getParcelable("schedules");
         salmonSchedule = bundle.getParcelable("salmonSchedule");
         currentSplatfest = bundle.getParcelable("currentSplatfest");
+        Timeline timeline = bundle.getParcelable("timeline");
+        monthlyGear = timeline.currentRun.rewardGear.gear;
         updateUI();
     }
 
@@ -145,30 +109,17 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
 
         wearLink.openConnection();
 
-        if(schedules==null){
-            schedules = new Schedules();
-        }
-        if(salmonSchedule==null){
-            salmonSchedule= new SalmonSchedule();
-        }
-        if(salmonSchedule.details==null){
-            salmonSchedule.details = new ArrayList<>();
-        }
-        if(salmonSchedule.times==null){
-            salmonSchedule.times = new ArrayList<>();
-        }
-
         ArrayList<String> rotation = new ArrayList<>();
-        if(schedules.regular!=null&&schedules.regular.size()>0){
+        if(schedules.regular.size()>0){
             rotation.add("regular");
         }
-        if(schedules.ranked!=null&&schedules.ranked.size()>0){
+        if(schedules.ranked.size()>0){
             rotation.add("ranked");
         }
-        if(schedules.league!=null&&schedules.league.size()>0){
+        if(schedules.league.size()>0){
             rotation.add("league");
         }
-        if(schedules.splatfest!=null&&currentSplatfest.splatfests.size()>0&&schedules.splatfest.size()>0){
+        if(currentSplatfest.splatfests.size()>0&&schedules.splatfest.size()>0){
             if(schedules.regular.size()==0||currentSplatfest.splatfests.get(0).times.start<schedules.regular.get(0).start){
                 rotation.add(0,"fes");
             }else{
@@ -176,7 +127,7 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
             }
         }
 
-        if(salmonSchedule.details!=null&&salmonSchedule.details.size()>0){
+        if(salmonSchedule.details.size()>0){
             rotation.add("salmon");
         }
 

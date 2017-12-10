@@ -25,6 +25,9 @@ public class ActiveSplatfestRequest extends SplatnetRequest{
 
     public ActiveSplatfestRequest(Context context){
         this.context = context;
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
     }
 
     @Override

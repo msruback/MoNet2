@@ -59,6 +59,16 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
         requests.add(request);
     }
 
+    public Bundle getCurrentData(){
+        Bundle bundle = new Bundle();
+        for(int i=0;i<requests.size();i++){
+            SplatnetRequest request = requests.get(i);
+            request.result(bundle);
+            bundle = request.result(bundle);
+        }
+        return bundle;
+    }
+
     @Override
     protected void onPreExecute() {
         if(hasUI) {

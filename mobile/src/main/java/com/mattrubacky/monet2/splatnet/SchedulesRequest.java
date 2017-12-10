@@ -34,6 +34,9 @@ public class SchedulesRequest extends SplatnetRequest {
     public SchedulesRequest(Context context){
         this.context = context;
         splatfestRequest = new ActiveSplatfestRequest(context);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        schedules = gson.fromJson(settings.getString("rotationState","{\"regular\":[],\"gachi\":[],\"league\":[],\"fes\":[]}"),Schedules.class);
     }
 
     @Override
@@ -70,10 +73,7 @@ public class SchedulesRequest extends SplatnetRequest {
 
     @Override
     public boolean shouldUpdate(){
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        Gson gson = new Gson();
         long now = new Date().getTime();
-        schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
         if(schedules.regular!=null&&schedules.regular.size()>0&&schedules.splatfest!=null&&schedules.splatfest.size()>0){
             if(schedules.regular.get(0).end<schedules.splatfest.get(0).end){
                 if((schedules.splatfest.get(0).end*1000)<now){

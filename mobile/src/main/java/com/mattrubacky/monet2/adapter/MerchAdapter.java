@@ -67,11 +67,16 @@ public class MerchAdapter extends RecyclerView.Adapter<MerchAdapter.ViewHolder>{
                 if(hanger!=null) {
                     StatCalc statCalc = new StatCalc(context, gear.gear);
 
+                    if(hanger.gear==null){
+                        hanger.gear = gear.gear;
+                    }
+
                     hanger.inkStats = statCalc.getInkStats();
                     hanger.killStats = statCalc.getKillStats();
                     hanger.deathStats = statCalc.getDeathStats();
                     hanger.specialStats = statCalc.getSpecialStats();
                     hanger.numGames = statCalc.getNum();
+                    hanger.time = (long)0;
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("stats", hanger);

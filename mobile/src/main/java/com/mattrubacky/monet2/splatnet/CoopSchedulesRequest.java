@@ -27,6 +27,11 @@ public class CoopSchedulesRequest extends SplatnetRequest {
 
     public CoopSchedulesRequest(Context context){
         this.context = context;
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+
+        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedules\":[],\"details\":[]}"),SalmonSchedule.class);
     }
 
     @Override

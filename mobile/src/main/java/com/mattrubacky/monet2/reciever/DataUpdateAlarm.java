@@ -360,7 +360,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver implements Splatne
         Gson gson = new Gson();
         GearNotifications gearNotifications = gson.fromJson(settings.getString("gearNotifications",""),GearNotifications.class);
         Battle battle;
-        GearNotification currentNotification = new GearNotification();
+        GearNotification currentNotification;
         for(int i=0;i<3;i++) {
             battle = battles.get(i);
             for (int j = 0; j < gearNotifications.notifications.size(); j++) {
