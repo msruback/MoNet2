@@ -183,13 +183,13 @@ public class SplatfestDetail extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        if(stats.timePlayed>0||result!=null) {
+        if(stats.timePlayed==0&&result.participants.alpha==0) {
+            generalStats.setVisibility(View.GONE);
+        }else{
             SplatfestPerformanceAdapter performanceAdapter = new SplatfestPerformanceAdapter(fragmentManager, splatfest, result, stats);
 
             generalDots.setupWithViewPager(generalPager, true);
             generalPager.setAdapter(performanceAdapter);
-        }else{
-            generalStats.setVisibility(View.GONE);
         }
 
         //Stat Cards

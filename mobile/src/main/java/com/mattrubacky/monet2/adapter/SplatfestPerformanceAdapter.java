@@ -52,6 +52,8 @@ public class SplatfestPerformanceAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         if(result!=null&&stats!=null){
             return 2;
+        }else if(result==null&&stats==null){
+            return 0;
         }else{
             return 1;
         }

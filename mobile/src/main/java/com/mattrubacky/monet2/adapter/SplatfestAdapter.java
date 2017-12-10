@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.PastSplatfest;
 import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.SplatfestDatabase;
 import com.mattrubacky.monet2.deserialized.StageStats;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
@@ -27,14 +28,14 @@ import java.util.ArrayList;
 
 public class SplatfestAdapter extends RecyclerView.Adapter<SplatfestAdapter.ViewHolder>{
 
-    private ArrayList<Splatfest> input;
+    private ArrayList<SplatfestDatabase> input;
     private LayoutInflater inflater;
     private Context context;
     private View.OnClickListener onClickListener;
 
-    public SplatfestAdapter(Context context, PastSplatfest splatfests, View.OnClickListener onClickListener) {
+    public SplatfestAdapter(Context context, ArrayList<SplatfestDatabase> splatfests, View.OnClickListener onClickListener) {
         this.inflater = LayoutInflater.from(context);
-        this.input = splatfests.splatfests;
+        this.input = splatfests;
         this.context = context;
         this.onClickListener = onClickListener;
     }
@@ -51,7 +52,7 @@ public class SplatfestAdapter extends RecyclerView.Adapter<SplatfestAdapter.View
         Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
         ImageHandler imageHandler = new ImageHandler();
 
-        Splatfest splatfest = input.get(position);
+        Splatfest splatfest = input.get(position).splatfest;
 
         String location = String.valueOf(splatfest.id);
         String url = "https://app.splatoon2.nintendo.net"+splatfest.images.panel;

@@ -7,9 +7,11 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -33,6 +35,10 @@ public class ActiveSplatfestRequest extends SplatnetRequest{
     @Override
     protected void manageResponse(Response response){
         currentSplatfest = (CurrentSplatfest) response.body();
+
+        SplatnetSQLManager database = new SplatnetSQLManager(context);
+        database.insertSplatfests(currentSplatfest.splatfests);
+
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor edit = settings.edit();
         Gson gson = new Gson();

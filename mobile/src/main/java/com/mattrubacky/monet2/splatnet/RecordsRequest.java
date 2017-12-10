@@ -24,6 +24,10 @@ public class RecordsRequest extends SplatnetRequest {
 
     public RecordsRequest(Context context){
         this.context = context;
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        records = gson.fromJson(settings.getString("records",""),Record.class);
     }
 
     @Override

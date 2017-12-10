@@ -100,16 +100,10 @@ public class SplatfestResultFragment extends Fragment {
 
         alphaVoteText.setText(String.valueOf(result.participants.alpha));
         bravoVoteText.setText(String.valueOf(result.participants.bravo));
-        alphaVotePercent.setText(result.rates.vote.alpha+"%");
-        bravoVotePercent.setText(result.rates.vote.bravo+"%");
         alphaSoloText.setText(String.valueOf(result.teamScores.alphaSolo));
         bravoSoloText.setText(String.valueOf(result.teamScores.bravoSolo));
-        alphaSoloPercent.setText(result.rates.solo.alpha+"%");
-        bravoSoloPercent.setText(result.rates.solo.bravo+"%");
         alphaTeamText.setText(String.valueOf(result.teamScores.alphaTeam));
         bravoTeamText.setText(String.valueOf(result.teamScores.bravoTeam));
-        alphaTeamPercent.setText(result.rates.team.alpha+"%");
-        bravoTeamPercent.setText(result.rates.team.bravo+"%");
 
         voteTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
         soloTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));

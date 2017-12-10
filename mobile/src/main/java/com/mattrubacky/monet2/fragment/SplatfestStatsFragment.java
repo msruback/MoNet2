@@ -24,6 +24,8 @@ import com.mattrubacky.monet2.deserialized.PastSplatfest;
 import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.deserialized.Records;
 import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.SplatfestDatabase;
+import com.mattrubacky.monet2.deserialized.SplatfestRecords;
 import com.mattrubacky.monet2.deserialized.SplatfestResult;
 import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.helper.StatCalc;
@@ -50,7 +52,7 @@ public class SplatfestStatsFragment extends Fragment implements SplatnetConnecte
     ViewGroup rootView;
     SharedPreferences settings;
     Record records;
-    PastSplatfest splatfests;
+    ArrayList<SplatfestDatabase> splatfests;
     RecyclerView splatfestList;
 
     SplatnetConnector splatnetConnector;
@@ -62,7 +64,6 @@ public class SplatfestStatsFragment extends Fragment implements SplatnetConnecte
         rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_splatfest_stats, container, false);
 
         settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-
 
         return rootView;
 
@@ -77,25 +78,11 @@ public class SplatfestStatsFragment extends Fragment implements SplatnetConnecte
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        Gson gson = new Gson();
-        splatfests = gson.fromJson(settings.getString("splatfests",""),PastSplatfest.class);
-        records = gson.fromJson(settings.getString("records",""),Record.class);
-        if(records==null){
-            records = new Record();
-            records.records = new Records();
-            records.records.splatfestRecords = Collections.emptyMap();;
-        }
-        if(splatfests==null){
-            splatfests = new PastSplatfest();
-            splatfests.splatfests = new ArrayList<>();
-            splatfests.results = new ArrayList<>();
-        }
-        updateUI();
 
         splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
         splatnetConnector.addRequest(new PastSplatfestRequest(getContext()));
         splatnetConnector.addRequest(new RecordsRequest(getContext()));
+
         splatnetConnector.execute();
     }
 
@@ -107,19 +94,16 @@ public class SplatfestStatsFragment extends Fragment implements SplatnetConnecte
                 int itemPosition = splatfestList.getChildAdapterPosition(v);
                 Intent intent = new Intent(getActivity(), SplatfestDetail.class);
                 Bundle bundle = new Bundle();
-                Splatfest splatfest = splatfests.splatfests.get(itemPosition);
-                SplatfestResult result = null;
-                for(int i=0;i<splatfests.results.size();i++){
-                    if(splatfest.id == splatfests.results.get(i).id){
-                        result = splatfests.results.get(i);
-                    }
-                }
+                Splatfest splatfest = splatfests.get(itemPosition).splatfest;
+                SplatfestResult result = splatfests.get(itemPosition).result;
 
-                bundle.putParcelable("splatfest",splatfest);
-                bundle.putParcelable("result",result);
-                StatCalc statCalc = new StatCalc(getContext(),splatfest);
-                bundle.putString("grade",records.records.splatfestRecords.get(splatfest.id).grade.name);
-                bundle.putInt("power",records.records.splatfestRecords.get(splatfest.id).power);
+                bundle.putParcelable("splatfest", splatfest);
+                bundle.putParcelable("result", result);
+                SplatfestRecords splatrec = records.records.splatfestRecords.get(splatfest.id);
+                if (splatrec != null){
+                    bundle.putString("grade", records.records.splatfestRecords.get(splatfest.id).grade.name);
+                    bundle.putInt("power", records.records.splatfestRecords.get(splatfest.id).power);
+                }
                 //Need to get votes
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -131,7 +115,8 @@ public class SplatfestStatsFragment extends Fragment implements SplatnetConnecte
 
     @Override
     public void update(Bundle bundle) {
-        splatfests = bundle.getParcelable("pastSplatfests");
+        splatfests = bundle.getParcelableArrayList("splatfests");
         records = bundle.getParcelable("records");
+        updateUI();
     }
 }
