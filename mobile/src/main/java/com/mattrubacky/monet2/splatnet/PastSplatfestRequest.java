@@ -7,8 +7,6 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
 import com.mattrubacky.monet2.deserialized.PastSplatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestDatabase;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
@@ -35,7 +33,7 @@ public class PastSplatfestRequest extends SplatnetRequest {
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
-        splatfests = gson.fromJson(settings.getString("splatfests","[]"),new TypeToken<ArrayList<SplatfestDatabase>>(){}.getType());
+        splatfests = gson.fromJson(settings.getString("allsplatfests","[]"),new TypeToken<ArrayList<SplatfestDatabase>>(){}.getType());
     }
 
     @Override
@@ -53,7 +51,7 @@ public class PastSplatfestRequest extends SplatnetRequest {
         Gson gson = new Gson();
 
         String json = gson.toJson(splatfests);
-        edit.putString("splatfests",json);
+        edit.putString("allsplatfests",json);
         edit.commit();
 
     }

@@ -15,15 +15,22 @@ import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.CampaignRecords;
 import com.mattrubacky.monet2.deserialized.PastSplatfest;
 import com.mattrubacky.monet2.deserialized.Record;
+import com.mattrubacky.monet2.splatnet.CampaignRecordsRequest;
+import com.mattrubacky.monet2.splatnet.CoopSchedulesRequest;
+import com.mattrubacky.monet2.splatnet.MonthlyGearRequest;
+import com.mattrubacky.monet2.splatnet.SchedulesRequest;
+import com.mattrubacky.monet2.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.splatnet.SplatnetConnector;
 
 /**
  * Created by mattr on 12/6/2017.
  */
 
-public class CampaignStatsFragment extends Fragment {
+public class CampaignStatsFragment extends Fragment implements SplatnetConnected{
     ViewGroup rootView;
     SharedPreferences settings;
     CampaignRecords campaignRecords;
+    SplatnetConnector connector;
 
 
     @Override
@@ -38,6 +45,25 @@ public class CampaignStatsFragment extends Fragment {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        connector.cancel(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        connector = new SplatnetConnector(this, getActivity(),getContext());
+        connector.addRequest(new CampaignRecordsRequest(getContext()));
+
+        update(connector.getCurrentData());
+
+        connector.execute();
+    }
+
     public void updateUi(){
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getActivity().getAssets(), "Paintball.otf");
@@ -46,4 +72,9 @@ public class CampaignStatsFragment extends Fragment {
         TextView percent = (TextView) rootView.findViewById(R.id.PercentComplete);
     }
 
+    @Override
+    public void update(Bundle bundle) {
+        campaignRecords = bundle.getParcelable("campaign_records");
+        updateUi();
+    }
 }
