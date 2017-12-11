@@ -36,16 +36,19 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="Ink Spread"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp">
-                <ListView
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/World"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/List"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></ListView>
+                    android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
             </RelativeLayout>
 
         </RelativeLayout>

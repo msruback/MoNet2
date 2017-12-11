@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -42,7 +43,6 @@ public class CampaignStatsFragment extends Fragment implements SplatnetConnected
     CampaignRecords campaignRecords;
     SplatnetConnector connector;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,8 +78,8 @@ public class CampaignStatsFragment extends Fragment implements SplatnetConnected
         Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getActivity().getAssets(), "Paintball.otf");
 
-        ListView weaponList = (ListView) rootView.findViewById(R.id.WeaponList);
-        ListView worldList = (ListView) rootView.findViewById(R.id.WorldList);
+        RecyclerView weaponList = (RecyclerView) rootView.findViewById(R.id.WeaponList);
+        RecyclerView worldList = (RecyclerView) rootView.findViewById(R.id.WorldList);
 
         TextView honor = (TextView) rootView.findViewById(R.id.Honor);
         TextView percent = (TextView) rootView.findViewById(R.id.PercentComplete);
@@ -98,13 +98,10 @@ public class CampaignStatsFragment extends Fragment implements SplatnetConnected
         for(int i=0;i<keys.length;i++){
             weapons.add(campaignRecords.weaponMap.get(keys[i]));
         }
-        CampaignWeaponAdapter campaignWeaponAdapter = new CampaignWeaponAdapter(getContext(),weapons,campaignRecords.info);
+        CampaignWeaponAdapter campaignWeaponAdapter = new CampaignWeaponAdapter(getActivity(),weapons,campaignRecords.info);
 
         weaponList.setAdapter(campaignWeaponAdapter);
-        ViewGroup.LayoutParams layoutParams = weaponList.getLayoutParams();
-        float height = (weapons.size()*50)+5;
-        layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, getResources().getDisplayMetrics());
-        weaponList.setLayoutParams(layoutParams);
+        weaponList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         ArrayList<ArrayList<CampaignStageInfo>> worlds = new ArrayList<>();
         ArrayList<CampaignStageInfo> world1 = new ArrayList<>(),world2 = new ArrayList<>(),world3 = new ArrayList<>(),world4 = new ArrayList<>(),world5 = new ArrayList<>();
@@ -135,9 +132,9 @@ public class CampaignStatsFragment extends Fragment implements SplatnetConnected
         worlds.add(world4);
         worlds.add(world5);
 
-        CampaignWorldAdapter campaignWorldAdapter = new CampaignWorldAdapter(getContext(),worlds,campaignRecords.weaponMap);
+        CampaignWorldAdapter campaignWorldAdapter = new CampaignWorldAdapter(getActivity(),worlds,campaignRecords.weaponMap);
         worldList.setAdapter(campaignWorldAdapter);
-
+        worldList.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     @Override

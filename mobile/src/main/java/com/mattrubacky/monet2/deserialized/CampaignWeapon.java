@@ -12,6 +12,8 @@ import com.google.gson.annotations.SerializedName;
 public class CampaignWeapon implements Parcelable{
     public CampaignWeapon(){}
 
+    @SerializedName("weapon_category")
+    public int wepcategory;
     @SerializedName("category")
     public int category;
     @SerializedName("image")

@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="-5dp"
-    android:paddingRight="-5dp">
+    android:paddingRight="-5dp"
+    android:paddingBottom="-10dp"
+    android:paddingTop="-10dp">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-10dp">
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:id="@+id/nameLayout"
@@ -122,14 +123,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/moreInfo"
                     android:layout_marginTop="-5dp"
-                    android:layout_marginBottom="-5dp"
                     android:background="@color/offWhite"
                     android:elevation="3dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="-5dp"
+                        android:layout_height="match_parent"
                         android:background="@drawable/repeat_spots">
 
                         <RelativeLayout
@@ -159,34 +158,30 @@
                                     android:src="@drawable/extra_product"
                                     android:tint="@color/offWhite" />
 
-                                <RelativeLayout
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/WeaponList"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="30dp">
-
-                                    <ListView
-                                        android:id="@+id/WeaponList"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:paddingLeft="5dp"
-                                        android:paddingRight="5dp"
-                                        android:divider="@android:color/transparent"
-                                        android:dividerHeight="0dp"
-                                        android:layout_marginBottom="10dp"></ListView>
-                                </RelativeLayout>
+                                    android:layout_marginTop="30dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:paddingLeft="5dp"
+                                    android:paddingRight="5dp"
+                                    android:divider="@android:color/transparent"
+                                    android:dividerHeight="0dp"/>
 
                             </RelativeLayout>
 
                         </RelativeLayout>
 
-                        <ListView
+                        <android.support.v7.widget.RecyclerView
                             android:id="@+id/WorldList"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_below="@+id/weaponsOverall"
                             android:divider="@android:color/transparent"
                             android:dividerHeight="0dp"
-                            android:layout_marginBottom="10dp"></ListView>
+                            android:layout_marginBottom="15dp"></android.support.v7.widget.RecyclerView>
 
                     </RelativeLayout>
                 </RelativeLayout>
