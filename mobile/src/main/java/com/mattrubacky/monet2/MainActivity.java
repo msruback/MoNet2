@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ExpandableListView drawerList;
     ArrayList<String> titles,children;
-    Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet,stagePostcards,chunkBag,splatfestStats;
+    Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet,stagePostcards,chunkBag,splatfestStats,campaignStats;
     FragmentManager fragmentManager;
     ArrayList<String> backStack;
     TextView addButton;
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         stagePostcards = new StagePostcardsFragment();
         chunkBag = new ChunkBagFragment();
         splatfestStats = new SplatfestStatsFragment();
+        campaignStats = new CampaignStatsFragment();
 
         addButton = (TextView) findViewById(R.id.AddButton);
 
@@ -220,7 +221,16 @@ public class MainActivity extends AppCompatActivity {
                                 .replace(R.id.frame_container,splatfestStats)
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
-                        backStack.add(0,"splatfestStats");
+                        backStack.add(0,"splatfeststats");
+                        addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
+                        break;
+                    case 6:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,campaignStats)
+                                .commit();
+                        drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"campaignstats");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
                         break;
@@ -368,7 +378,16 @@ public class MainActivity extends AppCompatActivity {
                                 .replace(R.id.frame_container,splatfestStats)
                                 .commit();
                         drawerLayout.closeDrawer(drawerList);
-                        backStack.add(0,"splatfestStats");
+                        backStack.add(0,"splatfeststats");
+                        addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
+                        break;
+                    case 5:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,campaignStats)
+                                .commit();
+                        drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"campaignstats");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
                         break;
@@ -452,6 +471,14 @@ public class MainActivity extends AppCompatActivity {
                 case "splatfeststats":
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container,splatfestStats)
+                            .commit();
+                    drawerLayout.closeDrawer(drawerList);
+                    addButton.setVisibility(View.GONE);
+                    addButton.setOnClickListener(null);
+                    break;
+                case "campaignstats":
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container,campaignStats)
                             .commit();
                     drawerLayout.closeDrawer(drawerList);
                     addButton.setVisibility(View.GONE);

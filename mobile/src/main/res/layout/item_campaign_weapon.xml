@@ -2,36 +2,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_card"
-    android:backgroundTint="@color/weapon">
+    android:padding="5dp">
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:background="@drawable/repeat_zigzag">
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/weapon">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/repeat_zigzag">
 
-        <ImageView
-            android:id="@+id/WeaponImage"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"/>
-        <TextView
-            android:id="@+id/WeaponTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="2:24"
-            android:textSize="20sp"/>
-        <TextView
-            android:id="@+id/Completion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:layout_centerVertical="true"
-            android:text="9/9"
-            android:textSize="20sp"/>
+            <ImageView
+                android:id="@+id/WeaponImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:id="@+id/WeaponTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="2:24"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/Completion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:text="9/9"
+                android:textSize="20sp"/>
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>

@@ -28,7 +28,7 @@ public class CampaignRecordsRequest extends SplatnetRequest {
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
-        records = gson.fromJson(settings.getString("campaig_records","{\"stage_infos\":[],\"weapon_map\":{}}"),CampaignRecords.class);
+        records = gson.fromJson(settings.getString("campaign_records","{\"stage_infos\":[],\"weapon_map\":{}}"),CampaignRecords.class);
     }
 
     @Override
