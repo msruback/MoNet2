@@ -16,6 +16,8 @@ import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.CampaignStage;
 import com.mattrubacky.monet2.deserialized.CampaignStageInfo;
 import com.mattrubacky.monet2.deserialized.CampaignWeapon;
+import com.mattrubacky.monet2.dialog.CampaignStageStatsDialog;
+import com.mattrubacky.monet2.dialog.CampaignWeaponStatsDialog;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
@@ -33,13 +35,17 @@ public class CampaignStageAdapter extends RecyclerView.Adapter<CampaignStageAdap
     private ArrayList<CampaignStageInfo> input;
     private LayoutInflater inflater;
     private Context context;
+    private Activity activity;
     private Map<Integer, CampaignWeapon> weaponMap;
+    private RecyclerView stage;
 
-    public CampaignStageAdapter(Activity activity, ArrayList<CampaignStageInfo> input,Map<Integer, CampaignWeapon> weaponMap ) {
+    public CampaignStageAdapter(Activity activity, ArrayList<CampaignStageInfo> input,Map<Integer, CampaignWeapon> weaponMap,RecyclerView stage) {
         this.inflater = LayoutInflater.from(activity);
         this.input = input;
+        this.activity = activity;
         this.context = activity;
         this.weaponMap = weaponMap;
+        this.stage = stage;
 
     }
 
@@ -47,6 +53,22 @@ public class CampaignStageAdapter extends RecyclerView.Adapter<CampaignStageAdap
     public CampaignStageAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_map, parent, false);
         CampaignStageAdapter.ViewHolder viewHolder = new CampaignStageAdapter.ViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int itemPosition = stage.indexOfChild(v);
+
+                ArrayList<CampaignWeapon> weapons = new ArrayList<>();
+                Integer[] keys = new Integer[2];
+                keys = weaponMap.keySet().toArray(keys);
+                for(int i=0;i<keys.length;i++){
+                    weapons.add(weaponMap.get(keys[i]));
+                }
+
+                CampaignStageStatsDialog dialog = new CampaignStageStatsDialog(activity,input.get(itemPosition),weapons);
+                dialog.show();
+            }
+        });
         return viewHolder;
     }
 

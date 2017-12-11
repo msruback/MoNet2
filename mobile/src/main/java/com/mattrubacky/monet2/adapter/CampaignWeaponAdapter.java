@@ -17,6 +17,7 @@ import com.mattrubacky.monet2.deserialized.CampaignStage;
 import com.mattrubacky.monet2.deserialized.CampaignStageInfo;
 import com.mattrubacky.monet2.deserialized.CampaignWeapon;
 import com.mattrubacky.monet2.deserialized.Gear;
+import com.mattrubacky.monet2.dialog.CampaignWeaponStatsDialog;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
@@ -35,10 +36,12 @@ public class CampaignWeaponAdapter extends RecyclerView.Adapter<CampaignWeaponAd
     private ArrayList<CampaignStageInfo> infos;
     private LayoutInflater inflater;
     private Context context;
+    private Activity activity;
 
     public CampaignWeaponAdapter(Activity activity, ArrayList<CampaignWeapon> input, ArrayList<CampaignStageInfo> infos ) {
         this.inflater = LayoutInflater.from(activity);
         this.input = input;
+        this.activity = activity;
         this.context = activity;
         this.infos = infos;
 
@@ -48,6 +51,15 @@ public class CampaignWeaponAdapter extends RecyclerView.Adapter<CampaignWeaponAd
     public CampaignWeaponAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_campaign_weapon, parent, false);
         CampaignWeaponAdapter.ViewHolder viewHolder = new CampaignWeaponAdapter.ViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecyclerView weapons = (RecyclerView) activity.findViewById(R.id.WeaponList);
+                int itemPosition = weapons.indexOfChild(v);
+                CampaignWeaponStatsDialog dialog = new CampaignWeaponStatsDialog(activity,input.get(itemPosition),infos);
+                dialog.show();
+            }
+        });
         return viewHolder;
     }
 

@@ -65,7 +65,7 @@ public class CampaignWorldAdapter extends RecyclerView.Adapter<CampaignWorldAdap
 
         holder.world.setText("World "+(position+1));
 
-        CampaignStageAdapter campaignStageAdapter = new CampaignStageAdapter(activity,infos,weaponMap);
+        CampaignStageAdapter campaignStageAdapter = new CampaignStageAdapter(activity,infos,weaponMap,holder.list);
         holder.list.setAdapter(campaignStageAdapter);
         holder.list.setLayoutManager(new LinearLayoutManager(context));
     }
