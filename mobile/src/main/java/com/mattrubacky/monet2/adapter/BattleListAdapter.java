@@ -63,53 +63,21 @@ public class BattleListAdapter extends ArrayAdapter<Battle> {
         result.setTypeface(font);
 
         String modeString = "";
-        switch (battle.rule.name) {
-            case "Turf War":
-                modeString = "TW";
+        switch (battle.rule.key) {
+            case "turf_war":
+                modeString = getContext().getResources().getString(R.string.turfWarShort);
                 break;
-            case "Rainmaker":
-                modeString = "R";
+            case "rainmaker":
+                modeString = getContext().getResources().getString(R.string.rainmakerShort);
                 break;
-            case "Splat Zones":
-                modeString = "SZ";
+            case "splat_zones":
+                modeString = getContext().getResources().getString(R.string.splatzoneShort);
                 break;
-            case "Tower Control":
-                modeString = "TC";
+            case "tower_control":
+                modeString = getContext().getResources().getString(R.string.towerControlShort);
                 break;
-            case "Clam Blitz":
-                modeString = "CB";
-                break;
-            //Spanish
-            case "Territorial":
-                modeString = "CT";
-                break;
-            case "Pez dorado":
-                modeString = "PD";
-                break;
-            case "Pintazonas":
-                modeString = "P";
-                break;
-            case "Torreón":
-                modeString = "T";
-                break;
-            case "Asalto almeja":
-                modeString = "A";
-                break;
-            //French
-            case "Guerre de territoire":
-                modeString = "T";
-                break;
-            case "Mission bazookarpe":
-                modeString = "B";
-                break;
-            case "Défense de zone":
-                modeString = "Z";
-                break;
-            case "Expédition risquée":
-                modeString = "R";
-                break;
-            case "Pluie de palourdes":
-                modeString = "P";
+            case "clam_blitz":
+                modeString = getContext().getResources().getString(R.string.clamBlitzShort);
                 break;
         }
         mode.setText(modeString);

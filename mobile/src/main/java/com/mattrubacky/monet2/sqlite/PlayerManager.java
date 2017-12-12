@@ -68,17 +68,9 @@ class PlayerManager {
 
             PlayerDatabase player;
 
-            String whereClause = SplatnetContract.Battle._ID +" = ?";
-            String[] args;
-            Cursor cursor = null;
-
             for (int i = 0; i < toInsert.size(); i++) {
                 player = toInsert.get(i);
                 values = new ContentValues();
-
-                args = new String[] {String.valueOf(player.battleID)};
-                cursor = database.query(SplatnetContract.Battle.TABLE_NAME,null,whereClause,args,null,null,null);
-                if(cursor.getCount()==0) {
 
                     values.put(SplatnetContract.Player.COLUMN_MODE, player.battleType);
                     values.put(SplatnetContract.Player.COLUMN_BATTLE, player.battleID);
@@ -182,7 +174,6 @@ class PlayerManager {
 
 
                     database.insert(SplatnetContract.Player.TABLE_NAME, null, values);
-                }
             }
             database.close();
             toInsert = new ArrayList<>();

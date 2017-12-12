@@ -205,6 +205,10 @@ public class SplatnetSQLManager {
         ClosetManager closetManager = new ClosetManager(context);
         return closetManager.selectAll();
     }
+    public ClosetHanger selectCloset(int id,String kind){
+        ClosetManager closetManager = new ClosetManager(context);
+        return closetManager.select(id,kind);
+    }
 
 
     public void restructureCloset(){
@@ -221,9 +225,52 @@ public class SplatnetSQLManager {
         closetManager.insert();
     }
 
-    public ClosetHanger selectCloset(int id,String kind){
-        ClosetManager closetManager = new ClosetManager(context);
-        return closetManager.select(id,kind);
+    public void fixPlayers(){
+        BattleManager battleManager = new BattleManager(context);
+        PlayerManager playerManager = new PlayerManager(context);
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+
+        ArrayList<Battle> battles = battleManager.selectAll();
+
+        database.execSQL("DROP TABLE IF EXISTS player");
+        ArrayList<Player> ally;
+        ArrayList<Player> foe;
+        Battle battle;
+        for(int i=0;i<battles.size();i++){
+            battle = battles.get(i);
+            ally = new ArrayList<>();
+            foe = new ArrayList<>();
+            playerManager.addToInsert(battle.user,battle.type,battle.id,0);
+            if(battle.myTeam.size()>3){
+                for(int j=0;j<battle.myTeam.size();j++){
+                    boolean isUnique = true;
+                    for(int k=0;k<ally.size();k++) {
+                        if (ally.get(k).user.id.equals(battle.myTeam.get(j).user.id)){
+                            isUnique = false;
+                        }
+                    }
+                    if(isUnique){
+                        ally.add(battle.myTeam.get(i));
+                        playerManager.addToInsert(battle.myTeam.get(i),battle.type,battle.id,1);
+                    }
+                }
+            }
+            if(battle.otherTeam.size()>3){
+                for(int j=0;j<battle.otherTeam.size();j++){
+                    boolean isUnique = true;
+                    for(int k=0;k<foe.size();k++) {
+                        if (foe.get(k).user.id.equals(battle.otherTeam.get(j).user.id)){
+                            isUnique = false;
+                        }
+                    }
+                    if(isUnique){
+                        foe.add(battle.otherTeam.get(i));
+                        playerManager.addToInsert(battle.otherTeam.get(i),battle.type,battle.id,2);
+                    }
+                }
+            }
+        }
+        playerManager.insert();
     }
 
 

@@ -13,6 +13,13 @@
     <string name="battlesList">Battles</string>
     <string name="settings">Settings</string>
 
+    //Modes
+    <string name="turfWarShort">TW</string>
+    <string name="rainmakerShort">R</string>
+    <string name="splatzoneShort">SZ</string>
+    <string name="towerControlShort">TC</string>
+    <string name="clamBlitzShort">CB</string>
+
     //Rotation Frag
     <string name="turfWar">Turf War</string>
     <string name="rank">Ranked</string>

@@ -65,14 +65,6 @@ class BattleManager {
             closetManager.addToInsert(battle.user.user.clothes,battle.user.user.clothesSkills,battle);
 
             closetManager.addToInsert(battle.user.user.shoes,battle.user.user.shoeSkills,battle);
-
-            playerManager.addToInsert(battle.user, battle.type, battle.id, 0);
-            for (int i = 0; i < battle.myTeam.size(); i++) {
-                playerManager.addToInsert(battle.myTeam.get(i), battle.type, battle.id, 1);
-            }
-            for (int i = 0; i < battle.otherTeam.size(); i++) {
-                playerManager.addToInsert(battle.otherTeam.get(i), battle.type, battle.id, 2);
-            }
         }
     }
 
@@ -107,11 +99,6 @@ class BattleManager {
             ContentValues values;
             Battle battle;
 
-            //Insert other tables
-            playerManager.insert(); //playerManager needs to insert before closetManager to prevent Closet from referencing gear not in the database and to keep things simple
-            closetManager.insert();
-            stageManager.insert();
-
             String whereClause = SplatnetContract.Battle._ID + " = ?";
             String[] args;
             Cursor cursor = null;
@@ -120,9 +107,11 @@ class BattleManager {
                 values = new ContentValues();
                 battle = toInsert.get(i);
                 args = new String[]{String.valueOf(battle.id)};
+                cursor = database.query(SplatnetContract.Battle.TABLE_NAME,null,whereClause,args,null,null,null);
+                if(cursor.getCount()==0) {
                     values.put(SplatnetContract.Battle._ID, battle.id);
                     values.put(SplatnetContract.Battle.COLUMN_RESULT, battle.result.name);
-                    values.put(SplatnetContract.Battle.COLUMN_RULE, battle.rule.name);
+                    values.put(SplatnetContract.Battle.COLUMN_RULE, battle.rule.key);
                     values.put(SplatnetContract.Battle.COLUMN_MODE, battle.type);
                     values.put(SplatnetContract.Battle.COLUMN_START_TIME, battle.start);
                     switch (battle.type) {
@@ -152,9 +141,23 @@ class BattleManager {
                             break;
                     }
 
+                    playerManager.addToInsert(battle.user, battle.type, battle.id, 0);
+                    for (int j = 0; j < battle.myTeam.size(); j++) {
+                        playerManager.addToInsert(battle.myTeam.get(j), battle.type, battle.id, 1);
+                    }
+                    for (int j = 0; j < battle.otherTeam.size(); j++) {
+                        playerManager.addToInsert(battle.otherTeam.get(j), battle.type, battle.id, 2);
+                    }
+
                     values.put(SplatnetContract.Battle.COLUMN_STAGE, battle.stage.id);
                     database.insert(SplatnetContract.Battle.TABLE_NAME, null, values);
+                }
             }
+
+            //Insert other tables
+            playerManager.insert(); //playerManager needs to insert before closetManager to prevent Closet from referencing gear not in the database and to keep things simple
+            closetManager.insert();
+            stageManager.insert();
 
             database.close();
             //Clear toInsert
@@ -288,6 +291,7 @@ class BattleManager {
         ArrayList<Battle> battles = new ArrayList<>();
         ArrayList<Battle> battleList = new ArrayList<>();
         Battle battle;
+        boolean update = false;
         if(cursor.moveToFirst()) {
             do {
                 battle = new Battle();
@@ -296,7 +300,7 @@ class BattleManager {
                 battle.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_START_TIME));
 
                 Rule rule = new Rule();
-                rule.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
+                rule.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
                 battle.rule = rule;
 
                 TeamResult teamResult = new TeamResult();

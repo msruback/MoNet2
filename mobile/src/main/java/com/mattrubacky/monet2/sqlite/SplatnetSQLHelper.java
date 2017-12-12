@@ -1,5 +1,6 @@
 package com.mattrubacky.monet2.sqlite;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -11,7 +12,7 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
 
 
     private Context context;
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "splatnet";
 
     public SplatnetSQLHelper(Context context) {
@@ -85,6 +86,29 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
                 case 5:
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS friends");
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS splatfest_votes");
+                    SplatnetSQLManager manager = new SplatnetSQLManager(context);
+
+                    String whereClause = SplatnetContract.Battle.COLUMN_RULE + " = ?";
+                    String[] args = new String[]{"Turf War"};
+                    ContentValues values = new ContentValues();
+                    values.put(SplatnetContract.Battle.COLUMN_RULE, "turf_war");
+                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values,whereClause,args);
+
+                    args = new String[]{"Rainmaker"};
+                    values = new ContentValues();
+                    values.put(SplatnetContract.Battle.COLUMN_RULE, "rainmaker");
+                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values,whereClause,args);
+
+                    args = new String[]{"Splat Zones"};
+                    values = new ContentValues();
+                    values.put(SplatnetContract.Battle.COLUMN_RULE, "splat_zones");
+                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values,whereClause,args);
+
+                    args = new String[]{"Tower Control"};
+                    values = new ContentValues();
+                    values.put(SplatnetContract.Battle.COLUMN_RULE, "tower_control");
+                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values,whereClause,args);
+                    manager.fixPlayers();
                     break;
             }
         }
