@@ -2,45 +2,45 @@
     <string name="app_name">MoNet 2</string>
 
     //Nav Drawer
-    <string name="rotation">Rotation</string>
-    <string name="shop">Shop</string>
-    <string name="weaponLocker">Weapon Locker</string>
-    <string name="closet">Closet</string>
-    <string name="stages">Stages</string>
-    <string name="chunks">Ability Chunks</string>
+    <string name="rotation">Zeitplan</string>
+    <string name="shop">Geschäft</string>
+    <string name="weaponLocker">Waffenschrank</string>
+    <string name="closet">Wandschrank</string>
+    <string name="stages">Bühnen</string>
+    <string name="chunks">Effektstücke</string>
     <string name="splatfests">Splatfests</string>
-    <string name="campaign">Campaign</string>
-    <string name="battlesList">Battles</string>
-    <string name="settings">Settings</string>
+    <string name="campaign">Heldenmodus</string>
+    <string name="battlesList">Kämpfe</string>
+    <string name="settings">Einstellungen</string>
 
     //Rotation Frag
-    <string name="turfWar">Turf War</string>
-    <string name="rank">Ranked</string>
-    <string name="league">League</string>
+    <string name="turfWar">Revierkampf</string>
+    <string name="rank">Rangkampf</string>
+    <string name="league">Ligakampf</string>
     <string name="splatfest">Splatfest</string>
-    <string name="grizzco">Grizz Co. Shifts</string>
+    <string name="grizzco">Bär GmbH Zeitplan</string>
 
     //Dialogs
-    <string name="dataError">Error: Could not reach Splatnet</string>
-    <string name="badCookie">Error: Cookie is invalid, please obtain a new cookie</string>
-    <string name="loading">Loading</string>
+    <string name="dataError">Verbindung zu Splatnet konnte nicht hergestellt werden</string>
+    <string name="badCookie">Authentifizierungsfehler: Erhalte einen neuen Browser-Cookie</string>
+    <string name="loading">Wird geladen</string>
 
     //Shop Frag
-    <string name="ordered">Ordered</string>
-    <string name="available">Available</string>
+    <string name="ordered">Gekauft</string>
+    <string name="available">Verfügbar</string>
     <string name="no_ordered">Nothing has been Ordered</string>
-    <string name="order">Order</string>
-    <string name="keep">Keep</string>
+    <string name="order">Kaufen</string>
+    <string name="keep">Behalten</string>
     <string name="minute">Minute</string>
-    <string name="minutes">Minutes</string>
-    <string name="hour">Hour</string>
-    <string name="hours">Hours</string>
+    <string name="minutes">Minuten</string>
+    <string name="hour">Stunde</string>
+    <string name="hours">Stunden</string>
 
     //Meters
-    <string name="inkspread">Ink Spread</string>
-    <string name="killspread">Kill Spread</string>
-    <string name="deathspread">Death Spread</string>
-    <string name="specialspread">Special Spread</string>
+    <string name="inkspread">Tintenverteilung</string>
+    <string name="killspread">Töteverteilung</string>
+    <string name="deathspread">Todesverteilung</string>
+    <string name="specialspread">Spezialverteilung</string>
 
     //Stats
     <string name="totalInked">Total Inked</string>
@@ -60,7 +60,7 @@
 
     //CampaignStats
     <string name="world">World</string>
-    <string name = "complete">Complete</string>
+    <string name="complete">Achevée</string>
 
     //SettingsFrag
     <string name="updateTitle">Auto Updates</string>
@@ -68,14 +68,14 @@
     <string name="updateFreq">Update Frequency</string>
     <string name="updateData">Update on Data</string>
     <string-array name="update_periods">
-        <item>1 Hour</item>
-        <item>2 Hours</item>
-        <item>4 Hours</item>
-        <item>6 Hours</item>
-        <item>8 Hours</item>
-        <item>10 Hours</item>
-        <item>12 Hours</item>
-        <item>24 Hours</item>
+        <item>1 Heure</item>
+        <item>2 Heures</item>
+        <item>4 Heures</item>
+        <item>6 Heures</item>
+        <item>8 Heures</item>
+        <item>10 Heures</item>
+        <item>12 Heures</item>
+        <item>24 Heures</item>
     </string-array>
     <string name="tokenTitle">Manage Cookie</string>
     <string name="cookie">Cookie</string>

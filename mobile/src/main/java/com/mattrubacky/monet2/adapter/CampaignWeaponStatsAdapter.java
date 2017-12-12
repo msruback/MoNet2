@@ -49,7 +49,7 @@ public class CampaignWeaponStatsAdapter extends ArrayAdapter<CampaignStageInfo> 
         weaponTime.setTypeface(font);
 
         if(info.stage.isBoss){
-            number.setText(info.stage.area+" - ");
+            number.setText(info.stage.area+" -");
             boss.setVisibility(View.VISIBLE);
         }else {
             number.setText(info.stage.area + " - " + info.stage.id);

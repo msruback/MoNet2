@@ -2,35 +2,35 @@
     <string name="app_name">MoNet 2</string>
 
     //Nav Drawer
-    <string name="rotation">Rotation</string>
+    <string name="rotation">Horario</string>
     <string name="shop">Shop</string>
     <string name="weaponLocker">Weapon Locker</string>
     <string name="closet">Closet</string>
     <string name="stages">Stages</string>
     <string name="chunks">Ability Chunks</string>
-    <string name="splatfests">Splatfests</string>
-    <string name="campaign">Campaign</string>
+    <string name="splatfests">Festivales</string>
+    <string name="campaign">Modo héroe</string>
     <string name="battlesList">Battles</string>
     <string name="settings">Settings</string>
 
     //Rotation Frag
-    <string name="turfWar">Turf War</string>
-    <string name="rank">Ranked</string>
-    <string name="league">League</string>
-    <string name="splatfest">Splatfest</string>
-    <string name="grizzco">Grizz Co. Shifts</string>
+    <string name="turfWar">Territorial</string>
+    <string name="rank">Competitivo</string>
+    <string name="league">Torneo</string>
+    <string name="splatfest">Festival</string>
+    <string name="grizzco">Don Oso, S.A. Horario</string>
 
     //Dialogs
-    <string name="dataError">Error: Could not reach Splatnet</string>
-    <string name="badCookie">Error: Cookie is invalid, please obtain a new cookie</string>
-    <string name="loading">Loading</string>
+    <string name="dataError">Verbindung zu Splatnet konnte nicht hergestellt werden</string>
+    <string name="badCookie">Authentifizierungsfehler: Erhalte einen neuen Browser-Cookie</string>
+    <string name="loading">Le chargement</string>
 
     //Shop Frag
     <string name="ordered">Ordered</string>
     <string name="available">Available</string>
     <string name="no_ordered">Nothing has been Ordered</string>
-    <string name="order">Order</string>
-    <string name="keep">Keep</string>
+    <string name="order">Acheter</string>
+    <string name="keep">Tenir</string>
     <string name="minute">Minute</string>
     <string name="minutes">Minutes</string>
     <string name="hour">Hour</string>
@@ -60,7 +60,7 @@
 
     //CampaignStats
     <string name="world">World</string>
-    <string name = "complete">Complete</string>
+    <string name="complete">Achevée</string>
 
     //SettingsFrag
     <string name="updateTitle">Auto Updates</string>
@@ -68,14 +68,14 @@
     <string name="updateFreq">Update Frequency</string>
     <string name="updateData">Update on Data</string>
     <string-array name="update_periods">
-        <item>1 Hour</item>
-        <item>2 Hours</item>
-        <item>4 Hours</item>
-        <item>6 Hours</item>
-        <item>8 Hours</item>
-        <item>10 Hours</item>
-        <item>12 Hours</item>
-        <item>24 Hours</item>
+        <item>1 Heure</item>
+        <item>2 Heures</item>
+        <item>4 Heures</item>
+        <item>6 Heures</item>
+        <item>8 Heures</item>
+        <item>10 Heures</item>
+        <item>12 Heures</item>
+        <item>24 Heures</item>
     </string-array>
     <string name="tokenTitle">Manage Cookie</string>
     <string name="cookie">Cookie</string>

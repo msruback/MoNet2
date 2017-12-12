@@ -16,6 +16,14 @@ public class StageStats implements Parcelable{
     @SerializedName("stage")
     public Stage stage;
 
+    //The wins on this Stage under the Tower Control rule
+    @SerializedName("yagura_win")
+    public int towerWin;
+
+    //The losses on this stage under the Tower Control rule
+    @SerializedName("yagura_lose")
+    public int towerLose;
+
     //The wins on this Stage under the Rainmaker rule
     @SerializedName("hoko_win")
     public int rainmakerWin;
@@ -32,13 +40,13 @@ public class StageStats implements Parcelable{
     @SerializedName("area_lose")
     public int splatzonesLose;
 
-    //The wins on this Stage under the Tower Control rule
-    @SerializedName("yagura_win")
-    public int towerWin;
+    //The wins on this Stage under the Clam Blitz rule
+    @SerializedName("asari_win")
+    public int clamWin;
 
-    //The losses on this stage under the Tower Control rule
-    @SerializedName("yagura_lose")
-    public int towerLose;
+    //The losses on this Stage under the Clam Blitz rules
+    @SerializedName("asari_lose")
+    public int clamLose;
 
     //The last time the user played on this stage
     //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
@@ -62,12 +70,14 @@ public class StageStats implements Parcelable{
 
     protected StageStats(Parcel in) {
         stage = in.readParcelable(Stage.class.getClassLoader());
+        towerWin = in.readInt();
+        towerLose = in.readInt();
         rainmakerWin = in.readInt();
         rainmakerLose = in.readInt();
         splatzonesWin = in.readInt();
         splatzonesLose = in.readInt();
-        towerWin = in.readInt();
-        towerLose = in.readInt();
+        clamWin = in.readInt();
+        clamLose = in.readInt();
         lastPlayed = in.readLong();
         inkStats = in.createIntArray();
         killStats = in.createIntArray();
@@ -79,12 +89,14 @@ public class StageStats implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(stage, flags);
+        dest.writeInt(towerWin);
+        dest.writeInt(towerLose);
         dest.writeInt(rainmakerWin);
         dest.writeInt(rainmakerLose);
         dest.writeInt(splatzonesWin);
         dest.writeInt(splatzonesLose);
-        dest.writeInt(towerWin);
-        dest.writeInt(towerLose);
+        dest.writeInt(clamWin);
+        dest.writeInt(clamLose);
         dest.writeLong(lastPlayed);
         dest.writeIntArray(inkStats);
         dest.writeIntArray(killStats);

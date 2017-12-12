@@ -120,10 +120,10 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void result) {
         if(hasUI) {
             if (isUnconn) {
-                AlertDialog alertDialog = new AlertDialog(activity, "Error: Could not reach Splatnet");
+                AlertDialog alertDialog = new AlertDialog(activity, context.getResources().getString(R.string.dataError));
                 alertDialog.show();
             } else if (isUnauth) {
-                AlertDialog alertDialog = new AlertDialog(activity, "Error: Cookie is invalid, please obtain a new cookie");
+                AlertDialog alertDialog = new AlertDialog(activity, context.getResources().getString(R.string.badCookie));
                 alertDialog.show();
             }else{
                 caller.update(this.result);

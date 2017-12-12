@@ -76,6 +76,41 @@ public class BattleListAdapter extends ArrayAdapter<Battle> {
             case "Tower Control":
                 modeString = "TC";
                 break;
+            case "Clam Blitz":
+                modeString = "CB";
+                break;
+            //Spanish
+            case "Territorial":
+                modeString = "CT";
+                break;
+            case "Pez dorado":
+                modeString = "PD";
+                break;
+            case "Pintazonas":
+                modeString = "P";
+                break;
+            case "Torreón":
+                modeString = "T";
+                break;
+            case "Asalto almeja":
+                modeString = "A";
+                break;
+            //French
+            case "Guerre de territoire":
+                modeString = "T";
+                break;
+            case "Mission bazookarpe":
+                modeString = "B";
+                break;
+            case "Défense de zone":
+                modeString = "Z";
+                break;
+            case "Expédition risquée":
+                modeString = "R";
+                break;
+            case "Pluie de palourdes":
+                modeString = "P";
+                break;
         }
         mode.setText(modeString);
         mode.setTypeface(font);

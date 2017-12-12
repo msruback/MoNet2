@@ -45,6 +45,9 @@ public class User implements Parcelable {
     @SerializedName("udemae_zones")
     public Rank splatzones;
 
+    @SerializedName("udemae_clam")
+    public Rank clam;
+
     //The player's rank, is only available in the results and results/{battle_id} endpoints
     @SerializedName("udemae")
     public Rank udamae;
@@ -86,9 +89,11 @@ public class User implements Parcelable {
         id = in.readString();
         name = in.readString();
         rank = in.readInt();
+        starRank = in.readInt();
         tower = in.readParcelable(Rank.class.getClassLoader());
         rainmaker = in.readParcelable(Rank.class.getClassLoader());
         splatzones = in.readParcelable(Rank.class.getClassLoader());
+        clam = in.readParcelable(Rank.class.getClassLoader());
         udamae = in.readParcelable(Rank.class.getClassLoader());
         weapon = in.readParcelable(Weapon.class.getClassLoader());
         headSkills = in.readParcelable(GearSkills.class.getClassLoader());
@@ -123,9 +128,11 @@ public class User implements Parcelable {
         dest.writeString(id);
         dest.writeString(name);
         dest.writeInt(rank);
+        dest.writeInt(starRank);
         dest.writeParcelable(tower, flags);
         dest.writeParcelable(rainmaker, flags);
         dest.writeParcelable(splatzones, flags);
+        dest.writeParcelable(clam,flags);
         dest.writeParcelable(udamae, flags);
         dest.writeParcelable(weapon, flags);
         dest.writeParcelable(headSkills, flags);
