@@ -37,7 +37,7 @@ public class PastSplatfestRequest extends SplatnetRequest {
     }
 
     @Override
-    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
+    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException,SplatnetMaintenanceException {
         PastSplatfest pastSplatfest = (PastSplatfest) response.body();
 
         activeSplatfestRequest.run();

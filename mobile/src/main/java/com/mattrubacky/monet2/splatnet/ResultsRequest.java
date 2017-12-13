@@ -31,7 +31,7 @@ public class ResultsRequest extends SplatnetRequest {
     }
 
     @Override
-    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
+    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException,SplatnetMaintenanceException {
         ResultList results = (ResultList) response.body();
 
         SplatnetSQLManager database = new SplatnetSQLManager(context);

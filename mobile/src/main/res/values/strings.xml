@@ -10,7 +10,7 @@
     <string name="chunks">Ability Chunks</string>
     <string name="splatfests">Splatfests</string>
     <string name="campaign">Campaign</string>
-    <string name="battlesList">Battles</string>
+    <string name="battleList">Battles</string>
     <string name="settings">Settings</string>
 
     //Modes
@@ -30,6 +30,7 @@
     //Dialogs
     <string name="dataError">Error: Could not reach Splatnet</string>
     <string name="badCookie">Error: Cookie is invalid, please obtain a new cookie</string>
+    <string name="splatnetMaintenance">Error: Splatnet is down for Maintenance</string>
     <string name="loading">Loading</string>
 
     //Shop Frag

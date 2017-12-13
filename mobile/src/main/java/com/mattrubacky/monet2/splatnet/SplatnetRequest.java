@@ -21,17 +21,19 @@ public abstract class SplatnetRequest {
     //In case of failure to reach Splatnet, this will ensure valid data is not overwritten
 
     //Manage response should handle any transformation and storing of the data once recieved
-    protected abstract void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException;
+    protected abstract void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException,SplatnetMaintenanceException;
 
     //Setup should define the retrofit request "call" will be
     public abstract void setup(Splatnet splatnet, String cookie, String uniqueID);
 
-    public void run() throws SplatnetUnauthorizedException,MalformedURLException,IOException{
+    public void run() throws SplatnetUnauthorizedException,IOException,SplatnetMaintenanceException{
         if(shouldUpdate()){
             Response response = call.execute();
             if (response.isSuccessful()) {
                 manageResponse(response);
-            } else {
+            } else if(response.code()==200) {
+                throw new SplatnetMaintenanceException("Splatnet is down for Maintenance");
+            }else{
                 throw new SplatnetUnauthorizedException("User Authentication Failed");
             }
         }

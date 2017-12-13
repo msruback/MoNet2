@@ -86,7 +86,6 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
                 case 5:
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS friends");
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS splatfest_votes");
-                    SplatnetSQLManager manager = new SplatnetSQLManager(context);
 
                     String whereClause = SplatnetContract.Battle.COLUMN_RULE + " = ?";
                     String[] args = new String[]{"Turf War"};
@@ -108,7 +107,6 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
                     values = new ContentValues();
                     values.put(SplatnetContract.Battle.COLUMN_RULE, "tower_control");
                     sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values,whereClause,args);
-                    manager.fixPlayers();
                     break;
             }
         }

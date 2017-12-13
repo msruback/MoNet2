@@ -31,7 +31,7 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
     private Activity activity;
     private ArrayList<SplatnetRequest> requests;
     private ImageView loading;
-    private boolean isUnconn,isUnauth,hasUI;
+    private boolean isUnconn,isUnauth,isMain,hasUI;
     private Context context;
     private Bundle result;
 
@@ -86,6 +86,7 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
         }
         isUnconn = false;
         isUnauth = false;
+        isMain = false;
     }
     @Override
     protected Void doInBackground(Void... params) {
@@ -112,6 +113,10 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
             e.printStackTrace();
             isUnconn = true;
             return null;
+        } catch (SplatnetMaintenanceException e) {
+            e.printStackTrace();
+            isMain = true;
+            return null;
         }
         return null;
     }
@@ -125,7 +130,10 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
             } else if (isUnauth) {
                 AlertDialog alertDialog = new AlertDialog(activity, context.getResources().getString(R.string.badCookie));
                 alertDialog.show();
-            }else{
+            } else if (isMain) {
+                AlertDialog alertDialog = new AlertDialog(activity, context.getResources().getString(R.string.splatnetMaintenance));
+                alertDialog.show();
+            } else {
                 caller.update(this.result);
             }
             loading.setAnimation(null);

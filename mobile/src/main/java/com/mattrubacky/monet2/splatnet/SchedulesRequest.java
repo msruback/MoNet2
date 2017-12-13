@@ -40,7 +40,7 @@ public class SchedulesRequest extends SplatnetRequest {
     }
 
     @Override
-    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
+    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException,SplatnetMaintenanceException {
         schedules = (Schedules) response.body();
         SplatnetSQLManager database = new SplatnetSQLManager(context);
         ArrayList<Stage> stages = new ArrayList<>();
