@@ -75,7 +75,7 @@ public class SchedulesRequest extends SplatnetRequest {
     public boolean shouldUpdate(){
         long now = new Date().getTime();
         if(schedules.regular!=null&&schedules.regular.size()>0&&schedules.splatfest!=null&&schedules.splatfest.size()>0){
-            if(schedules.regular.get(0).end<schedules.splatfest.get(0).end){
+            if(schedules.regular.get(0).end>schedules.splatfest.get(0).end){
                 if((schedules.splatfest.get(0).end*1000)<now){
                     return true;
                 }

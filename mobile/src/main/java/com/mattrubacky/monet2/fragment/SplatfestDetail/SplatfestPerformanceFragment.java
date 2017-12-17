@@ -48,6 +48,7 @@ public class SplatfestPerformanceFragment extends Fragment{
         RelativeLayout wins = (RelativeLayout) rootView.findViewById(R.id.Wins);
         RelativeLayout losses = (RelativeLayout) rootView.findViewById(R.id.Losses);
         RelativeLayout meterLayout = (RelativeLayout) rootView.findViewById(R.id.winOutline);
+        RelativeLayout sameTeam = (RelativeLayout) rootView.findViewById(R.id.sameTeamLayout);
         RelativeLayout disconnects = (RelativeLayout) rootView.findViewById(R.id.disconnectLayout);
         RelativeLayout timePlayedLayout = (RelativeLayout) rootView.findViewById(R.id.timeLayout);
         RelativeLayout imageLayout = (RelativeLayout) rootView.findViewById(R.id.imageLayout);
@@ -59,6 +60,8 @@ public class SplatfestPerformanceFragment extends Fragment{
         TextView lossText = (TextView) rootView.findViewById(R.id.LossText);
         TextView gradeTitle = (TextView) rootView.findViewById(R.id.GradeTitleText);
         TextView gradeText = (TextView) rootView.findViewById(R.id.GradeText);
+        TextView sameTeamTitle = (TextView) rootView.findViewById(R.id.SameTeamTitleText);
+        TextView sameTeamText = (TextView) rootView.findViewById(R.id.SameTeamText);
         TextView disconnectTitle = (TextView) rootView.findViewById(R.id.DisconnectTitleText);
         TextView disconnectText = (TextView) rootView.findViewById(R.id.DisconnectText);
         TextView powerTitle = (TextView) rootView.findViewById(R.id.PowerTitleText);
@@ -72,6 +75,8 @@ public class SplatfestPerformanceFragment extends Fragment{
         lossText.setTypeface(font);
         gradeTitle.setTypeface(fontTitle);
         gradeText.setTypeface(font);
+        sameTeamTitle.setTypeface(fontTitle);
+        sameTeamText.setTypeface(font);
         disconnectTitle.setTypeface(fontTitle);
         disconnectText.setTypeface(font);
         powerTitle.setTypeface(fontTitle);
@@ -82,10 +87,12 @@ public class SplatfestPerformanceFragment extends Fragment{
         winText.setText(String.valueOf(stats.wins));
         lossText.setText(String.valueOf(stats.losses));
         gradeText.setText(stats.grade);
+        sameTeamText.setText(String.valueOf(stats.sameTeam));
         disconnectText.setText(String.valueOf(stats.disconnects));
         powerText.setText(String.valueOf(stats.power));
 
         gradeTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        sameTeamTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
         disconnectTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
         powerTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
         playedTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
@@ -108,6 +115,7 @@ public class SplatfestPerformanceFragment extends Fragment{
 
         if(total==0){
             meterLayout.setVisibility(View.GONE);
+            sameTeam.setVisibility(View.GONE);
             disconnects.setVisibility(View.GONE);
             timePlayedLayout.setVisibility(View.GONE);
             imageLayout.setVisibility(View.VISIBLE);

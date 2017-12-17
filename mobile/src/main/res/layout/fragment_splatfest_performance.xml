@@ -10,7 +10,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/shape_card"
         android:backgroundTint="@color/offWhiteDark"
         android:padding="5dp">
@@ -123,9 +123,8 @@
             android:text="888p"
             android:textSize="16sp" />
     </RelativeLayout>
-
     <RelativeLayout
-        android:id="@+id/disconnectLayout"
+        android:id="@+id/sameTeamLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/powerLayout"
@@ -133,6 +132,39 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="15dp"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/transparentgrey">
+
+        <TextView
+            android:id="@+id/SameTeamTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/primary"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Same Team Battles"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/SameTeamText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/SameTeamTitleText"
+            android:text="888p"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/disconnectLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sameTeamLayout"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:background="@drawable/shape_card"
         android:backgroundTint="@color/transparentgrey">
 

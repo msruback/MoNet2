@@ -211,9 +211,10 @@ public class BattleInfo extends AppCompatActivity {
                 foeCard.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
                 allyMeter.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
                 foeMeter.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
+
+                alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
+                bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
                 if(battle.myTheme.key.equals("alpha")){
-                    alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
-                    bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
 
                     url = "https://app.splatoon2.nintendo.net"+splatfest.images.alpha;
                     imageDirName = splatfest.names.alpha.toLowerCase().replace(" ", "_");
@@ -223,18 +224,7 @@ public class BattleInfo extends AppCompatActivity {
                         Picasso.with(getApplicationContext()).load(url).into(allyImage);
                         imageHandler.downloadImage("splatfest", imageDirName, url, getApplicationContext());
                     }
-
-                    url = "https://app.splatoon2.nintendo.net"+splatfest.images.bravo;
-                    imageDirName = splatfest.names.bravo.toLowerCase().replace(" ", "_");
-                    if (imageHandler.imageExists("splatfest", imageDirName, getApplicationContext())) {
-                        foeImage.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
-                    } else {
-                        Picasso.with(getApplicationContext()).load(url).into(foeImage);
-                        imageHandler.downloadImage("splatfest", imageDirName, url, getApplicationContext());
-                    }
                 }else{
-                    alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
-                    bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
 
                     url = "https://app.splatoon2.nintendo.net"+splatfest.images.bravo;
                     imageDirName = splatfest.names.bravo.toLowerCase().replace(" ", "_");
@@ -244,7 +234,8 @@ public class BattleInfo extends AppCompatActivity {
                         Picasso.with(getApplicationContext()).load(url).into(allyImage);
                         imageHandler.downloadImage("splatfest", imageDirName, url, getApplicationContext());
                     }
-
+                }
+                if(battle.otherTheme.key.equals("alpha")){
                     url = "https://app.splatoon2.nintendo.net"+splatfest.images.alpha;
                     imageDirName = splatfest.names.alpha.toLowerCase().replace(" ", "_");
                     if (imageHandler.imageExists("splatfest", imageDirName, getApplicationContext())) {
@@ -252,6 +243,15 @@ public class BattleInfo extends AppCompatActivity {
                     } else {
                         Picasso.with(getApplicationContext()).load(url).into(foeImage);
                         imageHandler.downloadImage("weapon", imageDirName, url, getApplicationContext());
+                    }
+                }else{
+                    url = "https://app.splatoon2.nintendo.net"+splatfest.images.bravo;
+                    imageDirName = splatfest.names.bravo.toLowerCase().replace(" ", "_");
+                    if (imageHandler.imageExists("splatfest", imageDirName, getApplicationContext())) {
+                        foeImage.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
+                    } else {
+                        Picasso.with(getApplicationContext()).load(url).into(foeImage);
+                        imageHandler.downloadImage("splatfest", imageDirName, url, getApplicationContext());
                     }
                 }
 

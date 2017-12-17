@@ -110,6 +110,7 @@ public class BattleListAdapter extends ArrayAdapter<Battle> {
                 mode.setText("SP");
                 type.setVisibility(View.GONE);
                 fesMode.setVisibility(View.VISIBLE);
+
                 if (battle.myTheme.key.equals("alpha")) {
                     alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
                     bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));

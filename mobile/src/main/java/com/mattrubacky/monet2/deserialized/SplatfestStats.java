@@ -18,6 +18,8 @@ public class SplatfestStats implements Parcelable{
     public int wins;
     @SerializedName("losses")
     public int losses;
+    @SerializedName("sameTeam")
+    public int sameTeam;
     @SerializedName("grade")
     public String grade;
     @SerializedName("disconnects")

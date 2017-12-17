@@ -19,6 +19,7 @@ class BattleManager {
     StageManager stageManager;
     PlayerManager playerManager;
     ClosetManager closetManager;
+    SplatfestManager splatfestManager;
     ArrayList<Battle> toInsert;
     ArrayList<Integer> toSelect;
 
@@ -31,6 +32,7 @@ class BattleManager {
 
         //Get tableMangers that this table has data for
         closetManager = new ClosetManager(context);
+        splatfestManager = new SplatfestManager(context);
 
         toInsert = new ArrayList<>();
         toSelect = new ArrayList<>();

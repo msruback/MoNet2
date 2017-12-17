@@ -167,6 +167,7 @@ public class StatCalc {
         splatfestStats.playerSpecialAverage = 0;
         splatfestStats.wins = 0;
         splatfestStats.losses = 0;
+        splatfestStats.sameTeam = 0;
 
         playerInk = new ArrayList<>();
         playerKill = new ArrayList<>();
@@ -194,10 +195,14 @@ public class StatCalc {
                 playerKill.add(battle.user.kills);
                 playerDeath.add(battle.user.deaths);
                 playerSpecial.add(battle.user.special);
-                if (battle.result.name.equals("VICTORY")) {
-                    splatfestStats.wins++;
-                } else {
-                    splatfestStats.losses++;
+                if(battle.myTheme.color.color.equals(battle.otherTheme.color.color)) {
+                    splatfestStats.sameTeam++;
+                }else{
+                    if (battle.result.name.equals("VICTORY")) {
+                        splatfestStats.wins++;
+                    } else {
+                        splatfestStats.losses++;
+                    }
                 }
 
                 splatfestStats.playerInkAverage += battle.user.points;
@@ -215,6 +220,9 @@ public class StatCalc {
                 }
 
             }
+            battle = battles.get(battles.size()-1);
+            splatfestStats.grade = battle.user.user.grade.name;
+            splatfestStats.power = battle.fesPower;
 
             if (battles.size() > 5) {
                 splatfestStats.playerInkStats = calcStats(sort(playerInk));

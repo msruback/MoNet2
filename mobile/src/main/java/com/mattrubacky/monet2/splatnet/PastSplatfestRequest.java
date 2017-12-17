@@ -57,21 +57,6 @@ public class PastSplatfestRequest extends SplatnetRequest {
     }
 
     @Override
-    public boolean shouldUpdate(){
-
-        long now = new Date().getTime();
-        if(splatfests.size()>0){
-            for(int i=0;i<splatfests.size();i++){
-                if(splatfests.get(i).result.participants.alpha==0&&(splatfests.get(i).splatfest.times.end*1000)<now){
-                    return true;
-                }
-            }
-            return false;
-        }
-        return true;
-    }
-
-    @Override
     public void setup(Splatnet splatnet, String cookie, String uniqueID) {
         call = splatnet.getPastSplatfests(cookie,uniqueID);
         activeSplatfestRequest.setup(splatnet,cookie,uniqueID);

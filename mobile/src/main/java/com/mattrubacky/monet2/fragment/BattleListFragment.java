@@ -51,7 +51,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BattleListFragment extends Fragment implements SplatnetConnected {
     ViewGroup rootView;
     SplatnetSQLManager database;
-    android.os.Handler customHandler;
     ArrayList<Battle> battles;
     SplatnetConnector splatnetConnector;
 
@@ -61,14 +60,8 @@ public class BattleListFragment extends Fragment implements SplatnetConnected {
         rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_battle_list, container, false);
 
-        customHandler = new android.os.Handler();
         database = new SplatnetSQLManager(getContext());
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
-
-
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        Gson gson = new Gson();
-        battles = gson.fromJson(settings.getString("recentBattles",""),new TypeToken<ArrayList<Battle>>(){}.getType());
 
         RelativeLayout numberButton = (RelativeLayout) rootView.findViewById(R.id.NumberButton);
 
@@ -119,14 +112,9 @@ public class BattleListFragment extends Fragment implements SplatnetConnected {
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-        Gson gson = new Gson();
-        battles = gson.fromJson(settings.getString("recentBattles",""),new TypeToken<ArrayList<Battle>>(){}.getType());
-        if(battles!=null){
-            updateUI();
-        }
         splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
         splatnetConnector.addRequest(new ResultsRequest(getContext()));
+        update(splatnetConnector.getCurrentData());
         splatnetConnector.execute();
     }
 

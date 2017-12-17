@@ -77,10 +77,10 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
         StatCalc statCalc = new StatCalc(getApplicationContext(),splatfest);
         stats = statCalc.getSplatfestStats();
         battles = statCalc.getBattles();
-
-        stats.grade = bundle.getString("grade");
-        stats.power = bundle.getInt("power");
-
+        if(stats.grade==null) {
+            stats.grade = bundle.getString("grade");
+            stats.power = bundle.getInt("power");
+        }
 
         votes = null;
 

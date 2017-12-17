@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.ResultList;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
@@ -28,6 +29,9 @@ public class ResultsRequest extends SplatnetRequest {
 
     public ResultsRequest(Context context){
         this.context = context;
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        Gson gson = new Gson();
+        list = gson.fromJson(settings.getString("recentBattles","[]"),new TypeToken<ArrayList<Battle>>(){}.getType());
     }
 
     @Override
@@ -52,6 +56,7 @@ public class ResultsRequest extends SplatnetRequest {
 
         String json = gson.toJson(list);
         edit.putString("recentBattles",json);
+        edit.commit();
     }
 
     @Override

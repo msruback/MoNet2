@@ -50,9 +50,9 @@ public class SplatfestPerformanceAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        if(result!=null&&stats!=null){
+        if(result.participants.alpha!=0&&stats!=null){
             return 2;
-        }else if(result==null&&stats==null){
+        }else if(result.participants.alpha==0&&stats==null){
             return 0;
         }else{
             return 1;
