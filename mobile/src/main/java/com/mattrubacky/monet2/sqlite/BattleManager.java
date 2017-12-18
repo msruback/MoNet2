@@ -516,11 +516,11 @@ class BattleManager {
                 battle.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_START_TIME));
 
                 Rule rule = new Rule();
-                rule.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
+                rule.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
                 battle.rule = rule;
 
                 TeamResult teamResult = new TeamResult();
-                teamResult.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
+                teamResult.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
                 battle.result = teamResult;
 
                 //The stage ids can only be gathered while retrieving the battle info

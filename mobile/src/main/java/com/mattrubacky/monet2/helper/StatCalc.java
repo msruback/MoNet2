@@ -195,10 +195,10 @@ public class StatCalc {
                 playerKill.add(battle.user.kills);
                 playerDeath.add(battle.user.deaths);
                 playerSpecial.add(battle.user.special);
-                if(battle.myTheme.color.color.equals(battle.otherTheme.color.color)) {
+                if(battle.myTheme.color.getColor().equals(battle.otherTheme.color.getColor())) {
                     splatfestStats.sameTeam++;
                 }else{
-                    if (battle.result.name.equals("VICTORY")) {
+                    if (battle.result.key.equals("victory")) {
                         splatfestStats.wins++;
                     } else {
                         splatfestStats.losses++;

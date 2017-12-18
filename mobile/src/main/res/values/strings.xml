@@ -19,9 +19,13 @@
     <string name="splatzoneShort">SZ</string>
     <string name="towerControlShort">TC</string>
     <string name="clamBlitzShort">CB</string>
+    <string name="turfWar">Turf War</string>
+    <string name="rainmaker">Rainmaker</string>
+    <string name="splatzone">Splat Zones</string>
+    <string name="towerControl">Tower Control</string>
+    <string name="clamBlitz">Clam Blitz</string>
 
     //Rotation Frag
-    <string name="turfWar">Turf War</string>
     <string name="rank">Ranked</string>
     <string name="league">League</string>
     <string name="splatfest">Splatfest</string>
@@ -53,6 +57,7 @@
     //Stats
     <string name="totalInked">Total Inked</string>
     <string name="lastUsed">Last Used</string>
+    <string name="lastPlayed">Last Played</string>
 
     //Splatfest Stats
     <string name="votes">Votes</string>

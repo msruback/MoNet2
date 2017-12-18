@@ -50,23 +50,42 @@ public class StagePostcardsDetail extends AppCompatActivity {
 
         TextView name = (TextView) findViewById(R.id.Name);
         TextView number = (TextView) findViewById(R.id.Number);
+        TextView turfTitle = (TextView) findViewById(R.id.TurfTitle);
+        TextView turfWinText = (TextView) findViewById(R.id.TurfWinText);
+        TextView turfLossText = (TextView) findViewById(R.id.TurfLossText);
+        TextView zoneTitle = (TextView) findViewById(R.id.ZoneTitle);
         TextView zoneWinText = (TextView) findViewById(R.id.ZoneWinText);
         TextView zoneLossText = (TextView) findViewById(R.id.ZoneLossText);
+        TextView rainmakerTitle = (TextView) findViewById(R.id.RainmakerTitle);
         TextView rainmakerWinText = (TextView) findViewById(R.id.RainmakerWinText);
         TextView rainmakerLossText = (TextView) findViewById(R.id.RainmakerLossText);
+        TextView towerTitle = (TextView) findViewById(R.id.TowerTitle);
         TextView towerWinText = (TextView) findViewById(R.id.TowerWinText);
         TextView towerLossText = (TextView) findViewById(R.id.TowerLossText);
+        TextView clamTitle = (TextView) findViewById(R.id.ClamTitle);
+        TextView clamWinText = (TextView) findViewById(R.id.ClamWinText);
+        TextView clamLossText = (TextView) findViewById(R.id.ClamLossText);
         TextView lastUsedTitle = (TextView) findViewById(R.id.LastTitleText);
         TextView lastUsed = (TextView) findViewById(R.id.LastText);
 
         name.setTypeface(fontTitle);
+        turfTitle.setTypeface(fontTitle);
+        zoneTitle.setTypeface(fontTitle);
+        rainmakerTitle.setTypeface(fontTitle);
+        towerTitle.setTypeface(fontTitle);
+        clamTitle.setTypeface(fontTitle);
+
         number.setTypeface(font);
+        turfWinText.setTypeface(font);
+        turfLossText.setTypeface(font);
         zoneWinText.setTypeface(font);
         zoneLossText.setTypeface(font);
         rainmakerWinText.setTypeface(font);
         rainmakerLossText.setTypeface(font);
         towerWinText.setTypeface(font);
         towerLossText.setTypeface(font);
+        clamWinText.setTypeface(font);
+        clamLossText.setTypeface(font);
         lastUsedTitle.setTypeface(font);
         lastUsed.setTypeface(font);
 
@@ -76,12 +95,16 @@ public class StagePostcardsDetail extends AppCompatActivity {
         String numGames = stageStats.numGames +"/"+(stageStats.splatzonesWin+stageStats.splatzonesLose+stageStats.rainmakerWin+stageStats.rainmakerLose+stageStats.towerWin+stageStats.towerLose);
         number.setText(numGames);
 
+        turfWinText.setText(String.valueOf(stageStats.turfWin));
+        turfLossText.setText(String.valueOf(stageStats.turfLose));
         zoneWinText.setText(String.valueOf(stageStats.splatzonesWin));
         zoneLossText.setText(String.valueOf(stageStats.splatzonesLose));
         rainmakerWinText.setText(String.valueOf(stageStats.rainmakerWin));
         rainmakerLossText.setText(String.valueOf(stageStats.rainmakerLose));
         towerWinText.setText(String.valueOf(stageStats.towerWin));
         towerLossText.setText(String.valueOf(stageStats.towerLose));
+        clamWinText.setText(String.valueOf(stageStats.clamWin));
+        clamLossText.setText(String.valueOf(stageStats.clamLose));
 
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy h:mm a");
         String last = format.format(stageStats.lastPlayed*1000);
@@ -116,6 +139,16 @@ public class StagePostcardsDetail extends AppCompatActivity {
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
         FragmentManager fragmentManager = getSupportFragmentManager();
 
+        RelativeLayout turfMeter = (RelativeLayout) findViewById(R.id.turfMeter);
+        RelativeLayout turfWinLossMeter = (RelativeLayout) findViewById(R.id.TurfWinLossMeter);
+        RelativeLayout turfWins = (RelativeLayout) findViewById(R.id.TurfWins);
+        RelativeLayout turfLosses = (RelativeLayout) findViewById(R.id.TurfLosses);
+
+        turfWinLossMeter.setClipToOutline(true);
+        if(stageStats.turfWin==0&&stageStats.turfLose==0){
+            turfMeter.setVisibility(View.GONE);
+        }
+
         RelativeLayout zoneMeter = (RelativeLayout) findViewById(R.id.zoneMeter);
         RelativeLayout zoneWinLossMeter = (RelativeLayout) findViewById(R.id.ZoneWinLossMeter);
         RelativeLayout zoneWins = (RelativeLayout) findViewById(R.id.ZoneWins);
@@ -146,6 +179,16 @@ public class StagePostcardsDetail extends AppCompatActivity {
             towerMeter.setVisibility(View.GONE);
         }
 
+        RelativeLayout clamMeter = (RelativeLayout) findViewById(R.id.clamMeter);
+        RelativeLayout clamWinLossMeter = (RelativeLayout) findViewById(R.id.ClamWinLossMeter);
+        RelativeLayout clamWins = (RelativeLayout) findViewById(R.id.ClamWins);
+        RelativeLayout clamLosses = (RelativeLayout) findViewById(R.id.ClamLosses);
+
+        clamWinLossMeter.setClipToOutline(true);
+        if(stageStats.clamWin==0&&stageStats.clamLose==0){
+            clamMeter.setVisibility(View.GONE);
+        }
+
         RelativeLayout inkCard = (RelativeLayout) findViewById(R.id.inkStats);
         RelativeLayout killCard = (RelativeLayout) findViewById(R.id.killStats);
         RelativeLayout deathCard = (RelativeLayout) findViewById(R.id.deathStats);
@@ -162,11 +205,24 @@ public class StagePostcardsDetail extends AppCompatActivity {
         specialTitle.setTypeface(fontTitle);
 
 
-        ViewGroup.LayoutParams layoutParams = zoneWins.getLayoutParams();
+        ViewGroup.LayoutParams layoutParams = turfWins.getLayoutParams();
 
-        float total = stageStats.splatzonesWin+stageStats.splatzonesLose;
-        float width = stageStats.splatzonesWin/total;
+        float total = stageStats.turfWin+stageStats.turfLose;
+        float width = stageStats.turfWin/total;
 
+        width *= 250;
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        turfWins.setLayoutParams(layoutParams);
+
+        layoutParams = turfLosses.getLayoutParams();
+        width = stageStats.turfLose/total;
+        width *= 250;
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        turfLosses.setLayoutParams(layoutParams);
+
+        layoutParams = zoneWins.getLayoutParams();
+        total = stageStats.splatzonesWin+stageStats.splatzonesLose;
+        width = stageStats.splatzonesWin/total;
         width *= 250;
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
         zoneWins.setLayoutParams(layoutParams);
@@ -202,6 +258,19 @@ public class StagePostcardsDetail extends AppCompatActivity {
         width *= 250;
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
         towerLosses.setLayoutParams(layoutParams);
+
+        layoutParams = clamWins.getLayoutParams();
+        total = stageStats.clamWin+stageStats.clamLose;
+        width = stageStats.clamWin/total;
+        width *= 250;
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        clamWins.setLayoutParams(layoutParams);
+
+        layoutParams = clamLosses.getLayoutParams();
+        width = stageStats.clamLose/total;
+        width *= 250;
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        clamLosses.setLayoutParams(layoutParams);
 
         //Ink card
         float range = stageStats.inkStats[4] - stageStats.inkStats[0];

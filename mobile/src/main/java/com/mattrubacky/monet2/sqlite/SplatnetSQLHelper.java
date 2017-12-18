@@ -12,7 +12,7 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
 
 
     private Context context;
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     public static final String DATABASE_NAME = "splatnet";
 
     public SplatnetSQLHelper(Context context) {
@@ -107,18 +107,6 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
                     values5 = new ContentValues();
                     values5.put(SplatnetContract.Battle.COLUMN_RULE, "tower_control");
                     sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values5,whereClause5,args5);
-                    break;
-                case 6:
-                    String whereClause6 = SplatnetContract.Battle.COLUMN_RULE + " = ?";
-                    String[] args6 = new String[]{"DEFEAT"};
-                    ContentValues values6 = new ContentValues();
-                    values6.put(SplatnetContract.Battle.COLUMN_RULE, "defeat");
-                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values6,whereClause6,args6);
-
-                    args6 = new String[]{"VICTORY"};
-                    values6 = new ContentValues();
-                    values6.put(SplatnetContract.Battle.COLUMN_RULE, "victory");
-                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values6,whereClause6,args6);
                     break;
             }
         }

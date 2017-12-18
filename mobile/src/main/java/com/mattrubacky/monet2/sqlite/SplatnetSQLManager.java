@@ -225,6 +225,28 @@ public class SplatnetSQLManager {
         closetManager.insert();
     }
 
+    public void removeBattle(){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        BattleManager battleManager = new BattleManager(context);
+        ArrayList<Battle> battles = battleManager.selectAll();
+
+        for(int i=0;i<battles.size();i++){
+            if(battles.get(i).myTeamCount==0&&battles.get(i).otherTeamCount==0){
+                if(battles.get(i).myTeamPercent>battles.get(i).otherTeamPercent){
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(SplatnetContract.Battle.COLUMN_RESULT,"victory");
+                    database.update(SplatnetContract.Battle.TABLE_NAME,contentValues, SplatnetContract.Battle._ID+" = ?",new String[]{String.valueOf(battles.get(i).id)});
+                }
+            }else{
+                if(battles.get(i).myTeamCount>battles.get(i).otherTeamCount){
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(SplatnetContract.Battle.COLUMN_RESULT,"victory");
+                    database.update(SplatnetContract.Battle.TABLE_NAME,contentValues, SplatnetContract.Battle._ID+" = ?",new String[]{String.valueOf(battles.get(i).id)});
+                }
+            }
+        }
+    }
+
 
 }
 

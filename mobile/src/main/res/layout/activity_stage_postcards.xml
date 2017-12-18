@@ -178,9 +178,81 @@
                                     android:layout_marginTop="30dp">
 
                                     <RelativeLayout
-                                        android:id="@+id/zoneMeter"
+                                        android:id="@+id/turfMeter"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent">
+                                        <TextView
+                                            android:id="@+id/TurfTitle"
+                                            android:layout_width="100dp"
+                                            android:layout_height="30dp"
+                                            android:layout_centerHorizontal="true"
+                                            android:background="@drawable/banner_normal"
+                                            android:backgroundTint="@color/marina"
+                                            android:text="@string/turfWar"
+                                            android:gravity="center"/>
+
+                                        <RelativeLayout
+                                            android:id="@+id/turfWinOutline"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="40dp"
+                                            android:layout_centerHorizontal="true"
+                                            android:layout_marginLeft="30dp"
+                                            android:layout_marginRight="30dp"
+                                            android:layout_margin="5dp"
+                                            android:layout_below="@+id/TurfTitle"
+                                            android:background="@drawable/shape_card"
+                                            android:backgroundTint="@color/offWhiteDark"
+                                            android:padding="5dp">
+
+                                            <RelativeLayout
+                                                android:id="@+id/TurfWinLossMeter"
+                                                android:layout_width="250dp"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/shape_card"
+                                                android:backgroundTint="@color/offWhiteDark">
+
+                                                <RelativeLayout
+                                                    android:id="@+id/TurfWins"
+                                                    android:layout_width="100dp"
+                                                    android:layout_height="match_parent"
+                                                    android:background="@color/colorPrimary">
+
+                                                    <TextView
+                                                        android:id="@+id/TurfWinText"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_centerInParent="true"
+                                                        android:text="50" />
+                                                </RelativeLayout>
+
+                                                <RelativeLayout
+                                                    android:id="@+id/TurfLosses"
+                                                    android:layout_width="100dp"
+                                                    android:layout_height="match_parent"
+                                                    android:layout_alignParentRight="true"
+                                                    android:background="@color/colorAccent">
+
+                                                    <TextView
+                                                        android:id="@+id/TurfLossText"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_centerInParent="true"
+                                                        android:text="50" />
+                                                </RelativeLayout>
+
+                                                <RelativeLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent"
+                                                    android:background="@drawable/repeat_stripes"></RelativeLayout>
+                                            </RelativeLayout>
+                                        </RelativeLayout>
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:id="@+id/zoneMeter"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_below="@+id/turfMeter">
                                         <TextView
                                             android:id="@+id/ZoneTitle"
                                             android:layout_width="100dp"
@@ -188,7 +260,7 @@
                                             android:layout_centerHorizontal="true"
                                             android:background="@drawable/banner_normal"
                                             android:backgroundTint="@color/marina"
-                                            android:text="Splatzones"
+                                            android:text="@string/splatzone"
                                             android:gravity="center"/>
 
                                         <RelativeLayout
@@ -262,7 +334,7 @@
                                             android:layout_centerHorizontal="true"
                                             android:background="@drawable/banner_normal"
                                             android:backgroundTint="@color/marina"
-                                            android:text="Rainmaker"
+                                            android:text="@string/rainmaker"
                                             android:gravity="center"/>
 
                                         <RelativeLayout
@@ -337,7 +409,7 @@
                                             android:background="@drawable/banner_normal"
                                             android:backgroundTint="@color/marina"
                                             android:gravity="center"
-                                            android:text="Tower Control" />
+                                            android:text="@string/towerControl" />
 
                                         <RelativeLayout
                                             android:id="@+id/towerWinOutline"
@@ -397,10 +469,84 @@
                                     </RelativeLayout>
 
                                     <RelativeLayout
+                                        android:id="@+id/clamMeter"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_below="@+id/towerMeter"
+                                        android:layout_marginTop="10dp">
+
+                                        <TextView
+                                            android:id="@+id/ClamTitle"
+                                            android:layout_width="100dp"
+                                            android:layout_height="30dp"
+                                            android:layout_centerHorizontal="true"
+                                            android:background="@drawable/banner_normal"
+                                            android:backgroundTint="@color/marina"
+                                            android:gravity="center"
+                                            android:text="@string/clamBlitz" />
+
+                                        <RelativeLayout
+                                            android:id="@+id/clamWinOutline"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="40dp"
+                                            android:layout_below="@+id/ClamTitle"
+                                            android:layout_centerHorizontal="true"
+                                            android:layout_marginLeft="30dp"
+                                            android:layout_marginRight="30dp"
+                                            android:layout_marginTop="5dp"
+                                            android:background="@drawable/shape_card"
+                                            android:backgroundTint="@color/offWhiteDark"
+                                            android:padding="5dp">
+
+                                            <RelativeLayout
+                                                android:id="@+id/ClamWinLossMeter"
+                                                android:layout_width="250dp"
+                                                android:layout_height="match_parent"
+                                                android:background="@drawable/shape_card"
+                                                android:backgroundTint="@color/offWhiteDark">
+
+                                                <RelativeLayout
+                                                    android:id="@+id/ClamWins"
+                                                    android:layout_width="100dp"
+                                                    android:layout_height="match_parent"
+                                                    android:background="@color/colorPrimary">
+
+                                                    <TextView
+                                                        android:id="@+id/ClamWinText"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_centerInParent="true"
+                                                        android:text="50" />
+                                                </RelativeLayout>
+
+                                                <RelativeLayout
+                                                    android:id="@+id/ClamLosses"
+                                                    android:layout_width="100dp"
+                                                    android:layout_height="match_parent"
+                                                    android:layout_alignParentRight="true"
+                                                    android:background="@color/colorAccent">
+
+                                                    <TextView
+                                                        android:id="@+id/ClamLossText"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_centerInParent="true"
+                                                        android:text="50" />
+                                                </RelativeLayout>
+
+                                                <RelativeLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent"
+                                                    android:background="@drawable/repeat_stripes"></RelativeLayout>
+                                            </RelativeLayout>
+                                        </RelativeLayout>
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
                                         android:id="@+id/lastLayout"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_below="@id/towerMeter"
+                                        android:layout_below="@id/clamMeter"
                                         android:layout_marginBottom="15dp"
                                         android:layout_marginLeft="30dp"
                                         android:layout_marginRight="30dp"
@@ -416,7 +562,7 @@
                                             android:backgroundTint="@color/marina"
                                             android:gravity="center"
                                             android:padding="10dp"
-                                            android:text="Last Played"
+                                            android:text="@string/lastPlayed"
                                             android:textSize="16sp" />
 
                                         <TextView
@@ -471,7 +617,7 @@
                                     android:backgroundTint="@color/marina"
                                     android:gravity="center"
                                     android:padding="10dp"
-                                    android:text="Ink Spread"
+                                    android:text="@string/inkspread"
                                     android:textSize="16sp" />
 
                                 <RelativeLayout
@@ -522,7 +668,7 @@
                                     android:backgroundTint="@color/marina"
                                     android:gravity="center"
                                     android:padding="10dp"
-                                    android:text="Kill Spread"
+                                    android:text="@string/killspread"
                                     android:textSize="16sp" />
 
                                 <RelativeLayout
@@ -572,7 +718,7 @@
                                     android:backgroundTint="@color/marina"
                                     android:gravity="center"
                                     android:padding="10dp"
-                                    android:text="Death Spread"
+                                    android:text="@string/deathspread"
                                     android:textSize="16sp" />
 
                                 <RelativeLayout
@@ -625,7 +771,7 @@
                                     android:backgroundTint="@color/marina"
                                     android:gravity="center"
                                     android:padding="10dp"
-                                    android:text="Special Spread"
+                                    android:text="@string/specialspread"
                                     android:textSize="16sp" />
 
                                 <RelativeLayout
