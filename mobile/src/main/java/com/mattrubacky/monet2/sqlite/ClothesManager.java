@@ -61,16 +61,19 @@ public class ClothesManager {
 
                 args = new String[] {String.valueOf(gear.id)};
                 cursor = database.query(SplatnetContract.Clothes.TABLE_NAME,null,whereClause,args,null,null,null);
-                if(cursor.getCount()==0){
-                    values = new ContentValues();
-                    values.put(SplatnetContract.Clothes._ID,gear.id);
-                    values.put(SplatnetContract.Clothes.COLUMN_NAME,gear.name);
-                    values.put(SplatnetContract.Clothes.COLUMN_KIND,gear.kind);
-                    values.put(SplatnetContract.Clothes.COLUMN_RARITY,gear.rarity);
-                    values.put(SplatnetContract.Clothes.COLUMN_URL,gear.url);
-                    values.put(SplatnetContract.Clothes.COLUMN_BRAND,gear.brand.id);
 
+                values = new ContentValues();
+                values.put(SplatnetContract.Clothes._ID,gear.id);
+                values.put(SplatnetContract.Clothes.COLUMN_NAME,gear.name);
+                values.put(SplatnetContract.Clothes.COLUMN_KIND,gear.kind);
+                values.put(SplatnetContract.Clothes.COLUMN_RARITY,gear.rarity);
+                values.put(SplatnetContract.Clothes.COLUMN_URL,gear.url);
+                values.put(SplatnetContract.Clothes.COLUMN_BRAND,gear.brand.id);
+
+                if(cursor.getCount()==0){
                     database.insert(SplatnetContract.Clothes.TABLE_NAME, null, values);
+                }else{
+                    database.update(SplatnetContract.Clothes.TABLE_NAME,values,whereClause,args);
                 }
             }
             if(cursor!=null) {

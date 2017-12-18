@@ -61,16 +61,19 @@ public class ShoeManager {
 
                 args = new String[] {String.valueOf(gear.id)};
                 cursor = database.query(SplatnetContract.Shoe.TABLE_NAME,null,whereClause,args,null,null,null);
-                if(cursor.getCount()==0){
-                    values = new ContentValues();
-                    values.put(SplatnetContract.Shoe._ID,gear.id);
-                    values.put(SplatnetContract.Shoe.COLUMN_NAME,gear.name);
-                    values.put(SplatnetContract.Shoe.COLUMN_KIND,gear.kind);
-                    values.put(SplatnetContract.Shoe.COLUMN_RARITY,gear.rarity);
-                    values.put(SplatnetContract.Shoe.COLUMN_URL,gear.url);
-                    values.put(SplatnetContract.Shoe.COLUMN_BRAND,gear.brand.id);
 
+                values = new ContentValues();
+                values.put(SplatnetContract.Shoe._ID,gear.id);
+                values.put(SplatnetContract.Shoe.COLUMN_NAME,gear.name);
+                values.put(SplatnetContract.Shoe.COLUMN_KIND,gear.kind);
+                values.put(SplatnetContract.Shoe.COLUMN_RARITY,gear.rarity);
+                values.put(SplatnetContract.Shoe.COLUMN_URL,gear.url);
+                values.put(SplatnetContract.Shoe.COLUMN_BRAND,gear.brand.id);
+
+                if(cursor.getCount()==0){
                     database.insert(SplatnetContract.Shoe.TABLE_NAME, null, values);
+                }else{
+                    database.update(SplatnetContract.Shoe.TABLE_NAME,values,whereClause,args);
                 }
             }
             if(cursor!=null) {

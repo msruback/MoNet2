@@ -1,19 +1,13 @@
 package com.mattrubacky.monet2.fragment;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
-import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.google.gson.Gson;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.WeaponLockerDetail;
-import com.mattrubacky.monet2.adapter.WeaponAdapter;
-import com.mattrubacky.monet2.adapter.WeaponPagingListAdapter;
+import com.mattrubacky.monet2.adapter.WeaponPagerAdapter;
 import com.mattrubacky.monet2.deserialized.Record;
-import com.mattrubacky.monet2.deserialized.Weapon;
-import com.mattrubacky.monet2.helper.StatCalc;
 import com.mattrubacky.monet2.helper.WeaponStats;
 import com.mattrubacky.monet2.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
@@ -374,7 +363,7 @@ public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
         weaponListList.add(sort(dualie));
         weaponListList.add(sort(brella));
 
-        WeaponPagingListAdapter weaponAdapter = new WeaponPagingListAdapter(getContext(), weaponListList);
+        WeaponPagerAdapter weaponAdapter = new WeaponPagerAdapter(getContext(), weaponListList);
         linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         weaponList.setLayoutManager(linearLayoutManager);
         weaponList.setAdapter(weaponAdapter);

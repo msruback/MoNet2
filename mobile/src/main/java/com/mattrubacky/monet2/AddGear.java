@@ -1,35 +1,22 @@
 package com.mattrubacky.monet2;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.adapter.GearPickerAdapter;
-import com.mattrubacky.monet2.adapter.SkillPickerAdapter;
-import com.mattrubacky.monet2.deserialized.ClosetHanger;
 import com.mattrubacky.monet2.deserialized.Gear;
 import com.mattrubacky.monet2.deserialized.GearSkills;
 import com.mattrubacky.monet2.deserialized.Skill;
-import com.mattrubacky.monet2.dialog.GearNotificationPickerDialog;
 import com.mattrubacky.monet2.dialog.GearPickerDialog;
 import com.mattrubacky.monet2.dialog.SkillPickerDialog;
+import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StatCalc;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;

@@ -1,9 +1,16 @@
-package com.mattrubacky.monet2.deserialized;
+package com.mattrubacky.monet2.helper;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.deserialized.Gear;
+import com.mattrubacky.monet2.deserialized.GearSkills;
+import com.mattrubacky.monet2.deserialized.Player;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -11,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
  * Not a part of the Splatnet API
  */
 
-public class ClosetHanger implements Parcelable{
+public class ClosetHanger extends Stats implements Parcelable{
     public ClosetHanger(){
     }
 
@@ -70,5 +77,44 @@ public class ClosetHanger implements Parcelable{
         dest.writeIntArray(deathStats);
         dest.writeIntArray(specialStats);
         dest.writeInt(numGames);
+    }
+
+    @Override
+    public void calcStats(Context context) {
+        ArrayList<Player> players;
+        ArrayList<Integer> ink,kill,death,special;
+        SplatnetSQLManager database = new SplatnetSQLManager(context);
+
+        players = database.getPlayerStats(gear.id,gear.kind);
+
+        numGames= players.size();
+
+        inkStats = new int[5];
+        killStats = new int[5];
+        deathStats = new int[5];
+        specialStats = new int[5];
+
+        ink = new ArrayList<>();
+        kill = new ArrayList<>();
+        death = new ArrayList<>();
+        special = new ArrayList<>();
+
+        Player player;
+        for(int i=0;i<players.size();i++){
+            player = players.get(i);
+
+            ink.add(player.points);
+            kill.add(player.kills);
+            death.add(player.deaths);
+            special.add(player.special);
+
+        }
+
+        if(players.size()>5) {
+            inkStats = calcSpread(sort(ink));
+            killStats = calcSpread(sort(kill));
+            deathStats = calcSpread(sort(death));
+            specialStats = calcSpread(sort(special));
+        }
     }
 }

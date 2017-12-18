@@ -17,10 +17,8 @@ import android.widget.Toast;
 
 import com.mattrubacky.monet2.ClosetDetail;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.ClosetHanger;
-import com.mattrubacky.monet2.deserialized.Gear;
 import com.mattrubacky.monet2.deserialized.Product;
-import com.mattrubacky.monet2.fragment.ShopFragment;
+import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StatCalc;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
@@ -64,18 +62,9 @@ public class MerchAdapter extends RecyclerView.Adapter<MerchAdapter.ViewHolder>{
                 Product gear = input.get(itemPosition);
                 ClosetHanger hanger = database.selectCloset(gear.gear.id,gear.gear.kind);
 
-                if(hanger!=null) {
-                    StatCalc statCalc = new StatCalc(context, gear.gear);
+                if(hanger.gear!=null) {
 
-                    if(hanger.gear==null){
-                        hanger.gear = gear.gear;
-                    }
-
-                    hanger.inkStats = statCalc.getInkStats();
-                    hanger.killStats = statCalc.getKillStats();
-                    hanger.deathStats = statCalc.getDeathStats();
-                    hanger.specialStats = statCalc.getSpecialStats();
-                    hanger.numGames = statCalc.getNum();
+                    hanger.calcStats(context);
                     hanger.time = (long)0;
 
                     Bundle bundle = new Bundle();

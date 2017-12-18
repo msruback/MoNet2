@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -17,8 +19,11 @@ import android.widget.RelativeLayout;
 import com.mattrubacky.monet2.ClosetDetail;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.GearAdapter;
-import com.mattrubacky.monet2.deserialized.ClosetHanger;
+import com.mattrubacky.monet2.adapter.GearPagerAdapter;
+import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.helper.StatCalc;
+import com.mattrubacky.monet2.helper.WeaponStats;
+import com.mattrubacky.monet2.sqlite.SplatnetContract;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
@@ -35,6 +40,7 @@ public class ClosetFragment extends Fragment {
     ArrayList<ClosetHanger> gearList;
     RecyclerView gearListView;
     RelativeLayout headTab,clothesTab,shoeTab;
+    LinearLayoutManager linearLayoutManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +53,10 @@ public class ClosetFragment extends Fragment {
         SplatnetSQLManager database = new SplatnetSQLManager(getContext());
         gearList = database.getCloset();
 
+        gearListView = (RecyclerView) rootView.findViewById(R.id.GearList);
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(gearListView);
+
         headTab = (RelativeLayout) rootView.findViewById(R.id.HeadTab);
         clothesTab = (RelativeLayout) rootView.findViewById(R.id.ClothesTab);
         shoeTab = (RelativeLayout) rootView.findViewById(R.id.ShoesTab);
@@ -58,6 +68,7 @@ public class ClosetFragment extends Fragment {
         headTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                linearLayoutManager.scrollToPosition(0);
                 headTab.setBackgroundTintList(getResources().getColorStateList(R.color.head));
                 clothesTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
                 shoeTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
@@ -67,6 +78,7 @@ public class ClosetFragment extends Fragment {
         clothesTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                linearLayoutManager.scrollToPosition(1);
                 headTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
                 clothesTab.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
                 shoeTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
@@ -76,9 +88,35 @@ public class ClosetFragment extends Fragment {
         shoeTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                linearLayoutManager.scrollToPosition(2);
                 headTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
                 clothesTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
                 shoeTab.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
+            }
+        });
+        gearListView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState==0){
+                    switch(linearLayoutManager.findFirstVisibleItemPosition()){
+                        case 0:
+                            headTab.setBackgroundTintList(getResources().getColorStateList(R.color.head));
+                            clothesTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
+                            shoeTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
+                            break;
+                        case 1:
+                            headTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
+                            clothesTab.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
+                            shoeTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
+                            break;
+                        case 2:
+                            headTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
+                            clothesTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
+                            shoeTab.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
+                            break;
+                    }
+                }
             }
         });
 
@@ -113,28 +151,62 @@ public class ClosetFragment extends Fragment {
     }
 
     private void updateUi(){
-        gearListView = (RecyclerView) rootView.findViewById(R.id.GearList);
-        GearAdapter gearAdapter = new GearAdapter(getContext(), gearList, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int itemPosition = gearListView.getChildAdapterPosition(v);
-                Intent intent = new Intent(getActivity(), ClosetDetail.class);
-                Bundle bundle = new Bundle();
-                ClosetHanger hanger = gearList.get(itemPosition);
-
-                StatCalc statCalc = new StatCalc(getContext(),hanger.gear);
-                hanger.inkStats = statCalc.getInkStats();
-                hanger.killStats = statCalc.getKillStats();
-                hanger.deathStats = statCalc.getDeathStats();
-                hanger.specialStats = statCalc.getSpecialStats();
-                hanger.numGames = statCalc.getNum();
-
-                bundle.putParcelable("stats",hanger);
-                intent.putExtras(bundle);
-                startActivity(intent);
+        ArrayList<ArrayList<ClosetHanger>> gearLists = new ArrayList<>();
+        ArrayList<ClosetHanger> head = new ArrayList<>(),clothes = new ArrayList<>(),shoes = new ArrayList<>();
+        ClosetHanger closetHanger;
+        for(int i=0;i<gearList.size();i++){
+            closetHanger = gearList.get(i);
+            switch(closetHanger.gear.kind){
+                case "head":
+                    head.add(closetHanger);
+                    break;
+                case "clothes":
+                    clothes.add(closetHanger);
+                    break;
+                case "shoes":
+                    shoes.add(closetHanger);
+                    break;
             }
-        });
-        gearListView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        }
+
+        gearLists.add(sort(head));
+        gearLists.add(sort(clothes));
+        gearLists.add(sort(shoes));
+
+        GearPagerAdapter gearAdapter = new GearPagerAdapter(getContext(), gearLists);
+
+        linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        gearListView.setLayoutManager(linearLayoutManager);
         gearListView.setAdapter(gearAdapter);
+    }
+    private ArrayList<ClosetHanger> sort(ArrayList<ClosetHanger> data){
+        if(data.size()<=1){
+            return data;
+        }
+        if(data.size()==2){
+            if(data.get(0).gear.id<=data.get(1).gear.id){
+                return data;
+            }else{
+                ClosetHanger hold = data.get(0);
+                data.remove(0);
+                data.add(hold);
+                return data;
+            }
+        }else{
+            ClosetHanger pivot = data.get(0);
+            ArrayList<ClosetHanger> lower = new ArrayList<>();
+            ArrayList<ClosetHanger> upper = new ArrayList<>();
+            for(int i=1;i<data.size();i++){
+                if(pivot.gear.id>data.get(i).gear.id){
+                    lower.add(data.get(i));
+                }else{
+                    upper.add(data.get(i));
+                }
+            }
+            ArrayList<ClosetHanger> result = sort(lower);
+            result.add(pivot);
+            result.addAll(sort(upper));
+            return result;
+        }
     }
 }

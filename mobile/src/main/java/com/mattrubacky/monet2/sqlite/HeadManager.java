@@ -61,16 +61,19 @@ public class HeadManager {
 
                 args = new String[] {String.valueOf(gear.id)};
                 cursor = database.query(SplatnetContract.Head.TABLE_NAME,null,whereClause,args,null,null,null);
+
+                values = new ContentValues();
+                values.put(SplatnetContract.Head._ID,gear.id);
+                values.put(SplatnetContract.Head.COLUMN_NAME,gear.name);
+                values.put(SplatnetContract.Head.COLUMN_KIND,gear.kind);
+                values.put(SplatnetContract.Head.COLUMN_RARITY,gear.rarity);
+                values.put(SplatnetContract.Head.COLUMN_URL,gear.url);
+                values.put(SplatnetContract.Head.COLUMN_BRAND,gear.brand.id);
                 if(cursor.getCount()==0){
-                    values = new ContentValues();
-                    values.put(SplatnetContract.Head._ID,gear.id);
-                    values.put(SplatnetContract.Head.COLUMN_NAME,gear.name);
-                    values.put(SplatnetContract.Head.COLUMN_KIND,gear.kind);
-                    values.put(SplatnetContract.Head.COLUMN_RARITY,gear.rarity);
-                    values.put(SplatnetContract.Head.COLUMN_URL,gear.url);
-                    values.put(SplatnetContract.Head.COLUMN_BRAND,gear.brand.id);
 
                     database.insert(SplatnetContract.Head.TABLE_NAME, null, values);
+                }else{
+                    database.update(SplatnetContract.Head.TABLE_NAME,values,whereClause,args);
                 }
             }
             if(cursor!=null) {

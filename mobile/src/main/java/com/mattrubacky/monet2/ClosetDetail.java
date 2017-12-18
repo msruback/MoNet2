@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.deserialized.ClosetHanger;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.SoloMeterFragment;
+import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 

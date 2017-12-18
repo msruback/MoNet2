@@ -1,7 +1,9 @@
 package com.mattrubacky.monet2.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +12,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mattrubacky.monet2.ClosetDetail;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.ClosetHanger;
-import com.mattrubacky.monet2.fragment.ClosetFragment;
+import com.mattrubacky.monet2.WeaponLockerDetail;
+import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.helper.ImageHandler;
+import com.mattrubacky.monet2.sqlite.SplatnetContract;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,19 +31,33 @@ public class GearAdapter extends RecyclerView.Adapter<GearAdapter.ViewHolder>{
     private ArrayList<ClosetHanger> input = new ArrayList<>();
     private LayoutInflater inflater;
     private Context context;
-    private View.OnClickListener onClickListener;
+    RecyclerView listView;
 
-    public GearAdapter(Context context, ArrayList<ClosetHanger> input,View.OnClickListener onClickListener) {
+    public GearAdapter(Context context, ArrayList<ClosetHanger> input,RecyclerView listView) {
         this.inflater = LayoutInflater.from(context);
         this.input = input;
         this.context = context;
-        this.onClickListener = onClickListener;
+        this.listView = listView;
     }
     @Override
     public GearAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_gear, parent, false);
         GearAdapter.ViewHolder viewHolder = new GearAdapter.ViewHolder(view);
-        view.setOnClickListener(onClickListener);
+        view.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int itemPosition = listView.getChildAdapterPosition(v);
+                Intent intent = new Intent(context, ClosetDetail.class);
+                Bundle bundle = new Bundle();
+                ClosetHanger hanger = input.get(itemPosition);
+
+                hanger.calcStats(context);
+
+                bundle.putParcelable("stats",hanger);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            }
+        });
         return viewHolder;
     }
 

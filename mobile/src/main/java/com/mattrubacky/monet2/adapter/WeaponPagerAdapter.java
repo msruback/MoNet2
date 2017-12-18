@@ -1,8 +1,6 @@
 package com.mattrubacky.monet2.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.WeaponLockerDetail;
-import com.mattrubacky.monet2.helper.StageStats;
 import com.mattrubacky.monet2.helper.WeaponStats;
 
 import java.util.ArrayList;
@@ -20,26 +16,26 @@ import java.util.ArrayList;
  * Created by mattr on 12/17/2017.
  */
 
-public class WeaponPagingListAdapter extends RecyclerView.Adapter<WeaponPagingListAdapter.ViewHolder>{
+public class WeaponPagerAdapter extends RecyclerView.Adapter<WeaponPagerAdapter.ViewHolder>{
 
     private ArrayList<ArrayList<WeaponStats>> input = new ArrayList<>();
     private LayoutInflater inflater;
     private Context context;
 
-    public WeaponPagingListAdapter(Context context, ArrayList<ArrayList<WeaponStats>> input) {
+    public WeaponPagerAdapter(Context context, ArrayList<ArrayList<WeaponStats>> input) {
         this.inflater = LayoutInflater.from(context);
         this.input = input;
         this.context = context;
     }
     @Override
-    public WeaponPagingListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public WeaponPagerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_pager_list, parent, false);
-        WeaponPagingListAdapter.ViewHolder viewHolder = new WeaponPagingListAdapter.ViewHolder(view);
+        WeaponPagerAdapter.ViewHolder viewHolder = new WeaponPagerAdapter.ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final WeaponPagingListAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final WeaponPagerAdapter.ViewHolder holder, final int position) {
 
         ArrayList<WeaponStats> stats = input.get(position);
 

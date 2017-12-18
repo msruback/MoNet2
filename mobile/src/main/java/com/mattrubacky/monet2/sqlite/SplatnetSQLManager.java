@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.helper.ClosetHanger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
