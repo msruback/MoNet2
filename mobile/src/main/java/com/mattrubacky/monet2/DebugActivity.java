@@ -55,7 +55,7 @@ public class DebugActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             SplatnetSQLManager splatnetSQLManager = new SplatnetSQLManager(getApplicationContext());
-            splatnetSQLManager.removeBattle();
+            splatnetSQLManager.restructureCloset();
         }
 
         @Override

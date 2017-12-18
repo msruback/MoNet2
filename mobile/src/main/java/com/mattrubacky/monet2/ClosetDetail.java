@@ -160,6 +160,8 @@ public class ClosetDetail extends AppCompatActivity {
             imageHandler.downloadImage("gear",dirName,url,getApplicationContext());
         }
 
+
+
         editGear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,7 +173,6 @@ public class ClosetDetail extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     @Override
