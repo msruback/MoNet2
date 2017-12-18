@@ -1,20 +1,35 @@
-package com.mattrubacky.monet2.deserialized;
+package com.mattrubacky.monet2.helper;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.deserialized.Battle;
+import com.mattrubacky.monet2.deserialized.Player;
+import com.mattrubacky.monet2.deserialized.Stage;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/17/2017.
  * This class represents the User's stats on a certain stage
  */
-public class StageStats implements Parcelable{
+public class StageStats extends Stats implements Parcelable{
     public StageStats(){}
 
     //The Stage in question
     @SerializedName("stage")
     public Stage stage;
+
+    //The wins on this Stage under Turf War
+    @SerializedName("turf_win")
+    public int turfWin;
+
+    //The losses on this Stage under Turf War
+    @SerializedName("turf_lose")
+    public int turfLose;
 
     //The wins on this Stage under the Tower Control rule
     @SerializedName("yagura_win")
@@ -68,8 +83,12 @@ public class StageStats implements Parcelable{
     @SerializedName("numGames")
     public long numGames;
 
+    public ArrayList<Battle> battles;
+
     protected StageStats(Parcel in) {
         stage = in.readParcelable(Stage.class.getClassLoader());
+        turfWin = in.readInt();
+        turfLose = in.readInt();
         towerWin = in.readInt();
         towerLose = in.readInt();
         rainmakerWin = in.readInt();
@@ -89,6 +108,8 @@ public class StageStats implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(stage, flags);
+        dest.writeInt(turfWin);
+        dest.writeInt(turfLose);
         dest.writeInt(towerWin);
         dest.writeInt(towerLose);
         dest.writeInt(rainmakerWin);
@@ -121,4 +142,54 @@ public class StageStats implements Parcelable{
             return new StageStats[size];
         }
     };
+
+    @Override
+    public void calcStats(Context context) {
+        ArrayList<Battle> battles;
+        ArrayList<Integer> ink,kill,death,special;
+        SplatnetSQLManager database = new SplatnetSQLManager(context);
+
+        battles = database.getBattleStats(stage.id,"stage");
+
+        numGames = battles.size();
+
+        inkStats = new int[5];
+        killStats = new int[5];
+        deathStats = new int[5];
+        specialStats = new int[5];
+
+        ink = new ArrayList<>();
+        kill = new ArrayList<>();
+        death = new ArrayList<>();
+        special = new ArrayList<>();
+
+        turfWin=0;
+        turfLose=0;
+
+        Battle battle;
+        for(int i=0;i<battles.size();i++){
+            battle = battles.get(i);
+
+            ink.add(battle.user.points);
+            kill.add(battle.user.kills);
+            death.add(battle.user.deaths);
+            special.add(battle.user.special);
+            if(battle.rule.key.equals("turf_war")){
+                if(battle.result.key.equals("victory")){
+                    turfWin++;
+                }else{
+                    turfLose++;
+                }
+            }
+
+        }
+
+        if(battles.size()>5) {
+            inkStats = calcSpread(sort(ink));
+            killStats = calcSpread(sort(kill));
+            deathStats = calcSpread(sort(death));
+            specialStats = calcSpread(sort(special));
+        }
+
+    }
 }

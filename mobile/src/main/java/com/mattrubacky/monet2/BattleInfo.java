@@ -98,7 +98,11 @@ public class BattleInfo extends AppCompatActivity {
         String start = startFormat.format(battle.start*1000);
 
         title.setText("Battle #"+battle.id);
-        result.setText(battle.result.name);
+        if(battle.result.key=="victory"){
+            result.setText(getResources().getString(R.string.victory));
+        }else{
+            result.setText(getResources().getString(R.string.defeat));
+        }
         startTime.setText(start);
         rule.setText(battle.rule.name);
         stageName.setText(battle.stage.name);

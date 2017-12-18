@@ -18,6 +18,7 @@ import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.*;
 
+import com.mattrubacky.monet2.helper.StageStats;
 import com.mattrubacky.monet2.helper.StatCalc;
 import com.squareup.picasso.Picasso;
 
@@ -29,7 +30,7 @@ public class RankedRotation extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_ranked_rotation, container, false);
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
@@ -96,12 +97,7 @@ public class RankedRotation extends Fragment {
                 StageStats stats = records.records.stageStats.get(a.id);
 
                 if(stats!=null) {
-                    StatCalc calc = new StatCalc(getContext(), a);
-                    stats.inkStats = calc.getInkStats();
-                    stats.killStats = calc.getKillStats();
-                    stats.deathStats = calc.getDeathStats();
-                    stats.specialStats = calc.getSpecialStats();
-                    stats.numGames = calc.getNum();
+                    stats.calcStats(getContext());
 
                     Bundle intentBundle = new Bundle();
                     intentBundle.putParcelable("stats", stats);

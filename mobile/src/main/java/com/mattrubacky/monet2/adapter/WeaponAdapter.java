@@ -10,9 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.WeaponStats;
-import com.mattrubacky.monet2.fragment.WeaponLockerFragment;
 import com.mattrubacky.monet2.helper.ImageHandler;
+import com.mattrubacky.monet2.helper.WeaponStats;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

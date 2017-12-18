@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.helper.StageStats;
+import com.mattrubacky.monet2.helper.WeaponStats;
 
 import java.util.Map;
 

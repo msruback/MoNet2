@@ -70,6 +70,10 @@
     <string name="world">World</string>
     <string name = "complete">Complete</string>
 
+    //BattleFrag
+    <string name="victory">VICTORY</string>
+    <string name="defeat">DEFEAT</string>
+
     //SettingsFrag
     <string name="updateTitle">Auto Updates</string>
     <string name="updateAuto">Update Automatically</string>

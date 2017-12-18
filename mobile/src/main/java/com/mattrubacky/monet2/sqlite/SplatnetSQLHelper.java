@@ -87,26 +87,38 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS friends");
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS splatfest_votes");
 
-                    String whereClause = SplatnetContract.Battle.COLUMN_RULE + " = ?";
-                    String[] args = new String[]{"Turf War"};
-                    ContentValues values = new ContentValues();
-                    values.put(SplatnetContract.Battle.COLUMN_RULE, "turf_war");
-                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values,whereClause,args);
+                    String whereClause5 = SplatnetContract.Battle.COLUMN_RULE + " = ?";
+                    String[] args5 = new String[]{"Turf War"};
+                    ContentValues values5 = new ContentValues();
+                    values5.put(SplatnetContract.Battle.COLUMN_RULE, "turf_war");
+                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values5,whereClause5,args5);
 
-                    args = new String[]{"Rainmaker"};
-                    values = new ContentValues();
-                    values.put(SplatnetContract.Battle.COLUMN_RULE, "rainmaker");
-                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values,whereClause,args);
+                    args5 = new String[]{"Rainmaker"};
+                    values5 = new ContentValues();
+                    values5.put(SplatnetContract.Battle.COLUMN_RULE, "rainmaker");
+                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values5,whereClause5,args5);
 
-                    args = new String[]{"Splat Zones"};
-                    values = new ContentValues();
-                    values.put(SplatnetContract.Battle.COLUMN_RULE, "splat_zones");
-                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values,whereClause,args);
+                    args5 = new String[]{"Splat Zones"};
+                    values5 = new ContentValues();
+                    values5.put(SplatnetContract.Battle.COLUMN_RULE, "splat_zones");
+                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values5,whereClause5,args5);
 
-                    args = new String[]{"Tower Control"};
-                    values = new ContentValues();
-                    values.put(SplatnetContract.Battle.COLUMN_RULE, "tower_control");
-                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values,whereClause,args);
+                    args5 = new String[]{"Tower Control"};
+                    values5 = new ContentValues();
+                    values5.put(SplatnetContract.Battle.COLUMN_RULE, "tower_control");
+                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values5,whereClause5,args5);
+                    break;
+                case 6:
+                    String whereClause6 = SplatnetContract.Battle.COLUMN_RULE + " = ?";
+                    String[] args6 = new String[]{"DEFEAT"};
+                    ContentValues values6 = new ContentValues();
+                    values6.put(SplatnetContract.Battle.COLUMN_RULE, "defeat");
+                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values6,whereClause6,args6);
+
+                    args6 = new String[]{"VICTORY"};
+                    values6 = new ContentValues();
+                    values6.put(SplatnetContract.Battle.COLUMN_RULE, "victory");
+                    sqLiteDatabase.update(SplatnetContract.Battle.TABLE_NAME, values6,whereClause6,args6);
                     break;
             }
         }

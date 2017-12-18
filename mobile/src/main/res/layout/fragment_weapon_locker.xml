@@ -19,6 +19,7 @@ android:background="@drawable/repeat_squids">
             android:paddingTop="35dp"
             android:background="@color/weaponDark">
             <ImageView
+                android:id="@+id/ShooterImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/shooter"/>
@@ -35,6 +36,7 @@ android:background="@drawable/repeat_squids">
             android:paddingTop="35dp"
             android:background="@color/weaponDark">
             <ImageView
+                android:id="@+id/BrushImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/brushes"/>
@@ -49,6 +51,7 @@ android:background="@drawable/repeat_squids">
             android:paddingTop="35dp"
             android:background="@color/weaponDark">
             <ImageView
+                android:id="@+id/ChargerImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:rotation="-45"
@@ -63,6 +66,7 @@ android:background="@drawable/repeat_squids">
             android:paddingTop="35dp"
             android:background="@color/weaponDark">
             <ImageView
+                android:id="@+id/SlosherImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -80,8 +84,10 @@ android:background="@drawable/repeat_squids">
             android:paddingTop="30dp"
             android:background="@color/weaponDark">
             <ImageView
+                android:id="@+id/SplatlingImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
                 android:rotation="-30"
                 android:src="@drawable/splatlings"/>
         </RelativeLayout>
@@ -94,6 +100,7 @@ android:background="@drawable/repeat_squids">
             android:paddingTop="35dp"
             android:background="@color/weaponDark">
             <ImageView
+                android:id="@+id/DualieImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/dualies"/>
@@ -108,16 +115,16 @@ android:background="@drawable/repeat_squids">
             android:paddingTop="35dp"
             android:background="@color/weaponDark">
             <ImageView
+                android:id="@+id/BrellaImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/brellas"/>
         </RelativeLayout>
     </RelativeLayout>
-
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/WeaponList"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:paddingTop="50dp"
-    android:layout_centerHorizontal="true"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/WeaponList"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingTop="50dp"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

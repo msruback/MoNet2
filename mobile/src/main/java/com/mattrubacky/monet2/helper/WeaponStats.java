@@ -1,10 +1,15 @@
-package com.mattrubacky.monet2.deserialized;
+package com.mattrubacky.monet2.helper;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.deserialized.Player;
 import com.mattrubacky.monet2.deserialized.Weapon;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -12,7 +17,7 @@ import com.mattrubacky.monet2.deserialized.Weapon;
  * For use in the Weapon Locker
  */
 
-public class WeaponStats implements Parcelable{
+public class WeaponStats extends Stats implements Parcelable{
     public WeaponStats(){}
 
     //The casual mode "Freshness" meter current level
@@ -105,6 +110,45 @@ public class WeaponStats implements Parcelable{
         dest.writeIntArray(deathStats);
         dest.writeIntArray(specialStats);
         dest.writeLong(numGames);
+    }
+
+    @Override
+    public void calcStats(Context context) {
+        ArrayList<Player> players;
+        ArrayList<Integer> ink,kill,death,special;
+        SplatnetSQLManager database = new SplatnetSQLManager(context);
+
+        players = database.getPlayerStats(weapon.id,"weapon");
+
+        numGames = players.size();
+
+        inkStats = new int[5];
+        killStats = new int[5];
+        deathStats = new int[5];
+        specialStats = new int[5];
+
+        ink = new ArrayList<>();
+        kill = new ArrayList<>();
+        death = new ArrayList<>();
+        special = new ArrayList<>();
+
+        Player player;
+        for(int i=0;i<players.size();i++){
+            player = players.get(i);
+
+            ink.add(player.points);
+            kill.add(player.kills);
+            death.add(player.deaths);
+            special.add(player.special);
+
+        }
+
+        if(players.size()>5) {
+            inkStats = calcSpread(sort(ink));
+            killStats = calcSpread(sort(kill));
+            deathStats = calcSpread(sort(death));
+            specialStats = calcSpread(sort(special));
+        }
     }
 }
 

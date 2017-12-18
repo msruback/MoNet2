@@ -14,9 +14,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.deserialized.WeaponStats;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.SoloMeterFragment;
 import com.mattrubacky.monet2.helper.ImageHandler;
+import com.mattrubacky.monet2.helper.WeaponStats;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;

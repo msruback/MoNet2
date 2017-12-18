@@ -18,6 +18,7 @@ import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.*;
 
+import com.mattrubacky.monet2.helper.StageStats;
 import com.mattrubacky.monet2.helper.StatCalc;
 import com.squareup.picasso.Picasso;
 
@@ -108,12 +109,8 @@ public class SplatfestRotation extends Fragment {
                 StageStats stats = records.records.stageStats.get(a.id);
 
                 if(stats!=null) {
-                    StatCalc calc = new StatCalc(getContext(), a);
-                    stats.inkStats = calc.getInkStats();
-                    stats.killStats = calc.getKillStats();
-                    stats.deathStats = calc.getDeathStats();
-                    stats.specialStats = calc.getSpecialStats();
-                    stats.numGames = calc.getNum();
+
+                    stats.calcStats(getContext());
 
                     Bundle intentBundle = new Bundle();
                     intentBundle.putParcelable("stats", stats);

@@ -112,7 +112,7 @@ class BattleManager {
                 cursor = database.query(SplatnetContract.Battle.TABLE_NAME,null,whereClause,args,null,null,null);
                 if(cursor.getCount()==0) {
                     values.put(SplatnetContract.Battle._ID, battle.id);
-                    values.put(SplatnetContract.Battle.COLUMN_RESULT, battle.result.name);
+                    values.put(SplatnetContract.Battle.COLUMN_RESULT, battle.result.key);
                     values.put(SplatnetContract.Battle.COLUMN_RULE, battle.rule.key);
                     values.put(SplatnetContract.Battle.COLUMN_MODE, battle.type);
                     values.put(SplatnetContract.Battle.COLUMN_START_TIME, battle.start);
@@ -193,7 +193,7 @@ class BattleManager {
             battle.rule = rule;
 
             TeamResult teamResult = new TeamResult();
-            teamResult.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
+            teamResult.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
             battle.result = teamResult;
 
             //Only one stage is needed from the database, so further optimisation isn't possible
@@ -306,7 +306,7 @@ class BattleManager {
                 battle.rule = rule;
 
                 TeamResult teamResult = new TeamResult();
-                teamResult.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
+                teamResult.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
                 battle.result = teamResult;
 
                 //The stage ids can only be gathered while retrieving the battle info
