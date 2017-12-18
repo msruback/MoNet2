@@ -51,7 +51,7 @@
             android:layout_marginTop="125dp"
             android:layout_centerHorizontal="true"
             android:text="Sloshing Machine"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:textColor="@color/grey"/>
     </RelativeLayout>
 </RelativeLayout>

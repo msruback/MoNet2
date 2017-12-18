@@ -6,7 +6,6 @@ import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.Gear;
 import com.mattrubacky.monet2.deserialized.Player;
 import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.deserialized.SplatfestStats;
 import com.mattrubacky.monet2.deserialized.Stage;
 import com.mattrubacky.monet2.deserialized.Weapon;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;

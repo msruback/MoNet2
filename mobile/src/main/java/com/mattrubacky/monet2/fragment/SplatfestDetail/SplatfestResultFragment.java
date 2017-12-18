@@ -4,10 +4,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.sax.RootElement;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.ResultList;
 import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.deserialized.SplatfestColors;
 import com.mattrubacky.monet2.deserialized.SplatfestResult;
-import com.mattrubacky.monet2.deserialized.SplatfestStats;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
 
 /**
  * Created by mattr on 11/17/2017.

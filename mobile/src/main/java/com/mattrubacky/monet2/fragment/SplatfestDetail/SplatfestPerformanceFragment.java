@@ -15,10 +15,8 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.deserialized.SplatfestColors;
-import com.mattrubacky.monet2.deserialized.SplatfestStats;
 import com.mattrubacky.monet2.helper.ImageHandler;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
+import com.mattrubacky.monet2.helper.SplatfestStats;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;

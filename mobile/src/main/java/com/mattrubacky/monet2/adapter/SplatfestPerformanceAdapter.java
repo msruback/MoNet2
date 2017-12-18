@@ -6,14 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.mattrubacky.monet2.deserialized.SalmonSchedule;
 import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestResult;
-import com.mattrubacky.monet2.deserialized.SplatfestStats;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.SplatfestPerformanceFragment;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.SplatfestResultFragment;
-import com.mattrubacky.monet2.fragment.schedule.SalmonRotation;
-import com.mattrubacky.monet2.fragment.schedule.SalmonRotationDetail;
+import com.mattrubacky.monet2.helper.SplatfestStats;
 
 /**
  * Created by mattr on 11/17/2017.

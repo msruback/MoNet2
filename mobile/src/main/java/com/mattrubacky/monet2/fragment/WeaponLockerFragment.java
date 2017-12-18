@@ -2,6 +2,7 @@ package com.mattrubacky.monet2.fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
@@ -12,6 +13,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +49,7 @@ public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
     RecyclerView weaponList;
     SplatnetConnector splatnetConnector;
     LinearLayoutManager linearLayoutManager;
+    RelativeLayout shooterTab,brushTab,chargerTab,slosherTab,splatlingTab,dualieTab,brellaTab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,13 +64,13 @@ public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(weaponList);
 
-        final RelativeLayout shooterTab = (RelativeLayout) rootView.findViewById(R.id.ShooterTab);
-        final RelativeLayout brushTab = (RelativeLayout) rootView.findViewById(R.id.BrushTab);
-        final RelativeLayout chargerTab = (RelativeLayout) rootView.findViewById(R.id.ChargerTab);
-        final RelativeLayout slosherTab = (RelativeLayout) rootView.findViewById(R.id.SlosherTab);
-        final RelativeLayout splatlingTab = (RelativeLayout) rootView.findViewById(R.id.SplatlingTab);
-        final RelativeLayout dualieTab = (RelativeLayout) rootView.findViewById(R.id.DualieTab);
-        final RelativeLayout brellaTab = (RelativeLayout) rootView.findViewById(R.id.BrellaTab);
+        shooterTab = (RelativeLayout) rootView.findViewById(R.id.ShooterTab);
+        brushTab = (RelativeLayout) rootView.findViewById(R.id.BrushTab);
+        chargerTab = (RelativeLayout) rootView.findViewById(R.id.ChargerTab);
+        slosherTab = (RelativeLayout) rootView.findViewById(R.id.SlosherTab);
+        splatlingTab = (RelativeLayout) rootView.findViewById(R.id.SplatlingTab);
+        dualieTab = (RelativeLayout) rootView.findViewById(R.id.DualieTab);
+        brellaTab = (RelativeLayout) rootView.findViewById(R.id.BrellaTab);
 
         final ImageView shooterImage = (ImageView) rootView.findViewById(R.id.ShooterImage);
         final ImageView brushImage = (ImageView) rootView.findViewById(R.id.BrushImage);
@@ -75,7 +79,6 @@ public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
         final ImageView splatlingImage = (ImageView) rootView.findViewById(R.id.SplatlingImage);
         final ImageView dualieImage = (ImageView) rootView.findViewById(R.id.DualieImage);
         final ImageView brellaImage = (ImageView) rootView.findViewById(R.id.BrellaImage);
-
 
         shooterTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
         brushTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
@@ -311,6 +314,33 @@ public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
         splatnetConnector.addRequest(new RecordsRequest(getContext()));
         update(splatnetConnector.getCurrentData());
         splatnetConnector.execute();
+
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        width = width/7;
+        ViewGroup.LayoutParams layoutParams = shooterTab.getLayoutParams();
+        layoutParams.width = width;
+        shooterTab.setLayoutParams(layoutParams);
+        layoutParams = brushTab.getLayoutParams();
+        layoutParams.width = width;
+        brushTab.setLayoutParams(layoutParams);
+        layoutParams = chargerTab.getLayoutParams();
+        layoutParams.width = width;
+        chargerTab.setLayoutParams(layoutParams);
+        layoutParams = slosherTab.getLayoutParams();
+        layoutParams.width = width;
+        slosherTab.setLayoutParams(layoutParams);
+        layoutParams = splatlingTab.getLayoutParams();
+        layoutParams.width = width;
+        splatlingTab.setLayoutParams(layoutParams);
+        layoutParams = dualieTab.getLayoutParams();
+        layoutParams.width = width;
+        dualieTab.setLayoutParams(layoutParams);
+        layoutParams = brellaTab.getLayoutParams();
+        layoutParams.width = width;
+        brellaTab.setLayoutParams(layoutParams);
     }
 
     private void updateUI(){
@@ -344,26 +374,7 @@ public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
         weaponListList.add(sort(dualie));
         weaponListList.add(sort(brella));
 
-        WeaponPagingListAdapter weaponAdapter = new WeaponPagingListAdapter(getContext(), weaponListList, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int itemPosition = weaponList.getChildAdapterPosition(v);
-                Intent intent = new Intent(getActivity(), WeaponLockerDetail.class);
-                Bundle bundle = new Bundle();
-                WeaponStats weaponStats = weaponStatsList.get(itemPosition);
-
-                StatCalc statCalc = new StatCalc(getContext(),weaponStats.weapon);
-                weaponStats.inkStats = statCalc.getInkStats();
-                weaponStats.killStats = statCalc.getKillStats();
-                weaponStats.deathStats = statCalc.getDeathStats();
-                weaponStats.specialStats = statCalc.getSpecialStats();
-                weaponStats.numGames = statCalc.getNum();
-
-                bundle.putParcelable("stats",weaponStats);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+        WeaponPagingListAdapter weaponAdapter = new WeaponPagingListAdapter(getContext(), weaponListList);
         linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         weaponList.setLayoutManager(linearLayoutManager);
         weaponList.setAdapter(weaponAdapter);

@@ -1,12 +1,9 @@
 package com.mattrubacky.monet2;
 
 import android.app.Dialog;
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,33 +18,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.adapter.SplatfestPerformanceAdapter;
-import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestColor;
 import com.mattrubacky.monet2.deserialized.SplatfestResult;
-import com.mattrubacky.monet2.deserialized.SplatfestStats;
 import com.mattrubacky.monet2.deserialized.SplatfestVotes;
-import com.mattrubacky.monet2.dialog.AlertDialog;
 import com.mattrubacky.monet2.dialog.SplatfestBattleDialog;
 import com.mattrubacky.monet2.dialog.VoteDialog;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.SoloMeterFragment;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.TeamMeterFragment;
 import com.mattrubacky.monet2.helper.ImageHandler;
+import com.mattrubacky.monet2.helper.SplatfestStats;
 import com.mattrubacky.monet2.helper.StatCalc;
 import com.mattrubacky.monet2.splatnet.SplatfestVoteRequest;
-import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.splatnet.SplatnetConnector;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SplatfestDetail extends AppCompatActivity implements SplatnetConnected{
 
@@ -60,7 +47,6 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
     Fragment inkSolo,inkTeam,killSolo,killTeam,deathSolo,deathTeam,specialSolo,specialTeam;
     boolean inkToggle,killToggle,deathToggle,specialToggle;
 
-    ArrayList<Battle> battles;
 
     FragmentManager fragmentManager;
 
@@ -75,8 +61,9 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
         splatfest = bundle.getParcelable("splatfest");
         result = bundle.getParcelable("result");
         StatCalc statCalc = new StatCalc(getApplicationContext(),splatfest);
-        stats = statCalc.getSplatfestStats();
-        battles = statCalc.getBattles();
+        stats = new SplatfestStats();
+        stats.splatfest = splatfest;
+        stats.calcStats(SplatfestDetail.this);
         if(stats.grade==null) {
             stats.grade = bundle.getString("grade");
             stats.power = bundle.getInt("power");
@@ -386,7 +373,7 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
         if(votes==null){
             votesButton.setVisibility(View.GONE);
         }
-        if(battles!=null&&battles.size()>0) {
+        if(stats.battles!=null&&stats.battles.size()>0) {
             battlesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -398,7 +385,7 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
                         color = splatfest.colors.bravo;
                         otherColor = splatfest.colors.alpha;
                     }
-                    Dialog dialog = new SplatfestBattleDialog(SplatfestDetail.this, battles, splatfest, color,otherColor);
+                    Dialog dialog = new SplatfestBattleDialog(SplatfestDetail.this, stats.battles, splatfest, color,otherColor);
                     dialog.show();
                 }
             });

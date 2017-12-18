@@ -1,6 +1,8 @@
 package com.mattrubacky.monet2.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.WeaponLockerDetail;
 import com.mattrubacky.monet2.helper.StageStats;
 import com.mattrubacky.monet2.helper.WeaponStats;
 
@@ -22,19 +25,16 @@ public class WeaponPagingListAdapter extends RecyclerView.Adapter<WeaponPagingLi
     private ArrayList<ArrayList<WeaponStats>> input = new ArrayList<>();
     private LayoutInflater inflater;
     private Context context;
-    private View.OnClickListener onClickListener;
 
-    public WeaponPagingListAdapter(Context context, ArrayList<ArrayList<WeaponStats>> input, View.OnClickListener onClickListener) {
+    public WeaponPagingListAdapter(Context context, ArrayList<ArrayList<WeaponStats>> input) {
         this.inflater = LayoutInflater.from(context);
         this.input = input;
         this.context = context;
-        this.onClickListener = onClickListener;
     }
     @Override
     public WeaponPagingListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_pager_list, parent, false);
         WeaponPagingListAdapter.ViewHolder viewHolder = new WeaponPagingListAdapter.ViewHolder(view);
-        view.setOnClickListener(onClickListener);
         return viewHolder;
     }
 
@@ -43,7 +43,7 @@ public class WeaponPagingListAdapter extends RecyclerView.Adapter<WeaponPagingLi
 
         ArrayList<WeaponStats> stats = input.get(position);
 
-        WeaponAdapter weaponAdapter = new WeaponAdapter(context,stats,onClickListener);
+        WeaponAdapter weaponAdapter = new WeaponAdapter(context,stats,holder.listView);
 
         holder.listView.setAdapter(weaponAdapter);
         holder.listView.setLayoutManager(new GridLayoutManager(context,2));

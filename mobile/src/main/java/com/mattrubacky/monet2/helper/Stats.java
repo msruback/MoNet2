@@ -50,7 +50,7 @@ public abstract class Stats {
         spread[1] = calcLowerQuartile(data);
         spread[2] = calcMedian(data);
         spread[3] = calcUpperQuartile(data);
-        spread[4] = data.get(0);
+        spread[4] = data.get(data.size()-1);
 
         return spread;
     }

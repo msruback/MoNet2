@@ -156,16 +156,19 @@ public class WeaponLockerDetail extends AppCompatActivity {
         RelativeLayout killCard = (RelativeLayout) findViewById(R.id.killStats);
         RelativeLayout deathCard = (RelativeLayout) findViewById(R.id.deathStats);
         RelativeLayout specialCard = (RelativeLayout) findViewById(R.id.specialStats);
+        RelativeLayout noStatsCard = (RelativeLayout) findViewById(R.id.noStats);
 
         TextView inkTitle = (TextView) findViewById(R.id.InkTitle);
         TextView killTitle = (TextView) findViewById(R.id.KillTitle);
         TextView deathTitle = (TextView) findViewById(R.id.DeathTitle);
         TextView specialTitle = (TextView) findViewById(R.id.SpecialTitle);
+        TextView noStatsText = (TextView) findViewById(R.id.NoStatsText);
 
         inkTitle.setTypeface(fontTitle);
         killTitle.setTypeface(fontTitle);
         deathTitle.setTypeface(fontTitle);
         specialTitle.setTypeface(fontTitle);
+        noStatsText.setTypeface(fontTitle);
 
         ViewGroup.LayoutParams layoutParams = wins.getLayoutParams();
 
@@ -183,6 +186,8 @@ public class WeaponLockerDetail extends AppCompatActivity {
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
         losses.setLayoutParams(layoutParams);
 
+        boolean hasStats = false;
+
         //Ink card
         float range = weaponStats.inkStats[4] - weaponStats.inkStats[0];
         if(range!=0) {
@@ -193,6 +198,7 @@ public class WeaponLockerDetail extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.InkMeter,ink)
                     .commit();
+            hasStats = true;
         }else{
             inkCard.setVisibility(View.GONE);
         }
@@ -207,6 +213,7 @@ public class WeaponLockerDetail extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.KillMeter,kill)
                     .commit();
+            hasStats = true;
         }else{
             killCard.setVisibility(View.GONE);
         }
@@ -222,6 +229,7 @@ public class WeaponLockerDetail extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.DeathMeter,death)
                     .commit();
+            hasStats = true;
         }else{
             deathCard.setVisibility(View.GONE);
         }
@@ -237,8 +245,12 @@ public class WeaponLockerDetail extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.SpecialMeter,special)
                     .commit();
+            hasStats = true;
         }else{
             specialCard.setVisibility(View.GONE);
+        }
+        if(hasStats){
+            noStatsCard.setVisibility(View.GONE);
         }
     }
 
