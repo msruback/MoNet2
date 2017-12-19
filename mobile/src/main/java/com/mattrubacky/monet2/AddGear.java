@@ -18,7 +18,6 @@ import com.mattrubacky.monet2.dialog.GearPickerDialog;
 import com.mattrubacky.monet2.dialog.SkillPickerDialog;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.helper.ImageHandler;
-import com.mattrubacky.monet2.helper.StatCalc;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.squareup.picasso.Picasso;
 
@@ -253,12 +252,7 @@ public class AddGear extends AppCompatActivity {
                 if(isEdit){
                     Intent intent = new Intent(AddGear.this, ClosetDetail.class);
                     Bundle intentBundle = new Bundle();
-                    StatCalc statCalc = new StatCalc(getApplicationContext(),hanger.gear);
-                    hanger.inkStats = statCalc.getInkStats();
-                    hanger.killStats = statCalc.getKillStats();
-                    hanger.deathStats = statCalc.getDeathStats();
-                    hanger.specialStats = statCalc.getSpecialStats();
-                    hanger.numGames = statCalc.getNum();
+                    hanger.calcStats(getApplicationContext());
                     intentBundle.putParcelable("stats",hanger);
                     intent.putExtras(intentBundle);
                     startActivity(intent);

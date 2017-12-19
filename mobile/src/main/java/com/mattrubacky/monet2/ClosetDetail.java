@@ -7,9 +7,12 @@ import android.os.Bundle;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,6 +21,8 @@ import com.mattrubacky.monet2.fragment.SplatfestDetail.SoloMeterFragment;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
 
 public class ClosetDetail extends AppCompatActivity {
 
@@ -57,12 +62,31 @@ public class ClosetDetail extends AppCompatActivity {
 
         TextView name = (TextView) findViewById(R.id.Name);
         TextView number = (TextView) findViewById(R.id.Number);
+        TextView winText = (TextView) findViewById(R.id.WinText);
+        TextView lossText = (TextView) findViewById(R.id.LossText);
+        TextView inkedTitle = (TextView) findViewById(R.id.InkedTitleText);
+        TextView inkedText = (TextView) findViewById(R.id.InkedText);
+        TextView lastUsedTitle = (TextView) findViewById(R.id.LastTitleText);
+        TextView lastText = (TextView) findViewById(R.id.LastText);
 
         name.setTypeface(fontTitle);
         number.setTypeface(font);
+        winText.setTypeface(font);
+        lossText.setTypeface(font);
+        inkedTitle.setTypeface(fontTitle);
+        inkedText.setTypeface(font);
+        lastUsedTitle.setTypeface(fontTitle);
+        lastText.setTypeface(font);
 
         name.setText(hanger.gear.name);
         number.setText(String.valueOf(hanger.numGames));
+        winText.setText(String.valueOf(hanger.wins));
+        lossText.setText(String.valueOf(hanger.losses));
+        inkedText.setText(String.valueOf(hanger.inked));
+
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy h:mm a");
+        String last = format.format(hanger.time*1000);
+        lastText.setText(last);
 
         //Handle Colors
         switch(hanger.gear.kind){
@@ -188,7 +212,13 @@ public class ClosetDetail extends AppCompatActivity {
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
         FragmentManager fragmentManager = getSupportFragmentManager();
 
+        RelativeLayout winLossMeter = (RelativeLayout) findViewById(R.id.WinLossMeter);
+        RelativeLayout wins = (RelativeLayout) findViewById(R.id.Wins);
+        RelativeLayout losses = (RelativeLayout) findViewById(R.id.Losses);
 
+        winLossMeter.setClipToOutline(true);
+
+        RelativeLayout generalStats = (RelativeLayout) findViewById(R.id.generalStats);
         RelativeLayout inkCard = (RelativeLayout) findViewById(R.id.inkStats);
         RelativeLayout killCard = (RelativeLayout) findViewById(R.id.killStats);
         RelativeLayout deathCard = (RelativeLayout) findViewById(R.id.deathStats);
@@ -207,24 +237,41 @@ public class ClosetDetail extends AppCompatActivity {
         //Handle Colors
         switch(hanger.gear.kind){
             case "head":
+                generalStats.setBackgroundTintList(getResources().getColorStateList(R.color.head));
                 inkCard.setBackgroundTintList(getResources().getColorStateList(R.color.head));
                 killCard.setBackgroundTintList(getResources().getColorStateList(R.color.head));
                 deathCard.setBackgroundTintList(getResources().getColorStateList(R.color.head));
                 specialCard.setBackgroundTintList(getResources().getColorStateList(R.color.head));
                 break;
             case "clothes":
+                generalStats.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
                 inkCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
                 killCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
                 deathCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
                 specialCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));;
                 break;
             case "shoes":
+                generalStats.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
                 inkCard.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
                 killCard.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
                 deathCard.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
                 specialCard.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
                 break;
         }
+
+        ViewGroup.LayoutParams layoutParams = wins.getLayoutParams();
+        float total = hanger.wins+hanger.losses;
+        float width = hanger.wins/total;
+
+        width *= 250;
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        wins.setLayoutParams(layoutParams);
+
+        layoutParams = losses.getLayoutParams();
+        width = hanger.losses/total;
+        width *= 250;
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        losses.setLayoutParams(layoutParams);
 
 
         //Ink card

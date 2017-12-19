@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -11,38 +10,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
 
-import com.google.gson.Gson;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.SplatfestDetail;
 import com.mattrubacky.monet2.adapter.SplatfestAdapter;
-import com.mattrubacky.monet2.deserialized.PastSplatfest;
 import com.mattrubacky.monet2.deserialized.Record;
-import com.mattrubacky.monet2.deserialized.Records;
 import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestDatabase;
 import com.mattrubacky.monet2.deserialized.SplatfestRecords;
 import com.mattrubacky.monet2.deserialized.SplatfestResult;
-import com.mattrubacky.monet2.dialog.AlertDialog;
-import com.mattrubacky.monet2.helper.StatCalc;
 import com.mattrubacky.monet2.splatnet.PastSplatfestRequest;
 import com.mattrubacky.monet2.splatnet.RecordsRequest;
-import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.splatnet.SplatnetConnector;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by mattr on 11/15/2017.

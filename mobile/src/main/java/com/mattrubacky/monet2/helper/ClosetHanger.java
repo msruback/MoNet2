@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.Gear;
 import com.mattrubacky.monet2.deserialized.GearSkills;
 import com.mattrubacky.monet2.deserialized.Player;
@@ -26,6 +27,10 @@ public class ClosetHanger extends Stats implements Parcelable{
     public Gear gear;
     @SerializedName("skills")
     public GearSkills skills;
+    @SerializedName("wins")
+    public int wins;
+    @SerializedName("losses")
+    public int losses;
     @SerializedName("last_use_time")
     public Long time;
     @SerializedName("ink_stats")
@@ -38,16 +43,41 @@ public class ClosetHanger extends Stats implements Parcelable{
     public int[] specialStats;
     @SerializedName("num_games")
     public int numGames;
+    @SerializedName("inked")
+    public long inked;
 
     protected ClosetHanger(Parcel in) {
         gear = in.readParcelable(Gear.class.getClassLoader());
         skills = in.readParcelable(GearSkills.class.getClassLoader());
-        time = in.readLong();
+        wins = in.readInt();
+        losses = in.readInt();
         inkStats = in.createIntArray();
         killStats = in.createIntArray();
         deathStats = in.createIntArray();
         specialStats = in.createIntArray();
         numGames = in.readInt();
+        inked = in.readLong();
+        time = in.readLong();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(gear, flags);
+        dest.writeParcelable(skills, flags);
+        dest.writeInt(wins);
+        dest.writeInt(losses);
+        dest.writeIntArray(inkStats);
+        dest.writeIntArray(killStats);
+        dest.writeIntArray(deathStats);
+        dest.writeIntArray(specialStats);
+        dest.writeInt(numGames);
+        dest.writeLong(inked);
+        dest.writeLong(time);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<ClosetHanger> CREATOR = new Creator<ClosetHanger>() {
@@ -63,31 +93,14 @@ public class ClosetHanger extends Stats implements Parcelable{
     };
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(gear, flags);
-        dest.writeParcelable(skills, flags);
-        dest.writeLong(time);
-        dest.writeIntArray(inkStats);
-        dest.writeIntArray(killStats);
-        dest.writeIntArray(deathStats);
-        dest.writeIntArray(specialStats);
-        dest.writeInt(numGames);
-    }
-
-    @Override
     public void calcStats(Context context) {
-        ArrayList<Player> players;
+        ArrayList<Battle> battles;
         ArrayList<Integer> ink,kill,death,special;
         SplatnetSQLManager database = new SplatnetSQLManager(context);
 
-        players = database.getPlayerStats(gear.id,gear.kind);
+        battles = database.getPlayerStats(gear.id,gear.kind);
 
-        numGames= players.size();
+        numGames= battles.size();
 
         inkStats = new int[5];
         killStats = new int[5];
@@ -99,18 +112,31 @@ public class ClosetHanger extends Stats implements Parcelable{
         death = new ArrayList<>();
         special = new ArrayList<>();
 
-        Player player;
-        for(int i=0;i<players.size();i++){
-            player = players.get(i);
+        inked = 0;
+        wins = 0;
+        losses = 0;
 
+        Player player;
+        Battle battle;
+        for(int i=0;i<battles.size();i++){
+            battle = battles.get(i);
+            player = battle.user;
+
+            if(battle.result.key.equals("victory")){
+                wins++;
+            }else{
+                losses++;
+            }
+
+            inked+=player.points;
             ink.add(player.points);
             kill.add(player.kills);
             death.add(player.deaths);
             special.add(player.special);
-
         }
+        time = battles.get(battles.size()-1).time;
 
-        if(players.size()>5) {
+        if(battles.size()>5) {
             inkStats = calcSpread(sort(ink));
             killStats = calcSpread(sort(kill));
             deathStats = calcSpread(sort(death));

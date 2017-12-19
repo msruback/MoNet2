@@ -172,7 +172,6 @@ public class WeaponLockerDetail extends AppCompatActivity {
 
         ViewGroup.LayoutParams layoutParams = wins.getLayoutParams();
 
-        int meterWidth = winLossMeter.getWidth();
         float total = weaponStats.wins+weaponStats.losses;
         float width = weaponStats.wins/total;
 

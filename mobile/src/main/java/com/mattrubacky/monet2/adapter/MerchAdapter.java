@@ -20,7 +20,6 @@ import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.Product;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.helper.ImageHandler;
-import com.mattrubacky.monet2.helper.StatCalc;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.squareup.picasso.Picasso;
 

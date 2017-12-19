@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.Player;
 import com.mattrubacky.monet2.deserialized.Weapon;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
@@ -114,13 +115,13 @@ public class WeaponStats extends Stats implements Parcelable{
 
     @Override
     public void calcStats(Context context) {
-        ArrayList<Player> players;
+        ArrayList<Battle> battles;
         ArrayList<Integer> ink,kill,death,special;
         SplatnetSQLManager database = new SplatnetSQLManager(context);
 
-        players = database.getPlayerStats(weapon.id,"weapon");
+        battles = database.getPlayerStats(weapon.id,"weapon");
 
-        numGames = players.size();
+        numGames = battles.size();
 
         inkStats = new int[5];
         killStats = new int[5];
@@ -133,8 +134,8 @@ public class WeaponStats extends Stats implements Parcelable{
         special = new ArrayList<>();
 
         Player player;
-        for(int i=0;i<players.size();i++){
-            player = players.get(i);
+        for(int i=0;i<battles.size();i++){
+            player = battles.get(i).user;
 
             ink.add(player.points);
             kill.add(player.kills);
@@ -143,7 +144,7 @@ public class WeaponStats extends Stats implements Parcelable{
 
         }
 
-        if(players.size()>5) {
+        if(battles.size()>5) {
             inkStats = calcSpread(sort(ink));
             killStats = calcSpread(sort(kill));
             deathStats = calcSpread(sort(death));

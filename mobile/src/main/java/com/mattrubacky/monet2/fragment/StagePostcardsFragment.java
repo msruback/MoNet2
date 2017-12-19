@@ -11,13 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.gson.Gson;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.StagePostcardsDetail;
 import com.mattrubacky.monet2.adapter.StageAdapter;
 import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.helper.StageStats;
-import com.mattrubacky.monet2.helper.StatCalc;
 import com.mattrubacky.monet2.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.splatnet.SplatnetConnector;

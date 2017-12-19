@@ -28,7 +28,6 @@ import com.mattrubacky.monet2.fragment.SplatfestDetail.SoloMeterFragment;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.TeamMeterFragment;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.SplatfestStats;
-import com.mattrubacky.monet2.helper.StatCalc;
 import com.mattrubacky.monet2.splatnet.SplatfestVoteRequest;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.splatnet.SplatnetConnector;
@@ -60,7 +59,6 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
         Bundle bundle = getIntent().getExtras();
         splatfest = bundle.getParcelable("splatfest");
         result = bundle.getParcelable("result");
-        StatCalc statCalc = new StatCalc(getApplicationContext(),splatfest);
         stats = new SplatfestStats();
         stats.splatfest = splatfest;
         stats.calcStats(SplatfestDetail.this);

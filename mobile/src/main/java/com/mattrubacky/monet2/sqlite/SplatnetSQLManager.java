@@ -151,7 +151,7 @@ public class SplatnetSQLManager {
         playerManager.insert();
     }
 
-    public ArrayList<Player> getPlayerStats(int id,String type){
+    public ArrayList<Battle> getPlayerStats(int id,String type){
         PlayerManager playerManager = new PlayerManager(context);
         return playerManager.selectStats(id,type);
     }

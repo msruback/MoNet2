@@ -1,12 +1,10 @@
 package com.mattrubacky.monet2.fragment;
 
-import android.content.Intent;
 import android.graphics.Point;
 import android.support.v4.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -16,14 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.mattrubacky.monet2.ClosetDetail;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.GearAdapter;
 import com.mattrubacky.monet2.adapter.GearPagerAdapter;
 import com.mattrubacky.monet2.helper.ClosetHanger;
-import com.mattrubacky.monet2.helper.StatCalc;
-import com.mattrubacky.monet2.helper.WeaponStats;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
