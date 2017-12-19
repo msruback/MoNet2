@@ -24,9 +24,11 @@ public class CoopSchedulesRequest extends SplatnetRequest {
 
     private Context context;
     private SalmonSchedule salmonSchedule;
+    private boolean override;
 
-    public CoopSchedulesRequest(Context context){
+    public CoopSchedulesRequest(Context context,boolean override){
         this.context = context;
+        this.override = override;
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
@@ -37,6 +39,10 @@ public class CoopSchedulesRequest extends SplatnetRequest {
     @Override
     protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
         salmonSchedule = (SalmonSchedule) response.body();
+        if(!override){
+            salmonSchedule.times.remove(0);
+            salmonSchedule.times.remove(0);
+        }
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor edit = settings.edit();
@@ -52,6 +58,7 @@ public class CoopSchedulesRequest extends SplatnetRequest {
         call = splatnet.getSalmonSchedule(cookie,uniqueID);
     }
 
+    
     @Override
     public boolean shouldUpdate(){
 

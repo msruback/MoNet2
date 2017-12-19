@@ -64,13 +64,14 @@ public class MerchAdapter extends RecyclerView.Adapter<MerchAdapter.ViewHolder>{
                 if(hanger.gear!=null) {
 
                     hanger.calcStats(context);
-                    hanger.time = (long)0;
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("stats", hanger);
                     intent.putExtras(bundle);
 
                     activity.startActivity(intent);
+                }else{
+                    Toast.makeText(context,"No Data Found",Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }

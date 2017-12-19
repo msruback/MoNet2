@@ -60,7 +60,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver implements Splatne
 
         SplatnetConnector splatnetConnector = new SplatnetConnector(this,context);
         splatnetConnector.addRequest(new SchedulesRequest(context));
-        splatnetConnector.addRequest(new CoopSchedulesRequest(context));
+        splatnetConnector.addRequest(new CoopSchedulesRequest(context,false));
         splatnetConnector.addRequest(new ShopRequest(context));
         splatnetConnector.addRequest(new RecordsRequest(context));
         splatnetConnector.addRequest(new ResultsRequest(context));

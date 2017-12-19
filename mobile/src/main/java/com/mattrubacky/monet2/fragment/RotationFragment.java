@@ -82,7 +82,7 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
 
         connector = new SplatnetConnector(this, getActivity(),getContext());
         connector.addRequest(new SchedulesRequest(getContext()));
-        connector.addRequest(new CoopSchedulesRequest(getContext()));
+        connector.addRequest(new CoopSchedulesRequest(getContext(),false));
         connector.addRequest(new MonthlyGearRequest(getContext()));
 
         update(connector.getCurrentData());
