@@ -50,6 +50,9 @@ public class StagePickerDialog extends Dialog {
         Button submit = (Button) findViewById(R.id.Submit);
         Button cancel = (Button) findViewById(R.id.Cancel);
 
+        submit.setTypeface(titleFont);
+        cancel.setTypeface(titleFont);
+
         title.setText("Pick Stage");
 
         title.setTypeface(titleFont);

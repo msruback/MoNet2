@@ -1,6 +1,12 @@
 package com.mattrubacky.monet2.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +15,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mattrubacky.monet2.ClosetDetail;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.Gear;
+import com.mattrubacky.monet2.deserialized.Skill;
+import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
@@ -28,13 +37,16 @@ public class GearPickerAdapter extends ArrayAdapter<Gear> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_weapon_picker, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_skill_picker, parent, false);
         }
         Gear gear = getItem(position);
 
         RelativeLayout imageBackground = (RelativeLayout) convertView.findViewById(R.id.image);
 
-        switch (gear.kind) {
+        ImageView image = (ImageView) convertView.findViewById(R.id.Image);
+        TextView weaponName = (TextView) convertView.findViewById(R.id.SkillName);
+
+        switch(gear.kind){
             case "head":
                 imageBackground.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.head));
                 break;
@@ -46,20 +58,17 @@ public class GearPickerAdapter extends ArrayAdapter<Gear> {
                 break;
         }
 
-        ImageView image = (ImageView) convertView.findViewById(R.id.Image);
-        TextView weaponName = (TextView) convertView.findViewById(R.id.WeaponName);
-
         weaponName.setText(gear.name);
 
-        String url = "https://app.splatoon2.nintendo.net"+gear.url;
+        String url = "https://app.splatoon2.nintendo.net" + gear.url;
 
         ImageHandler imageHandler = new ImageHandler();
-        String imageDirName = gear.name.toLowerCase().replace(" ","_");
-        if(imageHandler.imageExists("gear",imageDirName,getContext())){
-            image.setImageBitmap(imageHandler.loadImage("gear",imageDirName));
-        }else{
+        String imageDirName = gear.name.toLowerCase().replace(" ", "_");
+        if (imageHandler.imageExists("gear", imageDirName, getContext())) {
+            image.setImageBitmap(imageHandler.loadImage("gear", imageDirName));
+        } else {
             Picasso.with(getContext()).load(url).into(image);
-            imageHandler.downloadImage("gear",imageDirName,url,getContext());
+            imageHandler.downloadImage("gear", imageDirName, url, getContext());
         }
 
         return convertView;

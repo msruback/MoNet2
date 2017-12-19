@@ -1,13 +1,16 @@
 package com.mattrubacky.monet2.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.deserialized.Gear;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 
 import java.util.ArrayList;
@@ -62,5 +65,4 @@ public class GearPagerAdapter extends RecyclerView.Adapter<GearPagerAdapter.View
         }
 
     }
-
 }

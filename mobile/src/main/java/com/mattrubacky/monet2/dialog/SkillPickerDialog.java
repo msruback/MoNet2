@@ -50,6 +50,9 @@ public class SkillPickerDialog extends Dialog {
         Button submit = (Button) findViewById(R.id.Submit);
         Button cancel = (Button) findViewById(R.id.Cancel);
 
+        submit.setTypeface(titleFont);
+        cancel.setTypeface(titleFont);
+
         title.setText("Pick Ability");
 
         title.setTypeface(titleFont);
