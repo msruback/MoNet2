@@ -39,6 +39,7 @@ public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
     SplatnetConnector splatnetConnector;
     LinearLayoutManager linearLayoutManager;
     RelativeLayout shooterTab,brushTab,chargerTab,slosherTab,splatlingTab,dualieTab,brellaTab;
+    ImageView shooterImage,brushImage,chargerImage,slosherImage,splatlingImage,dualieImage,brellaImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,29 +62,13 @@ public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
         dualieTab = (RelativeLayout) rootView.findViewById(R.id.DualieTab);
         brellaTab = (RelativeLayout) rootView.findViewById(R.id.BrellaTab);
 
-        final ImageView shooterImage = (ImageView) rootView.findViewById(R.id.ShooterImage);
-        final ImageView brushImage = (ImageView) rootView.findViewById(R.id.BrushImage);
-        final ImageView chargerImage = (ImageView) rootView.findViewById(R.id.ChargerImage);
-        final ImageView slosherImage = (ImageView) rootView.findViewById(R.id.SlosherImage);
-        final ImageView splatlingImage = (ImageView) rootView.findViewById(R.id.SplatlingImage);
-        final ImageView dualieImage = (ImageView) rootView.findViewById(R.id.DualieImage);
-        final ImageView brellaImage = (ImageView) rootView.findViewById(R.id.BrellaImage);
-
-        shooterTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
-        brushTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
-        chargerTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
-        slosherTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
-        splatlingTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
-        dualieTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
-        brellaTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
-
-        shooterImage.setImageDrawable(getResources().getDrawable(R.drawable.shooter2));
-        brushImage.setImageDrawable(getResources().getDrawable(R.drawable.brushes));
-        chargerImage.setImageDrawable(getResources().getDrawable(R.drawable.chargers));
-        slosherImage.setImageDrawable(getResources().getDrawable(R.drawable.sloshers));
-        splatlingImage.setImageDrawable(getResources().getDrawable(R.drawable.splatlings));
-        dualieImage.setImageDrawable(getResources().getDrawable(R.drawable.dualies));
-        brellaImage.setImageDrawable(getResources().getDrawable(R.drawable.brellas));
+        shooterImage = (ImageView) rootView.findViewById(R.id.ShooterImage);
+        brushImage = (ImageView) rootView.findViewById(R.id.BrushImage);
+        chargerImage = (ImageView) rootView.findViewById(R.id.ChargerImage);
+        slosherImage = (ImageView) rootView.findViewById(R.id.SlosherImage);
+        splatlingImage = (ImageView) rootView.findViewById(R.id.SplatlingImage);
+        dualieImage = (ImageView) rootView.findViewById(R.id.DualieImage);
+        brellaImage = (ImageView) rootView.findViewById(R.id.BrellaImage);
 
         shooterTab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -303,6 +288,22 @@ public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
         splatnetConnector.addRequest(new RecordsRequest(getContext()));
         update(splatnetConnector.getCurrentData());
         splatnetConnector.execute();
+
+        shooterTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
+        brushTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
+        chargerTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
+        slosherTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
+        splatlingTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
+        dualieTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
+        brellaTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));
+
+        shooterImage.setImageDrawable(getResources().getDrawable(R.drawable.shooter2));
+        brushImage.setImageDrawable(getResources().getDrawable(R.drawable.brushes));
+        chargerImage.setImageDrawable(getResources().getDrawable(R.drawable.chargers));
+        slosherImage.setImageDrawable(getResources().getDrawable(R.drawable.sloshers));
+        splatlingImage.setImageDrawable(getResources().getDrawable(R.drawable.splatlings));
+        dualieImage.setImageDrawable(getResources().getDrawable(R.drawable.dualies));
+        brellaImage.setImageDrawable(getResources().getDrawable(R.drawable.brellas));
 
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();

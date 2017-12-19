@@ -52,7 +52,7 @@ public class SplatfestRotation extends Fragment {
 
         Bundle bundle = this.getArguments();
         TimePeriod timePeriod = bundle.getParcelable("timePeriod");
-        Splatfest splatfest = bundle.getParcelable("splatfest");
+        final Splatfest splatfest = bundle.getParcelable("splatfest");
 
         final Stage a = timePeriod.a;
         final Stage b = timePeriod.b;
@@ -105,7 +105,16 @@ public class SplatfestRotation extends Fragment {
                 Gson gson = new Gson();
                 Record records = gson.fromJson(settings.getString("records",""),Record.class);
 
-                StageStats stats = records.records.stageStats.get(a.id);
+                StageStats stats;
+
+                if(records.records.stageStats.containsKey(a.id)){
+                    stats = records.records.stageStats.get(a.id);
+                    stats.isSplatnet = true;
+                }else{
+                    stats = new StageStats();
+                    stats.stage = a;
+                    stats.isSplatnet = false;
+                }
 
                 if(stats!=null) {
 
@@ -129,7 +138,43 @@ public class SplatfestRotation extends Fragment {
                 Gson gson = new Gson();
                 Record records = gson.fromJson(settings.getString("records",""),Record.class);
 
-                StageStats stats = records.records.stageStats.get(b.id);
+                StageStats stats;
+
+                if(records.records.stageStats.containsKey(b.id)){
+                    stats = records.records.stageStats.get(b.id);
+                    stats.isSplatnet = true;
+                }else{
+                    stats = new StageStats();
+                    stats.stage = b;
+                    stats.isSplatnet = false;
+                }
+
+                if(stats!=null) {
+                    stats.calcStats(getContext());
+
+                    Bundle intentBundle = new Bundle();
+                    intentBundle.putParcelable("stats", stats);
+                    intent.putExtras(intentBundle);
+                    startActivity(intent);
+                }
+                return false;
+            }
+        });
+
+        image3.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(getActivity(),StagePostcardsDetail.class);
+
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                Gson gson = new Gson();
+                Record records = gson.fromJson(settings.getString("records",""),Record.class);
+
+                StageStats stats;
+
+                stats = new StageStats();
+                stats.stage = splatfest.stage;
+                stats.isSplatnet = false;
 
                 if(stats!=null) {
                     stats.calcStats(getContext());

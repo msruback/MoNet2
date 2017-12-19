@@ -68,10 +68,19 @@
         android:id="@+id/AddButton"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_alignParentRight="true"
+        android:layout_toLeftOf="@+id/NotificationButton"
         android:elevation="10dp"
         android:gravity="center"
         android:text="+"
         android:textSize="35sp"
-        android:visibility="gone" />
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/NotificationButton"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentRight="true"
+        android:padding="10dp"
+        android:elevation="10dp"
+        android:src="@drawable/notification_icon"
+        android:visibility="gone"/>
 </RelativeLayout>

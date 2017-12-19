@@ -348,7 +348,7 @@
                                         android:backgroundTint="@color/turfPrimary"
                                         android:gravity="center"
                                         android:padding="10dp"
-                                        android:text="Total Inked"
+                                        android:text="@string/totalInked"
                                         android:textSize="16sp" />
 
                                     <TextView
@@ -382,7 +382,7 @@
                                         android:backgroundTint="@color/turfPrimary"
                                         android:gravity="center"
                                         android:padding="10dp"
-                                        android:text="Last Used"
+                                        android:text="@string/lastUsed"
                                         android:textSize="16sp" />
 
                                     <TextView
@@ -436,7 +436,7 @@
                                     android:backgroundTint="@color/turfPrimary"
                                     android:gravity="center"
                                     android:padding="10dp"
-                                    android:text="Ink Spread"
+                                    android:text="@string/inkspread"
                                     android:textSize="16sp" />
 
                                 <RelativeLayout
@@ -489,7 +489,7 @@
                                     android:backgroundTint="@color/turfPrimary"
                                     android:gravity="center"
                                     android:padding="10dp"
-                                    android:text="Kill Spread"
+                                    android:text="@string/killspread"
                                     android:textSize="16sp" />
 
                                 <RelativeLayout
@@ -542,7 +542,7 @@
                                     android:backgroundTint="@color/turfPrimary"
                                     android:gravity="center"
                                     android:padding="10dp"
-                                    android:text="Death Spread"
+                                    android:text="@string/deathspread"
                                     android:textSize="16sp"/>
 
                                 <RelativeLayout
@@ -596,7 +596,7 @@
                                     android:backgroundTint="@color/turfPrimary"
                                     android:gravity="center"
                                     android:padding="10dp"
-                                    android:text="Special Spread"
+                                    android:text="@string/specialspread"
                                     android:textSize="16sp" />
 
                                 <RelativeLayout
@@ -610,6 +610,48 @@
                                     android:layout_marginTop="10dp">
 
                                 </RelativeLayout>
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/noStats"
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:layout_below="@+id/deathStats"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/shape_card"
+                            android:backgroundTint="@color/weapon"
+                            android:elevation="5dp"
+                            android:rotation="1.5">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/repeat_zigzag">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="-5dp"
+                                    android:src="@drawable/extra_product"
+                                    android:tint="@color/offWhite" />
+                                <TextView
+                                    android:id="@+id/NoStatsText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="50dp"
+                                    android:layout_marginRight="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_centerInParent="true"
+                                    android:gravity="center"
+                                    android:text="@string/noStats"
+                                    android:textSize="20sp"/>
                             </RelativeLayout>
                         </RelativeLayout>
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.graphics.Typeface;
@@ -16,12 +17,15 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
 import com.mattrubacky.monet2.adapter.NavAdapter;
 import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.dialog.GearNotificationPickerDialog;
+import com.mattrubacky.monet2.dialog.StageNotificationPickerDialog;
 import com.mattrubacky.monet2.fragment.*;
 import com.mattrubacky.monet2.reciever.BootReciever;
 import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     ArrayList<String> backStack;
     TextView addButton;
+    ImageView notificationButton;
     Record record;
     PastSplatfest pastSplatfests;
 
@@ -99,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         campaignStats = new CampaignStatsFragment();
 
         addButton = (TextView) findViewById(R.id.AddButton);
+        notificationButton = (ImageView) findViewById(R.id.NotificationButton);
 
         DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
         if(settings.getBoolean("autoUpdate",false)){
@@ -170,6 +176,8 @@ public class MainActivity extends AppCompatActivity {
                 backStack.add(0,"rotation");
                 addButton.setVisibility(View.GONE);
                 addButton.setOnClickListener(null);
+                notificationButton.setVisibility(View.GONE);
+                notificationButton.setOnClickListener(null);
                 break;
             case 1:
                 fragmentManager.beginTransaction()
@@ -178,6 +186,8 @@ public class MainActivity extends AppCompatActivity {
                 backStack.add(0,"shop");
                 addButton.setVisibility(View.GONE);
                 addButton.setOnClickListener(null);
+                notificationButton.setVisibility(View.GONE);
+                notificationButton.setOnClickListener(null);
                 break;
             //Stats fragments go here
             case 2:
@@ -191,6 +201,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"weaponlocker");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                     case 2:
                         fragmentManager.beginTransaction()
@@ -199,6 +211,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"closet");
                         addButton.setVisibility(View.VISIBLE);
                         addButton.setOnClickListener(new addGearClickListener());
+                        notificationButton.setVisibility(View.VISIBLE);
+                        notificationButton.setOnClickListener(null);
                         break;
                     case 3:
                         fragmentManager.beginTransaction()
@@ -207,6 +221,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"stagepostcards");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.VISIBLE);
+                        notificationButton.setOnClickListener(null);
                         break;
                     case 4:
                         fragmentManager.beginTransaction()
@@ -215,6 +231,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"chunkbag");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                     case 5:
                         fragmentManager.beginTransaction()
@@ -224,6 +242,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"splatfeststats");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                     case 6:
                         fragmentManager.beginTransaction()
@@ -233,6 +253,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"campaignstats");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                 }
                 break;
@@ -243,6 +265,8 @@ public class MainActivity extends AppCompatActivity {
                 backStack.add(0,"battlelist");
                 addButton.setVisibility(View.GONE);
                 addButton.setOnClickListener(null);
+                notificationButton.setVisibility(View.GONE);
+                notificationButton.setOnClickListener(null);
                 break;
             case 4:
                 fragmentManager.beginTransaction()
@@ -251,6 +275,8 @@ public class MainActivity extends AppCompatActivity {
                 backStack.add(0,"settings");
                 addButton.setVisibility(View.GONE);
                 addButton.setOnClickListener(null);
+                notificationButton.setVisibility(View.GONE);
+                notificationButton.setOnClickListener(null);
                 break;
         }
 
@@ -291,6 +317,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"rotation");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                     case 1:
                         fragmentManager.beginTransaction()
@@ -300,6 +328,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"shop");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                     case 2://Stats expands
                         break;
@@ -311,6 +341,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"battlelist");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                     case 4:
                         fragmentManager.beginTransaction()
@@ -320,6 +352,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"settingsfrag");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                 }
 
@@ -345,6 +379,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"weaponlocker");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                     case 1:
                         fragmentManager.beginTransaction()
@@ -354,6 +390,14 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"closet");
                         addButton.setVisibility(View.VISIBLE);
                         addButton.setOnClickListener(new addGearClickListener());
+                        notificationButton.setVisibility(View.VISIBLE);
+                        notificationButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                GearNotificationPickerDialog dialog = new GearNotificationPickerDialog(MainActivity.this);
+                                dialog.show();
+                            }
+                        });
                         break;
                     case 2:
                         fragmentManager.beginTransaction()
@@ -363,6 +407,14 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"stagepostcards");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.VISIBLE);
+                        notificationButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                StageNotificationPickerDialog dialog = new StageNotificationPickerDialog(MainActivity.this);
+                                dialog.show();
+                            }
+                        });
                         break;
                     case 3:
                         fragmentManager.beginTransaction()
@@ -372,6 +424,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"chunkbag");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                     case 4:
                         fragmentManager.beginTransaction()
@@ -381,6 +435,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"splatfeststats");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                     case 5:
                         fragmentManager.beginTransaction()
@@ -390,6 +446,8 @@ public class MainActivity extends AppCompatActivity {
                         backStack.add(0,"campaignstats");
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                 }
                 return false;

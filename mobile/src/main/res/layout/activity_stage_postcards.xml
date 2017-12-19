@@ -673,8 +673,9 @@
 
                                 <RelativeLayout
                                     android:id="@+id/KillMeter"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="270dp"
                                     android:layout_height="80dp"
+                                    android:layout_centerHorizontal="true"
                                     android:layout_below="@+id/KillTitle"
                                     android:layout_marginLeft="15dp"
                                     android:layout_marginRight="15dp"
@@ -723,8 +724,9 @@
 
                                 <RelativeLayout
                                     android:id="@+id/DeathMeter"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="270dp"
                                     android:layout_height="80dp"
+                                    android:layout_centerHorizontal="true"
                                     android:layout_below="@+id/DeathTitle"
                                     android:layout_marginLeft="15dp"
                                     android:layout_marginRight="15dp"
@@ -776,12 +778,55 @@
 
                                 <RelativeLayout
                                     android:id="@+id/SpecialMeter"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="270dp"
                                     android:layout_height="80dp"
+                                    android:layout_centerHorizontal="true"
                                     android:layout_below="@+id/SpecialTitle"
                                     android:layout_marginLeft="15dp"
                                     android:layout_marginRight="15dp"
                                     android:layout_marginTop="10dp"></RelativeLayout>
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/noStats"
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:layout_below="@+id/deathStats"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/shape_card"
+                            android:backgroundTint="@color/pearl"
+                            android:elevation="5dp"
+                            android:rotation="1.5">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:background="@drawable/repeat_zigzag">
+
+                                <ImageView
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="-5dp"
+                                    android:src="@drawable/extra_product"
+                                    android:tint="@color/offWhite" />
+                                <TextView
+                                    android:id="@+id/NoStatsText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="50dp"
+                                    android:layout_marginRight="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_centerInParent="true"
+                                    android:gravity="center"
+                                    android:text="@string/noStats"
+                                    android:textSize="20sp"/>
                             </RelativeLayout>
                         </RelativeLayout>
 

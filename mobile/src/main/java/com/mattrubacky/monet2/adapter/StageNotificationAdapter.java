@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.AddNotification;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.StageNotification;
+import com.mattrubacky.monet2.dialog.StageNotificationPickerDialog;
 
 import java.util.ArrayList;
 
@@ -22,11 +23,13 @@ import java.util.ArrayList;
  */
 
 public class StageNotificationAdapter extends ArrayAdapter<StageNotification> {
-    public StageNotificationAdapter(Context context, ArrayList<StageNotification> input) {
+    StageNotificationPickerDialog dialog;
+    public StageNotificationAdapter(Context context, ArrayList<StageNotification> input,StageNotificationPickerDialog dialog) {
         super(context, 0, input);
+        this.dialog = dialog;
     }
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_stage_notification, parent, false);
@@ -68,7 +71,9 @@ public class StageNotificationAdapter extends ArrayAdapter<StageNotification> {
                 bundle.putBoolean("isGear",false);
                 bundle.putBoolean("isEdit",true);
                 bundle.putParcelable("notification",notification);
+                bundle.putInt("position",position);
                 intent.putExtras(bundle);
+                dialog.dismiss();
                 getContext().startActivity(intent);
             }
         });

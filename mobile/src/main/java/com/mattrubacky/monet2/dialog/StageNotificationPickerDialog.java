@@ -61,7 +61,7 @@ public class StageNotificationPickerDialog extends Dialog {
 
         notificationList = stageNotifications.notifications;
 
-        final StageNotificationAdapter stageAdapter = new StageNotificationAdapter(getContext(),notificationList);
+        final StageNotificationAdapter stageAdapter = new StageNotificationAdapter(getContext(),notificationList,this);
 
         notificationListView.setAdapter(stageAdapter);
 
@@ -76,6 +76,7 @@ public class StageNotificationPickerDialog extends Dialog {
                 bundle.putBoolean("isGear",false);
                 bundle.putBoolean("isEdit",false);
                 intent.putExtras(bundle);
+                dismiss();
                 getContext().startActivity(intent);
             }
         });

@@ -223,16 +223,19 @@ public class ClosetDetail extends AppCompatActivity {
         RelativeLayout killCard = (RelativeLayout) findViewById(R.id.killStats);
         RelativeLayout deathCard = (RelativeLayout) findViewById(R.id.deathStats);
         RelativeLayout specialCard = (RelativeLayout) findViewById(R.id.specialStats);
+        RelativeLayout noStatsCard = (RelativeLayout) findViewById(R.id.noStats);
 
         TextView inkTitle = (TextView) findViewById(R.id.InkTitle);
         TextView killTitle = (TextView) findViewById(R.id.KillTitle);
         TextView deathTitle = (TextView) findViewById(R.id.DeathTitle);
         TextView specialTitle = (TextView) findViewById(R.id.SpecialTitle);
+        TextView noStatsText = (TextView) findViewById(R.id.NoStatsText);
 
         inkTitle.setTypeface(fontTitle);
         killTitle.setTypeface(fontTitle);
         deathTitle.setTypeface(fontTitle);
         specialTitle.setTypeface(fontTitle);
+        noStatsText.setTypeface(fontTitle);
 
         //Handle Colors
         switch(hanger.gear.kind){
@@ -242,13 +245,15 @@ public class ClosetDetail extends AppCompatActivity {
                 killCard.setBackgroundTintList(getResources().getColorStateList(R.color.head));
                 deathCard.setBackgroundTintList(getResources().getColorStateList(R.color.head));
                 specialCard.setBackgroundTintList(getResources().getColorStateList(R.color.head));
+                noStatsCard.setBackgroundTintList(getResources().getColorStateList(R.color.head));
                 break;
             case "clothes":
                 generalStats.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
                 inkCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
                 killCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
                 deathCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
-                specialCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));;
+                specialCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
+                noStatsCard.setBackgroundTintList(getResources().getColorStateList(R.color.clothes));
                 break;
             case "shoes":
                 generalStats.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
@@ -256,6 +261,7 @@ public class ClosetDetail extends AppCompatActivity {
                 killCard.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
                 deathCard.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
                 specialCard.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
+                noStatsCard.setBackgroundTintList(getResources().getColorStateList(R.color.shoes));
                 break;
         }
 
@@ -273,6 +279,7 @@ public class ClosetDetail extends AppCompatActivity {
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
         losses.setLayoutParams(layoutParams);
 
+        boolean hasStats = false;
 
         //Ink card
         float range = hanger.inkStats[4] - hanger.inkStats[0];
@@ -284,6 +291,7 @@ public class ClosetDetail extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.InkMeter,ink)
                     .commit();
+            hasStats = true;
         }else{
             inkCard.setVisibility(View.GONE);
         }
@@ -298,6 +306,7 @@ public class ClosetDetail extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.KillMeter,kill)
                     .commit();
+            hasStats = true;
         }else{
             killCard.setVisibility(View.GONE);
         }
@@ -313,6 +322,7 @@ public class ClosetDetail extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.DeathMeter,death)
                     .commit();
+            hasStats = true;
         }else{
             deathCard.setVisibility(View.GONE);
         }
@@ -328,8 +338,12 @@ public class ClosetDetail extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.SpecialMeter,special)
                     .commit();
+            hasStats = true;
         }else{
             specialCard.setVisibility(View.GONE);
+        }
+        if(hasStats){
+            noStatsCard.setVisibility(View.GONE);
         }
     }
 

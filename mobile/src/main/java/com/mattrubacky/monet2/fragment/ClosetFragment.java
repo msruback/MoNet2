@@ -54,10 +54,6 @@ public class ClosetFragment extends Fragment {
         clothesTab = (RelativeLayout) rootView.findViewById(R.id.ClothesTab);
         shoeTab = (RelativeLayout) rootView.findViewById(R.id.ShoesTab);
 
-        headTab.setBackgroundTintList(getResources().getColorStateList(R.color.head));
-        clothesTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
-        shoeTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
-
         headTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +123,16 @@ public class ClosetFragment extends Fragment {
         super.onResume();
         updateUi();
 
+        headTab.setBackgroundTintList(getResources().getColorStateList(R.color.head));
+        clothesTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
+        shoeTab.setBackgroundTintList(getResources().getColorStateList(R.color.rankAccent));
+    }
+
+    private void updateUi(){
+        ArrayList<ArrayList<ClosetHanger>> gearLists = new ArrayList<>();
+        ArrayList<ClosetHanger> head = new ArrayList<>(),clothes = new ArrayList<>(),shoes = new ArrayList<>();
+        ClosetHanger closetHanger;
+
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -141,12 +147,7 @@ public class ClosetFragment extends Fragment {
         layoutParams = shoeTab.getLayoutParams();
         layoutParams.width = width;
         shoeTab.setLayoutParams(layoutParams);
-    }
 
-    private void updateUi(){
-        ArrayList<ArrayList<ClosetHanger>> gearLists = new ArrayList<>();
-        ArrayList<ClosetHanger> head = new ArrayList<>(),clothes = new ArrayList<>(),shoes = new ArrayList<>();
-        ClosetHanger closetHanger;
         for(int i=0;i<gearList.size();i++){
             closetHanger = gearList.get(i);
             switch(closetHanger.gear.kind){

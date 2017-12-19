@@ -15,10 +15,12 @@ import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.StagePostcardsDetail;
 import com.mattrubacky.monet2.adapter.StageAdapter;
 import com.mattrubacky.monet2.deserialized.Record;
+import com.mattrubacky.monet2.deserialized.Stage;
 import com.mattrubacky.monet2.helper.StageStats;
 import com.mattrubacky.monet2.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
 
@@ -89,11 +91,21 @@ public class StagePostcardsFragment extends Fragment implements SplatnetConnecte
     public void update(Bundle bundle) {
         records = bundle.getParcelable("records");
 
-        Integer[] keys = new Integer[2];
-        keys = records.records.stageStats.keySet().toArray(keys);
+        SplatnetSQLManager database = new SplatnetSQLManager(getContext());
+        ArrayList<Stage> stages = database.getStages();
+
         stageStatsList = new ArrayList<>();
-        for(int i=0;i<keys.length;i++){
-            stageStatsList.add(records.records.stageStats.get(keys[i]));
+        StageStats stats;
+        for(int i=0;i<stages.size();i++){
+            if(records.records.stageStats.containsKey(stages.get(i).id)){
+                stats = records.records.stageStats.get(stages.get(i).id);
+                stats.isSplatnet = true;
+            }else{
+                stats = new StageStats();
+                stats.stage = stages.get(i);
+                stats.isSplatnet = false;
+            }
+            stageStatsList.add(stats);
         }
         updateUI();
     }

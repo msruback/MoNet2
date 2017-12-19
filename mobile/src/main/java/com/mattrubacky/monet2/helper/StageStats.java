@@ -17,11 +17,15 @@ import java.util.ArrayList;
  * This class represents the User's stats on a certain stage
  */
 public class StageStats extends Stats implements Parcelable{
-    public StageStats(){}
+    public StageStats(){
+        lastPlayed = (long) 0;
+    }
 
     //The Stage in question
     @SerializedName("stage")
     public Stage stage;
+
+    public boolean isSplatnet;
 
     //The wins on this Stage under Turf War
     @SerializedName("turf_win")
@@ -182,6 +186,9 @@ public class StageStats extends Stats implements Parcelable{
                 }
             }
 
+        }
+        if(!isSplatnet&&battles.size()>0){
+            lastPlayed = battles.get(battles.size()-1).start;
         }
 
         if(battles.size()>5) {

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.AddNotification;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.GearNotification;
+import com.mattrubacky.monet2.dialog.GearNotificationPickerDialog;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
@@ -27,11 +28,13 @@ import java.util.ArrayList;
  */
 
 public class GearNotificationPickerAdapter extends ArrayAdapter<GearNotification> {
-    public GearNotificationPickerAdapter(Context context, ArrayList<GearNotification> input) {
+    GearNotificationPickerDialog dialog;
+    public GearNotificationPickerAdapter(Context context, ArrayList<GearNotification> input, GearNotificationPickerDialog dialog) {
         super(context, 0, input);
+        this.dialog = dialog;
     }
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_gear_notification, parent, false);
@@ -82,7 +85,9 @@ public class GearNotificationPickerAdapter extends ArrayAdapter<GearNotification
                 bundle.putBoolean("isGear",true);
                 bundle.putBoolean("isEdit",true);
                 bundle.putParcelable("notification",notification);
+                bundle.putInt("position",position);
                 intent.putExtras(bundle);
+                dialog.dismiss();
                 getContext().startActivity(intent);
             }
         });

@@ -93,7 +93,16 @@ public class RankedRotation extends Fragment {
                 Gson gson = new Gson();
                 Record records = gson.fromJson(settings.getString("records",""),Record.class);
 
-                StageStats stats = records.records.stageStats.get(a.id);
+                StageStats stats;
+
+                if(records.records.stageStats.containsKey(a.id)){
+                    stats = records.records.stageStats.get(a.id);
+                    stats.isSplatnet = true;
+                }else{
+                    stats = new StageStats();
+                    stats.stage = a;
+                    stats.isSplatnet = false;
+                }
 
                 if(stats!=null) {
                     stats.calcStats(getContext());
@@ -116,7 +125,16 @@ public class RankedRotation extends Fragment {
                 Gson gson = new Gson();
                 Record records = gson.fromJson(settings.getString("records",""),Record.class);
 
-                StageStats stats = records.records.stageStats.get(b.id);
+                StageStats stats;
+
+                if(records.records.stageStats.containsKey(b.id)){
+                    stats = records.records.stageStats.get(b.id);
+                    stats.isSplatnet = true;
+                }else{
+                    stats = new StageStats();
+                    stats.stage = b;
+                    stats.isSplatnet = false;
+                }
 
                 if(stats!=null) {
                     stats.calcStats(getContext());

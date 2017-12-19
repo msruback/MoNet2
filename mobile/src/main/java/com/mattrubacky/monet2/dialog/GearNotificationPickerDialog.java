@@ -61,7 +61,7 @@ public class GearNotificationPickerDialog extends Dialog {
 
         notificationList = gearNotifications.notifications;
 
-        final GearNotificationPickerAdapter gearAdapter = new GearNotificationPickerAdapter(getContext(),notificationList);
+        final GearNotificationPickerAdapter gearAdapter = new GearNotificationPickerAdapter(getContext(),notificationList,this);
 
         notificationListView.setAdapter(gearAdapter);
 
@@ -76,6 +76,7 @@ public class GearNotificationPickerDialog extends Dialog {
                 bundle.putBoolean("isGear",true);
                 bundle.putBoolean("isEdit",false);
                 intent.putExtras(bundle);
+                dismiss();
                 getContext().startActivity(intent);
             }
         });
