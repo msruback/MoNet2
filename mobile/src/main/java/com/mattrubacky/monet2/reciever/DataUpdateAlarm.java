@@ -329,30 +329,16 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver implements Splatne
             Product product = shop.merch.get(i);
             for(int j=0;j<gearNotifications.notifications.size();j++){
                 GearNotification notification = gearNotifications.notifications.get(j);
-                if(notification.notified==null){
-                    notification.notified = new ArrayList<>();
-                }
                 if(notification.gear.id == product.gear.id&&notification.gear.kind.equals(product.gear.kind)){
                     System.out.println("Gear: "+product.gear.name+" ID: "+product.gear.id);
                     System.out.println("Notification: "+notification.gear.name+"ID: "+notification.gear.id);
-                    boolean notified = false;
-                    for(int k=0;k<notification.notified.size();k++){
-                        if(notification.notified.get(k).id.equals(product.gear.id)){
-                            notified= true;
-                        }
-                    }
-                    if(!notified) {
+
                         if (notification.skill.id == -1 || notification.skill.id == product.skill.id) {
                             postShopNotification(product);
-                            gearNotifications.notifications.get(j).notified.add(product);
                         }
-                    }
                 }
             }
         }
-        SharedPreferences.Editor edit = settings.edit();
-        edit.putString("gearNotifications",gson.toJson(gearNotifications));
-        edit.commit();
     }
 
     private void findBattleGearNotifications(ArrayList<Battle> battles){

@@ -212,7 +212,13 @@ public class MainActivity extends AppCompatActivity {
                         addButton.setVisibility(View.VISIBLE);
                         addButton.setOnClickListener(new addGearClickListener());
                         notificationButton.setVisibility(View.VISIBLE);
-                        notificationButton.setOnClickListener(null);
+                        notificationButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                GearNotificationPickerDialog dialog = new GearNotificationPickerDialog(MainActivity.this);
+                                dialog.show();
+                            }
+                        });
                         break;
                     case 3:
                         fragmentManager.beginTransaction()
@@ -222,7 +228,13 @@ public class MainActivity extends AppCompatActivity {
                         addButton.setVisibility(View.GONE);
                         addButton.setOnClickListener(null);
                         notificationButton.setVisibility(View.VISIBLE);
-                        notificationButton.setOnClickListener(null);
+                        notificationButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                StageNotificationPickerDialog dialog = new StageNotificationPickerDialog(MainActivity.this);
+                                dialog.show();
+                            }
+                        });
                         break;
                     case 4:
                         fragmentManager.beginTransaction()
@@ -489,6 +501,8 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);
+                    notificationButton.setVisibility(View.GONE);
+                    notificationButton.setOnClickListener(null);
                     break;
                 case "shop":
                     fragmentManager.beginTransaction()
@@ -496,6 +510,8 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);
+                    notificationButton.setVisibility(View.GONE);
+                    notificationButton.setOnClickListener(null);
                     break;
                 //Stats fragments go here
                 case "weaponlocker":
@@ -504,6 +520,8 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);
+                    notificationButton.setVisibility(View.GONE);
+                    notificationButton.setOnClickListener(null);
                     break;
                 case "closet":
                     fragmentManager.beginTransaction()
@@ -511,6 +529,14 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     addButton.setVisibility(View.VISIBLE);
                     addButton.setOnClickListener(new addGearClickListener());
+                    notificationButton.setVisibility(View.VISIBLE);
+                    notificationButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            GearNotificationPickerDialog dialog = new GearNotificationPickerDialog(MainActivity.this);
+                            dialog.show();
+                        }
+                    });
                     break;
                 case "stagepostcards":
                     fragmentManager.beginTransaction()
@@ -518,6 +544,14 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);
+                    notificationButton.setVisibility(View.VISIBLE);
+                    notificationButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            StageNotificationPickerDialog dialog = new StageNotificationPickerDialog(MainActivity.this);
+                            dialog.show();
+                        }
+                    });
                     break;
                 case "chunkbag":
                     fragmentManager.beginTransaction()
@@ -525,6 +559,8 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);
+                    notificationButton.setVisibility(View.GONE);
+                    notificationButton.setOnClickListener(null);
                     break;
                 case "splatfeststats":
                     fragmentManager.beginTransaction()
@@ -533,6 +569,8 @@ public class MainActivity extends AppCompatActivity {
                     drawerLayout.closeDrawer(drawerList);
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);
+                    notificationButton.setVisibility(View.GONE);
+                    notificationButton.setOnClickListener(null);
                     break;
                 case "campaignstats":
                     fragmentManager.beginTransaction()
@@ -541,6 +579,8 @@ public class MainActivity extends AppCompatActivity {
                     drawerLayout.closeDrawer(drawerList);
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);
+                    notificationButton.setVisibility(View.GONE);
+                    notificationButton.setOnClickListener(null);
                     break;
                 case "battlelist":
                     fragmentManager.beginTransaction()
@@ -548,6 +588,8 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);
+                    notificationButton.setVisibility(View.GONE);
+                    notificationButton.setOnClickListener(null);
                     break;
                 case "settings":
                     fragmentManager.beginTransaction()
@@ -555,6 +597,8 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);
+                    notificationButton.setVisibility(View.GONE);
+                    notificationButton.setOnClickListener(null);
                     break;
             }
         }else {

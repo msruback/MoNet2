@@ -73,6 +73,8 @@
         android:gravity="center"
         android:text="+"
         android:textSize="35sp"
+        android:textColor="@color/grey"
+        android:alpha="0.8"
         android:visibility="gone"/>
     <ImageView
         android:id="@+id/NotificationButton"
@@ -82,5 +84,6 @@
         android:padding="10dp"
         android:elevation="10dp"
         android:src="@drawable/notification_icon"
+        android:alpha="0.8"
         android:visibility="gone"/>
 </RelativeLayout>

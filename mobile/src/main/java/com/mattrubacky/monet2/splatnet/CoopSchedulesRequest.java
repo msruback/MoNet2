@@ -58,7 +58,7 @@ public class CoopSchedulesRequest extends SplatnetRequest {
         call = splatnet.getSalmonSchedule(cookie,uniqueID);
     }
 
-    
+
     @Override
     public boolean shouldUpdate(){
 

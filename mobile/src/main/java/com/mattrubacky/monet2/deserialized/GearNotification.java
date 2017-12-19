@@ -23,14 +23,9 @@ public class GearNotification implements Parcelable {
     @SerializedName("ability")
     public Skill skill;
 
-    //A list of Shop listings the user was already notified about
-    @SerializedName("notified")
-    public ArrayList<Product> notified;
-
     protected GearNotification(Parcel in) {
         gear = in.readParcelable(Gear.class.getClassLoader());
         skill = in.readParcelable(Skill.class.getClassLoader());
-        notified = in.createTypedArrayList(Product.CREATOR);
     }
 
     public static final Creator<GearNotification> CREATOR = new Creator<GearNotification>() {
@@ -54,6 +49,5 @@ public class GearNotification implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(gear, flags);
         dest.writeParcelable(skill, flags);
-        dest.writeTypedList(notified);
     }
 }
