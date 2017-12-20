@@ -1,5 +1,6 @@
 package com.mattrubacky.monet2.notifications;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -15,6 +16,13 @@ import java.util.ArrayList;
  */
 
 public class StageNotifitcationFactory extends NotificationFactory {
+
+    public StageNotifitcationFactory(){}
+
+    public StageNotifitcationFactory(Context context){
+        super(context);
+    }
+
     @Override
     public ArrayList<Notification> findNotifications() {
 
