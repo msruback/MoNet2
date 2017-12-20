@@ -3,6 +3,8 @@ package com.mattrubacky.monet2.notifications;
 import android.content.Context;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,7 +14,13 @@ import java.util.Date;
 
 public abstract class NotificationFactory {
     protected Context context;
-    protected ArrayList<Notification> notifications,notified;
+
+    @SerializedName("notifications")
+    protected ArrayList<Notification> notifications;
+    @SerializedName("notifications")
+    protected ArrayList<Notification>notified;
+
+    public NotificationFactory(){}
 
     public NotificationFactory(Context context){
         this.context = context;
@@ -21,6 +29,16 @@ public abstract class NotificationFactory {
     }
 
     public abstract ArrayList<Notification> findNotifications();
+
+    public void setContext(Context context){
+        this.context = context;
+        for(int i=0;i<notifications.size();i++){
+            notifications.get(i).setContext(context);
+        }
+        for (int i=0;i<notified.size();i++){
+            notified.get(i).setContext(context);
+        }
+    }
 
     public void addNotifications(){
         ArrayList<Notification> toDetermine = findNotifications();

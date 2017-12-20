@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.Product;
@@ -19,7 +20,10 @@ import java.util.Date;
  */
 
 public class ShopNotification extends Notification{
+    @SerializedName("product")
     private Product product;
+
+    public ShopNotification(){}
 
     public ShopNotification(Context context,Product product){
         super(context,new Date().getTime(),product.endTime);

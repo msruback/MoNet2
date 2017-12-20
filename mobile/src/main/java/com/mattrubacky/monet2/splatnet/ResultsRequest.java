@@ -55,6 +55,7 @@ public class ResultsRequest extends SplatnetRequest {
         database.insertBattles(list);
 
         String json = gson.toJson(list);
+        edit.putInt("lastBattle",list.get(0).id);
         edit.putString("recentBattles",json);
         edit.commit();
     }

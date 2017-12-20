@@ -2,6 +2,8 @@ package com.mattrubacky.monet2.notifications;
 
 import android.content.Context;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 /**
@@ -10,13 +12,25 @@ import java.util.Date;
 
 public abstract class Notification {
     protected Context context;
-    protected Long startTime,endTime;
+
+    @SerializedName("start_time")
+    protected Long startTime;
+    @SerializedName("end_time")
+    protected Long endTime;
+
+    public Notification(){}
+
     public Notification(Context context,Long startTime,Long endTime){
         this.context = context;
         this.startTime =  startTime;
         this.endTime = endTime;
     }
     public abstract void show();
+
+    public void setContext(Context context){
+        this.context = context;
+    }
+
     public boolean equals(Notification toCompare){
         if(toCompare.endTime.equals(endTime)&&isUnique(toCompare)){
             return false;
