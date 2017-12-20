@@ -10,28 +10,28 @@ import com.google.gson.annotations.SerializedName;
  * This is part of the timeline and will say when new weapons are out
  */
 
-public class WeaponAvailabilty implements Parcelable{
-    public WeaponAvailabilty(){}
+public class WeaponAvailability implements Parcelable{
+    public WeaponAvailability(){}
 
     @SerializedName("release_time")
     public Long release;
     @SerializedName("weapon")
     public Weapon weapon;
 
-    protected WeaponAvailabilty(Parcel in) {
+    protected WeaponAvailability(Parcel in) {
         release = in.readLong();
         weapon = in.readParcelable(Weapon.class.getClassLoader());
     }
 
-    public static final Creator<WeaponAvailabilty> CREATOR = new Creator<WeaponAvailabilty>() {
+    public static final Creator<WeaponAvailability> CREATOR = new Creator<WeaponAvailability>() {
         @Override
-        public WeaponAvailabilty createFromParcel(Parcel in) {
-            return new WeaponAvailabilty(in);
+        public WeaponAvailability createFromParcel(Parcel in) {
+            return new WeaponAvailability(in);
         }
 
         @Override
-        public WeaponAvailabilty[] newArray(int size) {
-            return new WeaponAvailabilty[size];
+        public WeaponAvailability[] newArray(int size) {
+            return new WeaponAvailability[size];
         }
     };
 

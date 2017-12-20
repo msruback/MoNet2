@@ -20,7 +20,7 @@
             android:exported="true"
             android:process=":remote" />
         <receiver
-            android:name=".reciever.SalmonAlarm"
+            android:name=".reciever.NotificationAlarm"
             android:enabled="true"
             android:exported="true"
             android:process=":remote" />

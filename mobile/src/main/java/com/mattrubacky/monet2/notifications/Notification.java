@@ -43,12 +43,12 @@ public abstract class Notification {
 
     public boolean isValid(){
         long now = new Date().getTime();
-        if((endTime*1000)<now){
+        if((endTime)<now){
             return false;
         }
         return true;
     }
     public Long getTime(){
-        return startTime*1000;
+        return startTime;
     }
 }

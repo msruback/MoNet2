@@ -29,7 +29,7 @@ public class StageNotification extends Notification {
     public StageNotification(){}
 
     public StageNotification(Context context, TimePeriod period, Stage stage){
-        super(context,period.start,period.end);
+        super(context,period.start*1000,period.end*1000);
         this.period = period;
         this.stage = stage;
     }

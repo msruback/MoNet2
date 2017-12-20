@@ -26,7 +26,7 @@ public class ShopNotification extends Notification{
     public ShopNotification(){}
 
     public ShopNotification(Context context,Product product){
-        super(context,new Date().getTime(),product.endTime);
+        super(context,new Date().getTime(),product.endTime*1000);
         this.product = product;
     }
 

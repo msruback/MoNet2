@@ -24,7 +24,7 @@ public class SalmonRunNotification extends Notification {
 
     public SalmonRunNotification(){}
     public SalmonRunNotification(Context context, SalmonRunDetail run){
-        super(context,run.start,run.end);
+        super(context,run.start*1000,run.end*1000);
         this.run = run;
     }
     @Override

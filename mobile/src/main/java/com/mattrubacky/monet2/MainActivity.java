@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.graphics.Typeface;
@@ -29,7 +28,7 @@ import com.mattrubacky.monet2.dialog.StageNotificationPickerDialog;
 import com.mattrubacky.monet2.fragment.*;
 import com.mattrubacky.monet2.reciever.BootReciever;
 import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
-import com.mattrubacky.monet2.reciever.SalmonAlarm;
+import com.mattrubacky.monet2.reciever.NotificationAlarm;
 import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
@@ -150,15 +149,15 @@ public class MainActivity extends AppCompatActivity {
                 edit.putInt("last_update",lastUpdate);
                 edit.commit();
             }
+
+            NotificationAlarm notificationAlarm = new NotificationAlarm();
+            notificationAlarm.setAlarm(MainActivity.this);
+
             ComponentName receiver = new ComponentName(MainActivity.this, BootReciever.class);
             PackageManager pm = getPackageManager();
             pm.setComponentEnabledSetting(receiver,
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                     PackageManager.DONT_KILL_APP);
-            if(settings.getBoolean("salmonNotifications",false)){
-                SalmonAlarm salmonAlarm = new SalmonAlarm();
-                salmonAlarm.setAlarm(MainActivity.this);
-            }
         }else{
             ComponentName receiver = new ComponentName(MainActivity.this, BootReciever.class);
             PackageManager pm = getPackageManager();

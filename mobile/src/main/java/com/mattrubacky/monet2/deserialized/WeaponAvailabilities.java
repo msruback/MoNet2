@@ -15,10 +15,10 @@ public class WeaponAvailabilities implements Parcelable{
     public WeaponAvailabilities(){}
 
     @SerializedName("availabilities")
-    public ArrayList<WeaponAvailabilty> newWeapons;
+    public ArrayList<WeaponAvailability> newWeapons;
 
     protected WeaponAvailabilities(Parcel in) {
-        newWeapons = in.createTypedArrayList(WeaponAvailabilty.CREATOR);
+        newWeapons = in.createTypedArrayList(WeaponAvailability.CREATOR);
     }
 
     @Override

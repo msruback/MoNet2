@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.mattrubacky.monet2.MainActivity;
+
 import java.util.Calendar;
 
 /**
@@ -58,7 +60,7 @@ public class BootReciever extends BroadcastReceiver {
         Intent i = new Intent(context, DataUpdateAlarm.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),alarmSpacing, pi);
-        SalmonAlarm salmonAlarm = new SalmonAlarm();
-        salmonAlarm.setAlarm(context);
+        NotificationAlarm notificationAlarm = new NotificationAlarm();
+        notificationAlarm.setAlarm(context);
     }
 }

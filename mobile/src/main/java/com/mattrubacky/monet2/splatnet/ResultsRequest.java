@@ -45,8 +45,8 @@ public class ResultsRequest extends SplatnetRequest {
         Gson gson = new Gson();
 
         list = new ArrayList<>();
-
-        for (int i = 0; i < results.resultIds.size(); i++) {
+        int maxId = settings.getInt("lastBattle",-1);
+        for (int i = 0; i < results.resultIds.size()&&maxId<results.resultIds.get(i).id; i++) {
             resultRequest = new ResultRequest(results.resultIds.get(i).id);
             resultRequest.setup(splatnet,cookie,uniqueID);
             resultRequest.run();

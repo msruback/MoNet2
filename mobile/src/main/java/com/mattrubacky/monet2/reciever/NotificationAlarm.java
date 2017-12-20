@@ -18,6 +18,7 @@ import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.SalmonRunDetail;
 import com.mattrubacky.monet2.deserialized.SalmonSchedule;
 import com.mattrubacky.monet2.notifications.BattleGearNotificationFactory;
+import com.mattrubacky.monet2.notifications.GrizzCoRewardNotificationFactory;
 import com.mattrubacky.monet2.notifications.Notification;
 import com.mattrubacky.monet2.notifications.NotificationAdapter;
 import com.mattrubacky.monet2.notifications.NotificationFactory;
@@ -25,6 +26,7 @@ import com.mattrubacky.monet2.notifications.NotificationFactoryAdapter;
 import com.mattrubacky.monet2.notifications.SalmonRunNotificationFactory;
 import com.mattrubacky.monet2.notifications.ShopNotificationFactory;
 import com.mattrubacky.monet2.notifications.StageNotifitcationFactory;
+import com.mattrubacky.monet2.notifications.WeaponNotificationFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,6 +60,8 @@ public class NotificationAlarm extends WakefulBroadcastReceiver {
                 factories.add(new StageNotifitcationFactory(context));
                 factories.add(new SalmonRunNotificationFactory(context));
                 factories.add(new BattleGearNotificationFactory(context));
+                factories.add(new WeaponNotificationFactory(context));
+                factories.add(new GrizzCoRewardNotificationFactory(context));
         }
         for(int i=0;i<factories.size();i++){
             factories.get(i).manageNotifications();
@@ -75,7 +79,7 @@ public class NotificationAlarm extends WakefulBroadcastReceiver {
     public void setAlarm(Context context)
     {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, SalmonAlarm.class);
+        Intent intent = new Intent(context, NotificationAlarm.class);
         PendingIntent intentPending = PendingIntent.getBroadcast(context, 1, intent, 0);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR_OF_DAY,1);
@@ -86,13 +90,13 @@ public class NotificationAlarm extends WakefulBroadcastReceiver {
 
     public void cancelAlarm(Context context)
     {
-        Intent intent = new Intent(context, SalmonAlarm.class);
+        Intent intent = new Intent(context, NotificationAlarm.class);
         PendingIntent sender = PendingIntent.getBroadcast(context, 1, intent, 0);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
     }
     public boolean isAlarmSet(Context context){
-        Intent intent = new Intent(context, SalmonAlarm.class);
+        Intent intent = new Intent(context, NotificationAlarm.class);
         return (PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE) != null);
     }
 }

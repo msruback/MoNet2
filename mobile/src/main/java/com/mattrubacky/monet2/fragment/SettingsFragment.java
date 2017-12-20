@@ -1,16 +1,10 @@
 package com.mattrubacky.monet2.fragment;
 
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -28,7 +22,6 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.reciever.BootReciever;
 import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.reciever.SalmonAlarm;
 import com.mattrubacky.monet2.dialog.*;
 
 
@@ -162,9 +155,6 @@ public class SettingsFragment extends Fragment {
                     ComponentName receiver = new ComponentName(getContext(), BootReciever.class);
                     PackageManager pm = getContext().getPackageManager();
 
-                    SalmonAlarm salmonAlarm = new SalmonAlarm();
-                    salmonAlarm.setAlarm(getContext());
-
                     pm.setComponentEnabledSetting(receiver,
                             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                             PackageManager.DONT_KILL_APP);
@@ -177,9 +167,6 @@ public class SettingsFragment extends Fragment {
                     dataUpdateAlarm.cancelAlarm(getContext());
                     ComponentName receiver = new ComponentName(getContext(), BootReciever.class);
                     PackageManager pm = getContext().getPackageManager();
-
-                    SalmonAlarm salmonAlarm = new SalmonAlarm();
-                    salmonAlarm.cancelAlarm(getContext());
 
                     pm.setComponentEnabledSetting(receiver,
                             PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
