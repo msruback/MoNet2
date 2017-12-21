@@ -9,8 +9,10 @@ import com.mattrubacky.monet2.deserialized.GrizzCo;
 import com.mattrubacky.monet2.deserialized.RewardGear;
 import com.mattrubacky.monet2.deserialized.Timeline;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by mattr on 12/20/2017.
@@ -18,7 +20,8 @@ import java.util.Calendar;
 
 public class GrizzCoRewardNotificationFactory extends NotificationFactory {
 
-    public GrizzCoRewardNotificationFactory(){}
+    protected static String name = "GrizzCoRewardNotificationFactory";
+
     public GrizzCoRewardNotificationFactory(Context context){
         super(context);
     }
@@ -32,7 +35,13 @@ public class GrizzCoRewardNotificationFactory extends NotificationFactory {
         RewardGear rewardGear = timeline.currentRun.rewardGear;
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(rewardGear.available*1000);
+        calendar.add(Calendar.DAY_OF_MONTH,3);
+        rewardGear.available = calendar.getTimeInMillis();
         calendar.add(Calendar.MONTH,1);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss");
+        String time = sdf.format(calendar.getTime());
+
         notifications.add(new GrizzCoRewardNotification(context,rewardGear,calendar.getTimeInMillis()));
         return notifications;
     }

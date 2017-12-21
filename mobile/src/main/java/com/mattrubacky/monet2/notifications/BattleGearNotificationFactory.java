@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 public class BattleGearNotificationFactory extends NotificationFactory {
 
+    protected static String name = "BattleGearNotificationFactory";
+
     public BattleGearNotificationFactory(Context context) {
         super(context);
     }
@@ -34,7 +36,7 @@ public class BattleGearNotificationFactory extends NotificationFactory {
         Battle battle;
         GearNotification currentNotification;
         BattleGearNotification battleGearNotification;
-        for(int i=0;i<2;i++) {
+        for(int i=0;i<2&&i<battles.size();i++) {
             battle = battles.get(i);
             for (int j = 0; j < gearNotifications.notifications.size(); j++) {
                 currentNotification = gearNotifications.notifications.get(j);

@@ -44,18 +44,22 @@ public class ResultsRequest extends SplatnetRequest {
         SharedPreferences.Editor edit = settings.edit();
         Gson gson = new Gson();
 
-        list = new ArrayList<>();
+        ArrayList<Battle> newList =  new ArrayList<>();
         int maxId = settings.getInt("lastBattle",-1);
         for (int i = 0; i < results.resultIds.size()&&maxId<results.resultIds.get(i).id; i++) {
             resultRequest = new ResultRequest(results.resultIds.get(i).id);
             resultRequest.setup(splatnet,cookie,uniqueID);
             resultRequest.run();
-            list.add((Battle) resultRequest.result(new Bundle()).getParcelable("battle"));
+            newList.add((Battle) resultRequest.result(new Bundle()).getParcelable("battle"));
         }
-        database.insertBattles(list);
+        database.insertBattles(newList);
+
+        if(list.size()>0) {
+            edit.putInt("lastBattle", list.get(0).id);
+            list = newList;
+        }
 
         String json = gson.toJson(list);
-        edit.putInt("lastBattle",list.get(0).id);
         edit.putString("recentBattles",json);
         edit.commit();
     }

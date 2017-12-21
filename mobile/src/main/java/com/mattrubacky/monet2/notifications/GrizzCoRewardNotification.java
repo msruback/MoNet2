@@ -4,7 +4,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
@@ -22,10 +26,13 @@ public class GrizzCoRewardNotification extends Notification {
     @SerializedName("reward")
     private RewardGear rewardGear;
 
-    public GrizzCoRewardNotification(){}
+    public GrizzCoRewardNotification(){
+        name = "GrizzCoRewardNotification";
+    }
     public GrizzCoRewardNotification(Context context, RewardGear rewardGear,Long nextMonth){
-        super(context,rewardGear.available*1000,nextMonth);
+        super(context,rewardGear.available,nextMonth);
         this.rewardGear = rewardGear;
+        name = "GrizzCoRewardNotification";
     }
 
     @Override
@@ -35,9 +42,9 @@ public class GrizzCoRewardNotification extends Notification {
         rotationIntent.putExtra("fragment",0);
         PendingIntent rotationIntentPending = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), rotationIntent, 0);
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM");
-        String time = sdf.format(rewardGear.available*1000);
-        String title = "New GrizzCo. Rewards";
-        String content = "GrizzCo. is offering the new "+rewardGear.gear.name+" for shifts in "+time;
+        String time = sdf.format(rewardGear.available);
+        String title = "New Grizz Co. Rewards";
+        String content = "Grizz Co. is offering the new "+rewardGear.gear.name+" for shifts in "+time;
 
         android.app.Notification notification  = new android.app.Notification.Builder(context)
                 .setContentTitle(title)
@@ -49,4 +56,24 @@ public class GrizzCoRewardNotification extends Notification {
         notification.defaults = android.app.Notification.DEFAULT_ALL;
         notificationManager.notify((int) (new Date().getTime()%10000), notification);
     }
+
+    @Override
+    public String writeJSON() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(super.writeJSON());
+        builder.append(",\"reward\":");
+        Gson gson = new Gson();
+        builder.append(gson.toJson(rewardGear));
+        return builder.toString();
+    }
+
+    @Override
+    public boolean isUnique(Notification notification){
+        GrizzCoRewardNotification grizzCoRewardNotification = (GrizzCoRewardNotification) notification;
+        if(grizzCoRewardNotification.rewardGear.gear.id == rewardGear.gear.id){
+            return false;
+        }
+        return true;
+    }
+
 }

@@ -3,6 +3,7 @@ package com.mattrubacky.monet2.notifications;
 import android.app.NotificationManager;
 import android.content.Context;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.WeaponAvailability;
@@ -19,10 +20,13 @@ public class WeaponNotification extends Notification {
     @SerializedName("availability")
     private WeaponAvailability availabilty;
 
-    public WeaponNotification(){}
+    public WeaponNotification(){
+        name = "WeaponNotification";
+    }
     public WeaponNotification(Context context, WeaponAvailability availability){
         super(context,new Date().getTime(),availability.release*1000);
         this.availabilty = availability;
+        name = "WeaponNotification";
     }
     @Override
     public void show() {
@@ -47,5 +51,15 @@ public class WeaponNotification extends Notification {
         android.app.Notification notification = builder.build();
         notification.defaults = android.app.Notification.DEFAULT_ALL;
         notificationManager.notify((int) (new Date().getTime()%10000), notification);
+    }
+
+    @Override
+    public String writeJSON() {
+        StringBuilder builder = new StringBuilder();
+        Gson gson = new Gson();
+        builder.append(super.writeJSON());
+        builder.append(",\"availability\":");
+        builder.append(gson.toJson(availabilty));
+        return null;
     }
 }

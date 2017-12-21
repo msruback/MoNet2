@@ -1,5 +1,6 @@
 package com.mattrubacky.monet2.notifications;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -15,7 +16,7 @@ import java.lang.reflect.Type;
  * Created by mattr on 12/19/2017.
  */
 
-public class NotificationFactoryAdapter implements JsonSerializer<NotificationFactory>,JsonDeserializer<NotificationFactory> {
+public class NotificationFactoryAdapter implements JsonDeserializer<NotificationFactory> {
 
     @Override
     public NotificationFactory deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -29,13 +30,4 @@ public class NotificationFactoryAdapter implements JsonSerializer<NotificationFa
         }
     }
 
-    @Override
-    public JsonElement serialize(NotificationFactory src, Type typeOfSrc, JsonSerializationContext context) {
-        JsonObject result = new JsonObject();
-
-        result.add("type", new JsonPrimitive(src.getClass().getSimpleName()));
-        result.add("properties", context.serialize(src, src.getClass()));
-
-        return result;
-    }
 }

@@ -12,6 +12,7 @@ import java.util.Date;
 
 public abstract class Notification {
     protected Context context;
+    protected String name;
 
     @SerializedName("start_time")
     protected Long startTime;
@@ -27,13 +28,24 @@ public abstract class Notification {
     }
     public abstract void show();
 
+    public String writeJSON(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("\"start_time\":");
+        builder.append(startTime);
+        builder.append(",\"end_time\":");
+        builder.append(endTime);
+        return builder.toString();
+    }
+
     public void setContext(Context context){
         this.context = context;
     }
 
     public boolean equals(Notification toCompare){
-        if(toCompare.endTime.equals(endTime)&&isUnique(toCompare)){
-            return false;
+        if(toCompare.endTime.equals(endTime)){
+            if(isUnique(toCompare)){
+                return false;
+            }
         }
         return true;
     }

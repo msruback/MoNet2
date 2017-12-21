@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.mattrubacky.monet2.deserialized.Battle;
 import com.mattrubacky.monet2.deserialized.SalmonSchedule;
 
 import java.util.ArrayList;
@@ -15,7 +18,8 @@ import java.util.ArrayList;
 
 public class SalmonRunNotificationFactory extends NotificationFactory {
 
-    public SalmonRunNotificationFactory(){}
+    protected static String name = "SalmonRunNotificationFactory";
+
     public SalmonRunNotificationFactory(Context context){
         super(context);
     }

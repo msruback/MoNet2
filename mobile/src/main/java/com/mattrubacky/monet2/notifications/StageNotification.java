@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
@@ -26,12 +27,15 @@ public class StageNotification extends Notification {
     @SerializedName("period")
     private TimePeriod period;
 
-    public StageNotification(){}
+    public StageNotification(){
+        name = "StageNotification";
+    }
 
     public StageNotification(Context context, TimePeriod period, Stage stage){
         super(context,period.start*1000,period.end*1000);
         this.period = period;
         this.stage = stage;
+        name = "StageNotification";
     }
 
     @Override
@@ -81,5 +85,17 @@ public class StageNotification extends Notification {
         android.app.Notification notification = builder.build();
         notification.defaults = android.app.Notification.DEFAULT_ALL;
         notificationManager.notify((int) (new Date().getTime()%10000), notification);
+    }
+
+    @Override
+    public String writeJSON() {
+        StringBuilder builder = new StringBuilder();
+        Gson gson = new Gson();
+        builder.append(super.writeJSON());
+        builder.append(",\"stage\":");
+        builder.append(gson.toJson(stage));
+        builder.append(",\"period\":");
+        builder.append(gson.toJson(period));
+        return builder.toString();
     }
 }

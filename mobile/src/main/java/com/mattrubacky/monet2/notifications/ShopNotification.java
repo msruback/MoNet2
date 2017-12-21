@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
@@ -23,11 +24,14 @@ public class ShopNotification extends Notification{
     @SerializedName("product")
     private Product product;
 
-    public ShopNotification(){}
+    public ShopNotification(){
+        name = "ShopNotification";
+    }
 
     public ShopNotification(Context context,Product product){
         super(context,new Date().getTime(),product.endTime*1000);
         this.product = product;
+        name = "ShopNotification";
     }
 
     @Override
@@ -60,6 +64,16 @@ public class ShopNotification extends Notification{
                 .build();
         notification.defaults = android.app.Notification.DEFAULT_ALL;
         notificationManager.notify((int) (new Date().getTime()%10000), notification);
+    }
+
+    @Override
+    public String writeJSON() {
+        StringBuilder builder = new StringBuilder();
+        Gson gson = new Gson();
+        builder.append(super.writeJSON());
+        builder.append(",\"product\":");
+        builder.append(gson.toJson(product));
+        return builder.toString();
     }
 
 }

@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
@@ -22,10 +23,13 @@ public class SalmonRunNotification extends Notification {
     @SerializedName("run")
     private SalmonRunDetail run;
 
-    public SalmonRunNotification(){}
+    public SalmonRunNotification(){
+        name = "SalmonRunNotification";
+    }
     public SalmonRunNotification(Context context, SalmonRunDetail run){
         super(context,run.start*1000,run.end*1000);
         this.run = run;
+        name = "SalmonRunNotification";
     }
     @Override
     public void show() {
@@ -74,5 +78,15 @@ public class SalmonRunNotification extends Notification {
                 .build();
         notification.defaults = android.app.Notification.DEFAULT_ALL;
         notificationManager.notify((int) (new Date().getTime()%10000), notification);
+    }
+
+    @Override
+    public String writeJSON() {
+        StringBuilder builder = new StringBuilder();
+        Gson gson = new Gson();
+        builder.append(super.writeJSON());
+        builder.append(",\"run\":");
+        builder.append(gson.toJson(run));
+        return builder.toString();
     }
 }

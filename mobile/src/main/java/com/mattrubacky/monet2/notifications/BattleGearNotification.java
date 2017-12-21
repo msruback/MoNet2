@@ -40,10 +40,11 @@ public class BattleGearNotification extends Notification {
     Gear gear;
     @SerializedName("skill")
     Skill skill;
-    @SerializedName("isAlly")
+    @SerializedName("is_ally")
     boolean isAlly;
 
     public BattleGearNotification(){
+        name = "BattleGearNotification";
     }
     public BattleGearNotification(Context context,Player player,Battle battle,Gear gear,Skill skill,boolean isAlly){
         super(context,new Date().getTime(),(long) battle.id);
@@ -52,6 +53,7 @@ public class BattleGearNotification extends Notification {
         this.gear = gear;
         this.skill = skill;
         this.isAlly = isAlly;
+        name = "BattleGearNotification";
     }
 
     @Override
@@ -96,6 +98,24 @@ public class BattleGearNotification extends Notification {
                 .build();
         notification.defaults = android.app.Notification.DEFAULT_ALL;
         notificationManager.notify((int) (new Date().getTime()%10000), notification);
+    }
+
+    @Override
+    public String writeJSON() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(super.writeJSON());
+        Gson gson = new Gson();
+        builder.append(",\"player\":");
+        builder.append(gson.toJson(player));
+        builder.append(",\"battle\":");
+        builder.append(gson.toJson(battle));
+        builder.append(",\"gear\":");
+        builder.append(gson.toJson(gear));
+        builder.append(",\"skill\":");
+        builder.append(gson.toJson(skill));
+        builder.append(",\"is_ally\":");
+        builder.append(gson.toJson(isAlly));
+        return builder.toString();
     }
 
     @Override

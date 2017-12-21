@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class StageNotifitcationFactory extends NotificationFactory {
 
-    public StageNotifitcationFactory(){}
+    protected static String name = "StageNotifitcationFactory";
 
     public StageNotifitcationFactory(Context context){
         super(context);
@@ -41,14 +41,16 @@ public class StageNotifitcationFactory extends NotificationFactory {
     }
     private ArrayList<Notification> getFromTimePeriod(ArrayList<TimePeriod> timePeriods, ArrayList<com.mattrubacky.monet2.deserialized.StageNotification> toNotify){
         ArrayList<Notification> notifications = new ArrayList<>();
-        for(int i=0;i<timePeriods.size();i++){
-            TimePeriod timePeriod = timePeriods.get(i);
-            for(int j=0;j<toNotify.size();j++){
-                com.mattrubacky.monet2.deserialized.StageNotification notification = toNotify.get(i);
-                if(timePeriod.gamemode.key.equals(notification.type)||notification.type.equals("any")) {
-                    if (timePeriod.rule.key.equals(notification.rule) || notification.rule.equals("any")) {
-                        if (notification.stage.id == timePeriod.a.id || notification.stage.id == timePeriod.b.id || notification.stage.id == -1) {
-                            notifications.add(new StageNotification(context,timePeriod,notification.stage));
+        if(timePeriods!=null) {
+            for (int i = 0; i < timePeriods.size(); i++) {
+                TimePeriod timePeriod = timePeriods.get(i);
+                for (int j = 0; j < toNotify.size(); j++) {
+                    com.mattrubacky.monet2.deserialized.StageNotification notification = toNotify.get(j);
+                    if (timePeriod.gamemode.key.equals(notification.type) || notification.type.equals("any")) {
+                        if (timePeriod.rule.key.equals(notification.rule) || notification.rule.equals("any")) {
+                            if (notification.stage.id == timePeriod.a.id || notification.stage.id == timePeriod.b.id || notification.stage.id == -1) {
+                                notifications.add(new StageNotification(context, timePeriod, notification.stage));
+                            }
                         }
                     }
                 }

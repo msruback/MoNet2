@@ -16,7 +16,9 @@ import java.util.ArrayList;
 
 public class WeaponNotificationFactory extends NotificationFactory {
 
-    public WeaponNotificationFactory(){}
+    protected static String name = "WeaponNotificationFactory";
+    public WeaponNotificationFactory(){
+    }
     public WeaponNotificationFactory(Context context){
         super(context);
     }
