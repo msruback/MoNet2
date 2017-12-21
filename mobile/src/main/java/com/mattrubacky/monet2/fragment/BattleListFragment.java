@@ -7,6 +7,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +30,8 @@ import com.google.gson.reflect.TypeToken;
 import com.mattrubacky.monet2.BattleInfo;
 import com.mattrubacky.monet2.adapter.BattleListAdapter;
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.adapter.BattleListPagerAdapter;
+import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.splatnet.ResultsRequest;
 import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
@@ -53,6 +58,8 @@ public class BattleListFragment extends Fragment implements SplatnetConnected {
     SplatnetSQLManager database;
     ArrayList<Battle> battles;
     SplatnetConnector splatnetConnector;
+    LinearLayoutManager linearLayoutManager;
+    RecyclerView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +71,11 @@ public class BattleListFragment extends Fragment implements SplatnetConnected {
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
         RelativeLayout numberButton = (RelativeLayout) rootView.findViewById(R.id.NumberButton);
+
+        listView = (RecyclerView) rootView.findViewById(R.id.battleList);
+
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(listView);
 
         TextView count = (TextView) rootView.findViewById(R.id.count);
         TextView numberButtonText = (TextView) rootView.findViewById(R.id.NumberButtonText);
@@ -121,33 +133,15 @@ public class BattleListFragment extends Fragment implements SplatnetConnected {
     private void updateUI(){
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
-        if (battles==null){
-            battles = new ArrayList<>();
+        ArrayList<Battle> battles = database.getBattles();
+        ArrayList<ArrayList<Battle>> battleLists = new ArrayList<>();
+        for(int i=battles.size();i>0;i-=25){
+            battleLists.add(sort(new ArrayList<Battle>(battles.subList(Math.max(0, i - 25),i))));
         }
-        BattleListAdapter battleAdapter = new BattleListAdapter(getContext(),battles);
-        ListView listView = (ListView) rootView.findViewById(R.id.battleList);
+        BattleListPagerAdapter battleAdapter = new BattleListPagerAdapter(getContext(),battleLists);
         listView.setAdapter(battleAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int battleId = battles.get(position).id;
-                LoadingDialog dialog = new LoadingDialog(getActivity(),"Loading Battle "+battleId);
-                dialog.setCancelable(false);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.show();
-                Bundle bundle = new Bundle();
-                Battle battle = database.selectBattle(battleId);
-                bundle.putParcelable("battle",battle);
-                if(battle.type.equals("fes")){
-                    Splatfest splatfest = database.selectSplatfest(battle.splatfestID).splatfest;
-                    bundle.putParcelable("splatfest",splatfest);
-                }
-                Intent intent = new Intent(getContext(),BattleInfo.class);
-                intent.putExtras(bundle);
-                dialog.dismiss();
-                startActivity(intent);
-            }
-        });
+        linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        listView.setLayoutManager(linearLayoutManager);
 
         TextView count = (TextView) rootView.findViewById(R.id.count);
         count.setText(String.valueOf(database.battleCount()));
@@ -157,5 +151,35 @@ public class BattleListFragment extends Fragment implements SplatnetConnected {
     public void update(Bundle bundle) {
         battles = bundle.getParcelableArrayList("battles");
         updateUI();
+    }
+    private ArrayList<Battle> sort(ArrayList<Battle> data){
+        if(data.size()<=1){
+            return data;
+        }
+        if(data.size()==2){
+            if(data.get(0).id>=data.get(1).id){
+                return data;
+            }else{
+                Battle hold = data.get(0);
+                data.remove(0);
+                data.add(hold);
+                return data;
+            }
+        }else{
+            Battle pivot = data.get(0);
+            ArrayList<Battle> lower = new ArrayList<>();
+            ArrayList<Battle> upper = new ArrayList<>();
+            for(int i=1;i<data.size();i++){
+                if(pivot.id<data.get(i).id){
+                    lower.add(data.get(i));
+                }else{
+                    upper.add(data.get(i));
+                }
+            }
+            ArrayList<Battle> result = sort(lower);
+            result.add(pivot);
+            result.addAll(sort(upper));
+            return result;
+        }
     }
 }

@@ -98,7 +98,7 @@ public class BattleInfo extends AppCompatActivity {
         String start = startFormat.format(battle.start*1000);
 
         title.setText("Battle #"+battle.id);
-        if(battle.result.key=="victory"){
+        if(battle.result.key.equals("victory")){
             result.setText(getResources().getString(R.string.victory));
         }else{
             result.setText(getResources().getString(R.string.defeat));

@@ -103,12 +103,12 @@
             android:layout_height="match_parent"
             android:background="@drawable/repeat_zigzag"></RelativeLayout>
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/battleList"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:divider="@android:color/transparent"
-            android:dividerHeight="0dp"></ListView>
+            android:dividerHeight="0dp"></android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 </RelativeLayout>
