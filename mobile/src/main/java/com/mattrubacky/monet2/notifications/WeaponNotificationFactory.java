@@ -30,7 +30,6 @@ public class WeaponNotificationFactory extends NotificationFactory {
         Timeline timeline = gson.fromJson(settings.getString("timeline","{}"),Timeline.class);
         for(int i=0;i<timeline.sheldon.newWeapons.size();i++){
             notifications.add(new WeaponNotification(context,timeline.sheldon.newWeapons.get(i)));
-            System.out.println("New Weapon Notification");
         }
         return notifications;
     }
