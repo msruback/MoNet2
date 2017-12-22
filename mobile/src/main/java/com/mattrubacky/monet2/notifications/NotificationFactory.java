@@ -78,11 +78,14 @@ public abstract class NotificationFactory {
 
         for(int i=0;i<notifications.size();i++){
             notification = notifications.get(i);
-            if(notification.getTime()<now){
+            if(notification.getTime()<now&&notification.isValid()){
                 notification.show();
                 notifications.remove(i);
                 i--;
                 notified.add(notification);
+            }else if(!notification.isValid()){
+                notifications.remove(i);
+                i--;
             }
         }
         StringBuilder builder = new StringBuilder();

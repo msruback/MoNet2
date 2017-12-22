@@ -25,10 +25,14 @@ public class Timeline implements Parcelable{
     @SerializedName("weapon_availability")
     public WeaponAvailabilities sheldon;
 
+    @SerializedName("stats")
+    public TimelineBattles battles;
+
     protected Timeline(Parcel in) {
         uniqueID = in.readString();
         currentRun = in.readParcelable(GrizzCo.class.getClassLoader());
         sheldon = in.readParcelable(WeaponAvailabilities.class.getClassLoader());
+        battles = in.readParcelable(TimelineBattles.class.getClassLoader());
     }
 
     @Override
@@ -36,6 +40,7 @@ public class Timeline implements Parcelable{
         dest.writeString(uniqueID);
         dest.writeParcelable(currentRun, flags);
         dest.writeParcelable(sheldon, flags);
+        dest.writeParcelable(battles,flags);
     }
 
     @Override

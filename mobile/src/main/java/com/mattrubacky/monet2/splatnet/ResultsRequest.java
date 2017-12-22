@@ -56,12 +56,7 @@ public class ResultsRequest extends SplatnetRequest {
 
         if(list.size()>0) {
             edit.putInt("lastBattle", list.get(0).id);
-            list = newList;
         }
-
-        String json = gson.toJson(list);
-        edit.putString("recentBattles",json);
-        edit.commit();
     }
 
     @Override

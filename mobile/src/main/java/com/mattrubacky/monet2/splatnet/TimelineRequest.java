@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.Gear;
+import com.mattrubacky.monet2.deserialized.ResultIds;
 import com.mattrubacky.monet2.deserialized.Schedules;
 import com.mattrubacky.monet2.deserialized.Timeline;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
@@ -26,6 +27,9 @@ public class TimelineRequest extends SplatnetRequest{
 
     private Context context;
     protected Timeline timeline;
+    protected ResultsRequest resultsRequest;
+    protected Splatnet splatnet;
+    protected String cookie,uniqueID;
 
     public TimelineRequest(Context context){
         this.context = context;
@@ -33,10 +37,11 @@ public class TimelineRequest extends SplatnetRequest{
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         timeline = gson.fromJson(settings.getString("timeline","{}"),Timeline.class);
+        resultsRequest = new ResultsRequest(context);
     }
 
     @Override
-    protected void manageResponse(Response response) {
+    protected void manageResponse(Response response) throws SplatnetMaintenanceException, SplatnetUnauthorizedException, IOException {
         timeline = (Timeline) response.body();
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
@@ -55,15 +60,33 @@ public class TimelineRequest extends SplatnetRequest{
             database.insertGear(gear);
         }
 
-        //Handle New Weapons
-        if(timeline.sheldon.newWeapons.size()>0){
-            //push notification after notification overhaul
+        int maxID = settings.getInt("lastBattle",-1);
+        ArrayList<ResultIds> needToUpdate = new ArrayList<>();
+        for(int i=0;i<timeline.battles.battles.size();i++){
+            if(timeline.battles.battles.get(i).id>maxID){
+                needToUpdate.add(timeline.battles.battles.get(i));
+            }
+        }
+        if(timeline.battles.battles.size()==needToUpdate.size()){
+            resultsRequest.run();
+        }else{
+            ResultRequest resultRequest;
+            for(int i=0;i<needToUpdate.size();i++){
+                resultRequest = new ResultRequest(needToUpdate.get(i).id);
+                resultRequest.setup(splatnet,cookie,uniqueID);
+                resultRequest.run();
+            }
         }
     }
 
     @Override
     public void setup(Splatnet splatnet, String cookie, String uniqueID) {
         call = splatnet.getTimeline(cookie,uniqueID);
+        this.splatnet = splatnet;
+        this.cookie = cookie;
+        this.uniqueID = uniqueID;
+
+        resultsRequest.setup(splatnet,cookie,uniqueID);
     }
 
     @Override

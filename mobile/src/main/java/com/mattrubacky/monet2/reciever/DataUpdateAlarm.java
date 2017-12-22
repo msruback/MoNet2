@@ -244,5 +244,10 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver implements Splatne
 
     @Override
     public void update(Bundle bundle) {
+        ArrayList<Battle> battles = bundle.getParcelableArrayList("battles");
+        BattleAlarm battleAlarm = new BattleAlarm();
+        if(battles.size()>0){
+            battleAlarm.setAlarm(context);
+        }
     }
 }
