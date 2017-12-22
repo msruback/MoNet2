@@ -208,10 +208,10 @@ public class AddNotification extends AppCompatActivity {
             final RelativeLayout Delete = (RelativeLayout) findViewById(R.id.Delete);
 
             final ArrayList<String> modes = new ArrayList<>();
-            modes.add("Any");
-            modes.add("Regular");
-            modes.add("Ranked");
-            modes.add("League");
+            modes.add(getResources().getString(R.string.any));
+            modes.add(getResources().getString(R.string.regular));
+            modes.add(getResources().getString(R.string.rank));
+            modes.add(getResources().getString(R.string.league));
 
             final ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item,modes) {
                 public View getView(int position, View convertView, ViewGroup parent) {
@@ -227,10 +227,11 @@ public class AddNotification extends AppCompatActivity {
             };
 
             final ArrayList<String> rules = new ArrayList<>();
-            rules.add("Any");
-            rules.add("Splat Zones");
-            rules.add("Tower Control");
-            rules.add("Rainmaker");
+            rules.add(getResources().getString(R.string.any));
+            rules.add(getResources().getString(R.string.splatzone));
+            rules.add(getResources().getString(R.string.towerControl));
+            rules.add(getResources().getString(R.string.rainmaker));
+            rules.add(getResources().getString(R.string.clamBlitz));
 
             final ArrayAdapter<String> ruleAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item,rules) {
                 public View getView(int position, View convertView, ViewGroup parent) {
@@ -251,7 +252,7 @@ public class AddNotification extends AppCompatActivity {
             TextView modeText = (TextView) findViewById(R.id.TypeText);
             TextView ruleText = (TextView) findViewById(R.id.RuleText);
             TextView submitText = (TextView) findViewById(R.id.SubmitText);
-            TextView deleteText = (TextView) findViewById(R.id.DeleteText);
+            final TextView deleteText = (TextView) findViewById(R.id.DeleteText);
 
             final Spinner modeSpinner = (Spinner) findViewById(R.id.TypeSpinner);
             final Spinner ruleSpinner = (Spinner) findViewById(R.id.RuleSpinner);
@@ -279,6 +280,9 @@ public class AddNotification extends AppCompatActivity {
                         break;
                     case "rainmaker":
                         ruleSpinner.setSelection(3);
+                        break;
+                    case "clam_blitz":
+                        ruleSpinner.setSelection(4);
                         break;
                     default:
                         ruleSpinner.setSelection(0);
@@ -361,7 +365,9 @@ public class AddNotification extends AppCompatActivity {
                         case 3:
                             stageNotification.type = "league";
                             break;
-
+                        default:
+                            stageNotification.type = "any";
+                            break;
                     }
                     switch (ruleSpinner.getSelectedItemPosition()){
                         case 0:
@@ -375,6 +381,13 @@ public class AddNotification extends AppCompatActivity {
                             break;
                         case 3:
                             stageNotification.rule = "rainmaker";
+                            break;
+                        case 4:
+                            stageNotification.rule = "clam_blitz";
+                            break;
+                        default:
+                            stageNotification.rule = "any";
+                            break;
                     }
 
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getBaseContext());

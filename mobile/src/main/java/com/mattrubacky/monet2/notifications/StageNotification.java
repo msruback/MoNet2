@@ -98,4 +98,13 @@ public class StageNotification extends Notification {
         builder.append(gson.toJson(period));
         return builder.toString();
     }
+
+    @Override
+    protected boolean isUnique(Notification unique) {
+        StageNotification notification = (StageNotification) unique;
+        if(notification.stage.id==stage.id&&notification.period.rule.key.equals(period.rule.key)){
+            return false;
+        }
+        return true;
+    }
 }

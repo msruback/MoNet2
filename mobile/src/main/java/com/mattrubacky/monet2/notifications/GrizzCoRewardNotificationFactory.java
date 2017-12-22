@@ -20,8 +20,6 @@ import java.util.Date;
 
 public class GrizzCoRewardNotificationFactory extends NotificationFactory {
 
-    protected static String name = "GrizzCoRewardNotificationFactory";
-
     public GrizzCoRewardNotificationFactory(Context context){
         super(context);
     }
@@ -44,5 +42,9 @@ public class GrizzCoRewardNotificationFactory extends NotificationFactory {
 
         notifications.add(new GrizzCoRewardNotification(context,rewardGear,calendar.getTimeInMillis()));
         return notifications;
+    }
+    @Override
+    public String getName() {
+        return "GrizzCoRewardNotificationFactory";
     }
 }

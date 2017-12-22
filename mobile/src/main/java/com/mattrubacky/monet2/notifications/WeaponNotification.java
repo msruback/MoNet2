@@ -24,7 +24,7 @@ public class WeaponNotification extends Notification {
         name = "WeaponNotification";
     }
     public WeaponNotification(Context context, WeaponAvailability availability){
-        super(context,new Date().getTime(),availability.release*1000);
+        super(context,(long) 0,(availability.release*1000)+((24)*(60)*(60)*(1000)));
         this.availabilty = availability;
         name = "WeaponNotification";
     }
@@ -42,7 +42,7 @@ public class WeaponNotification extends Notification {
         time = sdf.format(availabilty.release*1000);
 
         title = availabilty.weapon.name+" available soon!";
-        content = "I'm expecting a shipment of "+availabilty.weapon.name+" around "+time+" today! I think you might like the "+availabilty.weapon.sub+" sub weapon, or maybe the "+availabilty.weapon.special+" special weapon!";
+        content = "I'm expecting a shipment of "+availabilty.weapon.name+" around "+time+" today! I think you might like the "+availabilty.weapon.sub.name+" sub weapon, or maybe the "+availabilty.weapon.special.name+" special weapon!";
 
         builder.setContentTitle(title)
                 .setSmallIcon(R.drawable.char_sheldon)
@@ -60,6 +60,6 @@ public class WeaponNotification extends Notification {
         builder.append(super.writeJSON());
         builder.append(",\"availability\":");
         builder.append(gson.toJson(availabilty));
-        return null;
+        return builder.toString();
     }
 }

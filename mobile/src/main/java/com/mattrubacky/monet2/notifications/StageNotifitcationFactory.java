@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class StageNotifitcationFactory extends NotificationFactory {
 
-    protected static String name = "StageNotifitcationFactory";
 
     public StageNotifitcationFactory(Context context){
         super(context);
@@ -46,8 +45,8 @@ public class StageNotifitcationFactory extends NotificationFactory {
                 TimePeriod timePeriod = timePeriods.get(i);
                 for (int j = 0; j < toNotify.size(); j++) {
                     com.mattrubacky.monet2.deserialized.StageNotification notification = toNotify.get(j);
-                    if (timePeriod.gamemode.key.equals(notification.type) || notification.type.equals("any")) {
-                        if (timePeriod.rule.key.equals(notification.rule) || notification.rule.equals("any")) {
+                    if (timePeriod.gamemode.key.equals(notification.type) || notification.type==null|| notification.type.equals("any")) {
+                        if (timePeriod.rule.key.equals(notification.rule) || notification.rule==null || notification.rule.equals("any")) {
                             if (notification.stage.id == timePeriod.a.id || notification.stage.id == timePeriod.b.id || notification.stage.id == -1) {
                                 notifications.add(new StageNotification(context, timePeriod, notification.stage));
                             }
@@ -57,5 +56,9 @@ public class StageNotifitcationFactory extends NotificationFactory {
             }
         }
         return notifications;
+    }
+    @Override
+    public String getName() {
+        return "StageNotifitcationFactory";
     }
 }

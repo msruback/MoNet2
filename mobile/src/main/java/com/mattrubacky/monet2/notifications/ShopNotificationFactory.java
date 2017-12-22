@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class ShopNotificationFactory extends NotificationFactory {
 
-    protected static String name = "ShopNotificationFactory";
 
     public ShopNotificationFactory(Context context){
         super(context);
@@ -44,6 +43,10 @@ public class ShopNotificationFactory extends NotificationFactory {
             }
         }
         return notifications;
+    }
+    @Override
+    public String getName() {
+        return "ShopNotificationFactory";
     }
 
 

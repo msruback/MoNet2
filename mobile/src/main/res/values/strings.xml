@@ -26,6 +26,7 @@
     <string name="clamBlitz">Clam Blitz</string>
 
     //Rotation Frag
+    <string name="regular">Regular</string>
     <string name="rank">Ranked</string>
     <string name="league">League</string>
     <string name="splatfest">Splatfest</string>

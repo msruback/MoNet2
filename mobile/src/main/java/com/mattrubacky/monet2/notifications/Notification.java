@@ -46,11 +46,12 @@ public abstract class Notification {
             if(isUnique(toCompare)){
                 return false;
             }
+            return true;
         }
-        return true;
+        return false;
     }
     protected boolean isUnique(Notification unique){
-        return true;
+        return false;
     }
 
     public boolean isValid(){

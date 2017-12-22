@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class WeaponNotificationFactory extends NotificationFactory {
 
-    protected static String name = "WeaponNotificationFactory";
     public WeaponNotificationFactory(){
     }
     public WeaponNotificationFactory(Context context){
@@ -31,7 +30,13 @@ public class WeaponNotificationFactory extends NotificationFactory {
         Timeline timeline = gson.fromJson(settings.getString("timeline","{}"),Timeline.class);
         for(int i=0;i<timeline.sheldon.newWeapons.size();i++){
             notifications.add(new WeaponNotification(context,timeline.sheldon.newWeapons.get(i)));
+            System.out.println("New Weapon Notification");
         }
         return notifications;
+    }
+
+    @Override
+    public String getName() {
+        return "WeaponNotificationFactory";
     }
 }

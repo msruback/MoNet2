@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class SalmonRunNotificationFactory extends NotificationFactory {
 
-    protected static String name = "SalmonRunNotificationFactory";
 
     public SalmonRunNotificationFactory(Context context){
         super(context);
@@ -34,5 +33,9 @@ public class SalmonRunNotificationFactory extends NotificationFactory {
             notifications.add(new SalmonRunNotification(context,schedule.details.get(i)));
         }
         return notifications;
+    }
+    @Override
+    public String getName() {
+        return "SalmonRunNotificationFactory";
     }
 }

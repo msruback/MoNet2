@@ -17,6 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.dialog.AlertDialog;
+import com.mattrubacky.monet2.notifications.BattleGearNotificationFactory;
+import com.mattrubacky.monet2.notifications.GrizzCoRewardNotificationFactory;
+import com.mattrubacky.monet2.notifications.SalmonRunNotificationFactory;
+import com.mattrubacky.monet2.notifications.ShopNotificationFactory;
+import com.mattrubacky.monet2.notifications.StageNotifitcationFactory;
+import com.mattrubacky.monet2.notifications.WeaponNotificationFactory;
 import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.splatnet.SplatnetRequest;
@@ -38,6 +44,12 @@ public class DebugActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_campaign_stats);
 
         Typeface titleFont = Typeface.createFromAsset(getAssets(), "Paintball.otf");
+        new ShopNotificationFactory(this).manageNotifications();
+        new StageNotifitcationFactory(this).manageNotifications();
+        new SalmonRunNotificationFactory(this).manageNotifications();
+        new BattleGearNotificationFactory(this).manageNotifications();
+        new WeaponNotificationFactory(this).manageNotifications();
+        new GrizzCoRewardNotificationFactory(this).manageNotifications();
         Update update = new Update(getApplicationContext());
         update.execute();
 
@@ -54,8 +66,6 @@ public class DebugActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            SplatnetSQLManager splatnetSQLManager = new SplatnetSQLManager(getApplicationContext());
-            splatnetSQLManager.restructureCloset();
         }
 
         @Override

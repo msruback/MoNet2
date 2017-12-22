@@ -18,8 +18,6 @@ import java.util.ArrayList;
 
 public class BattleGearNotificationFactory extends NotificationFactory {
 
-    protected static String name = "BattleGearNotificationFactory";
-
     public BattleGearNotificationFactory(Context context) {
         super(context);
     }
@@ -100,5 +98,11 @@ public class BattleGearNotificationFactory extends NotificationFactory {
         }
 
         return notifications;
+    }
+
+
+    @Override
+    public String getName() {
+        return "BattleGearNotificationFactory";
     }
 }

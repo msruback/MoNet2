@@ -25,8 +25,6 @@ public abstract class NotificationFactory {
     @SerializedName("notified")
     protected ArrayList<Notification>notified;
 
-    protected static String name;
-
     protected Gson gson;
 
     public NotificationFactory(){}
@@ -38,12 +36,15 @@ public abstract class NotificationFactory {
         gsonBilder.registerTypeAdapter(NotificationFactory.class, new NotificationFactoryAdapter());
         gsonBilder.registerTypeAdapter(Notification.class, new NotificationAdapter());
         Gson gson = gsonBilder.create();
-        NotificationStorage storage = gson.fromJson(settings.getString(name,"{\"notifications\":[],\"notified\":[]}"),NotificationStorage.class);
+        System.out.println(getName());
+        NotificationStorage storage = gson.fromJson(settings.getString(getName(),"{\"notifications\":[],\"notified\":[]}"),NotificationStorage.class);
         notifications = storage.notifications;
         notified = storage.notified;
     }
 
     public abstract ArrayList<Notification> findNotifications();
+
+    public abstract String getName();
 
     public void setContext(Context context){
         this.context = context;
@@ -64,11 +65,13 @@ public abstract class NotificationFactory {
         for(int i=0;i<notified.size();i++){
             notification = notified.get(i);
             if(!notification.isValid()){
+                System.out.println("Notification Expired");
                 notified.remove(i);
                 i--;
             }else {
                 for (int k = 0; k < notifications.size(); k++) {
                     if (notification.equals(notifications.get(k))){
+                        System.out.println("Notification already shown");
                         notifications.remove(k);
                         k--;
                     }
@@ -79,6 +82,7 @@ public abstract class NotificationFactory {
         for(int i=0;i<notifications.size();i++){
             notification = notifications.get(i);
             if(notification.getTime()<now){
+                System.out.println("Showing Notification");
                 notification.show();
                 notifications.remove(i);
                 i--;
@@ -115,8 +119,9 @@ public abstract class NotificationFactory {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor edit = settings.edit();
         String json = builder.toString();
-        edit.putString(name,json);
+        edit.putString(getName(),json);
         edit.commit();
+        System.out.println("saved");
 
     }
 
