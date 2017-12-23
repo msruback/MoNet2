@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/playerCard"
+        android:layout_marginTop="-20dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp">
+
+        <RelativeLayout
+            android:id="@+id/child"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/offWhite">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/repeat_circles">
+
+                <RelativeLayout
+                    android:id="@+id/Gear"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:id="@+id/shoes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="5dp">
+
+                        <RelativeLayout
+                            android:id="@+id/shoesAbove"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true">
+
+                            <ImageView
+                                android:id="@+id/ShoesGear"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/hula_punk" />
+
+                            <RelativeLayout
+                                android:id="@+id/shoesMain"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/ShoesGear"
+                                android:background="@drawable/skill_background">
+
+                                <ImageView
+                                    android:id="@+id/ShoesMain"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="3dp"
+                            android:layout_below="@+id/shoesAbove"
+                            android:src="@drawable/shape_line" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/shoesAbove"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp">
+
+
+                            <RelativeLayout
+                                android:id="@+id/shoesSub1"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/skill_background">
+
+                                <ImageView
+                                    android:id="@+id/ShoesSub1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/shoesSub2"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@id/shoesSub1"
+                                android:background="@drawable/skill_background">
+
+                                <ImageView
+                                    android:id="@+id/ShoesSub2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/shoesSub3"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@+id/shoesSub2"
+                                android:background="@drawable/skill_background">
+
+                                <ImageView
+                                    android:id="@+id/ShoesSub3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/clothes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="8dp">
+
+                        <RelativeLayout
+                            android:id="@+id/clothesAbove"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true">
+
+                            <ImageView
+                                android:id="@+id/ClothesGear"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/hula_punk" />
+
+                            <RelativeLayout
+                                android:id="@+id/clothesMain"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/ClothesGear"
+                                android:background="@drawable/skill_background">
+
+                                <ImageView
+                                    android:id="@+id/ClothesMain"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="3dp"
+                            android:layout_below="@+id/clothesAbove"
+                            android:src="@drawable/shape_line" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/clothesAbove"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp">
+
+                            <RelativeLayout
+                                android:id="@+id/clothesSub1"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/skill_background">
+
+                                <ImageView
+                                    android:id="@+id/ClothesSub1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/clothesSub2"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@id/clothesSub1"
+                                android:background="@drawable/skill_background">
+
+                                <ImageView
+                                    android:id="@+id/ClothesSub2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/clothesSub3"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@+id/clothesSub2"
+                                android:background="@drawable/skill_background">
+
+                                <ImageView
+                                    android:id="@+id/ClothesSub3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/head"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp">
+
+                        <RelativeLayout
+                            android:id="@+id/headAbove"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true">
+
+                            <ImageView
+                                android:id="@+id/HeadGear"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/hula_punk" />
+
+                            <RelativeLayout
+                                android:id="@+id/headMain"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/HeadGear"
+                                android:background="@drawable/skill_background">
+
+                                <ImageView
+                                    android:id="@+id/HeadMain"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="3dp"
+                            android:layout_below="@+id/headAbove"
+                            android:src="@drawable/shape_line" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/headAbove"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp">
+
+                            <RelativeLayout
+                                android:id="@+id/headSub1"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/skill_background">
+
+                                <ImageView
+                                    android:id="@+id/HeadSub1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/headSub2"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@id/headSub1"
+                                android:background="@drawable/skill_background">
+
+                                <ImageView
+                                    android:id="@+id/HeadSub2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/headSub3"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@+id/headSub2"
+                                android:background="@drawable/skill_background">
+
+                                <ImageView
+                                    android:id="@+id/HeadSub3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/Stats"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="25dp"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:id="@+id/ink"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp">
+
+                        <RelativeLayout
+                            android:id="@+id/InkTitle"
+                            android:layout_width="120dp"
+                            android:layout_height="30dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/banner_normal"
+                            android:backgroundTint="@color/primary">
+
+                            <TextView
+                                android:id="@+id/InkTitleText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="@string/inkspread"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/InkMeter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/InkTitle"></RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/kill"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ink"
+                        android:layout_marginBottom="10dp">
+
+                        <RelativeLayout
+                            android:id="@+id/KillTitle"
+                            android:layout_width="120dp"
+                            android:layout_height="30dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/banner_normal"
+                            android:backgroundTint="@color/primary">
+
+                            <TextView
+                                android:id="@+id/KillTitleText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="@string/killspread"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/KillMeter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/KillTitle"></RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/death"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/kill"
+                        android:layout_marginBottom="10dp">
+
+                        <RelativeLayout
+                            android:id="@+id/DeathTitle"
+                            android:layout_width="120dp"
+                            android:layout_height="30dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/banner_normal"
+                            android:backgroundTint="@color/primary">
+
+                            <TextView
+                                android:id="@+id/DeathTitleText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="@string/deathspread"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/DeathMeter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/DeathTitle"></RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/special"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/death">
+
+                        <RelativeLayout
+                            android:id="@+id/SpecialTitle"
+                            android:layout_width="120dp"
+                            android:layout_height="30dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/banner_normal"
+                            android:backgroundTint="@color/primary">
+
+                            <TextView
+                                android:id="@+id/SpecialTitleText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="@string/specialspread"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/SpecialMeter"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/SpecialTitle"></RelativeLayout>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/playerCard"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/grey"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:id="@+id/Rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="35"
+            android:textColor="@color/offWhite"
+            android:textSize="18sp"/>
+        <ImageView
+            android:id="@+id/Weapon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/Rank"
+            android:layout_centerVertical="true"
+            android:src="@drawable/weapon_sloshing_machine"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/Weapon"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MattyWatty"
+                android:textSize="18sp"
+                android:textColor="@color/offWhite"/>
+            <TextView
+                android:id="@+id/FesGrade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Name"
+                android:text="Invisibility Champion"
+                android:textSize="10sp"/>
+            <TextView
+                android:id="@+id/Points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Name"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/FesGrade"
+                android:text="1000P"
+                android:textSize="12sp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/killLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/deathLayout"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true">
+            <RelativeLayout
+                android:id="@+id/killsIcon"
+                android:layout_width="35dp"
+                android:layout_height="17.5dp"
+                android:layout_marginTop="11dp"
+                android:background="@color/colorAccent"
+                android:padding="-1dp">
+                <ImageView
+                    android:id="@+id/KillsIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/icon_kills"/>
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/KillsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/killsIcon"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:text="15(4)" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/deathLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/specialLayout"
+            android:layout_marginRight="10dp">
+            <RelativeLayout
+                android:id="@+id/deathsIcon"
+                android:layout_width="33dp"
+                android:layout_height="17.5dp"
+                android:layout_marginTop="11dp"
+                android:background="@color/colorAccent"
+                android:padding="-1dp">
+                <ImageView
+                    android:id="@+id/DeathsIcon"
+                    android:layout_width="33dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/icon_deaths"/>
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/DeathsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/deathsIcon"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:text="8"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/specialLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp">
+            <RelativeLayout
+                android:id="@+id/specialIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorAccent">
+                <ImageView
+                    android:id="@+id/SpecialIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/special_bombrush_curlingbombs"/>
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/SpecialText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/specialIcon"
+                android:layout_marginTop="-2dp"
+                android:layout_centerHorizontal="true"
+                android:text="3"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

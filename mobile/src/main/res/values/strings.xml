@@ -59,6 +59,7 @@
     <string name="totalInked">Total Inked</string>
     <string name="lastUsed">Last Used</string>
     <string name="lastPlayed">Last Played</string>
+    <string name="firstPlayed">First Played</string>
     <string name="noStats">Stats cannot be calculated until five games are recorded.</string>
 
     //Splatfest Stats
