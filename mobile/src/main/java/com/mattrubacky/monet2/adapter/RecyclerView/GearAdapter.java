@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Created by mattr on 11/13/2017.
  */
 
-public class GearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class GearAdapter extends RecyclerView.Adapter<GearViewHolder>{
 
     private ArrayList<ClosetHanger> input = new ArrayList<>();
     private LayoutInflater inflater;
@@ -34,7 +34,7 @@ public class GearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         this.listView = listView;
     }
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GearViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         GearViewHolder viewHolder = new GearViewHolder(inflater,parent,context);
         viewHolder.itemView.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -55,13 +55,12 @@ public class GearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holderAb, final int position) {
+    public void onBindViewHolder(final GearViewHolder holder, final int position) {
         Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
         ImageHandler imageHandler = new ImageHandler();
 
         ClosetHanger closetHanger = input.get(position);
 
-        GearViewHolder holder = (GearViewHolder) holderAb;
         holder.manageHolder(closetHanger);
 
     }

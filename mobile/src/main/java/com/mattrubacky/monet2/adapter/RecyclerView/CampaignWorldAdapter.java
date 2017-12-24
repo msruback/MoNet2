@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.CampaignWorldViewHolder;
 import com.mattrubacky.monet2.deserialized.CampaignStageInfo;
 import com.mattrubacky.monet2.deserialized.CampaignWeapon;
 import com.mattrubacky.monet2.helper.ImageHandler;
@@ -22,7 +23,7 @@ import java.util.Map;
  * Created by mattr on 12/10/2017.
  */
 
-public class CampaignWorldAdapter extends RecyclerView.Adapter<CampaignWorldAdapter.ViewHolder> {
+public class CampaignWorldAdapter extends RecyclerView.Adapter<CampaignWorldViewHolder> {
 
     private ArrayList<ArrayList<CampaignStageInfo>> input;
     private LayoutInflater inflater;
@@ -40,46 +41,21 @@ public class CampaignWorldAdapter extends RecyclerView.Adapter<CampaignWorldAdap
     }
 
     @Override
-    public CampaignWorldAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_world, parent, false);
-        CampaignWorldAdapter.ViewHolder viewHolder = new CampaignWorldAdapter.ViewHolder(view);
+    public CampaignWorldViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        CampaignWorldViewHolder viewHolder = new CampaignWorldViewHolder(inflater,parent,context);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final CampaignWorldAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final CampaignWorldViewHolder holder, final int position) {
         final ArrayList<CampaignStageInfo> infos = input.get(position);
-        Typeface font = Typeface.createFromAsset(context.getAssets(), "Splatfont2.ttf");
-        Typeface fontTitle=Typeface.createFromAsset(context.getAssets(),"Paintball.otf");
-        ImageHandler imageHandler = new ImageHandler();
 
-        holder.world.setTypeface(fontTitle);
-
-        holder.world.setText("World "+(position+1));
-
-        CampaignStageAdapter campaignStageAdapter = new CampaignStageAdapter(activity,infos,weaponMap,holder.list);
-        holder.list.setAdapter(campaignStageAdapter);
-        holder.list.setLayoutManager(new LinearLayoutManager(context));
+        holder.manageHolder(position+1,activity,infos,weaponMap);
     }
 
     @Override
     public int getItemCount() {
         return input.size();
-    }
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView world;
-        RecyclerView list;
-
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            world = (TextView) itemView.findViewById(R.id.World);
-            list = (RecyclerView) itemView.findViewById(R.id.List);
-
-        }
-
     }
 
 }

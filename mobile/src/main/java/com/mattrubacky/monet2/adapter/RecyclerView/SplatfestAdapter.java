@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SplatfestViewHolder;
 import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestDatabase;
 import com.mattrubacky.monet2.helper.ImageHandler;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
  * Created by mattr on 11/20/2017.
  */
 
-public class SplatfestAdapter extends RecyclerView.Adapter<SplatfestAdapter.ViewHolder>{
+public class SplatfestAdapter extends RecyclerView.Adapter<SplatfestViewHolder>{
 
     private ArrayList<SplatfestDatabase> input;
     private LayoutInflater inflater;
@@ -38,58 +39,21 @@ public class SplatfestAdapter extends RecyclerView.Adapter<SplatfestAdapter.View
         this.onClickListener = onClickListener;
     }
     @Override
-    public SplatfestAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_stage, parent, false);
-        SplatfestAdapter.ViewHolder viewHolder = new SplatfestAdapter.ViewHolder(view);
-        view.setOnClickListener(onClickListener);
+    public SplatfestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        SplatfestViewHolder viewHolder = new SplatfestViewHolder(inflater,parent,context);
+        viewHolder.itemView.setOnClickListener(onClickListener);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final SplatfestAdapter.ViewHolder holder, final int position) {
-        Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
-        ImageHandler imageHandler = new ImageHandler();
-
+    public void onBindViewHolder(final SplatfestViewHolder holder, final int position) {
         Splatfest splatfest = input.get(position).splatfest;
-
-        String location = String.valueOf(splatfest.id);
-        String url = "https://app.splatoon2.nintendo.net"+splatfest.images.panel;
-        if(imageHandler.imageExists("splatfest",location,context)){
-            holder.panel.setImageBitmap(imageHandler.loadImage("splatfest",location));
-        }else{
-            Picasso.with(context).load(url).into(holder.panel);
-            imageHandler.downloadImage("splatfest",location,url,context);
-        }
-
-        holder.name.setText(splatfest.names.alpha + " VS. "+splatfest.names.bravo);
-        holder.name.setTypeface(font);
-
-        holder.alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
-        holder.bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
+        holder.manageHolder(splatfest);
     }
 
     @Override
     public int getItemCount() {
         return input.size();
-    }
-
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView panel;
-        TextView name;
-        RelativeLayout alpha,bravo;
-
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            alpha = (RelativeLayout) itemView.findViewById(R.id.alpha);
-            bravo = (RelativeLayout) itemView.findViewById(R.id.bravo);
-            panel = (ImageView) itemView.findViewById(R.id.StageImage);
-            name = (TextView) itemView.findViewById(R.id.Name);
-        }
-
     }
 
 }

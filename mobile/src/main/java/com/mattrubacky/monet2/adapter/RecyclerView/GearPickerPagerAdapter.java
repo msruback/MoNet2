@@ -11,6 +11,8 @@ import android.widget.ListView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.ListView.GearPickerAdapter;
+import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ListViewHolder;
+import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ListViewViewHolder;
 import com.mattrubacky.monet2.deserialized.Gear;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
  * Created by mattr on 12/18/2017.
  */
 
-public class GearPickerPagerAdapter extends RecyclerView.Adapter<GearPickerPagerAdapter.ViewHolder>{
+public class GearPickerPagerAdapter extends RecyclerView.Adapter<ListViewViewHolder>{
 
     private ArrayList<ArrayList<Gear>> input = new ArrayList<>();
     private LayoutInflater inflater;
@@ -37,40 +39,26 @@ public class GearPickerPagerAdapter extends RecyclerView.Adapter<GearPickerPager
         listViews = new ArrayList<>();
     }
     @Override
-    public GearPickerPagerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_pager_list_view, parent, false);
-        GearPickerPagerAdapter.ViewHolder viewHolder = new GearPickerPagerAdapter.ViewHolder(view);
-        return viewHolder;
+    public ListViewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        return new ListViewViewHolder(inflater,parent);
     }
 
     @Override
-    public void onBindViewHolder(final GearPickerPagerAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ListViewViewHolder holder, final int position) {
 
         ArrayList<Gear> gear = input.get(position);
 
-        listViews.add(position,holder.listView);
+        listViews.add(position,holder.itemList);
 
-        holder.listView.setAdapter(new GearPickerAdapter(context,gear));
+        holder.itemList.setAdapter(new GearPickerAdapter(context,gear));
 
-        holder.listView.setOnItemClickListener(onItemClickListener);
+        holder.itemList.setOnItemClickListener(onItemClickListener);
     }
 
     @Override
     public int getItemCount() {
         return input.size();
-    }
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        ListView listView;
-
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            listView = (ListView) itemView.findViewById(R.id.List);
-        }
-
     }
 
     public Gear getResult(int id){

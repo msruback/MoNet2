@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.BattleInfo;
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.BattleViewHolder;
 import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
  * This Adapter fills up the battle list in BattleListFragment
  */
 
-public class BattleListAdapter extends RecyclerView.Adapter<BattleListAdapter.ViewHolder>{
+public class BattleListAdapter extends RecyclerView.Adapter<BattleViewHolder>{
 
     private ArrayList<Battle> input = new ArrayList<>();
     private LayoutInflater inflater;
@@ -44,10 +45,9 @@ public class BattleListAdapter extends RecyclerView.Adapter<BattleListAdapter.Vi
         this.listView = listView;
     }
     @Override
-    public BattleListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_battle, parent, false);
-        BattleListAdapter.ViewHolder viewHolder = new BattleListAdapter.ViewHolder(view);
-        view.setOnClickListener( new View.OnClickListener() {
+    public BattleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        BattleViewHolder viewHolder = new BattleViewHolder(inflater,parent,context);
+        viewHolder.itemView.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int itemPosition = listView.getChildAdapterPosition(v);
@@ -68,97 +68,11 @@ public class BattleListAdapter extends RecyclerView.Adapter<BattleListAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(final BattleListAdapter.ViewHolder holder, final int position) {
-        Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
-        ImageHandler imageHandler = new ImageHandler();
+    public void onBindViewHolder(final BattleViewHolder holder, final int position) {
 
         Battle battle = input.get(position);
 
-        holder.item.setClipToOutline(true);
-
-        holder.map.setText(battle.stage.name);
-        holder.map.setTypeface(font);
-
-        if(battle.result.key.equals("victory")){
-            holder.result.setText(context.getResources().getString(R.string.victory));
-        }else{
-            holder.result.setText(context.getResources().getString(R.string.defeat));
-        }
-        holder.result.setTypeface(font);
-
-        String modeString = "";
-        switch (battle.rule.key) {
-            case "turf_war":
-                modeString = context.getResources().getString(R.string.turfWarShort);
-                break;
-            case "rainmaker":
-                modeString = context.getResources().getString(R.string.rainmakerShort);
-                break;
-            case "splat_zones":
-                modeString = context.getResources().getString(R.string.splatzoneShort);
-                break;
-            case "tower_control":
-                modeString = context.getResources().getString(R.string.towerControlShort);
-                break;
-            case "clam_blitz":
-                modeString = context.getResources().getString(R.string.clamBlitzShort);
-                break;
-        }
-        holder.mode.setText(modeString);
-        holder.mode.setTypeface(font);
-
-        switch (battle.type) {
-            case "regular":
-                holder.spots.setBackground(context.getResources().getDrawable(R.drawable.repeat_spots));
-                holder.type.setImageDrawable(context.getResources().getDrawable(R.drawable.battle_regular));
-                holder.item.setBackgroundTintList(context.getResources().getColorStateList(R.color.turf));
-                holder.fesMode.setVisibility(View.GONE);
-                holder.type.setVisibility(View.VISIBLE);
-                break;
-            case "gachi":
-                holder.spots.setBackground(context.getResources().getDrawable(R.drawable.repeat_spots));
-                holder.type.setImageDrawable(context.getResources().getDrawable(R.drawable.battle_ranked));
-                holder.item.setBackgroundTintList(context.getResources().getColorStateList(R.color.ranked));
-                holder.fesMode.setVisibility(View.GONE);
-                holder.type.setVisibility(View.VISIBLE);
-                break;
-            case "league":
-                holder.spots.setBackground(context.getResources().getDrawable(R.drawable.repeat_spots));
-                holder.type.setImageDrawable(context.getResources().getDrawable(R.drawable.battle_league));
-                holder.item.setBackgroundTintList(context.getResources().getColorStateList(R.color.league));
-                holder.fesMode.setVisibility(View.GONE);
-                holder.type.setVisibility(View.VISIBLE);
-                break;
-            case "fes":
-                holder.spots.setBackground(context.getResources().getDrawable(R.drawable.repeat_spots_splatfest));
-                holder.mode.setText("SP");
-                holder.type.setVisibility(View.GONE);
-                holder.fesMode.setVisibility(View.VISIBLE);
-
-                if (battle.myTheme.key.equals("alpha")) {
-                    holder.alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
-                    holder.bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
-                    holder.spots.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
-                    holder.item.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
-                } else {
-                    holder.alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
-                    holder.bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
-                    holder.spots.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.otherTheme.color.getColor())));
-                    holder.item.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(battle.myTheme.color.getColor())));
-                }
-                break;
-        }
-        String url = "https://app.splatoon2.nintendo.net" + battle.user.user.weapon.url;
-
-        String imageDirName = battle.user.user.weapon.name.toLowerCase().replace(" ", "_");
-
-        if (imageHandler.imageExists("weapon", imageDirName, context)) {
-            holder.weapon.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
-        } else {
-            Picasso.with(context).load(url).into(holder.weapon);
-            imageHandler.downloadImage("weapon", imageDirName, url, context);
-        }
-
+        holder.manageHolder(battle);
     }
 
     @Override

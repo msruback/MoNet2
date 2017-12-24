@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by mattr on 12/17/2017.
  */
 
-public class WeaponPagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class WeaponPagerAdapter extends RecyclerView.Adapter<ListViewHolder>{
 
     private ArrayList<ArrayList<WeaponStats>> input = new ArrayList<>();
     private LayoutInflater inflater;
@@ -28,16 +28,14 @@ public class WeaponPagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.context = context;
     }
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ListViewHolder(inflater,parent);
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holderAb, final int position) {
+    public void onBindViewHolder(final ListViewHolder holder, final int position) {
 
         ArrayList<WeaponStats> stats = input.get(position);
-
-        ListViewHolder holder = (ListViewHolder) holderAb;
 
         WeaponAdapter weaponAdapter = new WeaponAdapter(context,stats,holder.itemList);
 

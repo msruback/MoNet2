@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ChunkableViewHolder;
 import com.mattrubacky.monet2.deserialized.Chunk;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  * Created by mattr on 11/20/2017.
  */
 
-public class ChunkableAdapter extends RecyclerView.Adapter<ChunkableAdapter.ViewHolder>{
+public class ChunkableAdapter extends RecyclerView.Adapter<ChunkableViewHolder>{
 
     private ArrayList<Chunk> input = new ArrayList<>();
     private LayoutInflater inflater;
@@ -33,52 +34,15 @@ public class ChunkableAdapter extends RecyclerView.Adapter<ChunkableAdapter.View
         this.context = context;
     }
     @Override
-    public ChunkableAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_chunkable, parent, false);
-        ChunkableAdapter.ViewHolder viewHolder = new ChunkableAdapter.ViewHolder(view);
+    public ChunkableViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ChunkableViewHolder viewHolder = new ChunkableViewHolder(inflater,parent,context);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final ChunkableAdapter.ViewHolder holder, final int position) {
-        Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
-        ImageHandler imageHandler = new ImageHandler();
-
-        final Chunk chunk = input.get(position);
-
-        String url = "https://app.splatoon2.nintendo.net"+chunk.skill.url;
-        String location = chunk.skill.name.toLowerCase().replace(" ","_");
-        if(imageHandler.imageExists("ability",location,context)){
-            holder.skill.setImageBitmap(imageHandler.loadImage("ability",location));
-        }else{
-            Picasso.with(context).load(url).into(holder.skill);
-            imageHandler.downloadImage("ability",location,url,context);
-        }
-
-        holder.name.setTypeface(font);
-        holder.count.setTypeface(font);
-        holder.addButton.setTypeface(font);
-        holder.subButton.setTypeface(font);
-
-
-        holder.name.setText(chunk.skill.name);
-        holder.count.setText(String.valueOf(chunk.count));
-
-        holder.addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chunk.add();
-                holder.count.setText(String.valueOf(chunk.count));
-            }
-        });
-        holder.subButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chunk.sub();
-                holder.count.setText(String.valueOf(chunk.count));
-            }
-        });
-
+    public void onBindViewHolder(final ChunkableViewHolder holder, final int position) {
+        Chunk chunk = input.get(position);
+        holder.manageHolder(chunk);
     }
 
     @Override

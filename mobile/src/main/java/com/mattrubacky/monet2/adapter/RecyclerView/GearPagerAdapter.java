@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by mattr on 12/18/2017.
  */
 
-public class GearPagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class GearPagerAdapter extends RecyclerView.Adapter<ListViewHolder>{
 
     private ArrayList<ArrayList<ClosetHanger>> input = new ArrayList<>();
     private LayoutInflater inflater;
@@ -28,14 +28,13 @@ public class GearPagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.context = context;
     }
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ListViewHolder(inflater,parent);
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holderAb, final int position) {
+    public void onBindViewHolder(final ListViewHolder holder, final int position) {
 
-        ListViewHolder holder = (ListViewHolder) holderAb;
         ArrayList<ClosetHanger> stats = input.get(position);
 
         GearAdapter gearAdapter = new GearAdapter(context,stats,holder.itemList);

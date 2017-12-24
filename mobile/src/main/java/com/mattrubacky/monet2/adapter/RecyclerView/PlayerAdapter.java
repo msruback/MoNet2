@@ -38,7 +38,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private NicknameIcon icon;
     private PlayerStats stats;
     private FragmentManager fragmentManager;
-    private int curPos;
 
     public PlayerAdapter(Context context, Record records, NicknameIcon icon,FragmentManager fragmentManager) {
         this.inflater = LayoutInflater.from(context);
@@ -47,7 +46,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.icon = icon;
         this.fragmentManager = fragmentManager;
 
-        curPos = 0;
         stats = new PlayerStats();
         stats.calcStats(context);
     }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by mattr on 12/21/2017.
  */
 
-public class BattleListPagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class BattleListPagerAdapter extends RecyclerView.Adapter<ListViewHolder>{
 
     private ArrayList<ArrayList<Battle>> input = new ArrayList<>();
     private LayoutInflater inflater;
@@ -28,16 +28,14 @@ public class BattleListPagerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         this.context = context;
     }
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ListViewHolder(inflater,parent);
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holderAb, final int position) {
+    public void onBindViewHolder(final ListViewHolder holder, final int position) {
 
         final ArrayList<Battle> battles = input.get(position);
-
-        ListViewHolder holder = (ListViewHolder) holderAb;
 
         holder.itemList.setAdapter(new BattleListAdapter(context,battles,holder.itemList));
         holder.itemList.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
