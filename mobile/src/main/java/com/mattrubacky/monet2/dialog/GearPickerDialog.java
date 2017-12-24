@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -14,16 +13,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.GearPickerAdapter;
-import com.mattrubacky.monet2.adapter.GearPickerPagerAdapter;
+import com.mattrubacky.monet2.adapter.RecyclerView.GearPickerPagerAdapter;
 import com.mattrubacky.monet2.deserialized.Gear;
-import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;

@@ -1,8 +1,6 @@
 package com.mattrubacky.monet2.fragment;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -11,17 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.ChunkableAdapter;
+import com.mattrubacky.monet2.adapter.RecyclerView.ChunkableAdapter;
 import com.mattrubacky.monet2.deserialized.Chunk;
-import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.deserialized.Skill;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 

@@ -15,18 +15,14 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.PlayerAdapter;
+import com.mattrubacky.monet2.adapter.RecyclerView.PlayerAdapter;
 import com.mattrubacky.monet2.deserialized.NicknameIcon;
 import com.mattrubacky.monet2.deserialized.NicknameIcons;
 import com.mattrubacky.monet2.deserialized.Record;
-import com.mattrubacky.monet2.deserialized.SplatfestDatabase;
 import com.mattrubacky.monet2.splatnet.NicknameRequest;
-import com.mattrubacky.monet2.splatnet.PastSplatfestRequest;
 import com.mattrubacky.monet2.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.splatnet.SplatnetConnector;
-
-import java.util.ArrayList;
 
 /**
  * Created by mattr on 12/18/2017.

@@ -10,13 +10,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.CampaignStageStatsAdapter;
-import com.mattrubacky.monet2.adapter.CampaignWeaponStatsAdapter;
+import com.mattrubacky.monet2.adapter.ListView.CampaignStageStatsAdapter;
 import com.mattrubacky.monet2.deserialized.CampaignStageInfo;
 import com.mattrubacky.monet2.deserialized.CampaignWeapon;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * Created by mattr on 12/11/2017.

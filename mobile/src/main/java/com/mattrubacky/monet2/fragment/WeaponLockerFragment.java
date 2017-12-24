@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.WeaponPagerAdapter;
+import com.mattrubacky.monet2.adapter.RecyclerView.WeaponPagerAdapter;
 import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.helper.WeaponStats;
 import com.mattrubacky.monet2.splatnet.RecordsRequest;

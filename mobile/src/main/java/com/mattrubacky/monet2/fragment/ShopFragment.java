@@ -1,9 +1,7 @@
 package com.mattrubacky.monet2.fragment;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -12,38 +10,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import com.mattrubacky.monet2.adapter.MerchAdapter;
-import com.mattrubacky.monet2.dialog.AlertDialog;
+import com.mattrubacky.monet2.adapter.RecyclerView.MerchAdapter;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.splatnet.ShopRequest;
-import com.mattrubacky.monet2.splatnet.Splatnet;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.splatnet.SplatnetConnector;
-import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.mattrubacky.monet2.deserialized.*;
 
 import com.mattrubacky.monet2.dialog.BuyDialog;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by mattr on 9/15/2017.

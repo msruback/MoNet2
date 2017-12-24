@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.AddNotification;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.StageNotificationAdapter;
+import com.mattrubacky.monet2.adapter.ListView.StageNotificationAdapter;
 import com.mattrubacky.monet2.deserialized.StageNotification;
 import com.mattrubacky.monet2.deserialized.StageNotifications;
 

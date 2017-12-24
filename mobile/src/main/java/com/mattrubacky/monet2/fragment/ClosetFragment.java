@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.GearPagerAdapter;
+import com.mattrubacky.monet2.adapter.RecyclerView.GearPagerAdapter;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 

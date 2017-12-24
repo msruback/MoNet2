@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.SplatfestDetail;
-import com.mattrubacky.monet2.adapter.SplatfestAdapter;
+import com.mattrubacky.monet2.adapter.RecyclerView.SplatfestAdapter;
 import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestDatabase;

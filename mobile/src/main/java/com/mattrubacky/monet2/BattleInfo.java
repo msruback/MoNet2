@@ -1,6 +1,5 @@
 package com.mattrubacky.monet2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -11,17 +10,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.adapter.PlayerInfoAdapter;
+import com.mattrubacky.monet2.adapter.RecyclerView.PlayerInfoAdapter;
 import com.mattrubacky.monet2.deserialized.*;
 
 import com.mattrubacky.monet2.helper.ImageHandler;

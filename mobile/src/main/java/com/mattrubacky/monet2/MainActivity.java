@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import com.mattrubacky.monet2.adapter.NavAdapter;
+import com.mattrubacky.monet2.adapter.ListView.NavAdapter;
 import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.dialog.GearNotificationPickerDialog;
 import com.mattrubacky.monet2.dialog.StageNotificationPickerDialog;

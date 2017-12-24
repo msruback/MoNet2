@@ -3,16 +3,14 @@ package com.mattrubacky.monet2.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.CampaignWeaponStatsAdapter;
+import com.mattrubacky.monet2.adapter.ListView.CampaignWeaponStatsAdapter;
 import com.mattrubacky.monet2.deserialized.CampaignStageInfo;
 import com.mattrubacky.monet2.deserialized.CampaignWeapon;
 

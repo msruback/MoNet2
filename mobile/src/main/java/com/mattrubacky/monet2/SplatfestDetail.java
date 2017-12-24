@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.adapter.SplatfestPerformanceAdapter;
+import com.mattrubacky.monet2.adapter.Pager.SplatfestPerformanceAdapter;
 import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.SplatfestColor;
 import com.mattrubacky.monet2.deserialized.SplatfestResult;

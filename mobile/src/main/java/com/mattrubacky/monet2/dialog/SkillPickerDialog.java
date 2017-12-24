@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.SkillPickerAdapter;
+import com.mattrubacky.monet2.adapter.ListView.SkillPickerAdapter;
 import com.mattrubacky.monet2.deserialized.Skill;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 

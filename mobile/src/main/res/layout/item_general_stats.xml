@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:id="@+id/generalStats"
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginLeft="20dp"
@@ -99,6 +99,7 @@
                     android:id="@+id/InkedTitleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/InkedText"
                     android:background="@drawable/shape_card"
                     android:backgroundTint="@color/turfPrimary"
                     android:gravity="center"
@@ -113,6 +114,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/InkedTitleText"
+                    android:minHeight="35dp"
+                    android:gravity="center"
                     android:text="888p"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -135,6 +138,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_card"
                     android:backgroundTint="@color/turfPrimary"
+                    android:layout_alignBottom="@+id/LastText"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="@string/lastUsed"
@@ -147,6 +151,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/LastTitleText"
+                    android:minHeight="35dp"
+                    android:gravity="center"
                     android:text="888p"
                     android:textSize="16sp" />
             </RelativeLayout>

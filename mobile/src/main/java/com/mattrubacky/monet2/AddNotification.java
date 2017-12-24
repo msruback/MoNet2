@@ -1,41 +1,27 @@
 package com.mattrubacky.monet2;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.adapter.GearPickerAdapter;
-import com.mattrubacky.monet2.adapter.SkillPickerAdapter;
-import com.mattrubacky.monet2.adapter.StagePickerAdapter;
 import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.dialog.GearPickerDialog;
 import com.mattrubacky.monet2.dialog.SkillPickerDialog;
 import com.mattrubacky.monet2.dialog.StagePickerDialog;
-import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
 

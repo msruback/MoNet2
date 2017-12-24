@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.StagePostcardsDetail;
-import com.mattrubacky.monet2.adapter.StageAdapter;
+import com.mattrubacky.monet2.adapter.RecyclerView.StageAdapter;
 import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.deserialized.Stage;
 import com.mattrubacky.monet2.helper.StageStats;

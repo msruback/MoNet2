@@ -7,31 +7,22 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.CampaignWeaponAdapter;
-import com.mattrubacky.monet2.adapter.CampaignWorldAdapter;
+import com.mattrubacky.monet2.adapter.RecyclerView.CampaignWeaponAdapter;
+import com.mattrubacky.monet2.adapter.RecyclerView.CampaignWorldAdapter;
 import com.mattrubacky.monet2.deserialized.CampaignRecords;
-import com.mattrubacky.monet2.deserialized.CampaignStage;
 import com.mattrubacky.monet2.deserialized.CampaignStageInfo;
 import com.mattrubacky.monet2.deserialized.CampaignWeapon;
-import com.mattrubacky.monet2.deserialized.PastSplatfest;
-import com.mattrubacky.monet2.deserialized.Record;
 import com.mattrubacky.monet2.splatnet.CampaignRecordsRequest;
-import com.mattrubacky.monet2.splatnet.CoopSchedulesRequest;
-import com.mattrubacky.monet2.splatnet.MonthlyGearRequest;
-import com.mattrubacky.monet2.splatnet.SchedulesRequest;
 import com.mattrubacky.monet2.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.splatnet.SplatnetConnector;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by mattr on 12/6/2017.
