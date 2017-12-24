@@ -6,6 +6,7 @@ import com.mattrubacky.monet2.deserialized.NicknameIcon;
 import com.mattrubacky.monet2.deserialized.NicknameIcons;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import retrofit2.Response;
 
@@ -20,6 +21,8 @@ public class NicknameRequest extends SplatnetRequest {
 
     public NicknameRequest(String id){
         this.id = id;
+        icons = new NicknameIcons();
+        icons.nicknameIcons = new ArrayList<>();
     }
 
     @Override

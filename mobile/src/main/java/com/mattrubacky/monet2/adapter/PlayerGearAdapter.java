@@ -27,41 +27,36 @@ import java.util.ArrayList;
  * Created by mattr on 12/24/2017.
  */
 
-public class PlayerGearAdapter extends RecyclerView.Adapter<PlayerGearAdapter.ViewHolder>{
+public class PlayerGearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private LayoutInflater inflater;
     private Context context;
     private Weapon weapon;
     private ArrayList<ClosetHanger> gear;
-    int curPos;
 
     public PlayerGearAdapter(Context context,Weapon weapon,ArrayList<ClosetHanger> gear) {
         this.inflater = LayoutInflater.from(context);
         this.context = context;
         this.weapon = weapon;
         this.gear = gear;
-        curPos=0;
     }
     @Override
-    public PlayerGearAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view;
-        if(curPos==0) {
-            view = inflater.inflate(R.layout.item_weapon, parent, false);
-        }else{
-            view = inflater.inflate(R.layout.item_gear,parent,false);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType){
+            case 0:
+                return new ViewHolder0(inflater.inflate(R.layout.item_weapon, parent, false));
+            default:
+                return new ViewHolder1(inflater.inflate(R.layout.item_gear, parent, false));
         }
-        PlayerGearAdapter.ViewHolder viewHolder = new PlayerGearAdapter.ViewHolder(view);
-        viewHolder.curPos =curPos;
-        curPos++;
-        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final PlayerGearAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holderAb, final int position) {
         Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
         ImageHandler imageHandler = new ImageHandler();
 
-        if(position==0) {
+        if(holderAb.getItemViewType()==0) {
+            ViewHolder0 holder = (ViewHolder0) holderAb;
             String url = "https://app.splatoon2.nintendo.net" + weapon.url;
             String location = weapon.name.toLowerCase().replace(" ", "_");
             if (imageHandler.imageExists("weapon", location, context)) {
@@ -74,6 +69,7 @@ public class PlayerGearAdapter extends RecyclerView.Adapter<PlayerGearAdapter.Vi
             holder.name.setText(weapon.name);
             holder.name.setTypeface(font);
         }else{
+            ViewHolder1 holder = (ViewHolder1) holderAb;
             ClosetHanger closetHanger = gear.get(position-1);
 
             String url = "https://app.splatoon2.nintendo.net"+closetHanger.gear.url;
@@ -107,34 +103,45 @@ public class PlayerGearAdapter extends RecyclerView.Adapter<PlayerGearAdapter.Vi
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if(position==0){
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
     public int getItemCount() {
         return gear.size()+1;
     }
 
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder0 extends RecyclerView.ViewHolder{
         ImageView weapon;
         TextView name;
 
-        RelativeLayout hook,card;
-        ImageView gear;
-
-        int curPos;
-
-
-        public ViewHolder(View itemView) {
+        public ViewHolder0(View itemView) {
             super(itemView);
 
-            if(curPos==0) {
-                weapon = (ImageView) itemView.findViewById(R.id.WeaponImage);
-                name = (TextView) itemView.findViewById(R.id.Name);
-            }else{
+            weapon = (ImageView) itemView.findViewById(R.id.WeaponImage);
+            name = (TextView) itemView.findViewById(R.id.Name);
+        }
+
+    }
+    public class ViewHolder1 extends RecyclerView.ViewHolder{
+
+        RelativeLayout hook,card;
+        ImageView gear;
+        TextView name;
+
+        public ViewHolder1(View itemView) {
+            super(itemView);
+
                 hook = (RelativeLayout) itemView.findViewById(R.id.hook);
                 card = (RelativeLayout) itemView.findViewById(R.id.card);
                 gear = (ImageView) itemView.findViewById(R.id.GearImage);
                 name = (TextView) itemView.findViewById(R.id.Name);
-            }
         }
 
     }

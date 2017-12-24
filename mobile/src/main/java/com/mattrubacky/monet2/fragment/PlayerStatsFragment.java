@@ -51,14 +51,14 @@ public class PlayerStatsFragment extends Fragment implements SplatnetConnected {
         settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-        RecyclerView pager = (RecyclerView) rootView.findViewById(R.id.PlayerPager);
+        pager = (RecyclerView) rootView.findViewById(R.id.PlayerPager);
         pager.setLayoutManager(linearLayoutManager);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(pager);
 
-        playerTab = (RelativeLayout) rootView.findViewById(R.id.HeadTab);
-        challengeTab = (RelativeLayout) rootView.findViewById(R.id.ClothesTab);
-        statsTab = (RelativeLayout) rootView.findViewById(R.id.ShoesTab);
+        playerTab = (RelativeLayout) rootView.findViewById(R.id.UserTab);
+        challengeTab = (RelativeLayout) rootView.findViewById(R.id.ChallengeTab);
+        statsTab = (RelativeLayout) rootView.findViewById(R.id.StatsTab);
 
         playerTab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,7 +160,11 @@ public class PlayerStatsFragment extends Fragment implements SplatnetConnected {
     public void update(Bundle bundle) {
         Record records = bundle.getParcelable("records");
         NicknameIcons icon = bundle.getParcelable("nickname");
-        PlayerAdapter playerAdapter = new PlayerAdapter(getContext(),records,icon.nicknameIcons.get(0),getChildFragmentManager());
+        NicknameIcon nicknameIcon = null;
+        if(icon.nicknameIcons.size()>0){
+            nicknameIcon = icon.nicknameIcons.get(0);
+        }
+        PlayerAdapter playerAdapter = new PlayerAdapter(getContext(),records,nicknameIcon,getChildFragmentManager());
 
         pager.setAdapter(playerAdapter);
     }

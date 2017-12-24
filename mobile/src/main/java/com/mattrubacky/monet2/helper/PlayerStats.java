@@ -96,7 +96,7 @@ public class PlayerStats extends Stats implements Parcelable {
 
         }
         if(battles.size()>0){
-            lastPlayed = battles.get(battles.size()).start;
+            lastPlayed = battles.get(battles.size()-1).start;
         }
 
         if(battles.size()>5) {
