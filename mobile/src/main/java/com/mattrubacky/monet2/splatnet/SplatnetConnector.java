@@ -12,6 +12,8 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.dialog.AlertDialog;
 
@@ -91,7 +93,8 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
+            Gson gson = new GsonBuilder().setLenient().create();
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create(gson)).build();
             Splatnet splatnet = retrofit.create(Splatnet.class);
 
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);

@@ -61,12 +61,13 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
-        if(curPos==0) {
-            return new UserDetailViewHolder(inflater,parent);
-        }else if(curPos==1){
-            return new ListViewHolder(inflater,parent);
-        }else{
-            return new UserStatsViewHolder(inflater,parent);
+        switch (viewType){
+            case 0:
+                return new UserDetailViewHolder(inflater,parent);
+            case 1:
+                return new ListViewHolder(inflater,parent);
+            default:
+                return new UserStatsViewHolder(inflater,parent);
         }
     }
 
@@ -75,7 +76,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(context.getAssets(), "Paintball.otf");
         ImageHandler imageHandler = new ImageHandler();
-        if(position==0) {
+        if(holderAb.getItemViewType()==0) {
             UserDetailViewHolder holder = (UserDetailViewHolder) holderAb;
             holder.userCard.setClipToOutline(true);
             holder.icon.setClipToOutline(true);
@@ -131,16 +132,18 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             hanger.gear = records.records.user.head;
             hanger.skills = records.records.user.headSkills;
             gear.add(hanger);
+            hanger = new ClosetHanger();
             hanger.gear = records.records.user.clothes;
             hanger.skills = records.records.user.clothesSkills;
             gear.add(hanger);
+            hanger = new ClosetHanger();
             hanger.gear = records.records.user.shoes;
             hanger.skills = records.records.user.shoeSkills;
             gear.add(hanger);
             PlayerGearAdapter playerGearAdapter = new PlayerGearAdapter(context, records.records.user.weapon, gear);
             holder.weaponGearList.setAdapter(playerGearAdapter);
             holder.weaponGearList.setLayoutManager(new GridLayoutManager(context, 2));
-        }else if(position==1) {
+        }else if(holderAb.getItemViewType()==1) {
             ListViewHolder holder = (ListViewHolder) holderAb;
 
             ArrayList<Challenge> challenges = new ArrayList<>();
@@ -149,7 +152,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ChallengeAdapter challengeAdapter = new ChallengeAdapter(context, challenges, records.challenges.totalPaint);
             holder.itemList.setAdapter(challengeAdapter);
             holder.itemList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        }else {
+        }else if(holderAb.getItemViewType()==2){
             UserStatsViewHolder holder = (UserStatsViewHolder) holderAb;
 
             holder.generalCard.setClipToOutline(true);
@@ -212,7 +215,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 Fragment ink = new SoloMeterFragment();
                 ink.setArguments(bundle);
                 fragmentManager.beginTransaction()
-                        .replace(R.id.InkMeter, ink)
+                        .replace(holder.inkMeter.getId(), ink)
                         .commit();
                 hasStats = true;
             } else {
@@ -227,7 +230,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 Fragment kill = new SoloMeterFragment();
                 kill.setArguments(bundle);
                 fragmentManager.beginTransaction()
-                        .replace(R.id.KillMeter, kill)
+                        .replace(holder.killMeter.getId(), kill)
                         .commit();
                 hasStats = true;
             } else {
@@ -243,7 +246,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 Fragment death = new SoloMeterFragment();
                 death.setArguments(bundle);
                 fragmentManager.beginTransaction()
-                        .replace(R.id.DeathMeter, death)
+                        .replace(holder.deathMeter.getId(), death)
                         .commit();
                 hasStats = true;
             } else {
@@ -259,7 +262,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 Fragment special = new SoloMeterFragment();
                 special.setArguments(bundle);
                 fragmentManager.beginTransaction()
-                        .replace(R.id.SpecialMeter, special)
+                        .replace(holder.specialMeter.getId(), special)
                         .commit();
                 hasStats = true;
             } else {
@@ -273,7 +276,12 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
 }

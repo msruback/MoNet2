@@ -17,7 +17,7 @@ public class ListViewHolder extends RecyclerView.ViewHolder{
     public RecyclerView itemList;
 
     public ListViewHolder(LayoutInflater inflater, ViewGroup parent) {
-        super(inflater.inflate(R.layout.item_user_detail, parent, false));
+        super(inflater.inflate(R.layout.item_pager_list, parent, false));
         itemList = (RecyclerView) itemView.findViewById(R.id.List);
     }
 }

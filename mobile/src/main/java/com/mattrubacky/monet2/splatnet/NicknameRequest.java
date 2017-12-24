@@ -27,7 +27,7 @@ public class NicknameRequest extends SplatnetRequest {
 
     @Override
     protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
-        icons = (NicknameIcons) response.body();
+        System.out.println(response.body());
     }
 
     @Override

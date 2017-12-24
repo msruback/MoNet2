@@ -15,7 +15,7 @@
                 android:layout_width="300dp"
                 android:layout_height="410dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/shape_card"
                 android:backgroundTint="@color/primary">
 

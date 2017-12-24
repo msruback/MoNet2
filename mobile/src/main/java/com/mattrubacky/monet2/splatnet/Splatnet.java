@@ -18,6 +18,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface Splatnet {
     @GET("/")
@@ -59,8 +60,8 @@ public interface Splatnet {
     @GET("api/festivals/{id}/rankings")
     Call<ResponseBody> getSplatfestRanks(@Path("id") String id,@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
-    @GET("nickname_and_icon?id={id}")
-    Call<NicknameIcons> getNicknameIcon(@Path("id") String id,@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
+    @GET("nickname_and_icon")
+    Call<ResponseBody> getNicknameIcon(@Query("id") String id, @Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @GET("api/onlineshop/merchandises")
     Call<Annie> getShop(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
