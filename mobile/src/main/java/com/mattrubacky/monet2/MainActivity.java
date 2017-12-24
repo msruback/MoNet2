@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ExpandableListView drawerList;
     ArrayList<String> titles,children;
-    Fragment rotation,shop,battleList,settingsFrag,weaponLocker,closet,stagePostcards,chunkBag,splatfestStats,campaignStats;
+    Fragment rotation,shop,playerFrag,battleList,settingsFrag,weaponLocker,closet,stagePostcards,chunkBag,splatfestStats,campaignStats;
     FragmentManager fragmentManager;
     ArrayList<String> backStack;
     TextView addButton;
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         //Add fragments
         rotation = new RotationFragment();
         shop = new ShopFragment();
+        playerFrag = new PlayerStatsFragment();
         battleList = new BattleListFragment();
         settingsFrag = new SettingsFragment();
 
@@ -191,7 +193,15 @@ public class MainActivity extends AppCompatActivity {
             //Stats fragments go here
             case 2:
                 switch (intent.getIntExtra("stats",0)){
-                    case 0://Player page reserved
+                    case 0:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container, playerFrag)
+                                .commit();
+                        backStack.add(0,"player");
+                        addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
                         break;
                     case 1://
                         fragmentManager.beginTransaction()
@@ -342,7 +352,8 @@ public class MainActivity extends AppCompatActivity {
                         notificationButton.setVisibility(View.GONE);
                         notificationButton.setOnClickListener(null);
                         break;
-                    case 2://Stats expands
+                    case 2:
+                        //Stats expands
                         break;
                     case 3:
                         fragmentManager.beginTransaction()
@@ -371,6 +382,27 @@ public class MainActivity extends AppCompatActivity {
                 // Insert the fragment by replacing any existing fragment
 
                 // Highlight the selected item, update the title, and close the drawer
+                drawerList.setItemChecked(position, true);
+                return false;
+            }
+        });
+
+        drawerList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 2:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container, playerFrag)
+                                .commit();
+                        drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"player");
+                        addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
+                        break;
+                }
                 drawerList.setItemChecked(position, true);
                 return false;
             }
@@ -506,6 +538,15 @@ public class MainActivity extends AppCompatActivity {
                 case "shop":
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container, shop)
+                            .commit();
+                    addButton.setVisibility(View.GONE);
+                    addButton.setOnClickListener(null);
+                    notificationButton.setVisibility(View.GONE);
+                    notificationButton.setOnClickListener(null);
+                    break;
+                case "player":
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container, playerFrag)
                             .commit();
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);

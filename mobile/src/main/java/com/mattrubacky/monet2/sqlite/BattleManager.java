@@ -2,6 +2,7 @@ package com.mattrubacky.monet2.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -387,8 +388,6 @@ class BattleManager {
 
         Cursor cursor = database.query(SplatnetContract.Battle.TABLE_NAME,null,null,null,null,null,null);
 
-        HashMap<Integer,ArrayList<PlayerDatabase>> playerMap = playerManager.selectAll();
-
         ArrayList<Integer> stageIDs = new ArrayList<>();
         int stageID;
 
@@ -415,24 +414,7 @@ class BattleManager {
                 stageIDs.add(stageID);
                 stageManager.addToSelect(stageID);
 
-                ArrayList<PlayerDatabase> players = playerMap.get(battle.id);
-                PlayerDatabase player;
-                battle.myTeam = new ArrayList<>();
-                battle.otherTeam = new ArrayList<>();
-
-                for (int i = 0; i < players.size(); i++) {
-                    player = players.get(i);
-                    switch (player.playerType) {
-                        case 0:
-                            battle.user = player.player;
-                            break;
-                        case 1:
-                            battle.myTeam.add(player.player);
-                            break;
-                        case 2:
-                            battle.otherTeam.add(player.player);
-                    }
-                }
+                playerManager.addToSelect(battle.id);
 
                 switch (battle.type) {
                     case "regular":
@@ -472,9 +454,28 @@ class BattleManager {
             }while(cursor.moveToNext());
         }
         HashMap<Integer,Stage> stageHashMap = stageManager.select();
+        HashMap<Integer,ArrayList<PlayerDatabase>> playerMap = playerManager.select();
         for(int i=0;i<stageIDs.size();i++){
             battle = battleList.get(i);
             battle.stage = stageHashMap.get(stageIDs.get(i));
+
+            ArrayList<PlayerDatabase> players = playerMap.get(battle.id);
+            PlayerDatabase player;
+            battle.myTeam = new ArrayList<>();
+            battle.otherTeam = new ArrayList<>();
+            for (int j = 0; j < players.size(); j++) {
+                player = players.get(j);
+                switch (player.playerType) {
+                    case 0:
+                        battle.user = player.player;
+                        break;
+                    case 1:
+                        battle.myTeam.add(player.player);
+                        break;
+                    case 2:
+                        battle.otherTeam.add(player.player);
+                }
+            }
             battles.add(battle);
         }
         cursor.close();

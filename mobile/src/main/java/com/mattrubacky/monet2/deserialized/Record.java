@@ -15,13 +15,18 @@ public class Record implements Parcelable{
     @SerializedName("records")
     public Records records;
 
+    @SerializedName("challenges")
+    public Challenges challenges;
+
     protected Record(Parcel in) {
         records = in.readParcelable(Records.class.getClassLoader());
+        challenges = in.readParcelable(Challenges.class.getClassLoader());
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(records, flags);
+        dest.writeParcelable(challenges,flags);
     }
 
     @Override

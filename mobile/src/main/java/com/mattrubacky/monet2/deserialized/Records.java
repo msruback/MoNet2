@@ -28,6 +28,15 @@ public class Records implements Parcelable{
     @SerializedName("player")
     public User user;
 
+    @SerializedName("win_count")
+    public int wins;
+
+    @SerializedName("lose_count")
+    public int losses;
+
+    @SerializedName("start_time")
+    public long startTime;
+
     //The player's id
     @SerializedName("unique_id")
     public String unique_id;
@@ -39,6 +48,8 @@ public class Records implements Parcelable{
     protected Records(Parcel in) {
         user = in.readParcelable(User.class.getClassLoader());
         unique_id = in.readString();
+        wins = in.readInt();
+        losses = in.readInt();
         in.readMap(stageStats,StageStats.class.getClassLoader());
         in.readMap(splatfestRecords,SplatfestRecords.class.getClassLoader());
         in.readMap(weaponStats,WeaponStats.class.getClassLoader());
@@ -48,6 +59,8 @@ public class Records implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(user, flags);
         dest.writeString(unique_id);
+        dest.writeInt(wins);
+        dest.writeInt(losses);
         dest.writeMap(stageStats);
         dest.writeMap(splatfestRecords);
         dest.writeMap(weaponStats);

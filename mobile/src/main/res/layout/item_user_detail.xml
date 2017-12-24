@@ -11,18 +11,6 @@
             android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:id="@+id/WeaponAndGear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/UserCard">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/WeaponGearList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:id="@+id/UserCard"
                 android:layout_width="300dp"
                 android:layout_height="410dp"
@@ -49,12 +37,14 @@
                         android:background="@drawable/shape_card">
 
                         <ImageView
+                            android:id="@+id/UserIcon"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:src="@drawable/user" />
                     </RelativeLayout>
 
                     <TextView
+                        android:id="@+id/Name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -108,6 +98,7 @@
                         android:tint="@color/offWhite" />
 
                     <TextView
+                        android:id="@+id/Level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/line"
@@ -224,6 +215,19 @@
                     android:layout_alignParentBottom="true"
                     android:src="@drawable/stage_1" />
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/WeaponAndGear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/UserCard">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/WeaponGearList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
         </RelativeLayout>
     </ScrollView>
 

@@ -2,632 +2,74 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@drawable/repeat_squids">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <RelativeLayout
-            android:id="@+id/UserCard"
-            android:layout_width="300dp"
-            android:layout_height="410dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape_card"
-            android:backgroundTint="@color/primary">
-            <RelativeLayout
+
+    <RelativeLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:elevation="5dp">
+
+        <RelativeLayout
+            android:id="@+id/UserTab"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="-30dp"
+            android:background="@color/colorAccent"
+            android:paddingBottom="5dp"
+            android:paddingTop="35dp">
+
+            <ImageView
+                android:id="@+id/UserImage"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/squid" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ChallengeTab"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="-30dp"
+            android:layout_toRightOf="@+id/UserTab"
+            android:background="@color/colorAccent"
+            android:paddingBottom="5dp"
+            android:paddingTop="35dp">
+
+            <ImageView
+                android:id="@+id/ChallengeImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/repeat_stripes"></RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/userLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <RelativeLayout
-                        android:id="@+id/icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
-                        android:background="@drawable/shape_card">
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/user"/>
-                    </RelativeLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/icon"
-                        android:text="MattyWatty"
-                        android:textSize="20sp"
-                        android:textColor="@color/offWhite"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/stats"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/userLayout"
-                    android:layout_above="@+id/Stage"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/shape_card"
-                    android:backgroundTint="@color/darkGreyTrans">
-                    <TextView
-                        android:id="@+id/LevelTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:text="Level"
-                        android:textColor="@color/offWhite"
-                        android:textSize="18sp"/>
-                    <TextView
-                        android:id="@+id/RankTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@+id/LevelTitle"
-                        android:text="Rank"
-                        android:textColor="@color/offWhite"
-                        android:textSize="18sp"/>
-                    <ImageView
-                        android:id="@+id/line"
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:layout_marginTop="35dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/shape_line"
-                        android:tint="@color/offWhite"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/line"
-                        android:layout_marginLeft="15dp"
-                        android:text="35"
-                        android:textColor="@color/offWhite"
-                        android:textSize="25sp"/>
-                    <TextView
-                        android:id="@+id/Splatzones"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/line"
-                        android:layout_alignLeft="@id/RankTitle"
-                        android:layout_marginTop="5dp"
-                        android:text="Splat Zones"
-                        android:textColor="@color/offWhite"
-                        android:textSize="20sp"/>
-                    <TextView
-                        android:id="@+id/SplatzonesRank"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="30dp"
-                        android:layout_below="@+id/line"
-                        android:layout_marginTop="3.5dp"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center"
-                        android:text="A"
-                        android:textColor="@color/offWhite"
-                        android:textSize="23sp"/>
-                    <TextView
-                        android:id="@+id/TowerControl"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/Splatzones"
-                        android:layout_alignLeft="@id/RankTitle"
-                        android:layout_marginTop="5dp"
-                        android:text="Tower Control"
-                        android:textColor="@color/offWhite"
-                        android:textSize="20sp" />
-                    <TextView
-                        android:id="@+id/TowerControlRank"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="30dp"
-                        android:layout_below="@+id/Splatzones"
-                        android:layout_marginTop="2.5dp"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center"
-                        android:text="S"
-                        android:textColor="@color/offWhite"
-                        android:textSize="23sp"/>
-                    <TextView
-                        android:id="@+id/Rainmaker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/TowerControl"
-                        android:layout_alignLeft="@id/RankTitle"
-                        android:layout_marginTop="5dp"
-                        android:text="Rainmaker"
-                        android:textColor="@color/offWhite"
-                        android:textSize="20sp" />
-                    <TextView
-                        android:id="@+id/RainmakerRank"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="30dp"
-                        android:layout_below="@+id/TowerControl"
-                        android:layout_marginTop="2.5dp"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center"
-                        android:text="S"
-                        android:textColor="@color/offWhite"
-                        android:textSize="23sp"/>
-                    <TextView
-                        android:id="@+id/ClamBlitz"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/Rainmaker"
-                        android:layout_alignLeft="@id/RankTitle"
-                        android:layout_marginTop="5dp"
-                        android:text="Clam Blitz"
-                        android:textColor="@color/offWhite"
-                        android:textSize="20sp" />
-                    <TextView
-                        android:id="@+id/ClamBlitzRank"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="30dp"
-                        android:layout_below="@+id/Rainmaker"
-                        android:layout_marginTop="2.5dp"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center"
-                        android:text="-"
-                        android:textColor="@color/offWhite"
-                        android:textSize="23sp"/>
-                </RelativeLayout>
-
-                <ImageView
-                    android:id="@+id/Stage"
-                    android:layout_width="match_parent"
-                    android:layout_height="169dp"
-                    android:layout_alignParentBottom="true"
-                    android:src="@drawable/stage_1"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/WeaponAndGear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/UserCard">
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/WeaponGearList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/Challenges"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/WeaponAndGear">
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/Stats"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/Challenges">
-                <RelativeLayout
-                    android:id="@+id/generalStats"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/shape_card"
-                    android:backgroundTint="@color/clothes"
-                    android:elevation="5dp"
-                    android:rotation="1">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:background="@drawable/repeat_zigzag">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="-5dp"
-                            android:src="@drawable/extra_product"
-                            android:tint="@color/offWhite" />
-
-                        <RelativeLayout
-                            android:id="@+id/winOutline"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp"
-                            android:layout_marginTop="30dp"
-                            android:background="@drawable/shape_card"
-                            android:backgroundTint="@color/offWhiteDark"
-                            android:padding="5dp">
-
-                            <RelativeLayout
-                                android:id="@+id/WinLossMeter"
-                                android:layout_width="250dp"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/shape_card"
-                                android:backgroundTint="@color/offWhiteDark">
-
-                                <RelativeLayout
-                                    android:id="@+id/Wins"
-                                    android:layout_width="100dp"
-                                    android:layout_height="match_parent"
-                                    android:background="@color/colorPrimary">
-
-                                    <TextView
-                                        android:id="@+id/WinText"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:text="50" />
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:id="@+id/Losses"
-                                    android:layout_width="100dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_alignParentRight="true"
-                                    android:background="@color/colorAccent">
-
-                                    <TextView
-                                        android:id="@+id/LossText"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:text="50" />
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/repeat_stripes"></RelativeLayout>
-                            </RelativeLayout>
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/inkedLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/winOutline"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp"
-                            android:layout_marginTop="15dp"
-                            android:background="@drawable/shape_card"
-                            android:backgroundTint="@color/transparentgrey">
-
-                            <TextView
-                                android:id="@+id/InkedTitleText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/shape_card"
-                                android:backgroundTint="@color/turfPrimary"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="@string/totalInked"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/InkedText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="10dp"
-                                android:layout_toRightOf="@+id/InkedTitleText"
-                                android:text="888p"
-                                android:textSize="16sp" />
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/lastLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/inkedLayout"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginRight="30dp"
-                            android:layout_marginTop="15dp"
-                            android:background="@drawable/shape_card"
-                            android:backgroundTint="@color/transparentgrey">
-
-                            <TextView
-                                android:id="@+id/LastTitleText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/shape_card"
-                                android:backgroundTint="@color/turfPrimary"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:text="@string/lastUsed"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/LastText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="10dp"
-                                android:layout_toRightOf="@+id/LastTitleText"
-                                android:text="888p"
-                                android:textSize="16sp" />
-                        </RelativeLayout>
-
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/inkStats"
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_below="@+id/generalStats"
-                    android:background="@drawable/shape_card"
-                    android:backgroundTint="@color/merchShoe"
-                    android:elevation="5dp"
-                    android:rotation="-1">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:background="@drawable/repeat_zigzag">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="-5dp"
-                            android:src="@drawable/extra_product"
-                            android:tint="@color/offWhite" />
-
-                        <TextView
-                            android:id="@+id/InkTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/shape_card"
-                            android:backgroundTint="@color/turfPrimary"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="@string/inkspread"
-                            android:textSize="16sp" />
-
-                        <RelativeLayout
-                            android:id="@+id/InkMeter"
-                            android:layout_width="270dp"
-                            android:layout_height="80dp"
-                            android:layout_below="@+id/InkTitle"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
-                            android:layout_marginTop="10dp">
-
-                        </RelativeLayout>
-                    </RelativeLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/killStats"
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_below="@+id/inkStats"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/shape_card"
-                    android:backgroundTint="@color/merchHead"
-                    android:elevation="5dp"
-                    android:rotation="1.5">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:background="@drawable/repeat_zigzag">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="-5dp"
-                            android:src="@drawable/extra_product"
-                            android:tint="@color/offWhite" />
-
-                        <TextView
-                            android:id="@+id/KillTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/shape_card"
-                            android:backgroundTint="@color/turfPrimary"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="@string/killspread"
-                            android:textSize="16sp" />
-
-                        <RelativeLayout
-                            android:id="@+id/KillMeter"
-                            android:layout_width="270dp"
-                            android:layout_height="80dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/KillTitle"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
-                            android:layout_marginTop="10dp">
-
-                        </RelativeLayout>
-                    </RelativeLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/deathStats"
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_below="@+id/killStats"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/shape_card"
-                    android:backgroundTint="@color/merchClothes"
-                    android:elevation="5dp"
-                    android:rotation="-1.3">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:background="@drawable/repeat_zigzag">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="-5dp"
-                            android:src="@drawable/extra_product"
-                            android:tint="@color/offWhite" />
-
-                        <TextView
-                            android:id="@+id/DeathTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/shape_card"
-                            android:backgroundTint="@color/turfPrimary"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="@string/deathspread"
-                            android:textSize="16sp"/>
-
-                        <RelativeLayout
-                            android:id="@+id/DeathMeter"
-                            android:layout_width="270dp"
-                            android:layout_height="80dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/DeathTitle"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
-                            android:layout_marginTop="10dp">
-
-                        </RelativeLayout>
-                    </RelativeLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/specialStats"
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_below="@+id/deathStats"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/shape_card"
-                    android:backgroundTint="@color/weapon"
-                    android:elevation="5dp"
-                    android:rotation="1.5">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:background="@drawable/repeat_zigzag">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="-5dp"
-                            android:src="@drawable/extra_product"
-                            android:tint="@color/offWhite" />
-
-                        <TextView
-                            android:id="@+id/SpecialTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/shape_card"
-                            android:backgroundTint="@color/turfPrimary"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="@string/specialspread"
-                            android:textSize="16sp" />
-
-                        <RelativeLayout
-                            android:id="@+id/SpecialMeter"
-                            android:layout_width="270dp"
-                            android:layout_height="80dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/SpecialTitle"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
-                            android:layout_marginTop="10dp">
-
-                        </RelativeLayout>
-                    </RelativeLayout>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/noStats"
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_below="@+id/deathStats"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/shape_card"
-                    android:backgroundTint="@color/weapon"
-                    android:elevation="5dp"
-                    android:rotation="1.5">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:background="@drawable/repeat_zigzag">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="-5dp"
-                            android:src="@drawable/extra_product"
-                            android:tint="@color/offWhite" />
-                        <TextView
-                            android:id="@+id/NoStatsText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="50dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_centerInParent="true"
-                            android:gravity="center"
-                            android:text="@string/noStats"
-                            android:textSize="20sp"/>
-                    </RelativeLayout>
-                </RelativeLayout>
-            </RelativeLayout>
-
+                android:src="@drawable/ink" />
         </RelativeLayout>
-    </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/StatsTab"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="-30dp"
+            android:layout_toRightOf="@+id/ChallengeTab"
+            android:background="@color/colorAccent"
+            android:paddingBottom="5dp"
+            android:paddingTop="35dp">
+
+            <ImageView
+                android:id="@+id/StatsImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/stats" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/PlayerPager"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tabs"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

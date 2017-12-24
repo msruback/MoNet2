@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -286,79 +288,18 @@ public class BattleInfo extends AppCompatActivity {
         ArrayList<Player> allies = new ArrayList<>();
         allies.add(battle.user);
         allies.addAll(battle.myTeam);
-        PlayerInfoAdapter allyAdapter = new PlayerInfoAdapter(BattleInfo.this,allies,true,battle);
-        PlayerInfoAdapter foeAdapter = new PlayerInfoAdapter(BattleInfo.this,battle.otherTeam,false,battle);
 
-        final ExpandableListView allyList = (ExpandableListView) findViewById(R.id.AllyList);
-        final ExpandableListView foeList = (ExpandableListView) findViewById(R.id.FoeList);
+        final RecyclerView allyList = (RecyclerView) findViewById(R.id.AllyList);
+        final RecyclerView foeList = (RecyclerView) findViewById(R.id.FoeList);
+
+
+        PlayerInfoAdapter allyAdapter = new PlayerInfoAdapter(BattleInfo.this,allies,allyList,battle,true);
+        PlayerInfoAdapter foeAdapter = new PlayerInfoAdapter(BattleInfo.this,battle.otherTeam,foeList,battle,false);
 
         allyList.setAdapter(allyAdapter);
         foeList.setAdapter(foeAdapter);
-
-        allyList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                int height = 0;
-                for (int i = 0; i < allyList.getChildCount(); i++) {
-                    height += allyList.getChildAt(i).getMeasuredHeight();
-                    height += allyList.getDividerHeight();
-                }
-                height += (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, getResources().getDisplayMetrics());
-                ViewGroup.LayoutParams params = allyList.getLayoutParams();
-                params.height = (height);
-                allyList.setLayoutParams(params);
-            }
-        });
-
-        // Listview Group collapsed listener
-        allyList.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                int height = 0;
-                for (int i = 0; i < allyList.getChildCount(); i++) {
-                    height += allyList.getChildAt(i).getMeasuredHeight();
-                    height += allyList.getDividerHeight();
-                }
-                ViewGroup.LayoutParams params = allyList.getLayoutParams();
-                params.height -= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, getResources().getDisplayMetrics());
-                allyList.setLayoutParams(params);
-            }
-        });
-
-        foeList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                int height = 0;
-                for (int i = 0; i < foeList.getChildCount(); i++) {
-                    height += foeList.getChildAt(i).getMeasuredHeight();
-                    height += foeList.getDividerHeight();
-                }
-                height += (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, getResources().getDisplayMetrics());
-                ViewGroup.LayoutParams params = foeList.getLayoutParams();
-                params.height = (height);
-                foeList.setLayoutParams(params);
-            }
-        });
-
-        // Listview Group collapsed listener
-        foeList.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                int height = 0;
-                for (int i = 0; i < foeList.getChildCount(); i++) {
-                    height += foeList.getChildAt(i).getMeasuredHeight();
-                    height += foeList.getDividerHeight();
-                }
-                ViewGroup.LayoutParams params = foeList.getLayoutParams();
-                params.height -= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80, getResources().getDisplayMetrics());
-                foeList.setLayoutParams(params);
-            }
-        });
-
-
-
+        allyList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        foeList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
     }
 
     @Override

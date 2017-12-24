@@ -573,9 +573,7 @@ class PlayerManager {
 
         BattleManager battleManager = new BattleManager(context);
 
-        String[] args = new String[2];
-        args[0] = String.valueOf(0);
-        args[1] = String.valueOf(itemID);
+        String[] args;
 
         StringBuilder builder = new StringBuilder();
         builder.append(SplatnetContract.Player.COLUMN_TYPE+" = ?");
@@ -584,15 +582,34 @@ class PlayerManager {
         switch (itemType){
             case "weapon":
                 builder.append(" AND "+SplatnetContract.Player.COLUMN_WEAPON+" = ?");
+                args = new String[2];
+                args[0] = String.valueOf(0);
+                args[1] = String.valueOf(itemID);
                 break;
             case "head":
                 builder.append(" AND "+SplatnetContract.Player.COLUMN_HEAD+" = ?");
+                args = new String[2];
+                args[0] = String.valueOf(0);
+                args[1] = String.valueOf(itemID);
                 break;
             case "clothes":
                 builder.append(" AND "+SplatnetContract.Player.COLUMN_CLOTHES+" = ?");
+                args = new String[2];
+                args[0] = String.valueOf(0);
+                args[1] = String.valueOf(itemID);
                 break;
             case "shoes":
                 builder.append(" AND "+SplatnetContract.Player.COLUMN_SHOES+" = ?");
+                args = new String[2];
+                args[0] = String.valueOf(0);
+                args[1] = String.valueOf(itemID);
+                break;
+            case "all":
+                args = new String[1];
+                args[0] = String.valueOf(itemID);
+                break;
+            default:
+                args = new String[1];
         }
 
         String whereClause = builder.toString();

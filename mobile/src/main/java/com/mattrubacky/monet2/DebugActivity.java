@@ -41,17 +41,10 @@ public class DebugActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_campaign_stats);
+        setContentView(R.layout.item_player);
 
         Typeface titleFont = Typeface.createFromAsset(getAssets(), "Paintball.otf");
-        new ShopNotificationFactory(this).manageNotifications();
-        new StageNotifitcationFactory(this).manageNotifications();
-        new SalmonRunNotificationFactory(this).manageNotifications();
-        new BattleGearNotificationFactory(this).manageNotifications();
-        new WeaponNotificationFactory(this).manageNotifications();
-        new GrizzCoRewardNotificationFactory(this).manageNotifications();
-        Update update = new Update(getApplicationContext());
-        update.execute();
+
 
     }
 

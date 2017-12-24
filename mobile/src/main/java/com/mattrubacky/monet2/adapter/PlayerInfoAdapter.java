@@ -61,6 +61,19 @@ import java.util.ArrayList;
 
         Player player = input.get(position);
 
+        holder.card.setClipToOutline(true);
+
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.gearLayout.getVisibility()==View.GONE){
+                    holder.gearLayout.setVisibility(View.VISIBLE);
+                }else{
+                    holder.gearLayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
         holder.rank.setTypeface(font);
         holder.name.setTypeface(font);
         holder.fesGrade.setTypeface(font);
@@ -209,7 +222,7 @@ import java.util.ArrayList;
                 break;
         }
 
-        holder.child.setClipToOutline(true);
+        holder.gearLayout.setClipToOutline(true);
 
         url = "https://app.splatoon2.nintendo.net" + player.user.head.url;
         imageDirName = player.user.head.name.toLowerCase().replace(" ", "_");

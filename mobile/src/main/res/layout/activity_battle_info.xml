@@ -255,11 +255,13 @@
                             android:layout_height="wrap_content"
                             android:paddingBottom="10dp"
                             android:background="@drawable/repeat_zigzag">
+
                             <ImageView
                                 android:id="@+id/AllyFesIcon"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
+                                android:layout_marginRight="-15dp"
                                 android:rotation="-10"
                                 android:src="@drawable/vampire"/>
                             <TextView
@@ -267,15 +269,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toRightOf="@+id/AllyFesIcon"
+                                android:layout_marginLeft="15dp"
                                 android:text="My Team"
                                 android:textSize="18sp" />
-                            <ExpandableListView
+                            <android.support.v7.widget.RecyclerView
                                 android:id="@+id/AllyList"
                                 android:layout_width="wrap_content"
-                                android:layout_height="285dp"
+                                android:layout_height="wrap_content"
                                 android:layout_below="@+id/allyTitle"
-                                android:groupIndicator="@null"
-                                android:layout_marginTop="10dp"></ExpandableListView>
+                                android:layout_marginTop="10dp"/>
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -302,6 +304,7 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_marginLeft="10dp"
+                                android:layout_marginRight="-15dp"
                                 android:rotation="-10"
                                 android:src="@drawable/vampire"/>
                             <TextView
@@ -309,16 +312,16 @@
                                 android:layout_toRightOf="@+id/FoeFesIcon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
                                 android:text="Other Team"
                                 android:textSize="18sp" />
 
-                            <ExpandableListView
+                            <android.support.v7.widget.RecyclerView
                                 android:id="@+id/FoeList"
                                 android:layout_width="wrap_content"
-                                android:layout_height="285dp"
+                                android:layout_height="wrap_content"
                                 android:layout_below="@+id/foeTitle"
-                                android:groupIndicator="@null"
-                                android:layout_marginTop="10dp"></ExpandableListView>
+                                android:layout_marginTop="10dp"/>
                         </RelativeLayout>
                     </RelativeLayout>
                 </RelativeLayout>
