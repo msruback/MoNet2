@@ -1,5 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="wrap_content">
 
+    <RelativeLayout
+        android:id="@+id/generalStats"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/clothes"
+        android:elevation="5dp"
+        android:rotation="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/repeat_zigzag">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-5dp"
+                android:src="@drawable/extra_product"
+                android:tint="@color/offWhite" />
+
+            <RelativeLayout
+                android:id="@+id/winOutline"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/offWhiteDark"
+                android:padding="5dp">
+
+                <RelativeLayout
+                    android:id="@+id/WinLossMeter"
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/offWhiteDark">
+
+                    <RelativeLayout
+                        android:id="@+id/Wins"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorPrimary">
+
+                        <TextView
+                            android:id="@+id/WinText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="50" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/Losses"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:background="@color/colorAccent">
+
+                        <TextView
+                            android:id="@+id/LossText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="50" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/repeat_stripes"></RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/inkedLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/winOutline"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/transparentgrey">
+
+                <TextView
+                    android:id="@+id/InkedTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/turfPrimary"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/totalInked"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/InkedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/InkedTitleText"
+                    android:text="888p"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/lastLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inkedLayout"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/transparentgrey">
+
+                <TextView
+                    android:id="@+id/LastTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/turfPrimary"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/lastUsed"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/LastText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/LastTitleText"
+                    android:text="888p"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 </RelativeLayout>

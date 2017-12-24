@@ -3,7 +3,6 @@ package com.mattrubacky.monet2.adapter;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,11 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.ViewHolders.ListViewHolder;
 import com.mattrubacky.monet2.adapter.ViewHolders.UserDetailViewHolder;
 import com.mattrubacky.monet2.adapter.ViewHolders.UserStatsViewHolder;
@@ -63,7 +58,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         View view;
         switch (viewType){
             case 0:
-                return new UserDetailViewHolder(inflater,parent);
+                return new UserDetailViewHolder(inflater,parent,context);
             case 1:
                 return new ListViewHolder(inflater,parent);
             default:
@@ -78,71 +73,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ImageHandler imageHandler = new ImageHandler();
         if(holderAb.getItemViewType()==0) {
             UserDetailViewHolder holder = (UserDetailViewHolder) holderAb;
-            holder.userCard.setClipToOutline(true);
-            holder.icon.setClipToOutline(true);
-
-            holder.name.setTypeface(fontTitle);
-            holder.levelTitle.setTypeface(fontTitle);
-            holder.rankTitle.setTypeface(fontTitle);
-            holder.splatzonesTitle.setTypeface(fontTitle);
-            holder.towerControlTitle.setTypeface(fontTitle);
-            holder.rainmakerTitle.setTypeface(fontTitle);
-            holder.clamBlitzTitle.setTypeface(fontTitle);
-
-            holder.level.setTypeface(font);
-            holder.splatzonesRank.setTypeface(font);
-            holder.towerControlRank.setTypeface(font);
-            holder.rainmakerRank.setTypeface(font);
-            holder.clamBlitzRank.setTypeface(font);
-
-            holder.name.setText(records.records.user.name);
-            holder.level.setText(String.valueOf(records.records.user.rank));
-            if (records.records.user.splatzones.sPlus != null) {
-                holder.splatzonesRank.setText(records.records.user.splatzones.rank + "+" + records.records.user.splatzones.sPlus);
-            } else {
-                holder.splatzonesRank.setText(records.records.user.splatzones.rank);
-            }
-
-            if (records.records.user.tower.sPlus != null) {
-                holder.towerControlRank.setText(records.records.user.tower.rank + "+" + records.records.user.tower.sPlus);
-            } else {
-                holder.towerControlRank.setText(records.records.user.tower.rank);
-            }
-
-            if (records.records.user.rainmaker.sPlus != null) {
-                holder.rainmakerRank.setText(records.records.user.rainmaker.rank + "+" + records.records.user.rainmaker.sPlus);
-            } else {
-                holder.rainmakerRank.setText(records.records.user.rainmaker.rank);
-            }
-
-            if (records.records.user.clam.sPlus != null) {
-                holder.clamBlitzRank.setText(records.records.user.clam.rank + "+" + records.records.user.clam.sPlus);
-            } else {
-                holder.clamBlitzRank.setText(records.records.user.clam.rank);
-            }
-            if (icon != null) {
-                String url = "https://app.splatoon2.nintendo.net" + icon.url;
-                String location = icon.nickname.toLowerCase().replace(" ", "_");
-                Picasso.with(context).load(url).into(holder.user);
-                imageHandler.downloadImage("weapon", location, url, context);
-            }
-
-            ArrayList<ClosetHanger> gear = new ArrayList<>();
-            ClosetHanger hanger = new ClosetHanger();
-            hanger.gear = records.records.user.head;
-            hanger.skills = records.records.user.headSkills;
-            gear.add(hanger);
-            hanger = new ClosetHanger();
-            hanger.gear = records.records.user.clothes;
-            hanger.skills = records.records.user.clothesSkills;
-            gear.add(hanger);
-            hanger = new ClosetHanger();
-            hanger.gear = records.records.user.shoes;
-            hanger.skills = records.records.user.shoeSkills;
-            gear.add(hanger);
-            PlayerGearAdapter playerGearAdapter = new PlayerGearAdapter(context, records.records.user.weapon, gear);
-            holder.weaponGearList.setAdapter(playerGearAdapter);
-            holder.weaponGearList.setLayoutManager(new GridLayoutManager(context, 2));
+            holder.manageHolder(records,icon);
         }else if(holderAb.getItemViewType()==1) {
             ListViewHolder holder = (ListViewHolder) holderAb;
 
@@ -152,6 +83,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ChallengeAdapter challengeAdapter = new ChallengeAdapter(context, challenges, records.challenges.totalPaint);
             holder.itemList.setAdapter(challengeAdapter);
             holder.itemList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+
         }else if(holderAb.getItemViewType()==2){
             UserStatsViewHolder holder = (UserStatsViewHolder) holderAb;
 
