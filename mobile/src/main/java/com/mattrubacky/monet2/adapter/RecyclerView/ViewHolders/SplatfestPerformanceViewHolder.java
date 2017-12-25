@@ -35,7 +35,7 @@ public class SplatfestPerformanceViewHolder extends RecyclerView.ViewHolder{
     private Context context;
 
     public SplatfestPerformanceViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
-        super(inflater.inflate(R.layout.item_pager_list, parent, false));
+        super(inflater.inflate(R.layout.item_splatfest_performance, parent, false));
 
         this.context = context;
 

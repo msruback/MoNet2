@@ -26,8 +26,7 @@
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="-5dp"
-                android:src="@drawable/extra_product"
-                android:tint="@color/offWhite" />
+                android:src="@drawable/extra_product"/>
 
             <RelativeLayout
                 android:id="@+id/winOutline"
