@@ -19,7 +19,7 @@ import com.mattrubacky.monet2.R;
 
 public class SoloStatCardViewHolder extends RecyclerView.ViewHolder{
 
-    public RelativeLayout card,lowerWhisker,box,lowerBox,upperBox,upperWhisker;
+    public RelativeLayout card,lowerWhisker,box,lowerBox,upperBox,upperWhisker,zigzag;
     public TextView title,minimum,lowerQuartile,median,upperQuartile,maximum;
     public ImageView product;
 
@@ -33,6 +33,7 @@ public class SoloStatCardViewHolder extends RecyclerView.ViewHolder{
         card = (RelativeLayout) itemView.findViewById(R.id.card);
         title = (TextView) itemView.findViewById(R.id.Title);
         product = (ImageView) itemView.findViewById(R.id.product);
+        zigzag = (RelativeLayout) itemView.findViewById(R.id.zigzag);
 
         lowerWhisker = (RelativeLayout) itemView.findViewById(R.id.LowerWhisker);
         box = (RelativeLayout) itemView.findViewById(R.id.Box);

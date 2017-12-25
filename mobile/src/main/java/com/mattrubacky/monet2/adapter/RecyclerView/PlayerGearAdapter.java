@@ -11,6 +11,7 @@ import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.WeaponViewHolder;
 import com.mattrubacky.monet2.deserialized.Weapon;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.helper.ImageHandler;
+import com.mattrubacky.monet2.helper.WeaponStats;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class PlayerGearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType){
             case 0:
-                return new WeaponViewHolder(inflater,parent);
+                return new WeaponViewHolder(inflater,parent,context);
             default:
                 return new GearViewHolder(inflater,parent,context);
         }
@@ -44,22 +45,9 @@ public class PlayerGearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holderAb, final int position) {
-        Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
-        ImageHandler imageHandler = new ImageHandler();
-
         if(holderAb.getItemViewType()==0) {
             WeaponViewHolder holder = (WeaponViewHolder) holderAb;
-            String url = "https://app.splatoon2.nintendo.net" + weapon.url;
-            String location = weapon.name.toLowerCase().replace(" ", "_");
-            if (imageHandler.imageExists("weapon", location, context)) {
-                holder.weapon.setImageBitmap(imageHandler.loadImage("weapon", location));
-            } else {
-                Picasso.with(context).load(url).into(holder.weapon);
-                imageHandler.downloadImage("weapon", location, url, context);
-            }
-
-            holder.name.setText(weapon.name);
-            holder.name.setTypeface(font);
+            holder.manageHolder(weapon);
         }else{
             GearViewHolder holder = (GearViewHolder) holderAb;
             ClosetHanger closetHanger = gear.get(position-1);

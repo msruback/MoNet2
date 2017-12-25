@@ -9,21 +9,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.helper.ImageHandler;
 
 /**
  * Created by mattr on 12/24/2017.
  */
 
-public class GeneralStatViewHolder extends RecyclerView.ViewHolder{
+public class PlayerGeneralStatViewHolder extends RecyclerView.ViewHolder{
 
     public RelativeLayout card,winLossMeter,wins,losses;
-    public TextView inkTitle,lastPlayedTitle;
-    public TextView winText,lossText,inkedText,lastPlayedText;
+    public TextView inkTitle,firstPlayedTitle,lastPlayedTitle;
+    public TextView winText,lossText,inkedText,firstPlayedText,lastPlayedText;
     private Context context;
 
-    public GeneralStatViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
-        super(inflater.inflate(R.layout.item_general_stats, parent, false));
+    public PlayerGeneralStatViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
+        super(inflater.inflate(R.layout.item_player_general_stats, parent, false));
 
         this.context = context;
 
@@ -33,11 +32,13 @@ public class GeneralStatViewHolder extends RecyclerView.ViewHolder{
         losses = (RelativeLayout) itemView.findViewById(R.id.Losses);
 
         inkTitle = (TextView) itemView.findViewById(R.id.InkedTitleText);
+        firstPlayedTitle = (TextView) itemView.findViewById(R.id.FirstTitleText);
         lastPlayedTitle = (TextView) itemView.findViewById(R.id.LastTitleText);
 
         winText = (TextView) itemView.findViewById(R.id.WinText);
         lossText = (TextView) itemView.findViewById(R.id.LossText);
         inkedText = (TextView) itemView.findViewById(R.id.InkedText);
+        firstPlayedText = (TextView) itemView.findViewById(R.id.FirstText);
         lastPlayedText = (TextView) itemView.findViewById(R.id.LastText);
     }
 
@@ -48,11 +49,13 @@ public class GeneralStatViewHolder extends RecyclerView.ViewHolder{
         card.setClipToOutline(true);
 
         inkTitle.setTypeface(fontTitle);
+        firstPlayedTitle.setTypeface(fontTitle);
         lastPlayedTitle.setTypeface(fontTitle);
 
         winText.setTypeface(font);
         lossText.setTypeface(font);
         inkedText.setTypeface(font);
+        firstPlayedText.setTypeface(font);
         lastPlayedText.setTypeface(font);
     }
 }

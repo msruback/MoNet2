@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.deserialized.Weapon;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.WeaponStats;
 import com.squareup.picasso.Picasso;
@@ -19,7 +20,7 @@ import com.squareup.picasso.Picasso;
 
 public class WeaponViewHolder extends RecyclerView.ViewHolder{
 
-    public ImageView weapon;
+    public ImageView weaponImage;
     public TextView name;
     private Context context;
 
@@ -27,24 +28,24 @@ public class WeaponViewHolder extends RecyclerView.ViewHolder{
         super(inflater.inflate(R.layout.item_weapon, parent, false));
         this.context = context;
 
-        weapon = (ImageView) itemView.findViewById(R.id.WeaponImage);
+        weaponImage = (ImageView) itemView.findViewById(R.id.WeaponImage);
         name = (TextView) itemView.findViewById(R.id.Name);
     }
-    public void manageHolder(WeaponStats weaponStats){
+    public void manageHolder(Weapon weapon){
         Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
         ImageHandler imageHandler = new ImageHandler();
 
 
-        String url = "https://app.splatoon2.nintendo.net"+weaponStats.weapon.url;
-        String location = weaponStats.weapon.name.toLowerCase().replace(" ","_");
+        String url = "https://app.splatoon2.nintendo.net"+weapon.url;
+        String location = weapon.name.toLowerCase().replace(" ","_");
         if(imageHandler.imageExists("weapon",location,context)){
-            weapon.setImageBitmap(imageHandler.loadImage("weapon",location));
+            weaponImage.setImageBitmap(imageHandler.loadImage("weapon",location));
         }else{
-            Picasso.with(context).load(url).into(weapon);
+            Picasso.with(context).load(url).into(weaponImage);
             imageHandler.downloadImage("weapon",location,url,context);
         }
 
-        name.setText(weaponStats.weapon.name);
+        name.setText(weapon.name);
         name.setTypeface(font);
     }
 }

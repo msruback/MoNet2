@@ -1,10 +1,10 @@
-package com.mattrubacky.monet2.fragment.SplatfestDetail;
+package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,51 +23,55 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * Created by mattr on 11/17/2017.
+ * Created by mattr on 12/24/2017.
  */
 
-public class SplatfestPerformanceFragment extends Fragment{
-    ViewGroup rootView;
+public class SplatfestPerformanceViewHolder extends RecyclerView.ViewHolder{
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public RelativeLayout winLossMeter,wins,losses,meterLayout,sameTeam,disconnects,timePlayedLayout,imageLayout;
+    public TextView gradeTitle,sameTeamTitle,disconnectTitle,powerTitle,playedTitle;
+    public TextView winText,lossText,gradeText,sameTeamText,disconnectText,powerText,playedText;
+    public ImageView image;
+    private Context context;
 
-        rootView = (ViewGroup)  inflater.inflate(R.layout.item_splatfest_performance, container, false);
-        Bundle bundle = this.getArguments();
+    public SplatfestPerformanceViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
+        super(inflater.inflate(R.layout.item_pager_list, parent, false));
 
-        Splatfest splatfest = bundle.getParcelable("splatfest");
-        SplatfestStats stats = bundle.getParcelable("stats");
+        this.context = context;
 
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
-        Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
+        winLossMeter = (RelativeLayout) itemView.findViewById(R.id.WinLossMeter);
+        wins = (RelativeLayout) itemView.findViewById(R.id.Wins);
+        losses = (RelativeLayout) itemView.findViewById(R.id.Losses);
+        meterLayout = (RelativeLayout) itemView.findViewById(R.id.winOutline);
+        sameTeam = (RelativeLayout) itemView.findViewById(R.id.sameTeamLayout);
+        disconnects = (RelativeLayout) itemView.findViewById(R.id.disconnectLayout);
+        timePlayedLayout = (RelativeLayout) itemView.findViewById(R.id.timeLayout);
+        imageLayout = (RelativeLayout) itemView.findViewById(R.id.imageLayout);
 
-        RelativeLayout winLossMeter = (RelativeLayout) rootView.findViewById(R.id.WinLossMeter);
-        RelativeLayout wins = (RelativeLayout) rootView.findViewById(R.id.Wins);
-        RelativeLayout losses = (RelativeLayout) rootView.findViewById(R.id.Losses);
-        RelativeLayout meterLayout = (RelativeLayout) rootView.findViewById(R.id.winOutline);
-        RelativeLayout sameTeam = (RelativeLayout) rootView.findViewById(R.id.sameTeamLayout);
-        RelativeLayout disconnects = (RelativeLayout) rootView.findViewById(R.id.disconnectLayout);
-        RelativeLayout timePlayedLayout = (RelativeLayout) rootView.findViewById(R.id.timeLayout);
-        RelativeLayout imageLayout = (RelativeLayout) rootView.findViewById(R.id.imageLayout);
+        winText = (TextView) itemView.findViewById(R.id.WinText);
+        lossText = (TextView) itemView.findViewById(R.id.LossText);
+        gradeTitle = (TextView) itemView.findViewById(R.id.GradeTitleText);
+        gradeText = (TextView) itemView.findViewById(R.id.GradeText);
+        sameTeamTitle = (TextView) itemView.findViewById(R.id.SameTeamTitleText);
+        sameTeamText = (TextView) itemView.findViewById(R.id.SameTeamText);
+        disconnectTitle = (TextView) itemView.findViewById(R.id.DisconnectTitleText);
+        disconnectText = (TextView) itemView.findViewById(R.id.DisconnectText);
+        powerTitle = (TextView) itemView.findViewById(R.id.PowerTitleText);
+        powerText = (TextView) itemView.findViewById(R.id.PowerText);
+        playedTitle = (TextView) itemView.findViewById(R.id.TimeTitleText);
+        playedText = (TextView) itemView.findViewById(R.id.TimeText);
+
+        image = (ImageView) itemView.findViewById(R.id.Image);
+    }
+
+    public void manageHolder(SplatfestStats stats,Splatfest splatfest){
+
+        Typeface font = Typeface.createFromAsset(context.getAssets(), "Splatfont2.ttf");
+        Typeface fontTitle = Typeface.createFromAsset(context.getAssets(), "Paintball.otf");
+
 
         wins.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
         losses.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
-
-        TextView winText = (TextView) rootView.findViewById(R.id.WinText);
-        TextView lossText = (TextView) rootView.findViewById(R.id.LossText);
-        TextView gradeTitle = (TextView) rootView.findViewById(R.id.GradeTitleText);
-        TextView gradeText = (TextView) rootView.findViewById(R.id.GradeText);
-        TextView sameTeamTitle = (TextView) rootView.findViewById(R.id.SameTeamTitleText);
-        TextView sameTeamText = (TextView) rootView.findViewById(R.id.SameTeamText);
-        TextView disconnectTitle = (TextView) rootView.findViewById(R.id.DisconnectTitleText);
-        TextView disconnectText = (TextView) rootView.findViewById(R.id.DisconnectText);
-        TextView powerTitle = (TextView) rootView.findViewById(R.id.PowerTitleText);
-        TextView powerText = (TextView) rootView.findViewById(R.id.PowerText);
-        TextView playedTitle = (TextView) rootView.findViewById(R.id.TimeTitleText);
-        TextView playedText = (TextView) rootView.findViewById(R.id.TimeText);
-
-        ImageView image = (ImageView) rootView.findViewById(R.id.Image);
 
         winText.setTypeface(font);
         lossText.setTypeface(font);
@@ -127,11 +131,11 @@ public class SplatfestPerformanceFragment extends Fragment{
                 imageDirName = splatfest.names.bravo.toLowerCase().replace(" ", "_");
                 url = "https://app.splatoon2.nintendo.net" + splatfest.images.bravo;
             }
-            if (imageHandler.imageExists("splatfest", imageDirName, getContext())) {
+            if (imageHandler.imageExists("splatfest", imageDirName, context)) {
                 image.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
             } else {
-                Picasso.with(getContext()).load(url).into(image);
-                imageHandler.downloadImage("splatfest", imageDirName, url, getContext());
+                Picasso.with(context).load(url).into(image);
+                imageHandler.downloadImage("splatfest", imageDirName, url, context);
             }
 
         }else{
@@ -139,15 +143,13 @@ public class SplatfestPerformanceFragment extends Fragment{
         }
 
         width *= 250;
-        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         wins.setLayoutParams(layoutParams);
 
         layoutParams = losses.getLayoutParams();
         width = stats.losses/total;
         width *= 250;
-        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         losses.setLayoutParams(layoutParams);
-
-        return rootView;
     }
 }

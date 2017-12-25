@@ -1,13 +1,12 @@
-package com.mattrubacky.monet2.fragment.SplatfestDetail;
+package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,33 +19,57 @@ import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
 /**
- * Created by mattr on 11/17/2017.
+ * Created by mattr on 12/24/2017.
  */
 
-public class SplatfestResultFragment extends Fragment {
-    ViewGroup rootView;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+public class SplatfestResultViewHolder extends RecyclerView.ViewHolder{
 
-        rootView = (ViewGroup)  inflater.inflate(R.layout.item_splatfest_results, container, false);
-        Bundle bundle = this.getArguments();
+    public RelativeLayout voteMeter,alphaVote,bravoVote,soloMeter,alphaSolo,bravoSolo,teamMeter,alphaTeam,bravoTeam;
+    public ImageView alphaImage,bravoImage;
+    public TextView voteTitle,alphaVoteText,bravoVoteText,soloTitle,alphaSoloText,bravoSoloText,teamTitle,alphaTeamText,bravoTeamText;
+    public TextView alphaVotePercent,bravoVotePercent,alphaSoloPercent,bravoSoloPercent,alphaTeamPercent,bravoTeamPercent;
+    private Context context;
 
-        Splatfest splatfest = bundle.getParcelable("splatfest");
-        SplatfestResult result = bundle.getParcelable("result");
+    public SplatfestResultViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
+        super(inflater.inflate(R.layout.item_splatfest_results, parent, false));
 
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
-        Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
+        this.context = context;
 
-        RelativeLayout voteMeter = (RelativeLayout) rootView.findViewById(R.id.VoteWinLossMeter);
-        RelativeLayout alphaVote = (RelativeLayout) rootView.findViewById(R.id.VoteWins);
-        RelativeLayout bravoVote = (RelativeLayout) rootView.findViewById(R.id.VoteLosses);
-        RelativeLayout soloMeter = (RelativeLayout) rootView.findViewById(R.id.SoloWinLossMeter);
-        RelativeLayout alphaSolo = (RelativeLayout) rootView.findViewById(R.id.SoloWins);
-        RelativeLayout bravoSolo = (RelativeLayout) rootView.findViewById(R.id.SoloLosses);
-        RelativeLayout teamMeter = (RelativeLayout) rootView.findViewById(R.id.TeamWinLossMeter);
-        RelativeLayout alphaTeam = (RelativeLayout) rootView.findViewById(R.id.TeamWins);
-        RelativeLayout bravoTeam = (RelativeLayout) rootView.findViewById(R.id.TeamLosses);
+        voteMeter = (RelativeLayout) itemView.findViewById(R.id.VoteWinLossMeter);
+        alphaVote = (RelativeLayout) itemView.findViewById(R.id.VoteWins);
+        bravoVote = (RelativeLayout) itemView.findViewById(R.id.VoteLosses);
+        soloMeter = (RelativeLayout) itemView.findViewById(R.id.SoloWinLossMeter);
+        alphaSolo = (RelativeLayout) itemView.findViewById(R.id.SoloWins);
+        bravoSolo = (RelativeLayout) itemView.findViewById(R.id.SoloLosses);
+        teamMeter = (RelativeLayout) itemView.findViewById(R.id.TeamWinLossMeter);
+        alphaTeam = (RelativeLayout) itemView.findViewById(R.id.TeamWins);
+        bravoTeam = (RelativeLayout) itemView.findViewById(R.id.TeamLosses);
+
+        alphaImage = (ImageView) itemView.findViewById(R.id.AlphaImage);
+        bravoImage = (ImageView) itemView.findViewById(R.id.BravoImage);
+
+        voteTitle = (TextView) itemView.findViewById(R.id.VoteTitle);
+        alphaVoteText = (TextView) itemView.findViewById(R.id.VoteWinText);
+        bravoVoteText = (TextView) itemView.findViewById(R.id.VoteLossText);
+        soloTitle = (TextView) itemView.findViewById(R.id.SoloTitle);
+        alphaSoloText = (TextView) itemView.findViewById(R.id.SoloWinText);
+        bravoSoloText = (TextView) itemView.findViewById(R.id.SoloLossText);
+        teamTitle = (TextView) itemView.findViewById(R.id.TeamTitle);
+        alphaTeamText = (TextView) itemView.findViewById(R.id.TeamWinText);
+        bravoTeamText = (TextView) itemView.findViewById(R.id.TeamLossText);
+
+        alphaVotePercent = (TextView) itemView.findViewById(R.id.alphaVotePercent);
+        bravoVotePercent = (TextView) itemView.findViewById(R.id.bravoVotePercent);
+        alphaSoloPercent = (TextView) itemView.findViewById(R.id.alphaSoloPercent);
+        bravoSoloPercent = (TextView) itemView.findViewById(R.id.bravoSoloPercent);
+        alphaTeamPercent = (TextView) itemView.findViewById(R.id.alphaTeamPercent);
+        bravoTeamPercent = (TextView) itemView.findViewById(R.id.bravoTeamPercent);
+    }
+
+    public void manageHolder(Splatfest splatfest, SplatfestResult result){
+
+        Typeface font = Typeface.createFromAsset(context.getAssets(), "Splatfont2.ttf");
+        Typeface fontTitle = Typeface.createFromAsset(context.getAssets(), "Paintball.otf");
 
         alphaVote.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
         bravoVote.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
@@ -54,26 +77,6 @@ public class SplatfestResultFragment extends Fragment {
         bravoSolo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
         alphaTeam.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
         bravoTeam.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
-
-        ImageView alphaImage = (ImageView) rootView.findViewById(R.id.AlphaImage);
-        ImageView bravoImage = (ImageView) rootView.findViewById(R.id.BravoImage);
-
-        TextView voteTitle = (TextView) rootView.findViewById(R.id.VoteTitle);
-        TextView alphaVoteText = (TextView) rootView.findViewById(R.id.VoteWinText);
-        TextView bravoVoteText = (TextView) rootView.findViewById(R.id.VoteLossText);
-        TextView soloTitle = (TextView) rootView.findViewById(R.id.SoloTitle);
-        TextView alphaSoloText = (TextView) rootView.findViewById(R.id.SoloWinText);
-        TextView bravoSoloText = (TextView) rootView.findViewById(R.id.SoloLossText);
-        TextView teamTitle = (TextView) rootView.findViewById(R.id.TeamTitle);
-        TextView alphaTeamText = (TextView) rootView.findViewById(R.id.TeamWinText);
-        TextView bravoTeamText = (TextView) rootView.findViewById(R.id.TeamLossText);
-
-        TextView alphaVotePercent = (TextView) rootView.findViewById(R.id.alphaVotePercent);
-        TextView bravoVotePercent = (TextView) rootView.findViewById(R.id.bravoVotePercent);
-        TextView alphaSoloPercent = (TextView) rootView.findViewById(R.id.alphaSoloPercent);
-        TextView bravoSoloPercent = (TextView) rootView.findViewById(R.id.bravoSoloPercent);
-        TextView alphaTeamPercent = (TextView) rootView.findViewById(R.id.alphaTeamPercent);
-        TextView bravoTeamPercent = (TextView) rootView.findViewById(R.id.bravoTeamPercent);
 
         voteTitle.setTypeface(fontTitle);
         alphaVoteText.setTypeface(font);
@@ -131,19 +134,19 @@ public class SplatfestResultFragment extends Fragment {
         ImageHandler imageHandler = new ImageHandler();
         String imageDirName = splatfest.names.alpha.toLowerCase().replace(" ", "_");
         String url = "https://app.splatoon2.nintendo.net"+splatfest.images.alpha;
-        if (imageHandler.imageExists("splatfest", imageDirName, getContext())) {
+        if (imageHandler.imageExists("splatfest", imageDirName, context)) {
             alphaImage.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
         } else {
-            Picasso.with(getContext()).load(url).into(alphaImage);
-            imageHandler.downloadImage("splatfest", imageDirName, url, getContext());
+            Picasso.with(context).load(url).into(alphaImage);
+            imageHandler.downloadImage("splatfest", imageDirName, url, context);
         }
         url = "https://app.splatoon2.nintendo.net"+splatfest.images.bravo;
         imageDirName = splatfest.names.bravo.toLowerCase().replace(" ", "_");
-        if (imageHandler.imageExists("splatfest", imageDirName, getContext())) {
+        if (imageHandler.imageExists("splatfest", imageDirName, context)) {
             bravoImage.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
         } else {
-            Picasso.with(getContext()).load(url).into(bravoImage);
-            imageHandler.downloadImage("splatfest", imageDirName, url, getContext());
+            Picasso.with(context).load(url).into(bravoImage);
+            imageHandler.downloadImage("splatfest", imageDirName, url, context);
         }
 
         voteMeter.setClipToOutline(true);
@@ -154,41 +157,39 @@ public class SplatfestResultFragment extends Fragment {
         total = result.participants.alpha+result.participants.bravo;
         float width = result.participants.alpha/total;
         width *= 250;
-        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         alphaVote.setLayoutParams(layoutParams);
 
         layoutParams = bravoVote.getLayoutParams();
         width = result.participants.bravo/total;
         width *= 250;
-        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         bravoVote.setLayoutParams(layoutParams);
 
         layoutParams = alphaSolo.getLayoutParams();
         total = result.teamScores.alphaSolo+result.teamScores.bravoSolo;
         width = result.teamScores.alphaSolo/total;
         width *= 250;
-        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         alphaSolo.setLayoutParams(layoutParams);
 
         layoutParams = bravoSolo.getLayoutParams();
         width = result.teamScores.bravoSolo/total;
         width *= 250;
-        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         bravoSolo.setLayoutParams(layoutParams);
 
         layoutParams = alphaTeam.getLayoutParams();
         total = result.teamScores.alphaTeam+result.teamScores.bravoTeam;
         width = result.teamScores.alphaTeam/total;
         width *= 250;
-        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         alphaTeam.setLayoutParams(layoutParams);
 
         layoutParams = bravoTeam.getLayoutParams();
         width = result.teamScores.bravoTeam/total;
         width *= 250;
-        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
+        layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         bravoTeam.setLayoutParams(layoutParams);
-
-        return rootView;
     }
 }

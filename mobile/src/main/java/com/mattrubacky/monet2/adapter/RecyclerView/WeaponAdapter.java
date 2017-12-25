@@ -61,7 +61,7 @@ public class WeaponAdapter extends RecyclerView.Adapter<WeaponViewHolder>{
     @Override
     public void onBindViewHolder(final WeaponViewHolder holder, final int position) {
         WeaponStats weaponStats = input.get(position);
-        holder.manageHolder(weaponStats);
+        holder.manageHolder(weaponStats.weapon);
     }
 
     @Override

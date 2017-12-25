@@ -23,6 +23,18 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/repeat_zigzag">
 
+            <TextView
+                android:id="@+id/Button"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/primary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/solo"
+                android:textSize="16sp" />
+
             <ImageView
                 android:id="@id/product"
                 android:layout_width="40dp"
@@ -168,6 +180,15 @@
                     android:layout_alignRight="@+id/UpperWhisker"
                     android:text="0"
                     android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:id="@+id/Player"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="34dp"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/colorPrimary"></RelativeLayout>
+
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
