@@ -3,6 +3,7 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.FloatProperty;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
+
+import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by mattr on 12/24/2017.

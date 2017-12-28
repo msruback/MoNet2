@@ -31,7 +31,7 @@ public class PlayerGeneralStatViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        card = (RelativeLayout) itemView.findViewById(R.id.card);
+        card = (RelativeLayout) itemView.findViewById(R.id.generalStats);
         winLossMeter = (RelativeLayout) itemView.findViewById(R.id.WinLossMeter);
         wins = (RelativeLayout) itemView.findViewById(R.id.Wins);
         losses = (RelativeLayout) itemView.findViewById(R.id.Losses);
@@ -76,6 +76,8 @@ public class PlayerGeneralStatViewHolder extends RecyclerView.ViewHolder{
         time = sdf.format(stats.lastPlayed);
 
         lastPlayedText.setText(time);
+
+        winLossMeter.setClipToOutline(true);
 
         ViewGroup.LayoutParams layoutParams = wins.getLayoutParams();
         float total = records.records.wins + records.records.losses;
