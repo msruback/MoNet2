@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.ChallengeAdapter;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ListViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.UserDetailViewHolder;
@@ -67,7 +68,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if(holderAb.getItemViewType()==0) {
             UserDetailViewHolder holder = (UserDetailViewHolder) holderAb;
             holder.manageHolder(records,icon);
-            Random random = new Random(new Date().getTime());
+            holder.userCard.setBackgroundTintList(context.getResources().getColorStateList(R.color.favColorGreen));
         }else if(holderAb.getItemViewType()==1) {
             ListViewHolder holder = (ListViewHolder) holderAb;
 

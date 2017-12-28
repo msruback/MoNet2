@@ -84,13 +84,22 @@ public class PlayerStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             PlayerGeneralStatViewHolder holder = (PlayerGeneralStatViewHolder) holderAb;
             holder.manageHolder(stats,records);
             holder.card.setRotation(rotation);
+            holder.card.setBackgroundTintList(context.getResources().getColorStateList(R.color.favColorGreen));
+            holder.inkTitle.setBackgroundTintList(context.getResources().getColorStateList(R.color.favColorYellow));
+            holder.firstPlayedTitle.setBackgroundTintList(context.getResources().getColorStateList(R.color.favColorYellow));
+            holder.lastPlayedTitle.setBackgroundTintList(context.getResources().getColorStateList(R.color.favColorYellow));
         }else if(holderAb.getItemViewType()==5){
             NoStatViewHolder holder = (NoStatViewHolder) holderAb;
             holder.manageHolder();
             holder.card.setRotation(rotation);
+            holder.card.setBackgroundTintList(context.getResources().getColorStateList(R.color.favColorGreen));
+            holder.product.setImageTintList(context.getResources().getColorStateList(R.color.darkgrey));
         }else{
             SoloStatCardViewHolder holder = (SoloStatCardViewHolder) holderAb;
             holder.card.setRotation(rotation);
+            holder.card.setBackgroundTintList(context.getResources().getColorStateList(R.color.favColorGreen));
+            holder.title.setBackgroundTintList(context.getResources().getColorStateList(R.color.favColorYellow));
+            holder.product.setImageTintList(context.getResources().getColorStateList(R.color.darkgrey));
             switch(holder.getItemViewType()){
                 case 1:
                     holder.manageHolder(context.getString(R.string.inkspread),stats.inkStats);

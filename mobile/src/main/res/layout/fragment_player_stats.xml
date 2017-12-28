@@ -7,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="@color/colorAccent"
         android:elevation="5dp">
 
@@ -25,6 +25,7 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
+                android:elevation="2dp"
                 android:src="@drawable/squid" />
         </RelativeLayout>
 
@@ -42,6 +43,7 @@
                 android:id="@+id/ChallengeImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:elevation="2dp"
                 android:src="@drawable/ink" />
         </RelativeLayout>
 
@@ -59,8 +61,13 @@
                 android:id="@+id/StatsImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:elevation="2dp"
                 android:src="@drawable/stats" />
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/repeat_dots"></RelativeLayout>
 
 
     </RelativeLayout>

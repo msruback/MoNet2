@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -12,6 +13,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.mattrubacky.monet2.R;
@@ -37,6 +39,7 @@ public class PlayerStatsFragment extends Fragment implements SplatnetConnected {
     RecyclerView pager;
 
     RelativeLayout playerTab,challengeTab,statsTab;
+    ImageView playerImage,challengeImage,statsImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,13 +59,21 @@ public class PlayerStatsFragment extends Fragment implements SplatnetConnected {
         challengeTab = (RelativeLayout) rootView.findViewById(R.id.ChallengeTab);
         statsTab = (RelativeLayout) rootView.findViewById(R.id.StatsTab);
 
+        playerImage = (ImageView) rootView.findViewById(R.id.UserImage);
+        challengeImage = (ImageView) rootView.findViewById(R.id.ChallengeImage);
+        statsImage = (ImageView) rootView.findViewById(R.id.StatsImage);
+
         playerTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 linearLayoutManager.scrollToPosition(0);
-                playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.primary));
-                challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
-                statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
+                playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorGreen));
+                challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+                statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+
+                playerImage.setImageTintList(getResources().getColorStateList(R.color.favColorYellow));
+                challengeImage.setImageTintList(getResources().getColorStateList(R.color.favColorGreen));
+                statsImage.setImageTintList(getResources().getColorStateList(R.color.favColorGreen));
             }
         });
 
@@ -70,9 +81,13 @@ public class PlayerStatsFragment extends Fragment implements SplatnetConnected {
             @Override
             public void onClick(View v) {
                 linearLayoutManager.scrollToPosition(1);
-                playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
-                challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.primary));
-                statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
+                playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+                challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorGreen));
+                statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+
+                playerImage.setImageTintList(getResources().getColorStateList(R.color.favColorGreen));
+                challengeImage.setImageTintList(getResources().getColorStateList(R.color.favColorYellow));
+                statsImage.setImageTintList(getResources().getColorStateList(R.color.favColorGreen));
             }
         });
 
@@ -80,9 +95,13 @@ public class PlayerStatsFragment extends Fragment implements SplatnetConnected {
             @Override
             public void onClick(View v) {
                 linearLayoutManager.scrollToPosition(2);
-                playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
-                challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
-                statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.primary));
+                playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+                challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+                statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorGreen));
+
+                playerImage.setImageTintList(getResources().getColorStateList(R.color.favColorGreen));
+                challengeImage.setImageTintList(getResources().getColorStateList(R.color.favColorGreen));
+                statsImage.setImageTintList(getResources().getColorStateList(R.color.favColorYellow));
             }
         });
         pager.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -90,21 +109,30 @@ public class PlayerStatsFragment extends Fragment implements SplatnetConnected {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if(newState==0){
+                    playerImage.setImageTintList(getResources().getColorStateList(R.color.favColorGreen));
+                    challengeImage.setImageTintList(getResources().getColorStateList(R.color.favColorGreen));
+                    statsImage.setImageTintList(getResources().getColorStateList(R.color.favColorGreen));
                     switch(linearLayoutManager.findFirstVisibleItemPosition()){
                         case 0:
-                            playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.primary));
-                            challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
-                            statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
+                            playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorGreen));
+                            challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+                            statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+
+                            playerImage.setImageTintList(getResources().getColorStateList(R.color.favColorYellow));
                             break;
                         case 1:
-                            playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
-                            challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.primary));
-                            statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
+                            playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+                            challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorGreen));
+                            statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+
+                            challengeImage.setImageTintList(getResources().getColorStateList(R.color.favColorYellow));
                             break;
                         case 2:
-                            playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
-                            challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
-                            statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.primary));
+                            playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+                            challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+                            statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorGreen));
+
+                            statsImage.setImageTintList(getResources().getColorStateList(R.color.favColorYellow));
                             break;
                     }
                 }
@@ -132,9 +160,13 @@ public class PlayerStatsFragment extends Fragment implements SplatnetConnected {
         splatnetConnector.execute();
 
 
-        playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
-        challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.primary));
-        statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.primary));
+        playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorGreen));
+        challengeTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+        statsTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorYellow));
+
+        playerImage.setImageTintList(getResources().getColorStateList(R.color.favColorYellow));
+        challengeImage.setImageTintList(getResources().getColorStateList(R.color.favColorGreen));
+        statsImage.setImageTintList(getResources().getColorStateList(R.color.favColorGreen));
 
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();

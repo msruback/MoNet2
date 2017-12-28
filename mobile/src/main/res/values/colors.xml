@@ -36,4 +36,12 @@
     <color name="merchShoe">#e66900</color>
     <color name="weapon">#ffee33</color>
     <color name="weaponDark">#ecdc24</color>
+
+    <!--Fav Colors-->
+    <color name="favColorPink">#f02d7d</color>
+    <color name="favColorGreen">#19d719</color>
+    <color name="favColorYellow">#cdf523</color>
+    <color name="favColorPurple">#a51ee1</color>
+    <color name="favColorBlue">#460fc8</color>
+    <color name="favColorSunYellow">#ffcd00</color>
 </resources>

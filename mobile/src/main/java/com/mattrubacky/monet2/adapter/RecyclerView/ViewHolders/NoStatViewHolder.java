@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ public class NoStatViewHolder extends RecyclerView.ViewHolder{
 
     public RelativeLayout card;
     public TextView noStats;
+    public ImageView product;
     private Context context;
 
     public NoStatViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
@@ -25,6 +27,7 @@ public class NoStatViewHolder extends RecyclerView.ViewHolder{
         this.context = context;
         card = (RelativeLayout) itemView.findViewById(R.id.noStats);
         noStats = (TextView) itemView.findViewById(R.id.NoStatsText);
+        product = (ImageView) itemView.findViewById(R.id.product);
     }
     public void manageHolder(){
         Typeface fontTitle = Typeface.createFromAsset(context.getAssets(), "Paintball.otf");
