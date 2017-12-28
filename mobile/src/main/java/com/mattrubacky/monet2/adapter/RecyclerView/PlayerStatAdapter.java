@@ -76,7 +76,10 @@ public class PlayerStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holderAb, final int position) {
-        float rotation = (float) (random.nextInt(400)/100.0)-2;
+        float rotation = (float) (random.nextInt(200)/100.0);
+        if(position%2==0){
+            rotation*=-1;
+        }
         if(holderAb.getItemViewType()==0){
             PlayerGeneralStatViewHolder holder = (PlayerGeneralStatViewHolder) holderAb;
             holder.manageHolder(stats,records);

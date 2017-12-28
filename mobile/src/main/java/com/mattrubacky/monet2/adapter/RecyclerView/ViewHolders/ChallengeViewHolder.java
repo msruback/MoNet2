@@ -49,13 +49,16 @@ public class ChallengeViewHolder extends RecyclerView.ViewHolder{
 
             ViewGroup.LayoutParams layoutParams = progress.getLayoutParams();
 
-            float width = paintpoints/challenge.paintpoints;
+            float width = (float) ((paintpoints*1.0)/(challenge.paintpoints*1.0));
+            System.out.print(paintpoints);
+            System.out.print("/");
+            System.out.println(challenge.paintpoints);
+
+            progressText.setText(width*100+"%");
 
             width *= 250;
             layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
             progress.setLayoutParams(layoutParams);
-
-            progressText.setText((paintpoints/challenge.paintpoints)*100+"%");
             challengeName.setVisibility(View.GONE);
         }else{
             String url = "https://app.splatoon2.nintendo.net"+challenge.url;

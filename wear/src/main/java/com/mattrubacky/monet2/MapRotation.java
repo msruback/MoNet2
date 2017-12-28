@@ -37,6 +37,10 @@ import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
+import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
+import com.mattrubacky.monet2.deserialized.SalmonSchedule;
+import com.mattrubacky.monet2.deserialized.Schedules;
+import com.mattrubacky.monet2.deserialized.TimePeriod;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -107,9 +111,9 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 title.setTypeface(fontTitle);
                 updateRotationData = new UpdateRotationData();
                 updateRotationData.execute();
-                if(salmonSchedule!=null&&salmonSchedule.schedule.size()!=0){
-                    if(salmonSchedule.schedule.get(0).endTime<new Date().getTime()){
-                        salmonSchedule.schedule.remove(0);
+                if(salmonSchedule!=null&&salmonSchedule.details.size()!=0){
+                    if((salmonSchedule.details.get(0).end*1000)<new Date().getTime()){
+                        salmonSchedule.details.remove(0);
                     }
                 }
                 if(schedules.regular.size()!=0&&((schedules.regular.get(0).end * 1000) < new Date().getTime())) {
@@ -212,7 +216,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 rotation.add("fes");
             }
         }
-        if(salmonSchedule!=null&&salmonSchedule.schedule!=null&&salmonSchedule.schedule.size()>0){
+        if(salmonSchedule!=null&&salmonSchedule.details!=null&&salmonSchedule.details.size()>0){
             rotation.add("salmon");
         }
         ListView rotationList = (ListView) stub.findViewById(R.id.ScheduleList);
@@ -366,12 +370,12 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                     SalmonShift2.setTypeface(font);
 
                     SimpleDateFormat sdf = new SimpleDateFormat("M/d h a");
-                    String startText = sdf.format(salmonSchedule.schedule.get(0).startTime);
-                    String endText = sdf.format(salmonSchedule.schedule.get(0).endTime);
+                    String startText = sdf.format(salmonSchedule.details.get(0).start);
+                    String endText = sdf.format(salmonSchedule.details.get(0).end);
                     SalmonShift1.setText(startText + " to " + endText);
-                    if(salmonSchedule.schedule.size()>1){
-                        startText = sdf.format(salmonSchedule.schedule.get(1).startTime);
-                        endText = sdf.format(salmonSchedule.schedule.get(1).endTime);
+                    if(salmonSchedule.details.size()>1){
+                        startText = sdf.format(salmonSchedule.details.get(1).start);
+                        endText = sdf.format(salmonSchedule.details.get(1).end);
                         SalmonShift2.setText(startText + " to " + endText);
                     }
                     break;
@@ -423,8 +427,8 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
             if(salmonSchedule==null){
                 salmonSchedule = new SalmonSchedule();
             }
-            if(salmonSchedule.schedule==null){
-                salmonSchedule.schedule = new ArrayList<>();
+            if(salmonSchedule.details==null){
+                salmonSchedule.details = new ArrayList<>();
             }
             updateUI();
         }

@@ -47,7 +47,8 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeViewHolder>{
 
         Challenge challenge = input.get(position);
 
-        holder.manageHolder(challenge,position==0,paintpoints);
+        boolean isTop = (position==0);
+        holder.manageHolder(challenge,isTop,paintpoints);
     }
 
     @Override
