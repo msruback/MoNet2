@@ -52,15 +52,13 @@ public class SalmonAdapter extends ArrayAdapter<SalmonRunDetail> {
         time.setText(startText+" to "+endText);
         stageA.setText(detail.stage.name);
         StringBuilder builder = new StringBuilder();
-        for(int i=0;i<detail.weapons.size();i++){
-            builder.append(detail.weapons.get(i).name);
-            if(i<detail.weapons.size()-2){
-                builder.append(",");
-            }
-            if(i==detail.weapons.size()-2){
-                builder.append(", and ");
-            }
-        }
+        builder.append(detail.weapons.get(0).name);
+        builder.append(", ");
+        builder.append(detail.weapons.get(1).name);
+        builder.append(",\n");
+        builder.append(detail.weapons.get(2).name);
+        builder.append(", and ");
+        builder.append(detail.weapons.get(3).name);
         weapons.setText(builder.toString());
 
         return convertView;

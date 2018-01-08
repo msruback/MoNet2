@@ -56,7 +56,6 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
     private GoogleApiClient googleApiClient;
     WatchViewStub stub;
     String type;
-    UpdateRotationData updateRotationData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,70 +71,16 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
                 .build();
         googleApiClient.connect();
 
-        updateRotationData = new UpdateRotationData();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Gson gson = new Gson();
+        schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
+        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
 
         stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-
-
-                Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
-
-                RelativeLayout titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
-                RelativeLayout titleZigZag = (RelativeLayout) findViewById(R.id.titleZigZag);
-
-                TextView title = (TextView) findViewById(R.id.Title);
-                title.setTypeface(fontTitle);
-
-                ListView times = (ListView) findViewById(R.id.times);
-                switch(type){
-                    case "regular":
-                        title.setText("Turf War");
-                        titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.turf));
-                        RegularAdapter regularAdapter = new RegularAdapter(getApplicationContext(),schedules.regular);
-                        times.setAdapter(regularAdapter);
-                        break;
-                    case "ranked":
-                        title.setText("Ranked");
-                        titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.ranked));
-                        CompetitiveAdapter rankedAdapter = new CompetitiveAdapter(getApplicationContext(),schedules.ranked);
-                        times.setAdapter(rankedAdapter);
-                        break;
-                    case "league":
-                        title.setText("League");
-                        titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.league));
-                        CompetitiveAdapter leagueAdapter = new CompetitiveAdapter(getApplicationContext(),schedules.league);
-                        times.setAdapter(leagueAdapter);
-                        break;
-                    case "fes":
-                        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        Gson gson = new Gson();
-                        title.setText("Splatfest");
-                        titleZigZag.setBackground(getResources().getDrawable(R.drawable.repeat_zigzag_splatfest));
-
-                        String alphaColor = currentSplatfest.splatfests.get(0).colors.alpha.getColor();
-
-                        String bravoColor = currentSplatfest.splatfests.get(0).colors.bravo.getColor();
-
-                        FestivalAdapter festivalAdapter = new FestivalAdapter(getApplicationContext(),schedules.splatfest,currentSplatfest.splatfests.get(0));
-                        times.setAdapter(festivalAdapter);
-
-                        titleLayout.setBackgroundColor(Color.parseColor(alphaColor));
-                        titleZigZag.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(bravoColor)));
-                        break;
-                    case "salmon":
-                        title.setText("Grizz Co.");
-                        titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.salmonAccent));
-                        SalmonAdapter salmonAdapter = new SalmonAdapter(getApplicationContext(),salmonSchedule.details);
-                        times.setAdapter(salmonAdapter);
-                        break;
-                }
-                if(schedules.regular.size()!=0) {
-                    while ((schedules.regular.get(0).end * 1000) < new Date().getTime()) {
-                        schedules.dequeue();
-                    }
-                }
+                updateUI();
             }
         });
     }
@@ -153,7 +98,6 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
         edit.commit();
         googleApiClient.disconnect();
         Wearable.DataApi.removeListener(googleApiClient, this);
-        updateRotationData.cancel(true);
     }
 
     @Override
@@ -161,8 +105,9 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
         super.onResume();
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Gson gson = new Gson();
-        schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
-        salmonSchedule = gson.fromJson(settings.getString("salmonRun",""),SalmonSchedule.class);
+        schedules = gson.fromJson(settings.getString("rotationState","{\"regular\":[],\"gachi\":[],\"league\":[],\"fes\":[]}"),Schedules.class);
+        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedules\":[],\"details\":[]}"),SalmonSchedule.class);
+        this.currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
 
         googleApiClient.connect();
     }
@@ -170,9 +115,6 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Wearable.DataApi.addListener(googleApiClient, this);
-        if(schedules.regular.size()==0||(schedules.regular.get(0).end*1000)<(new Date().getTime())) {
-            updateRotationData.execute();
-        }
     }
 
 
@@ -194,7 +136,7 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
                 DataItem item = event.getDataItem();
                 if (item.getUri().getPath().compareTo("/schedules") == 0) {
                     DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
-                    saveSchedules(dataMap.getString("schedule"));
+                    saveSchedules(dataMap.getString("schedule"),dataMap.getString("salmonRunSchedule"),dataMap.getString("currentSplatfest"));
                     Wearable.DataApi.deleteDataItems(googleApiClient, item.getUri());
                 }
             } else if (event.getType() == DataEvent.TYPE_DELETED) {
@@ -203,9 +145,23 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
         }
 
     }
-    private void saveSchedules(String schedules){
+    private void saveSchedules(String schedules,String salmon,String splatfest){
         Gson gson = new Gson();
         this.schedules = gson.fromJson(schedules,Schedules.class);
+        this.salmonSchedule = gson.fromJson(salmon,SalmonSchedule.class);
+        this.currentSplatfest = gson.fromJson(splatfest,CurrentSplatfest.class);
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor edit = settings.edit();
+
+        String json = gson.toJson(schedules);
+        edit.putString("rotationState",json);
+        json = gson.toJson(salmonSchedule);
+        edit.putString("salmonRunSchedule",json);
+        json = gson.toJson(currentSplatfest);
+        edit.putString("currentSplatfest",json);
+        edit.commit();
+
         if(schedules!=null){
             updateUI();
         }
@@ -213,31 +169,55 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
 
     private void updateUI(){
         ListView times = (ListView) findViewById(R.id.times);
+        Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
+
+        RelativeLayout titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
+        RelativeLayout titleZigZag = (RelativeLayout) findViewById(R.id.titleZigZag);
+
+        TextView title = (TextView) findViewById(R.id.Title);
+        title.setTypeface(fontTitle);
         switch(type){
+            case "regular":
+                title.setText("Turf War");
+                titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.turf));
+                RegularAdapter regularAdapter = new RegularAdapter(getApplicationContext(),schedules.regular);
+                times.setAdapter(regularAdapter);
+                break;
+            case "ranked":
+                title.setText("Ranked");
+                titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.ranked));
+                CompetitiveAdapter rankedAdapter = new CompetitiveAdapter(getApplicationContext(),schedules.ranked);
+                times.setAdapter(rankedAdapter);
+                break;
+            case "league":
+                title.setText("League");
+                titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.league));
+                CompetitiveAdapter leagueAdapter = new CompetitiveAdapter(getApplicationContext(),schedules.league);
+                times.setAdapter(leagueAdapter);
+                break;
+            case "fes":
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                Gson gson = new Gson();
+                title.setText("Splatfest");
+                titleZigZag.setBackground(getResources().getDrawable(R.drawable.repeat_zigzag_splatfest));
 
+                String alphaColor = currentSplatfest.splatfests.get(0).colors.alpha.getColor();
+
+                String bravoColor = currentSplatfest.splatfests.get(0).colors.bravo.getColor();
+
+                FestivalAdapter festivalAdapter = new FestivalAdapter(getApplicationContext(),schedules.splatfest,currentSplatfest.splatfests.get(0));
+                times.setAdapter(festivalAdapter);
+
+                titleLayout.setBackgroundColor(Color.parseColor(alphaColor));
+                titleZigZag.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(bravoColor)));
+                break;
+            case "salmon":
+                title.setText("Grizz Co.");
+                titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.salmonAccent));
+                SalmonAdapter salmonAdapter = new SalmonAdapter(getApplicationContext(),salmonSchedule.details);
+                times.setAdapter(salmonAdapter);
+                break;
         }
     }
 
-    private class UpdateRotationData extends AsyncTask<Void,Void,Void>{
-
-        @Override
-        protected void onPreExecute() {}
-        @Override
-        protected Void doInBackground(Void... params) {
-            Uri uri = new Uri.Builder().scheme(PutDataRequest.WEAR_URI_SCHEME).authority(Wearable.NodeApi.getConnectedNodes(googleApiClient).await().getNodes().get(0).getId()).path("/schedules").build();
-            DataItem item = Wearable.DataApi.getDataItem(googleApiClient,uri).await().getDataItem();
-            DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
-            Gson gson = new Gson();
-            schedules = gson.fromJson(dataMap.getString("schedule"),Schedules.class);
-            salmonSchedule = gson.fromJson(dataMap.getString("salmonRunSchedule"),SalmonSchedule.class);
-            currentSplatfest = gson.fromJson(dataMap.getString("currentSplatfest"),CurrentSplatfest.class);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            updateUI();
-        }
-
-    }
 }

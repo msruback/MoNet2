@@ -37,6 +37,7 @@
         android:layout_below="@+id/StageA"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
+        android:gravity="center"
         android:text="Humpback Pumptrack"
         android:textColor="@color/grey"
         android:textSize="13sp" />

@@ -32,6 +32,10 @@ public class Splatfest implements Parcelable {
     @SerializedName("special_stage")
     public Stage stage;
 
+    //The Images in the Splatfest
+    @SerializedName("images")
+    public SplatfestImages images;
+
 
     protected Splatfest(Parcel in) {
         id = in.readInt();
@@ -39,6 +43,7 @@ public class Splatfest implements Parcelable {
         colors = in.readParcelable(SplatfestColors.class.getClassLoader());
         names = in.readParcelable(SplatfestNames.class.getClassLoader());
         stage = in.readParcelable(Stage.class.getClassLoader());
+        images = in.readParcelable(SplatfestImages.class.getClassLoader());
     }
 
     public static final Creator<Splatfest> CREATOR = new Creator<Splatfest>() {
@@ -65,5 +70,6 @@ public class Splatfest implements Parcelable {
         dest.writeParcelable(colors, flags);
         dest.writeParcelable(names, flags);
         dest.writeParcelable(stage, flags);
+        dest.writeParcelable(images, flags);
     }
 }
