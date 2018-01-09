@@ -55,6 +55,8 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
     CurrentSplatfest currentSplatfest;
     private GoogleApiClient googleApiClient;
     WatchViewStub stub;
+    ListView times;
+    RelativeLayout titleLayout,titleZigZag;
     String type;
 
     @Override
@@ -71,18 +73,45 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
                 .build();
         googleApiClient.connect();
 
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Gson gson = new Gson();
-        schedules = gson.fromJson(settings.getString("rotationState",""),Schedules.class);
-        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
-
         stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                updateUI();
+                times = (ListView) stub.findViewById(R.id.times);
+                Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
+
+                titleLayout = (RelativeLayout) stub.findViewById(R.id.titleLayout);
+                titleZigZag = (RelativeLayout) stub.findViewById(R.id.titleZigZag);
+
+                TextView title = (TextView) stub.findViewById(R.id.Title);
+                title.setTypeface(fontTitle);
+                switch(type){
+                    case "regular":
+                        title.setText("Turf War");
+                        titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.turf));
+                        break;
+                    case "ranked":
+                        title.setText("Ranked");
+                        titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.ranked));
+                        break;
+                    case "league":
+                        title.setText("League");
+                        titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.league));
+                        break;
+                    case "fes":
+                        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        Gson gson = new Gson();
+                        title.setText("Splatfest");
+                        titleZigZag.setBackground(getResources().getDrawable(R.drawable.repeat_zigzag_splatfest));
+                        break;
+                    case "salmon":
+                        title.setText("Grizz Co.");
+                        titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.salmonAccent));
+                        break;
+                }
             }
         });
+        updateUI();
     }
 
     @Override
@@ -103,11 +132,12 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
     @Override
     public void onResume() {
         super.onResume();
+
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Gson gson = new Gson();
         schedules = gson.fromJson(settings.getString("rotationState","{\"regular\":[],\"gachi\":[],\"league\":[],\"fes\":[]}"),Schedules.class);
         salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedules\":[],\"details\":[]}"),SalmonSchedule.class);
-        this.currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
+        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
 
         googleApiClient.connect();
     }
@@ -162,43 +192,32 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
         edit.putString("currentSplatfest",json);
         edit.commit();
 
-        if(schedules!=null){
+        if(schedules!=null||salmonSchedule!=null){
             updateUI();
         }
     }
 
     private void updateUI(){
-        ListView times = (ListView) findViewById(R.id.times);
-        Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Gson gson = new Gson();
+        Schedules schedules = gson.fromJson(settings.getString("rotationState","{\"regular\":[],\"gachi\":[],\"league\":[],\"fes\":[]}"),Schedules.class);
+        SalmonSchedule salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedules\":[],\"details\":[]}"),SalmonSchedule.class);
+        CurrentSplatfest currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
 
-        RelativeLayout titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
-        RelativeLayout titleZigZag = (RelativeLayout) findViewById(R.id.titleZigZag);
-
-        TextView title = (TextView) findViewById(R.id.Title);
-        title.setTypeface(fontTitle);
         switch(type){
             case "regular":
-                title.setText("Turf War");
-                titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.turf));
                 RegularAdapter regularAdapter = new RegularAdapter(getApplicationContext(),schedules.regular);
                 times.setAdapter(regularAdapter);
                 break;
             case "ranked":
-                title.setText("Ranked");
-                titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.ranked));
                 CompetitiveAdapter rankedAdapter = new CompetitiveAdapter(getApplicationContext(),schedules.ranked);
                 times.setAdapter(rankedAdapter);
                 break;
             case "league":
-                title.setText("League");
-                titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.league));
                 CompetitiveAdapter leagueAdapter = new CompetitiveAdapter(getApplicationContext(),schedules.league);
                 times.setAdapter(leagueAdapter);
                 break;
             case "fes":
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                Gson gson = new Gson();
-                title.setText("Splatfest");
                 titleZigZag.setBackground(getResources().getDrawable(R.drawable.repeat_zigzag_splatfest));
 
                 String alphaColor = currentSplatfest.splatfests.get(0).colors.alpha.getColor();
@@ -212,8 +231,6 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
                 titleZigZag.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(bravoColor)));
                 break;
             case "salmon":
-                title.setText("Grizz Co.");
-                titleLayout.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.salmonAccent));
                 SalmonAdapter salmonAdapter = new SalmonAdapter(getApplicationContext(),salmonSchedule.details);
                 times.setAdapter(salmonAdapter);
                 break;

@@ -41,6 +41,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import wearprefs.WearPrefs;
 
 //.3230or46fsx
 
@@ -67,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         drawerList = (ExpandableListView) findViewById(R.id.left_drawer);
         fragmentManager = getSupportFragmentManager();
         backStack = new ArrayList<>();
+
+
+        WearPrefs.init(this);
 
         //Add titles
         titles = new ArrayList<String>();

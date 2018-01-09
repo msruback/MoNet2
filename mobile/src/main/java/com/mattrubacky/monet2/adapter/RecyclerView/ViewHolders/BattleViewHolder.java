@@ -29,7 +29,7 @@ public class BattleViewHolder extends RecyclerView.ViewHolder{
 
 
     public BattleViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
-        super(inflater.inflate(R.layout.item_weapon, parent, false));
+        super(inflater.inflate(R.layout.item_battle, parent, false));
 
         this.context = context;
 

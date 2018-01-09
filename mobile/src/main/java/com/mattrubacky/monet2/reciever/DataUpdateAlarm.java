@@ -65,6 +65,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver implements Splatne
         splatnetConnector.addRequest(new RecordsRequest(context));
         splatnetConnector.addRequest(new ResultsRequest(context));
         splatnetConnector.execute();
+        WearLink wearLink = new WearLink(context);
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor edit = settings.edit();

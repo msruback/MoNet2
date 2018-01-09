@@ -55,6 +55,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import wearprefs.WearPrefs;
 
 public class MapRotation extends Activity implements DataApi.DataListener,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
 
@@ -75,8 +76,18 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-        googleApiClient.connect();
 
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        Gson gson = new Gson();
+        schedules = gson.fromJson(settings.getString("rotationState","{\"regular\":[],\"gachi\":[],\"league\":[],\"fes\":[]}"),Schedules.class);
+        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedules\":[],\"details\":[]}"),SalmonSchedule.class);
+        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
+
+
+        schedules = gson.fromJson(settings.getString("rotationState","{\"regular\":[],\"gachi\":[],\"league\":[],\"fes\":[]}"),Schedules.class);
+        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedules\":[],\"details\":[]}"),SalmonSchedule.class);
+        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
+        googleApiClient.connect();
 
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -108,7 +119,6 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
                 TextView title = (TextView) stub.findViewById(R.id.Title);
 
                 title.setTypeface(fontTitle);
-
                 updateUI();
             }
         });
@@ -116,7 +126,7 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
     @Override
     public void onPause() {
         super.onPause();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = settings.edit();
         Gson gson = new Gson();
         String json = gson.toJson(schedules);
@@ -133,12 +143,6 @@ public class MapRotation extends Activity implements DataApi.DataListener,Google
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Gson gson = new Gson();
-        schedules = gson.fromJson(settings.getString("rotationState","{\"regular\":[],\"gachi\":[],\"league\":[],\"fes\":[]}"),Schedules.class);
-        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedules\":[],\"details\":[]}"),SalmonSchedule.class);
-        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
-        googleApiClient.connect();
     }
 
     @Override
