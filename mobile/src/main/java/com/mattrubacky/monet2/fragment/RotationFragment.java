@@ -48,8 +48,6 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
     @Override
     public void onPause() {
         super.onPause();
-
-        wearLink.closeConnection();
         connector.cancel(true);
     }
 
@@ -64,7 +62,6 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
         connector.addRequest(new MonthlyGearRequest(getContext()));
 
         update(connector.getCurrentData());
-
         connector.execute();
     }
 
@@ -78,6 +75,8 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
             monthlyGear = timeline.currentRun.rewardGear.gear;
         }
         updateUI();
+        wearLink.sendRotation(schedules);
+        wearLink.sendSalmon(salmonSchedule);
     }
 
     public void updateUI(){

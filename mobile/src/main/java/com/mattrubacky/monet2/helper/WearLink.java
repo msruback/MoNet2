@@ -52,7 +52,7 @@ public class WearLink implements GoogleApiClient.ConnectionCallbacks, GoogleApiC
         Gson gson = new Gson();
         Schedules scheduleObj=gson.fromJson(schedules,Schedules.class);;
 
-        PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/schedules");
+        PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/splatnet");
         putDataMapReq.getDataMap().putString("schedule",schedules);
         putDataMapReq.getDataMap().putString("salmonRunSchedule",salmonSchedule);
         putDataMapReq.getDataMap().putString("currentSplatfest",currentSplatfest);
@@ -75,7 +75,7 @@ public class WearLink implements GoogleApiClient.ConnectionCallbacks, GoogleApiC
         this.schedules = gson.toJson(schedules);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         if(nodeConnected){
-            PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/schedules");
+            PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/splatnet");
             putDataMapReq.getDataMap().putString("schedule",this.schedules);
             putDataMapReq.getDataMap().putString("currentSplatfest",settings.getString("currentSplatfest",""));
             PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
@@ -87,8 +87,8 @@ public class WearLink implements GoogleApiClient.ConnectionCallbacks, GoogleApiC
         Gson gson = new Gson();
         this.salmonSchedule = gson.toJson(salmonSchedule);
         if(nodeConnected){
-            PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/schedules");
-            putDataMapReq.getDataMap().putString("salmonSchedule",this.salmonSchedule);
+            PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/splatnet");
+            putDataMapReq.getDataMap().putString("salmonRunSchedule",this.salmonSchedule);
             PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
             Wearable.DataApi.putDataItem(googleApiClient, putDataReq);
         }

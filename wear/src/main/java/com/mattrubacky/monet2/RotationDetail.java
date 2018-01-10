@@ -38,6 +38,8 @@ import com.mattrubacky.monet2.adapter.CompetitiveAdapter;
 import com.mattrubacky.monet2.adapter.FestivalAdapter;
 import com.mattrubacky.monet2.adapter.RegularAdapter;
 import com.mattrubacky.monet2.adapter.SalmonAdapter;
+import com.mattrubacky.monet2.connection.WatchConnected;
+import com.mattrubacky.monet2.connection.WatchConnector;
 import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
 import com.mattrubacky.monet2.deserialized.SalmonSchedule;
 import com.mattrubacky.monet2.deserialized.Schedules;
@@ -48,16 +50,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RotationDetail extends Activity implements DataApi.DataListener,GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
+public class RotationDetail extends Activity implements WatchConnected{
 
-    Schedules schedules;
-    SalmonSchedule salmonSchedule;
-    CurrentSplatfest currentSplatfest;
-    private GoogleApiClient googleApiClient;
+    private Schedules schedules;
+    private SalmonSchedule salmonSchedule;
+    private CurrentSplatfest currentSplatfest;
     WatchViewStub stub;
     ListView times;
     RelativeLayout titleLayout,titleZigZag;
     String type;
+    WatchConnector watchConnector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +68,8 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
         Bundle bundle = getIntent().getExtras();
         type = bundle.getString("type");
 
-        googleApiClient = new GoogleApiClient.Builder(getApplicationContext())
-                .addApi(Wearable.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-        googleApiClient.connect();
+        watchConnector = new WatchConnector(getApplicationContext(),this);
+        watchConnector.execute();
 
         stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
@@ -111,7 +109,6 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
                 }
             }
         });
-        updateUI();
     }
 
     @Override
@@ -125,76 +122,12 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
         json = gson.toJson(salmonSchedule);
         edit.putString("salmonSchedule",json);
         edit.commit();
-        googleApiClient.disconnect();
-        Wearable.DataApi.removeListener(googleApiClient, this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Gson gson = new Gson();
-        schedules = gson.fromJson(settings.getString("rotationState","{\"regular\":[],\"gachi\":[],\"league\":[],\"fes\":[]}"),Schedules.class);
-        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedules\":[],\"details\":[]}"),SalmonSchedule.class);
-        currentSplatfest = gson.fromJson(settings.getString("currentSplatfest","{\"festivals\":[]}"),CurrentSplatfest.class);
-
-        googleApiClient.connect();
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        Wearable.DataApi.addListener(googleApiClient, this);
-    }
-
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-    @Override
-    public void onDataChanged(DataEventBuffer dataEventBuffer) {
-        for (DataEvent event : dataEventBuffer) {
-            if (event.getType() == DataEvent.TYPE_CHANGED) {
-                // DataItem changed
-                DataItem item = event.getDataItem();
-                if (item.getUri().getPath().compareTo("/schedules") == 0) {
-                    DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
-                    saveSchedules(dataMap.getString("schedule"),dataMap.getString("salmonRunSchedule"),dataMap.getString("currentSplatfest"));
-                    Wearable.DataApi.deleteDataItems(googleApiClient, item.getUri());
-                }
-            } else if (event.getType() == DataEvent.TYPE_DELETED) {
-                // DataItem deleted
-            }
-        }
-
-    }
-    private void saveSchedules(String schedules,String salmon,String splatfest){
-        Gson gson = new Gson();
-        this.schedules = gson.fromJson(schedules,Schedules.class);
-        this.salmonSchedule = gson.fromJson(salmon,SalmonSchedule.class);
-        this.currentSplatfest = gson.fromJson(splatfest,CurrentSplatfest.class);
-
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor edit = settings.edit();
-
-        String json = gson.toJson(schedules);
-        edit.putString("rotationState",json);
-        json = gson.toJson(salmonSchedule);
-        edit.putString("salmonRunSchedule",json);
-        json = gson.toJson(currentSplatfest);
-        edit.putString("currentSplatfest",json);
-        edit.commit();
-
-        if(schedules!=null||salmonSchedule!=null){
-            updateUI();
-        }
     }
 
     private void updateUI(){
@@ -237,4 +170,11 @@ public class RotationDetail extends Activity implements DataApi.DataListener,Goo
         }
     }
 
+    @Override
+    public void update(Bundle bundle) {
+        schedules = bundle.getParcelable("rotation");
+        salmonSchedule = bundle.getParcelable("salmon");
+        currentSplatfest = bundle.getParcelable("splatfest");
+        updateUI();
+    }
 }
