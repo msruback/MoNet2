@@ -43,8 +43,8 @@ class BattleManager {
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
         String sql = "SELECT COUNT(*) FROM " + SplatnetContract.Battle.TABLE_NAME +" WHERE "+ SplatnetContract.Battle._ID+" = "+id;
-
-        if(0==database.compileStatement(sql).simpleQueryForLong()){
+        Long zero = (long)0;
+        if(zero.equals(database.compileStatement(sql).simpleQueryForLong())){
             database.close();
             return false;
         }else{

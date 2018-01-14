@@ -1,11 +1,12 @@
-package com.mattrubacky.monet2.fragment.schedule;
+package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,39 +14,50 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.StagePostcardsDetail;
-import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.*;
-
+import com.mattrubacky.monet2.StagePostcardsDetail;
+import com.mattrubacky.monet2.deserialized.Record;
+import com.mattrubacky.monet2.deserialized.Stage;
+import com.mattrubacky.monet2.deserialized.TimePeriod;
+import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StageStats;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Created by mattr on 1/14/2018.
+ */
 
-public class TurfRotation extends Fragment {
+public class CompetitiveTimePeriodViewHolder extends RecyclerView.ViewHolder{
 
-    @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.item_regular_rotation, container, false);
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
+    public TextView time,mode,title1,title2;
+    public ImageView image1,image2;
+    private Context context;
 
-        TextView time = (TextView) rootView.findViewById(R.id.turfTime);
-        TextView title1 = (TextView) rootView.findViewById(R.id.turfStageName1);
-        TextView title2 = (TextView) rootView.findViewById(R.id.turfStageName2);
-        ImageView image1 = (ImageView) rootView.findViewById(R.id.turfStageImage1);
-        ImageView image2 = (ImageView) rootView.findViewById(R.id.turfStageImage2);
+    public CompetitiveTimePeriodViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
+        super(inflater.inflate(R.layout.item_pager_list, parent, false));
+
+        this.context = context;
+
+        time = (TextView) itemView.findViewById(R.id.rankTime);
+        mode = (TextView) itemView.findViewById(R.id.rankMode);
+        title1 = (TextView) itemView.findViewById(R.id.rankStageName1);
+        title2 = (TextView) itemView.findViewById(R.id.rankStageName2);
+
+        image1 = (ImageView) itemView.findViewById(R.id.rankStageImage1);
+        image2 = (ImageView) itemView.findViewById(R.id.rankStageImage2);
+    }
+
+    public void manageHolder(TimePeriod timePeriod){
+        Typeface font = Typeface.createFromAsset(context.getAssets(), "Splatfont2.ttf");
+        Typeface fontTitle = Typeface.createFromAsset(context.getAssets(), "Paintball.otf");
 
         time.setTypeface(font);
+        mode.setTypeface(font);
         title1.setTypeface(font);
         title2.setTypeface(font);
-
-        Bundle bundle = this.getArguments();
-        TimePeriod timePeriod = bundle.getParcelable("timePeriod");
 
         final Stage a = timePeriod.a;
         final Stage b = timePeriod.b;
@@ -58,6 +70,7 @@ public class TurfRotation extends Fragment {
         title1.setText(a.name);
         title2.setText(b.name);
         time.setText(startText+" - "+endText);
+        mode.setText(timePeriod.rule.name);
 
         String url1 = "https://app.splatoon2.nintendo.net"+a.url;
         String url2 = "https://app.splatoon2.nintendo.net"+b.url;
@@ -66,26 +79,26 @@ public class TurfRotation extends Fragment {
         String image1DirName = a.name.toLowerCase().replace(" ","_");
         String image2DirName = b.name.toLowerCase().replace(" ","_");
 
-        if(imageHandler.imageExists("stage",image1DirName,getContext())){
+        if(imageHandler.imageExists("stage",image1DirName,context)){
             image1.setImageBitmap(imageHandler.loadImage("stage",image1DirName));
         }else{
-            Picasso.with(getContext()).load(url1).resize(1280,720).into(image1);
-            imageHandler.downloadImage("stage",image1DirName,url1,getContext());
+            Picasso.with(context).load(url1).resize(1280,720).into(image1);
+            imageHandler.downloadImage("stage",image1DirName,url1,context);
         }
 
-        if(imageHandler.imageExists("stage",image2DirName,getContext())){
+        if(imageHandler.imageExists("stage",image2DirName,context)){
             image2.setImageBitmap(imageHandler.loadImage("stage",image2DirName));
         }else{
-            Picasso.with(getContext()).load(url2).resize(1280,720).into(image2);
-            imageHandler.downloadImage("stage",image2DirName,url2,getContext());
+            Picasso.with(context).load(url2).resize(1280,720).into(image2);
+            imageHandler.downloadImage("stage",image2DirName,url2,context);
         }
 
         image1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Intent intent = new Intent(getActivity(),StagePostcardsDetail.class);
+                Intent intent = new Intent(context,StagePostcardsDetail.class);
 
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
                 Gson gson = new Gson();
                 Record records = gson.fromJson(settings.getString("records",""),Record.class);
 
@@ -102,12 +115,12 @@ public class TurfRotation extends Fragment {
 
                 if(stats!=null) {
 
-                    stats.calcStats(getContext());
+                    stats.calcStats(context);
 
                     Bundle intentBundle = new Bundle();
                     intentBundle.putParcelable("stats", stats);
                     intent.putExtras(intentBundle);
-                    startActivity(intent);
+                    context.startActivity(intent);
                 }
                 return false;
             }
@@ -116,9 +129,9 @@ public class TurfRotation extends Fragment {
         image2.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Intent intent = new Intent(getActivity(),StagePostcardsDetail.class);
+                Intent intent = new Intent(context,StagePostcardsDetail.class);
 
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
                 Gson gson = new Gson();
                 Record records = gson.fromJson(settings.getString("records",""),Record.class);
 
@@ -135,19 +148,15 @@ public class TurfRotation extends Fragment {
 
 
                 if(stats!=null) {
-                    stats.calcStats(getContext());
+                    stats.calcStats(context);
 
                     Bundle intentBundle = new Bundle();
                     intentBundle.putParcelable("stats", stats);
                     intent.putExtras(intentBundle);
-                    startActivity(intent);
+                    context.startActivity(intent);
                 }
                 return false;
             }
         });
-
-        return rootView;
     }
-
 }
-

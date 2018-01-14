@@ -31,7 +31,7 @@ public class RankedRotation extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.fragment_ranked_rotation, container, false);
+                R.layout.item_competitive_rotation, container, false);
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
 
         TextView time = (TextView) rootView.findViewById(R.id.rankTime);
