@@ -26,33 +26,36 @@ public class CompetitiveAdapter extends ArrayAdapter<TimePeriod> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_competitive, parent, false);
-        }
         TimePeriod timePeriod = getItem(position);
 
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
+        if(timePeriod==null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_empty, parent, false);
+        }else {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_competitive, parent, false);
 
-        TextView time = (TextView) convertView.findViewById(R.id.time);
-        TextView mode = (TextView) convertView.findViewById(R.id.Mode);
-        TextView stageA = (TextView) convertView.findViewById(R.id.StageA);
-        TextView stageB = (TextView) convertView.findViewById(R.id.StageB);
+            Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
 
-        time.setTypeface(font);
-        mode.setTypeface(font);
-        stageA.setTypeface(font);
-        stageB.setTypeface(font);
+            TextView time = (TextView) convertView.findViewById(R.id.time);
+            TextView mode = (TextView) convertView.findViewById(R.id.Mode);
+            TextView stageA = (TextView) convertView.findViewById(R.id.StageA);
+            TextView stageB = (TextView) convertView.findViewById(R.id.StageB);
 
-        Date startTime = new Date((timePeriod.start*1000));
-        SimpleDateFormat sdf = new SimpleDateFormat("h a");
-        String startText = sdf.format(startTime);
-        Date endTime = new Date((timePeriod.end*1000));
-        String endText = sdf.format(endTime);
+            time.setTypeface(font);
+            mode.setTypeface(font);
+            stageA.setTypeface(font);
+            stageB.setTypeface(font);
 
-        time.setText(startText+" to "+endText);
-        mode.setText(timePeriod.rule.name);
-        stageA.setText(timePeriod.a.name);
-        stageB.setText(timePeriod.b.name);
+            Date startTime = new Date((timePeriod.start * 1000));
+            SimpleDateFormat sdf = new SimpleDateFormat("h a");
+            String startText = sdf.format(startTime);
+            Date endTime = new Date((timePeriod.end * 1000));
+            String endText = sdf.format(endTime);
+
+            time.setText(startText + " to " + endText);
+            mode.setText(timePeriod.rule.name);
+            stageA.setText(timePeriod.a.name);
+            stageB.setText(timePeriod.b.name);
+        }
 
         return convertView;
     }

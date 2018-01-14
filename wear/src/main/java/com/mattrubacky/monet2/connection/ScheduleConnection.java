@@ -39,24 +39,22 @@ public class ScheduleConnection extends WatchConnection {
         }
     }
 
-    /*@Override
+    @Override
     public boolean shouldUpdate(){
         if(schedules!=null){
-            if(schedules.regular!=null||schedules.splatfest!=null){
-                if(schedules.regular.size()>0){
+                if(schedules.regular!=null&&schedules.regular.size()>0){
                     if((schedules.regular.get(0).end*1000)>new Date().getTime()){
                         return false;
                     }
                 }
-                if(schedules.splatfest.size()>0){
+                if(schedules.splatfest!=null&&schedules.splatfest.size()>0){
                     if((schedules.splatfest.get(0).end*1000)>new Date().getTime()){
                         return false;
                     }
                 }
-            }
         }
         return true;
-    }*/
+    }
 
     @Override
     public Bundle getResult(Bundle bundle){

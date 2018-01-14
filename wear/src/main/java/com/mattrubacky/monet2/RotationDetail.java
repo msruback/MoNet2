@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -41,11 +42,13 @@ import com.mattrubacky.monet2.adapter.SalmonAdapter;
 import com.mattrubacky.monet2.connection.WatchConnected;
 import com.mattrubacky.monet2.connection.WatchConnector;
 import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
+import com.mattrubacky.monet2.deserialized.SalmonRunDetail;
 import com.mattrubacky.monet2.deserialized.SalmonSchedule;
 import com.mattrubacky.monet2.deserialized.Schedules;
 import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.TimePeriod;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -139,32 +142,70 @@ public class RotationDetail extends Activity implements WatchConnected{
 
         switch(type){
             case "regular":
-                RegularAdapter regularAdapter = new RegularAdapter(getApplicationContext(),schedules.regular);
+                ArrayList<TimePeriod> regular = schedules.regular;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(getResources().getConfiguration().isScreenRound()){
+                        regular.add(null);
+                    }
+                }
+
+                RegularAdapter regularAdapter = new RegularAdapter(getApplicationContext(),regular);
                 times.setAdapter(regularAdapter);
                 break;
             case "ranked":
-                CompetitiveAdapter rankedAdapter = new CompetitiveAdapter(getApplicationContext(),schedules.ranked);
+                ArrayList<TimePeriod> ranked = schedules.ranked;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(getResources().getConfiguration().isScreenRound()){
+                        ranked.add(null);
+                    }
+                }
+
+                CompetitiveAdapter rankedAdapter = new CompetitiveAdapter(getApplicationContext(),ranked);
                 times.setAdapter(rankedAdapter);
                 break;
             case "league":
-                CompetitiveAdapter leagueAdapter = new CompetitiveAdapter(getApplicationContext(),schedules.league);
+                ArrayList<TimePeriod> league = schedules.league;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(getResources().getConfiguration().isScreenRound()){
+                        league.add(null);
+                    }
+                }
+
+                CompetitiveAdapter leagueAdapter = new CompetitiveAdapter(getApplicationContext(),league);
                 times.setAdapter(leagueAdapter);
                 break;
             case "fes":
+                ArrayList<TimePeriod> splatfest = schedules.splatfest;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(getResources().getConfiguration().isScreenRound()){
+                        splatfest.add(null);
+                    }
+                }
+
                 titleZigZag.setBackground(getResources().getDrawable(R.drawable.repeat_zigzag_splatfest));
 
                 String alphaColor = currentSplatfest.splatfests.get(0).colors.alpha.getColor();
 
                 String bravoColor = currentSplatfest.splatfests.get(0).colors.bravo.getColor();
 
-                FestivalAdapter festivalAdapter = new FestivalAdapter(getApplicationContext(),schedules.splatfest,currentSplatfest.splatfests.get(0));
+                FestivalAdapter festivalAdapter = new FestivalAdapter(getApplicationContext(),splatfest,currentSplatfest.splatfests.get(0));
                 times.setAdapter(festivalAdapter);
 
                 titleLayout.setBackgroundColor(Color.parseColor(alphaColor));
                 titleZigZag.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(bravoColor)));
                 break;
             case "salmon":
-                SalmonAdapter salmonAdapter = new SalmonAdapter(getApplicationContext(),salmonSchedule.details);
+                ArrayList<SalmonRunDetail> details = salmonSchedule.details;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(getResources().getConfiguration().isScreenRound()){
+                        details.add(null);
+                    }
+                }
+                SalmonAdapter salmonAdapter = new SalmonAdapter(getApplicationContext(),details);
                 times.setAdapter(salmonAdapter);
                 break;
         }

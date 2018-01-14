@@ -198,6 +198,9 @@ public class ScheduleAdapter extends ArrayAdapter<String> {
                     }
                 });
                 break;
+            case "empty":
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_empty, parent, false);
+                break;
         }
 
         return convertView;

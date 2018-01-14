@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -141,6 +142,11 @@ public class MapRotation extends Activity implements WatchConnected{
         }
         if(salmonSchedule!=null&&salmonSchedule.details!=null&&salmonSchedule.details.size()>0){
             rotation.add("salmon");
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(getResources().getConfiguration().isScreenRound()){
+                rotation.add("empty");
+            }
         }
         ListView rotationList = (ListView) stub.findViewById(R.id.ScheduleList);
         ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getApplicationContext(),rotation,schedules,salmonSchedule,currentSplatfest);

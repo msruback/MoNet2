@@ -42,7 +42,9 @@
             android:id="@+id/times"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/repeat_spots" >
+            android:background="@drawable/repeat_spots"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp">
 
         </ListView>
     </RelativeLayout>
