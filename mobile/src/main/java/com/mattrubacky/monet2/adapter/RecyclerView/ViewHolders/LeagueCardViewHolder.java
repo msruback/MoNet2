@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.adapter.RecyclerView.LeagueRotationAdapter;
 import com.mattrubacky.monet2.adapter.RecyclerView.RegularRotationAdapter;
 import com.mattrubacky.monet2.deserialized.TimePeriod;
 
@@ -27,7 +28,7 @@ public class LeagueCardViewHolder extends RecyclerView.ViewHolder{
     public Context context;
 
     public LeagueCardViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
-        super(inflater.inflate(R.layout.card_regular, parent, false));
+        super(inflater.inflate(R.layout.card_league, parent, false));
 
         this.context = context;
 
@@ -41,8 +42,8 @@ public class LeagueCardViewHolder extends RecyclerView.ViewHolder{
         Typeface fontTitle = Typeface.createFromAsset(context.getAssets(), "Paintball.otf");
 
         leagueTitle.setTypeface(fontTitle);
-        RegularRotationAdapter regularRotationAdapter = new RegularRotationAdapter(context,timePeriods);
-        LeaguePager.setAdapter(regularRotationAdapter);
+        LeagueRotationAdapter rotationAdapter = new LeagueRotationAdapter(context,timePeriods);
+        LeaguePager.setAdapter(rotationAdapter);
         LeaguePager.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
 
         PagerSnapHelper snapHelper = new PagerSnapHelper();

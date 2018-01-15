@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.fragment.schedule;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +11,10 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.SalmonRunDetail;
-import com.mattrubacky.monet2.deserialized.Stage;
-import com.mattrubacky.monet2.deserialized.TimePeriod;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by mattr on 11/9/2017.
@@ -30,7 +26,7 @@ public class SalmonRotationDetail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.fragment_salmon_rotation_detail, container, false);
+                R.layout.item_salmon_rotation_detail, container, false);
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
 
         TextView time = (TextView) rootView.findViewById(R.id.Time);

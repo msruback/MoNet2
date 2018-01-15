@@ -1,11 +1,12 @@
-package com.mattrubacky.monet2.fragment.schedule;
+package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.StagePostcardsDetail;
-import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.*;
-
+import com.mattrubacky.monet2.StagePostcardsDetail;
+import com.mattrubacky.monet2.deserialized.Record;
+import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.Stage;
+import com.mattrubacky.monet2.deserialized.TimePeriod;
+import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StageStats;
 import com.squareup.picasso.Picasso;
 
@@ -25,34 +28,38 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by mattr on 10/13/2017.
+ * Created by mattr on 1/14/2018.
  */
 
-public class SplatfestRotation extends Fragment {
+public class SplatfestTimePeriodViewHolder extends RecyclerView.ViewHolder{
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.item_splatfest_rotation, container, false);
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
+    public TextView time,title1,title2,title3;
+    public ImageView image1,image2,image3;
+    private Context context;
 
-        TextView time = (TextView) rootView.findViewById(R.id.fesTime);
-        TextView title1 = (TextView) rootView.findViewById(R.id.fesStageName1);
-        TextView title2 = (TextView) rootView.findViewById(R.id.fesStageName2);
-        TextView title3 = (TextView) rootView.findViewById(R.id.fesStageName3);
-        ImageView image1 = (ImageView) rootView.findViewById(R.id.fesStageImage1);
-        ImageView image2 = (ImageView) rootView.findViewById(R.id.fesStageImage2);
-        ImageView image3 = (ImageView) rootView.findViewById(R.id.fesStageImage3);
+    public SplatfestTimePeriodViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
+        super(inflater.inflate(R.layout.item_regular_rotation, parent, false));
+
+        this.context = context;
+
+        time = (TextView) itemView.findViewById(R.id.fesTime);
+        title1 = (TextView) itemView.findViewById(R.id.fesStageName1);
+        title2 = (TextView) itemView.findViewById(R.id.fesStageName2);
+        title3 = (TextView) itemView.findViewById(R.id.fesStageName3);
+        image1 = (ImageView) itemView.findViewById(R.id.fesStageImage1);
+        image2 = (ImageView) itemView.findViewById(R.id.fesStageImage2);
+        image3 = (ImageView) itemView.findViewById(R.id.fesStageImage3);
+    }
+
+    public void manageHolder(TimePeriod timePeriod, final Splatfest splatfest){
+
+        Typeface font = Typeface.createFromAsset(context.getAssets(), "Splatfont2.ttf");
+        Typeface fontTitle = Typeface.createFromAsset(context.getAssets(), "Paintball.otf");
 
         time.setTypeface(font);
         title1.setTypeface(font);
         title2.setTypeface(font);
         title3.setTypeface(font);
-
-        Bundle bundle = this.getArguments();
-        TimePeriod timePeriod = bundle.getParcelable("timePeriod");
-        final Splatfest splatfest = bundle.getParcelable("splatfest");
 
         final Stage a = timePeriod.a;
         final Stage b = timePeriod.b;
@@ -74,34 +81,35 @@ public class SplatfestRotation extends Fragment {
         ImageHandler imageHandler = new ImageHandler();
         String image1DirName = a.name.toLowerCase().replace(" ","_");
         String image2DirName = b.name.toLowerCase().replace(" ","_");
-        String image3DirName = splatfest.stage.name;
+        String image3DirName = splatfest.stage.name.toLowerCase().replace(" ","_");
 
-        if(imageHandler.imageExists("stage",image1DirName,getContext())){
+        if(imageHandler.imageExists("stage",image1DirName,context)){
             image1.setImageBitmap(imageHandler.loadImage("stage",image1DirName));
         }else{
-            Picasso.with(getContext()).load(url1).resize(1280,720).into(image1);
-            imageHandler.downloadImage("stage",image1DirName,url1,getContext());
+            Picasso.with(context).load(url1).resize(1280,720).into(image1);
+            imageHandler.downloadImage("stage",image1DirName,url1,context);
         }
 
-        if(imageHandler.imageExists("stage",image2DirName,getContext())){
+        if(imageHandler.imageExists("stage",image2DirName,context)){
             image2.setImageBitmap(imageHandler.loadImage("stage",image2DirName));
         }else{
-            Picasso.with(getContext()).load(url2).resize(1280,720).into(image2);
-            imageHandler.downloadImage("stage",image2DirName,url2,getContext());
+            Picasso.with(context).load(url2).resize(1280,720).into(image2);
+            imageHandler.downloadImage("stage",image2DirName,url2,context);
         }
 
-        if(imageHandler.imageExists("stage",image3DirName,getContext())){
-            image3.setImageBitmap(imageHandler.loadImage("stage",image3DirName));
+        if(imageHandler.imageExists("stage",image3DirName,context)){
+            image3.setImageBitmap(imageHandler.loadImage("stage",image2DirName));
         }else{
-            Picasso.with(getContext()).load(url3).resize(1280,720).into(image3);
-            imageHandler.downloadImage("stage",image3DirName,url3,getContext());
+            Picasso.with(context).load(url3).resize(1280,720).into(image3);
+            imageHandler.downloadImage("stage",image2DirName,url2,context);
         }
+
         image1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Intent intent = new Intent(getActivity(),StagePostcardsDetail.class);
+                Intent intent = new Intent(context,StagePostcardsDetail.class);
 
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
                 Gson gson = new Gson();
                 Record records = gson.fromJson(settings.getString("records",""),Record.class);
 
@@ -118,12 +126,12 @@ public class SplatfestRotation extends Fragment {
 
                 if(stats!=null) {
 
-                    stats.calcStats(getContext());
+                    stats.calcStats(context);
 
                     Bundle intentBundle = new Bundle();
                     intentBundle.putParcelable("stats", stats);
                     intent.putExtras(intentBundle);
-                    startActivity(intent);
+                    context.startActivity(intent);
                 }
                 return false;
             }
@@ -132,9 +140,9 @@ public class SplatfestRotation extends Fragment {
         image2.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Intent intent = new Intent(getActivity(),StagePostcardsDetail.class);
+                Intent intent = new Intent(context,StagePostcardsDetail.class);
 
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
                 Gson gson = new Gson();
                 Record records = gson.fromJson(settings.getString("records",""),Record.class);
 
@@ -149,13 +157,14 @@ public class SplatfestRotation extends Fragment {
                     stats.isSplatnet = false;
                 }
 
+
                 if(stats!=null) {
-                    stats.calcStats(getContext());
+                    stats.calcStats(context);
 
                     Bundle intentBundle = new Bundle();
                     intentBundle.putParcelable("stats", stats);
                     intent.putExtras(intentBundle);
-                    startActivity(intent);
+                    context.startActivity(intent);
                 }
                 return false;
             }
@@ -164,31 +173,34 @@ public class SplatfestRotation extends Fragment {
         image3.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Intent intent = new Intent(getActivity(),StagePostcardsDetail.class);
+                Intent intent = new Intent(context,StagePostcardsDetail.class);
 
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
                 Gson gson = new Gson();
                 Record records = gson.fromJson(settings.getString("records",""),Record.class);
 
                 StageStats stats;
 
-                stats = new StageStats();
-                stats.stage = splatfest.stage;
-                stats.isSplatnet = false;
+                if(records.records.stageStats.containsKey(splatfest.stage.id)){
+                    stats = records.records.stageStats.get(splatfest.stage.id);
+                    stats.isSplatnet = true;
+                }else{
+                    stats = new StageStats();
+                    stats.stage = splatfest.stage;
+                    stats.isSplatnet = false;
+                }
+
 
                 if(stats!=null) {
-                    stats.calcStats(getContext());
+                    stats.calcStats(context);
 
                     Bundle intentBundle = new Bundle();
                     intentBundle.putParcelable("stats", stats);
                     intent.putExtras(intentBundle);
-                    startActivity(intent);
+                    context.startActivity(intent);
                 }
                 return false;
             }
         });
-
-        return rootView;
     }
-
 }
