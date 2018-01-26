@@ -37,7 +37,7 @@ public class CompetitiveTimePeriodViewHolder extends RecyclerView.ViewHolder{
     private Context context;
 
     public CompetitiveTimePeriodViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
-        super(inflater.inflate(R.layout.item_pager_list, parent, false));
+        super(inflater.inflate(R.layout.item_competitive_rotation, parent, false));
 
         this.context = context;
 

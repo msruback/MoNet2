@@ -2,13 +2,15 @@ package com.mattrubacky.monet2.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.mattrubacky.monet2.*;
-import com.mattrubacky.monet2.adapter.ListView.ScheduleAdapter;
+import com.mattrubacky.monet2.adapter.RecyclerView.ScheduleAdapter;
 import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.helper.*;
 import com.mattrubacky.monet2.splatnet.CoopSchedulesRequest;
@@ -80,34 +82,13 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
     }
 
     public void updateUI(){
-        ListView scheduleList = (ListView) rootView.findViewById(R.id.ScheduleList);
+        RecyclerView scheduleList = (RecyclerView) rootView.findViewById(R.id.ScheduleList);
 
         wearLink.openConnection();
 
-        ArrayList<String> rotation = new ArrayList<>();
-        if(schedules.regular.size()>0){
-            rotation.add("regular");
-        }
-        if(schedules.ranked.size()>0){
-            rotation.add("ranked");
-        }
-        if(schedules.league.size()>0){
-            rotation.add("league");
-        }
-        if(currentSplatfest.splatfests.size()>0&&schedules.splatfest.size()>0){
-            if(schedules.regular.size()==0||currentSplatfest.splatfests.get(0).times.start<schedules.regular.get(0).start){
-                rotation.add(0,"fes");
-            }else{
-                rotation.add("fes");
-            }
-        }
-
-        if(salmonSchedule.details.size()>0){
-            rotation.add("salmon");
-        }
-
-        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),rotation,getChildFragmentManager(),schedules,currentSplatfest,salmonSchedule,monthlyGear);
+        ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),schedules,salmonSchedule,monthlyGear,currentSplatfest);
         scheduleList.setAdapter(scheduleAdapter);
+        scheduleList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
 
         wearLink.sendRotation(schedules);
         wearLink.sendSalmon(salmonSchedule);

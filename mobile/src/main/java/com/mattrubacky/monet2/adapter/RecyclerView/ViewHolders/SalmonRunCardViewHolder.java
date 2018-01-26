@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.SalmonRotationAdapter;
+import com.mattrubacky.monet2.deserialized.Gear;
 import com.mattrubacky.monet2.deserialized.GrizzCo;
 import com.mattrubacky.monet2.deserialized.RewardGear;
 import com.mattrubacky.monet2.deserialized.SalmonSchedule;
@@ -32,8 +33,9 @@ public class SalmonRunCardViewHolder extends RecyclerView.ViewHolder{
     public ImageView currentGear;
     private Context context;
 
-    public SalmonRunCardViewHolder(LayoutInflater inflater, ViewGroup parent) {
+    public SalmonRunCardViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
         super(inflater.inflate(R.layout.card_salmon, parent, false));
+        this.context = context;
 
         salmonRun = (RelativeLayout) itemView.findViewById(R.id.SalmonRun);
         salmonTitle = (TextView) itemView.findViewById(R.id.salmonName);
@@ -42,12 +44,12 @@ public class SalmonRunCardViewHolder extends RecyclerView.ViewHolder{
 
     }
 
-    public void manageHolder(SalmonSchedule salmonSchedule, RewardGear monthlyGear){
+    public void manageHolder(SalmonSchedule salmonSchedule, Gear monthlyGear){
         salmonRun.setClipToOutline(true);
         if(monthlyGear!=null) {
-            String url = "https://app.splatoon2.nintendo.net" + monthlyGear.gear.url;
+            String url = "https://app.splatoon2.nintendo.net" + monthlyGear.url;
             ImageHandler imageHandler = new ImageHandler();
-            String imageDirName = monthlyGear.gear.name.toLowerCase().replace(" ", "_");
+            String imageDirName = monthlyGear.name.toLowerCase().replace(" ", "_");
             if (imageHandler.imageExists("gear", imageDirName, context)) {
                 currentGear.setImageBitmap(imageHandler.loadImage("gear", imageDirName));
             } else {
