@@ -101,7 +101,7 @@ class SplatfestManager {
                 }else{
                     //If the splatfest is already inserted, but needs to be updated, and an update is available, then the splatfest gets updated
                     cursor.moveToFirst();
-                        if(splatfest.result.participants!=null) {
+                        if(splatfest.result!=null&&splatfest.result.participants!=null) {
 
                             values.put(SplatnetContract.Splatfest.COLUMN_RESULT_TIME,splatfest.splatfest.times.result);
 

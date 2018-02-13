@@ -1,6 +1,7 @@
 package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -45,6 +46,11 @@ public class SalmonRunCardViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void manageHolder(SalmonSchedule salmonSchedule, Gear monthlyGear){
+
+        Typeface font = Typeface.createFromAsset(context.getAssets(), "Splatfont2.ttf");
+        Typeface fontTitle = Typeface.createFromAsset(context.getAssets(), "Paintball.otf");
+
+        salmonTitle.setTypeface(fontTitle);
         salmonRun.setClipToOutline(true);
         if(monthlyGear!=null) {
             String url = "https://app.splatoon2.nintendo.net" + monthlyGear.url;
