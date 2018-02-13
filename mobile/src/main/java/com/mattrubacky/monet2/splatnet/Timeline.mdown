@@ -12,53 +12,53 @@ This endpoint requires only the user's cookie. It is suggested to also provide t
 ### Format
 #### onlineshop
 This field contains the information on the oldest item in Annie's shop.
-##### importance
-This field seems to contain a value used to determine the position on the screen the item will be in the Official app.
-It is stored as a decimal between 1 and 0
-##### mechandise
-This field contains the oldest item in Annie's shop
-###### end_time
-This field contains the time in seconds when the merch will become expired.
-###### price
-This field contains the price of the merch, which is a whole number.
-###### id
-This field contains the id of the merch. This is a sizable number and is probably best to read as a string, as it is used to order items
-###### gear
-This field contains the gear that is being sold
-####### id
-This field contains the id of the gear being sold. This id is unique among gear of a similar kind.
-####### kind
-This field contains the kind of the gear being sold. This can either be "head","clothes", or "shoes".
-####### name
-This field contains the name of the gear being sold. This is stored as a string.
-####### thumbnail
-This field contains the rest of the url of the location of a thumbnail of the gear. Concat this to the base url to get the full location. Stored as a string
-####### image
-This field contains the rest of the url of the location of an image of the gear. Concat this to the base url to get the full location. Stored as a string
-####### rarity
-This field contains the number of slots the gear has. This is stored as a integer
-####### brand
-This field contains the brand of the gear
-######## id
-This field contains the unique id of the brand
-######## name
-This field contains the name of the brand, stored as a string
-######## image
-This field contains the rest of the url of the location of the brand logo. Concat this to the base url to get the full path. This is stored as a string
-######## frequent_skill
-This field contains the skill that is frequently rolled on a brand
-######### id
-This field contains the unique id of a skill
-######### name
-This field contains the name of a skill
-######### image
-This field contains the rest of the url of the location of the skill icon. This does not include the black background. Concat this to the base url to get the full path. This is stored as a string
-###### skill
-This field contains the skill on the gear being sold
-####### id
-This field contains the id of the skill
-####### name
-This field contains the name of the skill
-####### image
-This field contains the rest of the url of the location of the skill icon. This does not include the black background. Concat this to the base url to get the full path. This is stored as a string
+  ##### importance
+  This field seems to contain a value used to determine the position on the screen the item will be in the Official app.
+  It is stored as a decimal between 1 and 0
+  ##### mechandise
+  This field contains the oldest item in Annie's shop
+    ###### end_time
+    This field contains the time in seconds when the merch will become expired.
+    ###### price
+    This field contains the price of the merch, which is a whole number.
+    ###### id
+    This field contains the id of the merch. This is a sizable number and is probably best to read as a string, as it is used to order items
+    ###### gear
+    This field contains the gear that is being sold
+      ####### id
+      This field contains the id of the gear being sold. This id is unique among gear of a similar kind.
+      ####### kind
+      This field contains the kind of the gear being sold. This can either be "head","clothes", or "shoes".
+      ####### name
+      This field contains the name of the gear being sold. This is stored as a string.
+      ####### thumbnail
+      This field contains the rest of the url of the location of a thumbnail of the gear. Concat this to the base url to get the full location. Stored as a string
+      ####### image
+      This field contains the rest of the url of the location of an image of the gear. Concat this to the base url to get the full location. Stored as a string
+      ####### rarity
+      This field contains the number of slots the gear has. This is stored as a integer
+      ####### brand
+      This field contains the brand of the gear
+        ######## id
+        This field contains the unique id of the brand
+        ######## name
+        This field contains the name of the brand, stored as a string
+        ######## image
+        This field contains the rest of the url of the location of the brand logo. Concat this to the base url to get the full path. This is stored as a string
+      ######## frequent_skill
+      This field contains the skill that is frequently rolled on a brand
+        ######### id
+        This field contains the unique id of a skill
+        ######### name
+        This field contains the name of a skill
+        ######### image
+    This field contains the rest of the url of the location of the skill icon. This does not include the black background. Concat this to the base url to get the full path. This is stored as a string
+    ###### skill
+    This field contains the skill on the gear being sold
+    ####### id
+    This field contains the id of the skill
+    ####### name
+    This field contains the name of the skill
+    ####### image
+    This field contains the rest of the url of the location of the skill icon. This does not include the black background. Concat this to the base url to get the full path. This is stored as a string
 
