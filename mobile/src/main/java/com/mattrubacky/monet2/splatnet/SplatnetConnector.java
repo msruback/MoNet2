@@ -20,7 +20,9 @@ import com.mattrubacky.monet2.dialog.AlertDialog;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -93,8 +95,17 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
     @Override
     protected Void doInBackground(Void... params) {
         try {
-            Gson gson = new GsonBuilder().setLenient().create();
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create(gson)).build();
+            Gson gson = new GsonBuilder().create();
+
+            final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .readTimeout(60, TimeUnit.SECONDS)
+                    .connectTimeout(60, TimeUnit.SECONDS)
+                    .build();
+            Retrofit retrofit = new Retrofit.Builder()
+                    .client(okHttpClient)
+                    .baseUrl("https://app.splatoon2.nintendo.net/")
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
             Splatnet splatnet = retrofit.create(Splatnet.class);
 
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);

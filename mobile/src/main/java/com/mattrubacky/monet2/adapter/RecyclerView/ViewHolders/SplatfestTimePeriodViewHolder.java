@@ -38,7 +38,7 @@ public class SplatfestTimePeriodViewHolder extends RecyclerView.ViewHolder{
     private Context context;
 
     public SplatfestTimePeriodViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
-        super(inflater.inflate(R.layout.item_regular_rotation, parent, false));
+        super(inflater.inflate(R.layout.item_splatfest_rotation, parent, false));
 
         this.context = context;
 

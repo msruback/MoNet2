@@ -52,25 +52,30 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.rewardGear = rewardGear;
         this.currentSplatfest = currentSplatfest;
         rotation = new ArrayList<>();
-        if(schedules.regular.size()>0){
-            rotation.add("regular");
-        }
-        if(schedules.ranked.size()>0){
-            rotation.add("ranked");
-        }
-        if(schedules.league.size()>0){
-            rotation.add("league");
-        }
-        if(currentSplatfest.splatfests.size()>0&&schedules.splatfest.size()>0){
-            if(schedules.regular.size()==0||currentSplatfest.splatfests.get(0).times.start<schedules.regular.get(0).start){
-                rotation.add(0,"fes");
-            }else{
-                rotation.add("fes");
+        if(schedules!=null) {
+            if (schedules.regular.size() > 0) {
+                rotation.add("regular");
+            }
+            if (schedules.ranked.size() > 0) {
+                rotation.add("ranked");
+            }
+            if (schedules.league.size() > 0) {
+                rotation.add("league");
             }
         }
-
-        if(salmonSchedule.details.size()>0){
-            rotation.add("salmon");
+        if(currentSplatfest!=null) {
+            if (currentSplatfest.splatfests.size() > 0 && schedules.splatfest.size() > 0) {
+                if (schedules.regular.size() == 0 || currentSplatfest.splatfests.get(0).times.start < schedules.regular.get(0).start) {
+                    rotation.add(0, "fes");
+                } else {
+                    rotation.add("fes");
+                }
+            }
+        }
+        if(salmonSchedule!=null) {
+            if (salmonSchedule.details.size() > 0) {
+                rotation.add("salmon");
+            }
         }
     }
     @Override

@@ -13,11 +13,13 @@ import retrofit2.Response;
  */
 
 public class ResultRequest extends SplatnetRequest {
-    private int id;
+
     private Battle battle;
+    private String id, referer;
 
     public ResultRequest(int id){
-        this.id = id;
+        this.id = String.valueOf(id);
+        this.referer = "https://app.splatoon2.nintendo.net/results/"+this.id;
     }
 
     @Override
@@ -27,7 +29,7 @@ public class ResultRequest extends SplatnetRequest {
 
     @Override
     public void setup(Splatnet splatnet, String cookie, String uniqueID) {
-        call = splatnet.getBattle(String.valueOf(id), cookie,uniqueID);
+        call = splatnet.getBattle(id,referer, cookie,uniqueID);
     }
 
     @Override

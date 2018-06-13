@@ -66,14 +66,13 @@ public class CoopSchedulesRequest extends SplatnetRequest {
         Gson gson = new Gson();
         long now = new Date().getTime();
         salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
+        boolean toReturn = true;
         if(salmonSchedule.details!=null&&salmonSchedule.details.size()>0){
-            if((salmonSchedule.details.get(0).end*1000)<now){
-                return true;
-            }else{
-                return false;
+            if((salmonSchedule.details.get(0).end*1000)>=now){
+                toReturn = false;
             }
         }
-        return true;
+        return toReturn;
     }
 
     @Override

@@ -20,9 +20,14 @@ public class Rank implements Parcelable {
     @SerializedName("s_plus_number")
     public String sPlus;
 
+    @SerializedName("is_x")
+    public Boolean isX;
+
+
     protected Rank(Parcel in) {
         rank = in.readString();
         sPlus = in.readString();
+        isX = in.readInt() !=0;
     }
 
     public static final Creator<Rank> CREATOR = new Creator<Rank>() {
@@ -44,7 +49,11 @@ public class Rank implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        if(isX==null){
+            isX=false;
+        }
         dest.writeString(rank);
         dest.writeString(sPlus);
+        dest.writeInt(isX ? 1:0);
     }
 }

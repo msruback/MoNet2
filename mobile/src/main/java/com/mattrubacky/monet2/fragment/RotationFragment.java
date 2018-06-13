@@ -73,7 +73,7 @@ public class RotationFragment extends Fragment implements SplatnetConnected{
         salmonSchedule = bundle.getParcelable("salmonSchedule");
         currentSplatfest = bundle.getParcelable("currentSplatfest");
         Timeline timeline = bundle.getParcelable("timeline");
-        if(timeline.currentRun!=null&&timeline.currentRun.rewardGear!=null) {
+        if(timeline!=null&&timeline.currentRun!=null&&timeline.currentRun.rewardGear!=null) {
             monthlyGear = timeline.currentRun.rewardGear.gear;
         }
         updateUI();

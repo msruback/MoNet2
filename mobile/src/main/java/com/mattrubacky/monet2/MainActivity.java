@@ -86,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         children.add("Campaign");
 
         //Just when I am too lazy to enter the token by hand
-        //SharedPreferences.Editor edit = settings.edit();
-        //edit.putString("cookie","iksm_session=");
-        //edit.commit();
+        SharedPreferences.Editor edit = settings.edit();
+        edit.putString("cookie","iksm_session=e26b8cd57f2038afc500df52ac7c62542db73a0c");
+        edit.commit();
 
         //Add fragments
         rotation = new RotationFragment();
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     lastUpdate += 1;
                     break;
             }
-            SharedPreferences.Editor edit = settings.edit();
+//            SharedPreferences.Editor edit = settings.edit();
             if(hour>lastUpdate){
                 dataUpdateAlarm.setAlarm(MainActivity.this);
                 edit.putInt("last_update",hour);
@@ -652,10 +652,9 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 String cookie = settings.getString("cookie","");
                 String uniqueId = settings.getString("unique_id","");
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net").addConverterFactory(GsonConverterFactory.create()).build();
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("https://app.splatoon2.nintendo.net/").addConverterFactory(GsonConverterFactory.create()).build();
                 Splatnet splatnet = retrofit.create(Splatnet.class);
                 SplatnetSQLManager database = new SplatnetSQLManager(getApplicationContext());
-
 
                 Call<Timeline> getTimeline = splatnet.getTimeline(cookie,uniqueId);
                 Response response = getTimeline.execute();

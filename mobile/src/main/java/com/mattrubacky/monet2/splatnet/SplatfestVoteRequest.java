@@ -17,11 +17,12 @@ import retrofit2.Response;
 
 public class SplatfestVoteRequest extends SplatnetRequest {
 
-    private int id;
     private SplatfestVotes votes;
+    private String id,referer;
 
     public SplatfestVoteRequest(int id){
-        this.id = id;
+        this.id = String.valueOf(id);
+        this.referer = "https://app.splatoon2.nintendo.net/records/festival/"+this.id;
     }
 
     @Override
@@ -31,7 +32,7 @@ public class SplatfestVoteRequest extends SplatnetRequest {
 
     @Override
     public void setup(Splatnet splatnet, String cookie, String uniqueID) {
-        call = splatnet.getSplatfestVotes(String.valueOf(id),cookie,uniqueID);
+        call = splatnet.getSplatfestVotes(id,referer,cookie,uniqueID);
     }
 
     @Override

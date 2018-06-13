@@ -44,6 +44,8 @@ public class SplatfestCardViewHolder extends RecyclerView.ViewHolder{
         fesBanner = (RelativeLayout) itemView.findViewById(R.id.fesModeBanner);
         Alpha = (RelativeLayout) itemView.findViewById(R.id.Alpha);
         Bravo = (RelativeLayout) itemView.findViewById(R.id.Bravo);
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(SplatfestPager);
     }
 
     public void manageHolder(ArrayList<TimePeriod> timePeriods,Splatfest splatfest){
@@ -61,7 +63,5 @@ public class SplatfestCardViewHolder extends RecyclerView.ViewHolder{
         Alpha.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
         Bravo.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
 
-        PagerSnapHelper snapHelper = new PagerSnapHelper();
-        snapHelper.attachToRecyclerView(SplatfestPager);
     }
 }

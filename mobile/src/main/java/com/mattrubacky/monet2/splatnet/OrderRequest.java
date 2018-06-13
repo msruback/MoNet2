@@ -12,10 +12,11 @@ import retrofit2.Response;
 
 public class OrderRequest extends SplatnetRequest {
 
-    private String id;
+    private String id,referer;
 
     public OrderRequest(String id){
         this.id = id;
+        this.referer = "https://app.splatoon2.nintendo.net/shop/"+id;
     }
 
     @Override
@@ -27,6 +28,6 @@ public class OrderRequest extends SplatnetRequest {
     public void setup(Splatnet splatnet, String cookie, String uniqueID) {
 
         RequestBody override = RequestBody.create(MediaType.parse("text/plain"), "1");
-        call = splatnet.orderMerch(id,override,cookie,uniqueID);
+        call = splatnet.orderMerch(id,override,referer,cookie,uniqueID);
     }
 }

@@ -83,21 +83,21 @@ class SplatfestManager {
 
                     values.put(SplatnetContract.Splatfest.COLUMN_STAGE,splatfest.splatfest.stage.id);
 
-                    if(splatfest.result!=null) {
-                        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS, splatfest.result.participants.alpha);
-                        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS, splatfest.result.teamScores.alphaSolo);
-                        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS, splatfest.result.teamScores.alphaTeam);
-                        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS, splatfest.result.participants.bravo);
-                        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS, splatfest.result.teamScores.bravoSolo);
-                        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS, splatfest.result.teamScores.bravoTeam);
-
-                        values.put(SplatnetContract.Splatfest.COLUMN_VOTE, splatfest.result.summary.vote);
-                        values.put(SplatnetContract.Splatfest.COLUMN_SOLO, splatfest.result.summary.solo);
-                        values.put(SplatnetContract.Splatfest.COLUMN_TEAM, splatfest.result.summary.team);
-                        values.put(SplatnetContract.Splatfest.COLUMN_WINNER, splatfest.result.summary.total);
-                    }
-
-                    database.insert(SplatnetContract.Splatfest.TABLE_NAME, null, values);
+//                    if(splatfest.result!=null) {
+//                        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS, splatfest.result.participants.alpha);
+//                        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS, splatfest.result.teamScores.alphaSolo);
+//                        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS, splatfest.result.teamScores.alphaTeam);
+//                        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS, splatfest.result.participants.bravo);
+//                        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS, splatfest.result.teamScores.bravoSolo);
+//                        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS, splatfest.result.teamScores.bravoTeam);
+//
+//                        values.put(SplatnetContract.Splatfest.COLUMN_VOTE, splatfest.result.summary.vote);
+//                        values.put(SplatnetContract.Splatfest.COLUMN_SOLO, splatfest.result.summary.solo);
+//                        values.put(SplatnetContract.Splatfest.COLUMN_TEAM, splatfest.result.summary.team);
+//                        values.put(SplatnetContract.Splatfest.COLUMN_WINNER, splatfest.result.summary.total);
+//                    }
+//
+//                    database.insert(SplatnetContract.Splatfest.TABLE_NAME, null, values);
                 }else{
                     //If the splatfest is already inserted, but needs to be updated, and an update is available, then the splatfest gets updated
                     cursor.moveToFirst();

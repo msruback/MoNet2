@@ -3,6 +3,7 @@ package com.mattrubacky.monet2.deserialized;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Battle implements Parcelable{
     }
 
     @SerializedName("battle_number")
+    @Expose
     public int id;
 
     //The user's stats and info

@@ -74,30 +74,27 @@ public class SchedulesRequest extends SplatnetRequest {
     @Override
     public boolean shouldUpdate(){
         long now = new Date().getTime();
+        boolean toReturn = true;
         if(schedules.regular!=null&&schedules.regular.size()>0&&schedules.splatfest!=null&&schedules.splatfest.size()>0){
             if(schedules.regular.get(0).end>schedules.splatfest.get(0).end){
-                if((schedules.splatfest.get(0).end*1000)<now){
-                    return true;
+                if((schedules.splatfest.get(0).end*1000)>=now){
+                    toReturn = false;
                 }
-                return false;
             }else{
-                if((schedules.regular.get(0).end*1000)<now){
-                    return true;
+                if((schedules.regular.get(0).end*1000)>=now){
+                    toReturn = false;
                 }
-                return false;
             }
         }else if(schedules.regular!=null&&schedules.regular.size()>0){
-            if((schedules.regular.get(0).end*1000)<now){
-                return true;
+            if((schedules.regular.get(0).end*1000)>=now){
+                toReturn = false;
             }
-            return false;
         }else if(schedules.splatfest!=null&&schedules.splatfest.size()>0){
-            if((schedules.splatfest.get(0).end*1000)<now){
-                return true;
+            if((schedules.splatfest.get(0).end*1000)>=now){
+                toReturn = false;
             }
-            return false;
         }
-        return true;
+        return toReturn;
     }
 
     @Override
