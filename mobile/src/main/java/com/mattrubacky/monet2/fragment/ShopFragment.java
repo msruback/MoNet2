@@ -17,12 +17,14 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import com.mattrubacky.monet2.adapter.RecyclerView.MerchAdapter;
+import com.mattrubacky.monet2.deserialized.splatoon.Annie;
+import com.mattrubacky.monet2.deserialized.splatoon.Ordered;
+import com.mattrubacky.monet2.deserialized.splatoon.Product;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.splatnet.ShopRequest;
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetConnector;
-import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.api.splatnet.ShopRequest;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 
 import com.mattrubacky.monet2.dialog.BuyDialog;
 import com.squareup.picasso.Picasso;

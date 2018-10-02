@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.SplatfestColors;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestColors;
 
 /**
  * Created by mattr on 11/17/2017.

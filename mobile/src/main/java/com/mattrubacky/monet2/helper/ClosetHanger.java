@@ -5,10 +5,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.deserialized.Gear;
-import com.mattrubacky.monet2.deserialized.GearSkills;
-import com.mattrubacky.monet2.deserialized.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
+import com.mattrubacky.monet2.deserialized.splatoon.Player;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class ClosetHanger extends Stats implements Parcelable{
     @SerializedName("losses")
     public int losses;
     @SerializedName("last_use_time")
-    public Long time;
+    public long time;
     @SerializedName("ink_stats")
     public int[] inkStats;
     @SerializedName("kill_stats")
@@ -134,7 +134,6 @@ public class ClosetHanger extends Stats implements Parcelable{
             death.add(player.deaths);
             special.add(player.special);
         }
-        time = battles.get(battles.size()-1).time;
 
         if(battles.size()>5) {
             inkStats = calcSpread(sort(ink));

@@ -18,11 +18,12 @@ import android.widget.Toast;
 import com.mattrubacky.monet2.BattleInfo;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.BattleListPagerAdapter;
-import com.mattrubacky.monet2.splatnet.ResultsRequest;
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.api.splatnet.ResultsRequest;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
-import com.mattrubacky.monet2.deserialized.*;
 import com.mattrubacky.monet2.dialog.*;
 
 import java.util.ArrayList;

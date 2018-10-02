@@ -18,8 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.adapter.RecyclerView.PlayerInfoAdapter;
-import com.mattrubacky.monet2.deserialized.*;
 
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
@@ -260,7 +262,7 @@ public class BattleInfo extends AppCompatActivity {
                 modeImage.setVisibility(View.GONE);
                 elapsedTime.setVisibility(View.GONE);
 
-                powerString = String.valueOf(battle.fesPower);
+                powerString = String.valueOf(battle.myFesPower);
                 power.setText(powerString);
 
                 allyWidth = (float) 2.5*battle.myTeamPercent;

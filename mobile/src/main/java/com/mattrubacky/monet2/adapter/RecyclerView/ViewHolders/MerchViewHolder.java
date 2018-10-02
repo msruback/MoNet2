@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.Product;
+import com.mattrubacky.monet2.deserialized.splatoon.Product;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 

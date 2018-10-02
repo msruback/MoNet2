@@ -9,8 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.SalmonRun;
-import com.mattrubacky.monet2.deserialized.SalmonRunDetail;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,22 +49,22 @@ public class SalmonRunNotification extends Notification {
             if(run.weapons.get(0)==null){
                 contentBuilder.append("a Mystery Weapon, ");
             }else{
-                contentBuilder.append("the "+run.weapons.get(0).name+", ");
+                contentBuilder.append("the "+run.weapons.get(0).weapon.name+", ");
             }
             if(run.weapons.get(1)==null){
                 contentBuilder.append("a Mystery Weapon, ");
             }else{
-                contentBuilder.append("the "+run.weapons.get(1).name+", ");
+                contentBuilder.append("the "+run.weapons.get(1).weapon.name+", ");
             }
             if(run.weapons.get(2)==null){
                 contentBuilder.append("a Mystery Weapon, and ");
             }else{
-                contentBuilder.append("the "+run.weapons.get(2).name+", and ");
+                contentBuilder.append("the "+run.weapons.get(2).weapon.name+", and ");
             }
             if(run.weapons.get(3)==null){
                 contentBuilder.append("a Mystery Weapon, ");
             }else{
-                contentBuilder.append("the "+run.weapons.get(3).name+".");
+                contentBuilder.append("the "+run.weapons.get(3).weapon.name+".");
             }
             content = contentBuilder.toString();
         }
@@ -88,5 +87,11 @@ public class SalmonRunNotification extends Notification {
         builder.append(",\"run\":");
         builder.append(gson.toJson(run));
         return builder.toString();
+    }
+
+    @Override
+    protected boolean isUnique(Notification unique) {
+        SalmonRunNotification salmonRunNotification = (SalmonRunNotification) unique;
+        return false;
     }
 }

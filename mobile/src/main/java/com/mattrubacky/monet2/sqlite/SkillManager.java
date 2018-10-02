@@ -8,10 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.mattrubacky.monet2.deserialized.*;
-import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
-import com.mattrubacky.monet2.sqlite.SplatnetSQLHelper;
+import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
+import com.mattrubacky.monet2.deserialized.splatoon.Skill;
 
 /**
  * Created by mattr on 10/18/2017.

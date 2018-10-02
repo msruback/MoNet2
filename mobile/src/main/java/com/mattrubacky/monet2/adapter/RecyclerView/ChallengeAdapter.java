@@ -1,21 +1,12 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ChallengeViewHolder;
-import com.mattrubacky.monet2.deserialized.Challenge;
-import com.mattrubacky.monet2.helper.ImageHandler;
-import com.squareup.picasso.Picasso;
+import com.mattrubacky.monet2.deserialized.splatoon.Challenge;
 
 import java.util.ArrayList;
 

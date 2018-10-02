@@ -1,9 +1,11 @@
 package com.mattrubacky.monet2;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,19 +20,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.adapter.Pager.SplatfestPerformanceAdapter;
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.deserialized.SplatfestColor;
-import com.mattrubacky.monet2.deserialized.SplatfestResult;
-import com.mattrubacky.monet2.deserialized.SplatfestVotes;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestColor;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestVotes;
 import com.mattrubacky.monet2.dialog.SplatfestBattleDialog;
 import com.mattrubacky.monet2.dialog.VoteDialog;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.SoloMeterFragment;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.TeamMeterFragment;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.SplatfestStats;
-import com.mattrubacky.monet2.splatnet.SplatfestVoteRequest;
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.api.splatnet.SplatfestVoteRequest;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -61,11 +63,10 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
         result = bundle.getParcelable("result");
         stats = new SplatfestStats();
         stats.splatfest = splatfest;
+        stats.grade = bundle.getString("grade");
+        stats.power = bundle.getInt("power");
         stats.calcStats(SplatfestDetail.this);
-        if(stats.grade==null) {
-            stats.grade = bundle.getString("grade");
-            stats.power = bundle.getInt("power");
-        }
+        
 
         votes = null;
 
@@ -73,8 +74,16 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
         splatnetConnector.addRequest(new SplatfestVoteRequest(splatfest.id));
         splatnetConnector.execute();
 
-        Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
-        Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        Typeface font, fontTitle;
+        if(settings.getBoolean("useInkling",false)){
+            font = Typeface.createFromAsset(getAssets(),"Inkling.otf");
+            fontTitle = Typeface.createFromAsset(getAssets(),"Inkling.otf");
+        }else{
+            font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
+            fontTitle = Typeface.createFromAsset(getAssets(),"Paintball.otf");
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView title = (TextView) findViewById(R.id.title);
@@ -176,7 +185,7 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
 
         fragmentManager = getSupportFragmentManager();
 
-        if(stats.timePlayed==0&&result.participants.alpha==0) {
+        if(stats.timePlayed==0&&result.rates.vote.alpha==0) {
             generalStats.setVisibility(View.GONE);
         }else{
             SplatfestPerformanceAdapter performanceAdapter = new SplatfestPerformanceAdapter(fragmentManager, splatfest, result, stats);

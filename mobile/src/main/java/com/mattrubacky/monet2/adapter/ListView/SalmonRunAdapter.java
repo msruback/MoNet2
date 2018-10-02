@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonRun;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

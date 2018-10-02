@@ -6,9 +6,9 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.deserialized.GearNotification;
-import com.mattrubacky.monet2.deserialized.GearNotifications;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.GearNotification;
+import com.mattrubacky.monet2.deserialized.splatoon.GearNotifications;
 
 import java.util.ArrayList;
 

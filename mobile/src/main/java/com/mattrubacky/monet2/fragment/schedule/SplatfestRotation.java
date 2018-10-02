@@ -14,9 +14,12 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.StagePostcardsDetail;
+import com.mattrubacky.monet2.deserialized.splatoon.Record;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.*;
 
 import com.mattrubacky.monet2.helper.StageStats;
 import com.squareup.picasso.Picasso;

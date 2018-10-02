@@ -5,9 +5,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.deserialized.Player;
-import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
@@ -214,8 +214,11 @@ public class SplatfestStats extends Stats implements Parcelable{
 
             }
             battle = battles.get(battles.size()-1);
-            grade = battle.user.user.grade.name;
-            power = battle.fesPower;
+
+            if(grade.equals("")){
+                grade = battle.user.user.grade.name;
+            }
+            power = battle.myFesPower;
 
             if (battles.size() > 5) {
                 playerInkStats = calcSpread(sort(playerInk));

@@ -2,10 +2,18 @@ package com.mattrubacky.monet2.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
+import com.mattrubacky.monet2.deserialized.splatoon.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestDatabase;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 
 import java.util.ArrayList;
@@ -188,7 +196,7 @@ public class SplatnetSQLManager {
         return weaponManager.selectAll();
     }
 
-    public void insertCloset(Gear gear,GearSkills gearSkills,Battle battle){
+    public void insertCloset(Gear gear, GearSkills gearSkills, Battle battle){
         ClosetManager closetManager = new ClosetManager(context);
         closetManager.addToInsert(gear,gearSkills,battle);
         closetManager.insert();
@@ -246,6 +254,13 @@ public class SplatnetSQLManager {
                 }
             }
         }
+    }
+
+    public void removeBattle(int id){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        BattleManager battleManager = new BattleManager(context);
+        database.delete(SplatnetContract.Battle.TABLE_NAME,SplatnetContract.Battle._ID+" = ? ", new String[]{String.valueOf(id)});
+        database.delete(SplatnetContract.Player.TABLE_NAME,SplatnetContract.Player.COLUMN_BATTLE+" = ? ",new String[]{String.valueOf(id)});
     }
 
 

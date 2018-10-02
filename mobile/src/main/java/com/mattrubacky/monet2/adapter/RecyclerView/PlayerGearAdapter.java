@@ -1,18 +1,14 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.GearViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.WeaponViewHolder;
-import com.mattrubacky.monet2.deserialized.Weapon;
+import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
 import com.mattrubacky.monet2.helper.ClosetHanger;
-import com.mattrubacky.monet2.helper.ImageHandler;
-import com.mattrubacky.monet2.helper.WeaponStats;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 

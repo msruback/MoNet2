@@ -1,40 +1,13 @@
 package com.mattrubacky.monet2;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.mattrubacky.monet2.dialog.AlertDialog;
-import com.mattrubacky.monet2.notifications.BattleGearNotificationFactory;
-import com.mattrubacky.monet2.notifications.GrizzCoRewardNotificationFactory;
-import com.mattrubacky.monet2.notifications.SalmonRunNotificationFactory;
-import com.mattrubacky.monet2.notifications.ShopNotificationFactory;
-import com.mattrubacky.monet2.notifications.StageNotifitcationFactory;
-import com.mattrubacky.monet2.notifications.WeaponNotificationFactory;
-import com.mattrubacky.monet2.splatnet.Splatnet;
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetRequest;
-import com.mattrubacky.monet2.splatnet.SplatnetUnauthorizedException;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DebugActivity extends AppCompatActivity {
 
@@ -45,7 +18,12 @@ public class DebugActivity extends AppCompatActivity {
 
         Typeface titleFont = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
-
+        SplatnetSQLManager database = new SplatnetSQLManager(this);
+        for(int i=1563; i<=1589;i++){
+            database.removeBattle(i);
+        }
+        Intent intent = new Intent(DebugActivity.this,MainActivity.class);
+        startActivity(intent);
     }
 
     private class Update extends AsyncTask<Void, Void, Void>

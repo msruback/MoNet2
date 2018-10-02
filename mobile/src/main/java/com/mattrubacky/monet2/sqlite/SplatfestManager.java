@@ -5,7 +5,19 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.deserialized.splatoon.Rates;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestColor;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestColors;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestContribution;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestDatabase;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestImages;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestNames;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestRates;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestSummary;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestTimes;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,34 +95,63 @@ class SplatfestManager {
 
                     values.put(SplatnetContract.Splatfest.COLUMN_STAGE,splatfest.splatfest.stage.id);
 
-//                    if(splatfest.result!=null) {
-//                        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS, splatfest.result.participants.alpha);
-//                        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS, splatfest.result.teamScores.alphaSolo);
-//                        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS, splatfest.result.teamScores.alphaTeam);
-//                        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS, splatfest.result.participants.bravo);
-//                        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS, splatfest.result.teamScores.bravoSolo);
-//                        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS, splatfest.result.teamScores.bravoTeam);
-//
-//                        values.put(SplatnetContract.Splatfest.COLUMN_VOTE, splatfest.result.summary.vote);
-//                        values.put(SplatnetContract.Splatfest.COLUMN_SOLO, splatfest.result.summary.solo);
-//                        values.put(SplatnetContract.Splatfest.COLUMN_TEAM, splatfest.result.summary.team);
-//                        values.put(SplatnetContract.Splatfest.COLUMN_WINNER, splatfest.result.summary.total);
-//                    }
-//
-//                    database.insert(SplatnetContract.Splatfest.TABLE_NAME, null, values);
+                    if(splatfest.result!=null) {
+                        values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS, splatfest.result.rates.vote.alpha);
+                        values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS, splatfest.result.rates.vote.bravo);
+
+                        values.put(SplatnetContract.Splatfest.COLUMN_VERSION, splatfest.result.version);
+                        if(splatfest.result.version ==01) {
+                            values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS, splatfest.result.rates.solo.alpha);
+                            values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS, splatfest.result.rates.team.alpha);
+                            values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS, splatfest.result.rates.solo.bravo);
+                            values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS, splatfest.result.rates.team.bravo);
+                        }else{
+                            values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS, splatfest.result.rates.challenge.alpha);
+                            values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS, splatfest.result.rates.regular.alpha);
+                            values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS, splatfest.result.rates.challenge.bravo);
+                            values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS, splatfest.result.rates.regular.bravo);
+
+                            values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_AVERAGE, splatfest.result.alphaAverages.challenge);
+                            values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_AVERAGE, splatfest.result.alphaAverages.regular);
+                            values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_AVERAGE, splatfest.result.bravoAverages.challenge);
+                            values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_AVERAGE, splatfest.result.bravoAverages.regular);
+                        }
+
+                        values.put(SplatnetContract.Splatfest.COLUMN_VOTE, splatfest.result.summary.vote);
+                        values.put(SplatnetContract.Splatfest.COLUMN_SOLO, splatfest.result.summary.solo);
+                        values.put(SplatnetContract.Splatfest.COLUMN_TEAM, splatfest.result.summary.team);
+                        values.put(SplatnetContract.Splatfest.COLUMN_WINNER, splatfest.result.summary.total);
+                    }
+
+                    database.insert(SplatnetContract.Splatfest.TABLE_NAME, null, values);
                 }else{
                     //If the splatfest is already inserted, but needs to be updated, and an update is available, then the splatfest gets updated
                     cursor.moveToFirst();
-                        if(splatfest.result!=null&&splatfest.result.participants!=null) {
+                        if(splatfest.result!=null&&splatfest.result.rates.vote!=null) {
 
                             values.put(SplatnetContract.Splatfest.COLUMN_RESULT_TIME,splatfest.splatfest.times.result);
 
-                            values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS, splatfest.result.participants.alpha);
-                            values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS, splatfest.result.teamScores.alphaSolo);
-                            values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS, splatfest.result.teamScores.alphaTeam);
-                            values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS, splatfest.result.participants.bravo);
-                            values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS, splatfest.result.teamScores.bravoSolo);
-                            values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS, splatfest.result.teamScores.bravoTeam);
+
+                            values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS, splatfest.result.rates.vote.alpha);
+                            values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS, splatfest.result.rates.vote.bravo);
+
+                            values.put(SplatnetContract.Splatfest.COLUMN_VERSION, splatfest.result.version);
+                            if(splatfest.result.version ==1) {
+                                values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS, splatfest.result.rates.solo.alpha);
+                                values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS, splatfest.result.rates.team.alpha);
+                                values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS, splatfest.result.rates.solo.bravo);
+                                values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS, splatfest.result.rates.team.bravo);
+                            }else{
+                                values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS, splatfest.result.rates.challenge.alpha);
+                                values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS, splatfest.result.rates.regular.alpha);
+                                values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS, splatfest.result.rates.challenge.bravo);
+                                values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS, splatfest.result.rates.regular.bravo);
+
+                                values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_AVERAGE, splatfest.result.alphaAverages.challenge);
+                                values.put(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_AVERAGE, splatfest.result.alphaAverages.regular);
+                                values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_AVERAGE, splatfest.result.bravoAverages.challenge);
+                                values.put(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_AVERAGE, splatfest.result.bravoAverages.regular);
+                            }
 
                             values.put(SplatnetContract.Splatfest.COLUMN_VOTE, splatfest.result.summary.vote);
                             values.put(SplatnetContract.Splatfest.COLUMN_SOLO, splatfest.result.summary.solo);
@@ -185,21 +226,40 @@ class SplatfestManager {
 
                 splatfestDatabase.result.id = splatfestDatabase.splatfest.id;
 
-                splatfestDatabase.result.teamScores = new SplatfestTeamScores();
+                splatfestDatabase.result.rates = new SplatfestRates();
 
-                splatfestDatabase.result.teamScores.alphaSolo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS));
-                splatfestDatabase.result.teamScores.alphaTeam = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS));
+                splatfestDatabase.result.rates.vote = new Rates();
+                splatfestDatabase.result.rates.solo = new Rates();
+                splatfestDatabase.result.rates.team = new Rates();
+                splatfestDatabase.result.rates.regular = new Rates();
+                splatfestDatabase.result.rates.challenge = new Rates();
 
-                splatfestDatabase.result.teamScores.bravoSolo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS));
-                splatfestDatabase.result.teamScores.bravoTeam = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS));
+                splatfestDatabase.result.alphaAverages = new SplatfestContribution();
+                splatfestDatabase.result.bravoAverages = new SplatfestContribution();
 
-                splatfestDatabase.result.participants = new SplatfestParticipants();
+                splatfestDatabase.result.version = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_VERSION));
 
-                splatfestDatabase.result.participants.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS));
-                splatfestDatabase.result.participants.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS));
+                splatfestDatabase.result.rates.vote.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS));
+                splatfestDatabase.result.rates.vote.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS));
+
+                if(splatfestDatabase.result.version ==1){
+                    splatfestDatabase.result.rates.solo.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS));
+                    splatfestDatabase.result.rates.team.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS));
+                    splatfestDatabase.result.rates.solo.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS));
+                    splatfestDatabase.result.rates.team.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS));
+                }else{
+                    splatfestDatabase.result.rates.challenge.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS));
+                    splatfestDatabase.result.rates.challenge.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS));
+                    splatfestDatabase.result.rates.regular.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS));
+                    splatfestDatabase.result.rates.regular.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS));
+
+                    splatfestDatabase.result.alphaAverages.challenge = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_AVERAGE));
+                    splatfestDatabase.result.alphaAverages.regular = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_AVERAGE));
+                    splatfestDatabase.result.bravoAverages.challenge = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_AVERAGE));
+                    splatfestDatabase.result.bravoAverages.regular = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_AVERAGE));
+                }
 
                 splatfestDatabase.result.summary = new SplatfestSummary();
-
                 splatfestDatabase.result.summary.solo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_SOLO));
                 splatfestDatabase.result.summary.team = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_TEAM));
                 splatfestDatabase.result.summary.vote = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_VOTE));
@@ -286,18 +346,36 @@ class SplatfestManager {
 
                     splatfestDatabase.result.id = splatfestDatabase.splatfest.id;
 
-                    splatfestDatabase.result.teamScores = new SplatfestTeamScores();
+                    splatfestDatabase.result.rates.vote = new Rates();
+                    splatfestDatabase.result.rates.solo = new Rates();
+                    splatfestDatabase.result.rates.team = new Rates();
+                    splatfestDatabase.result.rates.regular = new Rates();
+                    splatfestDatabase.result.rates.challenge = new Rates();
 
-                    splatfestDatabase.result.teamScores.alphaSolo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS));
-                    splatfestDatabase.result.teamScores.alphaTeam = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS));
+                    splatfestDatabase.result.alphaAverages = new SplatfestContribution();
+                    splatfestDatabase.result.bravoAverages = new SplatfestContribution();
 
-                    splatfestDatabase.result.teamScores.bravoSolo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS));
-                    splatfestDatabase.result.teamScores.bravoTeam = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS));
+                    splatfestDatabase.result.version = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_VERSION));
 
-                    splatfestDatabase.result.participants = new SplatfestParticipants();
+                    splatfestDatabase.result.rates.vote.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS));
+                    splatfestDatabase.result.rates.vote.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS));
 
-                    splatfestDatabase.result.participants.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS));
-                    splatfestDatabase.result.participants.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS));
+                    if(splatfestDatabase.result.version ==1){
+                        splatfestDatabase.result.rates.solo.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS));
+                        splatfestDatabase.result.rates.team.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS));
+                        splatfestDatabase.result.rates.solo.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS));
+                        splatfestDatabase.result.rates.team.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS));
+                    }else{
+                        splatfestDatabase.result.rates.challenge.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS));
+                        splatfestDatabase.result.rates.challenge.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS));
+                        splatfestDatabase.result.rates.regular.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS));
+                        splatfestDatabase.result.rates.regular.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS));
+
+                        splatfestDatabase.result.alphaAverages.challenge = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_AVERAGE));
+                        splatfestDatabase.result.alphaAverages.regular = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_AVERAGE));
+                        splatfestDatabase.result.bravoAverages.challenge = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_AVERAGE));
+                        splatfestDatabase.result.bravoAverages.regular = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_AVERAGE));
+                    }
 
                     splatfestDatabase.result.summary = new SplatfestSummary();
 
@@ -385,18 +463,38 @@ class SplatfestManager {
 
                     splatfestDatabase.result.id = splatfestDatabase.splatfest.id;
 
-                    splatfestDatabase.result.teamScores = new SplatfestTeamScores();
+                    splatfestDatabase.result.rates = new SplatfestRates();
 
-                    splatfestDatabase.result.teamScores.alphaSolo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS));
-                    splatfestDatabase.result.teamScores.alphaTeam = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS));
+                    splatfestDatabase.result.rates.vote = new Rates();
+                    splatfestDatabase.result.rates.solo = new Rates();
+                    splatfestDatabase.result.rates.team = new Rates();
+                    splatfestDatabase.result.rates.regular = new Rates();
+                    splatfestDatabase.result.rates.challenge = new Rates();
 
-                    splatfestDatabase.result.teamScores.bravoSolo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS));
-                    splatfestDatabase.result.teamScores.bravoTeam = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS));
+                    splatfestDatabase.result.alphaAverages = new SplatfestContribution();
+                    splatfestDatabase.result.bravoAverages = new SplatfestContribution();
 
-                    splatfestDatabase.result.participants = new SplatfestParticipants();
+                    splatfestDatabase.result.version = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_VERSION));
 
-                    splatfestDatabase.result.participants.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS));
-                    splatfestDatabase.result.participants.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS));
+                    splatfestDatabase.result.rates.vote.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_PLAYERS));
+                    splatfestDatabase.result.rates.vote.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_PLAYERS));
+
+                    if(splatfestDatabase.result.version ==1){
+                        splatfestDatabase.result.rates.solo.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS));
+                        splatfestDatabase.result.rates.team.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS));
+                        splatfestDatabase.result.rates.solo.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS));
+                        splatfestDatabase.result.rates.team.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS));
+                    }else{
+                        splatfestDatabase.result.rates.challenge.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_WINS));
+                        splatfestDatabase.result.rates.challenge.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_WINS));
+                        splatfestDatabase.result.rates.regular.alpha = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_WINS));
+                        splatfestDatabase.result.rates.regular.bravo = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_WINS));
+
+                        splatfestDatabase.result.alphaAverages.challenge = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_SOLO_AVERAGE));
+                        splatfestDatabase.result.alphaAverages.regular = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_ALPHA_TEAM_AVERAGE));
+                        splatfestDatabase.result.bravoAverages.challenge = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_SOLO_AVERAGE));
+                        splatfestDatabase.result.bravoAverages.regular = cursor.getFloat(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_BRAVO_TEAM_AVERAGE));
+                    }
 
                     splatfestDatabase.result.summary = new SplatfestSummary();
 

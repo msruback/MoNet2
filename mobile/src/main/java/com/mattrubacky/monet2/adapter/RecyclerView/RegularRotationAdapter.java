@@ -1,17 +1,12 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.design.widget.TabLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.RegularTimePeriodViewHolder;
-import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SplatfestViewHolder;
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.deserialized.SplatfestDatabase;
-import com.mattrubacky.monet2.deserialized.TimePeriod;
+import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 
 import java.util.ArrayList;
 

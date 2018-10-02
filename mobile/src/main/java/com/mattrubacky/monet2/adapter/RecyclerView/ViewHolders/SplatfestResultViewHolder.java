@@ -13,8 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.deserialized.SplatfestResult;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +27,6 @@ public class SplatfestResultViewHolder extends RecyclerView.ViewHolder{
     public RelativeLayout voteMeter,alphaVote,bravoVote,soloMeter,alphaSolo,bravoSolo,teamMeter,alphaTeam,bravoTeam;
     public ImageView alphaImage,bravoImage;
     public TextView voteTitle,alphaVoteText,bravoVoteText,soloTitle,alphaSoloText,bravoSoloText,teamTitle,alphaTeamText,bravoTeamText;
-    public TextView alphaVotePercent,bravoVotePercent,alphaSoloPercent,bravoSoloPercent,alphaTeamPercent,bravoTeamPercent;
     private Context context;
 
     public SplatfestResultViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
@@ -57,13 +56,6 @@ public class SplatfestResultViewHolder extends RecyclerView.ViewHolder{
         teamTitle = (TextView) itemView.findViewById(R.id.TeamTitle);
         alphaTeamText = (TextView) itemView.findViewById(R.id.TeamWinText);
         bravoTeamText = (TextView) itemView.findViewById(R.id.TeamLossText);
-
-        alphaVotePercent = (TextView) itemView.findViewById(R.id.alphaVotePercent);
-        bravoVotePercent = (TextView) itemView.findViewById(R.id.bravoVotePercent);
-        alphaSoloPercent = (TextView) itemView.findViewById(R.id.alphaSoloPercent);
-        bravoSoloPercent = (TextView) itemView.findViewById(R.id.bravoSoloPercent);
-        alphaTeamPercent = (TextView) itemView.findViewById(R.id.alphaTeamPercent);
-        bravoTeamPercent = (TextView) itemView.findViewById(R.id.bravoTeamPercent);
     }
 
     public void manageHolder(Splatfest splatfest, SplatfestResult result){
@@ -81,51 +73,29 @@ public class SplatfestResultViewHolder extends RecyclerView.ViewHolder{
         voteTitle.setTypeface(fontTitle);
         alphaVoteText.setTypeface(font);
         bravoVoteText.setTypeface(font);
-        alphaVotePercent.setTypeface(fontTitle);
-        bravoVotePercent.setTypeface(fontTitle);
         soloTitle.setTypeface(fontTitle);
         alphaSoloText.setTypeface(font);
         bravoSoloText.setTypeface(font);
-        alphaSoloPercent.setTypeface(fontTitle);
-        bravoSoloPercent.setTypeface(fontTitle);
         teamTitle.setTypeface(fontTitle);
         alphaTeamText.setTypeface(font);
         bravoTeamText.setTypeface(font);
-        alphaTeamPercent.setTypeface(fontTitle);
-        bravoTeamPercent.setTypeface(fontTitle);
 
-        float total = result.participants.alpha +result.participants.bravo;
-        double alphaPercent = (result.participants.alpha/total)*100;
-        double bravoPercent = (result.participants.bravo/total)*100;
+        double alphaVotePercent = result.rates.vote.alpha/100;
+        double bravoVotePercent = result.rates.vote.bravo/100;
 
-        alphaPercent = Math.round(alphaPercent);
-        bravoPercent = Math.round(bravoPercent);
-        alphaVotePercent.setText(((int)alphaPercent)+"%");
-        bravoVotePercent.setText(((int)bravoPercent)+"%");
 
-        total = result.teamScores.alphaSolo+result.teamScores.bravoSolo;
-        alphaPercent = (result.teamScores.alphaSolo/total)*100;
-        bravoPercent = (result.teamScores.bravoSolo/total)*100;
+        double alphaSoloPercent = result.rates.solo.alpha/100;
+        double bravoSoloPercent = result.rates.solo.bravo/100;
 
-        alphaPercent = Math.round(alphaPercent);
-        bravoPercent = Math.round(bravoPercent);
-        alphaSoloPercent.setText(((int)alphaPercent)+"%");
-        bravoSoloPercent.setText(((int)bravoPercent)+"%");
+        double alphaTeamPercent = result.rates.team.alpha/100;
+        double bravoTeamPercent = result.rates.team.bravo/100;
 
-        total = result.teamScores.alphaTeam+result.teamScores.bravoTeam;
-        alphaPercent = (result.teamScores.alphaTeam/total)*100;
-        bravoPercent = (result.teamScores.bravoTeam/total)*100;
-        alphaPercent = Math.round(alphaPercent);
-        bravoPercent = Math.round(bravoPercent);
-        alphaTeamPercent.setText(((int)alphaPercent)+"%");
-        bravoTeamPercent.setText(((int)bravoPercent)+"%");
-
-        alphaVoteText.setText(String.valueOf(result.participants.alpha));
-        bravoVoteText.setText(String.valueOf(result.participants.bravo));
-        alphaSoloText.setText(String.valueOf(result.teamScores.alphaSolo));
-        bravoSoloText.setText(String.valueOf(result.teamScores.bravoSolo));
-        alphaTeamText.setText(String.valueOf(result.teamScores.alphaTeam));
-        bravoTeamText.setText(String.valueOf(result.teamScores.bravoTeam));
+        alphaVoteText.setText(String.valueOf(alphaVotePercent)+"%");
+        bravoVoteText.setText(String.valueOf(bravoVotePercent)+"%");
+        alphaSoloText.setText(String.valueOf(alphaSoloPercent)+"%");
+        bravoSoloText.setText(String.valueOf(bravoSoloPercent)+"%");
+        alphaTeamText.setText(String.valueOf(alphaTeamPercent)+"%");
+        bravoTeamText.setText(String.valueOf(bravoTeamPercent)+"%");
 
         voteTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
         soloTitle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
@@ -154,40 +124,37 @@ public class SplatfestResultViewHolder extends RecyclerView.ViewHolder{
         teamMeter.setClipToOutline(true);
 
         ViewGroup.LayoutParams layoutParams = alphaVote.getLayoutParams();
-        total = result.participants.alpha+result.participants.bravo;
-        float width = result.participants.alpha/total;
+        float width = result.rates.vote.alpha/1000;
         width *= 250;
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         alphaVote.setLayoutParams(layoutParams);
 
         layoutParams = bravoVote.getLayoutParams();
-        width = result.participants.bravo/total;
+        width = result.rates.vote.bravo/1000;
         width *= 250;
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         bravoVote.setLayoutParams(layoutParams);
 
         layoutParams = alphaSolo.getLayoutParams();
-        total = result.teamScores.alphaSolo+result.teamScores.bravoSolo;
-        width = result.teamScores.alphaSolo/total;
+        width = result.rates.solo.alpha/1000;
         width *= 250;
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         alphaSolo.setLayoutParams(layoutParams);
 
         layoutParams = bravoSolo.getLayoutParams();
-        width = result.teamScores.bravoSolo/total;
+        width = result.rates.solo.bravo/1000;
         width *= 250;
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         bravoSolo.setLayoutParams(layoutParams);
 
         layoutParams = alphaTeam.getLayoutParams();
-        total = result.teamScores.alphaTeam+result.teamScores.bravoTeam;
-        width = result.teamScores.alphaTeam/total;
+        width = result.rates.team.alpha/1000;
         width *= 250;
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         alphaTeam.setLayoutParams(layoutParams);
 
         layoutParams = bravoTeam.getLayoutParams();
-        width = result.teamScores.bravoTeam/total;
+        width = result.rates.team.bravo/1000;
         width *= 250;
         layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         bravoTeam.setLayoutParams(layoutParams);

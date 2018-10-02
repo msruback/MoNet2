@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.GearPickerPagerAdapter;
-import com.mattrubacky.monet2.deserialized.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;

@@ -4,9 +4,18 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.ArrayAdapter;
 
-import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
+import com.mattrubacky.monet2.deserialized.splatoon.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.PlayerDatabase;
+import com.mattrubacky.monet2.deserialized.splatoon.PlayerType;
+import com.mattrubacky.monet2.deserialized.splatoon.Rank;
+import com.mattrubacky.monet2.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestGrade;
+import com.mattrubacky.monet2.deserialized.splatoon.User;
+import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +42,7 @@ class PlayerManager {
         weaponManager = new WeaponManager(context);
     }
 
-    public void addToInsert(Player player,String mode,int battleId,int type){
+    public void addToInsert(Player player, String mode, int battleId, int type){
         PlayerDatabase playerDatabase = new PlayerDatabase();
         playerDatabase.player = player;
         playerDatabase.battleType = mode;
@@ -78,11 +87,20 @@ class PlayerManager {
                     values.put(SplatnetContract.Player.COLUMN_ID, player.player.user.id);
                     values.put(SplatnetContract.Player.COLUMN_NAME, player.player.user.name);
                     values.put(SplatnetContract.Player.COLUMN_LEVEL, player.player.user.rank);
+                    values.put(SplatnetContract.Player.COLUMN_STAR_RANK, player.player.user.starRank);
                     values.put(SplatnetContract.Player.COLUMN_POINT, player.player.points);
                     values.put(SplatnetContract.Player.COLUMN_KILL, player.player.kills);
                     values.put(SplatnetContract.Player.COLUMN_ASSIST, player.player.assists);
                     values.put(SplatnetContract.Player.COLUMN_DEATH, player.player.deaths);
                     values.put(SplatnetContract.Player.COLUMN_SPECIAL, player.player.special);
+
+                    if(player.player.user.playerType!=null){
+                        values.put(SplatnetContract.Player.COLUMN_SPECIES, player.player.user.playerType.species);
+                        values.put(SplatnetContract.Player.COLUMN_STYLE, player.player.user.playerType.style);
+                    }else{
+                        values.put(SplatnetContract.Player.COLUMN_SPECIES, "inklings");
+                        values.put(SplatnetContract.Player.COLUMN_STYLE, "none");
+                    }
 
                     switch (player.battleType) {
                         case "gachi":
@@ -233,6 +251,7 @@ class PlayerManager {
                     player.player.deaths = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_DEATH));
                     player.player.special = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SPECIAL));
 
+
                     User user = new User();
                     user.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_NAME));
                     user.id = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_ID));
@@ -244,6 +263,9 @@ class PlayerManager {
                     SplatfestGrade splatfestGrade = new SplatfestGrade();
                     splatfestGrade.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_FES_GRADE));
                     user.grade = splatfestGrade;
+                    user.playerType = new PlayerType();
+                    user.playerType.species = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SPECIES));
+                    user.playerType.style = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_STYLE));
 
                     //Head
 
@@ -419,6 +441,7 @@ class PlayerManager {
                 player.player.deaths = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_DEATH));
                 player.player.special = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SPECIAL));
 
+
                 User user = new User();
                 user.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_NAME));
                 user.id = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_ID));
@@ -430,6 +453,9 @@ class PlayerManager {
                 SplatfestGrade splatfestGrade = new SplatfestGrade();
                 splatfestGrade.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_FES_GRADE));
                 user.grade = splatfestGrade;
+                user.playerType = new PlayerType();
+                user.playerType.species = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SPECIES));
+                user.playerType.style = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_STYLE));
 
                 //Head
 
@@ -566,8 +592,7 @@ class PlayerManager {
         return selected;
     }
 
-
-    public ArrayList<Battle> selectStats(int itemID,String itemType){
+    public ArrayList<Battle> selectStats(int itemID, String itemType){
 
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
@@ -616,7 +641,6 @@ class PlayerManager {
 
         Cursor cursor = database.query(SplatnetContract.Player.TABLE_NAME,null,whereClause,args,null,null,null);
 
-        ArrayList<PlayerDatabase> players = new ArrayList<>();
         PlayerDatabase player;
 
         if(cursor.moveToFirst()){

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.RegularRotationAdapter;
-import com.mattrubacky.monet2.deserialized.TimePeriod;
+import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 
 import java.util.ArrayList;
 

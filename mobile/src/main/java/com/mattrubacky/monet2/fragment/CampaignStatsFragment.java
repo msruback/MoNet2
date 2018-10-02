@@ -15,12 +15,12 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.CampaignWeaponAdapter;
 import com.mattrubacky.monet2.adapter.RecyclerView.CampaignWorldAdapter;
-import com.mattrubacky.monet2.deserialized.CampaignRecords;
-import com.mattrubacky.monet2.deserialized.CampaignStageInfo;
-import com.mattrubacky.monet2.deserialized.CampaignWeapon;
-import com.mattrubacky.monet2.splatnet.CampaignRecordsRequest;
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.deserialized.splatoon.CampaignRecords;
+import com.mattrubacky.monet2.deserialized.splatoon.CampaignStageInfo;
+import com.mattrubacky.monet2.deserialized.splatoon.CampaignWeapon;
+import com.mattrubacky.monet2.api.splatnet.CampaignRecordsRequest;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 
 import java.util.ArrayList;
 

@@ -11,8 +11,8 @@ import android.widget.RelativeLayout;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.ListView.CampaignWeaponStatsAdapter;
-import com.mattrubacky.monet2.deserialized.CampaignStageInfo;
-import com.mattrubacky.monet2.deserialized.CampaignWeapon;
+import com.mattrubacky.monet2.deserialized.splatoon.CampaignStageInfo;
+import com.mattrubacky.monet2.deserialized.splatoon.CampaignWeapon;
 
 import java.util.ArrayList;
 

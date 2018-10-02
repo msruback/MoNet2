@@ -2,13 +2,11 @@ package com.mattrubacky.monet2.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -17,29 +15,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
+import com.mattrubacky.monet2.deserialized.splatoon.Ordered;
+import com.mattrubacky.monet2.deserialized.splatoon.Product;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.splatnet.OrderRequest;
-import com.mattrubacky.monet2.splatnet.ShopRequest;
-import com.mattrubacky.monet2.splatnet.Splatnet;
-import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.api.splatnet.OrderRequest;
+import com.mattrubacky.monet2.api.splatnet.ShopRequest;
 
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.Date;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by mattr on 9/20/2017.

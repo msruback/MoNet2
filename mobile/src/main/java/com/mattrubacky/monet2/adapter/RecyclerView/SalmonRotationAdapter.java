@@ -6,14 +6,10 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.adapter.ListView.SalmonRunAdapter;
-import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ListViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ListViewViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SalmonDetailViewHolder;
-import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SplatfestTimePeriodViewHolder;
-import com.mattrubacky.monet2.deserialized.SalmonRun;
-import com.mattrubacky.monet2.deserialized.SalmonRunDetail;
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.deserialized.TimePeriod;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonRun;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
 
 import java.util.ArrayList;
 

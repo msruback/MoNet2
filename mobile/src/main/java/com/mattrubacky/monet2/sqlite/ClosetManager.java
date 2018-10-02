@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
+import com.mattrubacky.monet2.deserialized.splatoon.Skill;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ class ClosetManager {
 
     }
 
-    public void addToInsert(Gear gear, GearSkills skills,Battle battle){
+    public void addToInsert(Gear gear, GearSkills skills, Battle battle){
         ClosetHanger hanger = new ClosetHanger();
         hanger.gear = gear;
         hanger.skills = skills;

@@ -8,24 +8,11 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
-import com.google.gson.Gson;
-
-import com.mattrubacky.monet2.splatnet.OrderRequest;
-import com.mattrubacky.monet2.splatnet.ShopRequest;
-import com.mattrubacky.monet2.splatnet.Splatnet;
-import com.mattrubacky.monet2.deserialized.*;
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetConnector;
-
-import java.io.IOException;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.mattrubacky.monet2.api.splatnet.OrderRequest;
+import com.mattrubacky.monet2.api.splatnet.ShopRequest;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.deserialized.splatoon.Product;
 
 /**
  * Created by mattr on 10/5/2017.

@@ -1,32 +1,20 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.LeagueCardViewHolder;
-import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ListViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.RankedCardViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.RegularCardViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SalmonRunCardViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SplatfestCardViewHolder;
-import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.UserDetailViewHolder;
-import com.mattrubacky.monet2.deserialized.Challenge;
-import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
-import com.mattrubacky.monet2.deserialized.Gear;
-import com.mattrubacky.monet2.deserialized.NicknameIcon;
-import com.mattrubacky.monet2.deserialized.Record;
-import com.mattrubacky.monet2.deserialized.Reward;
-import com.mattrubacky.monet2.deserialized.RewardGear;
-import com.mattrubacky.monet2.deserialized.SalmonSchedule;
-import com.mattrubacky.monet2.deserialized.Schedules;
-import com.mattrubacky.monet2.fragment.schedule.SalmonRotation;
-import com.mattrubacky.monet2.helper.PlayerStats;
+import com.mattrubacky.monet2.deserialized.splatoon.CurrentSplatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonSchedule;
+import com.mattrubacky.monet2.deserialized.splatoon.Schedules;
 
 import java.util.ArrayList;
 

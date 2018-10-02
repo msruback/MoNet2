@@ -5,14 +5,12 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.deserialized.GrizzCo;
-import com.mattrubacky.monet2.deserialized.RewardGear;
-import com.mattrubacky.monet2.deserialized.Timeline;
+import com.mattrubacky.monet2.deserialized.splatoon.RewardGear;
+import com.mattrubacky.monet2.deserialized.splatoon.Timeline;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by mattr on 12/20/2017.

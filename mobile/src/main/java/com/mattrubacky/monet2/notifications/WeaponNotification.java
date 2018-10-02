@@ -6,7 +6,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.WeaponAvailability;
+import com.mattrubacky.monet2.deserialized.splatoon.WeaponAvailability;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -61,5 +61,11 @@ public class WeaponNotification extends Notification {
         builder.append(",\"availability\":");
         builder.append(gson.toJson(availabilty));
         return builder.toString();
+    }
+
+    @Override
+    protected boolean isUnique(Notification unique) {
+        WeaponNotification notification = (WeaponNotification) unique;
+        return !(notification.availabilty.weapon.id==availabilty.weapon.id);
     }
 }

@@ -5,10 +5,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.deserialized.Annie;
-import com.mattrubacky.monet2.deserialized.GearNotification;
-import com.mattrubacky.monet2.deserialized.GearNotifications;
-import com.mattrubacky.monet2.deserialized.Product;
+import com.mattrubacky.monet2.deserialized.splatoon.Annie;
+import com.mattrubacky.monet2.deserialized.splatoon.GearNotification;
+import com.mattrubacky.monet2.deserialized.splatoon.GearNotifications;
+import com.mattrubacky.monet2.deserialized.splatoon.Product;
 
 import java.util.ArrayList;
 

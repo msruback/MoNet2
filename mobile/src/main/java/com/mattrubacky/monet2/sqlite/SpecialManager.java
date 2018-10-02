@@ -4,13 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.GridLayout;
 
-import com.mattrubacky.monet2.deserialized.Special;
-import com.mattrubacky.monet2.deserialized.Sub;
+import com.mattrubacky.monet2.deserialized.splatoon.Special;
 import com.mattrubacky.monet2.dialog.LoadingDialog;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
-import com.mattrubacky.monet2.sqlite.SplatnetSQLHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,7 +68,7 @@ class SpecialManager {
             Special special;
             for (int i = 0; i < keys.length; i++) {
                 values = new ContentValues();
-                special = new Special();
+                special = toInsert.get(keys[i]);
 
                 args = new String[] {String.valueOf(special.id)};
                 cursor = database.query(SplatnetContract.Special.TABLE_NAME,null,whereClause,args,null,null,null);

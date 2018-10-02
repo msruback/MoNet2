@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +11,7 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.LeagueRotationAdapter;
-import com.mattrubacky.monet2.adapter.RecyclerView.RegularRotationAdapter;
-import com.mattrubacky.monet2.deserialized.TimePeriod;
+import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 
 import java.util.ArrayList;
 

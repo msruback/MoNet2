@@ -20,8 +20,8 @@ import com.google.gson.Gson;
 import com.mattrubacky.monet2.AddNotification;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.ListView.StageNotificationAdapter;
-import com.mattrubacky.monet2.deserialized.StageNotification;
-import com.mattrubacky.monet2.deserialized.StageNotifications;
+import com.mattrubacky.monet2.deserialized.splatoon.StageNotification;
+import com.mattrubacky.monet2.deserialized.splatoon.StageNotifications;
 
 import java.util.ArrayList;
 

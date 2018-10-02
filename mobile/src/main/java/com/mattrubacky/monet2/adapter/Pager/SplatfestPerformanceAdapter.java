@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.deserialized.SplatfestResult;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.SplatfestPerformanceFragment;
 import com.mattrubacky.monet2.fragment.SplatfestDetail.SplatfestResultFragment;
 import com.mattrubacky.monet2.helper.SplatfestStats;
@@ -32,7 +32,7 @@ public class SplatfestPerformanceAdapter extends FragmentStatePagerAdapter {
 
         Bundle bundle = new Bundle();
         Fragment performance;
-        if(position==0&&stats!=null){
+        if(position==0&&stats.grade!=null){
             bundle.putParcelable("stats",stats);
             bundle.putParcelable("splatfest",splatfest);
             performance = new SplatfestPerformanceFragment();
@@ -47,9 +47,9 @@ public class SplatfestPerformanceAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        if(result.participants.alpha!=0&&stats!=null){
+        if(result.rates.vote.alpha!=0&&stats.grade!=null){
             return 2;
-        }else if(result.participants.alpha==0&&stats==null){
+        }else if(result.rates.vote.alpha==0&&stats.grade==null){
             return 0;
         }else{
             return 1;

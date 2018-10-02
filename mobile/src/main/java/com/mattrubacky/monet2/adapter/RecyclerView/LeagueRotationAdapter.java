@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.CompetitiveTimePeriodViewHolder;
-import com.mattrubacky.monet2.deserialized.TimePeriod;
+import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 
 import java.util.ArrayList;
 

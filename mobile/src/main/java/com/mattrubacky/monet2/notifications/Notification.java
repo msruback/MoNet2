@@ -42,16 +42,10 @@ public abstract class Notification {
     }
 
     public boolean equals(Notification toCompare){
-        if(toCompare.endTime.equals(endTime)){
-            if(isUnique(toCompare)){
-                return false;
-            }
-            return true;
-        }
-        return false;
+        return (toCompare.endTime.equals(endTime)&&!isUnique(toCompare));
     }
     protected boolean isUnique(Notification unique){
-        return false;
+        return true;
     }
 
     public boolean isValid(){

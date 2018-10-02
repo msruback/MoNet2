@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.Product;
+import com.mattrubacky.monet2.deserialized.splatoon.Product;
 import com.mattrubacky.monet2.service.OrderGear;
 
 import java.text.SimpleDateFormat;
@@ -29,7 +29,7 @@ public class ShopNotification extends Notification{
     }
 
     public ShopNotification(Context context,Product product){
-        super(context,new Date().getTime(),product.endTime*1000);
+        super(context, (long) 0,product.endTime*1000);
         this.product = product;
         name = "ShopNotification";
     }
@@ -76,4 +76,9 @@ public class ShopNotification extends Notification{
         return builder.toString();
     }
 
+    @Override
+    public boolean isUnique(Notification notification){
+        ShopNotification shopNotification = (ShopNotification) notification;
+        return !((product.gear.id == shopNotification.product.gear.id)&&(product.gear.kind.equals(shopNotification.product.gear.kind)));
+    }
 }

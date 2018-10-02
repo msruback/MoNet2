@@ -85,7 +85,7 @@ public class ClosetDetail extends AppCompatActivity {
         inkedText.setText(String.valueOf(hanger.inked));
 
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy h:mm a");
-        String last = format.format(hanger.time*1000);
+        String last = format.format((hanger.time*1000));
         lastText.setText(last);
 
         //Handle Colors

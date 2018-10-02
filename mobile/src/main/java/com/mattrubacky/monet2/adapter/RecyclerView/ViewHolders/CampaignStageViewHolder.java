@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.CampaignStageInfo;
-import com.mattrubacky.monet2.deserialized.CampaignWeapon;
+import com.mattrubacky.monet2.deserialized.splatoon.CampaignStageInfo;
+import com.mattrubacky.monet2.deserialized.splatoon.CampaignWeapon;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 

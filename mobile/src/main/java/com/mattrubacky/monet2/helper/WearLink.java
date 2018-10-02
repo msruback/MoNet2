@@ -12,7 +12,8 @@ import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 
-import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonSchedule;
+import com.mattrubacky.monet2.deserialized.splatoon.Schedules;
 
 /**
  * Created by mattr on 9/30/2017.

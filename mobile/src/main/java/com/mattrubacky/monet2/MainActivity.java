@@ -23,14 +23,21 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import com.mattrubacky.monet2.adapter.ListView.NavAdapter;
-import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.PastSplatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.Record;
+import com.mattrubacky.monet2.deserialized.splatoon.Timeline;
 import com.mattrubacky.monet2.dialog.GearNotificationPickerDialog;
 import com.mattrubacky.monet2.dialog.StageNotificationPickerDialog;
 import com.mattrubacky.monet2.fragment.*;
+import com.mattrubacky.monet2.notifications.GrizzCoRewardNotification;
+import com.mattrubacky.monet2.notifications.GrizzCoRewardNotificationFactory;
+import com.mattrubacky.monet2.notifications.ShopNotificationFactory;
+import com.mattrubacky.monet2.notifications.StageNotificationFactory;
 import com.mattrubacky.monet2.reciever.BootReciever;
 import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
 import com.mattrubacky.monet2.reciever.NotificationAlarm;
-import com.mattrubacky.monet2.splatnet.Splatnet;
+import com.mattrubacky.monet2.api.splatnet.Splatnet;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.io.IOException;
@@ -75,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         titles.add(settings.getString("name","User"));
         titles.add("Battles");
+        titles.add("Leaderboards");
         titles.add("Settings");
 
         children = new ArrayList<String>();
@@ -84,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
         children.add("Ability Chunks");
         children.add("Splatfests");
         children.add("Campaign");
+        children.add("Ink");
+
 
         //Just when I am too lazy to enter the token by hand
         SharedPreferences.Editor edit = settings.edit();
@@ -167,6 +177,8 @@ public class MainActivity extends AppCompatActivity {
                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                     PackageManager.DONT_KILL_APP);
         }
+        new GrizzCoRewardNotificationFactory(this).manageNotifications();
+        new StageNotificationFactory(this).manageNotifications();
 
         Intent intent = getIntent();
         switch(intent.getIntExtra("fragment",0)){
@@ -305,8 +317,14 @@ public class MainActivity extends AppCompatActivity {
         Thread t = new Thread(updateTimeline);
         t.start();
 
-        Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
-        Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
+        Typeface font, fontTitle;
+        if(settings.getBoolean("useInkling",false)){
+            font = Typeface.createFromAsset(getAssets(),"Inkling.otf");
+            fontTitle = Typeface.createFromAsset(getAssets(),"Inkling.otf");
+        }else{
+            font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
+            fontTitle = Typeface.createFromAsset(getAssets(),"Paintball.otf");
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView title = (TextView) findViewById(R.id.title);

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.AddNotification;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.GearNotification;
+import com.mattrubacky.monet2.deserialized.splatoon.GearNotification;
 import com.mattrubacky.monet2.dialog.GearNotificationPickerDialog;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;

@@ -4,16 +4,13 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.ListView.GearPickerAdapter;
-import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ListViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ListViewViewHolder;
-import com.mattrubacky.monet2.deserialized.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
 
 import java.util.ArrayList;
 

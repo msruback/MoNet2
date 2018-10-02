@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.SalmonRunDetail;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
@@ -62,9 +62,9 @@ public class SalmonRotationDetail extends Fragment {
             imageHandler.downloadImage("salmon_stage",imageDirName,url,getContext());
         }
 
-        if(detail.weapons.get(0)!=null){
-            imageDirName = detail.weapons.get(0).name.toLowerCase().replace(" ","_");
-            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(0).url;
+        if(detail.weapons.get(0).weapon!=null){
+            imageDirName = detail.weapons.get(0).weapon.name.toLowerCase().replace(" ","_");
+            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(0).weapon.url;
 
             if(imageHandler.imageExists("weapon",imageDirName,getContext())){
                 weapon1Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
@@ -76,9 +76,9 @@ public class SalmonRotationDetail extends Fragment {
             weapon1Image.setImageDrawable(getResources().getDrawable(R.drawable.weapon_mystery));
         }
 
-        if(detail.weapons.get(1)!=null){
-            imageDirName = detail.weapons.get(1).name.toLowerCase().replace(" ","_");
-            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(1).url;
+        if(detail.weapons.get(1).weapon!=null){
+            imageDirName = detail.weapons.get(1).weapon.name.toLowerCase().replace(" ","_");
+            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(1).weapon.url;
 
             if(imageHandler.imageExists("weapon",imageDirName,getContext())){
                 weapon2Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
@@ -90,9 +90,9 @@ public class SalmonRotationDetail extends Fragment {
             weapon2Image.setImageDrawable(getResources().getDrawable(R.drawable.weapon_mystery));
         }
 
-        if(detail.weapons.get(2)!=null){
-            imageDirName = detail.weapons.get(2).name.toLowerCase().replace(" ","_");
-            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(2).url;
+        if(detail.weapons.get(2).weapon!=null){
+            imageDirName = detail.weapons.get(2).weapon.name.toLowerCase().replace(" ","_");
+            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(2).weapon.url;
 
             if(imageHandler.imageExists("weapon",imageDirName,getContext())){
                 weapon3Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
@@ -104,9 +104,9 @@ public class SalmonRotationDetail extends Fragment {
             weapon3Image.setImageDrawable(getResources().getDrawable(R.drawable.weapon_mystery));
         }
 
-        if(detail.weapons.get(3)!=null){
-            imageDirName = detail.weapons.get(3).name.toLowerCase().replace(" ","_");
-            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(3).url;
+        if(detail.weapons.get(3).weapon!=null){
+            imageDirName = detail.weapons.get(3).weapon.name.toLowerCase().replace(" ","_");
+            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(3).weapon.url;
 
             if(imageHandler.imageExists("weapon",imageDirName,getContext())){
                 weapon4Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));

@@ -13,14 +13,10 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.SalmonRotationAdapter;
-import com.mattrubacky.monet2.deserialized.Gear;
-import com.mattrubacky.monet2.deserialized.GrizzCo;
-import com.mattrubacky.monet2.deserialized.RewardGear;
-import com.mattrubacky.monet2.deserialized.SalmonSchedule;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonSchedule;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by mattr on 1/14/2018.

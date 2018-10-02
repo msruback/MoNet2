@@ -18,16 +18,27 @@ public final class SplatnetContract {
         public static final String COLUMN_RULE = "rule";
         public static final String COLUMN_MODE = "mode";
         public static final String COLUMN_POWER = "power";
-        public static final String COLUMN_WIN_METER ="win_meter";
+        public static final String COLUMN_WIN_METER = "win_meter";
         public static final String COLUMN_FES = "fes";
         public static final String COLUMN_ELAPSED_TIME = "elapsed_time";
         public static final String COLUMN_START_TIME = "start_time";
         public static final String COLUMN_MY_TEAM_COLOR = "my_team_color";
         public static final String COLUMN_MY_TEAM_KEY = "my_team_key";
         public static final String COLUMN_MY_TEAM_NAME = "my_team_name";
+        public static final String COLUMN_MY_TEAM_OTHER_NAME = "my_team_other_name";
+        public static final String COLUMN_MY_TEAM_CONSECUTIVE_WINS = "my_team_consecutive_wins";
         public static final String COLUMN_OTHER_TEAM_COLOR = "other_team_color";
         public static final String COLUMN_OTHER_TEAM_KEY = "other_team_key";
         public static final String COLUMN_OTHER_TEAM_NAME = "other_team_name";
+        public static final String COLUMN_OTHER_TEAM_OTHER_NAME = "other_team_other_name";
+        public static final String COLUMN_OTHER_TEAM_CONSECUTIVE_WINS = "other_team_consecutive_wins";
+        public static final String COLUMN_OTHER_TEAM_FES_POWER = "other_team_fes_power";
+        public static final String COLUMN_FES_POINT = "fes_point";
+        public static final String COLUMN_FES_GRADE = "fes_grade";
+        public static final String COLUMN_CONTRIBUTION_POINTS = "contribution_points";
+        public static final String COLUMN_UNIFORM_BONUS = "uniform_bonus";
+        public static final String COLUMN_FES_MODE = "fes_mode";
+        public static final String COLUMN_EVENT_TYPE = "event_type";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
@@ -45,9 +56,20 @@ public final class SplatnetContract {
                 COLUMN_MY_TEAM_COLOR + " TEXT, "+
                 COLUMN_MY_TEAM_KEY + " TEXT, "+
                 COLUMN_MY_TEAM_NAME + " TEXT, "+
+                COLUMN_MY_TEAM_OTHER_NAME + " TEXT, "+
+                COLUMN_MY_TEAM_CONSECUTIVE_WINS + " INTEGER, "+
                 COLUMN_OTHER_TEAM_COLOR + " TEXT, "+
                 COLUMN_OTHER_TEAM_KEY + " TEXT, "+
-                COLUMN_OTHER_TEAM_NAME + " TEXT)";
+                COLUMN_OTHER_TEAM_NAME + " TEXT, "+
+                COLUMN_OTHER_TEAM_OTHER_NAME + " TEXT, "+
+                COLUMN_OTHER_TEAM_CONSECUTIVE_WINS + " INTEGER, "+
+                COLUMN_OTHER_TEAM_FES_POWER + " INTEGER, "+
+                COLUMN_FES_POINT + " INTEGER, "+
+                COLUMN_FES_GRADE + " TEXT, "+
+                COLUMN_CONTRIBUTION_POINTS + " INTEGER, "+
+                COLUMN_UNIFORM_BONUS + " REAL, "+
+                COLUMN_FES_MODE + " TEXT, "+
+                COLUMN_EVENT_TYPE + " TEXT)";
     }
 
     public static class Player implements BaseColumns{
@@ -65,8 +87,11 @@ public final class SplatnetContract {
         public static final String COLUMN_ID = "id";
         public static final String COLUMN_LEVEL = "level";
         public static final String COLUMN_RANK = "rank";
+        public static final String COLUMN_STAR_RANK = "star_rank";
         public static final String COLUMN_S_NUM = "s_num";
         public static final String COLUMN_FES_GRADE = "fes_grade";
+        public static final String COLUMN_SPECIES = "species";
+        public static final String COLUMN_STYLE = "style";
         public static final String COLUMN_HEAD = "head";
         public static final String COLUMN_HEAD_MAIN = "head_main";
         public static final String COLUMN_HEAD_SUB_1 = "head_sub_1";
@@ -97,8 +122,11 @@ public final class SplatnetContract {
                 COLUMN_TYPE + " INTEGER, "+ //0: user, 1: ally, 2: foe
                 COLUMN_LEVEL + " INTEGER, "+
                 COLUMN_RANK + " TEXT, "+
+                COLUMN_STAR_RANK + " INTEGER, "+
                 COLUMN_S_NUM + " TEXT, "+
                 COLUMN_FES_GRADE + " TEXT, "+
+                COLUMN_SPECIES + " TEXT, "+
+                COLUMN_STYLE + " TEXT, "+
                 COLUMN_HEAD + " INTEGER REFERENCES head(_id), "+
                 COLUMN_HEAD_MAIN + " INTEGER REFERENCES skill(_id), "+
                 COLUMN_HEAD_SUB_1 + " INTEGER REFERENCES skill(_id), "+
@@ -261,6 +289,7 @@ public final class SplatnetContract {
 
     public static class Splatfest implements BaseColumns{
         public static final String TABLE_NAME = "splatfest";
+        public static final String COLUMN_VERSION = "verison";
         public static final String COLUMN_ALPHA = "alpha";
         public static final String COLUMN_BRAVO = "bravo";
         public static final String COLUMN_ALPHA_LONG = "alpha_long";
@@ -279,6 +308,10 @@ public final class SplatnetContract {
         public static final String COLUMN_BRAVO_SOLO_WINS = "bravo_solo_wins";
         public static final String COLUMN_ALPHA_TEAM_WINS = "alpha_team_wins";
         public static final String COLUMN_BRAVO_TEAM_WINS = "bravo_team_wins";
+        public static final String COLUMN_ALPHA_SOLO_AVERAGE = "alpha_solo_average";
+        public static final String COLUMN_BRAVO_SOLO_AVERAGE = "bravo_solo_average";
+        public static final String COLUMN_ALPHA_TEAM_AVERAGE = "alpha_team_average";
+        public static final String COLUMN_BRAVO_TEAM_AVERAGE = "bravo_team_average";
         public static final String COLUMN_VOTE = "vote";
         public static final String COLUMN_SOLO = "solo";
         public static final String COLUMN_TEAM = "team";
@@ -290,6 +323,7 @@ public final class SplatnetContract {
 
         public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
+                COLUMN_VERSION + " INTEGER, "+
                 COLUMN_ALPHA + " TEXT, "+
                 COLUMN_BRAVO + " TEXT, "+
                 COLUMN_ALPHA_LONG + " TEXT, "+
@@ -308,6 +342,10 @@ public final class SplatnetContract {
                 COLUMN_BRAVO_SOLO_WINS + " INTEGER, "+
                 COLUMN_ALPHA_TEAM_WINS + " INTEGER, "+
                 COLUMN_BRAVO_TEAM_WINS + " INTEGER, "+
+                COLUMN_ALPHA_SOLO_AVERAGE + " REAL, "+
+                COLUMN_BRAVO_SOLO_AVERAGE + " REAL, "+
+                COLUMN_ALPHA_TEAM_AVERAGE + " REAL, "+
+                COLUMN_BRAVO_TEAM_AVERAGE + " REAL, "+
                 COLUMN_VOTE + " INTEGER, "+//0 alpha 1 bravo
                 COLUMN_SOLO + " INTEGER, "+//0 alpha 1 bravo
                 COLUMN_TEAM + " INTEGER, "+//0 alpha 1 bravo

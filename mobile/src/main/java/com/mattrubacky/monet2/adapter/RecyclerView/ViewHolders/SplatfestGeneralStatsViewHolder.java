@@ -12,8 +12,8 @@ import android.widget.RelativeLayout;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.SplatfestPerformanceAdapter;
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.deserialized.SplatfestResult;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
 import com.mattrubacky.monet2.helper.SplatfestStats;
 
 /**

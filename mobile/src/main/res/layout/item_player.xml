@@ -398,7 +398,7 @@
                     android:id="@+id/KillsIcon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/icon_kills" />
+                    android:src="@drawable/icon_squid_kills" />
             </RelativeLayout>
 
             <TextView
@@ -431,7 +431,7 @@
                     android:id="@+id/DeathsIcon"
                     android:layout_width="33dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/icon_deaths" />
+                    android:src="@drawable/icon_squid_deaths" />
             </RelativeLayout>
 
             <TextView

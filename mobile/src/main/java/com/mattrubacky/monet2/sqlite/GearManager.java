@@ -1,6 +1,5 @@
 package com.mattrubacky.monet2.sqlite;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,7 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.deserialized.splatoon.Brand;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
 
 /**
  * Created by mattr on 10/18/2017.

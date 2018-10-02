@@ -4,18 +4,14 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.RewardGear;
+import com.mattrubacky.monet2.deserialized.splatoon.RewardGear;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -70,10 +66,7 @@ public class GrizzCoRewardNotification extends Notification {
     @Override
     public boolean isUnique(Notification notification){
         GrizzCoRewardNotification grizzCoRewardNotification = (GrizzCoRewardNotification) notification;
-        if(grizzCoRewardNotification.rewardGear.gear.id == rewardGear.gear.id){
-            return false;
-        }
-        return true;
+        return !(grizzCoRewardNotification.rewardGear.gear.id == rewardGear.gear.id);
     }
 
 }

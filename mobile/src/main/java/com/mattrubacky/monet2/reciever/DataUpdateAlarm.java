@@ -1,47 +1,28 @@
 package com.mattrubacky.monet2.reciever;
 
 import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-import com.google.gson.Gson;
-
-import com.mattrubacky.monet2.BattleInfo;
-import com.mattrubacky.monet2.MainActivity;
-import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.splatnet.CoopSchedulesRequest;
-import com.mattrubacky.monet2.splatnet.RecordsRequest;
-import com.mattrubacky.monet2.splatnet.ResultsRequest;
-import com.mattrubacky.monet2.splatnet.SchedulesRequest;
-import com.mattrubacky.monet2.splatnet.ShopRequest;
-import com.mattrubacky.monet2.splatnet.Splatnet;
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetConnector;
-import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
+import com.mattrubacky.monet2.api.splatnet.CoopSchedulesRequest;
+import com.mattrubacky.monet2.api.splatnet.RecordsRequest;
+import com.mattrubacky.monet2.api.splatnet.ResultsRequest;
+import com.mattrubacky.monet2.api.splatnet.SchedulesRequest;
+import com.mattrubacky.monet2.api.splatnet.ShopRequest;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.helper.WearLink;
-import com.mattrubacky.monet2.deserialized.*;
-import com.mattrubacky.monet2.service.OrderGear;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
-
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by mattr on 9/26/2017.

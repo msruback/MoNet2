@@ -9,8 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.Stage;
-import com.mattrubacky.monet2.deserialized.TimePeriod;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -102,9 +102,6 @@ public class StageNotification extends Notification {
     @Override
     protected boolean isUnique(Notification unique) {
         StageNotification notification = (StageNotification) unique;
-        if(notification.stage.id==stage.id&&notification.period.rule.key.equals(period.rule.key)){
-            return false;
-        }
-        return true;
+        return !(notification.stage.id==stage.id&&notification.period.rule.key.equals(period.rule.key));
     }
 }

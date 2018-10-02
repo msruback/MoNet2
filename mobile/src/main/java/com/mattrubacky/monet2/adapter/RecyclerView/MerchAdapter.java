@@ -3,9 +3,7 @@ package com.mattrubacky.monet2.adapter.RecyclerView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +16,11 @@ import android.widget.Toast;
 import com.mattrubacky.monet2.ClosetDetail;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.MerchViewHolder;
-import com.mattrubacky.monet2.deserialized.Product;
+import com.mattrubacky.monet2.deserialized.splatoon.Product;
 import com.mattrubacky.monet2.helper.ClosetHanger;
-import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by mattr on 11/13/2017.

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.AddNotification;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.StageNotification;
+import com.mattrubacky.monet2.deserialized.splatoon.StageNotification;
 import com.mattrubacky.monet2.dialog.StageNotificationPickerDialog;
 
 import java.util.ArrayList;

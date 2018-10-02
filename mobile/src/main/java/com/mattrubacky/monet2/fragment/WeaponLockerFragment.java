@@ -17,11 +17,11 @@ import android.widget.RelativeLayout;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.WeaponPagerAdapter;
-import com.mattrubacky.monet2.deserialized.Record;
+import com.mattrubacky.monet2.deserialized.splatoon.Record;
 import com.mattrubacky.monet2.helper.WeaponStats;
-import com.mattrubacky.monet2.splatnet.RecordsRequest;
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.api.splatnet.RecordsRequest;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 
 import java.util.ArrayList;
 

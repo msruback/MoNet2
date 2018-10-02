@@ -8,8 +8,6 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
-import com.mattrubacky.monet2.deserialized.Battle;
 
 import java.util.ArrayList;
 import java.util.Date;

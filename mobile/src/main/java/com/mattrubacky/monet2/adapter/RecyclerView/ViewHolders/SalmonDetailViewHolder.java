@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.SalmonRunDetail;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
@@ -67,9 +66,9 @@ public class SalmonDetailViewHolder extends RecyclerView.ViewHolder{
             imageHandler.downloadImage("salmon_stage",imageDirName,url,context);
         }
 
-        if(detail.weapons.get(0)!=null){
-            imageDirName = detail.weapons.get(0).name.toLowerCase().replace(" ","_");
-            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(0).url;
+        if(detail.weapons.get(0).weapon!=null&&detail.weapons.get(0).weapon.name!=null){
+            imageDirName = detail.weapons.get(0).weapon.name.toLowerCase().replace(" ","_");
+            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(0).weapon.url;
 
             if(imageHandler.imageExists("weapon",imageDirName,context)){
                 weapon1Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
@@ -81,9 +80,9 @@ public class SalmonDetailViewHolder extends RecyclerView.ViewHolder{
             weapon1Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
         }
 
-        if(detail.weapons.get(1)!=null){
-            imageDirName = detail.weapons.get(1).name.toLowerCase().replace(" ","_");
-            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(1).url;
+        if(detail.weapons.get(1).weapon!=null&&detail.weapons.get(1).weapon.name!=null){
+            imageDirName = detail.weapons.get(1).weapon.name.toLowerCase().replace(" ","_");
+            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(1).weapon.url;
 
             if(imageHandler.imageExists("weapon",imageDirName,context)){
                 weapon2Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
@@ -95,9 +94,9 @@ public class SalmonDetailViewHolder extends RecyclerView.ViewHolder{
             weapon2Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
         }
 
-        if(detail.weapons.get(2)!=null){
-            imageDirName = detail.weapons.get(2).name.toLowerCase().replace(" ","_");
-            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(2).url;
+        if(detail.weapons.get(2).weapon!=null&&detail.weapons.get(2).weapon.name!=null){
+            imageDirName = detail.weapons.get(2).weapon.name.toLowerCase().replace(" ","_");
+            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(2).weapon.url;
 
             if(imageHandler.imageExists("weapon",imageDirName,context)){
                 weapon3Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
@@ -109,9 +108,9 @@ public class SalmonDetailViewHolder extends RecyclerView.ViewHolder{
             weapon3Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
         }
 
-        if(detail.weapons.get(3)!=null){
-            imageDirName = detail.weapons.get(3).name.toLowerCase().replace(" ","_");
-            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(3).url;
+        if(detail.weapons.get(3).weapon!=null&&detail.weapons.get(3).weapon.name!=null){
+            imageDirName = detail.weapons.get(3).weapon.name.toLowerCase().replace(" ","_");
+            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(3).weapon.url;
 
             if(imageHandler.imageExists("weapon",imageDirName,context)){
                 weapon4Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));

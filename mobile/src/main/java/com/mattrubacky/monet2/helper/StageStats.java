@@ -5,9 +5,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.deserialized.Player;
-import com.mattrubacky.monet2.deserialized.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
@@ -67,10 +66,13 @@ public class StageStats extends Stats implements Parcelable{
     @SerializedName("asari_lose")
     public int clamLose;
 
-    //The last time the user played on this stage
+    //The last time the user played on this stage  on ranked
     //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("last_play_time")
-    public Long lastPlayed;
+    public long lastPlayed;
+
+    @SerializedName("last_play_regular")
+    public long lastPlayedRegular;
 
     @SerializedName("inkStats")
     public int[] inkStats;
@@ -102,6 +104,7 @@ public class StageStats extends Stats implements Parcelable{
         clamWin = in.readInt();
         clamLose = in.readInt();
         lastPlayed = in.readLong();
+        lastPlayedRegular = in.readLong();
         inkStats = in.createIntArray();
         killStats = in.createIntArray();
         deathStats = in.createIntArray();
@@ -123,6 +126,7 @@ public class StageStats extends Stats implements Parcelable{
         dest.writeInt(clamWin);
         dest.writeInt(clamLose);
         dest.writeLong(lastPlayed);
+        dest.writeLong(lastPlayedRegular);
         dest.writeIntArray(inkStats);
         dest.writeIntArray(killStats);
         dest.writeIntArray(deathStats);
@@ -169,16 +173,18 @@ public class StageStats extends Stats implements Parcelable{
 
         turfWin=0;
         turfLose=0;
+        lastPlayedRegular = 0;
 
-        Battle battle;
-        for(int i=0;i<battles.size();i++){
-            battle = battles.get(i);
+        for(Battle battle: battles){
 
             ink.add(battle.user.points);
             kill.add(battle.user.kills);
             death.add(battle.user.deaths);
             special.add(battle.user.special);
             if(battle.rule.key.equals("turf_war")){
+                if(lastPlayedRegular<battle.start){
+                    lastPlayedRegular = battle.start;
+                }
                 if(battle.result.key.equals("victory")){
                     turfWin++;
                 }else{
@@ -186,9 +192,6 @@ public class StageStats extends Stats implements Parcelable{
                 }
             }
 
-        }
-        if(!isSplatnet&&battles.size()>0){
-            lastPlayed = battles.get(battles.size()-1).start;
         }
 
         if(battles.size()>5) {

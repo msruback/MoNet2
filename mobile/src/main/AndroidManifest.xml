@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application android:allowBackup="true" android:icon="@mipmap/ic_launcher"
         android:label="MoNet 2" android:roundIcon="@mipmap/ic_launcher_round"
@@ -36,7 +37,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login" android:screenOrientation="portrait" />
-        <activity android:name=".DebugActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".DebugActivity" android:screenOrientation="portrait">
+
+        </activity>
         <activity android:name=".MainActivity" android:screenOrientation="portrait" />
         <activity android:name=".AddNotification" android:screenOrientation="portrait" />
         <activity android:name=".BattleInfo" android:screenOrientation="portrait" />

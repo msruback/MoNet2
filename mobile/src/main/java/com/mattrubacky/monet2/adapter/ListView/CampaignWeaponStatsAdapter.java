@@ -1,9 +1,7 @@
 package com.mattrubacky.monet2.adapter.ListView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.AddNotification;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.CampaignStageInfo;
-import com.mattrubacky.monet2.deserialized.CampaignWeapon;
-import com.mattrubacky.monet2.deserialized.StageNotification;
+import com.mattrubacky.monet2.deserialized.splatoon.CampaignStageInfo;
+import com.mattrubacky.monet2.deserialized.splatoon.CampaignWeapon;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

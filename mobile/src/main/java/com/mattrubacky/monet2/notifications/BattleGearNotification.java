@@ -10,20 +10,15 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import com.mattrubacky.monet2.BattleInfo;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.deserialized.Gear;
-import com.mattrubacky.monet2.deserialized.GearNotification;
-import com.mattrubacky.monet2.deserialized.GearNotifications;
-import com.mattrubacky.monet2.deserialized.Player;
-import com.mattrubacky.monet2.deserialized.Skill;
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 /**

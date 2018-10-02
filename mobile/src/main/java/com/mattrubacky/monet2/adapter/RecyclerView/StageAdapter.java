@@ -44,6 +44,7 @@ public class StageAdapter extends RecyclerView.Adapter<StageViewHolder>{
     @Override
     public void onBindViewHolder(final StageViewHolder holder, final int position) {
         StageStats stageStats = input.get(position);
+        holder.manageHolder(stageStats);
 
     }
 

@@ -403,7 +403,7 @@
 
                                         <TextView
                                             android:id="@+id/TowerTitle"
-                                            android:layout_width="100dp"
+                                            android:layout_width="120dp"
                                             android:layout_height="30dp"
                                             android:layout_centerHorizontal="true"
                                             android:background="@drawable/banner_normal"
@@ -543,35 +543,101 @@
                                     </RelativeLayout>
 
                                     <RelativeLayout
-                                        android:id="@+id/lastLayout"
+                                        android:id="@+id/lastLayoutRanked"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_below="@id/clamMeter"
+                                        android:layout_marginLeft="30dp"
+                                        android:layout_marginRight="30dp"
+                                        android:layout_marginTop="15dp"
+                                        android:background="@drawable/shape_card"
+                                        android:backgroundTint="@color/transparentgrey">
+                                        <RelativeLayout
+                                            android:id="@+id/LastTitleRanked"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/shape_card"
+                                            android:backgroundTint="@color/marina">
+
+                                            <ImageView
+                                                android:id="@+id/rankedImage"
+                                                android:layout_width="30dp"
+                                                android:layout_height="30dp"
+                                                android:gravity="center"
+                                                android:layout_marginLeft="10dp"
+                                                android:layout_marginTop="6dp"
+                                                android:src="@drawable/battle_ranked"/>
+                                            <TextView
+                                                android:id="@+id/LastTitleTextRanked"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_toRightOf="@+id/rankedImage"
+                                                android:gravity="center"
+                                                android:padding="10dp"
+                                                android:layout_marginLeft="-5dp"
+                                                android:text="@string/lastPlayed"
+                                                android:textSize="16sp" />
+                                        </RelativeLayout>
+
+
+                                        <TextView
+                                            android:id="@+id/LastTextRanked"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginLeft="10dp"
+                                            android:layout_toRightOf="@+id/LastTitleRanked"
+                                            android:text="888p"
+                                            android:textSize="16sp" />
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:id="@+id/lastLayoutRegular"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@id/lastLayoutRanked"
                                         android:layout_marginBottom="15dp"
                                         android:layout_marginLeft="30dp"
                                         android:layout_marginRight="30dp"
                                         android:layout_marginTop="15dp"
                                         android:background="@drawable/shape_card"
                                         android:backgroundTint="@color/transparentgrey">
-
-                                        <TextView
-                                            android:id="@+id/LastTitleText"
+                                        <RelativeLayout
+                                            android:id="@+id/LastTitleRegular"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:background="@drawable/shape_card"
-                                            android:backgroundTint="@color/marina"
-                                            android:gravity="center"
-                                            android:padding="10dp"
-                                            android:text="@string/lastPlayed"
-                                            android:textSize="16sp" />
+                                            android:backgroundTint="@color/marina">
+
+                                            <ImageView
+                                                android:id="@+id/regularImage"
+                                                android:layout_width="30dp"
+                                                android:layout_height="30dp"
+                                                android:gravity="center"
+                                                android:layout_marginLeft="10dp"
+                                                android:layout_marginTop="7dp"
+                                                android:src="@drawable/battle_regular"/>
+
+                                            <TextView
+                                                android:id="@+id/LastTitleTextRegular"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_toRightOf="@+id/regularImage"
+                                                android:gravity="center"
+                                                android:padding="10dp"
+                                                android:layout_marginLeft="-5dp"
+                                                android:text="@string/lastPlayed"
+                                                android:textSize="16sp" />
+                                        </RelativeLayout>
+
 
                                         <TextView
-                                            android:id="@+id/LastText"
+                                            android:id="@+id/LastTextRegular"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerVertical="true"
                                             android:layout_marginLeft="10dp"
-                                            android:layout_toRightOf="@+id/LastTitleText"
+                                            android:layout_toRightOf="@+id/LastTitleRegular"
                                             android:text="888p"
                                             android:textSize="16sp" />
                                     </RelativeLayout>

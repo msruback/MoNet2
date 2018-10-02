@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.ListView.VoteAdapter;
-import com.mattrubacky.monet2.deserialized.NicknameIcon;
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.deserialized.SplatfestVotes;
+import com.mattrubacky.monet2.deserialized.splatoon.NicknameIcon;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestVotes;
 
 import java.util.ArrayList;
 

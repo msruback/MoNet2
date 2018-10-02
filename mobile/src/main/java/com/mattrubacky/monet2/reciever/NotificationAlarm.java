@@ -11,7 +11,7 @@ import com.mattrubacky.monet2.notifications.BattleGearNotificationFactory;
 import com.mattrubacky.monet2.notifications.GrizzCoRewardNotificationFactory;
 import com.mattrubacky.monet2.notifications.SalmonRunNotificationFactory;
 import com.mattrubacky.monet2.notifications.ShopNotificationFactory;
-import com.mattrubacky.monet2.notifications.StageNotifitcationFactory;
+import com.mattrubacky.monet2.notifications.StageNotificationFactory;
 import com.mattrubacky.monet2.notifications.WeaponNotificationFactory;
 
 /**
@@ -26,7 +26,7 @@ public class NotificationAlarm extends WakefulBroadcastReceiver {
         wl.acquire();
 
         new ShopNotificationFactory(context).manageNotifications();
-        new StageNotifitcationFactory(context).manageNotifications();
+        new StageNotificationFactory(context).manageNotifications();
         new SalmonRunNotificationFactory(context).manageNotifications();
         new BattleGearNotificationFactory(context).manageNotifications();
         new WeaponNotificationFactory(context).manageNotifications();

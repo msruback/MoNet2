@@ -2,25 +2,17 @@ package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.CampaignStageViewHolder;
-import com.mattrubacky.monet2.deserialized.CampaignStageInfo;
-import com.mattrubacky.monet2.deserialized.CampaignWeapon;
+import com.mattrubacky.monet2.deserialized.splatoon.CampaignStageInfo;
+import com.mattrubacky.monet2.deserialized.splatoon.CampaignWeapon;
 import com.mattrubacky.monet2.dialog.CampaignStageStatsDialog;
-import com.mattrubacky.monet2.helper.ImageHandler;
-import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Map;
 
 /**

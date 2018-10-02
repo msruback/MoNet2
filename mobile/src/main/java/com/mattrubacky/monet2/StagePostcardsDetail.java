@@ -48,6 +48,9 @@ public class StagePostcardsDetail extends AppCompatActivity {
 
         ImageView stage = (ImageView) findViewById(R.id.StageImage);
 
+        RelativeLayout lastPlayedRanked = (RelativeLayout) findViewById(R.id.lastLayoutRanked);
+        RelativeLayout lastPlayedRegular = (RelativeLayout) findViewById(R.id.lastLayoutRegular);
+
         TextView name = (TextView) findViewById(R.id.Name);
         TextView number = (TextView) findViewById(R.id.Number);
         TextView turfTitle = (TextView) findViewById(R.id.TurfTitle);
@@ -65,8 +68,10 @@ public class StagePostcardsDetail extends AppCompatActivity {
         TextView clamTitle = (TextView) findViewById(R.id.ClamTitle);
         TextView clamWinText = (TextView) findViewById(R.id.ClamWinText);
         TextView clamLossText = (TextView) findViewById(R.id.ClamLossText);
-        TextView lastUsedTitle = (TextView) findViewById(R.id.LastTitleText);
-        TextView lastUsed = (TextView) findViewById(R.id.LastText);
+        TextView lastUsedTitleRanked = (TextView) findViewById(R.id.LastTitleTextRanked);
+        TextView lastUsedRanked = (TextView) findViewById(R.id.LastTextRanked);
+        TextView lastUsedTitleRegular = (TextView) findViewById(R.id.LastTitleTextRegular);
+        TextView lastUsedRegular = (TextView) findViewById(R.id.LastTextRegular);
 
         name.setTypeface(fontTitle);
         turfTitle.setTypeface(fontTitle);
@@ -86,8 +91,10 @@ public class StagePostcardsDetail extends AppCompatActivity {
         towerLossText.setTypeface(font);
         clamWinText.setTypeface(font);
         clamLossText.setTypeface(font);
-        lastUsedTitle.setTypeface(font);
-        lastUsed.setTypeface(font);
+        lastUsedTitleRanked.setTypeface(font);
+        lastUsedRanked.setTypeface(font);
+        lastUsedTitleRegular.setTypeface(font);
+        lastUsedRegular.setTypeface(font);
 
         //Handle normal stat text
         name.setText(stageStats.stage.name);
@@ -108,7 +115,17 @@ public class StagePostcardsDetail extends AppCompatActivity {
 
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy h:mm a");
         String last = format.format(stageStats.lastPlayed*1000);
-        lastUsed.setText(last);
+        lastUsedRanked.setText(last);
+        if(stageStats.lastPlayed == 0){
+            lastPlayedRanked.setVisibility(View.GONE);
+        }
+
+        last = format.format(stageStats.lastPlayedRegular*1000);
+        lastUsedRegular.setText(last);
+
+        if(stageStats.lastPlayedRegular == 0){
+            lastPlayedRegular.setVisibility(View.GONE);
+        }
 
         //Handle images
         ImageHandler imageHandler = new ImageHandler();
@@ -138,6 +155,7 @@ public class StagePostcardsDetail extends AppCompatActivity {
 
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
         FragmentManager fragmentManager = getSupportFragmentManager();
+
 
         RelativeLayout turfMeter = (RelativeLayout) findViewById(R.id.turfMeter);
         RelativeLayout turfWinLossMeter = (RelativeLayout) findViewById(R.id.TurfWinLossMeter);

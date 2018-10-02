@@ -14,15 +14,15 @@ import android.view.ViewGroup;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.SplatfestDetail;
 import com.mattrubacky.monet2.adapter.RecyclerView.SplatfestAdapter;
-import com.mattrubacky.monet2.deserialized.Record;
-import com.mattrubacky.monet2.deserialized.Splatfest;
-import com.mattrubacky.monet2.deserialized.SplatfestDatabase;
-import com.mattrubacky.monet2.deserialized.SplatfestRecords;
-import com.mattrubacky.monet2.deserialized.SplatfestResult;
-import com.mattrubacky.monet2.splatnet.PastSplatfestRequest;
-import com.mattrubacky.monet2.splatnet.RecordsRequest;
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.deserialized.splatoon.Record;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestDatabase;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestRecords;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
+import com.mattrubacky.monet2.api.splatnet.PastSplatfestRequest;
+import com.mattrubacky.monet2.api.splatnet.RecordsRequest;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 
 import java.util.ArrayList;
 

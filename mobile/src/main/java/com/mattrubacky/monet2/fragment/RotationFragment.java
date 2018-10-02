@@ -7,20 +7,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.mattrubacky.monet2.*;
 import com.mattrubacky.monet2.adapter.RecyclerView.ScheduleAdapter;
-import com.mattrubacky.monet2.deserialized.*;
+import com.mattrubacky.monet2.deserialized.splatoon.CurrentSplatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonSchedule;
+import com.mattrubacky.monet2.deserialized.splatoon.Schedules;
+import com.mattrubacky.monet2.deserialized.splatoon.Timeline;
 import com.mattrubacky.monet2.helper.*;
-import com.mattrubacky.monet2.splatnet.CoopSchedulesRequest;
-import com.mattrubacky.monet2.splatnet.MonthlyGearRequest;
-import com.mattrubacky.monet2.splatnet.SchedulesRequest;
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetConnector;
-
-
-import java.util.ArrayList;
+import com.mattrubacky.monet2.api.splatnet.CoopSchedulesRequest;
+import com.mattrubacky.monet2.api.splatnet.MonthlyGearRequest;
+import com.mattrubacky.monet2.api.splatnet.SchedulesRequest;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 
 /**
  * Created by mattr on 9/14/2017.

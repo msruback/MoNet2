@@ -12,8 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.deserialized.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Player;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +27,7 @@ public class PlayerInfoViewHolder extends RecyclerView.ViewHolder{
     public RelativeLayout child;
     public RelativeLayout gearLayout,headSub1Layout,headSub2Layout,headSub3Layout,clothesSub1Layout,clothesSub2Layout,clothesSub3Layout,shoesSub1Layout,shoesSub2Layout,shoesSub3Layout;
 
-    public ImageView weapon,specialIcon;
+    public ImageView weapon,killsIcon,deathsIcon,specialIcon;
     public ImageView head,headMain,headSub1,headSub2,headSub3,clothes,clothesMain,clothesSub1,clothesSub2,clothesSub3,shoes,shoesMain,shoesSub1,shoesSub2,shoesSub3;
     public TextView rank,name,fesGrade,points,killsText,deathsText,specialText;
 
@@ -43,7 +43,11 @@ public class PlayerInfoViewHolder extends RecyclerView.ViewHolder{
         deathsIconLayout = (RelativeLayout) itemView.findViewById(R.id.deathsIcon);
         killsIconLayout = (RelativeLayout) itemView.findViewById(R.id.killsIcon);
 
+
+
         weapon = (ImageView) itemView.findViewById(R.id.Weapon);
+        killsIcon = (ImageView) itemView.findViewById(R.id.KillsIcon);
+        deathsIcon = (ImageView) itemView.findViewById(R.id.DeathsIcon);
         specialIcon = (ImageView) itemView.findViewById(R.id.SpecialIcon);
 
         rank = (TextView) itemView.findViewById(R.id.Rank);
@@ -144,6 +148,15 @@ public class PlayerInfoViewHolder extends RecyclerView.ViewHolder{
             deathsIconLayout.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
         }
 
+        //Set Octoling icons
+        if(player.user.playerType!=null&&player.user.playerType.species!=null&&player.user.playerType.species.equals("octolings")){
+            killsIcon.setImageDrawable(context.getDrawable(R.drawable.icon_octo_kills));
+            deathsIcon.setImageDrawable(context.getDrawable(R.drawable.icon_octo_deaths));
+        }else{
+            killsIcon.setImageDrawable(context.getDrawable(R.drawable.icon_squid_kills));
+            deathsIcon.setImageDrawable(context.getDrawable(R.drawable.icon_squid_deaths));
+        }
+
         String rankString;
         switch (battle.type) {
             case "regular":
@@ -198,36 +211,14 @@ public class PlayerInfoViewHolder extends RecyclerView.ViewHolder{
             case 3://suction bombs
                 specialIcon.setImageDrawable(context.getDrawable(R.drawable.special_bombrush_suctionbombs));
                 break;
-            case 4:
-                killsIconLayout.setBackgroundColor(context.getResources().getColor(R.color.grey));
-
-                url = "https://app.splatoon2.nintendo.net" + player.user.weapon.special.url;
-
-                imageHandler = new ImageHandler();
-                imageDirName = player.user.weapon.special.name.toLowerCase().replace(" ", "_");
-                if (imageHandler.imageExists("special", imageDirName, context)) {
-                    specialIcon.setImageBitmap(imageHandler.loadImage("special", imageDirName));
-                } else {
-                    Picasso.with(context).load(url).into(specialIcon);
-                    imageHandler.downloadImage("special", imageDirName, url, context);
-                }
+            case 4://burst bombs
+                specialIcon.setImageDrawable(context.getDrawable(R.drawable.special_bombrush_burstbombs));
                 break;
             case 5://curling bombs
                 specialIcon.setImageDrawable(context.getDrawable(R.drawable.special_bombrush_curlingbombs));
                 break;
-            case 6:
-                killsIconLayout.setBackgroundColor(context.getResources().getColor(R.color.grey));
-
-                url = "https://app.splatoon2.nintendo.net" + player.user.weapon.special.url;
-
-                imageHandler = new ImageHandler();
-                imageDirName = player.user.weapon.special.name.toLowerCase().replace(" ", "_");
-                if (imageHandler.imageExists("special", imageDirName, context)) {
-                    specialIcon.setImageBitmap(imageHandler.loadImage("special", imageDirName));
-                } else {
-                    Picasso.with(context).load(url).into(specialIcon);
-                    imageHandler.downloadImage("special", imageDirName, url, context);
-                }
+            case 6:// autobombs
+                specialIcon.setImageDrawable(context.getDrawable(R.drawable.special_bombrush_autobombs));
                 break;
             case 7://stingray
                 specialIcon.setImageDrawable(context.getDrawable(R.drawable.special_stingray));

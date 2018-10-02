@@ -3,18 +3,14 @@ package com.mattrubacky.monet2.adapter.RecyclerView;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.NoStatViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.PlayerGeneralStatViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SoloStatCardViewHolder;
-import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.StageViewHolder;
-import com.mattrubacky.monet2.deserialized.Record;
+import com.mattrubacky.monet2.deserialized.splatoon.Record;
 import com.mattrubacky.monet2.helper.PlayerStats;
-import com.mattrubacky.monet2.helper.StageStats;
-import com.mattrubacky.monet2.notifications.Notification;
 
 import java.util.ArrayList;
 import java.util.Date;

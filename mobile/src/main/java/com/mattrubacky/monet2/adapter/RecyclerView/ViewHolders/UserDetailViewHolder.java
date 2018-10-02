@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.PlayerGearAdapter;
-import com.mattrubacky.monet2.deserialized.NicknameIcon;
-import com.mattrubacky.monet2.deserialized.Record;
+import com.mattrubacky.monet2.deserialized.splatoon.NicknameIcon;
+import com.mattrubacky.monet2.deserialized.splatoon.Record;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;

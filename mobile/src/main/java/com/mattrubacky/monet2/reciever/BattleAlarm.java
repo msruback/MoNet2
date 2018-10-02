@@ -10,18 +10,13 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-import com.mattrubacky.monet2.deserialized.Battle;
-import com.mattrubacky.monet2.splatnet.CoopSchedulesRequest;
-import com.mattrubacky.monet2.splatnet.RecordsRequest;
-import com.mattrubacky.monet2.splatnet.ResultsRequest;
-import com.mattrubacky.monet2.splatnet.SchedulesRequest;
-import com.mattrubacky.monet2.splatnet.ShopRequest;
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.api.splatnet.RecordsRequest;
+import com.mattrubacky.monet2.api.splatnet.ResultsRequest;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by mattr on 12/22/2017.

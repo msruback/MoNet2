@@ -6,9 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.mattrubacky.monet2.adapter.RecyclerView.BattleListAdapter;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ListViewHolder;
-import com.mattrubacky.monet2.deserialized.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 
 import java.util.ArrayList;
 

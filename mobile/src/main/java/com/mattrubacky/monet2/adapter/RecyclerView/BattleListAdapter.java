@@ -3,9 +3,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,10 +15,9 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.BattleInfo;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.BattleViewHolder;
-import com.mattrubacky.monet2.deserialized.*;
-import com.mattrubacky.monet2.helper.ImageHandler;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 

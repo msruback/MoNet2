@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.Splatfest;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.SplatfestStats;
 import com.squareup.picasso.Picasso;
@@ -120,18 +120,20 @@ public class SplatfestPerformanceFragment extends Fragment{
 
             ImageHandler imageHandler = new ImageHandler();
             String imageDirName,url;
-            if(stats.grade.contains(splatfest.names.alpha)) {
-                imageDirName = splatfest.names.alpha.toLowerCase().replace(" ", "_");
-                url = "https://app.splatoon2.nintendo.net" + splatfest.images.alpha;
-            }else {
-                imageDirName = splatfest.names.bravo.toLowerCase().replace(" ", "_");
-                url = "https://app.splatoon2.nintendo.net" + splatfest.images.bravo;
-            }
-            if (imageHandler.imageExists("splatfest", imageDirName, getContext())) {
-                image.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
-            } else {
-                Picasso.with(getContext()).load(url).into(image);
-                imageHandler.downloadImage("splatfest", imageDirName, url, getContext());
+            if(stats.grade!=null) {
+                if (stats.grade.contains(splatfest.names.alpha)) {
+                    imageDirName = splatfest.names.alpha.toLowerCase().replace(" ", "_");
+                    url = "https://app.splatoon2.nintendo.net" + splatfest.images.alpha;
+                } else {
+                    imageDirName = splatfest.names.bravo.toLowerCase().replace(" ", "_");
+                    url = "https://app.splatoon2.nintendo.net" + splatfest.images.bravo;
+                }
+                if (imageHandler.imageExists("splatfest", imageDirName, getContext())) {
+                    image.setImageBitmap(imageHandler.loadImage("splatfest", imageDirName));
+                } else {
+                    Picasso.with(getContext()).load(url).into(image);
+                    imageHandler.downloadImage("splatfest", imageDirName, url, getContext());
+                }
             }
 
         }else{

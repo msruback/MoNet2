@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -18,13 +17,13 @@ import android.widget.RelativeLayout;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.PlayerAdapter;
-import com.mattrubacky.monet2.deserialized.NicknameIcon;
-import com.mattrubacky.monet2.deserialized.NicknameIcons;
-import com.mattrubacky.monet2.deserialized.Record;
-import com.mattrubacky.monet2.splatnet.NicknameRequest;
-import com.mattrubacky.monet2.splatnet.RecordsRequest;
-import com.mattrubacky.monet2.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.deserialized.splatoon.NicknameIcon;
+import com.mattrubacky.monet2.deserialized.splatoon.NicknameIcons;
+import com.mattrubacky.monet2.deserialized.splatoon.Record;
+import com.mattrubacky.monet2.api.splatnet.NicknameRequest;
+import com.mattrubacky.monet2.api.splatnet.RecordsRequest;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
+import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 
 /**
  * Created by mattr on 12/18/2017.

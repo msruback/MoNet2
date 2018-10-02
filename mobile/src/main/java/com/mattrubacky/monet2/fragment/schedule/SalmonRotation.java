@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.ListView.SalmonRunAdapter;
-import com.mattrubacky.monet2.deserialized.SalmonRun;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonRun;
 
 import java.util.ArrayList;
 
