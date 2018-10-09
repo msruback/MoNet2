@@ -378,4 +378,141 @@ public final class SplatnetContract {
                 COLUMN_LAST_USE_TIME + " INTEGER)";
     }
 
+    public static class Shift implements BaseColumns{
+        public static final String TABLE_NAME = "shift";
+        public static final String COLUMN_START_TIME = "start_time";
+        public static final String COLUMN_END_TIME = "end_time";
+        public static final String COLUMN_STAGE = "stage";
+        public static final String COLUMN_STAGE_IMAGE = "stage_image";
+        public static final String COLUMN_WEAPON_1 = "weapon_1";
+        public static final String COLUMN_WEAPON_2 = "weapon_2";
+        public static final String COLUMN_WEAPON_3 = "weapon_3";
+        public static final String COLUMN_WEAPON_4 = "weapon_4";
+
+        public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
+                COLUMN_START_TIME + " INTEGER PRIMARY KEY, "+
+                COLUMN_END_TIME + " INTEGER, " +
+                COLUMN_STAGE + " TEXT, "+
+                COLUMN_STAGE_IMAGE + " TEXT, "+
+                COLUMN_WEAPON_1 + " INTEGER REFERENCES weapon(_id), "+
+                COLUMN_WEAPON_2 + " INTEGER REFERENCES weapon(_id), "+
+                COLUMN_WEAPON_3 + " INTEGER REFERENCES weapon(_id), "+
+                COLUMN_WEAPON_4 + " INTEGER REFERENCES weapon(_id))";
+    }
+
+    public static class Job implements BaseColumns{
+        public static final String TABLE_NAME = "job";
+        public static final String COLUMN_START_TIME = "start_time";
+        public static final String COLUMN_PLAY_TIME = "play_time";
+        public static final String COLUMN_PAY_GRADE = "pay_grade";
+        public static final String COLUMN_JOB_SCORE = "job_score";
+        public static final String COLUMN_KUMA_POINT = "kuma_point";
+        public static final String COLUMN_GRADE = "grade";
+        public static final String COLUMN_GRADE_POINT = "grade_point";
+        public static final String COLUMN_GRADE_POINT_DELTA = "grade_point_delta";
+        public static final String COLUMN_DANGER_RATE = "danger_rate";
+        public static final String COLUMN_IS_CLEAR = "is_clear";
+        public static final String COLUMN_FAILURE_REASON = "failure_reason";
+        public static final String COLUMN_FAILURE_WAVE = "failure_wave";
+
+        public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
+                _ID +" INTEGER PRIMARY KEY, "+
+                COLUMN_START_TIME + " INTEGER REFERENCES shift(start_time), "+
+                COLUMN_PLAY_TIME + " INTEGER, "+
+                COLUMN_PAY_GRADE + " REAL, "+
+                COLUMN_JOB_SCORE + " INTEGER, "+
+                COLUMN_KUMA_POINT + " INTEGER, "+
+                COLUMN_GRADE + " TEXT, "+
+                COLUMN_GRADE_POINT + " INTEGER, "+
+                COLUMN_GRADE_POINT_DELTA + " INTEGER, "+
+                COLUMN_DANGER_RATE + " REAL, "+
+                COLUMN_IS_CLEAR + " INTEGER, "+
+                COLUMN_FAILURE_REASON + " TEXT, "+
+                COLUMN_FAILURE_WAVE + " INTEGER)";
+
+    }
+
+    public static class Wave implements BaseColumns{
+        public static final String TABLE_NAME = "wave";
+        public static final String COLUMN_QUOTA = "quota";
+        public static final String COLUMN_WATER_LEVEL = "water_level";
+        public static final String COLUMN_GOLDEN_IKURA_NUM = "golden_ikura_num";
+        public static final String COLUMN_GOLDEN_IKURA_POP = "golden_ikura_pop";
+        public static final String COLUMN_IKURA_NUM = "ikura_num";
+        public static final String COLUMN_EVENT_TYPE = "event_type";
+
+        public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
+                _ID + " INTEGER PRIMARY KEY, "+
+                COLUMN_QUOTA + " INTEGER, "+
+                COLUMN_WATER_LEVEL + " TEXT, "+
+                COLUMN_GOLDEN_IKURA_NUM + " INTEGER, "+
+                COLUMN_GOLDEN_IKURA_POP + " INTEGER, "+
+                COLUMN_IKURA_NUM + " INTEGER, "+
+                COLUMN_EVENT_TYPE + " TEXT)";
+    }
+
+    public static class Coworker implements BaseColumns{
+        public static final String TABLE_NAME = "coworker";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_PID = "pid";
+        public static final String COLUMN_IKURA_NUM = "ikura_num";
+        public static final String COLUMN_GOLDEN_IKURA_NUM = "golden_ikura_num";
+        public static final String COLUMN_DEAD_COUNT = "dead_count";
+        public static final String COLUMN_HELP_COUNT = "help_count";
+        public static final String COLUMN_SPECIAL = "special";
+        public static final String COLUMN_SPECIAL_1 = "special_1";
+        public static final String COLUMN_SPECIAL_2 = "special_2";
+        public static final String COLUMN_SPECIAL_3 = "special_3";
+        public static final String COLUMN_WEAPON_1 = "weapon_1";
+        public static final String COLUMN_WEAPON_2 = "weapon_2";
+        public static final String COLUMN_WEAPON_3 = "weapon_3";
+
+        public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
+                COLUMN_NAME + " TEXT, "+
+                COLUMN_PID + " TEXT, "+
+                COLUMN_IKURA_NUM + " INTEGER, "+
+                COLUMN_GOLDEN_IKURA_NUM + " INTEGER, "+
+                COLUMN_DEAD_COUNT + " INTEGER, "+
+                COLUMN_HELP_COUNT + " INTEGER, "+
+                COLUMN_SPECIAL + " INTEGER REFERENCES special(_id), "+
+                COLUMN_SPECIAL_1 + " INTEGER, "+
+                COLUMN_SPECIAL_2 + " INTEGER, "+
+                COLUMN_SPECIAL_3 + " INTEGER, "+
+                COLUMN_WEAPON_1 + " INTEGER REFERENCES weapon(_id), "+
+                COLUMN_WEAPON_2 + " INTEGER REFERENCES weapon(_id), "+
+                COLUMN_WEAPON_3 + " INTEGER REFERENCES weapon(_id))";
+    }
+
+    public static class Boss implements BaseColumns{
+        public static final String TABLE_NAME = "boss";
+        public static final String COLUMN_NAME = "name";
+
+        public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
+                _ID + " INTEGER PRIMARY KEY, "+
+                COLUMN_NAME + " TEXT)";
+    }
+
+    public static class BossSpawns implements BaseColumns{
+        public static final String TABLE_NAME = "boss_spawn";
+        public static final String COLUMN_JOB = "job";
+        public static final String COLUMN_BOSS = "boss";
+        public static final String COLUMN_SPAWN = "spawn";
+
+        public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+ " ("+
+                COLUMN_JOB + " INTEGER REFERENCES job(_id), "+
+                COLUMN_BOSS + " INTEGER REFERENCES boss(_id), "+
+                COLUMN_SPAWN + " INTEGER)";
+    }
+
+    public static class BossKills implements BaseColumns{
+        public static final String TABLE_NAME = "boss_kill";
+        public static final String COLUMN_JOB = "job";
+        public static final String COLUMN_PID = "pid";
+        public static final String COLUMN_KILLS = "kills";
+
+        public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
+                COLUMN_JOB + " INTEGER REFERENCES job(_id), "+
+                COLUMN_PID + " TEXT, "+
+                COLUMN_KILLS + " INTEGER)";
+    }
 }
