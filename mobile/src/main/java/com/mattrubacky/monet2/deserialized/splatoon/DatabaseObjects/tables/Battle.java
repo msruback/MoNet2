@@ -1,10 +1,18 @@
-package com.mattrubacky.monet2.deserialized.splatoon;
+package com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.EventType;
+import com.mattrubacky.monet2.deserialized.splatoon.Gamemode;
+import com.mattrubacky.monet2.deserialized.splatoon.Rule;
+import com.mattrubacky.monet2.deserialized.splatoon.SplatfestGrade;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.TeamResult;
+import com.mattrubacky.monet2.deserialized.splatoon.TeamTheme;
 
 import java.util.ArrayList;
 

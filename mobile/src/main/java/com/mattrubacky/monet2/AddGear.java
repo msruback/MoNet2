@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
-import com.mattrubacky.monet2.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Skill;
 import com.mattrubacky.monet2.dialog.GearPickerDialog;
 import com.mattrubacky.monet2.dialog.SkillPickerDialog;
 import com.mattrubacky.monet2.helper.ClosetHanger;

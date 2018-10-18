@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.ResultIds;
 import com.mattrubacky.monet2.deserialized.splatoon.Timeline;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;

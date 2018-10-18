@@ -1,9 +1,14 @@
-package com.mattrubacky.monet2.deserialized.splatoon;
+package com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.DatabaseObject;
+import com.mattrubacky.monet2.sqlite.Factory.ColumnName;
+import com.mattrubacky.monet2.sqlite.Factory.ForeignReference;
+import com.mattrubacky.monet2.sqlite.Factory.TableName;
+import com.mattrubacky.monet2.sqlite.SplatnetContract;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -11,21 +16,27 @@ import com.google.gson.annotations.SerializedName;
  * Brand images are stored in brand
  */
 
-public class Brand implements Parcelable{
+@TableName(SplatnetContract.Brand.TABLE_NAME)
+public class Brand extends DatabaseObject implements Parcelable{
     public Brand(){}
 
+    @ColumnName(SplatnetContract.Brand._ID)
     @SerializedName("id")
     public int id;
 
     //The name of the brand
+    @ColumnName(SplatnetContract.Brand.COLUMN_NAME)
     @SerializedName("name")
     public String name;
 
     //Url of the brand url
+    @ColumnName(SplatnetContract.Brand.COLUMN_URL)
     @SerializedName("image")
     public String url;
 
     //The skill the brand is most likely to roll
+    @ForeignReference
+    @ColumnName(value = SplatnetContract.Brand.COLUMN_SKILL, field = "id")
     @SerializedName("frequent_skill")
     public Skill skill;
 
@@ -59,5 +70,10 @@ public class Brand implements Parcelable{
         dest.writeInt(id);
         dest.writeString(url);
         dest.writeParcelable(skill, flags);
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 }

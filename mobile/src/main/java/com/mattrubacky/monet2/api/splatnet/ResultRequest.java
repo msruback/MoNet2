@@ -2,7 +2,7 @@ package com.mattrubacky.monet2.api.splatnet;
 
 import android.os.Bundle;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
 
 import java.io.IOException;
 

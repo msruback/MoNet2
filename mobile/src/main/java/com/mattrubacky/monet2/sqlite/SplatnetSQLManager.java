@@ -4,16 +4,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
-import com.mattrubacky.monet2.deserialized.splatoon.Player;
-import com.mattrubacky.monet2.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Skill;
 import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestDatabase;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
 import com.mattrubacky.monet2.deserialized.splatoon.Stage;
-import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Weapon;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 
 import java.util.ArrayList;

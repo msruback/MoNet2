@@ -12,7 +12,7 @@ import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.RegularCardViewHo
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SalmonRunCardViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SplatfestCardViewHolder;
 import com.mattrubacky.monet2.deserialized.splatoon.CurrentSplatfest;
-import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonSchedule;
 import com.mattrubacky.monet2.deserialized.splatoon.Schedules;
 

@@ -16,7 +16,7 @@ public class TeamResult implements Parcelable {
     @SerializedName("name")
     public String name;
 
-    @SerializedName("key")
+    @SerializedName("value")
     public String key;
 
 

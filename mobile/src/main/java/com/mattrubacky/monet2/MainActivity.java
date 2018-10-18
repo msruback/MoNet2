@@ -23,17 +23,13 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import com.mattrubacky.monet2.adapter.ListView.NavAdapter;
-import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.PastSplatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.Record;
 import com.mattrubacky.monet2.deserialized.splatoon.Timeline;
 import com.mattrubacky.monet2.dialog.GearNotificationPickerDialog;
 import com.mattrubacky.monet2.dialog.StageNotificationPickerDialog;
 import com.mattrubacky.monet2.fragment.*;
-import com.mattrubacky.monet2.notifications.GrizzCoRewardNotification;
-import com.mattrubacky.monet2.notifications.GrizzCoRewardNotificationFactory;
-import com.mattrubacky.monet2.notifications.ShopNotificationFactory;
-import com.mattrubacky.monet2.notifications.StageNotificationFactory;
 import com.mattrubacky.monet2.reciever.BootReciever;
 import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
 import com.mattrubacky.monet2.reciever.NotificationAlarm;
@@ -177,8 +173,6 @@ public class MainActivity extends AppCompatActivity {
                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                     PackageManager.DONT_KILL_APP);
         }
-        new GrizzCoRewardNotificationFactory(this).manageNotifications();
-        new StageNotificationFactory(this).manageNotifications();
 
         Intent intent = getIntent();
         switch(intent.getIntExtra("fragment",0)){

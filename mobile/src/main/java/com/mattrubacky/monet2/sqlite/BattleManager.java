@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.EventType;
 import com.mattrubacky.monet2.deserialized.splatoon.Gamemode;
 import com.mattrubacky.monet2.deserialized.splatoon.PlayerDatabase;
@@ -16,8 +16,6 @@ import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.deserialized.splatoon.TeamResult;
 import com.mattrubacky.monet2.deserialized.splatoon.TeamTheme;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 

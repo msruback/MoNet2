@@ -10,7 +10,7 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
 import com.mattrubacky.monet2.api.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.api.splatnet.ResultsRequest;
 import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;

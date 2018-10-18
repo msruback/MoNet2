@@ -17,7 +17,7 @@ import com.mattrubacky.monet2.api.splatnet.SchedulesRequest;
 import com.mattrubacky.monet2.api.splatnet.ShopRequest;
 import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
 import com.mattrubacky.monet2.helper.WearLink;
 
 import java.util.ArrayList;

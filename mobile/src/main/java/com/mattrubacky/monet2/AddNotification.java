@@ -18,10 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.GearNotification;
 import com.mattrubacky.monet2.deserialized.splatoon.GearNotifications;
-import com.mattrubacky.monet2.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Skill;
 import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.deserialized.splatoon.StageNotification;
 import com.mattrubacky.monet2.deserialized.splatoon.StageNotifications;

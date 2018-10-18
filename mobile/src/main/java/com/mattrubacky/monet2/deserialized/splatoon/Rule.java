@@ -16,7 +16,7 @@ public class Rule implements Parcelable {
     public String name;
 
     //Name lowercase and with underscores
-    @SerializedName("key")
+    @SerializedName("value")
     public String key;
 
     protected Rule(Parcel in) {

@@ -5,7 +5,7 @@ package com.mattrubacky.monet2.api.splatnet;
  */
 
 import com.mattrubacky.monet2.deserialized.splatoon.Annie;
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.CampaignRecords;
 import com.mattrubacky.monet2.deserialized.splatoon.CurrentSplatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.PastSplatfest;

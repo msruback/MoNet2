@@ -18,7 +18,7 @@ public class Gamemode implements Parcelable {
     /**The name of the gamemode lowercase with underscores
      * This could be "regular", "gachi", "league", and "fes"
      */
-    @SerializedName("key")
+    @SerializedName("value")
     public String key;
 
     protected Gamemode(Parcel in) {

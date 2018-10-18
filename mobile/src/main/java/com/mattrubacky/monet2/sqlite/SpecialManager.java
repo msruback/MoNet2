@@ -5,8 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Special;
-import com.mattrubacky.monet2.dialog.LoadingDialog;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Special;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,12 +14,11 @@ import java.util.HashMap;
  * Created by mattr on 10/18/2017.
  */
 
-class SpecialManager {
+class SpecialManager{
 
     Context context;
     HashMap<Integer,Special> toInsert;
     ArrayList<Integer> toSelect;
-    LoadingDialog dialog;
 
     public SpecialManager(Context context){
         this.context = context;
@@ -115,11 +113,12 @@ class SpecialManager {
 
             if (cursor.moveToFirst()) {
                 do {
-                    special = new Special();
-                    special.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Special._ID));
-                    special.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_NAME));
-                    special.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_URL));
-                    selected.put(special.id, special);
+//                    special = new Special();
+//                    special.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Special._ID));
+//                    special.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_NAME));
+//                    special.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Special.COLUMN_URL));
+                        //special = new Special(cursor);
+                        //selected.put(special.id, special);
                 } while (cursor.moveToNext());
             }
             cursor.close();

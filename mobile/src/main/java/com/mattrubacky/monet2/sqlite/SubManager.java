@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Sub;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Sub;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.HashMap;
  * Created by mattr on 10/18/2017.
  */
 
-class SubManager {
+class SubManager{
     Context context;
     HashMap<Integer,Sub> toInsert;
     ArrayList<Integer> toSelect;
@@ -101,13 +101,8 @@ class SubManager {
 
             if (cursor.moveToFirst()) {
                 do {
-                    sub = new Sub();
-
-                    sub.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Sub._ID));
-                    sub.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Sub.COLUMN_NAME));
-                    sub.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Sub.COLUMN_URL));
-
-                    selected.put(sub.id, sub);
+                    //sub = new Sub(cursor);
+                    //selected.put(sub.id, sub);
                 } while (cursor.moveToNext());
             }
             cursor.close();

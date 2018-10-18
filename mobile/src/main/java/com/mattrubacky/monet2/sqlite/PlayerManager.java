@@ -5,17 +5,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
-import com.mattrubacky.monet2.deserialized.splatoon.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.Player;
 import com.mattrubacky.monet2.deserialized.splatoon.PlayerDatabase;
 import com.mattrubacky.monet2.deserialized.splatoon.PlayerType;
 import com.mattrubacky.monet2.deserialized.splatoon.Rank;
-import com.mattrubacky.monet2.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Skill;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestGrade;
 import com.mattrubacky.monet2.deserialized.splatoon.User;
-import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Weapon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,178 +24,67 @@ import java.util.HashMap;
  * Created by mattr on 10/17/2017.
  */
 
-class PlayerManager {
-    Context context;
-    private ArrayList<PlayerDatabase> toInsert;
-    private ArrayList<Integer> toSelect;
+class PlayerManager extends TableArrayManager<PlayerDatabase>{
     private GearManager gearManager;
-    private SkillManager skillManager;
+    private TableManager<Skill> skillManager;
     private WeaponManager weaponManager;
+    ArrayList<Integer> headIds;
+    ArrayList<Integer>
 
 
     public PlayerManager(Context context){
-        this.context = context;
-        toSelect = new ArrayList<>();
-        toInsert = new ArrayList<>();
+        super(context,PlayerDatabase.class);
         gearManager = new GearManager(context);
-        skillManager = new SkillManager(context);
+        skillManager = new TableManager<Skill>(context,Skill.class);
         weaponManager = new WeaponManager(context);
     }
 
-    public void addToInsert(Player player, String mode, int battleId, int type){
-        PlayerDatabase playerDatabase = new PlayerDatabase();
-        playerDatabase.player = player;
-        playerDatabase.battleType = mode;
-        playerDatabase.battleID = battleId;
-        playerDatabase.playerType = type;
-        toInsert.add(playerDatabase);
-
-        gearManager.addToInsert(player.user.head);
-        skillManager.addToInsert(player.user.headSkills);
-
-        gearManager.addToInsert(player.user.clothes);
-        skillManager.addToInsert(player.user.clothesSkills);
-
-        gearManager.addToInsert(player.user.shoes);
-        skillManager.addToInsert(player.user.shoeSkills);
-
-        weaponManager.addToInsert(player.user.weapon);
-    }
-
-    public void addToSelect(int id){
-        toSelect.add(id);
-    }
-
-    public void insert(){
-        gearManager.insert();
-        weaponManager.insert();
-        skillManager.insert();
-        if(toInsert.size()>0) {
-            SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
-
-            ContentValues values;
-
-            PlayerDatabase player;
-
-            for (int i = 0; i < toInsert.size(); i++) {
-                player = toInsert.get(i);
-                values = new ContentValues();
-
-                    values.put(SplatnetContract.Player.COLUMN_MODE, player.battleType);
-                    values.put(SplatnetContract.Player.COLUMN_BATTLE, player.battleID);
-                    values.put(SplatnetContract.Player.COLUMN_TYPE, player.playerType);
-                    values.put(SplatnetContract.Player.COLUMN_ID, player.player.user.id);
-                    values.put(SplatnetContract.Player.COLUMN_NAME, player.player.user.name);
-                    values.put(SplatnetContract.Player.COLUMN_LEVEL, player.player.user.rank);
-                    values.put(SplatnetContract.Player.COLUMN_STAR_RANK, player.player.user.starRank);
-                    values.put(SplatnetContract.Player.COLUMN_POINT, player.player.points);
-                    values.put(SplatnetContract.Player.COLUMN_KILL, player.player.kills);
-                    values.put(SplatnetContract.Player.COLUMN_ASSIST, player.player.assists);
-                    values.put(SplatnetContract.Player.COLUMN_DEATH, player.player.deaths);
-                    values.put(SplatnetContract.Player.COLUMN_SPECIAL, player.player.special);
-
-                    if(player.player.user.playerType!=null){
-                        values.put(SplatnetContract.Player.COLUMN_SPECIES, player.player.user.playerType.species);
-                        values.put(SplatnetContract.Player.COLUMN_STYLE, player.player.user.playerType.style);
-                    }else{
-                        values.put(SplatnetContract.Player.COLUMN_SPECIES, "inklings");
-                        values.put(SplatnetContract.Player.COLUMN_STYLE, "none");
-                    }
-
-                    switch (player.battleType) {
-                        case "gachi":
-                            values.put(SplatnetContract.Player.COLUMN_RANK, player.player.user.udamae.rank);
-                            values.put(SplatnetContract.Player.COLUMN_S_NUM, player.player.user.udamae.sPlus);
-                            break;
-                        case "fes":
-                            values.put(SplatnetContract.Player.COLUMN_FES_GRADE, player.player.user.grade.name);
-                    }
-
-
-                    values.put(SplatnetContract.Player.COLUMN_WEAPON, player.player.user.weapon.id);
-
-
-                    values.put(SplatnetContract.Player.COLUMN_HEAD, player.player.user.head.id);
-                    values.put(SplatnetContract.Player.COLUMN_HEAD_MAIN, player.player.user.headSkills.main.id);
-
-                    //Insert sub skills
-                    if (player.player.user.headSkills.subs.get(0) != null) {
-                        values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_1, player.player.user.headSkills.subs.get(0).id);
-                        if (player.player.user.headSkills.subs.get(1) != null) {
-                            values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_2, player.player.user.headSkills.subs.get(1).id);
-                            if (player.player.user.headSkills.subs.get(2) != null) {
-                                values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3, player.player.user.headSkills.subs.get(2).id);
-                            } else {
-                                values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3, -1);
-                            }
-                        } else {
-
-                            values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_2, -1);
-                            values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3, -1);
-                        }
-                    } else {
-                        values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_1, -1);
-                        values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_2, -1);
-                        values.put(SplatnetContract.Player.COLUMN_HEAD_SUB_3, -1);
-                    }
-
-
-                    values.put(SplatnetContract.Player.COLUMN_CLOTHES, player.player.user.clothes.id);
-                    values.put(SplatnetContract.Player.COLUMN_CLOTHES_MAIN, player.player.user.clothesSkills.main.id);
-
-                    //Insert sub skills
-                    if (player.player.user.clothesSkills.subs.get(0) != null) {
-                        values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_1, player.player.user.clothesSkills.subs.get(0).id);
-                        if (player.player.user.clothesSkills.subs.get(1) != null) {
-                            values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2, player.player.user.clothesSkills.subs.get(1).id);
-                            if (player.player.user.clothesSkills.subs.get(2) != null) {
-                                values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3, player.player.user.clothesSkills.subs.get(2).id);
-                            } else {
-                                values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3, -1);
-                            }
-                        } else {
-
-                            values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2, -1);
-                            values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3, -1);
-                        }
-                    } else {
-                        values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_1, -1);
-                        values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2, -1);
-                        values.put(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3, -1);
-                    }
-
-                    values.put(SplatnetContract.Player.COLUMN_SHOES, player.player.user.shoes.id);
-                    values.put(SplatnetContract.Player.COLUMN_SHOES_MAIN, player.player.user.shoeSkills.main.id);
-
-                    //Insert sub skills
-                    if (player.player.user.shoeSkills.subs.get(0) != null) {
-                        values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_1, player.player.user.shoeSkills.subs.get(0).id);
-                        if (player.player.user.shoeSkills.subs.get(1) != null) {
-
-                            values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_2, player.player.user.shoeSkills.subs.get(1).id);
-                            if (player.player.user.shoeSkills.subs.get(2) != null) {
-
-                                values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3, player.player.user.shoeSkills.subs.get(2).id);
-                            } else {
-                                values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3, -1);
-                            }
-                        } else {
-
-                            values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_2, -1);
-                            values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3, -1);
-                        }
-                    } else {
-                        values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_1, -1);
-                        values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_2, -1);
-                        values.put(SplatnetContract.Player.COLUMN_SHOES_SUB_3, -1);
-                    }
-
-
-                    database.insert(SplatnetContract.Player.TABLE_NAME, null, values);
-            }
-            database.close();
-            toInsert = new ArrayList<>();
+    @Override
+    public void addToInsert(int id,PlayerDatabase playerDatabase){
+        super.addToInsert(playerDatabase.battleID,playerDatabase);
+        gearManager.addToInsert(playerDatabase.player.user.head);
+        skillManager.addToInsert(playerDatabase.player.user.headSkills.main);
+        for(Skill skill : playerDatabase.player.user.headSkills.subs){
+            skillManager.addToInsert(skill);
         }
+
+        gearManager.addToInsert(playerDatabase.player.user.clothes);
+        skillManager.addToInsert(playerDatabase.player.user.clothesSkills.main);
+        for(Skill skill : playerDatabase.player.user.clothesSkills.subs){
+            skillManager.addToInsert(skill);
+        }
+
+        gearManager.addToInsert(playerDatabase.player.user.shoes);
+        skillManager.addToInsert(playerDatabase.player.user.shoeSkills.main);
+        for(Skill skill : playerDatabase.player.user.shoeSkills.subs){
+            skillManager.addToInsert(skill);
+        }
+
+        weaponManager.addToInsert(playerDatabase.player.user.weapon);
+
+    }
+
+    @Override
+    public void insert(){
+        skillManager.insert();
+        weaponManager.insert();
+        gearManager.insert();
+        super.insert();
+    }
+
+    @Override
+    protected PlayerDatabase buildObject(Class<PlayerDatabase> type,Cursor cursor) throws IllegalAccessException, InstantiationException {
+        PlayerDatabase playerDatabase = super.buildObject(type,cursor);
+
+        int subID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SUB));
+        subIDs.add(subID);
+        subManager.addToSelect(subID);
+
+        int specialID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SPECIAL));
+        specialIDs.add(specialID);
+        specialManager.addToSelect(specialID);
+
+        return weapon;
     }
 
     public HashMap<Integer,ArrayList<PlayerDatabase>> select(){
