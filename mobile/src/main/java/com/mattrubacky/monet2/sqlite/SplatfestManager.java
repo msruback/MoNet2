@@ -17,7 +17,7 @@ import com.mattrubacky.monet2.deserialized.splatoon.SplatfestRates;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestSummary;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestTimes;
-import com.mattrubacky.monet2.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,13 +30,13 @@ class SplatfestManager {
     Context context;
     ArrayList<SplatfestDatabase> toInsert;
     ArrayList<Integer> toSelect;
-    StageManager stageManager;
+    TableManager<Stage> stageManager;
 
     public SplatfestManager(Context context){
         this.context = context;
         toInsert = new ArrayList<>();
         toSelect = new ArrayList<>();
-        stageManager = new StageManager(context);
+        stageManager = new TableManager<Stage>(context,Stage.class);
     }
 
     public void addToInsert(Splatfest splatfest){
@@ -204,8 +204,14 @@ class SplatfestManager {
             colors.bravo = color;
             splatfestDatabase.splatfest.colors = colors;
 
-            splatfestDatabase.splatfest.stage = stageManager.select(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_STAGE)));
+            try {
+                splatfestDatabase.splatfest.stage = stageManager.select(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_STAGE)));
 
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
             SplatfestImages images = new SplatfestImages();
             images.panel = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_IMAGE_PANEL));
             images.alpha = cursor.getString(cursor.getColumnIndex(SplatnetContract.Splatfest.COLUMN_IMAGE_ALPHA));

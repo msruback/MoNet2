@@ -5,14 +5,17 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.api.splatnet.Splatnet;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.DatabaseObject;
 import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.Player;
-import com.mattrubacky.monet2.deserialized.splatoon.EventType;
-import com.mattrubacky.monet2.deserialized.splatoon.Gamemode;
-import com.mattrubacky.monet2.deserialized.splatoon.Rule;
+import com.mattrubacky.monet2.deserialized.splatoon.KeyName;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestGrade;
-import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.deserialized.splatoon.TeamResult;
 import com.mattrubacky.monet2.deserialized.splatoon.TeamTheme;
+import com.mattrubacky.monet2.sqlite.Factory.ColumnName;
+import com.mattrubacky.monet2.sqlite.Factory.ForeignReference;
+import com.mattrubacky.monet2.sqlite.Factory.TableName;
+import com.mattrubacky.monet2.sqlite.SplatnetContract;
 
 import java.util.ArrayList;
 
@@ -21,38 +24,47 @@ import java.util.ArrayList;
  * This class represents individual Battles
  */
 
-public class Battle implements Parcelable{
+@TableName(SplatnetContract.Battle.TABLE_NAME)
+public class Battle extends DatabaseObject implements Parcelable{
     public Battle(){
         time = (long)0;
     }
 
+    @ColumnName(SplatnetContract.Battle._ID)
     @SerializedName("battle_number")
     @Expose
     public int id;
 
+    @ColumnName(value = SplatnetContract.Battle.COLUMN_EVENT_TYPE,field ="key")
     @SerializedName("event_type")
-    public EventType eventType;
+    public KeyName eventType;
 
     //The user's stats and info
     @SerializedName("player_result")
     public Player user;
 
     //The rule used, such as Turf War, Splatzones, etc
+    @ColumnName(value = SplatnetContract.Battle.COLUMN_RULE, field = "key")
     @SerializedName("rule")
-    public Rule rule;
+    public KeyName rule;
 
     //The gamemode, such as regular, gachi(ranked), league, fes
+    @ColumnName(SplatnetContract.Battle.COLUMN_MODE)
     @SerializedName("type")
     public String type;
 
+    @ColumnName(value = SplatnetContract.Battle.COLUMN_FES_MODE,field = "key")
     @SerializedName("fes_mode")
-    public Gamemode fesMode;
+    public KeyName fesMode;
 
     //Stage the match took place on
+    @ForeignReference
+    @ColumnName(value = SplatnetContract.Battle.COLUMN_STAGE,field = "id")
     @SerializedName("stage")
     public Stage stage;
 
     //The result for the player
+    @ColumnName(value = SplatnetContract.Battle.COLUMN_RESULT,field = "key")
     @SerializedName("my_team_result")
     public TeamResult result;
 
@@ -87,6 +99,7 @@ public class Battle implements Parcelable{
 
     //The time the match started
     //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
+    @ColumnName(SplatnetContract.Battle.COLUMN_START_TIME)
     @SerializedName("start_time")
     public Long start;
 
@@ -139,9 +152,9 @@ public class Battle implements Parcelable{
 
     protected Battle(Parcel in) {
         id = in.readInt();
-        eventType = in.readParcelable(EventType.class.getClassLoader());
+        eventType = in.readParcelable(KeyName.class.getClassLoader());
         user = in.readParcelable(Player.class.getClassLoader());
-        rule = in.readParcelable(Rule.class.getClassLoader());
+        rule = in.readParcelable(KeyName.class.getClassLoader());
         type = in.readString();
         stage = in.readParcelable(Stage.class.getClassLoader());
         result = in.readParcelable(TeamResult.class.getClassLoader());
@@ -217,5 +230,10 @@ public class Battle implements Parcelable{
         dest.writeInt(gachiPower);
         dest.writeParcelable(myTheme, flags);
         dest.writeParcelable(otherTheme, flags);
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 }

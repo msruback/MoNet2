@@ -18,10 +18,10 @@ import java.util.HashMap;
 
 public class TableArrayManager<T extends DatabaseObject>{
 
-    private Context context;
-    private ArrayList<T> toInsert;
-    private ArrayList<Integer> toSelect;
-    private Class<T> type;
+    protected Context context;
+    protected ArrayList<T> toInsert;
+    protected ArrayList<Integer> toSelect;
+    protected Class<T> type;
 
     public TableArrayManager(Context context, Class<T> type) {
         this.context = context;
@@ -71,6 +71,43 @@ public class TableArrayManager<T extends DatabaseObject>{
             try {
 
                 Cursor cursor = database.query((type.getAnnotation(TableName.class)).value(), null, whereClause, args, null, null, null);
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        T object = buildObject(type, cursor);
+                        ArrayList<T> objects;
+                        if(selected.containsKey(object.getId())){
+                            objects = selected.get(object.getId());
+                        }else{
+                            objects = new ArrayList<>();
+                        }
+                        if(objects.size()<=4){
+                            objects.add(object);
+                        }
+                        selected.put(object.getId(),objects);
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+                database.close();
+
+                toSelect = new ArrayList<>();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+        }
+        return selected;
+    }
+
+    public HashMap<Integer,ArrayList<T>> selectAll(){
+        HashMap<Integer,ArrayList<T>> selected = new HashMap<>();
+        if (toSelect.size() > 0) {
+
+            SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+            try {
+
+                Cursor cursor = database.query((type.getAnnotation(TableName.class)).value(), null, null, null, null, null, null);
 
                 if (cursor.moveToFirst()) {
                     do {

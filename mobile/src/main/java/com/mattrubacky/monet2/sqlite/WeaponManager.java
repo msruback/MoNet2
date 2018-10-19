@@ -73,8 +73,8 @@ class WeaponManager extends TableManager<Weapon>{
 
         for (int i = 0; i<weaponIDs.size();i++) {
             Weapon weapon = weaponHashMap.get(weaponIDs.get(i));
-            weapon.sub = subHashMap.get(subIDs.get(i));
-            weapon.special = specialHashMap.get(specialIDs.get(i));
+            weapon.sub = subHashMap.get(weapon.sub.id);
+            weapon.special = specialHashMap.get(weapon.special.id);
             selected.add(weapon);
         }
         return selected;
@@ -86,11 +86,9 @@ class WeaponManager extends TableManager<Weapon>{
         weaponIDs.add(weapon.id);
 
         int subID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SUB));
-        subIDs.add(subID);
         subManager.addToSelect(subID);
 
         int specialID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SPECIAL));
-        specialIDs.add(specialID);
         specialManager.addToSelect(specialID);
 
         return weapon;

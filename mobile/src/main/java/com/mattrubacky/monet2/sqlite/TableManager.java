@@ -17,9 +17,9 @@ import java.util.HashMap;
  */
 
 public class TableManager<T extends DatabaseObject>{
-    private Context context;
-    private HashMap<Integer,T> toInsert;
-    private ArrayList<Integer> toSelect;
+    public Context context;
+    protected HashMap<Integer,T> toInsert;
+    protected ArrayList<Integer> toSelect;
     private Class<T> type;
     private String tableName;
 
@@ -51,6 +51,16 @@ public class TableManager<T extends DatabaseObject>{
             cursor.close();
             return true;
         }
+    }
+
+    public int count(){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        String query = "SELECT * FROM "+ tableName;
+        Cursor cursor = database.rawQuery(query,null);
+        int count = cursor.getCount();
+        cursor.close();
+        database.close();
+        return count;
     }
 
     public void addToInsert(T object){toInsert.put(object.getId(), object);

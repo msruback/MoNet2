@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.DatabaseObject;
 import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
@@ -16,6 +17,7 @@ import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Skill
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestGrade;
 import com.mattrubacky.monet2.deserialized.splatoon.User;
 import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Weapon;
+import com.mattrubacky.monet2.sqlite.Factory.DatabaseObjectFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,16 +28,14 @@ import java.util.HashMap;
 
 class PlayerManager extends TableArrayManager<PlayerDatabase>{
     private GearManager gearManager;
-    private TableManager<Skill> skillManager;
+    private SkillManager skillManager;
     private WeaponManager weaponManager;
-    ArrayList<Integer> headIds;
-    ArrayList<Integer>
 
 
     public PlayerManager(Context context){
         super(context,PlayerDatabase.class);
         gearManager = new GearManager(context);
-        skillManager = new TableManager<Skill>(context,Skill.class);
+        skillManager = new SkillManager(context);
         weaponManager = new WeaponManager(context);
     }
 
@@ -43,18 +43,21 @@ class PlayerManager extends TableArrayManager<PlayerDatabase>{
     public void addToInsert(int id,PlayerDatabase playerDatabase){
         super.addToInsert(playerDatabase.battleID,playerDatabase);
         gearManager.addToInsert(playerDatabase.player.user.head);
+        skillManager.addToInsert(playerDatabase.player.user.head.brand.skill);
         skillManager.addToInsert(playerDatabase.player.user.headSkills.main);
         for(Skill skill : playerDatabase.player.user.headSkills.subs){
             skillManager.addToInsert(skill);
         }
 
         gearManager.addToInsert(playerDatabase.player.user.clothes);
+        skillManager.addToInsert(playerDatabase.player.user.clothes.brand.skill);
         skillManager.addToInsert(playerDatabase.player.user.clothesSkills.main);
         for(Skill skill : playerDatabase.player.user.clothesSkills.subs){
             skillManager.addToInsert(skill);
         }
 
         gearManager.addToInsert(playerDatabase.player.user.shoes);
+        skillManager.addToInsert(playerDatabase.player.user.shoes.brand.skill);
         skillManager.addToInsert(playerDatabase.player.user.shoeSkills.main);
         for(Skill skill : playerDatabase.player.user.shoeSkills.subs){
             skillManager.addToInsert(skill);
@@ -72,213 +75,88 @@ class PlayerManager extends TableArrayManager<PlayerDatabase>{
         super.insert();
     }
 
+
     @Override
     protected PlayerDatabase buildObject(Class<PlayerDatabase> type,Cursor cursor) throws IllegalAccessException, InstantiationException {
         PlayerDatabase playerDatabase = super.buildObject(type,cursor);
+        playerDatabase.player.user = DatabaseObjectFactory.parseObject(new User(),cursor);
 
-        int subID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SUB));
-        subIDs.add(subID);
-        subManager.addToSelect(subID);
+        gearManager.addToSelect(playerDatabase.player.user.head.id,"head");
+        skillManager.addToSelect(playerDatabase.player.user.headSkills.main.id);
+        for(int i=0; i<playerDatabase.player.user.headSkills.subs.size();i++){
+            if(playerDatabase.player.user.headSkills.subs.get(i).id!=-1){
+                skillManager.addToInsert(playerDatabase.player.user.headSkills.subs.get(i));
+            }else{
+                playerDatabase.player.user.headSkills.subs.remove(i);
+            }
+        }
 
-        int specialID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Weapon.COLUMN_SPECIAL));
-        specialIDs.add(specialID);
-        specialManager.addToSelect(specialID);
+        gearManager.addToSelect(playerDatabase.player.user.clothes.id,"clothes");
+        skillManager.addToSelect(playerDatabase.player.user.clothesSkills.main.id);
+        for(int i=0; i<playerDatabase.player.user.clothesSkills.subs.size();i++){
+            if(playerDatabase.player.user.clothesSkills.subs.get(i).id!=-1){
+                skillManager.addToInsert(playerDatabase.player.user.clothesSkills.subs.get(i));
+            }else{
+                playerDatabase.player.user.clothesSkills.subs.remove(i);
+            }
+        }
 
-        return weapon;
+        gearManager.addToSelect(playerDatabase.player.user.shoes.id,"shoes");
+        skillManager.addToSelect(playerDatabase.player.user.shoeSkills.main.id);
+        for(int i=0; i<playerDatabase.player.user.shoeSkills.subs.size();i++){
+            if(playerDatabase.player.user.shoeSkills.subs.get(i).id!=-1){
+                skillManager.addToInsert(playerDatabase.player.user.shoeSkills.subs.get(i));
+            }else{
+                playerDatabase.player.user.shoeSkills.subs.remove(i);
+            }
+        }
+
+        return playerDatabase;
     }
 
     public HashMap<Integer,ArrayList<PlayerDatabase>> select(){
         HashMap<Integer,ArrayList<PlayerDatabase>> selected = new HashMap<>();
-        if(toSelect.size()>0) {
 
-            SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+        HashMap<Integer,ArrayList<PlayerDatabase>> playerHashMap = super.select();
+        ArrayList<HashMap<Integer, Gear>> gearHashMap = gearManager.select();
+        HashMap<Integer, Skill> skillHashMap = skillManager.select();
+        HashMap<Integer, Weapon> weaponHashMap = weaponManager.select();
+        for(Integer key : playerHashMap.keySet()) {
+            for (PlayerDatabase player : playerHashMap.get(key)) {
 
-            String[] args = new String[toSelect.size()];
-            args[0] = String.valueOf(toSelect.get(0));
+                player.player.user.head = gearHashMap.get(0).get(player.player.user.head.id);
 
-            StringBuilder builder = new StringBuilder();
-            builder.append(SplatnetContract.Player.COLUMN_BATTLE + " = ?");
-
-            //build the select statement
-            for (int i = 1; i < toSelect.size(); i++) {
-                builder.append(" OR " + SplatnetContract.Player.COLUMN_BATTLE + " = ?");
-                args[i] = String.valueOf(toSelect.get(i));
-            }
-
-            String whereClause = builder.toString();
-
-            Cursor cursor = database.query(SplatnetContract.Player.TABLE_NAME, null, whereClause, args, null, null, null);
-
-            ArrayList<PlayerDatabase> players = new ArrayList<>();
-            PlayerDatabase player;
-
-            ArrayList<Integer> headIDs = new ArrayList<>(), headMainIDs = new ArrayList<>();
-            ArrayList<Integer> headSub1IDs = new ArrayList<>(), headSub2IDs = new ArrayList<>(), headSub3IDs = new ArrayList<>();
-            int headID, headMainID, headSub1ID, headSub2ID, headSub3ID;
-
-            ArrayList<Integer> clothesIDs = new ArrayList<>(), clothesMainIDs = new ArrayList<>();
-            ArrayList<Integer> clothesSub1IDs = new ArrayList<>(), clothesSub2IDs = new ArrayList<>(), clothesSub3IDs = new ArrayList<>();
-            int clothesID, clothesMainID, clothesSub1ID, clothesSub2ID, clothesSub3ID;
-
-            ArrayList<Integer> shoeIDs = new ArrayList<>(), shoeMainIDs = new ArrayList<>();
-            ArrayList<Integer> shoeSub1IDs = new ArrayList<>(), shoeSub2IDs = new ArrayList<>(), shoeSub3IDs = new ArrayList<>();
-            int shoeID, shoeMainID, shoeSub1ID, shoeSub2ID, shoeSub3ID;
-
-            ArrayList<Integer> weaponIDs = new ArrayList<>();
-            int weaponID;
-
-            if (cursor.moveToFirst()) {
-                do {
-                    player = new PlayerDatabase();
-                    player.battleID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_BATTLE));
-                    player.playerType = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_TYPE));
-                    player.battleType = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_MODE));
-                    player.player = new Player();
-                    player.player.points = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_POINT));
-                    player.player.kills = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_KILL));
-                    player.player.assists = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_ASSIST));
-                    player.player.deaths = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_DEATH));
-                    player.player.special = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SPECIAL));
-
-
-                    User user = new User();
-                    user.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_NAME));
-                    user.id = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_ID));
-                    user.rank = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_LEVEL));
-                    Rank rank = new Rank();
-                    rank.rank = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_RANK));
-                    rank.sPlus = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_S_NUM));
-                    user.udamae = rank;
-                    SplatfestGrade splatfestGrade = new SplatfestGrade();
-                    splatfestGrade.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_FES_GRADE));
-                    user.grade = splatfestGrade;
-                    user.playerType = new PlayerType();
-                    user.playerType.species = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SPECIES));
-                    user.playerType.style = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_STYLE));
-
-                    //Head
-
-                    headID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD));
-                    gearManager.addToSelect(headID, "head");
-                    headIDs.add(headID);
-
-                    headMainID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_MAIN));
-                    skillManager.addToSelect(headMainID);
-                    headMainIDs.add(headMainID);
-
-                    headSub1ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_SUB_1));
-                    skillManager.addToSelect(headSub1ID);
-                    headSub1IDs.add(headSub1ID);
-
-                    headSub2ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_SUB_2));
-                    skillManager.addToSelect(headSub2ID);
-                    headSub2IDs.add(headSub2ID);
-
-                    headSub3ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_SUB_3));
-                    skillManager.addToSelect(headSub3ID);
-                    headSub3IDs.add(headSub3ID);
-
-                    //Clothes
-
-                    clothesID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_CLOTHES));
-                    gearManager.addToSelect(clothesID, "clothes");
-                    clothesIDs.add(clothesID);
-
-                    clothesMainID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_CLOTHES_MAIN));
-                    skillManager.addToSelect(clothesMainID);
-                    clothesMainIDs.add(clothesMainID);
-
-                    clothesSub1ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_CLOTHES_SUB_1));
-                    skillManager.addToSelect(clothesSub1ID);
-                    clothesSub1IDs.add(clothesSub1ID);
-
-                    clothesSub2ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2));
-                    skillManager.addToSelect(clothesSub2ID);
-                    clothesSub2IDs.add(clothesSub2ID);
-
-                    clothesSub3ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3));
-                    skillManager.addToSelect(clothesSub3ID);
-                    clothesSub3IDs.add(clothesSub3ID);
-
-                    //Shoes
-
-                    shoeID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SHOES));
-                    gearManager.addToSelect(shoeID, "shoes");
-                    shoeIDs.add(shoeID);
-
-                    shoeMainID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SHOES_MAIN));
-                    skillManager.addToSelect(shoeMainID);
-                    shoeMainIDs.add(shoeMainID);
-
-                    shoeSub1ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SHOES_SUB_1));
-                    skillManager.addToSelect(shoeSub1ID);
-                    shoeSub1IDs.add(shoeSub1ID);
-
-                    shoeSub2ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SHOES_SUB_2));
-                    skillManager.addToSelect(shoeSub2ID);
-                    shoeSub2IDs.add(shoeSub2ID);
-
-                    shoeSub3ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SHOES_SUB_3));
-                    skillManager.addToSelect(shoeSub3ID);
-                    shoeSub3IDs.add(shoeSub3ID);
-
-                    //Weapon
-
-                    weaponID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_WEAPON));
-                    weaponManager.addToSelect(weaponID);
-                    weaponIDs.add(weaponID);
-
-                    player.player.user = user;
-
-                    players.add(player);
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-            database.close();
-
-            ArrayList<HashMap<Integer, Gear>> gearHashMap = gearManager.select();
-            HashMap<Integer, Skill> skillHashMap = skillManager.select();
-            HashMap<Integer, Weapon> weaponHashMap = weaponManager.select();
-
-            GearSkills headSkills, clothesSkills, shoeSkills;
-
-            ArrayList<PlayerDatabase> battlePlayers;
-
-            for (int i = 0; i < players.size(); i++) {
-                player = players.get(i);
-
-                player.player.user.head = gearHashMap.get(0).get(headIDs.get(i));
-
-                headSkills = new GearSkills();
-                headSkills.main = skillHashMap.get(headMainIDs.get(i));
+                GearSkills headSkills = new GearSkills();
+                headSkills.main = skillHashMap.get(player.player.user.headSkills.main.id);
                 headSkills.subs = new ArrayList<>();
-                headSkills.subs.add(skillHashMap.get(headSub1IDs.get(i)));
-                headSkills.subs.add(skillHashMap.get(headSub2IDs.get(i)));
-                headSkills.subs.add(skillHashMap.get(headSub3IDs.get(i)));
+                for(Skill skill : player.player.user.headSkills.subs) {
+                    headSkills.subs.add(skillHashMap.get(skill.id));
+                }
                 player.player.user.headSkills = headSkills;
 
-                player.player.user.clothes = gearHashMap.get(1).get(clothesIDs.get(i));
+                player.player.user.clothes = gearHashMap.get(1).get(player.player.user.clothes.id);
 
-                clothesSkills = new GearSkills();
-                clothesSkills.main = skillHashMap.get(clothesMainIDs.get(i));
+                GearSkills clothesSkills = new GearSkills();
+                clothesSkills.main = skillHashMap.get(player.player.user.clothesSkills.main.id);
                 clothesSkills.subs = new ArrayList<>();
-                clothesSkills.subs.add(skillHashMap.get(clothesSub1IDs.get(i)));
-                clothesSkills.subs.add(skillHashMap.get(clothesSub2IDs.get(i)));
-                clothesSkills.subs.add(skillHashMap.get(clothesSub3IDs.get(i)));
+                for(Skill skill : player.player.user.headSkills.subs) {
+                    headSkills.subs.add(skillHashMap.get(skill.id));
+                }
                 player.player.user.clothesSkills = clothesSkills;
 
-                player.player.user.shoes = gearHashMap.get(2).get(shoeIDs.get(i));
+                player.player.user.shoes = gearHashMap.get(2).get(player.player.user.shoes.id);
 
-                shoeSkills = new GearSkills();
-                shoeSkills.main = skillHashMap.get(shoeMainIDs.get(i));
+                GearSkills shoeSkills = new GearSkills();
+                shoeSkills.main = skillHashMap.get(player.player.user.shoeSkills.main.id);
                 shoeSkills.subs = new ArrayList<>();
-                shoeSkills.subs.add(skillHashMap.get(shoeSub1IDs.get(i)));
-                shoeSkills.subs.add(skillHashMap.get(shoeSub2IDs.get(i)));
-                shoeSkills.subs.add(skillHashMap.get(shoeSub3IDs.get(i)));
+                for(Skill skill : player.player.user.shoeSkills.subs) {
+                    shoeSkills.subs.add(skillHashMap.get(skill.id));
+                }
                 player.player.user.shoeSkills = shoeSkills;
 
-                player.player.user.weapon = weaponHashMap.get(weaponIDs.get(i));
+                player.player.user.weapon = weaponHashMap.get(player.player.user.weapon.id);
 
+                ArrayList<PlayerDatabase> battlePlayers;
                 if (selected.containsKey(player.battleID)) {
                     battlePlayers = selected.get(player.battleID);
                 } else {
@@ -287,7 +165,6 @@ class PlayerManager extends TableArrayManager<PlayerDatabase>{
                 battlePlayers.add(player);
                 selected.put(player.battleID, battlePlayers);
             }
-            toSelect = new ArrayList<>();
         }
         return selected;
     }
@@ -295,197 +172,63 @@ class PlayerManager extends TableArrayManager<PlayerDatabase>{
     public HashMap<Integer,ArrayList<PlayerDatabase>> selectAll(){
         HashMap<Integer,ArrayList<PlayerDatabase>> selected = new HashMap<>();
 
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+        HashMap<Integer,ArrayList<PlayerDatabase>> playerHashMap = super.selectAll();
+        ArrayList<HashMap<Integer, Gear>> gearHashMap = gearManager.select();
+        HashMap<Integer, Skill> skillHashMap = skillManager.select();
+        HashMap<Integer, Weapon> weaponHashMap = weaponManager.select();
+        for(Integer key : playerHashMap.keySet()) {
+            for (PlayerDatabase player : playerHashMap.get(key)) {
 
-        Cursor cursor = database.query(SplatnetContract.Player.TABLE_NAME,null,null,null,null,null,null);
+                player.player.user.head = gearHashMap.get(0).get(player.player.user.head.id);
 
-        ArrayList<PlayerDatabase> players = new ArrayList<>();
-        PlayerDatabase player;
+                GearSkills headSkills = new GearSkills();
+                headSkills.main = skillHashMap.get(player.player.user.headSkills.main.id);
+                headSkills.subs = new ArrayList<>();
+                for(Skill skill : player.player.user.headSkills.subs) {
+                    headSkills.subs.add(skillHashMap.get(skill.id));
+                }
+                player.player.user.headSkills = headSkills;
 
-        ArrayList<Integer> headIDs = new ArrayList<>(),headMainIDs = new ArrayList<>();
-        ArrayList<Integer> headSub1IDs = new ArrayList<>(), headSub2IDs = new ArrayList<>(), headSub3IDs= new ArrayList<>();
-        int headID, headMainID, headSub1ID, headSub2ID, headSub3ID;
+                player.player.user.clothes = gearHashMap.get(1).get(player.player.user.clothes.id);
 
-        ArrayList<Integer> clothesIDs = new ArrayList<>(), clothesMainIDs = new ArrayList<>();
-        ArrayList<Integer> clothesSub1IDs = new ArrayList<>(), clothesSub2IDs = new ArrayList<>(), clothesSub3IDs = new ArrayList<>();
-        int clothesID, clothesMainID, clothesSub1ID, clothesSub2ID, clothesSub3ID;
+                GearSkills clothesSkills = new GearSkills();
+                clothesSkills.main = skillHashMap.get(player.player.user.clothesSkills.main.id);
+                clothesSkills.subs = new ArrayList<>();
+                for(Skill skill : player.player.user.headSkills.subs) {
+                    headSkills.subs.add(skillHashMap.get(skill.id));
+                }
+                player.player.user.clothesSkills = clothesSkills;
 
-        ArrayList<Integer> shoeIDs = new ArrayList<>(), shoeMainIDs = new ArrayList<>();
-        ArrayList<Integer> shoeSub1IDs = new ArrayList<>(), shoeSub2IDs = new ArrayList<>(), shoeSub3IDs = new ArrayList<>();
-        int shoeID, shoeMainID, shoeSub1ID, shoeSub2ID, shoeSub3ID;
+                player.player.user.shoes = gearHashMap.get(2).get(player.player.user.shoes.id);
 
-        ArrayList<Integer> weaponIDs = new ArrayList<>();
-        int weaponID;
+                GearSkills shoeSkills = new GearSkills();
+                shoeSkills.main = skillHashMap.get(player.player.user.shoeSkills.main.id);
+                shoeSkills.subs = new ArrayList<>();
+                for(Skill skill : player.player.user.shoeSkills.subs) {
+                    shoeSkills.subs.add(skillHashMap.get(skill.id));
+                }
+                player.player.user.shoeSkills = shoeSkills;
 
-        if(cursor.moveToFirst()){
-            do{
-                player = new PlayerDatabase();
-                player.battleID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_BATTLE));
-                player.playerType = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_TYPE));
-                player.battleType = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_MODE));
-                player.player = new Player();
-                player.player.points = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_POINT));
-                player.player.kills = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_KILL));
-                player.player.assists = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_ASSIST));
-                player.player.deaths = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_DEATH));
-                player.player.special = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SPECIAL));
+                player.player.user.weapon = weaponHashMap.get(player.player.user.weapon.id);
 
-
-                User user = new User();
-                user.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_NAME));
-                user.id = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_ID));
-                user.rank = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_LEVEL));
-                Rank rank = new Rank();
-                rank.rank = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_RANK));
-                rank.sPlus = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_S_NUM));
-                user.udamae = rank;
-                SplatfestGrade splatfestGrade = new SplatfestGrade();
-                splatfestGrade.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_FES_GRADE));
-                user.grade = splatfestGrade;
-                user.playerType = new PlayerType();
-                user.playerType.species = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SPECIES));
-                user.playerType.style = cursor.getString(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_STYLE));
-
-                //Head
-
-                headID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD));
-                gearManager.addToSelect(headID,"head");
-                headIDs.add(headID);
-
-                headMainID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_MAIN));
-                skillManager.addToSelect(headMainID);
-                headMainIDs.add(headMainID);
-
-                headSub1ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_SUB_1));
-                skillManager.addToSelect(headSub1ID);
-                headSub1IDs.add(headSub1ID);
-
-                headSub2ID =cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_SUB_2));
-                skillManager.addToSelect(headSub2ID);
-                headSub2IDs.add(headSub2ID);
-
-                headSub3ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_HEAD_SUB_3));
-                skillManager.addToSelect(headSub3ID);
-                headSub3IDs.add(headSub3ID);
-
-                //Clothes
-
-                clothesID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_CLOTHES));
-                gearManager.addToSelect(clothesID,"clothes");
-                clothesIDs.add(clothesID);
-
-                clothesMainID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_CLOTHES_MAIN));
-                skillManager.addToSelect(clothesMainID);
-                clothesMainIDs.add(clothesMainID);
-
-                clothesSub1ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_CLOTHES_SUB_1));
-                skillManager.addToSelect(clothesSub1ID);
-                clothesSub1IDs.add(clothesSub1ID);
-
-                clothesSub2ID =cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_CLOTHES_SUB_2));
-                skillManager.addToSelect(clothesSub2ID);
-                clothesSub2IDs.add(clothesSub2ID);
-
-                clothesSub3ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_CLOTHES_SUB_3));
-                skillManager.addToSelect(clothesSub3ID);
-                clothesSub3IDs.add(clothesSub3ID);
-
-                //Shoes
-
-                shoeID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SHOES));
-                gearManager.addToSelect(shoeID,"shoes");
-                shoeIDs.add(clothesID);
-
-                shoeMainID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SHOES_MAIN));
-                skillManager.addToSelect(shoeMainID);
-                shoeMainIDs.add(shoeMainID);
-
-                shoeSub1ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SHOES_SUB_1));
-                skillManager.addToSelect(shoeSub1ID);
-                shoeSub1IDs.add(shoeSub1ID);
-
-                shoeSub2ID =cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SHOES_SUB_2));
-                skillManager.addToSelect(shoeSub2ID);
-                shoeSub2IDs.add(shoeSub2ID);
-
-                shoeSub3ID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_SHOES_SUB_3));
-                skillManager.addToSelect(shoeSub3ID);
-                shoeSub3IDs.add(shoeSub3ID);
-
-                //Weapon
-
-                weaponID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Player.COLUMN_WEAPON));
-                weaponManager.addToSelect(weaponID);
-                weaponIDs.add(weaponID);
-
-                player.player.user = user;
-
-                players.add(player);
-            }while (cursor.moveToNext());
-        }
-        cursor.close();
-        database.close();
-
-        ArrayList<HashMap<Integer,Gear>> gearHashMap = gearManager.select();
-        HashMap<Integer,Skill> skillHashMap = skillManager.select();
-        HashMap<Integer,Weapon> weaponHashMap = weaponManager.select();
-
-        GearSkills headSkills,clothesSkills,shoeSkills;
-
-        ArrayList<PlayerDatabase> battlePlayers;
-
-        for(int i=0;i<players.size();i++){
-            player = players.get(i);
-
-            player.player.user.head = gearHashMap.get(0).get(headIDs.get(i));
-
-            headSkills = new GearSkills();
-            headSkills.main = skillHashMap.get(headMainIDs.get(i));
-            headSkills.subs = new ArrayList<>();
-            headSkills.subs.add(skillHashMap.get(headSub1IDs.get(i)));
-            headSkills.subs.add(skillHashMap.get(headSub2IDs.get(i)));
-            headSkills.subs.add(skillHashMap.get(headSub3IDs.get(i)));
-            player.player.user.headSkills = headSkills;
-
-            player.player.user.clothes = gearHashMap.get(1).get(clothesIDs.get(i));
-
-            clothesSkills = new GearSkills();
-            clothesSkills.main = skillHashMap.get(clothesMainIDs.get(i));
-            clothesSkills.subs = new ArrayList<>();
-            clothesSkills.subs.add(skillHashMap.get(clothesSub1IDs.get(i)));
-            clothesSkills.subs.add(skillHashMap.get(clothesSub2IDs.get(i)));
-            clothesSkills.subs.add(skillHashMap.get(clothesSub3IDs.get(i)));
-            player.player.user.clothesSkills = clothesSkills;
-
-            player.player.user.shoes = gearHashMap.get(2).get(shoeIDs.get(i));
-
-            shoeSkills = new GearSkills();
-            shoeSkills.main = skillHashMap.get(shoeMainIDs.get(i));
-            shoeSkills.subs = new ArrayList<>();
-            shoeSkills.subs.add(skillHashMap.get(shoeSub1IDs.get(i)));
-            shoeSkills.subs.add(skillHashMap.get(shoeSub2IDs.get(i)));
-            shoeSkills.subs.add(skillHashMap.get(shoeSub3IDs.get(i)));
-            player.player.user.shoeSkills = shoeSkills;
-
-            player.player.user.weapon = weaponHashMap.get(weaponIDs.get(i));
-
-            if(selected.containsKey(player.battleID)){
-                battlePlayers = selected.get(player.battleID);
-            }else{
-                battlePlayers = new ArrayList<>();
+                ArrayList<PlayerDatabase> battlePlayers;
+                if (selected.containsKey(player.battleID)) {
+                    battlePlayers = selected.get(player.battleID);
+                } else {
+                    battlePlayers = new ArrayList<>();
+                }
+                battlePlayers.add(player);
+                selected.put(player.battleID, battlePlayers);
             }
-            battlePlayers.add(player);
-            selected.put(player.battleID,battlePlayers);
         }
-        toSelect = new ArrayList<>();
         return selected;
     }
 
-    public ArrayList<Battle> selectStats(int itemID, String itemType){
+    public HashMap<Integer, Battle> selectStats(int itemID, String itemType){
 
-        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+        SQLiteDatabase database = new SplatnetSQLHelper(super.context).getReadableDatabase();
 
-        BattleManager battleManager = new BattleManager(context);
+        BattleManager battleManager = new BattleManager(super.context);
 
         String[] args;
 

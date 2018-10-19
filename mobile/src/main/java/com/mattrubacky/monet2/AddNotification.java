@@ -22,7 +22,7 @@ import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.GearNotification;
 import com.mattrubacky.monet2.deserialized.splatoon.GearNotifications;
 import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Skill;
-import com.mattrubacky.monet2.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Stage;
 import com.mattrubacky.monet2.deserialized.splatoon.StageNotification;
 import com.mattrubacky.monet2.deserialized.splatoon.StageNotifications;
 import com.mattrubacky.monet2.dialog.GearPickerDialog;

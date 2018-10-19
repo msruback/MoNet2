@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.DatabaseObject;
 import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;

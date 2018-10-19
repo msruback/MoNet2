@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.DatabaseObject;
 import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
@@ -12,7 +13,7 @@ import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Skill
 import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestDatabase;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
-import com.mattrubacky.monet2.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Stage;
 import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Weapon;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 
@@ -52,7 +53,7 @@ public class SplatnetSQLManager {
     //Stage Methods
 
     public void insertStages(ArrayList<Stage> stages){
-        StageManager stageManager = new StageManager(context);
+        TableManager<Stage> stageManager = new TableManager<Stage>(context,Stage.class);
         for(int i=0;i<stages.size();i++){
             stageManager.addToInsert(stages.get(i));
         }
@@ -60,12 +61,19 @@ public class SplatnetSQLManager {
     }
 
     public Stage selectStage(int id){
-        StageManager stageManager = new StageManager(context);
-        return stageManager.select(id);
+        TableManager<Stage> stageManager = new TableManager<Stage>(context,Stage.class);
+        try {
+            return stageManager.select(id);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        return new Stage();
     }
 
     public ArrayList<Stage> getStages(){
-        StageManager stageManager = new StageManager(context);
+        TableManager<Stage> stageManager = new TableManager<Stage>(context,Stage.class);
         return stageManager.selectAll();
     }
 
@@ -129,17 +137,27 @@ public class SplatnetSQLManager {
         for (int i=0;i<ids.size();i++){
             battleManager.addToSelect(ids.get(i));
         }
-        return  battleManager.select();
+        HashMap<Integer,Battle> battleHashMap = battleManager.select();
+        ArrayList<Battle> toReturn = new ArrayList<>();
+        for(int key:battleHashMap.keySet()){
+            toReturn.add(battleHashMap.get(key));
+        }
+        return toReturn;
     }
 
     public boolean hasBattle(int id){
         BattleManager battleManager = new BattleManager(context);
-        return battleManager.exists(id);
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        Battle battle = new Battle();
+        battle.id = id;
+        Boolean exists = battleManager.exists(database,battle);
+        database.close();
+        return exists;
     }
 
     public int battleCount(){
         BattleManager battleManager = new BattleManager(context);
-        return battleManager.battleCount();
+        return battleManager.count();
     }
 
     public ArrayList<Battle> getBattles(){
@@ -153,15 +171,20 @@ public class SplatnetSQLManager {
     }
     //Players
 
-    public void insertPlayer(Player player, String mode, int id, int type){
-        PlayerManager playerManager = new PlayerManager(context);
-        playerManager.addToInsert(player,mode,id,type);
-        playerManager.insert();
-    }
+//    public void insertPlayer(Player player, String mode, int id, int type){
+//        PlayerManager playerManager = new PlayerManager(context);
+//        playerManager.addToInsert(player,mode,id,type);
+//        playerManager.insert();
+//    }
 
     public ArrayList<Battle> getPlayerStats(int id,String type){
         PlayerManager playerManager = new PlayerManager(context);
-        return playerManager.selectStats(id,type);
+        HashMap<Integer,Battle> battleHashMap = playerManager.selectStats(id,type);
+        ArrayList<Battle> toReturn = new ArrayList<>();
+        for(int key:battleHashMap.keySet()){
+            toReturn.add(battleHashMap.get(key));
+        }
+        return toReturn;
     }
 
     //Gear

@@ -18,18 +18,18 @@ import java.util.HashMap;
  * Created by mattr on 10/17/2017.
  */
 
-class ClosetManager {
+class ClosetManager{
     Context context;
     HashMap<Integer,ClosetHanger> toInsert;
     ArrayList<Integer> toSelect;
     GearManager gearManager;
-    SkillManager skillManager;
+    TableManager<Skill> skillManager;
 
     public ClosetManager(Context context){
         this.context = context;
 
         gearManager = new GearManager(context);
-        skillManager = new SkillManager(context);
+        skillManager = new TableManager<Skill>(context,Skill.class);
 
         toInsert = new HashMap<>(); //using a hashmap to prevent duplicate entries, and keep updates low
 

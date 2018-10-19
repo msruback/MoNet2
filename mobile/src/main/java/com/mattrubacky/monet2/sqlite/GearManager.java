@@ -18,16 +18,15 @@ import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
 
 class GearManager{
     Context context;
-    TableManager<Brand> brandManager;
+    BrandManager brandManager;
     TableManager<Gear> headManager;
     TableManager<Gear> clothesManager;
     TableManager<Gear> shoeManager;
-    TableManager<Skill> skillManager;
 
     public GearManager(Context context){
         this.context = context;
 
-        brandManager = new TableManager<Brand>(context,Brand.class);
+        brandManager = new BrandManager(context);
         headManager = new TableManager<Gear>(context,Gear.class,SplatnetContract.Head.TABLE_NAME);
         clothesManager = new TableManager<Gear>(context,Gear.class,SplatnetContract.Clothes.TABLE_NAME);
         shoeManager = new TableManager<Gear>(context,Gear.class,SplatnetContract.Shoe.TABLE_NAME);

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Stage;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -14,11 +15,11 @@ public class TimePeriod implements Parcelable {
 
     //The gamemode the TimePeriod is in
     @SerializedName("game_mode")
-    public Gamemode gamemode;
+    public KeyName gamemode;
 
     //The rule available during this TimePeriod
     @SerializedName("rule")
-    public Rule rule;
+    public KeyName rule;
 
     //A Stage available in this TimePeriod
     @SerializedName("stage_a")
@@ -38,8 +39,8 @@ public class TimePeriod implements Parcelable {
     public Long end;
 
     protected TimePeriod(Parcel in) {
-        gamemode = in.readParcelable(Gamemode.class.getClassLoader());
-        rule = in.readParcelable(Rule.class.getClassLoader());
+        gamemode = in.readParcelable(KeyName.class.getClassLoader());
+        rule = in.readParcelable(KeyName.class.getClassLoader());
         b = in.readParcelable(Stage.class.getClassLoader());
         a = in.readParcelable(Stage.class.getClassLoader());
         start = in.readLong();

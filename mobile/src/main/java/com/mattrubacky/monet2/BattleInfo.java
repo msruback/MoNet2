@@ -104,7 +104,7 @@ public class BattleInfo extends AppCompatActivity {
             result.setText(getResources().getString(R.string.defeat));
         }
         startTime.setText(start);
-        rule.setText(battle.rule.name);
+        rule.setText(battle.rule.getName(this));
         stageName.setText(battle.stage.name);
 
         String url = "https://app.splatoon2.nintendo.net"+battle.stage.url;
