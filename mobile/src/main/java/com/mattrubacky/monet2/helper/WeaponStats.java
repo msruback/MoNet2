@@ -5,9 +5,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.Player;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Weapon;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;

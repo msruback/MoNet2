@@ -1,14 +1,9 @@
-package com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables;
+package com.mattrubacky.monet2.deserialized.splatoon;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.api.splatnet.Splatnet;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.DatabaseObject;
-import com.mattrubacky.monet2.sqlite.Factory.ColumnName;
-import com.mattrubacky.monet2.sqlite.Factory.ForeignReference;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -16,20 +11,15 @@ import com.mattrubacky.monet2.sqlite.SplatnetContract;
  * This is used by the Shop, Battles(Player Gear), and the Closet
  * Gear images are stored in the gear directory
  */
-public class Gear extends DatabaseObject implements Parcelable {
+public class Gear implements Parcelable {
     public Gear(){}
 
-    @ColumnName(SplatnetContract.Head._ID)
     @SerializedName("id")
     public int id;
-
-    @ColumnName(SplatnetContract.Head.COLUMN_NAME)
     @SerializedName("name")
     public String name;
 
-    //The Brand of the Gear]
-    @ForeignReference
-    @ColumnName(value = SplatnetContract.Head.COLUMN_BRAND, field = "id")
+    //The Brand of the Gear
     @SerializedName("brand")
     public Brand brand;
 
@@ -79,10 +69,5 @@ public class Gear extends DatabaseObject implements Parcelable {
         dest.writeInt(rarity);
         dest.writeInt(id);
         dest.writeString(kind);
-    }
-
-    @Override
-    public int getId() {
-        return id;
     }
 }

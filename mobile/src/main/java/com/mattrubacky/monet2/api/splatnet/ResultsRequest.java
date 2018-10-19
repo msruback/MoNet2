@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.ResultList;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 

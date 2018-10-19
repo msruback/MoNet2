@@ -15,7 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.ChunkableAdapter;
 import com.mattrubacky.monet2.deserialized.splatoon.Chunk;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Skill;
+import com.mattrubacky.monet2.deserialized.splatoon.Skill;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;

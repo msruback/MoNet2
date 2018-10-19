@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.GearViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.WeaponViewHolder;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Weapon;
+import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 
 import java.util.ArrayList;

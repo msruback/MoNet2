@@ -21,7 +21,7 @@ import com.mattrubacky.monet2.adapter.RecyclerView.BattleListPagerAdapter;
 import com.mattrubacky.monet2.api.splatnet.ResultsRequest;
 import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.mattrubacky.monet2.dialog.*;

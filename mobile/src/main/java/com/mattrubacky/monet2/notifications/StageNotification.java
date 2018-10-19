@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.MainActivity;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 
 import java.text.SimpleDateFormat;
@@ -52,23 +52,23 @@ public class StageNotification extends Notification {
         android.app.Notification.Builder builder = new android.app.Notification.Builder(context);
         if(stage.id==-1){
             if((period.start *1000)<new Date().getTime()){
-                title = period.rule.getName(context) + " available now in " + period.gamemode.getName(context) + "!";
+                title = period.rule.name + " available now in " + period.gamemode.name + "!";
                 time = sdf.format((period.end*1000));
-                content = "Play "+period.rule.getName(context)+ " on "+period.a.name + " and "+ period.b.name +" until "+time+"!";
+                content = "Play "+period.rule.name+ " on "+period.a.name + " and "+ period.b.name +" until "+time+"!";
             }else{
-                title = period.rule.getName(context) + " available soon in " + period.gamemode.getName(context) + "!";
+                title = period.rule.name + " available soon in " + period.gamemode.name + "!";
                 time = sdf.format((period.start*1000));
-                content = "Play "+period.rule.getName(context) + " on "+period.a.name + " and " + period.b.name+ " at "+time+"!";
+                content = "Play "+period.rule.name + " on "+period.a.name + " and " + period.b.name+ " at "+time+"!";
             }
         }else{
             if((period.start *1000)<new Date().getTime()){
-                title = stage.name + " available now in " + period.gamemode.getName(context) + "!";
+                title = stage.name + " available now in " + period.gamemode.name + "!";
                 time = sdf.format((period.end*1000));
-                content = "Play " + period.rule.getName(context) + " on "+ stage.name +" now until "+time+"!";
+                content = "Play " + period.rule.name + " on "+ stage.name +" now until "+time+"!";
             }else{
-                title = stage.name + " available soon in " + period.gamemode.getName(context) + "!";
+                title = stage.name + " available soon in " + period.gamemode.name + "!";
                 time = sdf.format((period.start*1000));
-                content = "Play " + period.rule.getName(context) + " on "+ stage.name + " at "+time+"!";
+                content = "Play " + period.rule.name + " on "+ stage.name + " at "+time+"!";
             }
         }
 

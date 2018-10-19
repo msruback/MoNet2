@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.PlayerInfoViewHolder;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Player;
 
 import java.util.ArrayList;
 

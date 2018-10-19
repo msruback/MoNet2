@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.StagePostcardsDetail;
 import com.mattrubacky.monet2.deserialized.splatoon.Record;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.R;
@@ -62,7 +62,7 @@ public class RankedRotation extends Fragment {
 
         title1.setText(a.name);
         title2.setText(b.name);
-        mode.setText(timePeriod.rule.getName(getContext()));
+        mode.setText(timePeriod.rule.name);
         time.setText(startText+" - "+endText);
 
         String url1 = "https://app.splatoon2.nintendo.net"+a.url;

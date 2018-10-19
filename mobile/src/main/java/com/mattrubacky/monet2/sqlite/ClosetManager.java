@@ -5,10 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Skill;
+import com.mattrubacky.monet2.deserialized.splatoon.Skill;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 
 import java.util.ArrayList;
@@ -18,18 +18,18 @@ import java.util.HashMap;
  * Created by mattr on 10/17/2017.
  */
 
-class ClosetManager{
+class ClosetManager {
     Context context;
     HashMap<Integer,ClosetHanger> toInsert;
     ArrayList<Integer> toSelect;
     GearManager gearManager;
-    TableManager<Skill> skillManager;
+    SkillManager skillManager;
 
     public ClosetManager(Context context){
         this.context = context;
 
         gearManager = new GearManager(context);
-        skillManager = new TableManager<Skill>(context,Skill.class);
+        skillManager = new SkillManager(context);
 
         toInsert = new HashMap<>(); //using a hashmap to prevent duplicate entries, and keep updates low
 

@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Skill;
 
 /**
  * Created by mattr on 11/20/2017.

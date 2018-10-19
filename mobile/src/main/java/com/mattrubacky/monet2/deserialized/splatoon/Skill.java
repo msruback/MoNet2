@@ -1,17 +1,16 @@
-package com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables;
+package com.mattrubacky.monet2.deserialized.splatoon;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.DatabaseObject;
 
 /**
  * Created by mattr on 10/17/2017.
  * This class represents individual abilities.
  * Skill images are stored in the ability directory.
  */
-public class Skill extends DatabaseObject implements Parcelable {
+public class Skill implements Parcelable {
     public Skill(){}
 
     @SerializedName("id")
@@ -51,10 +50,5 @@ public class Skill extends DatabaseObject implements Parcelable {
         dest.writeString(name);
         dest.writeString(url);
         dest.writeInt(id);
-    }
-
-    @Override
-    public int getId() {
-        return id;
     }
 }

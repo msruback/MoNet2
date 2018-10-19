@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
 public class Challenge implements Parcelable{
     public Challenge(){}
 
-    @SerializedName("value")
+    @SerializedName("key")
     public String key;
     @SerializedName("name")
     public String name;

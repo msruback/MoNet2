@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.StagePostcardsDetail;
 import com.mattrubacky.monet2.deserialized.splatoon.Record;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StageStats;
@@ -70,7 +70,7 @@ public class CompetitiveTimePeriodViewHolder extends RecyclerView.ViewHolder{
         title1.setText(a.name);
         title2.setText(b.name);
         time.setText(startText+" - "+endText);
-        mode.setText(timePeriod.rule.getName(context));
+        mode.setText(timePeriod.rule.name);
 
         String url1 = "https://app.splatoon2.nintendo.net"+a.url;
         String url2 = "https://app.splatoon2.nintendo.net"+b.url;

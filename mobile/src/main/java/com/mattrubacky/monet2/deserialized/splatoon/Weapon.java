@@ -1,34 +1,23 @@
-package com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables;
+package com.mattrubacky.monet2.deserialized.splatoon;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.DatabaseObject;
-import com.mattrubacky.monet2.sqlite.Factory.ColumnName;
-import com.mattrubacky.monet2.sqlite.Factory.TableName;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
-import com.mattrubacky.monet2.sqlite.TableManager;
 
 /**
  * Created by mattr on 10/17/2017.
  * This class represent a Weapon
  * Weapon images are stored in the weapon directory
  */
-@TableName(SplatnetContract.Weapon.TABLE_NAME)
-public class Weapon extends DatabaseObject implements Parcelable {
+public class Weapon implements Parcelable {
     public Weapon(){}
-
-    @ColumnName(SplatnetContract.Weapon._ID)
     @SerializedName("id")
     public int id;
-
-    @ColumnName(SplatnetContract.Weapon.COLUMN_NAME)
     @SerializedName("name")
     public String name;
 
     //The URL for the weapon image
-    @ColumnName(SplatnetContract.Weapon.COLUMN_URL)
     @SerializedName("image")
     public String url;
 
@@ -73,10 +62,4 @@ public class Weapon extends DatabaseObject implements Parcelable {
         dest.writeParcelable(special, flags);
         dest.writeParcelable(sub, flags);
     }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
 }

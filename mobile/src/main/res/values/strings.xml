@@ -24,26 +24,6 @@
     <string name="splatzone">Splat Zones</string>
     <string name="towerControl">Tower Control</string>
     <string name="clamBlitz">Clam Blitz</string>
-    <string name="leaguePair">League Pair</string>
-    <string name="leagueTeam">League Team</string>
-    <string name="privateMode">Private</string>
-    <string name="fesPro">Pro</string>
-    <string name="fesNormal">Normal</string>
-    <string name="fesSolo">Solo</string>
-    <string name="fesTeam">Team</string>
-    <string name="tenTimes">10x</string>
-    <string name="hundredTimes">100x</string>
-
-    //Salmon Run
-    <string name="lowTide">Low</string>
-    <string name="normalTide">Normal</string>
-    <string name="highTide">High</string>
-    <string name="cohockCharge">Cohock Charge</string>
-    <string name="fog">Fog</string>
-    <string name="griller">Griller</string>
-    <string name="rush">Salmonid Rush</string>
-    <string name="theMothership">The Mothership</string>
-    <string name="goldieSeeking">Goldie Seek</string>
 
     //Rotation Frag
     <string name="regular">Regular</string>

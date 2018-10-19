@@ -7,30 +7,32 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Brand;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Skill;
-import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
+import com.mattrubacky.monet2.deserialized.splatoon.Brand;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
 
 /**
  * Created by mattr on 10/18/2017.
  */
 
-class GearManager{
+class GearManager {
     Context context;
+    HashMap<Integer,Gear> toInsert;
+    ArrayList<Integer> toSelect;
     BrandManager brandManager;
-    TableManager<Gear> headManager;
-    TableManager<Gear> clothesManager;
-    TableManager<Gear> shoeManager;
+    HeadManager headManager;
+    ClothesManager clothesManager;
+    ShoeManager shoeManager;
 
     public GearManager(Context context){
         this.context = context;
 
         brandManager = new BrandManager(context);
-        headManager = new TableManager<Gear>(context,Gear.class,SplatnetContract.Head.TABLE_NAME);
-        clothesManager = new TableManager<Gear>(context,Gear.class,SplatnetContract.Clothes.TABLE_NAME);
-        shoeManager = new TableManager<Gear>(context,Gear.class,SplatnetContract.Shoe.TABLE_NAME);
+        headManager = new HeadManager(context);
+        clothesManager = new ClothesManager(context);
+        shoeManager = new ShoeManager(context);
 
+        toInsert = new HashMap<>();
+        toSelect = new ArrayList<>();
     }
 
     public void addToInsert(Gear gear){
@@ -45,9 +47,7 @@ class GearManager{
                 shoeManager.addToInsert(gear);
                 break;
         }
-        brandManager.addToInsert(gear.brand);
     }
-
 
     public void addToSelect(int id,String kind){
         switch(kind){
@@ -74,57 +74,24 @@ class GearManager{
 
     public Gear select(int id,String kind){
         Gear gear = new Gear();
-        try {
-            switch (kind) {
-                case "head":
-                    gear = headManager.select(id);
-                    break;
-                case "clothes":
-                    gear = clothesManager.select(id);
-                    break;
-                case "shoes":
-                    gear = shoeManager.select(id);
-            }
-            gear.brand = brandManager.select(gear.brand.id);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        switch (kind){
+            case "head":
+                gear = headManager.select(id);
+                break;
+            case "clothes":
+                gear = clothesManager.select(id);
+                break;
+            case "shoes":
+                gear = shoeManager.select(id);
         }
         return gear;
     }
 
     public ArrayList<HashMap<Integer,Gear>> select(){
         ArrayList<HashMap<Integer,Gear>> selected = new ArrayList<>();
-        HashMap<Integer,Brand> brandHashMap = new HashMap<>();
-        for(Brand brand : brandManager.selectAll()){
-            brandHashMap.put(brand.id,brand);
-        }
-
-        HashMap<Integer,Gear> head = headManager.select();
-        for(Integer key : head.keySet()){
-            Gear gear = head.get(key);
-            gear.brand = brandHashMap.get(gear.brand.id);
-            head.put(gear.id,gear);
-        }
-
-        HashMap<Integer,Gear> clothes = clothesManager.select();
-        for(Integer key : clothes.keySet()){
-            Gear gear = clothes.get(key);
-            gear.brand = brandHashMap.get(gear.brand.id);
-            clothes.put(gear.id,gear);
-        }
-
-        HashMap<Integer,Gear> shoe = shoeManager.select();
-        for(Integer key : shoe.keySet()){
-            Gear gear = shoe.get(key);
-            gear.brand = brandHashMap.get(gear.brand.id);
-            shoe.put(gear.id,gear);
-        }
-
-        selected.add(head);
-        selected.add(clothes);
-        selected.add(shoe);
+        selected.add(headManager.select());
+        selected.add(clothesManager.select());
+        selected.add(shoeManager.select());
         return selected;
     }
     public ArrayList<Gear> selectAll() {
@@ -133,5 +100,73 @@ class GearManager{
         selected.addAll(clothesManager.selectAll());
         selected.addAll(shoeManager.selectAll());
         return selected;
+    }
+    public void updateTo4(){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+
+        String[] args = new String[toSelect.size()];
+        args[0] = String.valueOf(toSelect.get(0));
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(SplatnetContract.Gear._ID+" = ?");
+
+        for(int i=1;i<toSelect.size();i++){
+            builder.append(" OR "+SplatnetContract.Gear._ID+" = ?");
+            args[i] = String.valueOf(toSelect.get(i));
+        }
+
+        String whereClause = builder.toString();
+
+        Cursor cursor = database.query(SplatnetContract.Gear.TABLE_NAME,null,whereClause,args,null,null,null);
+
+        ArrayList<Gear> gears = new ArrayList<>();
+        ArrayList<Gear> selected = new ArrayList<>();
+
+        ArrayList<Integer> brandIDs = new ArrayList<>();
+        int brandID;
+
+        Gear gear;
+
+        if(cursor.moveToFirst()){
+            do{
+                gear = new Gear();
+
+                gear.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear._ID));
+                gear.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_NAME));
+                gear.kind = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_KIND));
+                gear.rarity = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_RARITY));
+                gear.url = cursor.getString(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_URL));
+
+                brandID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Gear.COLUMN_BRAND));
+                brandManager.addToSelect(brandID);
+                brandIDs.add(brandID);
+
+                gears.add(gear);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        HashMap<Integer,Brand> brandHashMap = brandManager.select();
+
+        for(int i=0;i<gears.size();i++){
+            gear = gears.get(i);
+            gear.brand = brandHashMap.get(brandIDs.get(i));
+            switch(gear.kind){
+                case "head":
+                    headManager.addToInsert(gear);
+                    break;
+                case "clothes":
+                    clothesManager.addToInsert(gear);
+                    break;
+                case "shoes":
+                    shoeManager.addToInsert(gear);
+                    break;
+            }
+        }
+
+        headManager.insert();
+        clothesManager.insert();
+        shoeManager.insert();
+
     }
 }

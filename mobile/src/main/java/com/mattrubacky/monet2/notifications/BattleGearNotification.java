@@ -12,10 +12,10 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.BattleInfo;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.Player;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Skill;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.Skill;
 import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 

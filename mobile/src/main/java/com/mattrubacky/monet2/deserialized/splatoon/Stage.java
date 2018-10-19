@@ -1,10 +1,9 @@
-package com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables;
+package com.mattrubacky.monet2.deserialized.splatoon;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.DatabaseObject;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -12,7 +11,7 @@ import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.DatabaseObje
  * It is used in both Schedules, Splatfests, and Battles
  * Stage images are stored in the stage directory
  */
-public class Stage extends DatabaseObject implements Parcelable {
+public class Stage implements Parcelable {
     public Stage(){}
 
     @SerializedName("id")
@@ -54,10 +53,5 @@ public class Stage extends DatabaseObject implements Parcelable {
         dest.writeInt(id);
         dest.writeString(url);
         dest.writeString(name);
-    }
-
-    @Override
-    public int getId() {
-        return id;
     }
 }

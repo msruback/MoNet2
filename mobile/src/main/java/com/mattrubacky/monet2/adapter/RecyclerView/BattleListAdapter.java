@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.BattleInfo;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.BattleViewHolder;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 

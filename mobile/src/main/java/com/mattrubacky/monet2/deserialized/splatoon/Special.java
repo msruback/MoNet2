@@ -1,13 +1,9 @@
-package com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables;
+package com.mattrubacky.monet2.deserialized.splatoon;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.DatabaseObject;
-import com.mattrubacky.monet2.sqlite.Factory.ColumnName;
-import com.mattrubacky.monet2.sqlite.Factory.TableName;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -15,20 +11,15 @@ import com.mattrubacky.monet2.sqlite.SplatnetContract;
  * Special images are stored in the special directory,
  * although for battle info edited drawables are used
  */
-@TableName(SplatnetContract.Special.TABLE_NAME)
-public class Special extends DatabaseObject implements Parcelable {
+public class Special implements Parcelable {
     public Special(){}
 
-    @ColumnName(SplatnetContract.Special._ID)
     @SerializedName("id")
     public int id;
-
-    @ColumnName(SplatnetContract.Special.COLUMN_NAME)
     @SerializedName("name")
     public String name;
 
     //The URL of the basic url
-    @ColumnName(SplatnetContract.Special.COLUMN_URL)
     @SerializedName("image_a")
     public String url;
 
@@ -60,10 +51,5 @@ public class Special extends DatabaseObject implements Parcelable {
         dest.writeInt(id);
         dest.writeString(name);
         dest.writeString(url);
-    }
-
-    @Override
-    public int getId() {
-        return id;
     }
 }

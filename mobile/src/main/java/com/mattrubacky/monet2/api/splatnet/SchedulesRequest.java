@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.splatoon.CurrentSplatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.Schedules;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.io.IOException;

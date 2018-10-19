@@ -1,14 +1,9 @@
-package com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables;
+package com.mattrubacky.monet2.deserialized.splatoon;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.deserialized.splatoon.GrizzCoBossKills;
-import com.mattrubacky.monet2.deserialized.splatoon.GrizzCoGrade;
-import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
-import com.mattrubacky.monet2.deserialized.splatoon.Wave;
-import com.mattrubacky.monet2.deserialized.splatoon.Worker;
 
 import java.util.ArrayList;
 

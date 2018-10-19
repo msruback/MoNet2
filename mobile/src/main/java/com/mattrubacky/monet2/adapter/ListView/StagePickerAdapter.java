@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 
 import java.util.ArrayList;
 

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.mattrubacky.monet2.*;
 import com.mattrubacky.monet2.adapter.RecyclerView.ScheduleAdapter;
 import com.mattrubacky.monet2.deserialized.splatoon.CurrentSplatfest;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Gear;
+import com.mattrubacky.monet2.deserialized.splatoon.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonSchedule;
 import com.mattrubacky.monet2.deserialized.splatoon.Schedules;
 import com.mattrubacky.monet2.deserialized.splatoon.Timeline;

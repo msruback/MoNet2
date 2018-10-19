@@ -1,8 +1,6 @@
 package com.mattrubacky.monet2.deserialized.splatoon;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.DatabaseObject;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.Player;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -10,7 +8,7 @@ import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.Player;
  * Not exactly something that will ever be serialized or deserialized, but it fits best here
  */
 
-public class PlayerDatabase extends DatabaseObject {
+public class PlayerDatabase {
     public PlayerDatabase(){}
 
     @SerializedName("player")

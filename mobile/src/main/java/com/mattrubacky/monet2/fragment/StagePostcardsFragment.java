@@ -15,7 +15,7 @@ import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.StagePostcardsDetail;
 import com.mattrubacky.monet2.adapter.RecyclerView.StageAdapter;
 import com.mattrubacky.monet2.deserialized.splatoon.Record;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.helper.StageStats;
 import com.mattrubacky.monet2.api.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;

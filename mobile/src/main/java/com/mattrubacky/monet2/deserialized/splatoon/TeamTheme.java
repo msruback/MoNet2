@@ -17,7 +17,7 @@ public class TeamTheme implements Parcelable {
     public SplatfestColor color;
 
     //Either "alpha" or "bravo", refering to whether the team is on Side Alpha or Side Bravo respectively.
-    @SerializedName("value")
+    @SerializedName("key")
     public String key;
 
     //The short name of the side(Check SplatfestNames for more detail)

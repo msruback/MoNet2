@@ -5,7 +5,7 @@ package com.mattrubacky.monet2.api.splatnet;
  */
 
 import com.mattrubacky.monet2.deserialized.splatoon.Annie;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.CampaignRecords;
 import com.mattrubacky.monet2.deserialized.splatoon.CurrentSplatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.PastSplatfest;
@@ -14,7 +14,7 @@ import com.mattrubacky.monet2.deserialized.splatoon.ResultList;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonSchedule;
 import com.mattrubacky.monet2.deserialized.splatoon.Schedules;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestVotes;
-import com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects.tables.Stage;
+import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.deserialized.splatoon.Timeline;
 
 import java.util.ArrayList;

@@ -26,18 +26,18 @@ public class Wave implements Parcelable{
     public int goldenEggPop;
 
     @SerializedName("water_level")
-    public KeyName waterLevel;
+    public EventType waterLevel;
 
     @SerializedName("eventType")
-    public KeyName eventType;
+    public EventType eventType;
 
     protected Wave(Parcel in) {
         quotaNum = in.readInt();
         powerEggNum = in.readInt();
         goldenEggNum = in.readInt();
         goldenEggPop = in.readInt();
-        waterLevel = in.readParcelable(KeyName.class.getClassLoader());
-        eventType = in.readParcelable(KeyName.class.getClassLoader());
+        waterLevel = in.readParcelable(EventType.class.getClassLoader());
+        eventType = in.readParcelable(EventType.class.getClassLoader());
     }
 
     public static final Creator<Wave> CREATOR = new Creator<Wave>() {

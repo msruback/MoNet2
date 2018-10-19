@@ -1,12 +1,9 @@
-package com.mattrubacky.monet2.deserialized.splatoon.DatabaseObjects;
+package com.mattrubacky.monet2.deserialized.splatoon;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.mattrubacky.monet2.deserialized.splatoon.User;
-import com.mattrubacky.monet2.sqlite.Factory.ColumnName;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -20,27 +17,22 @@ public class Player implements Parcelable {
     public User user;
 
     //The number of deaths the player had in the game
-    @ColumnName(SplatnetContract.Player.COLUMN_DEATH)
     @SerializedName("death_count")
     public int deaths;
 
     //The number of kills the player had in the game, including assists
-    @ColumnName(SplatnetContract.Player.COLUMN_KILL)
     @SerializedName("kill_count")
     public int kills;
 
     //The number of assists the player had in the game
-    @ColumnName(SplatnetContract.Player.COLUMN_ASSIST)
     @SerializedName("assist_count")
     public int assists;
 
     //The amount the player inked in the game
-    @ColumnName(SplatnetContract.Player.COLUMN_POINT)
     @SerializedName("game_paint_point")
     public int points;
 
     //The amount of times the player used their special in the game
-    @ColumnName(SplatnetContract.Player.COLUMN_SPECIAL)
     @SerializedName("special_count")
     public int special;
 
@@ -80,6 +72,4 @@ public class Player implements Parcelable {
         dest.writeInt(points);
         dest.writeInt(special);
     }
-
-
 }
