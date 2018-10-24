@@ -414,6 +414,15 @@ public final class SplatnetContract {
         public static final String COLUMN_IS_CLEAR = "is_clear";
         public static final String COLUMN_FAILURE_REASON = "failure_reason";
         public static final String COLUMN_FAILURE_WAVE = "failure_wave";
+        public static final String COLUMN_GOLDIE = "goldie";
+        public static final String COLUMN_STEELHEAD = "steelhead";
+        public static final String COLUMN_FLYFISH = "flyfish";
+        public static final String COLUMN_SCRAPPER = "scrapper";
+        public static final String COLUMN_STEEL_EEL = "steel_eel";
+        public static final String COLUMN_STINGER = "stinger";
+        public static final String COLUMN_MAWS = "maws";
+        public static final String COLUMN_GRILLER = "griller";
+        public static final String COLUMN_DRIZZLER = "drizzler";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
                 _ID +" INTEGER PRIMARY KEY, "+
@@ -428,7 +437,16 @@ public final class SplatnetContract {
                 COLUMN_DANGER_RATE + " REAL, "+
                 COLUMN_IS_CLEAR + " INTEGER, "+
                 COLUMN_FAILURE_REASON + " TEXT, "+
-                COLUMN_FAILURE_WAVE + " INTEGER)";
+                COLUMN_FAILURE_WAVE + " INTEGER, "+
+                COLUMN_GOLDIE + " INTEGER, "+
+                COLUMN_STEELHEAD + " INTEGER, "+
+                COLUMN_FLYFISH + " INTEGER, "+
+                COLUMN_SCRAPPER + " INTEGER, "+
+                COLUMN_STEEL_EEL + " INTEGER, "+
+                COLUMN_STINGER + " INTEGER, "+
+                COLUMN_MAWS + " INTEGER, "+
+                COLUMN_GRILLER + " INTEGER, "+
+                COLUMN_DRIZZLER + " INTEGER)";
 
     }
 
@@ -440,6 +458,8 @@ public final class SplatnetContract {
         public static final String COLUMN_GOLDEN_IKURA_POP = "golden_ikura_pop";
         public static final String COLUMN_IKURA_NUM = "ikura_num";
         public static final String COLUMN_EVENT_TYPE = "event_type";
+        public static final String COLUMN_JOB = "job";
+        public static final String COLUMN_NUM = "num";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
                 _ID + " INTEGER PRIMARY KEY, "+
@@ -448,12 +468,16 @@ public final class SplatnetContract {
                 COLUMN_GOLDEN_IKURA_NUM + " INTEGER, "+
                 COLUMN_GOLDEN_IKURA_POP + " INTEGER, "+
                 COLUMN_IKURA_NUM + " INTEGER, "+
-                COLUMN_EVENT_TYPE + " TEXT)";
+                COLUMN_EVENT_TYPE + " TEXT, "+
+                COLUMN_JOB + " INTEGER, "+
+                COLUMN_NUM + " INTEGER)";
     }
 
     public static class Coworker implements BaseColumns{
         public static final String TABLE_NAME = "coworker";
+        public static final String COLUMN_TYPE = "type";
         public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_JOB = "job";
         public static final String COLUMN_PID = "pid";
         public static final String COLUMN_IKURA_NUM = "ikura_num";
         public static final String COLUMN_GOLDEN_IKURA_NUM = "golden_ikura_num";
@@ -466,9 +490,20 @@ public final class SplatnetContract {
         public static final String COLUMN_WEAPON_1 = "weapon_1";
         public static final String COLUMN_WEAPON_2 = "weapon_2";
         public static final String COLUMN_WEAPON_3 = "weapon_3";
+        public static final String COLUMN_GOLDIE = "goldie";
+        public static final String COLUMN_STEELHEAD = "steelhead";
+        public static final String COLUMN_FLYFISH = "flyfish";
+        public static final String COLUMN_SCRAPPER = "scrapper";
+        public static final String COLUMN_STEEL_EEL = "steel_eel";
+        public static final String COLUMN_STINGER = "stinger";
+        public static final String COLUMN_MAWS = "maws";
+        public static final String COLUMN_GRILLER = "griller";
+        public static final String COLUMN_DRIZZLER = "drizzler";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
                 COLUMN_NAME + " TEXT, "+
+                COLUMN_TYPE + " INTEGER, "+
+                COLUMN_JOB + " INTEGER, "+
                 COLUMN_PID + " TEXT, "+
                 COLUMN_IKURA_NUM + " INTEGER, "+
                 COLUMN_GOLDEN_IKURA_NUM + " INTEGER, "+
@@ -480,39 +515,15 @@ public final class SplatnetContract {
                 COLUMN_SPECIAL_3 + " INTEGER, "+
                 COLUMN_WEAPON_1 + " INTEGER REFERENCES weapon(_id), "+
                 COLUMN_WEAPON_2 + " INTEGER REFERENCES weapon(_id), "+
-                COLUMN_WEAPON_3 + " INTEGER REFERENCES weapon(_id))";
-    }
-
-    public static class Boss implements BaseColumns{
-        public static final String TABLE_NAME = "boss";
-        public static final String COLUMN_NAME = "name";
-
-        public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
-                _ID + " INTEGER PRIMARY KEY, "+
-                COLUMN_NAME + " TEXT)";
-    }
-
-    public static class BossSpawns implements BaseColumns{
-        public static final String TABLE_NAME = "boss_spawn";
-        public static final String COLUMN_JOB = "job";
-        public static final String COLUMN_BOSS = "boss";
-        public static final String COLUMN_SPAWN = "spawn";
-
-        public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+ " ("+
-                COLUMN_JOB + " INTEGER REFERENCES job(_id), "+
-                COLUMN_BOSS + " INTEGER REFERENCES boss(_id), "+
-                COLUMN_SPAWN + " INTEGER)";
-    }
-
-    public static class BossKills implements BaseColumns{
-        public static final String TABLE_NAME = "boss_kill";
-        public static final String COLUMN_JOB = "job";
-        public static final String COLUMN_PID = "pid";
-        public static final String COLUMN_KILLS = "kills";
-
-        public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
-                COLUMN_JOB + " INTEGER REFERENCES job(_id), "+
-                COLUMN_PID + " TEXT, "+
-                COLUMN_KILLS + " INTEGER)";
+                COLUMN_WEAPON_3 + " INTEGER REFERENCES weapon(_id), "+
+                COLUMN_GOLDIE + " INTEGER, "+
+                COLUMN_STEELHEAD + " INTEGER, "+
+                COLUMN_FLYFISH + " INTEGER, "+
+                COLUMN_SCRAPPER + " INTEGER, "+
+                COLUMN_STEEL_EEL + " INTEGER, "+
+                COLUMN_STINGER + " INTEGER, "+
+                COLUMN_MAWS + " INTEGER, "+
+                COLUMN_GRILLER + " INTEGER, "+
+                COLUMN_DRIZZLER + " INTEGER)";
     }
 }

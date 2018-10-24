@@ -10,6 +10,7 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
+import com.mattrubacky.monet2.api.splatnet.CoopResultsRequest;
 import com.mattrubacky.monet2.api.splatnet.CoopSchedulesRequest;
 import com.mattrubacky.monet2.api.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.api.splatnet.ResultsRequest;
@@ -45,6 +46,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver implements Splatne
         splatnetConnector.addRequest(new ShopRequest(context));
         splatnetConnector.addRequest(new RecordsRequest(context));
         splatnetConnector.addRequest(new ResultsRequest(context));
+        splatnetConnector.addRequest(new CoopResultsRequest(context));
         splatnetConnector.execute();
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);

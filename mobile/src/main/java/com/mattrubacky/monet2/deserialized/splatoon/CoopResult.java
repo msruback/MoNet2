@@ -44,6 +44,9 @@ public class CoopResult implements Parcelable{
     @SerializedName("grade")
     public GrizzCoGrade grade;
 
+    @SerializedName("job_result")
+    public JobResult jobResult;
+
     @SerializedName("my_result")
     public Worker myResult;
 
@@ -51,7 +54,7 @@ public class CoopResult implements Parcelable{
     public ArrayList<Worker> otherResults;
 
     @SerializedName("boss_counts")
-    public ArrayList<GrizzCoBossKills> bossCount;
+    public BossCount bossCount;
 
     @SerializedName("wave_details")
     public ArrayList<Wave> waves;
@@ -72,7 +75,7 @@ public class CoopResult implements Parcelable{
         grade = in.readParcelable(GrizzCoGrade.class.getClassLoader());
         myResult = in.readParcelable(Worker.class.getClassLoader());
         otherResults = in.createTypedArrayList(Worker.CREATOR);
-        bossCount = in.createTypedArrayList(GrizzCoBossKills.CREATOR);
+        bossCount = in.readParcelable(BossCount.class.getClassLoader());
         waves = in.createTypedArrayList(Wave.CREATOR);
         shift = in.readParcelable(SalmonRunDetail.class.getClassLoader());
     }
@@ -108,7 +111,7 @@ public class CoopResult implements Parcelable{
         dest.writeParcelable(grade, flags);
         dest.writeParcelable(myResult, flags);
         dest.writeTypedList(otherResults);
-        dest.writeTypedList(bossCount);
+        dest.writeParcelable(bossCount,flags);
         dest.writeTypedList(waves);
         dest.writeParcelable(shift, flags);
     }

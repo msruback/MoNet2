@@ -7,6 +7,9 @@ package com.mattrubacky.monet2.api.splatnet;
 import com.mattrubacky.monet2.deserialized.splatoon.Annie;
 import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.CampaignRecords;
+import com.mattrubacky.monet2.deserialized.splatoon.CoopIds;
+import com.mattrubacky.monet2.deserialized.splatoon.CoopResult;
+import com.mattrubacky.monet2.deserialized.splatoon.CoopResults;
 import com.mattrubacky.monet2.deserialized.splatoon.CurrentSplatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.PastSplatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.Record;
@@ -58,55 +61,68 @@ public interface Splatnet {
     @GET("api/timeline")
     Call<Timeline> getTimeline(@Header("Cookie") String Cookie, @Header("X-Unique-Id") String uniqueId);
 
-//    @Headers({
-//            "Accept: */*",
-//            "Accept-Encoding: gzip, deflate",
-//            "Accept-Language: en-US",
-//            "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/59.0.3071.125 Safari/537.36",
-//            "X-Requested-With: XMLHttpRequest",
-//            "x-timezone-offset: 240",
-//            "Connection: keep-alive",
-//            "Referer: https://app.splatoon2.nintendo.net/results"
-//    })
+    @Headers({
+            "Accept-Language: en-US",
+            "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/59.0.3071.125 Safari/537.36",
+            "X-Requested-With: XMLHttpRequest",
+            "x-timezone-offset: 240",
+            "Connection: keep-alive",
+            "Referer: https://app.splatoon2.nintendo.net/results"
+    })
     @GET("api/results")
     Call<ResultList> get50Results(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     //https://app.splatoon2.nintendo.net/results/{id}
-//    @Headers({
-//            "Accept: */*",
-//            "Accept-Encoding: gzip, deflate",
-//            "Accept-Language: en-US",
-//            "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/59.0.3071.125 Safari/537.36",
-//            "X-Requested-With: XMLHttpRequest",
-//            "x-timezone-offset: 240",
-//            "Connection: keep-alive"
-//    })
+    @Headers({
+            "Accept-Language: en-US",
+            "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/59.0.3071.125 Safari/537.36",
+            "X-Requested-With: XMLHttpRequest",
+            "x-timezone-offset: 240",
+            "Connection: keep-alive"
+    })
     @GET("api/results/{battle}")
     Call<Battle> getBattle(@Path("battle") String battle, @Header("Referer") String referer, @Header("Cookie") String Cookie, @Header("X-Unique-Id") String uniqueId);
 
-//    @Headers({
-//            "Accept: */*",
-//            "Accept-Encoding: gzip, deflate",
-//            "Accept-Language: en-US",
-//            "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/59.0.3071.125 Safari/537.36",
-//            "X-Requested-With: XMLHttpRequest",
-//            "x-timezone-offset: 240",
-//            "Connection: keep-alive",
-//            "Referer: https://app.splatoon2.nintendo.net/home"
-//    })
+    @Headers({
+            "Accept-Language: en-US",
+            "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/59.0.3071.125 Safari/537.36",
+            "X-Requested-With: XMLHttpRequest",
+            "x-timezone-offset: 240",
+            "Connection: keep-alive",
+            "Referer: https://app.splatoon2.nintendo.net/coop_results"
+    })
+    @GET("api/coop_results")
+    Call<CoopResults> getSalmonResults(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
+
+    @Headers({
+            "Accept-Language: en-US",
+            "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/59.0.3071.125 Safari/537.36",
+            "X-Requested-With: XMLHttpRequest",
+            "x-timezone-offset: 240",
+            "Connection: keep-alive"
+    })
+    @GET("api/coop_results/{run}")
+    Call<CoopResult> getSalmonResult(@Path("run") String run,@Header("Referer") String referer,@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
+
+    @Headers({
+            "Accept-Language: en-US",
+            "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/59.0.3071.125 Safari/537.36",
+            "X-Requested-With: XMLHttpRequest",
+            "x-timezone-offset: 240",
+            "Connection: keep-alive",
+            "Referer: https://app.splatoon2.nintendo.net/home"
+    })
     @GET("api/records")
     Call<Record> getRecords(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
-//    @Headers({
-//            "Accept: */*",
-//            "Accept-Encoding: gzip, deflate",
-//            "Accept-Language: en-US",
-//            "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/59.0.3071.125 Safari/537.36",
-//            "X-Requested-With: XMLHttpRequest",
-//            "x-timezone-offset: 240",
-//            "Connection: keep-alive",
-//            "Referer: https://app.splatoon2.nintendo.net/records"
-//    })
+    @Headers({
+            "Accept-Language: en-US",
+            "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/59.0.3071.125 Safari/537.36",
+            "X-Requested-With: XMLHttpRequest",
+            "x-timezone-offset: 240",
+            "Connection: keep-alive",
+            "Referer: https://app.splatoon2.nintendo.net/records"
+    })
     @GET("api/records/hero")
     Call<CampaignRecords> getHeroData(@Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 

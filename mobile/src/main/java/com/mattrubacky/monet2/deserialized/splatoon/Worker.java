@@ -18,6 +18,10 @@ public class Worker implements Parcelable{
     @SerializedName("pid")
     public String id;
 
+    public int job;
+
+    public int type;
+
     @SerializedName("name")
     public String name;
 
@@ -43,7 +47,7 @@ public class Worker implements Parcelable{
     public ArrayList<SalmonRunWeapon> weapons;
 
     @SerializedName("boss_kill_counts")
-    public ArrayList<GrizzCoBossKills> bossKillses;
+    public BossCount bossKillses;
 
     protected Worker(Parcel in) {
         id = in.readString();
@@ -55,7 +59,7 @@ public class Worker implements Parcelable{
         special = in.readParcelable(Special.class.getClassLoader());
         in.readList(specialCounts,Integer.class.getClassLoader());
         weapons = in.createTypedArrayList(SalmonRunWeapon.CREATOR);
-        bossKillses = in.createTypedArrayList(GrizzCoBossKills.CREATOR);
+        bossKillses = in.readParcelable(BossCount.class.getClassLoader());
     }
 
     public static final Creator<Worker> CREATOR = new Creator<Worker>() {
@@ -86,6 +90,6 @@ public class Worker implements Parcelable{
         dest.writeParcelable(special, flags);
         dest.writeList(specialCounts);
         dest.writeTypedList(weapons);
-        dest.writeTypedList(bossKillses);
+        dest.writeParcelable(bossKillses,flags);
     }
 }

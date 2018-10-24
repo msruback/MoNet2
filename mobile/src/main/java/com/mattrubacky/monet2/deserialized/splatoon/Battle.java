@@ -23,7 +23,7 @@ public class Battle implements Parcelable{
     public int id;
 
     @SerializedName("event_type")
-    public EventType eventType;
+    public KeyName eventType;
 
     //The user's stats and info
     @SerializedName("player_result")
@@ -31,14 +31,14 @@ public class Battle implements Parcelable{
 
     //The rule used, such as Turf War, Splatzones, etc
     @SerializedName("rule")
-    public Rule rule;
+    public KeyName rule;
 
     //The gamemode, such as regular, gachi(ranked), league, fes
     @SerializedName("type")
     public String type;
 
     @SerializedName("fes_mode")
-    public Gamemode fesMode;
+    public KeyName fesMode;
 
     //Stage the match took place on
     @SerializedName("stage")
@@ -131,7 +131,7 @@ public class Battle implements Parcelable{
 
     protected Battle(Parcel in) {
         id = in.readInt();
-        eventType = in.readParcelable(EventType.class.getClassLoader());
+        eventType = in.readParcelable(KeyName.class.getClassLoader());
         user = in.readParcelable(Player.class.getClassLoader());
         rule = in.readParcelable(Rule.class.getClassLoader());
         type = in.readString();

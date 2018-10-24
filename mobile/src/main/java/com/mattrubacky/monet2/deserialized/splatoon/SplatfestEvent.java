@@ -18,7 +18,7 @@ public class SplatfestEvent implements Parcelable{
     public ArrayList<User> members;
 
     @SerializedName("event_type")
-    public EventType type;
+    public KeyName type;
 
     @SerializedName("another_name")
     public String teamName;
@@ -31,7 +31,7 @@ public class SplatfestEvent implements Parcelable{
 
     protected SplatfestEvent(Parcel in) {
         members = in.createTypedArrayList(User.CREATOR);
-        type = in.readParcelable(EventType.class.getClassLoader());
+        type = in.readParcelable(KeyName.class.getClassLoader());
         teamName = in.readString();
         splatfestId = in.readInt();
         updateTime = in.readLong();

@@ -15,10 +15,10 @@ public class CoopResults implements Parcelable{
     public CoopResults(){}
 
     @SerializedName("results")
-    ArrayList<CoopIds> results;
+    public ArrayList<CoopIds> results;
 
     @SerializedName("summary")
-    CoopSummary coopSummary;
+    public CoopSummary coopSummary;
 
     protected CoopResults(Parcel in) {
         results = in.createTypedArrayList(CoopIds.CREATOR);

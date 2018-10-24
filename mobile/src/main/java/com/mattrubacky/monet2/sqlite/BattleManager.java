@@ -6,8 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.mattrubacky.monet2.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.deserialized.splatoon.EventType;
-import com.mattrubacky.monet2.deserialized.splatoon.Gamemode;
+import com.mattrubacky.monet2.deserialized.splatoon.KeyName;
 import com.mattrubacky.monet2.deserialized.splatoon.PlayerDatabase;
 import com.mattrubacky.monet2.deserialized.splatoon.Rule;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestColor;
@@ -16,8 +15,6 @@ import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.deserialized.splatoon.TeamResult;
 import com.mattrubacky.monet2.deserialized.splatoon.TeamTheme;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -175,6 +172,9 @@ class BattleManager {
                     database.insert(SplatnetContract.Battle.TABLE_NAME, null, values);
                 }
             }
+            if(cursor!=null){
+                cursor.close();
+            }
 
             //Insert other tables
             playerManager.insert(); //playerManager needs to insert before closetManager to prevent Closet from referencing gear not in the database and to keep things simple
@@ -208,7 +208,7 @@ class BattleManager {
             battle.type = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MODE));
             battle.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_START_TIME));
 
-            Rule rule = new Rule();
+            KeyName rule = new KeyName();
             rule.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
             battle.rule = rule;
 
@@ -290,12 +290,13 @@ class BattleManager {
                     grade.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FES_GRADE));
                     battle.grade = grade;
 
-                    Gamemode fesMode = new Gamemode();
+                    KeyName fesMode = new KeyName();
                     fesMode.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FES_MODE));
                     battle.fesMode = fesMode;
 
-                    EventType eventType = new EventType();
+                    KeyName eventType = new KeyName();
                     eventType.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_EVENT_TYPE));
+                    battle.eventType = eventType;
 
                     break;
             }
@@ -343,7 +344,7 @@ class BattleManager {
                     battle.type = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MODE));
                     battle.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_START_TIME));
 
-                    Rule rule = new Rule();
+                    KeyName rule = new KeyName();
                     rule.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
                     battle.rule = rule;
 
@@ -422,12 +423,13 @@ class BattleManager {
                             grade.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FES_GRADE));
                             battle.grade = grade;
 
-                            Gamemode fesMode = new Gamemode();
+                            KeyName fesMode = new KeyName();
                             fesMode.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FES_MODE));
                             battle.fesMode = fesMode;
 
-                            EventType eventType = new EventType();
+                            KeyName eventType = new KeyName();
                             eventType.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_EVENT_TYPE));
+                            battle.eventType = eventType;
 
                             break;
                     }
@@ -464,7 +466,7 @@ class BattleManager {
                 battle.type = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MODE));
                 battle.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_START_TIME));
 
-                Rule rule = new Rule();
+                KeyName rule = new KeyName();
                 rule.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
                 battle.rule = rule;
 
@@ -526,12 +528,13 @@ class BattleManager {
                         grade.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FES_GRADE));
                         battle.grade = grade;
 
-                        Gamemode fesMode = new Gamemode();
+                        KeyName fesMode = new KeyName();
                         fesMode.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_FES_MODE));
                         battle.fesMode = fesMode;
 
-                        EventType eventType = new EventType();
+                        KeyName eventType = new KeyName();
                         eventType.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_EVENT_TYPE));
+                        battle.eventType = eventType;
 
                         break;
                 }
@@ -604,7 +607,7 @@ class BattleManager {
                 battle.type = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_MODE));
                 battle.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_START_TIME));
 
-                Rule rule = new Rule();
+                KeyName rule = new KeyName();
                 rule.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
                 battle.rule = rule;
 

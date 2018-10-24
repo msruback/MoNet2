@@ -5,9 +5,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.mattrubacky.monet2.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.deserialized.splatoon.CoopResult;
 import com.mattrubacky.monet2.deserialized.splatoon.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
 import com.mattrubacky.monet2.deserialized.splatoon.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonRun;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
 import com.mattrubacky.monet2.deserialized.splatoon.Skill;
 import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestDatabase;
@@ -217,6 +220,27 @@ public class SplatnetSQLManager {
     public ClosetHanger selectCloset(int id,String kind){
         ClosetManager closetManager = new ClosetManager(context);
         return closetManager.select(id,kind);
+    }
+
+    public void insertShifts(ArrayList<SalmonRunDetail> details){
+        ShiftManager shiftManager = new ShiftManager(context);
+        for(SalmonRunDetail shift:details){
+            shiftManager.addToInsert(shift);
+        }
+        shiftManager.insert();
+    }
+
+    public ArrayList<SalmonRunDetail> getShifts(){
+        ShiftManager shiftManager = new ShiftManager(context);
+        return shiftManager.selectAll();
+    }
+
+    public void insertJobs(ArrayList<CoopResult> results){
+        JobManager jobManager = new JobManager(context);
+        for(CoopResult job:results){
+            jobManager.addToInsert(job);
+        }
+        jobManager.insert();
     }
 
 
