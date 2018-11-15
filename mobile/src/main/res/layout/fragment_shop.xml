@@ -15,7 +15,11 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        android:background="@drawable/repeat_squids">
+        android:background="@color/offWhiteDark">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/repeat_triangles"></RelativeLayout>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -24,248 +28,235 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusableInTouchMode="true">
-
-                <RelativeLayout
-                    android:id="@+id/orderLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ShopHeader"
-                    android:layout_marginTop="10dp"
-                    android:minHeight="120dp">
-
-                    <RelativeLayout
-                        android:id="@+id/orderTitle"
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:background="@drawable/banner_normal"
-                        android:backgroundTint="@color/turfPrimary"
-                        android:paddingLeft="5dp">
-
-                        <TextView
-                            android:id="@+id/OrderTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="Ordered"
-                            android:textColor="@color/offWhite"
-                            android:textSize="22sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/nothingToShow"
-                        android:layout_width="200dp"
-                        android:layout_height="30dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/banner_normal"
-                        android:backgroundTint="@color/rankAccent"
-                        android:paddingLeft="5dp"
-                        android:rotation="-3">
-
-                        <TextView
-                            android:id="@+id/NothingOrdered"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="@string/no_ordered"
-                            android:textColor="@color/offWhite"
-                            android:textSize="16sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/Ordered"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/orderTitle"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerInParent="true"
-                        android:layout_margin="10dp">
-
-                        <RelativeLayout
-                            android:id="@+id/OrderedItem"
-                            android:layout_width="150dp"
-                            android:layout_height="240dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:background="@drawable/shape_card"
-                            android:backgroundTint="#e4e4e4">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/repeat_circles">
-
-                            </RelativeLayout>
-
-                            <ImageView
-                                android:id="@+id/OrderedBrand"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="5dp"
-                                android:src="@drawable/brand_annaki" />
-
-                            <ImageView
-                                android:id="@+id/product"
-                                android:layout_width="36dp"
-                                android:layout_height="36dp"
-                                android:layout_alignBottom="@+id/OrderedBrand"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginBottom="11dp"
-                                android:src="@drawable/extra_product" />
-
-                            <ImageView
-                                android:id="@+id/OrderedImage"
-                                android:layout_width="126dp"
-                                android:layout_height="126dp"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                android:src="@drawable/hula_punk" />
-
-                            <TextView
-                                android:id="@+id/OrderedName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/OrderedImage"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="7dp"
-                                android:text="Hula Punk Shirt"
-                                android:textSize="13sp" />
-
-                            <RelativeLayout
-                                android:id="@+id/OrderedAbilities"
-                                android:layout_width="24dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignTop="@+id/OrderedBrand"
-                                android:layout_marginEnd="10dp">
-
-                                <RelativeLayout
-                                    android:id="@+id/mainAbility"
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_alignParentEnd="true"
-                                    android:background="@drawable/skill_background"
-                                    android:padding="2dp">
-
-                                    <ImageView
-                                        android:id="@+id/OrderedMainAbility"
-                                        android:layout_width="36dp"
-                                        android:layout_height="36dp"
-                                        android:layout_alignParentEnd="true"
-                                        android:src="@drawable/skill_main_ink_saver" />
-                                </RelativeLayout>
-
-                                <ImageView
-                                    android:id="@+id/OrderedSub1"
-                                    android:layout_width="18dp"
-                                    android:layout_height="18dp"
-                                    android:layout_below="@id/mainAbility"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="5dp"
-                                    android:src="@drawable/skill_blank" />
-
-                                <ImageView
-                                    android:id="@+id/OrderedSub2"
-                                    android:layout_width="18dp"
-                                    android:layout_height="18dp"
-                                    android:layout_below="@id/OrderedSub1"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="5dp"
-                                    android:src="@drawable/skill_blank" />
-
-                                <ImageView
-                                    android:id="@+id/OrderedSub3"
-                                    android:layout_width="18dp"
-                                    android:layout_height="18dp"
-                                    android:layout_below="@id/OrderedSub2"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_marginTop="5dp"
-                                    android:src="@drawable/skill_blank" />
-                            </RelativeLayout>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/OrderedInfoBar"
-                            android:layout_width="150dp"
-                            android:layout_height="30dp"
-                            android:layout_alignStart="@+id/Item"
-                            android:layout_marginTop="210dp"
-                            android:background="@drawable/shape_card"
-                            android:backgroundTint="@color/merchClothes">
-
-                            <RelativeLayout
-                                android:id="@+id/OrderedInfoPatch"
-                                android:layout_width="match_parent"
-                                android:layout_height="15dp"
-                                android:background="@color/merchClothes"></RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/repeat_stripes"></RelativeLayout>
-
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:layout_alignBottom="@+id/OrderedCost"
-                                android:layout_marginRight="10dp"
-                                android:layout_toStartOf="@+id/OrderedCost"
-                                android:src="@drawable/icon_cash" />
-
-                            <TextView
-                                android:id="@+id/OrderedCost"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                android:text="10000"
-                                android:textColor="@color/offWhite"
-                                android:textSize="13sp" />
-                        </RelativeLayout>
-
-                    </RelativeLayout>
-
-                </RelativeLayout>
+                <ImageView
+                    android:id="@+id/ShopHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:src="@drawable/title_shop"/>
 
                 <RelativeLayout
                     android:id="@+id/merchLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/orderLayout">
+                    android:layout_below="@+id/ShopHeader">
 
-                    <RelativeLayout
-                        android:id="@+id/merchTitle"
-                        android:layout_width="120dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:background="@drawable/banner_normal"
-                        android:backgroundTint="@color/leaguePrimary"
-                        android:paddingLeft="5dp">
-
-                        <TextView
-                            android:id="@+id/MerchTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="Available"
-                            android:textColor="@color/offWhite"
-                            android:textSize="22sp" />
-                    </RelativeLayout>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/CurrentMerch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/merchTitle"
                         android:layout_centerInParent="true"
                         android:gravity="center_horizontal"
                         android:horizontalSpacing="10dp"
                         android:verticalSpacing="10dp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id = "@+id/wiggle"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_below="@id/merchLayout"
+                    android:background="@drawable/extra_wave"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/favColorPurple">
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/orderLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/wiggle"
+                    android:minHeight="120dp"
+                    android:background="@color/favColorPurple">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/repeat_macaroni">
+
+                        <RelativeLayout
+                            android:id="@+id/nothingToShow"
+                            android:layout_width="200dp"
+                            android:layout_height="30dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/banner_normal"
+                            android:backgroundTint="@color/merchClothes"
+                            android:paddingLeft="5dp"
+                            android:rotation="-3">
+
+                            <TextView
+                                android:id="@+id/NothingOrdered"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="@string/no_ordered"
+                                android:textColor="@color/offWhite"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/Ordered"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="10dp">
+
+                            <RelativeLayout
+                                android:id="@+id/OrderedItem"
+                                android:layout_width="150dp"
+                                android:layout_height="250dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerHorizontal="true"
+                                android:background="@drawable/shape_card"
+                                android:backgroundTint="@color/offWhite">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/repeat_circles">
+
+                                </RelativeLayout>
+
+                                <ImageView
+                                    android:id="@+id/OrderedBrand"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="5dp"
+                                    android:src="@drawable/brand_annaki" />
+                                <ImageView
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:layout_alignBottom="@+id/OrderedBrand"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginBottom="12dp"
+                                    android:src="@drawable/extra_product"/>
+
+                                <ImageView
+                                    android:id="@+id/product"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:layout_alignBottom="@+id/OrderedBrand"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginBottom="11dp"
+                                    android:src="@drawable/extra_product"
+                                    android:tint="@color/favColorPurple"/>
+
+                                <ImageView
+                                    android:id="@+id/OrderedImage"
+                                    android:layout_width="126dp"
+                                    android:layout_height="126dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:src="@drawable/hula_punk" />
+
+                                <TextView
+                                    android:id="@+id/OrderedName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/OrderedImage"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="7dp"
+                                    android:text="Hula Punk Shirt"
+                                    android:textSize="13sp" />
+
+                                <RelativeLayout
+                                    android:id="@+id/OrderedAbilities"
+                                    android:layout_width="24dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignTop="@+id/OrderedBrand"
+                                    android:layout_marginEnd="10dp">
+
+                                    <RelativeLayout
+                                        android:id="@+id/mainAbility"
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_alignParentEnd="true"
+                                        android:background="@drawable/skill_background"
+                                        android:padding="2dp">
+
+                                        <ImageView
+                                            android:id="@+id/OrderedMainAbility"
+                                            android:layout_width="36dp"
+                                            android:layout_height="36dp"
+                                            android:layout_alignParentEnd="true"
+                                            android:src="@drawable/skill_main_ink_saver" />
+                                    </RelativeLayout>
+
+                                    <ImageView
+                                        android:id="@+id/OrderedSub1"
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:layout_below="@id/mainAbility"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="5dp"
+                                        android:src="@drawable/skill_blank" />
+
+                                    <ImageView
+                                        android:id="@+id/OrderedSub2"
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:layout_below="@id/OrderedSub1"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="5dp"
+                                        android:src="@drawable/skill_blank" />
+
+                                    <ImageView
+                                        android:id="@+id/OrderedSub3"
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:layout_below="@id/OrderedSub2"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginTop="5dp"
+                                        android:src="@drawable/skill_blank" />
+                                </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/OrderedInfoBar"
+                                android:layout_width="150dp"
+                                android:layout_height="35dp"
+                                android:layout_alignParentBottom="true"
+                                android:background="@drawable/shape_card"
+                                android:backgroundTint="@color/merchClothes">
+
+                                <RelativeLayout
+                                    android:id="@+id/OrderedInfoPatch"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="15dp"
+                                    android:background="@color/merchClothes"></RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/repeat_stripes"></RelativeLayout>
+
+                                <ImageView
+                                    android:layout_width="18dp"
+                                    android:layout_height="18dp"
+                                    android:layout_alignBottom="@+id/OrderedCost"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_toStartOf="@+id/OrderedCost"
+                                    android:src="@drawable/icon_cash" />
+
+                                <TextView
+                                    android:id="@+id/OrderedCost"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="10000"
+                                    android:textColor="@color/offWhite"
+                                    android:textSize="13sp" />
+                            </RelativeLayout>
+
+
+                            </RelativeLayout>
+                        </RelativeLayout>
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
