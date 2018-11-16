@@ -46,7 +46,7 @@ public class WorkerManager {
         toInsert.add(worker);
         for(SalmonRunWeapon weapon : worker.weapons){
             if(weapon.id>0){
-                weaponManager.addToInsert(weapon.weapon);
+                weaponManager.addToInsertSalmon(weapon.weapon);
             }
         }
         specialManager.addToInsert(worker.special);
@@ -97,11 +97,17 @@ public class WorkerManager {
 
                 values.put(SplatnetContract.Coworker.COLUMN_SPECIAL,worker.special.id);
 
-                values.put(SplatnetContract.Coworker.COLUMN_WEAPON_1,worker.weapons.get(0).id);
-                values.put(SplatnetContract.Coworker.COLUMN_WEAPON_2,worker.weapons.get(1).id);
-                values.put(SplatnetContract.Coworker.COLUMN_WEAPON_3,worker.weapons.get(2).id);
+                if(worker.weapons.size()>0) {
+                    values.put(SplatnetContract.Coworker.COLUMN_WEAPON_1, worker.weapons.get(0).id);
+                    if (worker.weapons.size() > 1) {
+                        values.put(SplatnetContract.Coworker.COLUMN_WEAPON_2, worker.weapons.get(1).id);
+                        if (worker.weapons.size() > 2) {
+                            values.put(SplatnetContract.Coworker.COLUMN_WEAPON_3, worker.weapons.get(2).id);
+                        }
+                    }
+                }
 
-                database.insert(SplatnetContract.Shift.TABLE_NAME, null, values);
+                database.insert(SplatnetContract.Coworker.TABLE_NAME, null, values);
             }
             database.close();
             toInsert = new ArrayList<>();
@@ -195,6 +201,7 @@ public class WorkerManager {
                     int specialId = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Coworker.COLUMN_SPECIAL));
                     specialManager.addToSelect(specialId);
                     specialJobHash.put(worker.id,specialId);
+                    specials.put(worker.job,specialJobHash);
 
 
                     //Weapon handling

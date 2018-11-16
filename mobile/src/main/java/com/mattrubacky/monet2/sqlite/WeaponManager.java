@@ -56,6 +56,9 @@ class WeaponManager {
         specialManager.addToInsert(weapon.special);
         subManager.addToInsert(weapon.sub);
     }
+    public void addToInsertSalmon(Weapon weapon){
+        toInsert.put(weapon.id,weapon);
+    }
 
     public void addToSelect(int id){
         if(!toSelect.contains(id)) {
@@ -89,8 +92,12 @@ class WeaponManager {
                     values.put(SplatnetContract.Weapon._ID, weapon.id);
                     values.put(SplatnetContract.Weapon.COLUMN_NAME, weapon.name);
                     values.put(SplatnetContract.Weapon.COLUMN_URL, weapon.url);
-                    values.put(SplatnetContract.Weapon.COLUMN_SUB, weapon.sub.id);
-                    values.put(SplatnetContract.Weapon.COLUMN_SPECIAL, weapon.special.id);
+                    if(weapon.sub!=null) {
+                        values.put(SplatnetContract.Weapon.COLUMN_SUB, weapon.sub.id);
+                    }
+                    if(weapon.special!=null) {
+                        values.put(SplatnetContract.Weapon.COLUMN_SPECIAL, weapon.special.id);
+                    }
 
                     database.insert(SplatnetContract.Weapon.TABLE_NAME, null, values);
                 }

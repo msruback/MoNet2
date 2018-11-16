@@ -76,32 +76,4 @@ public class BattleListAdapter extends RecyclerView.Adapter<BattleViewHolder>{
         return input.size();
     }
 
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        RelativeLayout item,fesMode,alpha,bravo,spots;
-        ImageView weapon,type;
-        TextView mode,map,result;
-
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            item = (RelativeLayout) itemView.findViewById(R.id.item);
-
-            fesMode = (RelativeLayout) itemView.findViewById(R.id.FesMode);
-            alpha = (RelativeLayout) itemView.findViewById(R.id.Alpha);
-            bravo = (RelativeLayout) itemView.findViewById(R.id.Bravo);
-            spots = (RelativeLayout) itemView.findViewById(R.id.Spots);
-
-            mode = (TextView) itemView.findViewById(R.id.mode);
-            map = (TextView) itemView.findViewById(R.id.map);
-            result = (TextView) itemView.findViewById(R.id.result);
-
-            weapon = (ImageView) itemView.findViewById(R.id.weapon);
-            type = (ImageView) itemView.findViewById(R.id.Type);
-        }
-
-    }
-
 }

@@ -145,22 +145,6 @@ public final class SplatnetContract {
 
     }
 
-    public static class Gear implements BaseColumns{
-        public static final String TABLE_NAME = "gear";
-        public static final String COLUMN_NAME = "name";
-        public static final String COLUMN_KIND = "kind";
-        public static final String COLUMN_RARITY = "rarity";
-        public static final String COLUMN_BRAND = "brand";
-        public static final String COLUMN_URL = "url";
-
-        public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
-                _ID + " INTEGER PRIMARY KEY, "+
-                COLUMN_NAME + " TEXT, "+
-                COLUMN_BRAND +" INTEGER REFERENCES brand(_id), "+
-                COLUMN_KIND + " TEXT, "+
-                COLUMN_RARITY + " INTEGER, "+
-                COLUMN_URL + " TEXT)";
-    }
 
     public static class Head implements BaseColumns{
         public static final String TABLE_NAME = "head";
@@ -462,7 +446,6 @@ public final class SplatnetContract {
         public static final String COLUMN_NUM = "num";
 
         public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
-                _ID + " INTEGER PRIMARY KEY, "+
                 COLUMN_QUOTA + " INTEGER, "+
                 COLUMN_WATER_LEVEL + " TEXT, "+
                 COLUMN_GOLDEN_IKURA_NUM + " INTEGER, "+
@@ -476,6 +459,7 @@ public final class SplatnetContract {
     public static class Coworker implements BaseColumns{
         public static final String TABLE_NAME = "coworker";
         public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_SPECIES = "species";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_JOB = "job";
         public static final String COLUMN_PID = "pid";
@@ -503,6 +487,7 @@ public final class SplatnetContract {
         public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
                 COLUMN_NAME + " TEXT, "+
                 COLUMN_TYPE + " INTEGER, "+
+                COLUMN_SPECIES + " TEXT, "+
                 COLUMN_JOB + " INTEGER, "+
                 COLUMN_PID + " TEXT, "+
                 COLUMN_IKURA_NUM + " INTEGER, "+
@@ -525,5 +510,17 @@ public final class SplatnetContract {
                 COLUMN_MAWS + " INTEGER, "+
                 COLUMN_GRILLER + " INTEGER, "+
                 COLUMN_DRIZZLER + " INTEGER)";
+    }
+
+    public static class RewardGear implements BaseColumns{
+        public static final String TABLE_NAME = "reward_gear";
+        public static final String COLUMN_GEAR = "gear";
+        public static final String COLUMN_GEAR_KIND = "gear_kind";
+        public static final String COLUMN_START_TIME = "start_time";
+
+        public static final String CREATE_TABLE = "CREATE TABLE "+ TABLE_NAME+" ("+
+                COLUMN_GEAR + " INTEGER, "+
+                COLUMN_GEAR_KIND + " TEXT, "+
+                COLUMN_START_TIME + " INTEGER PRIMARY KEY)";
     }
 }

@@ -69,6 +69,7 @@ public class MerchViewHolder extends RecyclerView.ViewHolder{
                 infoPatch.setBackgroundTintList(context.getResources().getColorStateList(R.color.shoes));
                 break;
         }
+        item.setClipToOutline(true);
 
         //Set the fonts
         name.setTypeface(font);

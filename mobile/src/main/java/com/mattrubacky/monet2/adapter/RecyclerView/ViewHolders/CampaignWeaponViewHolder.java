@@ -38,48 +38,50 @@ public class CampaignWeaponViewHolder extends RecyclerView.ViewHolder{
         completion = (TextView) itemView.findViewById(R.id.Completion);
     }
     public void manageHolder(CampaignWeapon weapon, ArrayList<CampaignStageInfo> infos){
-        Typeface font = Typeface.createFromAsset(context.getAssets(), "Splatfont2.ttf");
-        Typeface fontTitle=Typeface.createFromAsset(context.getAssets(),"Paintball.otf");
-        ImageHandler imageHandler = new ImageHandler();
+        if(weapon!=null) {
+            Typeface font = Typeface.createFromAsset(context.getAssets(), "Splatfont2.ttf");
+            Typeface fontTitle = Typeface.createFromAsset(context.getAssets(), "Paintball.otf");
+            ImageHandler imageHandler = new ImageHandler();
 
-        int total = 32;
+            int total = 32;
 
-        long time = 0;
-        int completed = 0;
-        CampaignStageInfo info;
-        for(int i=0;i<infos.size();i++){
-            info = infos.get(i);
-            if(info.weapons.containsKey(weapon.category)){
-                time += info.weapons.get(weapon.category).time;
-                completed++;
+            long time = 0;
+            int completed = 0;
+            CampaignStageInfo info;
+            for (int i = 0; i < infos.size(); i++) {
+                info = infos.get(i);
+                if (info.weapons.containsKey(weapon.category)) {
+                    time += info.weapons.get(weapon.category).time;
+                    completed++;
+                }
             }
-        }
 
-        int second = (int) time%60;
-        int minute = (int) ((time-second)/60)%60;
-        int hour = (int) (((time-second)/60)-minute)/60;
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,hour);
-        calendar.set(Calendar.MINUTE,minute);
-        calendar.set(Calendar.SECOND,second);
+            int second = (int) time % 60;
+            int minute = (int) ((time - second) / 60) % 60;
+            int hour = (int) (((time - second) / 60) - minute) / 60;
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            calendar.set(Calendar.SECOND, second);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        String timeString = sdf.format(calendar.getTimeInMillis());
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String timeString = sdf.format(calendar.getTimeInMillis());
 
-        weaponTime.setTypeface(font);
-        completion.setTypeface(font);
+            weaponTime.setTypeface(font);
+            completion.setTypeface(font);
 
-        weaponTime.setText(timeString);
-        completion.setText(completed+"/"+total);
+            weaponTime.setText(timeString);
+            completion.setText(completed + "/" + total);
 
-        String url = "https://app.splatoon2.nintendo.net"+weapon.url;
+            String url = "https://app.splatoon2.nintendo.net" + weapon.url;
 
-        String imageDirName = weapon.category+"-"+weapon.level;
-        if(imageHandler.imageExists("campaign_weapon",imageDirName,context)){
-            image.setImageBitmap(imageHandler.loadImage("campaign_weapon",imageDirName));
-        }else{
-            Picasso.with(context).load(url).into(image);
-            imageHandler.downloadImage("campaign_weapon",imageDirName,url,context);
+            String imageDirName = weapon.category + "-" + weapon.level;
+            if (imageHandler.imageExists("campaign_weapon", imageDirName, context)) {
+                image.setImageBitmap(imageHandler.loadImage("campaign_weapon", imageDirName));
+            } else {
+                Picasso.with(context).load(url).into(image);
+                imageHandler.downloadImage("campaign_weapon", imageDirName, url, context);
+            }
         }
     }
 }

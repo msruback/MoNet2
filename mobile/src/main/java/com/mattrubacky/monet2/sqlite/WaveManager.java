@@ -37,7 +37,7 @@ public class WaveManager {
     }
 
 
-    //Add a skill to be selected
+    //Add waves to be selected
     public void addToSelect(int id){
         if(!toSelect.contains(id)){
             toSelect.add(id);

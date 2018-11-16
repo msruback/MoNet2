@@ -55,6 +55,7 @@ public class TimelineRequest extends SplatnetRequest{
             ArrayList<Gear> gear = new ArrayList<>();
             gear.add(timeline.currentRun.rewardGear.gear);
             database.insertGear(gear);
+            database.insertRewardGear(timeline.currentRun.rewardGear);
         }
 
         int maxID = settings.getInt("lastBattle",-1);

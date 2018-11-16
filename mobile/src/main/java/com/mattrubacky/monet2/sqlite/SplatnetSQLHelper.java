@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.mattrubacky.monet2.api.splatnet.Splatnet;
+
 /**
  * Created by mattr on 10/17/2017.
  */
@@ -12,7 +14,7 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
 
 
     private Context context;
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 11;
     public static final String DATABASE_NAME = "splatnet";
 
     public SplatnetSQLHelper(Context context) {
@@ -29,6 +31,8 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SplatnetContract.Special.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.Stage.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.Splatfest.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Wave.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.RewardGear.CREATE_TABLE);
 
         //Tables with Foriegn Keys to Level 0 (Level 1)
         sqLiteDatabase.execSQL(SplatnetContract.Battle.CREATE_TABLE);
@@ -39,10 +43,15 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SplatnetContract.Head.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.Clothes.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.Shoe.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Shift.CREATE_TABLE);
 
         //Tables with at least one Foriegn Key to Level 2 (Level 3)
         sqLiteDatabase.execSQL(SplatnetContract.Player.CREATE_TABLE);
         sqLiteDatabase.execSQL(SplatnetContract.Closet.CREATE_TABLE);
+        sqLiteDatabase.execSQL(SplatnetContract.Job.CREATE_TABLE);
+
+        //Tables with at least one Foriegn Key to Level 3 (Level 4)
+        sqLiteDatabase.execSQL(SplatnetContract.Coworker.CREATE_TABLE);
     }
 
     @Override
@@ -132,6 +141,16 @@ public class SplatnetSQLHelper extends SQLiteOpenHelper {
                     sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Battle.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Battle.COLUMN_EVENT_TYPE + " TEXT;");
 
                     sqLiteDatabase.execSQL("ALTER TABLE " + SplatnetContract.Player.TABLE_NAME + " ADD COLUMN " + SplatnetContract.Player.COLUMN_STAR_RANK + " INTEGER;");
+                    break;
+                case 10:
+                    sqLiteDatabase.execSQL(SplatnetContract.Wave.CREATE_TABLE);
+                    sqLiteDatabase.execSQL(SplatnetContract.Shift.CREATE_TABLE);
+                    sqLiteDatabase.execSQL(SplatnetContract.Job.CREATE_TABLE);
+                    sqLiteDatabase.execSQL(SplatnetContract.Coworker.CREATE_TABLE);
+                    break;
+                case 11:
+                    sqLiteDatabase.execSQL(SplatnetContract.RewardGear.CREATE_TABLE);
+                    break;
             }
         }
     }

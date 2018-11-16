@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.fragment;
+package com.mattrubacky.monet2.fragment.MainScreenFragments;
 
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,13 +66,12 @@ public class ShopFragment extends Fragment implements SplatnetConnected {
         Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
-        TextView orderTitle = (TextView) rootView.findViewById(R.id.OrderTitle);
         TextView noOrderText = (TextView) rootView.findViewById(R.id.NothingOrdered);
-        TextView merchTitle = (TextView) rootView.findViewById(R.id.MerchTitle);
 
-        orderTitle.setTypeface(titleFont);
+        RelativeLayout orderLayout = (RelativeLayout) rootView.findViewById(R.id.orderLayout);
+        orderLayout.setClipToOutline(true);
+
         noOrderText.setTypeface(font);
-        merchTitle.setTypeface(titleFont);
 
         while(shop.merch.size()>0&&(shop.merch.get(0).endTime*1000)<new Date().getTime()){
             shop.merch.remove(0);
@@ -128,9 +128,11 @@ public class ShopFragment extends Fragment implements SplatnetConnected {
 
         RelativeLayout order = (RelativeLayout) rootView.findViewById(R.id.Ordered);
         RelativeLayout noOrder = (RelativeLayout) rootView.findViewById(R.id.nothingToShow);
-
+        RelativeLayout orderLayout = (RelativeLayout) rootView.findViewById(R.id.orderLayout);
+        ViewGroup.LayoutParams layoutParams = orderLayout.getLayoutParams();
         if(ordered==null){
             order.setVisibility(View.GONE);
+            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
         }else {
             noOrder.setVisibility(View.GONE);
             order.setVisibility(View.VISIBLE);
@@ -138,6 +140,8 @@ public class ShopFragment extends Fragment implements SplatnetConnected {
             RelativeLayout infoBar = (RelativeLayout) rootView.findViewById(R.id.OrderedInfoBar);
             RelativeLayout infoPatch = (RelativeLayout) rootView.findViewById(R.id.OrderedInfoPatch);
             item.setClipToOutline(true);
+
+            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 300, getResources().getDisplayMetrics());
 
             ImageView brand = (ImageView) rootView.findViewById(R.id.OrderedBrand);
             ImageView gear = (ImageView) rootView.findViewById(R.id.OrderedImage);

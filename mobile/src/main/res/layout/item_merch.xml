@@ -11,11 +11,11 @@
     <RelativeLayout
         android:id="@+id/Item"
         android:layout_width="150dp"
-        android:layout_height="240dp"
+        android:layout_height="250dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/shape_card"
-        android:backgroundTint="#e4e4e4">
+        android:backgroundTint="@color/offWhite">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,15 +33,22 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/brand_annaki" />
-
         <ImageView
-            android:id="@+id/product"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_alignBottom="@+id/Brand"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="11dp"
-            android:src="@drawable/extra_product" />
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/extra_product"/>
+        <ImageView
+        android:id="@+id/product"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignBottom="@+id/Brand"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp"
+        android:src="@drawable/extra_product"
+        android:tint="@color/offWhiteDark"/>
 
         <ImageView
             android:id="@+id/Image"
@@ -132,14 +139,11 @@
                 android:textSize="13sp" />
         </RelativeLayout>
 
-    </RelativeLayout>
-
     <RelativeLayout
         android:id="@+id/InfoBar"
         android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_alignStart="@+id/Item"
-        android:layout_marginTop="210dp"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/shape_card"
         android:backgroundTint="@color/merchClothes">
 
@@ -171,6 +175,7 @@
             android:text="10000"
             android:textColor="@color/offWhite"
             android:textSize="13sp" />
+    </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>

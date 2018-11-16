@@ -173,7 +173,7 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
         }
 
 
-        SimpleDateFormat format = new SimpleDateFormat("MM/d/YY h a");
+        SimpleDateFormat format = new SimpleDateFormat("MM/d/yy h a");
 
 
         StringBuilder time = new StringBuilder();

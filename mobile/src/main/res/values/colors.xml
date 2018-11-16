@@ -37,6 +37,7 @@
     <color name="weapon">#ffee33</color>
     <color name="weaponDark">#ecdc24</color>
 
+    <color name="fail">#e70847</color>
     <!--Fav Colors-->
     <color name="favColorPink">#f02d7d</color>
     <color name="favColorGreen">#19d719</color>

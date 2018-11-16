@@ -9,6 +9,7 @@ import com.mattrubacky.monet2.deserialized.splatoon.CoopResult;
 import com.mattrubacky.monet2.deserialized.splatoon.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
 import com.mattrubacky.monet2.deserialized.splatoon.Player;
+import com.mattrubacky.monet2.deserialized.splatoon.RewardGear;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonRun;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
 import com.mattrubacky.monet2.deserialized.splatoon.Skill;
@@ -19,8 +20,11 @@ import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 /**
  * Created by mattr on 9/22/2017.
@@ -50,6 +54,23 @@ public class SplatnetSQLManager {
     public ArrayList<Skill> getChunkable(){
         SkillManager skillManager = new SkillManager(context);
         return skillManager.selectChunkable();
+    }
+
+    public void insertRewardGear(RewardGear rewardGear){
+        RewardGearManager rewardGearManager = new RewardGearManager(context);
+        rewardGearManager.addToInsert(rewardGear);
+        rewardGearManager.insert();
+    }
+
+    public RewardGear getRewardGear(long time){
+        Date date = new Date(time*1000);
+        int month = date.getMonth();
+        int year = date.getYear()+1900;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+        calendar.set(year,month,1,0,0,0);
+        RewardGearManager rewardGearManager = new RewardGearManager(context);
+        return rewardGearManager.select(calendar.getTime().getTime()/1000);
     }
 
     //Stage Methods
@@ -241,6 +262,11 @@ public class SplatnetSQLManager {
             jobManager.addToInsert(job);
         }
         jobManager.insert();
+    }
+
+    public ArrayList<CoopResult> getJobs(long start){
+        JobManager jobManager = new JobManager(context);
+        return jobManager.select(start);
     }
 
 

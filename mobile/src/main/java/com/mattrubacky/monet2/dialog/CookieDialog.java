@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.helper.GenericCallback;
 
 /**
  * Created by mattr on 10/14/2017.
@@ -23,6 +24,7 @@ public class CookieDialog extends Dialog {
     public CookieDialog(Activity activity) {
         super(activity);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +54,5 @@ public class CookieDialog extends Dialog {
                 dismiss();
             }
         });
-
-
-
     }
 }

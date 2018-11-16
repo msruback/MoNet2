@@ -29,10 +29,19 @@ import com.mattrubacky.monet2.deserialized.splatoon.Record;
 import com.mattrubacky.monet2.deserialized.splatoon.Timeline;
 import com.mattrubacky.monet2.dialog.GearNotificationPickerDialog;
 import com.mattrubacky.monet2.dialog.StageNotificationPickerDialog;
-import com.mattrubacky.monet2.fragment.*;
-import com.mattrubacky.monet2.notifications.GrizzCoRewardNotification;
+import com.mattrubacky.monet2.fragment.MainScreenFragments.BattleListFragment;
+import com.mattrubacky.monet2.fragment.MainScreenFragments.StatFragments.CampaignStatsFragment;
+import com.mattrubacky.monet2.fragment.MainScreenFragments.StatFragments.ChunkBagFragment;
+import com.mattrubacky.monet2.fragment.MainScreenFragments.StatFragments.ClosetFragment;
+import com.mattrubacky.monet2.fragment.MainScreenFragments.PlayerStatsFragment;
+import com.mattrubacky.monet2.fragment.MainScreenFragments.RotationFragment;
+import com.mattrubacky.monet2.fragment.MainScreenFragments.SalmonRunResultsFragment;
+import com.mattrubacky.monet2.fragment.MainScreenFragments.SettingsFragment;
+import com.mattrubacky.monet2.fragment.MainScreenFragments.ShopFragment;
+import com.mattrubacky.monet2.fragment.MainScreenFragments.StatFragments.SplatfestStatsFragment;
+import com.mattrubacky.monet2.fragment.MainScreenFragments.StatFragments.StagePostcardsFragment;
+import com.mattrubacky.monet2.fragment.MainScreenFragments.StatFragments.WeaponLockerFragment;
 import com.mattrubacky.monet2.notifications.GrizzCoRewardNotificationFactory;
-import com.mattrubacky.monet2.notifications.ShopNotificationFactory;
 import com.mattrubacky.monet2.notifications.StageNotificationFactory;
 import com.mattrubacky.monet2.reciever.BootReciever;
 import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
@@ -57,13 +66,14 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ExpandableListView drawerList;
     ArrayList<String> titles,children;
-    Fragment rotation,shop,playerFrag,battleList,settingsFrag,weaponLocker,closet,stagePostcards,chunkBag,splatfestStats,campaignStats;
+    Fragment rotation,shop,playerFrag,battleList,coopList,settingsFrag,weaponLocker,closet,stagePostcards,chunkBag,splatfestStats,campaignStats;
     FragmentManager fragmentManager;
     ArrayList<String> backStack;
     TextView addButton;
     ImageView notificationButton;
     Record record;
     PastSplatfest pastSplatfests;
+
 
 
     @Override
@@ -82,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         titles.add(settings.getString("name","User"));
         titles.add("Battles");
+        titles.add("Salmon Run Shifts");
         titles.add("Leaderboards");
         titles.add("Settings");
 
@@ -94,17 +105,12 @@ public class MainActivity extends AppCompatActivity {
         children.add("Campaign");
         children.add("Ink");
 
-
-        //Just when I am too lazy to enter the token by hand
-        SharedPreferences.Editor edit = settings.edit();
-        edit.putString("cookie","iksm_session=e26b8cd57f2038afc500df52ac7c62542db73a0c");
-        edit.commit();
-
         //Add fragments
         rotation = new RotationFragment();
         shop = new ShopFragment();
         playerFrag = new PlayerStatsFragment();
         battleList = new BattleListFragment();
+        coopList = new SalmonRunResultsFragment();
         settingsFrag = new SettingsFragment();
 
         weaponLocker = new WeaponLockerFragment();
@@ -151,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                     lastUpdate += 1;
                     break;
             }
-//            SharedPreferences.Editor edit = settings.edit();
+            SharedPreferences.Editor edit = settings.edit();
             if(hour>lastUpdate){
                 dataUpdateAlarm.setAlarm(MainActivity.this);
                 edit.putInt("last_update",hour);
@@ -303,6 +309,16 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 4:
                 fragmentManager.beginTransaction()
+                        .replace(R.id.frame_container,coopList)
+                        .commit();
+                backStack.add(0,"cooplist");
+                addButton.setVisibility(View.GONE);
+                addButton.setOnClickListener(null);
+                notificationButton.setVisibility(View.GONE);
+                notificationButton.setOnClickListener(null);
+                break;
+            case 6:
+                fragmentManager.beginTransaction()
                         .replace(R.id.frame_container,settingsFrag)
                         .commit();
                 backStack.add(0,"settings");
@@ -385,6 +401,17 @@ public class MainActivity extends AppCompatActivity {
                         notificationButton.setOnClickListener(null);
                         break;
                     case 4:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.frame_container,coopList)
+                                .commit();
+                        drawerLayout.closeDrawer(drawerList);
+                        backStack.add(0,"cooplist");
+                        addButton.setVisibility(View.GONE);
+                        addButton.setOnClickListener(null);
+                        notificationButton.setVisibility(View.GONE);
+                        notificationButton.setOnClickListener(null);
+                        break;
+                    case 6:
                         fragmentManager.beginTransaction()
                                 .replace(R.id.frame_container,settingsFrag)
                                 .commit();
@@ -643,6 +670,15 @@ public class MainActivity extends AppCompatActivity {
                 case "battlelist":
                     fragmentManager.beginTransaction()
                             .replace(R.id.frame_container,battleList)
+                            .commit();
+                    addButton.setVisibility(View.GONE);
+                    addButton.setOnClickListener(null);
+                    notificationButton.setVisibility(View.GONE);
+                    notificationButton.setOnClickListener(null);
+                    break;
+                case "cooplist":
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frame_container,coopList)
                             .commit();
                     addButton.setVisibility(View.GONE);
                     addButton.setOnClickListener(null);

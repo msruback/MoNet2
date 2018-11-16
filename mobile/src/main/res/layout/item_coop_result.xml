@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/nibs"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"></android.support.v7.widget.RecyclerView>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/item"
+        android:layout_width="325dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/nibs"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_card"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/salmonAccent">
+
+        <RelativeLayout
+            android:id="@+id/Spots"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/repeat_dots"></RelativeLayout>
+        <RelativeLayout
+            android:layout_width="275dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/offWhite"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true">
+            <RelativeLayout
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:background="@color/offWhite"></RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/repeat_spots"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"></RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/Type"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:src="@drawable/salmon_run_mini"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/wave1"
+            android:layout_toRightOf="@+id/type"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="Cohock Charge"
+            android:textSize="15sp"/>
+        <RelativeLayout
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:rotation="90"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="-17dp"
+            android:background="@drawable/shape_dashed"
+            android:layout_toEndOf="@+id/wave1"></RelativeLayout>
+        <TextView
+            android:id="@+id/wave2"
+            android:layout_toRightOf="@+id/wave1"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="Cohock Charge"
+            android:textSize="15sp"/>
+        <RelativeLayout
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:rotation="90"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="-17dp"
+            android:background="@drawable/shape_dashed"
+            android:layout_toEndOf="@+id/wave2"></RelativeLayout>
+        <TextView
+            android:id="@+id/wave3"
+            android:layout_toRightOf="@+id/wave2"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="Cohock Charge"
+            android:textSize="15sp"/>
+        <RelativeLayout
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:rotation="90"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="-17dp"
+            android:background="@drawable/shape_dashed"
+            android:layout_toEndOf="@+id/wave3"></RelativeLayout>
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/wave3"
+            android:text="VICTORY"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

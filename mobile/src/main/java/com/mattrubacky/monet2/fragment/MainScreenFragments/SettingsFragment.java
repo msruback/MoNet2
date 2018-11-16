@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.fragment;
+package com.mattrubacky.monet2.fragment.MainScreenFragments;
 
 
 import android.content.ComponentName;

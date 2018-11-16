@@ -9,6 +9,8 @@ import com.mattrubacky.monet2.api.splatnet.Splatnet;
 import com.mattrubacky.monet2.deserialized.splatoon.BossCount;
 import com.mattrubacky.monet2.deserialized.splatoon.CoopResult;
 import com.mattrubacky.monet2.deserialized.splatoon.GrizzCoBossKills;
+import com.mattrubacky.monet2.deserialized.splatoon.GrizzCoGrade;
+import com.mattrubacky.monet2.deserialized.splatoon.JobResult;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunWeapon;
 import com.mattrubacky.monet2.deserialized.splatoon.Special;
@@ -54,6 +56,8 @@ public class JobManager {
     public void addToSelect(int id){
         if(!toSelect.contains(id)){
             toSelect.add(id);
+            waveManager.addToSelect(id);
+            workerManager.addToSelect(id);
         }
     }
 
@@ -68,7 +72,6 @@ public class JobManager {
             String[] args;
             Cursor cursor = null;
             for (CoopResult job:toInsert) {
-                values = new ContentValues();
                 args = new String[]{String.valueOf(job.id)};
                 cursor = database.query(SplatnetContract.Job.TABLE_NAME,null,whereClause,args,null,null,null);
                 if(cursor.getCount()==0) {
@@ -120,17 +123,17 @@ public class JobManager {
             args[0] = String.valueOf(toSelect.get(0));
 
             StringBuilder builder = new StringBuilder();
-            builder.append(SplatnetContract.Coworker.COLUMN_JOB + " = ?");
+            builder.append(SplatnetContract.Job._ID + " = ?");
 
             //build the select statement
             for (int i = 1; i < toSelect.size(); i++) {
-                builder.append(" OR " + SplatnetContract.Coworker.COLUMN_JOB + " = ?");
+                builder.append(" OR " + SplatnetContract.Job._ID + " = ?");
                 args[i] = String.valueOf(toSelect.get(i));
             }
 
             String whereClause = builder.toString();
 
-            Cursor cursor = database.query(SplatnetContract.Coworker.TABLE_NAME, null, whereClause, args, null, null, null);
+            Cursor cursor = database.query(SplatnetContract.Job.TABLE_NAME, null, whereClause, args, null, null, null);
 
             CoopResult job;
             HashMap<Integer,ArrayList<Worker>> workerHashmap = workerManager.select();
@@ -138,6 +141,23 @@ public class JobManager {
             if (cursor.moveToFirst()) {
                 do {
                     job = new CoopResult();
+
+                    job.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job._ID));
+                    job.startTime = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_START_TIME));
+                    job.playTime = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_PLAY_TIME));
+                    job.jobRate = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_PAY_GRADE));
+                    job.dangerRate = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_DANGER_RATE));
+                    job.money = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_KUMA_POINT));
+                    job.gradePoint = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_GRADE_POINT));
+                    job.gradePointDelta = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_GRADE_POINT_DELTA));
+                    job.jobScore = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_JOB_SCORE));
+                    job.grade = new GrizzCoGrade();
+                    job.grade.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_GRADE));
+                    job.jobResult = new JobResult();
+                    job.jobResult.isClear = (1==cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_IS_CLEAR)));
+                    job.jobResult.failureReason = cursor.getString(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_FAILURE_REASON));
+                    job.jobResult.failureWave = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_FAILURE_WAVE));
+
                     //Boss Kills
                     job.bossCount = new BossCount();
                     job.bossCount.goldie = new GrizzCoBossKills();
@@ -200,11 +220,109 @@ public class JobManager {
         return selected;
     }
 
+    public ArrayList<CoopResult> select(long id){
+        ArrayList<CoopResult> selected = new ArrayList<>();
+
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
+
+        String[] args = new String[1];
+        args[0] = String.valueOf(id);
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(SplatnetContract.Job.COLUMN_START_TIME + " = ?");
+
+        String whereClause = builder.toString();
+
+        Cursor cursor = database.query(SplatnetContract.Job.TABLE_NAME, null, whereClause, args, null, null, null);
+
+        ArrayList<CoopResult> jobs = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                CoopResult job = new CoopResult();
+
+                job.id = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job._ID));
+                job.startTime = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_START_TIME));
+                job.playTime = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_PLAY_TIME));
+                job.jobRate = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_PAY_GRADE));
+                job.dangerRate = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_DANGER_RATE));
+                job.money = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_KUMA_POINT));
+                job.gradePoint = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_GRADE_POINT));
+                job.gradePointDelta = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_GRADE_POINT_DELTA));
+                job.jobScore = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_JOB_SCORE));
+                job.grade = new GrizzCoGrade();
+                job.grade.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_GRADE));
+                job.jobResult = new JobResult();
+                job.jobResult.isClear = (1==cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_IS_CLEAR)));
+                job.jobResult.failureReason = cursor.getString(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_FAILURE_REASON));
+                job.jobResult.failureWave = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_FAILURE_WAVE));
+
+                //Boss Kills
+                job.bossCount = new BossCount();
+                job.bossCount.goldie = new GrizzCoBossKills();
+                job.bossCount.goldie.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_GOLDIE));
+
+                job.bossCount.steelhead = new GrizzCoBossKills();
+                job.bossCount.steelhead.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_STEELHEAD));
+
+                job.bossCount.flyfish = new GrizzCoBossKills();
+                job.bossCount.flyfish.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_FLYFISH));
+
+                job.bossCount.scrapper = new GrizzCoBossKills();
+                job.bossCount.scrapper.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_SCRAPPER));
+
+                job.bossCount.steelEel = new GrizzCoBossKills();
+                job.bossCount.steelEel.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_STEEL_EEL));
+
+                job.bossCount.stinger = new GrizzCoBossKills();
+                job.bossCount.stinger.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_STINGER));
+
+                job.bossCount.maws = new GrizzCoBossKills();
+                job.bossCount.maws.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_MAWS));
+
+                job.bossCount.griller = new GrizzCoBossKills();
+                job.bossCount.griller.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_GRILLER));
+
+                job.bossCount.drizzler = new GrizzCoBossKills();
+                job.bossCount.drizzler.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_DRIZZLER));
+
+                job.otherResults = new ArrayList<>();
+
+                workerManager.addToSelect(job.id);
+                waveManager.addToSelect(job.id);
+
+                jobs.add(job);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+
+        HashMap<Integer,ArrayList<Worker>> workerHashmap = workerManager.select();
+        HashMap<Integer,ArrayList<Wave>> waveHashmap = waveManager.select();
+        for(CoopResult job:jobs) {
+            for (Worker worker : workerHashmap.get(job.id)) {
+                if (worker.type == 0) {
+                    job.myResult = worker;
+                } else {
+                    job.otherResults.add(worker);
+                }
+            }
+
+            ArrayList<Wave> waves = waveHashmap.get(job.id);
+            job.waves = Wave.sort(waves);
+            selected.add(job);
+        }
+
+        toSelect = new ArrayList<>();
+
+        return selected;
+    }
+
     public HashMap<Long,ArrayList<CoopResult>> selectAll(){
 
         HashMap<Long,ArrayList<CoopResult>> selected = new HashMap<>();
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
-        Cursor cursor = database.query(SplatnetContract.Coworker.TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor = database.query(SplatnetContract.Job.TABLE_NAME, null, null, null, null, null, null);
 
         CoopResult job;
         HashMap<Integer,ArrayList<Worker>> workerHashmap = workerManager.select();
@@ -215,31 +333,31 @@ public class JobManager {
                 //Boss Kills
                 job.bossCount = new BossCount();
                 job.bossCount.goldie = new GrizzCoBossKills();
-                job.bossCount.goldie.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Coworker.COLUMN_GOLDIE));
+                job.bossCount.goldie.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_GOLDIE));
 
                 job.bossCount.steelhead = new GrizzCoBossKills();
-                job.bossCount.steelhead.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Coworker.COLUMN_STEELHEAD));
+                job.bossCount.steelhead.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_STEELHEAD));
 
                 job.bossCount.flyfish = new GrizzCoBossKills();
-                job.bossCount.flyfish.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Coworker.COLUMN_FLYFISH));
+                job.bossCount.flyfish.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_FLYFISH));
 
                 job.bossCount.scrapper = new GrizzCoBossKills();
-                job.bossCount.scrapper.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Coworker.COLUMN_SCRAPPER));
+                job.bossCount.scrapper.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_SCRAPPER));
 
                 job.bossCount.steelEel = new GrizzCoBossKills();
-                job.bossCount.steelEel.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Coworker.COLUMN_STEEL_EEL));
+                job.bossCount.steelEel.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_STEEL_EEL));
 
                 job.bossCount.stinger = new GrizzCoBossKills();
-                job.bossCount.stinger.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Coworker.COLUMN_STINGER));
+                job.bossCount.stinger.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_STINGER));
 
                 job.bossCount.maws = new GrizzCoBossKills();
-                job.bossCount.maws.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Coworker.COLUMN_MAWS));
+                job.bossCount.maws.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_MAWS));
 
                 job.bossCount.griller = new GrizzCoBossKills();
-                job.bossCount.griller.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Coworker.COLUMN_GRILLER));
+                job.bossCount.griller.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_GRILLER));
 
                 job.bossCount.drizzler = new GrizzCoBossKills();
-                job.bossCount.drizzler.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Coworker.COLUMN_DRIZZLER));
+                job.bossCount.drizzler.count = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Job.COLUMN_DRIZZLER));
 
                 job.otherResults = new ArrayList<>();
 

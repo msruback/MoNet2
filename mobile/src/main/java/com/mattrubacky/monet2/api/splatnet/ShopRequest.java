@@ -65,7 +65,7 @@ public class ShopRequest extends SplatnetRequest {
         if(!override) {
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
             Gson gson = new Gson();
-            shop = gson.fromJson(settings.getString("shopState", ""), Annie.class);
+            shop = gson.fromJson(settings.getString("shopState", "{}"), Annie.class);
             long now = new Date().getTime();
             if (shop.merch != null && shop.merch.size() > 0) {
                 if ((shop.merch.get(0).endTime * 1000) < now) {

@@ -62,7 +62,7 @@ public class CoopSchedulesRequest extends SplatnetRequest {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         long now = new Date().getTime();
-        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
+        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{}"),SalmonSchedule.class);
         boolean toReturn = true;
         if(salmonSchedule.details!=null&&salmonSchedule.details.size()>0){
             if((salmonSchedule.details.get(0).end*1000)>=now){

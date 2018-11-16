@@ -30,7 +30,7 @@ public class Wave implements Parcelable{
     @SerializedName("water_level")
     public KeyName waterLevel;
 
-    @SerializedName("eventType")
+    @SerializedName("event_type")
     public KeyName eventType;
 
     public int job;
@@ -78,7 +78,7 @@ public class Wave implements Parcelable{
     }
 
     public static ArrayList<Wave> sort(ArrayList<Wave> waves){
-        if(waves.size()==1){
+        if(waves.size()>=1){
             return waves;
         }else if(waves.size()==2){
             if(waves.get(0).num<waves.get(1).num){

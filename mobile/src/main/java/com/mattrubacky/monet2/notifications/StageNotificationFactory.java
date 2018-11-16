@@ -31,10 +31,12 @@ public class StageNotificationFactory extends NotificationFactory {
         StageNotifications stageNotifications = gson.fromJson(settings.getString("stageNotifications",""),StageNotifications.class);
 
         ArrayList<Notification> notifications = new ArrayList<>();
-        notifications.addAll(getFromTimePeriod(schedules.regular,stageNotifications.notifications));
-        notifications.addAll(getFromTimePeriod(schedules.ranked,stageNotifications.notifications));
-        notifications.addAll(getFromTimePeriod(schedules.league,stageNotifications.notifications));
-        notifications.addAll(getFromTimePeriod(schedules.splatfest,stageNotifications.notifications));
+        if(stageNotifications!=null) {
+            notifications.addAll(getFromTimePeriod(schedules.regular, stageNotifications.notifications));
+            notifications.addAll(getFromTimePeriod(schedules.ranked, stageNotifications.notifications));
+            notifications.addAll(getFromTimePeriod(schedules.league, stageNotifications.notifications));
+            notifications.addAll(getFromTimePeriod(schedules.splatfest, stageNotifications.notifications));
+        }
 
         return notifications;
     }

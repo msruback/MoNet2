@@ -66,7 +66,7 @@ public class SalmonDetailViewHolder extends RecyclerView.ViewHolder{
             imageHandler.downloadImage("salmon_stage",imageDirName,url,context);
         }
 
-        if(detail.weapons.get(0).weapon!=null&&detail.weapons.get(0).weapon.name!=null){
+        if(detail.weapons.get(0).id>=0){
             imageDirName = detail.weapons.get(0).weapon.name.toLowerCase().replace(" ","_");
             url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(0).weapon.url;
 
@@ -76,11 +76,13 @@ public class SalmonDetailViewHolder extends RecyclerView.ViewHolder{
                 Picasso.with(context).load(url).into(weapon1Image);
                 imageHandler.downloadImage("weapon",imageDirName,url,context);
             }
-        }else{
+        }else if(detail.weapons.get(0).id==-1){
             weapon1Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
+        }else if(detail.weapons.get(0).id==-2){
+            weapon1Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery_grizzco));
         }
 
-        if(detail.weapons.get(1).weapon!=null&&detail.weapons.get(1).weapon.name!=null){
+        if(detail.weapons.get(1).id>=0){
             imageDirName = detail.weapons.get(1).weapon.name.toLowerCase().replace(" ","_");
             url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(1).weapon.url;
 
@@ -90,11 +92,13 @@ public class SalmonDetailViewHolder extends RecyclerView.ViewHolder{
                 Picasso.with(context).load(url).into(weapon2Image);
                 imageHandler.downloadImage("weapon",imageDirName,url,context);
             }
-        }else{
+        }else if(detail.weapons.get(1).id==-1){
             weapon2Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
+        }else if(detail.weapons.get(1).id==-2){
+            weapon2Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery_grizzco));
         }
 
-        if(detail.weapons.get(2).weapon!=null&&detail.weapons.get(2).weapon.name!=null){
+        if(detail.weapons.get(2).id>=0){
             imageDirName = detail.weapons.get(2).weapon.name.toLowerCase().replace(" ","_");
             url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(2).weapon.url;
 
@@ -104,11 +108,13 @@ public class SalmonDetailViewHolder extends RecyclerView.ViewHolder{
                 Picasso.with(context).load(url).into(weapon3Image);
                 imageHandler.downloadImage("weapon",imageDirName,url,context);
             }
-        }else{
+        }else if(detail.weapons.get(2).id==-1){
             weapon3Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
+        }else if(detail.weapons.get(2).id==-2){
+            weapon3Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery_grizzco));
         }
 
-        if(detail.weapons.get(3).weapon!=null&&detail.weapons.get(3).weapon.name!=null){
+        if(detail.weapons.get(3).id>=0){
             imageDirName = detail.weapons.get(3).weapon.name.toLowerCase().replace(" ","_");
             url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(3).weapon.url;
 
@@ -118,8 +124,10 @@ public class SalmonDetailViewHolder extends RecyclerView.ViewHolder{
                 Picasso.with(context).load(url).into(weapon4Image);
                 imageHandler.downloadImage("weapon",imageDirName,url,context);
             }
-        }else{
+        }else if(detail.weapons.get(3).id==-1){
             weapon4Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
+        }else if(detail.weapons.get(3).id==-2){
+            weapon4Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery_grizzco));
         }
 
     }

@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.fragment;
+package com.mattrubacky.monet2.fragment.MainScreenFragments.StatFragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.splatoon.RewardGear;
 import com.mattrubacky.monet2.deserialized.splatoon.Timeline;
+import com.mattrubacky.monet2.sqlite.SplatnetContract;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,17 +29,19 @@ public class GrizzCoRewardNotificationFactory extends NotificationFactory {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         Timeline timeline = gson.fromJson(settings.getString("timeline","{}"),Timeline.class);
-        RewardGear rewardGear = timeline.currentRun.rewardGear;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(rewardGear.available*1000);
-        calendar.add(Calendar.DAY_OF_MONTH,3);
-        rewardGear.available = calendar.getTimeInMillis();
-        calendar.add(Calendar.MONTH,1);
+        RewardGear rewardGear;
+        if(timeline.currentRun!=null){
+            rewardGear = timeline.currentRun.rewardGear;
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(rewardGear.available*1000);
+            calendar.add(Calendar.DAY_OF_MONTH,3);
+            rewardGear.available = calendar.getTimeInMillis();
+            calendar.add(Calendar.MONTH,1);
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss");
+            String time = sdf.format(calendar.getTime());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss");
-        String time = sdf.format(calendar.getTime());
-
-        notifications.add(new GrizzCoRewardNotification(context,rewardGear,calendar.getTimeInMillis()));
+            notifications.add(new GrizzCoRewardNotification(context,rewardGear,calendar.getTimeInMillis()));
+        }
         return notifications;
     }
     @Override

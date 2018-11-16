@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content" android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/banner"
+        android:layout_width="325dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/banner_normal"
+        android:backgroundTint="@color/offWhite">
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_centerInParent="true"
+            android:text="600p - Capsule Earned!"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="5dp"
+        android:layout_alignRight="@+id/banner"
+        android:layout_marginRight="-10dp"
+        android:background="@drawable/shape_card"
+        android:backgroundTint="@color/rankPrimary">
+        <ImageView
+            android:id="@+id/Capsule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/capsule_food"/>
+    </RelativeLayout>
+    </RelativeLayout>

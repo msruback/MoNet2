@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/offWhiteDark">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/repeat_macaroni">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+            <RelativeLayout
+                android:id="@+id/loginLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:rotation="1">
+
+                <RelativeLayout
+                    android:id="@+id/loginHook"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/extra_hook"
+                    android:backgroundTint="@color/grey"></RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/loginCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_below="@+id/loginHook"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/grey">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/repeat_zigzag"></RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/loginTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="Login"
+                        android:textColor="@color/offWhite"
+                        android:textSize="22sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/loginCookie"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/loginTitle"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/colorPrimary">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/repeat_stripes">
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/CookieText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="Login with Cookie"
+                            android:textSize="18sp" />
+
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/login"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/loginCookie"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:alpha=".5">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/repeat_stripes">
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/LoginText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="Login with Splatnet"
+                            android:textSize="18sp" />
+
+
+                    </RelativeLayout>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

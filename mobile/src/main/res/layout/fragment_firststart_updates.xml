@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/offWhiteDark">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/repeat_macaroni">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp">
+            <RelativeLayout
+                android:id="@+id/autoUpdateLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:rotation="1">
+
+                <RelativeLayout
+                    android:id="@+id/autoUpdateHook"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/extra_hook"
+                    android:backgroundTint="@color/grey"></RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/autoUpdateCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="215dp"
+                    android:layout_below="@+id/autoUpdateHook"
+                    android:background="@drawable/shape_card"
+                    android:backgroundTint="@color/grey">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/repeat_zigzag"></RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/autoUpdateTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:text="Auto Updates"
+                        android:textColor="@color/offWhite"
+                        android:textSize="22sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/autoUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/autoUpdateTitle"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/colorPrimary">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/repeat_stripes">
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/AutoText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="Update Automatically"
+                            android:textSize="18sp" />
+
+                        <Switch
+                            android:id="@+id/AutoSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/frequency"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/autoUpdate"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/colorPrimary">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/repeat_stripes"></RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/FrequencyLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/FrequencyText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:text="Update Frequency"
+                                android:textSize="18sp" />
+
+                            <Spinner
+                                android:id="@+id/FrequencySpinner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dp"
+                                android:entries="@array/update_periods" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/onData"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/frequency"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shape_card"
+                        android:backgroundTint="@color/colorPrimary">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/repeat_stripes"></RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/DataLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/DataText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:text="Update on Data"
+                                android:textSize="18sp" />
+
+                            <Switch
+                                android:id="@+id/DataSwitch"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dp" />
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/NextButton"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:background="@drawable/shape_card"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp">
+            <TextView
+                android:id="@+id/nextText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Next"
+                android:textSize="30dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

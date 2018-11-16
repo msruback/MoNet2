@@ -39,7 +39,7 @@ public class ShiftManager {
         toInsert.put(salmonRunDetail.start, salmonRunDetail);
         for(SalmonRunWeapon weapon : salmonRunDetail.weapons){
             if(weapon.id>0){
-                weaponManager.addToInsert(weapon.weapon);
+                weaponManager.addToInsertSalmon(weapon.weapon);
             }
         }
     }
@@ -58,7 +58,7 @@ public class ShiftManager {
             ContentValues values;
             weaponManager.insert();
 
-            String whereClause = SplatnetContract.Shift._ID +" = ?";
+            String whereClause = SplatnetContract.Shift.COLUMN_START_TIME +" = ?";
             String[] args;
             Cursor cursor = null;
 
@@ -71,7 +71,7 @@ public class ShiftManager {
                 if(cursor.getCount()==0) {
                     values = new ContentValues();
 
-                    values.put(SplatnetContract.Shift._ID, shift.start);
+                    values.put(SplatnetContract.Shift.COLUMN_START_TIME, shift.start);
                     values.put(SplatnetContract.Shift.COLUMN_END_TIME, shift.end);
                     values.put(SplatnetContract.Shift.COLUMN_STAGE, shift.stage.name);
                     values.put(SplatnetContract.Shift.COLUMN_STAGE_IMAGE, shift.stage.url);
@@ -104,11 +104,11 @@ public class ShiftManager {
             args[0] = String.valueOf(toSelect.get(0));
 
             StringBuilder builder = new StringBuilder();
-            builder.append(SplatnetContract.Shift._ID + " = ?");
+            builder.append(SplatnetContract.Shift.COLUMN_START_TIME + " = ?");
 
             //build the select statement
             for (int i = 1; i < toSelect.size(); i++) {
-                builder.append(" OR " + SplatnetContract.Shift._ID + " = ?");
+                builder.append(" OR " + SplatnetContract.Shift.COLUMN_START_TIME + " = ?");
                 args[i] = String.valueOf(toSelect.get(i));
             }
 
@@ -123,7 +123,7 @@ public class ShiftManager {
                 do {
                     shift = new SalmonRunDetail();
 
-                    shift.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Shift._ID));
+                    shift.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Shift.COLUMN_START_TIME));
                     shift.end = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Shift.COLUMN_END_TIME));
                     shift.stage = new SalmonStage();
                     shift.stage.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Shift.COLUMN_STAGE));
@@ -189,7 +189,7 @@ public class ShiftManager {
             do {
                 shift = new SalmonRunDetail();
 
-                shift.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Shift._ID));
+                shift.start = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Shift.COLUMN_START_TIME));
                 shift.end = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Shift.COLUMN_END_TIME));
                 shift.stage = new SalmonStage();
                 shift.stage.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Shift.COLUMN_STAGE));
