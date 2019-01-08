@@ -23,20 +23,20 @@ public class MonthlyGearRequest extends TimelineRequest {
     }
 
     @Override
-    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
-
+    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException, SplatnetMaintenanceException {
+        super.manageResponse(response);
     }
 
     @Override
     public boolean shouldUpdate(){
         long now = new Date().getTime();
-        if(timeline.currentRun!=null&&timeline.currentRun.rewardGear!=null) {
-            if ((timeline.currentRun.rewardGear.available * 1000) < now) {
-                return true;
-
-            }
-            return false;
-        }
+//        if(timeline.currentRun!=null&&timeline.currentRun.rewardGear!=null) {
+//            if ((timeline.currentRun.rewardGear.available * 1000) < now) {
+//                return true;
+//
+//            }
+//            return false;
+//        }
 
         return true;
     }

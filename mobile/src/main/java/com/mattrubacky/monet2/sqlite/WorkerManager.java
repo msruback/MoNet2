@@ -81,9 +81,15 @@ public class WorkerManager {
                 values.put(SplatnetContract.Coworker.COLUMN_DEAD_COUNT, worker.deadCount);
                 values.put(SplatnetContract.Coworker.COLUMN_HELP_COUNT, worker.helpCount);
 
-                values.put(SplatnetContract.Coworker.COLUMN_SPECIAL_1,worker.specialCounts.get(0));
-                values.put(SplatnetContract.Coworker.COLUMN_SPECIAL_2,worker.specialCounts.get(1));
-                values.put(SplatnetContract.Coworker.COLUMN_SPECIAL_3,worker.specialCounts.get(2));
+                if(worker.specialCounts.size()>0) {
+                    values.put(SplatnetContract.Coworker.COLUMN_SPECIAL_1, worker.specialCounts.get(0));
+                    if(worker.specialCounts.size()>1) {
+                        values.put(SplatnetContract.Coworker.COLUMN_SPECIAL_2, worker.specialCounts.get(1));
+                        if(worker.specialCounts.size()>2) {
+                            values.put(SplatnetContract.Coworker.COLUMN_SPECIAL_3, worker.specialCounts.get(2));
+                        }
+                    }
+                }
 
                 values.put(SplatnetContract.Coworker.COLUMN_GOLDIE,worker.bossKillses.goldie.count);
                 values.put(SplatnetContract.Coworker.COLUMN_STEELHEAD,worker.bossKillses.steelhead.count);

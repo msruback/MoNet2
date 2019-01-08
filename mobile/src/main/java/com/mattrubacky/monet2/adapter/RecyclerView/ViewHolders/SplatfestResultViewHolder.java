@@ -80,15 +80,34 @@ public class SplatfestResultViewHolder extends RecyclerView.ViewHolder{
         alphaTeamText.setTypeface(font);
         bravoTeamText.setTypeface(font);
 
-        double alphaVotePercent = result.rates.vote.alpha/100;
-        double bravoVotePercent = result.rates.vote.bravo/100;
+        double alphaVotePercent = result.rates.vote.alpha;
+        double bravoVotePercent = result.rates.vote.bravo;
 
 
-        double alphaSoloPercent = result.rates.solo.alpha/100;
-        double bravoSoloPercent = result.rates.solo.bravo/100;
+        double alphaSoloPercent;
+        double bravoSoloPercent;
 
-        double alphaTeamPercent = result.rates.team.alpha/100;
-        double bravoTeamPercent = result.rates.team.bravo/100;
+        double alphaTeamPercent;
+        double bravoTeamPercent;
+        if(!result.rates.solo.equals(0)) {
+                alphaSoloPercent = result.rates.solo.alpha / 100;
+                bravoSoloPercent = result.rates.solo.bravo / 100;
+
+                alphaTeamPercent = result.rates.team.alpha / 100;
+                bravoTeamPercent = result.rates.team.bravo / 100;
+
+                soloTitle.setText("Solo");
+                teamTitle.setText("Team");
+        }else{
+                alphaSoloPercent = result.rates.challenge.alpha/100;
+                bravoSoloPercent = result.rates.challenge.bravo/100;
+
+                alphaTeamPercent = result.rates.regular.alpha/100;
+                bravoTeamPercent = result.rates.regular.bravo/100;
+
+                soloTitle.setText("Pro");
+                teamTitle.setText("Regular");
+        }
 
         alphaVoteText.setText(String.valueOf(alphaVotePercent)+"%");
         bravoVoteText.setText(String.valueOf(bravoVotePercent)+"%");

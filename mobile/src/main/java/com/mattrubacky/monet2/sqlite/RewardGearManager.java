@@ -22,7 +22,6 @@ class RewardGearManager {
     Context context;
     HashMap<Long,RewardGear> toInsert;
     ArrayList<Long> toSelect;
-    LoadingDialog dialog;
 
     public RewardGearManager(Context context){
         this.context = context;

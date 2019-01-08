@@ -148,7 +148,6 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
 
 
         ViewPager generalPager = (ViewPager) findViewById(R.id.GeneralStatsPager);
-        TabLayout generalDots = (TabLayout) findViewById(R.id.GeneralDots);
 
         splatfestTime.setTypeface(fontTitle);
         inkTitle.setTypeface(fontTitle);
@@ -190,7 +189,6 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
         }else{
             SplatfestPerformanceAdapter performanceAdapter = new SplatfestPerformanceAdapter(fragmentManager, splatfest, result, stats);
 
-            generalDots.setupWithViewPager(generalPager, true);
             generalPager.setAdapter(performanceAdapter);
         }
 
