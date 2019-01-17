@@ -1,85 +1,79 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:id="@+id/turfStages"
-        android:layout_width="match_parent"
-        android:layout_height="345dp"
-        android:layout_below="@+id/turfTimeSection">
-
-
-        <ImageView
-            android:id="@+id/turfStageImage1"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/stage_1" />
-        <TextView
-            android:id="@+id/turfStageName1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/turfStageImage2"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="3dp"
-            android:layout_marginEnd="19dp"
-            android:background="@drawable/shape_card"
-            android:backgroundTint="#c8343434"
-            android:paddingLeft="10dp"
-            android:padding="5dp"
-            android:paddingRight="10dp"
-            android:text="The Reef"
-            android:textColor="#e4e4e4"
-            android:textSize="22sp" />
-        <ImageView
-            android:id="@+id/turfStageImage2"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/turfStageImage1"
-            android:layout_marginTop="7dp"
-            android:src="@drawable/stage_2" />
-
-        <TextView
-            android:id="@+id/turfStageName2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/turfStageImage2"
-            android:layout_alignEnd="@+id/turfStageName1"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/shape_card"
-            android:backgroundTint="#c8343434"
-            android:paddingLeft="10dp"
-            android:padding="5dp"
-            android:paddingRight="10dp"
-            android:text="Musselforge Fitness"
-            android:textColor="#e4e4e4"
-            android:textSize="22sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/turfTimeSection"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_below="@+id/turfModeBanner"
-        android:layout_centerHorizontal="true"
         android:background="#e0e0e0"
-        android:elevation="2dp">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:elevation="2dp"
+        android:gravity="center"
+        android:text="12:00PM - 2:00PM"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="8dp" />
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/repeat_dots"
+        app:layout_constraintTop_toTopOf="@+id/time"
+        app:layout_constraintBottom_toBottomOf="@+id/time"
+        app:layout_constraintRight_toRightOf="@+id/time"
+        app:layout_constraintLeft_toLeftOf="@+id/time"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/repeat_dots" />
+    <com.mattrubacky.monet2.views.StageImage
+        android:id="@+id/stageImage1"
+        android:layout_width="0dp"
+        android:layout_height="170dp"
+        app:layout_constraintTop_toBottomOf="@+id/time"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:src="@drawable/stage_1" />
+    <TextView
+        android:id="@+id/stageName1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/stageImage1"
+        app:layout_constraintRight_toRightOf="@+id/stageImage1"
+        app:layout_constraintLeft_toLeftOf="@+id/stageImage1"
+        android:background="#c8343434"
+        android:paddingLeft="10dp"
+        android:padding="5dp"
+        android:paddingRight="10dp"
+        android:text="The Reef"
+        android:textColor="#e4e4e4"
+        android:textSize="22sp" />
+    <com.mattrubacky.monet2.views.StageImage
+        android:id="@+id/stageImage2"
+        android:layout_width="0dp"
+        android:layout_height="170dp"
+        app:layout_constraintTop_toBottomOf="@+id/stageImage1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_below="@+id/stageImage1"
+        android:src="@drawable/stage_2" />
+    <TextView
+        android:id="@+id/stageName2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/stageImage2"
+        app:layout_constraintRight_toRightOf="@+id/stageImage2"
+        app:layout_constraintLeft_toLeftOf="@+id/stageImage2"
+        android:background="#c8343434"
+        android:paddingLeft="10dp"
+        android:padding="5dp"
+        android:paddingRight="10dp"
+        android:text="Musselforge Fitness"
+        android:textColor="#e4e4e4"
+        android:textSize="22sp" />
 
-        <TextView
-            android:id="@+id/turfTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-5dp"
-            android:text="12:00PM - 2:00PM"
-            android:textSize="22sp"/>
-    </RelativeLayout>
 
-</RelativeLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

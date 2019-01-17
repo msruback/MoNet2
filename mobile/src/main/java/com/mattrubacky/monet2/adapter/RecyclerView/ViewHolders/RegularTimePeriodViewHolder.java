@@ -41,11 +41,11 @@ public class RegularTimePeriodViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        time = (TextView) itemView.findViewById(R.id.turfTime);
-        title1 = (TextView) itemView.findViewById(R.id.turfStageName1);
-        title2 = (TextView) itemView.findViewById(R.id.turfStageName2);
-        image1 = (ImageView) itemView.findViewById(R.id.turfStageImage1);
-        image2 = (ImageView) itemView.findViewById(R.id.turfStageImage2);
+        time = (TextView) itemView.findViewById(R.id.time);
+        title1 = (TextView) itemView.findViewById(R.id.stageName1);
+        title2 = (TextView) itemView.findViewById(R.id.stageName2);
+        image1 = (ImageView) itemView.findViewById(R.id.stageImage1);
+        image2 = (ImageView) itemView.findViewById(R.id.stageImage2);
     }
 
     public void manageHolder(TimePeriod timePeriod){

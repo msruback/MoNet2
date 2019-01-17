@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="30dp"
     android:paddingBottom="15dp">
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/card"
         android:layout_width="300dp"
         android:layout_height="320dp"
@@ -14,154 +16,164 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp">
         <ImageView
+            android:id="@+id/product"
             android:layout_width="120dp"
             android:layout_height="30dp"
             android:src="@drawable/extra_calendar"
-            android:layout_marginTop="-1dp"
-            android:layout_centerHorizontal="true"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/repeat_spots"
-            android:paddingTop="40dp">
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_centerHorizontal="true" />
+
+
+            <ImageView
+                android:id="@+id/StageImage"
+                android:layout_width="0dp"
+                android:layout_height="170dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/stage_lost_outpost" />
 
             <RelativeLayout
-                android:id="@+id/stageLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/shape_card"
+                android:backgroundTint="@color/transparentgrey"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/StageImage"
+                app:layout_constraintRight_toRightOf="@+id/StageImage"
+                android:layout_marginEnd="5dp">
 
-                <ImageView
-                    android:id="@+id/StageImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:src="@drawable/stage_lost_outpost" />
-
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/StageName"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="110dp"
-                    android:background="@drawable/shape_card"
-                    android:backgroundTint="@color/transparentgrey"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp">
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Marooner's Bay"
+                    android:textColor="@color/offWhite"
+                    android:textSize="16sp" />
+            </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/StageName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="Marooner's Bay"
-                        android:textColor="@color/offWhite"
-                        android:textSize="16sp" />
-                </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/timeLayout"
+                android:layout_width="270dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/banner_salmon"
+                android:backgroundTint="@color/salmonAccent"
+                android:elevation="3dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/StageImage">
+
+                <TextView
+                    android:id="@+id/Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="7dp"
+                    android:text="11/9 7 AM to 11/10 7 AM"
+                    android:textColor="@color/offWhite"
+                    android:textSize="15sp" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/stageLayout">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/timeLayout">
 
                 <RelativeLayout
-                    android:id="@+id/timeLayout"
-                    android:layout_width="270dp"
-                    android:layout_height="35dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/banner_salmon"
-                    android:backgroundTint="@color/salmonAccent"
+                    android:id="@+id/weapon1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/salmon_egg"
                     android:elevation="3dp">
 
-                    <TextView
-                        android:id="@+id/Time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="7dp"
-                        android:text="11/9 7 AM to 11/10 7 AM"
-                        android:textColor="@color/offWhite"
-                        android:textSize="15sp" />
+                    <ImageView
+                        android:id="@+id/Weapon1Image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/weapon_sloshing_machine" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/timeLayout"
-                    android:layout_centerHorizontal="true">
+                    android:id="@+id/weapon2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/weapon1"
+                    android:background="@drawable/salmon_egg"
+                    android:elevation="3dp">
 
-                    <RelativeLayout
-                        android:id="@+id/weapon1"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/salmon_egg"
-                        android:elevation="3dp">
-
-                        <ImageView
-                            android:id="@+id/Weapon1Image"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/weapon_sloshing_machine" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/weapon2"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@+id/weapon1"
-                        android:background="@drawable/salmon_egg"
-                        android:elevation="3dp">
-
-                        <ImageView
-                            android:id="@+id/Weapon2Image"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/weapon_sloshing_machine" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/weapon3"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@+id/weapon2"
-                        android:background="@drawable/salmon_egg"
-                        android:elevation="3dp">
-
-                        <ImageView
-                            android:id="@+id/Weapon3Image"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/weapon_sloshing_machine" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/weapon4"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@+id/weapon3"
-                        android:background="@drawable/salmon_egg"
-                        android:elevation="3dp">
-
-                        <ImageView
-                            android:id="@+id/Weapon4Image"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_centerInParent="true"
-                            android:src="@drawable/weapon_sloshing_machine" />
-                    </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/Weapon2Image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/weapon_sloshing_machine" />
                 </RelativeLayout>
-            </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/weapon3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/weapon2"
+                    android:background="@drawable/salmon_egg"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/Weapon3Image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/weapon_sloshing_machine" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/weapon4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/weapon3"
+                    android:background="@drawable/salmon_egg"
+                    android:elevation="3dp">
+
+                    <ImageView
+                        android:id="@+id/Weapon4Image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/weapon_sloshing_machine" />
+                </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/repeat_spots"
+            android:paddingTop="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </RelativeLayout>

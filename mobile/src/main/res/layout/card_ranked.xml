@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/Ranked"
         android:layout_width="300dp"
-        android:layout_height="500dp"
+        android:layout_height="530dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
         android:background="@drawable/shape_card"
@@ -19,18 +19,19 @@
             android:id="@+id/rankedProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="3dp"
             android:src="@drawable/extra_product" />
 
         <RelativeLayout
             android:id="@+id/rankedGreyBottom"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="100dp"
+            android:layout_width="0dp"
+            android:layout_height="430dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:background="@drawable/shape_card"
             android:backgroundTint="@color/grey">
 
@@ -44,44 +45,35 @@
 
         <RelativeLayout
             android:id="@+id/rankedStripes"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:background="@drawable/repeat_stripes">
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="390dp"
-            android:layout_alignTop="@+id/rankedGreyBottom">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/RankedPager"
-                android:layout_width="match_parent"
-                android:layout_height="370dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/RankedPager"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rankedGreyBottom">
+        </android.support.v7.widget.RecyclerView>
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/RankDots"
-                app:tabBackground="@drawable/tab_rank_selector"
-                app:tabGravity="center"
-                app:tabIndicatorHeight="0dp"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="380dp" />
-        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rankModeBanner"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:layout_alignParentStart="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rankedProduct"
+            android:layout_marginTop="5dp"
             android:layout_below="@+id/rankedProduct"
-            android:layout_marginTop="7dp"
             android:background="@drawable/banner_ink_left"
             android:backgroundTint="@color/rankAccent">
 
@@ -105,5 +97,5 @@
                 android:textSize="30dp" />
         </RelativeLayout>
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 </RelativeLayout>

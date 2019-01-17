@@ -1,112 +1,96 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:id="@+id/rankedTimeSection"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:background="#e0e0e0"
-        android:elevation="3dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/repeat_dots">
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/rankTime"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="-5dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="12:00PM - 2:00PM"
-            android:textSize="22sp" />
+        android:elevation="3dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="12:00PM - 2:00PM"
+        android:textSize="20sp" />
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/repeat_dots"
+        app:layout_constraintRight_toRightOf="@+id/time"
+        app:layout_constraintLeft_toLeftOf="@+id/time"
+        app:layout_constraintTop_toTopOf="@+id/time"
+        app:layout_constraintBottom_toBottomOf="@+id/time">
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rankModeSection"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/mode"
+        android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/rankedTimeSection"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time"
+        android:gravity="center"
         android:background="#aa00ff"
-        android:elevation="2dp">
-
-        <TextView
-            android:id="@+id/rankMode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:elevation="2dp"
-            android:layout_marginTop="-5dp"
-            android:text="Rainmaker"
-            android:textColor="#e4e4e4"
-            android:textSize="22sp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/repeat_spots" />
-    </RelativeLayout>
+        android:elevation="2dp"
+        android:text="Rainmaker"
+        android:textColor="#e4e4e4"
+        android:textSize="20sp" />
 
     <RelativeLayout
-        android:id="@+id/rankedData"
-        android:layout_width="match_parent"
-        android:layout_height="390dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/rankModeSection">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/repeat_spots"
+        app:layout_constraintRight_toRightOf="@+id/mode"
+        app:layout_constraintLeft_toLeftOf="@+id/mode"
+        app:layout_constraintTop_toTopOf="@+id/mode"
+        app:layout_constraintBottom_toBottomOf="@+id/mode"/>
 
+    <ImageView
+        android:id="@+id/stageImage1"
+        android:layout_width="0dp"
+        android:layout_height="170dp"
+        app:layout_constraintTop_toBottomOf="@+id/mode"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:src="@drawable/stage_1" />
 
-        <ImageView
-            android:id="@+id/rankStageImage1"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/stage_1" />
+    <TextView
+        android:id="@+id/stageName1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/stageImage1"
+        app:layout_constraintRight_toRightOf="@+id/stageImage1"
+        app:layout_constraintLeft_toLeftOf="@+id/stageImage1"
+        android:background="#c8343434"
+        android:paddingLeft="10dp"
+        android:padding="5dp"
+        android:paddingRight="10dp"
+        android:text="The Reef"
+        android:textColor="#e4e4e4"
+        android:textSize="22sp" />
+
+    <ImageView
+        android:id="@+id/stageImage2"
+        android:layout_width="0dp"
+        android:layout_height="170dp"
+        app:layout_constraintTop_toBottomOf="@+id/stageImage1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:src="@drawable/stage_2" />
 
         <TextView
-            android:id="@+id/rankStageName1"
-            android:layout_width="wrap_content"
+            android:id="@+id/stageName2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/rankStageImage2"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="3dp"
-            android:layout_marginEnd="19dp"
-            android:background="@drawable/shape_card"
-            android:backgroundTint="#c8343434"
-            android:paddingLeft="10dp"
-            android:padding="5dp"
-            android:paddingRight="10dp"
-            android:text="The Reef"
-            android:textColor="#e4e4e4"
-            android:textSize="22sp" />
-
-        <ImageView
-            android:id="@+id/rankStageImage2"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/rankStageImage1"
-            android:layout_marginTop="7dp"
-            android:src="@drawable/stage_2" />
-
-        <TextView
-            android:id="@+id/rankStageName2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/rankStageImage2"
-            android:layout_alignEnd="@+id/rankStageName1"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/shape_card"
-            android:backgroundTint="#c8343434"
+            app:layout_constraintBottom_toBottomOf="@+id/stageImage2"
+            app:layout_constraintRight_toRightOf="@+id/stageImage2"
+            app:layout_constraintLeft_toLeftOf="@+id/stageImage2"
+            android:background="#c8343434"
             android:paddingLeft="10dp"
             android:padding="5dp"
             android:paddingRight="10dp"
@@ -114,6 +98,5 @@
             android:textColor="#e4e4e4"
             android:textSize="22sp" />
 
-    </RelativeLayout>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

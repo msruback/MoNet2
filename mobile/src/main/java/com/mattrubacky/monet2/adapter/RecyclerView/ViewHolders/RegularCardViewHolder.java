@@ -35,7 +35,6 @@ public class RegularCardViewHolder extends RecyclerView.ViewHolder{
         turfWarTitle = (TextView) itemView.findViewById(R.id.turfWarName);
 
         TurfPager = (RecyclerView) itemView.findViewById(R.id.TurfPager);
-        turfDots = (TabLayout) itemView.findViewById(R.id.TurfDots);
     }
 
     public void manageHolder(ArrayList<TimePeriod> timePeriods){

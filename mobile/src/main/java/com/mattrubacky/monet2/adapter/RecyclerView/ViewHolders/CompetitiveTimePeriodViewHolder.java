@@ -41,13 +41,13 @@ public class CompetitiveTimePeriodViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        time = (TextView) itemView.findViewById(R.id.rankTime);
-        mode = (TextView) itemView.findViewById(R.id.rankMode);
-        title1 = (TextView) itemView.findViewById(R.id.rankStageName1);
-        title2 = (TextView) itemView.findViewById(R.id.rankStageName2);
+        time = (TextView) itemView.findViewById(R.id.time);
+        mode = (TextView) itemView.findViewById(R.id.mode);
+        title1 = (TextView) itemView.findViewById(R.id.stageName1);
+        title2 = (TextView) itemView.findViewById(R.id.stageName2);
 
-        image1 = (ImageView) itemView.findViewById(R.id.rankStageImage1);
-        image2 = (ImageView) itemView.findViewById(R.id.rankStageImage2);
+        image1 = (ImageView) itemView.findViewById(R.id.stageImage1);
+        image2 = (ImageView) itemView.findViewById(R.id.stageImage2);
     }
 
     public void manageHolder(TimePeriod timePeriod){
