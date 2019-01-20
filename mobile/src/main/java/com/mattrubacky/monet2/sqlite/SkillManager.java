@@ -52,6 +52,35 @@ class SkillManager {
         }
     }
 
+    public void update(Skill skill){
+        SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        Object[] keys = toInsert.keySet().toArray();
+
+        String whereClause = SplatnetContract.Skill._ID +" = ?";
+        String[] args;
+        Cursor cursor = null;
+
+            args = new String[] {String.valueOf(skill.id)};
+
+                values.put(SplatnetContract.Skill._ID, skill.id);
+                values.put(SplatnetContract.Skill.COLUMN_NAME, skill.name);
+                values.put(SplatnetContract.Skill.COLUMN_URL, skill.url);
+
+                if ((skill.id > 100&& skill.id < 200)||(skill.id ==13)||(skill.id==12)) {
+                    values.put(SplatnetContract.Skill.COLUMN_CHUNKABLE, false);
+                } else {
+                    values.put(SplatnetContract.Skill.COLUMN_CHUNKABLE, true);
+                }
+
+                database.update(SplatnetContract.Skill.TABLE_NAME, values,whereClause,args);
+        database.close();
+        if(cursor!=null){
+            cursor.close();
+        }
+    }
+
     public void insert(){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -74,7 +103,7 @@ class SkillManager {
                 values.put(SplatnetContract.Skill.COLUMN_NAME, skill.name);
                 values.put(SplatnetContract.Skill.COLUMN_URL, skill.url);
 
-                if (skill.id > 13) {
+                if ((skill.id > 100 && skill.id < 200)||(skill.id ==13)||(skill.id==12)) {
                     values.put(SplatnetContract.Skill.COLUMN_CHUNKABLE, false);
                 } else {
                     values.put(SplatnetContract.Skill.COLUMN_CHUNKABLE, true);

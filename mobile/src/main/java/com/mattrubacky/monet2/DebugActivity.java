@@ -23,16 +23,8 @@ public class DebugActivity extends AppCompatActivity {
 
         SplatnetSQLManager database = new SplatnetSQLManager(this);
 
-        RewardGear rewardGear = new RewardGear();
-        rewardGear.gear = new Gear();
-        rewardGear.available = 1541030400;
-        rewardGear.gear.id = 21007;
-        rewardGear.gear.kind = "head";
-        database.insertRewardGear(rewardGear);
-        rewardGear.available = 1538352000;
-        rewardGear.gear.id = 21008;
-        rewardGear.gear.kind = "clothes";
-        database.insertRewardGear(rewardGear);
+        database.updateSkills();
+
         Intent intent = new Intent(DebugActivity.this,MainActivity.class);
         startActivity(intent);
     }

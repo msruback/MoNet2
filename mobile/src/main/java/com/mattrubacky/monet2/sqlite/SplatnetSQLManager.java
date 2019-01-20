@@ -188,6 +188,19 @@ public class SplatnetSQLManager {
         return playerManager.selectStats(id,type);
     }
 
+    public void updateSkills(){
+        SkillManager skillManager = new SkillManager(context);
+        skillManager.addToSelect(12);
+        skillManager.addToSelect(13);
+        skillManager.addToSelect(200);
+        skillManager.addToSelect(201);
+        HashMap<Integer,Skill> skills = skillManager.select();
+        skillManager.update(skills.get(12));
+        skillManager.update(skills.get(13));
+        skillManager.update(skills.get(200));
+        skillManager.update(skills.get(201));
+    }
+
     //Gear
     public void insertGear(ArrayList<Gear> gear){
         GearManager gearManager = new GearManager(context);
