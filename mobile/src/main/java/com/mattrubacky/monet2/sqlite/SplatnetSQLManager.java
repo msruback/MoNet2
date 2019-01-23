@@ -198,7 +198,7 @@ public class SplatnetSQLManager {
         skillManager.update(skills.get(12));
         skillManager.update(skills.get(13));
         skillManager.update(skills.get(200));
-        skillManager.update(skills.get(201));
+        skillManager.update(skills.get(2001));
     }
 
     //Gear
