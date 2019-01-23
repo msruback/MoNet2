@@ -13,8 +13,41 @@
     <string name="battleList">Kämpfe</string>
     <string name="settings">Einstellungen</string>
 
+
+    //Modes
+    <string name="turfWarShort">TW</string>
+    <string name="rainmakerShort">R</string>
+    <string name="splatzoneShort">SZ</string>
+    <string name="towerControlShort">TC</string>
+    <string name="clamBlitzShort">CB</string>
+    <string name="turfWar">Turf War</string>
+    <string name="rainmaker">Rainmaker</string>
+    <string name="splatzone">Splat Zones</string>
+    <string name="towerControl">Tower Control</string>
+    <string name="clamBlitz">Clam Blitz</string>
+    <string name="leaguePair">League Pair</string>
+    <string name="leagueTeam">League Team</string>
+    <string name="privateMode">Private</string>
+    <string name="fesPro">Pro</string>
+    <string name="fesNormal">Normal</string>
+    <string name="fesSolo">Solo</string>
+    <string name="fesTeam">Team</string>
+    <string name="tenTimes">10x</string>
+    <string name="hundredTimes">100x</string>
+
+    //Salmon Run
+    <string name="lowTide">Low</string>
+    <string name="normalTide">Normal</string>
+    <string name="highTide">High</string>
+    <string name="cohockCharge">Cohock Charge</string>
+    <string name="fog">Fog</string>
+    <string name="griller">Griller</string>
+    <string name="rush">Salmonid Rush</string>
+    <string name="theMothership">The Mothership</string>
+    <string name="goldieSeeking">Goldie Seek</string>
+
     //Rotation Frag
-    <string name="turfWar">Revierkampf</string>
+    <string name="regular">Revierkampf</string>
     <string name="rank">Rangkampf</string>
     <string name="league">Ligakampf</string>
     <string name="splatfest">Splatfest</string>
@@ -23,6 +56,7 @@
     //Dialogs
     <string name="dataError">Verbindung zu Splatnet konnte nicht hergestellt werden</string>
     <string name="badCookie">Authentifizierungsfehler: Erhalte einen neuen Browser-Cookie</string>
+    <string name="splatnetMaintenance">Error: Splatnet is down for Maintenance</string>
     <string name="loading">Wird geladen</string>
 
     //Shop Frag
@@ -45,6 +79,9 @@
     //Stats
     <string name="totalInked">Total Inked</string>
     <string name="lastUsed">Last Used</string>
+    <string name="lastPlayed">Last Played</string>
+    <string name="firstPlayed">First Played</string>
+    <string name="noStats">Stats cannot be calculated until five games are recorded.</string>
 
     //Splatfest Stats
     <string name="votes">Votes</string>
@@ -61,6 +98,10 @@
     //CampaignStats
     <string name="world">World</string>
     <string name="complete">Achevée</string>
+
+    //BattleFrag
+    <string name="victory">VICTORY</string>
+    <string name="defeat">DEFEAT</string>
 
     //SettingsFrag
     <string name="updateTitle">Auto Updates</string>
