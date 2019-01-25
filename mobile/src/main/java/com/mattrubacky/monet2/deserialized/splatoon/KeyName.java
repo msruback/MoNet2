@@ -78,6 +78,9 @@ public class KeyName implements Parcelable{
             case "gachi":
                 name = context.getString(R.string.rank);
                 break;
+            case "league":
+                name = context.getString(R.string.league);
+                break;
             case "league_pair":
                 name = context.getString(R.string.leaguePair);
                 break;

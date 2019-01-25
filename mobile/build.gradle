@@ -25,6 +25,10 @@ android {
 
 dependencies {
     def lifecycle_version = "2.0.0"
+    def room_version = "2.1.0-alpha03"
+    def paging_version = "2.1.0-rc01"
+    def nav_version = "1.0.0-alpha11"
+    def work_version = "1.0.0-beta02"
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -35,6 +39,17 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    testImplementation "androidx.room:room-testing:$room_version"
+
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
+    implementation "android.arch.navigation:navigation-fragment:$nav_version"
+    implementation "android.arch.navigation:navigation-ui:$nav_version"
+
+    implementation "android.arch.work:work-runtime:$work_version"
 
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.rooms.entity.StageRoom;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -24,6 +25,10 @@ public class Stage implements Parcelable {
     //The name of the Stage
     @SerializedName("name")
     public String name;
+
+    public StageRoom toRoom(){
+        return new StageRoom(id,url,name);
+    }
 
     protected Stage(Parcel in) {
         id = in.readInt();

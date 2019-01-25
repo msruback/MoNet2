@@ -1,19 +1,18 @@
 package com.mattrubacky.monet2.api.splatnet;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 
-import com.google.gson.Gson;
-import com.mattrubacky.monet2.deserialized.splatoon.CurrentSplatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.Schedules;
 import com.mattrubacky.monet2.deserialized.splatoon.Stage;
-import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
+import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
+import com.mattrubacky.monet2.rooms.SplatnetDatabase;
+import com.mattrubacky.monet2.rooms.entity.TimePeriodRoom;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.List;
 
 import retrofit2.Response;
 
@@ -25,72 +24,55 @@ public class SchedulesRequest extends SplatnetRequest {
 
     private Context context;
     private ActiveSplatfestRequest splatfestRequest;
-    private Schedules schedules;
 
     public SchedulesRequest(Context context){
         this.context = context;
         splatfestRequest = new ActiveSplatfestRequest(context);
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        Gson gson = new Gson();
-        schedules = gson.fromJson(settings.getString("rotationState","{\"regular\":[],\"gachi\":[],\"league\":[],\"fes\":[]}"),Schedules.class);
     }
 
     @Override
     protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException,SplatnetMaintenanceException {
-        schedules = (Schedules) response.body();
-        SplatnetSQLManager database = new SplatnetSQLManager(context);
-        ArrayList<Stage> stages = new ArrayList<>();
-        for(int i=0;i<schedules.regular.size();i++){
-            stages.add(schedules.regular.get(i).a);
-            stages.add(schedules.regular.get(i).b);
-
-            stages.add(schedules.ranked.get(i).a);
-            stages.add(schedules.ranked.get(i).b);
-
-            stages.add(schedules.league.get(i).a);
-            stages.add(schedules.league.get(i).b);
+        Schedules schedules = (Schedules) response.body();
+        if(schedules.regular!=null) {
+            for(TimePeriod timePeriod :schedules.regular){
+                SplatnetDatabase.getInstance(context).getTimePeriodDao().insert(timePeriod.toRoom());
+                SplatnetDatabase.getInstance(context).getStageDao().insert(timePeriod.a.toRoom());
+                SplatnetDatabase.getInstance(context).getStageDao().insert(timePeriod.b.toRoom());
+            }
         }
-        database.insertStages(stages);
-
-        splatfestRequest.run();
-        CurrentSplatfest currentSplatfest = splatfestRequest.result(new Bundle()).getParcelable("currentSplatfest");
-        if(currentSplatfest.splatfests.size()>0){
-            schedules.setSplatfest(currentSplatfest.splatfests.get(0));
+        if(schedules.ranked!=null) {
+            for(TimePeriod timePeriod :schedules.ranked){
+                SplatnetDatabase.getInstance(context).getTimePeriodDao().insert(timePeriod.toRoom());
+                SplatnetDatabase.getInstance(context).getStageDao().insert(timePeriod.a.toRoom());
+                SplatnetDatabase.getInstance(context).getStageDao().insert(timePeriod.b.toRoom());
+            }
         }
-
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor edit = settings.edit();
-        Gson gson = new Gson();
-
-        String json = gson.toJson(schedules);
-        edit.putString("rotationState",json);
-        edit.commit();
+        if(schedules.league!=null) {
+            for(TimePeriod timePeriod :schedules.league){
+                SplatnetDatabase.getInstance(context).getTimePeriodDao().insert(timePeriod.toRoom());
+                SplatnetDatabase.getInstance(context).getStageDao().insert(timePeriod.a.toRoom());
+                SplatnetDatabase.getInstance(context).getStageDao().insert(timePeriod.b.toRoom());
+            }
+        }
+        if(schedules.splatfest!=null) {
+            for(TimePeriod timePeriod :schedules.splatfest){
+                SplatnetDatabase.getInstance(context).getTimePeriodDao().insert(timePeriod.toRoom());
+                SplatnetDatabase.getInstance(context).getStageDao().insert(timePeriod.a.toRoom());
+                SplatnetDatabase.getInstance(context).getStageDao().insert(timePeriod.b.toRoom());
+            }
+        }
     }
 
     @Override
     public boolean shouldUpdate(){
-        long now = new Date().getTime();
-        boolean toReturn = true;
-        if(schedules.regular!=null&&schedules.regular.size()>0&&schedules.splatfest!=null&&schedules.splatfest.size()>0){
-            if(schedules.regular.get(0).end>schedules.splatfest.get(0).end){
-                if((schedules.splatfest.get(0).end*1000)>=now){
-                    toReturn = false;
-                }
-            }else{
-                if((schedules.regular.get(0).end*1000)>=now){
-                    toReturn = false;
-                }
+        List<TimePeriodRoom> roomList = SplatnetDatabase.getInstance(context).getTimePeriodDao().selectOld(Calendar.getInstance().getTimeInMillis());
+        if(roomList.size()>0){
+            for(TimePeriodRoom room : roomList){
+                SplatnetDatabase.getInstance(context).getTimePeriodDao().delete(room);
             }
-        }else if(schedules.regular!=null&&schedules.regular.size()>0){
-            if((schedules.regular.get(0).end*1000)>=now){
-                toReturn = false;
-            }
-        }else if(schedules.splatfest!=null&&schedules.splatfest.size()>0){
-            if((schedules.splatfest.get(0).end*1000)>=now){
-                toReturn = false;
-            }
+            return true;
         }
-        return toReturn;
+        return false;
     }
 
     @Override
@@ -103,7 +85,6 @@ public class SchedulesRequest extends SplatnetRequest {
 
     @Override
     public Bundle result(Bundle bundle) {
-        bundle.putParcelable("schedules",schedules);
         return splatfestRequest.result(bundle);
     }
 }

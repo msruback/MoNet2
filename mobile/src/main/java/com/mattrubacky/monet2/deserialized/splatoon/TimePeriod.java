@@ -4,6 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.rooms.SplatnetDatabase;
+import com.mattrubacky.monet2.rooms.entity.TimePeriodRoom;
+
+import java.sql.Date;
+import java.util.Calendar;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -36,6 +41,28 @@ public class TimePeriod implements Parcelable {
     //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
     @SerializedName("end_time")
     public Long end;
+
+    public TimePeriodRoom toRoom(){
+        int bias = 0;
+        switch (gamemode.key){
+            case "regular":
+                bias=0;
+                break;
+            case "gachi":
+                bias = 100;
+                break;
+            case "league":
+                bias = 200;
+                break;
+            default:
+                bias = 300;
+                break;
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date(start));
+        int id = cal.get(Calendar.HOUR_OF_DAY)+bias;
+        return new TimePeriodRoom(id,start,end,rule.key,gamemode.key,a.id,b.id);
+    }
 
     protected TimePeriod(Parcel in) {
         gamemode = in.readParcelable(KeyName.class.getClassLoader());
