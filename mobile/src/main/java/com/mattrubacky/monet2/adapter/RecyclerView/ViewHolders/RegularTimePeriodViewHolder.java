@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,8 @@ import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StageStats;
 import com.squareup.picasso.Picasso;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,8 +33,8 @@ import java.util.Date;
 
 public class RegularTimePeriodViewHolder extends RecyclerView.ViewHolder{
 
-    public TextView time,title1,title2;
-    public ImageView image1,image2;
+    private TextView time,title1,title2;
+    private ImageView image1,image2;
     private Context context;
 
     public RegularTimePeriodViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
@@ -41,11 +42,11 @@ public class RegularTimePeriodViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        time = (TextView) itemView.findViewById(R.id.time);
-        title1 = (TextView) itemView.findViewById(R.id.stageName1);
-        title2 = (TextView) itemView.findViewById(R.id.stageName2);
-        image1 = (ImageView) itemView.findViewById(R.id.stageImage1);
-        image2 = (ImageView) itemView.findViewById(R.id.stageImage2);
+        time = itemView.findViewById(R.id.time);
+        title1 = itemView.findViewById(R.id.stageName1);
+        title2 = itemView.findViewById(R.id.stageName2);
+        image1 = itemView.findViewById(R.id.stageImage1);
+        image2 = itemView.findViewById(R.id.stageImage2);
     }
 
     public void manageHolder(TimePeriod timePeriod){

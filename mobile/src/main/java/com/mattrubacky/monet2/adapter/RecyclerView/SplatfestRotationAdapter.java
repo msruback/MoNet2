@@ -1,13 +1,15 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SplatfestTimePeriodViewHolder;
 import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -28,10 +30,10 @@ public class SplatfestRotationAdapter extends RecyclerView.Adapter<SplatfestTime
         this.splatfest = splatfest;
         this.context = context;
     }
+    @NonNull
     @Override
-    public SplatfestTimePeriodViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        SplatfestTimePeriodViewHolder viewHolder = new SplatfestTimePeriodViewHolder(inflater,parent,context);
-        return viewHolder;
+    public SplatfestTimePeriodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new SplatfestTimePeriodViewHolder(inflater,parent,context);
     }
 
     @Override

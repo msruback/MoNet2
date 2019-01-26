@@ -1,12 +1,14 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.RegularTimePeriodViewHolder;
 import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -25,14 +27,14 @@ public class RegularRotationAdapter extends RecyclerView.Adapter<RegularTimePeri
         this.input = input;
         this.context = context;
     }
+    @NonNull
     @Override
-    public RegularTimePeriodViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RegularTimePeriodViewHolder viewHolder = new RegularTimePeriodViewHolder(inflater,parent,context);
-        return viewHolder;
+    public RegularTimePeriodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new RegularTimePeriodViewHolder(inflater,parent,context);
     }
 
     @Override
-    public void onBindViewHolder(final RegularTimePeriodViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final RegularTimePeriodViewHolder holder, final int position) {
         TimePeriod timePeriod = input.get(position);
         holder.manageHolder(timePeriod);
     }

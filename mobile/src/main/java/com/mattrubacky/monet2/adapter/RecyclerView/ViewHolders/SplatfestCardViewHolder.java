@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -17,6 +14,10 @@ import com.mattrubacky.monet2.adapter.RecyclerView.SplatfestRotationAdapter;
 import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 /**
@@ -25,9 +26,9 @@ import java.util.ArrayList;
 
 public class SplatfestCardViewHolder extends RecyclerView.ViewHolder{
 
-    public RecyclerView SplatfestPager;
-    public TextView splatfestTitle;
-    RelativeLayout fesCard,fesBanner,Alpha,Bravo;
+    private RecyclerView SplatfestPager;
+    private TextView splatfestTitle;
+    private RelativeLayout fesCard,fesBanner,Alpha,Bravo;
     public Context context;
 
     public SplatfestCardViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
@@ -35,13 +36,13 @@ public class SplatfestCardViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        splatfestTitle = (TextView) itemView.findViewById(R.id.fesName);
+        splatfestTitle = itemView.findViewById(R.id.fesName);
 
-        SplatfestPager = (RecyclerView) itemView.findViewById(R.id.FesPager);
-        fesCard = (RelativeLayout) itemView.findViewById(R.id.Festival);
-        fesBanner = (RelativeLayout) itemView.findViewById(R.id.fesModeBanner);
-        Alpha = (RelativeLayout) itemView.findViewById(R.id.Alpha);
-        Bravo = (RelativeLayout) itemView.findViewById(R.id.Bravo);
+        SplatfestPager = itemView.findViewById(R.id.FesPager);
+        fesCard = itemView.findViewById(R.id.Festival);
+        fesBanner = itemView.findViewById(R.id.fesModeBanner);
+        Alpha = itemView.findViewById(R.id.Alpha);
+        Bravo = itemView.findViewById(R.id.Bravo);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(SplatfestPager);
     }

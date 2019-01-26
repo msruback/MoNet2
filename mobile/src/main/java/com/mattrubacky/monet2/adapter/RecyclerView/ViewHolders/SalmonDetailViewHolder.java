@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,6 +12,8 @@ import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -21,8 +22,8 @@ import java.text.SimpleDateFormat;
 
 public class SalmonDetailViewHolder extends RecyclerView.ViewHolder{
 
-    public TextView time,stageName;
-    public ImageView stageImage,weapon1Image,weapon2Image,weapon3Image,weapon4Image;
+    private TextView time,stageName;
+    private ImageView stageImage,weapon1Image,weapon2Image,weapon3Image,weapon4Image;
     private Context context;
 
     public SalmonDetailViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
@@ -30,14 +31,14 @@ public class SalmonDetailViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        time = (TextView) itemView.findViewById(R.id.Time);
-        stageName = (TextView) itemView.findViewById(R.id.StageName);
+        time = itemView.findViewById(R.id.Time);
+        stageName = itemView.findViewById(R.id.StageName);
 
-        stageImage = (ImageView) itemView.findViewById(R.id.StageImage);
-        weapon1Image = (ImageView) itemView.findViewById(R.id.Weapon1Image);
-        weapon2Image = (ImageView) itemView.findViewById(R.id.Weapon2Image);
-        weapon3Image = (ImageView) itemView.findViewById(R.id.Weapon3Image);
-        weapon4Image = (ImageView) itemView.findViewById(R.id.Weapon4Image);
+        stageImage = itemView.findViewById(R.id.StageImage);
+        weapon1Image = itemView.findViewById(R.id.Weapon1Image);
+        weapon2Image = itemView.findViewById(R.id.Weapon2Image);
+        weapon3Image = itemView.findViewById(R.id.Weapon3Image);
+        weapon4Image = itemView.findViewById(R.id.Weapon4Image);
     }
 
     public void manageHolder(SalmonRunDetail detail){

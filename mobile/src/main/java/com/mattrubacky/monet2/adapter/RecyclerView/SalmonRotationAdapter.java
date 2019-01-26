@@ -1,7 +1,6 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,6 +9,8 @@ import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ListViewViewHolde
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SalmonDetailViewHolder;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonRun;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 

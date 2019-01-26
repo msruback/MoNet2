@@ -2,14 +2,15 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.SalmonRotationAdapter;
@@ -24,20 +25,20 @@ import com.squareup.picasso.Picasso;
 
 public class SalmonRunCardViewHolder extends RecyclerView.ViewHolder{
 
-    public RelativeLayout salmonRun;
-    public RecyclerView salmonPager;
-    public TextView salmonTitle;
-    public ImageView currentGear;
+    private RelativeLayout salmonRun;
+    private RecyclerView salmonPager;
+    private TextView salmonTitle;
+    private ImageView currentGear;
     private Context context;
 
     public SalmonRunCardViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
         super(inflater.inflate(R.layout.card_salmon, parent, false));
         this.context = context;
 
-        salmonRun = (RelativeLayout) itemView.findViewById(R.id.SalmonRun);
-        salmonTitle = (TextView) itemView.findViewById(R.id.salmonName);
-        currentGear = (ImageView) itemView.findViewById(R.id.monthlyGear);
-        salmonPager = (RecyclerView) itemView.findViewById(R.id.SalmonPager);
+        salmonRun = itemView.findViewById(R.id.SalmonRun);
+        salmonTitle = itemView.findViewById(R.id.salmonName);
+        currentGear = itemView.findViewById(R.id.monthlyGear);
+        salmonPager = itemView.findViewById(R.id.SalmonPager);
 
     }
 

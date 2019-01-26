@@ -2,9 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -12,6 +9,10 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.LeagueRotationAdapter;
 import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -21,8 +22,8 @@ import java.util.ArrayList;
 
 public class LeagueCardViewHolder extends RecyclerView.ViewHolder{
 
-    public RecyclerView LeaguePager;
-    public TextView leagueTitle;
+    private RecyclerView LeaguePager;
+    private TextView leagueTitle;
     public Context context;
 
     public LeagueCardViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
@@ -30,9 +31,9 @@ public class LeagueCardViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        leagueTitle = (TextView) itemView.findViewById(R.id.leagueName);
+        leagueTitle = itemView.findViewById(R.id.leagueName);
 
-        LeaguePager = (RecyclerView) itemView.findViewById(R.id.LeaguePager);
+        LeaguePager = itemView.findViewById(R.id.LeaguePager);
     }
 
     public void manageHolder(ArrayList<TimePeriod> timePeriods){

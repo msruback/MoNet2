@@ -2,9 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -12,6 +9,10 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.RankedRotationAdapter;
 import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -21,8 +22,8 @@ import java.util.ArrayList;
 
 public class RankedCardViewHolder extends RecyclerView.ViewHolder{
 
-    public RecyclerView RankPager;
-    public TextView rankTitle;
+    private RecyclerView RankPager;
+    private TextView rankTitle;
     public Context context;
 
     public RankedCardViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
@@ -30,9 +31,9 @@ public class RankedCardViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        rankTitle = (TextView) itemView.findViewById(R.id.rankedName);
+        rankTitle = itemView.findViewById(R.id.rankedName);
 
-        RankPager = (RecyclerView) itemView.findViewById(R.id.RankedPager);
+        RankPager = itemView.findViewById(R.id.RankedPager);
     }
 
     public void manageHolder(ArrayList<TimePeriod> timePeriods){

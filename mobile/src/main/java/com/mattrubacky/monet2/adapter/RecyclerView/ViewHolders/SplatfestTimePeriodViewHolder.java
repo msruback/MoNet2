@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,8 @@ import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StageStats;
 import com.squareup.picasso.Picasso;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

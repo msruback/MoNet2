@@ -2,10 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.design.widget.TabLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,15 +12,18 @@ import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 1/14/2018.
  */
 
 public class RegularCardViewHolder extends RecyclerView.ViewHolder{
 
-    public RecyclerView TurfPager;
-    public TabLayout turfDots;
-    public TextView turfWarTitle;
+    private RecyclerView TurfPager;
+    private TextView turfWarTitle;
     public Context context;
 
     public RegularCardViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
@@ -32,9 +31,9 @@ public class RegularCardViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        turfWarTitle = (TextView) itemView.findViewById(R.id.turfWarName);
+        turfWarTitle = itemView.findViewById(R.id.turfWarName);
 
-        TurfPager = (RecyclerView) itemView.findViewById(R.id.TurfPager);
+        TurfPager = itemView.findViewById(R.id.TurfPager);
     }
 
     public void manageHolder(ArrayList<TimePeriod> timePeriods){
