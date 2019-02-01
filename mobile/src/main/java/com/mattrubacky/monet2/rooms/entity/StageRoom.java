@@ -5,7 +5,7 @@ import com.mattrubacky.monet2.deserialized.splatoon.Stage;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "stage")
 public class StageRoom {
     @PrimaryKey
     public int id;

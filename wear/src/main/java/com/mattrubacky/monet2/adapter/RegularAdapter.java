@@ -34,9 +34,9 @@ public class RegularAdapter extends ArrayAdapter<TimePeriod> {
 
             Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
 
-            TextView time = (TextView) convertView.findViewById(R.id.time);
-            TextView stageA = (TextView) convertView.findViewById(R.id.StageA);
-            TextView stageB = (TextView) convertView.findViewById(R.id.StageB);
+            TextView time = convertView.findViewById(R.id.time);
+            TextView stageA = convertView.findViewById(R.id.StageA);
+            TextView stageB = convertView.findViewById(R.id.StageB);
 
             time.setTypeface(font);
             stageA.setTypeface(font);

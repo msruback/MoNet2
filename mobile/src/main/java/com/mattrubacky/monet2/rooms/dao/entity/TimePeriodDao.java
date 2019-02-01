@@ -6,6 +6,7 @@ import com.mattrubacky.monet2.rooms.entity.TimePeriodRoom;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -24,17 +25,17 @@ public interface TimePeriodDao {
     void delete(TimePeriodRoom... timePeriod);
 
     @Query("SELECT * FROM time_period WHERE id<100")
-    List<TimePeriodRoom> selectRegular();
+    LiveData<List<TimePeriodRoom>> selectRegular();
 
     @Query("SELECT * FROM time_period WHERE id>100 AND id<200")
-    List<TimePeriodRoom> selectGachi();
+    LiveData<List<TimePeriodRoom>> selectGachi();
 
     @Query("SELECT * FROM time_period WHERE id>200 AND id<300")
-    List<TimePeriodRoom> selectLeague();
+    LiveData<List<TimePeriodRoom>> selectLeague();
 
     @Query("SELECT * FROM time_period WHERE id>300")
-    List<TimePeriodRoom> selectFestival();
+    LiveData<List<TimePeriodRoom>> selectFestival();
 
-    @Query("SELECT a FROM time_period WHERE end_time>:now")
+    @Query("SELECT * FROM time_period WHERE end_time>:now")
     List<TimePeriodRoom> selectOld(long now);
 }

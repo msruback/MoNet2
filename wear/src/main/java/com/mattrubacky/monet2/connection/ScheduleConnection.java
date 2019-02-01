@@ -48,9 +48,7 @@ public class ScheduleConnection extends WatchConnection {
                     }
                 }
                 if(schedules.splatfest!=null&&schedules.splatfest.size()>0){
-                    if((schedules.splatfest.get(0).end*1000)>new Date().getTime()){
-                        return false;
-                    }
+                    return (schedules.splatfest.get(0).end * 1000) <= new Date().getTime();
                 }
         }
         return true;

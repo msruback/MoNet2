@@ -2,6 +2,9 @@ package com.mattrubacky.monet2.rooms.entity;
 
 
 import com.mattrubacky.monet2.deserialized.splatoon.KeyName;
+import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
+
+import java.util.List;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -27,9 +30,9 @@ public class TimePeriodRoom {
     @ColumnInfo(name = "end_time")
     public long end;
 
-    public KeyName rule;
+    public String rule;
 
-    public KeyName mode;
+    public String mode;
 
     public int a;
 
@@ -39,11 +42,27 @@ public class TimePeriodRoom {
         this.id = id;
         this.start = start;
         this.end = end;
-        this.rule = new KeyName();
-        this.rule.key = rule;
-        this.mode = new KeyName();
-        this.mode.key = mode;
+        this.rule = rule;
+        this.mode = mode;
         this.a = a;
         this.b = b;
+    }
+
+    public TimePeriod toDeserialized(List<StageRoom> stages){
+        TimePeriod timePeriod = new TimePeriod();
+        timePeriod.start = start;
+        timePeriod.end = end;
+        timePeriod.gamemode = new KeyName();
+        timePeriod.gamemode.key = mode;
+        timePeriod.rule = new KeyName();
+        timePeriod.rule.key = rule;
+        for(StageRoom stageRoom : stages){
+            if(stageRoom.id==a){
+                timePeriod.a = stageRoom.toDeserialized();
+            }else if (stageRoom.id==b){
+                timePeriod.b = stageRoom.toDeserialized();
+            }
+        }
+        return timePeriod;
     }
 }

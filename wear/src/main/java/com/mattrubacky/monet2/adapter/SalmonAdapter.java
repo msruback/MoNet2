@@ -34,9 +34,9 @@ public class SalmonAdapter extends ArrayAdapter<SalmonRunDetail> {
 
             Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
 
-            TextView time = (TextView) convertView.findViewById(R.id.time);
-            TextView stageA = (TextView) convertView.findViewById(R.id.StageA);
-            TextView weapons = (TextView) convertView.findViewById(R.id.Weapons);
+            TextView time = convertView.findViewById(R.id.time);
+            TextView stageA = convertView.findViewById(R.id.StageA);
+            TextView weapons = convertView.findViewById(R.id.Weapons);
 
             time.setTypeface(font);
             stageA.setTypeface(font);

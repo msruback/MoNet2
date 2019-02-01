@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.transition.CircularPropagation;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
-import com.mattrubacky.monet2.deserialized.SalmonSchedule;
 
 /**
  * Created by mattr on 1/9/2018.

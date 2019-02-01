@@ -1,39 +1,18 @@
 package com.mattrubacky.monet2;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.wearable.view.WatchViewStub;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.wearable.DataApi;
-import com.google.android.gms.wearable.DataEvent;
-import com.google.android.gms.wearable.DataEventBuffer;
-import com.google.android.gms.wearable.DataItem;
-import com.google.android.gms.wearable.DataMap;
-import com.google.android.gms.wearable.DataMapItem;
-import com.google.android.gms.wearable.PutDataRequest;
-import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.adapter.CompetitiveAdapter;
 import com.mattrubacky.monet2.adapter.FestivalAdapter;
@@ -45,25 +24,24 @@ import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
 import com.mattrubacky.monet2.deserialized.SalmonRunDetail;
 import com.mattrubacky.monet2.deserialized.SalmonSchedule;
 import com.mattrubacky.monet2.deserialized.Schedules;
-import com.mattrubacky.monet2.deserialized.Splatfest;
 import com.mattrubacky.monet2.deserialized.TimePeriod;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
+import androidx.annotation.NonNull;
 
 public class RotationDetail extends Activity implements WatchConnected{
 
     private Schedules schedules;
     private SalmonSchedule salmonSchedule;
     private CurrentSplatfest currentSplatfest;
-    WatchViewStub stub;
-    ListView times;
-    RelativeLayout titleLayout,titleZigZag;
-    String type;
-    WatchConnector watchConnector;
+    private WatchViewStub stub;
+    private ListView times;
+    private RelativeLayout titleLayout,titleZigZag;
+    private String type;
+    private WatchConnector watchConnector;
 
+    @NonNull
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,17 +52,17 @@ public class RotationDetail extends Activity implements WatchConnected{
         watchConnector = new WatchConnector(getApplicationContext(),this);
         watchConnector.execute();
 
-        stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
+        stub = findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                times = (ListView) stub.findViewById(R.id.times);
+                times = stub.findViewById(R.id.times);
                 Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
-                titleLayout = (RelativeLayout) stub.findViewById(R.id.titleLayout);
-                titleZigZag = (RelativeLayout) stub.findViewById(R.id.titleZigZag);
+                titleLayout = stub.findViewById(R.id.titleLayout);
+                titleZigZag = stub.findViewById(R.id.titleZigZag);
 
-                TextView title = (TextView) stub.findViewById(R.id.Title);
+                TextView title = stub.findViewById(R.id.Title);
                 title.setTypeface(fontTitle);
                 switch(type){
                     case "regular":

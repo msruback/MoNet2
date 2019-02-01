@@ -12,7 +12,8 @@ import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 import com.mattrubacky.monet2.deserialized.splatoon.Schedules;
 import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 import com.mattrubacky.monet2.rooms.SplatnetDatabase;
-import com.mattrubacky.monet2.rooms.pojo.TimePeriodPojo;
+import com.mattrubacky.monet2.rooms.entity.StageRoom;
+import com.mattrubacky.monet2.rooms.entity.TimePeriodRoom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,64 +24,80 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 
 public class RotationViewModel extends AndroidViewModel implements SplatnetConnected{
-    private LiveData<List<TimePeriodPojo>> regular, ranked, league, splatfest;
+    private LiveData<List<TimePeriodRoom>> regular, ranked, league, splatfest;
+    private LiveData<List<StageRoom>> stages;
 
     private MediatorLiveData<Schedules> schedules;
 
-    SplatnetDatabase database;
-    SplatnetConnector connector;
+    private SplatnetDatabase database;
+    private SplatnetConnector connector;
 
     public RotationViewModel(Application application) {
         super(application);
         database = SplatnetDatabase.getInstance(application);
-        regular = database.getTimePeriodPojoDao().selectRegular();
-        ranked = database.getTimePeriodPojoDao().selectGachi();
-        league = database.getTimePeriodPojoDao().selectLeague();
-        splatfest = database.getTimePeriodPojoDao().selectFestival();
 
-        schedules.addSource(regular, new Observer<List<TimePeriodPojo>>() {
+        stages = database.getStageDao().selectAll();
+
+        regular = database.getTimePeriodDao().selectRegular();
+        ranked = database.getTimePeriodDao().selectGachi();
+        league = database.getTimePeriodDao().selectLeague();
+        splatfest = database.getTimePeriodDao().selectFestival();
+
+        schedules.addSource(regular, new Observer<List<TimePeriodRoom>>() {
             @Override
-            public void onChanged(List<TimePeriodPojo> timePeriodPojos) {
+            public void onChanged(List<TimePeriodRoom> timePeriods) {
                 Schedules rotation = schedules.getValue();
                 ArrayList<TimePeriod> regular = new ArrayList<>();
-                for(TimePeriodPojo timePeriodPojo : timePeriodPojos){
-                    regular.add(timePeriodPojo.toDeserialized());
+                for(TimePeriodRoom timePeriod : timePeriods){
+                    regular.add(timePeriod.toDeserialized(stages.getValue()));
+                }
+                if(rotation==null){
+                    rotation = new Schedules();
                 }
                 rotation.regular = regular;
                 schedules.setValue(rotation);
             }
         });
-        schedules.addSource(ranked, new Observer<List<TimePeriodPojo>>() {
+        schedules.addSource(ranked, new Observer<List<TimePeriodRoom>>() {
             @Override
-            public void onChanged(List<TimePeriodPojo> timePeriodPojos) {
+            public void onChanged(List<TimePeriodRoom> timePeriods) {
                 Schedules rotation = schedules.getValue();
                 ArrayList<TimePeriod> ranked = new ArrayList<>();
-                for(TimePeriodPojo timePeriodPojo : timePeriodPojos){
-                    ranked.add(timePeriodPojo.toDeserialized());
+                for(TimePeriodRoom timePeriod: timePeriods){
+                    ranked.add(timePeriod.toDeserialized(stages.getValue()));
+                }
+                if(rotation==null){
+                    rotation = new Schedules();
                 }
                 rotation.ranked = ranked;
                 schedules.setValue(rotation);
             }
         });
-        schedules.addSource(league, new Observer<List<TimePeriodPojo>>() {
+        schedules.addSource(league, new Observer<List<TimePeriodRoom>>() {
             @Override
-            public void onChanged(List<TimePeriodPojo> timePeriodPojos) {
+            public void onChanged(List<TimePeriodRoom> timePeriods) {
                 Schedules rotation = schedules.getValue();
                 ArrayList<TimePeriod> league = new ArrayList<>();
-                for(TimePeriodPojo timePeriodPojo : timePeriodPojos){
-                    league.add(timePeriodPojo.toDeserialized());
+                for(TimePeriodRoom timePeriod : timePeriods){
+                    league.add(timePeriod.toDeserialized(stages.getValue()));
+                }
+                if(rotation==null){
+                    rotation = new Schedules();
                 }
                 rotation.league = league;
                 schedules.setValue(rotation);
             }
         });
-        schedules.addSource(splatfest, new Observer<List<TimePeriodPojo>>() {
+        schedules.addSource(splatfest, new Observer<List<TimePeriodRoom>>() {
             @Override
-            public void onChanged(List<TimePeriodPojo> timePeriodPojos) {
+            public void onChanged(List<TimePeriodRoom> timePeriods) {
                 Schedules rotation = schedules.getValue();
                 ArrayList<TimePeriod> splatfest = new ArrayList<>();
-                for(TimePeriodPojo timePeriodPojo : timePeriodPojos){
-                    splatfest.add(timePeriodPojo.toDeserialized());
+                for(TimePeriodRoom timePeriodPojo : timePeriods){
+                    splatfest.add(timePeriodPojo.toDeserialized(stages.getValue()));
+                }
+                if(rotation==null){
+                    rotation = new Schedules();
                 }
                 rotation.splatfest = splatfest;
                 schedules.setValue(rotation);

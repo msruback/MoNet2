@@ -35,10 +35,10 @@ public class CompetitiveAdapter extends ArrayAdapter<TimePeriod> {
 
             Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
 
-            TextView time = (TextView) convertView.findViewById(R.id.time);
-            TextView mode = (TextView) convertView.findViewById(R.id.Mode);
-            TextView stageA = (TextView) convertView.findViewById(R.id.StageA);
-            TextView stageB = (TextView) convertView.findViewById(R.id.StageB);
+            TextView time = convertView.findViewById(R.id.time);
+            TextView mode = convertView.findViewById(R.id.Mode);
+            TextView stageA = convertView.findViewById(R.id.StageA);
+            TextView stageB = convertView.findViewById(R.id.StageB);
 
             time.setTypeface(font);
             mode.setTypeface(font);

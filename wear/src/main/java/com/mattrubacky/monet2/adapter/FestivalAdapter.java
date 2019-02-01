@@ -39,10 +39,10 @@ public class FestivalAdapter extends ArrayAdapter<TimePeriod> {
 
             Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
 
-            TextView time = (TextView) convertView.findViewById(R.id.time);
-            TextView stageA = (TextView) convertView.findViewById(R.id.StageA);
-            TextView stageB = (TextView) convertView.findViewById(R.id.StageB);
-            TextView stageC = (TextView) convertView.findViewById(R.id.StageC);
+            TextView time = convertView.findViewById(R.id.time);
+            TextView stageA = convertView.findViewById(R.id.StageA);
+            TextView stageB = convertView.findViewById(R.id.StageB);
+            TextView stageC = convertView.findViewById(R.id.StageC);
 
             time.setTypeface(font);
             stageA.setTypeface(font);

@@ -45,9 +45,9 @@ public class ScheduleAdapter extends ArrayAdapter<String> {
         switch(getItem(position)){
             case "regular":
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_regular, parent, false);
-                TextView TurfMode = (TextView) convertView.findViewById(R.id.TurfMode);
-                TextView TurfStageA = (TextView) convertView.findViewById(R.id.TurfStageA);
-                TextView TurfStageB = (TextView) convertView.findViewById(R.id.TurfStageB);
+                TextView TurfMode = convertView.findViewById(R.id.TurfMode);
+                TextView TurfStageA = convertView.findViewById(R.id.TurfStageA);
+                TextView TurfStageB = convertView.findViewById(R.id.TurfStageB);
 
                 TurfMode.setTypeface(fontTitle);
                 TurfStageA.setTypeface(font);
@@ -70,9 +70,9 @@ public class ScheduleAdapter extends ArrayAdapter<String> {
                 break;
             case "ranked":
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_ranked, parent, false);
-                TextView RankMode = (TextView) convertView.findViewById(R.id.RankMode);
-                TextView RankStageA = (TextView) convertView.findViewById(R.id.RankStageA);
-                TextView RankStageB = (TextView) convertView.findViewById(R.id.RankStageB);
+                TextView RankMode = convertView.findViewById(R.id.RankMode);
+                TextView RankStageA = convertView.findViewById(R.id.RankStageA);
+                TextView RankStageB = convertView.findViewById(R.id.RankStageB);
 
                 RankMode.setTypeface(fontTitle);
                 RankStageA.setTypeface(font);
@@ -96,9 +96,9 @@ public class ScheduleAdapter extends ArrayAdapter<String> {
             case "league":
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_league, parent, false);
 
-                TextView LeagueMode = (TextView) convertView.findViewById(R.id.LeagueMode);
-                TextView LeagueStageA = (TextView) convertView.findViewById(R.id.LeagueStageA);
-                TextView LeagueStageB = (TextView) convertView.findViewById(R.id.LeagueStageB);
+                TextView LeagueMode = convertView.findViewById(R.id.LeagueMode);
+                TextView LeagueStageA = convertView.findViewById(R.id.LeagueStageA);
+                TextView LeagueStageB = convertView.findViewById(R.id.LeagueStageB);
 
                 LeagueMode.setTypeface(fontTitle);
                 LeagueStageA.setTypeface(font);
@@ -122,16 +122,16 @@ public class ScheduleAdapter extends ArrayAdapter<String> {
                 break;
             case "fes":
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_festival, parent, false);
-                RelativeLayout SplatfestCard = (RelativeLayout) convertView.findViewById(R.id.FesCard);
-                RelativeLayout SplatfestZigZag = (RelativeLayout) convertView.findViewById(R.id.FesZigZag);
-                RelativeLayout Alpha = (RelativeLayout) convertView.findViewById(R.id.Alpha);
-                RelativeLayout Bravo = (RelativeLayout) convertView.findViewById(R.id.Bravo);
+                RelativeLayout SplatfestCard = convertView.findViewById(R.id.FesCard);
+                RelativeLayout SplatfestZigZag = convertView.findViewById(R.id.FesZigZag);
+                RelativeLayout Alpha = convertView.findViewById(R.id.Alpha);
+                RelativeLayout Bravo = convertView.findViewById(R.id.Bravo);
 
 
-                TextView SplatfestMode = (TextView) convertView.findViewById(R.id.FesMode);
-                TextView SplatfestStageA = (TextView) convertView.findViewById(R.id.FesStageA);
-                TextView SplatfestStageB = (TextView) convertView.findViewById(R.id.FesStageB);
-                TextView SplatfestStageC = (TextView) convertView.findViewById(R.id.FesStageC);
+                TextView SplatfestMode = convertView.findViewById(R.id.FesMode);
+                TextView SplatfestStageA = convertView.findViewById(R.id.FesStageA);
+                TextView SplatfestStageB = convertView.findViewById(R.id.FesStageB);
+                TextView SplatfestStageC = convertView.findViewById(R.id.FesStageC);
 
                 SplatfestMode.setTypeface(font);
                 SplatfestStageA.setTypeface(font);
@@ -169,9 +169,9 @@ public class ScheduleAdapter extends ArrayAdapter<String> {
             case "salmon":
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.card_salmon, parent, false);
 
-                TextView salmonTitle = (TextView) convertView.findViewById(R.id.SalmonTitle);
-                TextView SalmonShift1 = (TextView) convertView.findViewById(R.id.ShiftTime1);
-                TextView SalmonShift2 = (TextView) convertView.findViewById(R.id.ShiftTime2);
+                TextView salmonTitle = convertView.findViewById(R.id.SalmonTitle);
+                TextView SalmonShift1 = convertView.findViewById(R.id.ShiftTime1);
+                TextView SalmonShift2 = convertView.findViewById(R.id.ShiftTime2);
 
                 salmonTitle.setTypeface(fontTitle);
                 SalmonShift1.setTypeface(font);
