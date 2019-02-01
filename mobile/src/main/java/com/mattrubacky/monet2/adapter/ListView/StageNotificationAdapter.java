@@ -38,10 +38,10 @@ public class StageNotificationAdapter extends ArrayAdapter<StageNotification> {
 
         final Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
-        ImageView type = (ImageView) convertView.findViewById(R.id.TypeImage);
+        ImageView type = convertView.findViewById(R.id.TypeImage);
 
-        TextView rule = (TextView) convertView.findViewById(R.id.Rule);
-        TextView stage = (TextView) convertView.findViewById(R.id.Stage);
+        TextView rule = convertView.findViewById(R.id.Rule);
+        TextView stage = convertView.findViewById(R.id.Stage);
 
         rule.setTypeface(font);
         stage.setTypeface(font);
@@ -61,7 +61,7 @@ public class StageNotificationAdapter extends ArrayAdapter<StageNotification> {
                 break;
         }
 
-        ImageView editButton = (ImageView) convertView.findViewById(R.id.EditButton);
+        ImageView editButton = convertView.findViewById(R.id.EditButton);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override

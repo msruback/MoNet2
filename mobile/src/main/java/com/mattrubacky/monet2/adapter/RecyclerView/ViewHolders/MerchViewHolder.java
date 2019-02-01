@@ -3,7 +3,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.CountDownTimer;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 12/24/2017.
@@ -34,21 +35,21 @@ public class MerchViewHolder extends RecyclerView.ViewHolder{
         super(inflater.inflate(R.layout.item_merch, parent, false));
         this.context = context;
 
-        item = (RelativeLayout) itemView.findViewById(R.id.Item);
-        infoBar = (RelativeLayout) itemView.findViewById(R.id.InfoBar);
-        infoPatch = (RelativeLayout) itemView.findViewById(R.id.infoPatch);
+        item = itemView.findViewById(R.id.Item);
+        infoBar = itemView.findViewById(R.id.InfoBar);
+        infoPatch = itemView.findViewById(R.id.infoPatch);
         item.setClipToOutline(true);
 
-        brand = (ImageView) itemView.findViewById(R.id.Brand);
-        gear = (ImageView) itemView.findViewById(R.id.Image);
-        mainAbility = (ImageView) itemView.findViewById(R.id.MainAbility);
-        sub2 = (ImageView) itemView.findViewById(R.id.Sub2);
-        sub3 = (ImageView) itemView.findViewById(R.id.Sub3);
+        brand = itemView.findViewById(R.id.Brand);
+        gear = itemView.findViewById(R.id.Image);
+        mainAbility = itemView.findViewById(R.id.MainAbility);
+        sub2 = itemView.findViewById(R.id.Sub2);
+        sub3 = itemView.findViewById(R.id.Sub3);
 
-        name = (TextView) itemView.findViewById(R.id.Name);
-        cost = (TextView) itemView.findViewById(R.id.Cost);
+        name = itemView.findViewById(R.id.Name);
+        cost = itemView.findViewById(R.id.Cost);
 
-        time = (TextView) itemView.findViewById(R.id.Time);
+        time = itemView.findViewById(R.id.Time);
     }
     public void manageHolder(final Product product){
         Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");

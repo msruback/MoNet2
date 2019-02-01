@@ -1,7 +1,6 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,6 +10,9 @@ import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 12/24/2017.
@@ -29,8 +31,9 @@ public class PlayerGearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.weapon = weapon;
         this.gear = gear;
     }
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType){
             case 0:
                 return new WeaponViewHolder(inflater,parent,context);
@@ -39,8 +42,9 @@ public class PlayerGearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    @NonNull
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holderAb, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holderAb, final int position) {
         if(holderAb.getItemViewType()==0) {
             WeaponViewHolder holder = (WeaponViewHolder) holderAb;
             holder.manageHolder(weapon);

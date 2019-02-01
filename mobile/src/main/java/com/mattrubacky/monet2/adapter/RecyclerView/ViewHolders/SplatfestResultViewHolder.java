@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -17,6 +16,8 @@ import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 12/24/2017.
@@ -34,28 +35,28 @@ public class SplatfestResultViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        voteMeter = (RelativeLayout) itemView.findViewById(R.id.VoteWinLossMeter);
-        alphaVote = (RelativeLayout) itemView.findViewById(R.id.VoteWins);
-        bravoVote = (RelativeLayout) itemView.findViewById(R.id.VoteLosses);
-        soloMeter = (RelativeLayout) itemView.findViewById(R.id.SoloWinLossMeter);
-        alphaSolo = (RelativeLayout) itemView.findViewById(R.id.SoloWins);
-        bravoSolo = (RelativeLayout) itemView.findViewById(R.id.SoloLosses);
-        teamMeter = (RelativeLayout) itemView.findViewById(R.id.TeamWinLossMeter);
-        alphaTeam = (RelativeLayout) itemView.findViewById(R.id.TeamWins);
-        bravoTeam = (RelativeLayout) itemView.findViewById(R.id.TeamLosses);
+        voteMeter = itemView.findViewById(R.id.VoteWinLossMeter);
+        alphaVote = itemView.findViewById(R.id.VoteWins);
+        bravoVote = itemView.findViewById(R.id.VoteLosses);
+        soloMeter = itemView.findViewById(R.id.SoloWinLossMeter);
+        alphaSolo = itemView.findViewById(R.id.SoloWins);
+        bravoSolo = itemView.findViewById(R.id.SoloLosses);
+        teamMeter = itemView.findViewById(R.id.TeamWinLossMeter);
+        alphaTeam = itemView.findViewById(R.id.TeamWins);
+        bravoTeam = itemView.findViewById(R.id.TeamLosses);
 
-        alphaImage = (ImageView) itemView.findViewById(R.id.AlphaImage);
-        bravoImage = (ImageView) itemView.findViewById(R.id.BravoImage);
+        alphaImage = itemView.findViewById(R.id.AlphaImage);
+        bravoImage = itemView.findViewById(R.id.BravoImage);
 
-        voteTitle = (TextView) itemView.findViewById(R.id.VoteTitle);
-        alphaVoteText = (TextView) itemView.findViewById(R.id.VoteWinText);
-        bravoVoteText = (TextView) itemView.findViewById(R.id.VoteLossText);
-        soloTitle = (TextView) itemView.findViewById(R.id.SoloTitle);
-        alphaSoloText = (TextView) itemView.findViewById(R.id.SoloWinText);
-        bravoSoloText = (TextView) itemView.findViewById(R.id.SoloLossText);
-        teamTitle = (TextView) itemView.findViewById(R.id.TeamTitle);
-        alphaTeamText = (TextView) itemView.findViewById(R.id.TeamWinText);
-        bravoTeamText = (TextView) itemView.findViewById(R.id.TeamLossText);
+        voteTitle = itemView.findViewById(R.id.VoteTitle);
+        alphaVoteText = itemView.findViewById(R.id.VoteWinText);
+        bravoVoteText = itemView.findViewById(R.id.VoteLossText);
+        soloTitle = itemView.findViewById(R.id.SoloTitle);
+        alphaSoloText = itemView.findViewById(R.id.SoloWinText);
+        bravoSoloText = itemView.findViewById(R.id.SoloLossText);
+        teamTitle = itemView.findViewById(R.id.TeamTitle);
+        alphaTeamText = itemView.findViewById(R.id.TeamWinText);
+        bravoTeamText = itemView.findViewById(R.id.TeamLossText);
     }
 
     public void manageHolder(Splatfest splatfest, SplatfestResult result){

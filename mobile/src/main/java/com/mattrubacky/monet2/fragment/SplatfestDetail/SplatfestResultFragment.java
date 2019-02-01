@@ -4,7 +4,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +18,19 @@ import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 /**
  * Created by mattr on 11/17/2017.
  */
 
 public class SplatfestResultFragment extends Fragment {
     ViewGroup rootView;
+
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         rootView = (ViewGroup)  inflater.inflate(R.layout.item_splatfest_results, container, false);
@@ -38,15 +42,15 @@ public class SplatfestResultFragment extends Fragment {
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
 
-        RelativeLayout voteMeter = (RelativeLayout) rootView.findViewById(R.id.VoteWinLossMeter);
-        RelativeLayout alphaVote = (RelativeLayout) rootView.findViewById(R.id.VoteWins);
-        RelativeLayout bravoVote = (RelativeLayout) rootView.findViewById(R.id.VoteLosses);
-        RelativeLayout soloMeter = (RelativeLayout) rootView.findViewById(R.id.SoloWinLossMeter);
-        RelativeLayout alphaSolo = (RelativeLayout) rootView.findViewById(R.id.SoloWins);
-        RelativeLayout bravoSolo = (RelativeLayout) rootView.findViewById(R.id.SoloLosses);
-        RelativeLayout teamMeter = (RelativeLayout) rootView.findViewById(R.id.TeamWinLossMeter);
-        RelativeLayout alphaTeam = (RelativeLayout) rootView.findViewById(R.id.TeamWins);
-        RelativeLayout bravoTeam = (RelativeLayout) rootView.findViewById(R.id.TeamLosses);
+        RelativeLayout voteMeter = rootView.findViewById(R.id.VoteWinLossMeter);
+        RelativeLayout alphaVote = rootView.findViewById(R.id.VoteWins);
+        RelativeLayout bravoVote = rootView.findViewById(R.id.VoteLosses);
+        RelativeLayout soloMeter = rootView.findViewById(R.id.SoloWinLossMeter);
+        RelativeLayout alphaSolo = rootView.findViewById(R.id.SoloWins);
+        RelativeLayout bravoSolo = rootView.findViewById(R.id.SoloLosses);
+        RelativeLayout teamMeter = rootView.findViewById(R.id.TeamWinLossMeter);
+        RelativeLayout alphaTeam = rootView.findViewById(R.id.TeamWins);
+        RelativeLayout bravoTeam = rootView.findViewById(R.id.TeamLosses);
 
         alphaVote.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
         bravoVote.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
@@ -55,18 +59,18 @@ public class SplatfestResultFragment extends Fragment {
         alphaTeam.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
         bravoTeam.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
 
-        ImageView alphaImage = (ImageView) rootView.findViewById(R.id.AlphaImage);
-        ImageView bravoImage = (ImageView) rootView.findViewById(R.id.BravoImage);
+        ImageView alphaImage = rootView.findViewById(R.id.AlphaImage);
+        ImageView bravoImage = rootView.findViewById(R.id.BravoImage);
 
-        TextView voteTitle = (TextView) rootView.findViewById(R.id.VoteTitle);
-        TextView alphaVoteText = (TextView) rootView.findViewById(R.id.VoteWinText);
-        TextView bravoVoteText = (TextView) rootView.findViewById(R.id.VoteLossText);
-        TextView soloTitle = (TextView) rootView.findViewById(R.id.SoloTitle);
-        TextView alphaSoloText = (TextView) rootView.findViewById(R.id.SoloWinText);
-        TextView bravoSoloText = (TextView) rootView.findViewById(R.id.SoloLossText);
-        TextView teamTitle = (TextView) rootView.findViewById(R.id.TeamTitle);
-        TextView alphaTeamText = (TextView) rootView.findViewById(R.id.TeamWinText);
-        TextView bravoTeamText = (TextView) rootView.findViewById(R.id.TeamLossText);
+        TextView voteTitle = rootView.findViewById(R.id.VoteTitle);
+        TextView alphaVoteText = rootView.findViewById(R.id.VoteWinText);
+        TextView bravoVoteText = rootView.findViewById(R.id.VoteLossText);
+        TextView soloTitle = rootView.findViewById(R.id.SoloTitle);
+        TextView alphaSoloText = rootView.findViewById(R.id.SoloWinText);
+        TextView bravoSoloText = rootView.findViewById(R.id.SoloLossText);
+        TextView teamTitle = rootView.findViewById(R.id.TeamTitle);
+        TextView alphaTeamText = rootView.findViewById(R.id.TeamWinText);
+        TextView bravoTeamText = rootView.findViewById(R.id.TeamLossText);
 
 
 

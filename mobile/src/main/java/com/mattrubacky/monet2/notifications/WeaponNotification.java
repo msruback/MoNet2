@@ -30,7 +30,7 @@ public class WeaponNotification extends Notification {
     }
     @Override
     public void show() {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         String time;
         String title;

@@ -3,7 +3,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +16,20 @@ import com.mattrubacky.monet2.deserialized.splatoon.Player;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 12/24/2017.
  */
 
 public class PlayerInfoViewHolder extends RecyclerView.ViewHolder{
 
-    public RelativeLayout card,specialIconLayout,deathsIconLayout,killsIconLayout;
-    public RelativeLayout child;
-    public RelativeLayout gearLayout,headSub1Layout,headSub2Layout,headSub3Layout,clothesSub1Layout,clothesSub2Layout,clothesSub3Layout,shoesSub1Layout,shoesSub2Layout,shoesSub3Layout;
+    private RelativeLayout card,specialIconLayout,deathsIconLayout,killsIconLayout;
+    private RelativeLayout gearLayout,headSub1Layout,headSub2Layout,headSub3Layout,clothesSub1Layout,clothesSub2Layout,clothesSub3Layout,shoesSub1Layout,shoesSub2Layout,shoesSub3Layout;
 
-    public ImageView weapon,killsIcon,deathsIcon,specialIcon;
-    public ImageView head,headMain,headSub1,headSub2,headSub3,clothes,clothesMain,clothesSub1,clothesSub2,clothesSub3,shoes,shoesMain,shoesSub1,shoesSub2,shoesSub3;
-    public TextView rank,name,fesGrade,points,killsText,deathsText,specialText;
+    private ImageView weapon,killsIcon,deathsIcon,specialIcon;
+    private ImageView head,headMain,headSub1,headSub2,headSub3,clothes,clothesMain,clothesSub1,clothesSub2,clothesSub3,shoes,shoesMain,shoesSub1,shoesSub2,shoesSub3;
+    private TextView rank,name,fesGrade,points,killsText,deathsText,specialText;
 
     private Context context;
 
@@ -37,55 +37,53 @@ public class PlayerInfoViewHolder extends RecyclerView.ViewHolder{
         super(inflater.inflate(R.layout.item_player, parent, false));
         this.context = context;
 
-        card = (RelativeLayout) itemView.findViewById(R.id.playerCard);
+        card = itemView.findViewById(R.id.playerCard);
 
-        specialIconLayout = (RelativeLayout) itemView.findViewById(R.id.specialIcon);
-        deathsIconLayout = (RelativeLayout) itemView.findViewById(R.id.deathsIcon);
-        killsIconLayout = (RelativeLayout) itemView.findViewById(R.id.killsIcon);
+        specialIconLayout = itemView.findViewById(R.id.specialIcon);
+        deathsIconLayout = itemView.findViewById(R.id.deathsIcon);
+        killsIconLayout = itemView.findViewById(R.id.killsIcon);
 
 
 
-        weapon = (ImageView) itemView.findViewById(R.id.Weapon);
-        killsIcon = (ImageView) itemView.findViewById(R.id.KillsIcon);
-        deathsIcon = (ImageView) itemView.findViewById(R.id.DeathsIcon);
-        specialIcon = (ImageView) itemView.findViewById(R.id.SpecialIcon);
+        weapon = itemView.findViewById(R.id.Weapon);
+        killsIcon = itemView.findViewById(R.id.KillsIcon);
+        deathsIcon = itemView.findViewById(R.id.DeathsIcon);
+        specialIcon = itemView.findViewById(R.id.SpecialIcon);
 
-        rank = (TextView) itemView.findViewById(R.id.Rank);
-        name = (TextView) itemView.findViewById(R.id.Name);
-        fesGrade = (TextView) itemView.findViewById(R.id.FesGrade);
-        points = (TextView) itemView.findViewById(R.id.Points);
-        killsText = (TextView) itemView.findViewById(R.id.KillsText);
-        deathsText = (TextView) itemView.findViewById(R.id.DeathsText);
-        specialText = (TextView) itemView.findViewById(R.id.SpecialText);
+        rank = itemView.findViewById(R.id.Rank);
+        name = itemView.findViewById(R.id.Name);
+        fesGrade = itemView.findViewById(R.id.FesGrade);
+        points = itemView.findViewById(R.id.Points);
+        killsText = itemView.findViewById(R.id.KillsText);
+        deathsText = itemView.findViewById(R.id.DeathsText);
+        specialText = itemView.findViewById(R.id.SpecialText);
 
-        child = (RelativeLayout) itemView.findViewById(R.id.child);
+        gearLayout = itemView.findViewById(R.id.Gear);
+        headSub1Layout = itemView.findViewById(R.id.headSub1);
+        headSub2Layout = itemView.findViewById(R.id.headSub2);
+        headSub3Layout = itemView.findViewById(R.id.headSub3);
+        clothesSub1Layout = itemView.findViewById(R.id.clothesSub1);
+        clothesSub2Layout = itemView.findViewById(R.id.clothesSub2);
+        clothesSub3Layout = itemView.findViewById(R.id.clothesSub3);
+        shoesSub1Layout = itemView.findViewById(R.id.shoesSub1);
+        shoesSub2Layout = itemView.findViewById(R.id.shoesSub2);
+        shoesSub3Layout = itemView.findViewById(R.id.shoesSub3);
 
-        gearLayout = (RelativeLayout) itemView.findViewById(R.id.Gear);
-        headSub1Layout = (RelativeLayout) itemView.findViewById(R.id.headSub1);
-        headSub2Layout = (RelativeLayout) itemView.findViewById(R.id.headSub2);
-        headSub3Layout = (RelativeLayout) itemView.findViewById(R.id.headSub3);
-        clothesSub1Layout = (RelativeLayout) itemView.findViewById(R.id.clothesSub1);
-        clothesSub2Layout = (RelativeLayout) itemView.findViewById(R.id.clothesSub2);
-        clothesSub3Layout = (RelativeLayout) itemView.findViewById(R.id.clothesSub3);
-        shoesSub1Layout = (RelativeLayout) itemView.findViewById(R.id.shoesSub1);
-        shoesSub2Layout = (RelativeLayout) itemView.findViewById(R.id.shoesSub2);
-        shoesSub3Layout = (RelativeLayout) itemView.findViewById(R.id.shoesSub3);
-
-        head = (ImageView) itemView.findViewById(R.id.HeadGear);
-        headMain = (ImageView) itemView.findViewById(R.id.HeadMain);
-        headSub1 = (ImageView) itemView.findViewById(R.id.HeadSub1);
-        headSub2 = (ImageView) itemView.findViewById(R.id.HeadSub2);
-        headSub3 = (ImageView) itemView.findViewById(R.id.HeadSub3);
-        clothes = (ImageView) itemView.findViewById(R.id.ClothesGear);
-        clothesMain = (ImageView) itemView.findViewById(R.id.ClothesMain);
-        clothesSub1 = (ImageView) itemView.findViewById(R.id.ClothesSub1);
-        clothesSub2 = (ImageView) itemView.findViewById(R.id.ClothesSub2);
-        clothesSub3 = (ImageView) itemView.findViewById(R.id.ClothesSub3);
-        shoes = (ImageView) itemView.findViewById(R.id.ShoesGear);
-        shoesMain = (ImageView) itemView.findViewById(R.id.ShoesMain);
-        shoesSub1 = (ImageView) itemView.findViewById(R.id.ShoesSub1);
-        shoesSub2 = (ImageView) itemView.findViewById(R.id.ShoesSub2);
-        shoesSub3 = (ImageView) itemView.findViewById(R.id.ShoesSub3);
+        head = itemView.findViewById(R.id.HeadGear);
+        headMain = itemView.findViewById(R.id.HeadMain);
+        headSub1 = itemView.findViewById(R.id.HeadSub1);
+        headSub2 = itemView.findViewById(R.id.HeadSub2);
+        headSub3 = itemView.findViewById(R.id.HeadSub3);
+        clothes = itemView.findViewById(R.id.ClothesGear);
+        clothesMain = itemView.findViewById(R.id.ClothesMain);
+        clothesSub1 = itemView.findViewById(R.id.ClothesSub1);
+        clothesSub2 = itemView.findViewById(R.id.ClothesSub2);
+        clothesSub3 = itemView.findViewById(R.id.ClothesSub3);
+        shoes = itemView.findViewById(R.id.ShoesGear);
+        shoesMain = itemView.findViewById(R.id.ShoesMain);
+        shoesSub1 = itemView.findViewById(R.id.ShoesSub1);
+        shoesSub2 = itemView.findViewById(R.id.ShoesSub2);
+        shoesSub3 = itemView.findViewById(R.id.ShoesSub3);
     }
 
     public void manageHolder(Player player, Battle battle, boolean isAlly){

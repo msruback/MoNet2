@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,8 @@ import com.mattrubacky.monet2.dialog.*;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 
 public class SettingsFragment extends Fragment {
@@ -36,7 +37,7 @@ public class SettingsFragment extends Fragment {
     DataUpdateAlarm dataUpdateAlarm;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_settings, container, false);
@@ -58,24 +59,24 @@ public class SettingsFragment extends Fragment {
 
         final Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
 
-        final RelativeLayout frequencyLayout = (RelativeLayout) rootView.findViewById(R.id.FrequencyLayout);
-        final RelativeLayout dataLayout = (RelativeLayout) rootView.findViewById(R.id.DataLayout);
-        final RelativeLayout cookieLayout = (RelativeLayout) rootView.findViewById(R.id.cookie);
-        final RelativeLayout modeLayout = (RelativeLayout) rootView.findViewById(R.id.modeAlert);
-        final RelativeLayout gearLayout = (RelativeLayout) rootView.findViewById(R.id.gearAlert);
+        final RelativeLayout frequencyLayout = rootView.findViewById(R.id.FrequencyLayout);
+        final RelativeLayout dataLayout = rootView.findViewById(R.id.DataLayout);
+        final RelativeLayout cookieLayout = rootView.findViewById(R.id.cookie);
+        final RelativeLayout modeLayout = rootView.findViewById(R.id.modeAlert);
+        final RelativeLayout gearLayout = rootView.findViewById(R.id.gearAlert);
 
-        final TextView autoTitle = (TextView) rootView.findViewById(R.id.autoUpdateTitle);
-        final TextView autoText = (TextView) rootView.findViewById(R.id.AutoText);
-        final TextView frequencyText = (TextView) rootView.findViewById(R.id.FrequencyText);
-        final TextView dataText = (TextView) rootView.findViewById(R.id.DataText);
-        TextView cookieTitle = (TextView) rootView.findViewById(R.id.cookieTitle);
-        TextView cookieText = (TextView) rootView.findViewById(R.id.CookieText);
-        TextView notificationTitle = (TextView) rootView.findViewById(R.id.alertTitle);
-        TextView stageNotificationText = (TextView) rootView.findViewById(R.id.ModeAlertText);
-        TextView gearNotificationText = (TextView) rootView.findViewById(R.id.GearAlertText);
-        TextView salmonNotificationText = (TextView) rootView.findViewById(R.id.SalmonText);
+        final TextView autoTitle = rootView.findViewById(R.id.autoUpdateTitle);
+        final TextView autoText = rootView.findViewById(R.id.AutoText);
+        final TextView frequencyText = rootView.findViewById(R.id.FrequencyText);
+        final TextView dataText = rootView.findViewById(R.id.DataText);
+        TextView cookieTitle = rootView.findViewById(R.id.cookieTitle);
+        TextView cookieText = rootView.findViewById(R.id.CookieText);
+        TextView notificationTitle = rootView.findViewById(R.id.alertTitle);
+        TextView stageNotificationText = rootView.findViewById(R.id.ModeAlertText);
+        TextView gearNotificationText = rootView.findViewById(R.id.GearAlertText);
+        TextView salmonNotificationText = rootView.findViewById(R.id.SalmonText);
 
-        final Spinner frequencySpinner = (Spinner) rootView.findViewById(R.id.FrequencySpinner);
+        final Spinner frequencySpinner = rootView.findViewById(R.id.FrequencySpinner);
 
 
 
@@ -94,9 +95,9 @@ public class SettingsFragment extends Fragment {
 
         frequencySpinner.setAdapter(hourAdapter);
 
-        final Switch autoSwitch = (Switch) rootView.findViewById(R.id.AutoSwitch);
-        final Switch dataSwitch = (Switch) rootView.findViewById(R.id.DataSwitch);
-        Switch salmonSwitch = (Switch) rootView.findViewById(R.id.SalmonSwitch);
+        final Switch autoSwitch = rootView.findViewById(R.id.AutoSwitch);
+        final Switch dataSwitch = rootView.findViewById(R.id.DataSwitch);
+        Switch salmonSwitch = rootView.findViewById(R.id.SalmonSwitch);
 
         Boolean checked = settings.getBoolean("autoUpdate",false);
         autoSwitch.setChecked(checked);

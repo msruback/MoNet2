@@ -4,7 +4,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +21,19 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 /**
  * Created by mattr on 11/17/2017.
  */
 
-public class SplatfestPerformanceFragment extends Fragment{
-    ViewGroup rootView;
+public class SplatfestPerformanceFragment extends Fragment {
+    private ViewGroup rootView;
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         rootView = (ViewGroup)  inflater.inflate(R.layout.item_splatfest_performance, container, false);
@@ -42,32 +45,32 @@ public class SplatfestPerformanceFragment extends Fragment{
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
 
-        RelativeLayout winLossMeter = (RelativeLayout) rootView.findViewById(R.id.WinLossMeter);
-        RelativeLayout wins = (RelativeLayout) rootView.findViewById(R.id.Wins);
-        RelativeLayout losses = (RelativeLayout) rootView.findViewById(R.id.Losses);
-        RelativeLayout meterLayout = (RelativeLayout) rootView.findViewById(R.id.winOutline);
-        RelativeLayout sameTeam = (RelativeLayout) rootView.findViewById(R.id.sameTeamLayout);
-        RelativeLayout disconnects = (RelativeLayout) rootView.findViewById(R.id.disconnectLayout);
-        RelativeLayout timePlayedLayout = (RelativeLayout) rootView.findViewById(R.id.timeLayout);
-        RelativeLayout imageLayout = (RelativeLayout) rootView.findViewById(R.id.imageLayout);
+        RelativeLayout winLossMeter = rootView.findViewById(R.id.WinLossMeter);
+        RelativeLayout wins = rootView.findViewById(R.id.Wins);
+        RelativeLayout losses = rootView.findViewById(R.id.Losses);
+        RelativeLayout meterLayout = rootView.findViewById(R.id.winOutline);
+        RelativeLayout sameTeam = rootView.findViewById(R.id.sameTeamLayout);
+        RelativeLayout disconnects = rootView.findViewById(R.id.disconnectLayout);
+        RelativeLayout timePlayedLayout = rootView.findViewById(R.id.timeLayout);
+        RelativeLayout imageLayout = rootView.findViewById(R.id.imageLayout);
 
         wins.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.alpha.getColor())));
         losses.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
 
-        TextView winText = (TextView) rootView.findViewById(R.id.WinText);
-        TextView lossText = (TextView) rootView.findViewById(R.id.LossText);
-        TextView gradeTitle = (TextView) rootView.findViewById(R.id.GradeTitleText);
-        TextView gradeText = (TextView) rootView.findViewById(R.id.GradeText);
-        TextView sameTeamTitle = (TextView) rootView.findViewById(R.id.SameTeamTitleText);
-        TextView sameTeamText = (TextView) rootView.findViewById(R.id.SameTeamText);
-        TextView disconnectTitle = (TextView) rootView.findViewById(R.id.DisconnectTitleText);
-        TextView disconnectText = (TextView) rootView.findViewById(R.id.DisconnectText);
-        TextView powerTitle = (TextView) rootView.findViewById(R.id.PowerTitleText);
-        TextView powerText = (TextView) rootView.findViewById(R.id.PowerText);
-        TextView playedTitle = (TextView) rootView.findViewById(R.id.TimeTitleText);
-        TextView playedText = (TextView) rootView.findViewById(R.id.TimeText);
+        TextView winText = rootView.findViewById(R.id.WinText);
+        TextView lossText = rootView.findViewById(R.id.LossText);
+        TextView gradeTitle = rootView.findViewById(R.id.GradeTitleText);
+        TextView gradeText = rootView.findViewById(R.id.GradeText);
+        TextView sameTeamTitle = rootView.findViewById(R.id.SameTeamTitleText);
+        TextView sameTeamText = rootView.findViewById(R.id.SameTeamText);
+        TextView disconnectTitle = rootView.findViewById(R.id.DisconnectTitleText);
+        TextView disconnectText = rootView.findViewById(R.id.DisconnectText);
+        TextView powerTitle = rootView.findViewById(R.id.PowerTitleText);
+        TextView powerText = rootView.findViewById(R.id.PowerText);
+        TextView playedTitle = rootView.findViewById(R.id.TimeTitleText);
+        TextView playedText = rootView.findViewById(R.id.TimeText);
 
-        ImageView image = (ImageView) rootView.findViewById(R.id.Image);
+        ImageView image = rootView.findViewById(R.id.Image);
 
         winText.setTypeface(font);
         lossText.setTypeface(font);

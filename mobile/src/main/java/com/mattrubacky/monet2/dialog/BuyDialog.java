@@ -57,25 +57,25 @@ public class BuyDialog extends Dialog{
             Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
             ImageHandler imageHandler = new ImageHandler();
 
-            RelativeLayout dialogCard = (RelativeLayout) findViewById(R.id.dialogCard);
+            RelativeLayout dialogCard = findViewById(R.id.dialogCard);
             dialogCard.setClipToOutline(true);
 
-            RelativeLayout item = (RelativeLayout) findViewById(R.id.Item);
-            RelativeLayout infoBar = (RelativeLayout) findViewById(R.id.InfoBar);
-            RelativeLayout infoPatch = (RelativeLayout) findViewById(R.id.infoPatch);
+            RelativeLayout item = findViewById(R.id.Item);
+            RelativeLayout infoBar = findViewById(R.id.InfoBar);
+            RelativeLayout infoPatch = findViewById(R.id.infoPatch);
             item.setClipToOutline(true);
 
-            ImageView brand = (ImageView) findViewById(R.id.Brand);
-            ImageView gear = (ImageView) findViewById(R.id.Image);
-            ImageView mainAbility = (ImageView) findViewById(R.id.MainAbility);
-            ImageView sub2 = (ImageView) findViewById(R.id.Sub2);
-            ImageView sub3 = (ImageView) findViewById(R.id.Sub3);
+            ImageView brand = findViewById(R.id.Brand);
+            ImageView gear = findViewById(R.id.Image);
+            ImageView mainAbility = findViewById(R.id.MainAbility);
+            ImageView sub2 = findViewById(R.id.Sub2);
+            ImageView sub3 = findViewById(R.id.Sub3);
 
-            TextView name = (TextView) findViewById(R.id.Name);
-            TextView cost = (TextView) findViewById(R.id.Cost);
-            final TextView time = (TextView) findViewById(R.id.Time);
+            TextView name = findViewById(R.id.Name);
+            TextView cost = findViewById(R.id.Cost);
+            final TextView time = findViewById(R.id.Time);
 
-            Button orderButton = (Button) findViewById(R.id.OrderButton);
+            Button orderButton = findViewById(R.id.OrderButton);
 
             orderButton.setTypeface(font);
             orderButton.setOnClickListener(new View.OnClickListener() {
@@ -191,41 +191,41 @@ public class BuyDialog extends Dialog{
             Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
             ImageHandler imageHandler = new ImageHandler();
 
-            RelativeLayout dialogCard = (RelativeLayout) findViewById(R.id.dialogCard);
+            RelativeLayout dialogCard = findViewById(R.id.dialogCard);
             dialogCard.setClipToOutline(true);
 
-            RelativeLayout orderingItem = (RelativeLayout) findViewById(R.id.OrderingItem);
-            RelativeLayout orderingInfoBar = (RelativeLayout) findViewById(R.id.OrderingInfoBar);
-            RelativeLayout orderingInfoPatch = (RelativeLayout) findViewById(R.id.orderingInfoPatch);
+            RelativeLayout orderingItem = findViewById(R.id.OrderingItem);
+            RelativeLayout orderingInfoBar = findViewById(R.id.OrderingInfoBar);
+            RelativeLayout orderingInfoPatch = findViewById(R.id.orderingInfoPatch);
             orderingItem.setClipToOutline(true);
 
-            ImageView orderingBrand = (ImageView) findViewById(R.id.OrderingBrand);
-            ImageView orderingGear = (ImageView) findViewById(R.id.OrderingImage);
-            ImageView orderingMainAbility = (ImageView) findViewById(R.id.OrderingMainAbility);
-            ImageView orderingSub2 = (ImageView) findViewById(R.id.OrderingSub2);
-            ImageView orderingSub3 = (ImageView) findViewById(R.id.OrderingSub3);
+            ImageView orderingBrand = findViewById(R.id.OrderingBrand);
+            ImageView orderingGear = findViewById(R.id.OrderingImage);
+            ImageView orderingMainAbility = findViewById(R.id.OrderingMainAbility);
+            ImageView orderingSub2 = findViewById(R.id.OrderingSub2);
+            ImageView orderingSub3 = findViewById(R.id.OrderingSub3);
 
-            TextView orderingName = (TextView) findViewById(R.id.OrderingName);
-            TextView orderingCost = (TextView) findViewById(R.id.OrderingCost);
-            final TextView orderingTime = (TextView) findViewById(R.id.OrderingTime);
+            TextView orderingName = findViewById(R.id.OrderingName);
+            TextView orderingCost = findViewById(R.id.OrderingCost);
+            final TextView orderingTime = findViewById(R.id.OrderingTime);
 
             //Ordered Layout
-            RelativeLayout orderedItem = (RelativeLayout) findViewById(R.id.OrderedItem);
-            RelativeLayout orderedInfoBar = (RelativeLayout) findViewById(R.id.OrderedInfoBar);
-            RelativeLayout orderedInfoPatch = (RelativeLayout) findViewById(R.id.orderedInfoPatch);
+            RelativeLayout orderedItem = findViewById(R.id.OrderedItem);
+            RelativeLayout orderedInfoBar = findViewById(R.id.OrderedInfoBar);
+            RelativeLayout orderedInfoPatch = findViewById(R.id.orderedInfoPatch);
             orderingItem.setClipToOutline(true);
 
-            ImageView orderedBrand = (ImageView) findViewById(R.id.OrderedBrand);
-            ImageView orderedGear = (ImageView) findViewById(R.id.OrderedImage);
-            ImageView orderedMainAbility = (ImageView) findViewById(R.id.OrderedMainAbility);
-            ImageView orderedSub2 = (ImageView) findViewById(R.id.OrderedSub2);
-            ImageView orderedSub3 = (ImageView) findViewById(R.id.OrderedSub3);
+            ImageView orderedBrand = findViewById(R.id.OrderedBrand);
+            ImageView orderedGear = findViewById(R.id.OrderedImage);
+            ImageView orderedMainAbility = findViewById(R.id.OrderedMainAbility);
+            ImageView orderedSub2 = findViewById(R.id.OrderedSub2);
+            ImageView orderedSub3 = findViewById(R.id.OrderedSub3);
 
-            TextView orderedName = (TextView) findViewById(R.id.OrderedName);
-            TextView orderedCost = (TextView) findViewById(R.id.OrderedCost);
+            TextView orderedName = findViewById(R.id.OrderedName);
+            TextView orderedCost = findViewById(R.id.OrderedCost);
 
-            Button orderButton = (Button) findViewById(R.id.OrderButton);
-            Button keepButton = (Button) findViewById(R.id.KeepButton);
+            Button orderButton = findViewById(R.id.OrderButton);
+            Button keepButton = findViewById(R.id.KeepButton);
 
             orderButton.setTypeface(font);
             keepButton.setTypeface(font);

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -28,18 +27,13 @@ public class ImageHandler {
             dir.mkdir();
         }
         File file = new File(location,name);
-        if(file.exists()) {
-            return true;
-        }else{
-            return false;
-        }
+        return file.exists();
     }
 
     public Bitmap loadImage(String location,String name){
         File file = new File(location,name);
         try{
-            Bitmap image = BitmapFactory.decodeStream(new FileInputStream(file));
-            return image;
+            return BitmapFactory.decodeStream(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;

@@ -68,10 +68,7 @@ public class ShopRequest extends SplatnetRequest {
             shop = gson.fromJson(settings.getString("shopState", "{}"), Annie.class);
             long now = new Date().getTime();
             if (shop.merch != null && shop.merch.size() > 0) {
-                if ((shop.merch.get(0).endTime * 1000) < now) {
-                    return true;
-                }
-                return false;
+                return (shop.merch.get(0).endTime * 1000) < now;
             }
         }
 

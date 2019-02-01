@@ -7,9 +7,7 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.splatoon.RewardGear;
 import com.mattrubacky.monet2.deserialized.splatoon.Timeline;
-import com.mattrubacky.monet2.sqlite.SplatnetContract;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -37,8 +35,6 @@ public class GrizzCoRewardNotificationFactory extends NotificationFactory {
             calendar.add(Calendar.DAY_OF_MONTH,3);
             rewardGear.available = calendar.getTimeInMillis();
             calendar.add(Calendar.MONTH,1);
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss");
-            String time = sdf.format(calendar.getTime());
 
             notifications.add(new GrizzCoRewardNotification(context,rewardGear,calendar.getTimeInMillis()));
         }

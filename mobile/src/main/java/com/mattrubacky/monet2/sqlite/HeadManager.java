@@ -99,7 +99,7 @@ public class HeadManager {
 
         int brandID;
 
-        Gear gear = new Gear();;
+        Gear gear = new Gear();
 
         if(cursor.moveToFirst()){
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +16,17 @@ import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 12/24/2017.
  */
 
 public class BattleViewHolder extends RecyclerView.ViewHolder{
-    public RelativeLayout item,fesMode,alpha,bravo,spots;
-    public ImageView weapon,type;
-    public TextView mode,map,result;
+    private RelativeLayout item,fesMode,alpha,bravo,spots;
+
+    private ImageView weapon,type;
+    private TextView mode,map,result;
     private Context context;
 
 
@@ -33,19 +35,19 @@ public class BattleViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        item = (RelativeLayout) itemView.findViewById(R.id.item);
+        item = itemView.findViewById(R.id.item);
 
-        fesMode = (RelativeLayout) itemView.findViewById(R.id.FesMode);
-        alpha = (RelativeLayout) itemView.findViewById(R.id.Alpha);
-        bravo = (RelativeLayout) itemView.findViewById(R.id.Bravo);
-        spots = (RelativeLayout) itemView.findViewById(R.id.Spots);
+        fesMode = itemView.findViewById(R.id.FesMode);
+        alpha = itemView.findViewById(R.id.Alpha);
+        bravo = itemView.findViewById(R.id.Bravo);
+        spots = itemView.findViewById(R.id.Spots);
 
-        mode = (TextView) itemView.findViewById(R.id.mode);
-        map = (TextView) itemView.findViewById(R.id.map);
-        result = (TextView) itemView.findViewById(R.id.result);
+        mode = itemView.findViewById(R.id.mode);
+        map = itemView.findViewById(R.id.map);
+        result = itemView.findViewById(R.id.result);
 
-        weapon = (ImageView) itemView.findViewById(R.id.weapon);
-        type = (ImageView) itemView.findViewById(R.id.Type);
+        weapon = itemView.findViewById(R.id.weapon);
+        type = itemView.findViewById(R.id.Type);
     }
 
     public void manageHolder(Battle battle){

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,8 @@ import com.mattrubacky.monet2.helper.ClosetHanger;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 11/13/2017.
@@ -49,7 +50,7 @@ public class MerchAdapter extends RecyclerView.Adapter<MerchViewHolder>{
         viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                RecyclerView currentMerch = (RecyclerView) activity.findViewById(R.id.CurrentMerch);
+                RecyclerView currentMerch = activity.findViewById(R.id.CurrentMerch);
                 int itemPosition = currentMerch.indexOfChild(v);
                 Intent intent = new Intent(activity, ClosetDetail.class);
                 SplatnetSQLManager database = new SplatnetSQLManager(activity);
@@ -96,21 +97,21 @@ public class MerchAdapter extends RecyclerView.Adapter<MerchViewHolder>{
         public ViewHolder(View itemView) {
             super(itemView);
 
-            item = (RelativeLayout) itemView.findViewById(R.id.Item);
-            infoBar = (RelativeLayout) itemView.findViewById(R.id.InfoBar);
-            infoPatch = (RelativeLayout) itemView.findViewById(R.id.infoPatch);
+            item = itemView.findViewById(R.id.Item);
+            infoBar = itemView.findViewById(R.id.InfoBar);
+            infoPatch = itemView.findViewById(R.id.infoPatch);
             item.setClipToOutline(true);
 
-            brand = (ImageView) itemView.findViewById(R.id.Brand);
-            gear = (ImageView) itemView.findViewById(R.id.Image);
-            mainAbility = (ImageView) itemView.findViewById(R.id.MainAbility);
-            sub2 = (ImageView) itemView.findViewById(R.id.Sub2);
-            sub3 = (ImageView) itemView.findViewById(R.id.Sub3);
+            brand = itemView.findViewById(R.id.Brand);
+            gear = itemView.findViewById(R.id.Image);
+            mainAbility = itemView.findViewById(R.id.MainAbility);
+            sub2 = itemView.findViewById(R.id.Sub2);
+            sub3 = itemView.findViewById(R.id.Sub3);
 
-            name = (TextView) itemView.findViewById(R.id.Name);
-            cost = (TextView) itemView.findViewById(R.id.Cost);
+            name = itemView.findViewById(R.id.Name);
+            cost = itemView.findViewById(R.id.Cost);
 
-            time = (TextView) itemView.findViewById(R.id.Time);
+            time = itemView.findViewById(R.id.Time);
         }
 
     }

@@ -2,9 +2,6 @@ package com.mattrubacky.monet2.adapter.Pager;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
@@ -12,15 +9,19 @@ import com.mattrubacky.monet2.fragment.SplatfestDetail.SplatfestPerformanceFragm
 import com.mattrubacky.monet2.fragment.SplatfestDetail.SplatfestResultFragment;
 import com.mattrubacky.monet2.helper.SplatfestStats;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+
 /**
  * Created by mattr on 11/17/2017.
  */
 
 public class SplatfestPerformanceAdapter extends FragmentStatePagerAdapter {
-    Splatfest splatfest;
-    SplatfestResult result;
-    SplatfestStats stats;
-    public SplatfestPerformanceAdapter(FragmentManager fm, Splatfest splatfest, SplatfestResult result,SplatfestStats stats) {
+    private Splatfest splatfest;
+    private SplatfestResult result;
+    private SplatfestStats stats;
+    public SplatfestPerformanceAdapter(FragmentManager fm, Splatfest splatfest, SplatfestResult result, SplatfestStats stats) {
         super(fm);
         this.splatfest = splatfest;
         this.result = result;

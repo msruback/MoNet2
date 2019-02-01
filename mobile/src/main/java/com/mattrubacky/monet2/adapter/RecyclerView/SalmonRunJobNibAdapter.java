@@ -1,7 +1,6 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,6 +10,9 @@ import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.PromotionNibViewH
 import com.mattrubacky.monet2.deserialized.splatoon.RewardGear;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 11/10/2018.
@@ -38,8 +40,9 @@ public class SalmonRunJobNibAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType){
             case 0:
                 return new CapsuleLeftNibViewHolder(inflater,parent,context);
@@ -53,7 +56,7 @@ public class SalmonRunJobNibAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holderab, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holderab, int position) {
         if(position<rewards.size()) {
             if (position%2 == 0) {
                 CapsuleLeftNibViewHolder holder = (CapsuleLeftNibViewHolder) holderab;
@@ -67,8 +70,6 @@ public class SalmonRunJobNibAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     case 2:
                         holder.manageHolder(rewardGear);
                         break;
-                    default:
-                        System.out.println("FUCKFUCK");
                 }
             }else{
                 CapsuleRightNibViewHolder holder = (CapsuleRightNibViewHolder) holderab;
@@ -82,8 +83,6 @@ public class SalmonRunJobNibAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     case 2:
                         holder.manageHolder(rewardGear);
                         break;
-                    default:
-                        System.out.println("FUCKFUCK");
                 }
             }
         }else{

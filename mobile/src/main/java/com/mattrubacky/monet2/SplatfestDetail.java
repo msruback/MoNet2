@@ -6,13 +6,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,21 +31,27 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
+
 public class SplatfestDetail extends AppCompatActivity implements SplatnetConnected{
 
-    Splatfest splatfest;
-    SplatfestResult result;
-    SplatfestStats stats;
-    SplatfestVotes votes;
+    private Splatfest splatfest;
+    private SplatfestResult result;
+    private SplatfestStats stats;
+    private SplatfestVotes votes;
 
-    RelativeLayout inkMeter,killMeter,deathMeter,specialMeter,votesButton;
-    Fragment inkSolo,inkTeam,killSolo,killTeam,deathSolo,deathTeam,specialSolo,specialTeam;
-    boolean inkToggle,killToggle,deathToggle,specialToggle;
+    private RelativeLayout inkMeter,killMeter,deathMeter,specialMeter,votesButton;
+    private Fragment inkSolo,inkTeam,killSolo,killTeam,deathSolo,deathTeam,specialSolo,specialTeam;
+    private boolean inkToggle,killToggle,deathToggle,specialToggle;
 
 
-    FragmentManager fragmentManager;
+    private FragmentManager fragmentManager;
 
-    SplatnetConnector splatnetConnector;
+    private SplatnetConnector splatnetConnector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,17 +76,15 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        Typeface font, fontTitle;
+        Typeface fontTitle;
         if(settings.getBoolean("useInkling",false)){
-            font = Typeface.createFromAsset(getAssets(),"Inkling.otf");
             fontTitle = Typeface.createFromAsset(getAssets(),"Inkling.otf");
         }else{
-            font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
             fontTitle = Typeface.createFromAsset(getAssets(),"Paintball.otf");
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView title = (TextView) findViewById(R.id.title);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView title = findViewById(R.id.title);
         title.setTypeface(fontTitle);
         setSupportActionBar(toolbar);
 
@@ -96,33 +94,33 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        ImageView panel = (ImageView) findViewById(R.id.PanelImage);
-        RelativeLayout moreInfo = (RelativeLayout) findViewById(R.id.moreInfo);
-        RelativeLayout generalStats = (RelativeLayout) findViewById(R.id.generalStats);
-        RelativeLayout inkStats = (RelativeLayout) findViewById(R.id.inkStats);
-        inkMeter = (RelativeLayout) findViewById(R.id.InkMeter);
-        RelativeLayout killStats = (RelativeLayout) findViewById(R.id.killStats);
-        killMeter = (RelativeLayout) findViewById(R.id.KillMeter);
-        RelativeLayout deathStats = (RelativeLayout) findViewById(R.id.deathStats);
-        deathMeter = (RelativeLayout) findViewById(R.id.DeathMeter);
-        RelativeLayout specialStats = (RelativeLayout) findViewById(R.id.specialStats);
-        specialMeter = (RelativeLayout) findViewById(R.id.SpecialMeter);
-        RelativeLayout extraStats = (RelativeLayout) findViewById(R.id.extraStats);
-        votesButton = (RelativeLayout) findViewById(R.id.VotesButton);
-        RelativeLayout battlesButton = (RelativeLayout) findViewById(R.id.BattlesButton);
+        ImageView panel = findViewById(R.id.PanelImage);
+        RelativeLayout moreInfo = findViewById(R.id.moreInfo);
+        RelativeLayout generalStats = findViewById(R.id.generalStats);
+        RelativeLayout inkStats = findViewById(R.id.inkStats);
+        inkMeter = findViewById(R.id.InkMeter);
+        RelativeLayout killStats = findViewById(R.id.killStats);
+        killMeter = findViewById(R.id.KillMeter);
+        RelativeLayout deathStats = findViewById(R.id.deathStats);
+        deathMeter = findViewById(R.id.DeathMeter);
+        RelativeLayout specialStats = findViewById(R.id.specialStats);
+        specialMeter = findViewById(R.id.SpecialMeter);
+        RelativeLayout extraStats = findViewById(R.id.extraStats);
+        votesButton = findViewById(R.id.VotesButton);
+        RelativeLayout battlesButton = findViewById(R.id.BattlesButton);
 
 
-        final TextView splatfestTime = (TextView) findViewById(R.id.SplatfestTime);
-        TextView inkTitle = (TextView) findViewById(R.id.InkTitle);
-        final TextView inkButton = (TextView) findViewById(R.id.InkButton);
-        TextView killTitle = (TextView) findViewById(R.id.KillTitle);
-        final TextView killButton = (TextView) findViewById(R.id.KillButton);
-        TextView deathTitle = (TextView) findViewById(R.id.DeathTitle);
-        final TextView deathButton = (TextView) findViewById(R.id.DeathButton);
-        TextView specialTitle = (TextView) findViewById(R.id.SpecialTitle);
-        final TextView specialButton = (TextView) findViewById(R.id.SpecialButton);
-        TextView votesButtonText = (TextView) findViewById(R.id.VotesButtonText);
-        TextView battlesButtonText = (TextView) findViewById(R.id.BattlesButtonText);
+        final TextView splatfestTime = findViewById(R.id.SplatfestTime);
+        TextView inkTitle = findViewById(R.id.InkTitle);
+        final TextView inkButton = findViewById(R.id.InkButton);
+        TextView killTitle = findViewById(R.id.KillTitle);
+        final TextView killButton = findViewById(R.id.KillButton);
+        TextView deathTitle = findViewById(R.id.DeathTitle);
+        final TextView deathButton = findViewById(R.id.DeathButton);
+        TextView specialTitle = findViewById(R.id.SpecialTitle);
+        final TextView specialButton = findViewById(R.id.SpecialButton);
+        TextView votesButtonText = findViewById(R.id.VotesButtonText);
+        TextView battlesButtonText = findViewById(R.id.BattlesButtonText);
 
         //Colors
 
@@ -147,7 +145,7 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
         battlesButton.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(splatfest.colors.bravo.getColor())));
 
 
-        ViewPager generalPager = (ViewPager) findViewById(R.id.GeneralStatsPager);
+        ViewPager generalPager = findViewById(R.id.GeneralStatsPager);
 
         splatfestTime.setTypeface(fontTitle);
         inkTitle.setTypeface(fontTitle);

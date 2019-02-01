@@ -3,22 +3,18 @@ package com.mattrubacky.monet2.adapter.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mattrubacky.monet2.BattleInfo;
 import com.mattrubacky.monet2.SalmonRunShiftDetail;
-import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SalmonJobViewHolder;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.SalmonShiftViewHolder;
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.deserialized.splatoon.CoopResult;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
-import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
-import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 11/6/2018.
@@ -28,7 +24,7 @@ public class SalmonShiftAdapter extends RecyclerView.Adapter<SalmonShiftViewHold
     private LayoutInflater inflater;
     private Context context;
     private ArrayList<SalmonRunDetail> details;
-    RecyclerView listView;
+    private RecyclerView listView;
 
     public SalmonShiftAdapter(Context context, ArrayList<SalmonRunDetail> details, RecyclerView listView){
         this.inflater = LayoutInflater.from(context);
@@ -38,7 +34,7 @@ public class SalmonShiftAdapter extends RecyclerView.Adapter<SalmonShiftViewHold
     }
 
     @Override
-    public SalmonShiftViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SalmonShiftViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         SalmonShiftViewHolder viewHolder= new SalmonShiftViewHolder(inflater,parent,context);
         viewHolder.itemView.setOnClickListener( new View.OnClickListener() {
             @Override

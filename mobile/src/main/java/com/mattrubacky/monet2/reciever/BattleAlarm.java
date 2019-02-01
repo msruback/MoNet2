@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
-import android.support.v4.content.WakefulBroadcastReceiver;
+
 
 import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.api.splatnet.RecordsRequest;
@@ -17,6 +17,8 @@ import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 
 import java.util.ArrayList;
+
+import androidx.legacy.content.WakefulBroadcastReceiver;
 
 /**
  * Created by mattr on 12/22/2017.
@@ -30,7 +32,7 @@ public class BattleAlarm extends WakefulBroadcastReceiver implements SplatnetCon
     public void onReceive(Context context, Intent intent) {
         this.context =context;
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
+        wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "monet:battlealarm");
         wl.acquire();
 
         SplatnetConnector splatnetConnector = new SplatnetConnector(this,context);

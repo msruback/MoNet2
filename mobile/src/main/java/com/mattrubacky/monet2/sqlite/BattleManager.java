@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.KeyName;
 import com.mattrubacky.monet2.deserialized.splatoon.PlayerDatabase;
-import com.mattrubacky.monet2.deserialized.splatoon.Rule;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestColor;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestGrade;
 import com.mattrubacky.monet2.deserialized.splatoon.Stage;

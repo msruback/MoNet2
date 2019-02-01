@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.mattrubacky.monet2.deserialized.splatoon.NicknameIcons;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Response;
@@ -25,7 +24,7 @@ public class NicknameRequest extends SplatnetRequest {
     }
 
     @Override
-    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
+    protected void manageResponse(Response response) {
         System.out.println(response.body());
     }
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 
 public class NotificationStorage {
-    public NotificationStorage(){};
+    public NotificationStorage(){}
 
     @SerializedName("notifications")
     protected ArrayList<Notification> notifications;

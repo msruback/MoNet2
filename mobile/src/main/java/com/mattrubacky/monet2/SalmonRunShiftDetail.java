@@ -3,11 +3,6 @@ package com.mattrubacky.monet2;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -24,11 +19,17 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 11/6/2018.
  */
 
-public class SalmonRunShiftDetail extends AppCompatActivity{
+public class SalmonRunShiftDetail extends AppCompatActivity {
     RelativeLayout jobCard,spots;
     RecyclerView jobs;
 
@@ -49,23 +50,23 @@ public class SalmonRunShiftDetail extends AppCompatActivity{
         RewardGear gear = database.getRewardGear(shift.start);
         ArrayList<CoopResult> results  = database.getJobs(shift.start);
 
-        ImageView stageImage = (ImageView) findViewById(R.id.StageImage);
+        ImageView stageImage = findViewById(R.id.StageImage);
 
-        ImageView weapon1Image = (ImageView) findViewById(R.id.Weapon1);
-        ImageView weapon2Image = (ImageView) findViewById(R.id.Weapon2);
-        ImageView weapon3Image = (ImageView) findViewById(R.id.Weapon3);
-        ImageView weapon4Image = (ImageView) findViewById(R.id.Weapon4);
+        ImageView weapon1Image = findViewById(R.id.Weapon1);
+        ImageView weapon2Image = findViewById(R.id.Weapon2);
+        ImageView weapon3Image = findViewById(R.id.Weapon3);
+        ImageView weapon4Image = findViewById(R.id.Weapon4);
 
-        jobs = (RecyclerView) findViewById(R.id.Jobs);
+        jobs = findViewById(R.id.Jobs);
 
-        spots = (RelativeLayout) findViewById(R.id.spots);
-        jobCard = (RelativeLayout) findViewById(R.id.jobCard);
+        spots = findViewById(R.id.spots);
+        jobCard = findViewById(R.id.jobCard);
         jobCard.setClipToOutline(true);
 
-        TextView stageName = (TextView) findViewById(R.id.StageName);
+        TextView stageName = findViewById(R.id.StageName);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView title = (TextView) findViewById(R.id.title);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView title = findViewById(R.id.title);
         title.setTypeface(fontTitle);
         setSupportActionBar(toolbar);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE M/d");
@@ -87,7 +88,7 @@ public class SalmonRunShiftDetail extends AppCompatActivity{
 
         jobs.setAdapter(jobAdapter);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         jobs.setLayoutManager(linearLayoutManager);
 
         ImageHandler imageHandler = new ImageHandler();

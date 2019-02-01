@@ -50,10 +50,7 @@ public abstract class Notification {
 
     public boolean isValid(){
         long now = new Date().getTime();
-        if((endTime)<now){
-            return false;
-        }
-        return true;
+        return (endTime) >= now;
     }
     public Long getTime(){
         return startTime;

@@ -41,11 +41,11 @@ public class SplatfestBattleAdapter extends ArrayAdapter<Battle> {
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
 
-        RelativeLayout weaponLayout = (RelativeLayout) convertView.findViewById(R.id.weaponLayout);
+        RelativeLayout weaponLayout = convertView.findViewById(R.id.weaponLayout);
 
-        ImageView image = (ImageView) convertView.findViewById(R.id.WeaponImage);
-        TextView battleNumber = (TextView) convertView.findViewById(R.id.BattleNumber);
-        TextView stage = (TextView) convertView.findViewById(R.id.Stage);
+        ImageView image = convertView.findViewById(R.id.WeaponImage);
+        TextView battleNumber = convertView.findViewById(R.id.BattleNumber);
+        TextView stage = convertView.findViewById(R.id.Stage);
 
         weaponLayout.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(color.getColor())));
 

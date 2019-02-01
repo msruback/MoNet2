@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,29 +15,31 @@ import com.mattrubacky.monet2.deserialized.splatoon.Challenge;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 12/24/2017.
  */
 
 public class ChallengeViewHolder extends RecyclerView.ViewHolder{
 
-    public RelativeLayout card,progressMeter,progress;
-    public ImageView challengeImage;
-    public TextView progressText,challengeName;
+    private RelativeLayout card,progressMeter,progress;
+    private ImageView challengeImage;
+    private TextView progressText,challengeName;
     private Context context;
 
     public ChallengeViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
         super(inflater.inflate(R.layout.item_challenge, parent, false));
         this.context = context;
 
-        card = (RelativeLayout) itemView.findViewById(R.id.card);
-        progressMeter = (RelativeLayout) itemView.findViewById(R.id.meter);
-        progress = (RelativeLayout) itemView.findViewById(R.id.ProgressMeter);
+        card = itemView.findViewById(R.id.card);
+        progressMeter = itemView.findViewById(R.id.meter);
+        progress = itemView.findViewById(R.id.ProgressMeter);
 
-        challengeImage = (ImageView) itemView.findViewById(R.id.challengeImage);
+        challengeImage = itemView.findViewById(R.id.challengeImage);
 
-        progressText = (TextView) itemView.findViewById(R.id.ProgressPercent);
-        challengeName = (TextView) itemView.findViewById(R.id.challengeName);
+        progressText = itemView.findViewById(R.id.ProgressPercent);
+        challengeName = itemView.findViewById(R.id.challengeName);
     }
     public void manageHolder(Challenge challenge,boolean isTop,long paintpoints){
         Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");

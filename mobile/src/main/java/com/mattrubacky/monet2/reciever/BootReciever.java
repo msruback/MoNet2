@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.mattrubacky.monet2.MainActivity;
-
 import java.util.Calendar;
 
 /**

@@ -34,7 +34,7 @@ import java.util.Date;
 
 public class CompetitiveTimePeriodViewHolder extends RecyclerView.ViewHolder{
 
-    private TextView time,mode,title1,title2;
+    public TextView time,mode,title1,title2;
     private ImageView image1,image2;
     private Context context;
 

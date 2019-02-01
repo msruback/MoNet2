@@ -1,7 +1,6 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,6 +9,8 @@ import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.Player;
 
 import java.util.ArrayList;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 11/1/2017.
@@ -34,8 +35,7 @@ import java.util.ArrayList;
     }
     @Override
     public PlayerInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        PlayerInfoViewHolder viewHolder = new PlayerInfoViewHolder(inflater,parent,context);
-        return viewHolder;
+        return new PlayerInfoViewHolder(inflater,parent,context);
     }
 
     @Override

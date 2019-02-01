@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import com.mattrubacky.monet2.deserialized.splatoon.Chunk;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 12/24/2017.
  */
@@ -21,7 +22,7 @@ import com.squareup.picasso.Picasso;
 public class ChunkableViewHolder extends RecyclerView.ViewHolder{
 
     public ImageView skill;
-    public TextView name,addButton,count,subButton;
+    private TextView name,addButton,count,subButton;
 
     private Context context;
 
@@ -30,11 +31,11 @@ public class ChunkableViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        skill = (ImageView) itemView.findViewById(R.id.SkillImage);
-        name = (TextView) itemView.findViewById(R.id.Name);
-        count = (TextView) itemView.findViewById(R.id.Count);
-        addButton = (TextView) itemView.findViewById(R.id.Add);
-        subButton = (TextView) itemView.findViewById(R.id.Sub);
+        skill = itemView.findViewById(R.id.SkillImage);
+        name = itemView.findViewById(R.id.Name);
+        count = itemView.findViewById(R.id.Count);
+        addButton = itemView.findViewById(R.id.Add);
+        subButton = itemView.findViewById(R.id.Sub);
     }
     public void manageHolder(final Chunk chunk){
         Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");

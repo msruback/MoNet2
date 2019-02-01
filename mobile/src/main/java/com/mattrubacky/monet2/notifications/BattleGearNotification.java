@@ -53,7 +53,7 @@ public class BattleGearNotification extends Notification {
 
     @Override
     public void show() {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent battleGearIntent = new Intent(context, BattleInfo.class);
         Bundle bundle = new Bundle();
         if(battle.type.equals("fes")){
@@ -116,10 +116,7 @@ public class BattleGearNotification extends Notification {
     @Override
     public boolean isUnique(Notification notification){
         BattleGearNotification compare = (BattleGearNotification) notification;
-        if(compare.player.user.id.equals(player.user.id)&&compare.gear.id==gear.id&&compare.skill.id==skill.id){
-            return false;
-        }
-        return true;
+        return !compare.player.user.id.equals(player.user.id) || compare.gear.id != gear.id || compare.skill.id != skill.id;
     }
 
     @Override
@@ -127,9 +124,6 @@ public class BattleGearNotification extends Notification {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         int id = settings.getInt("lastBattle",-1);
-        if((id-2)>battle.id){
-            return false;
-        }
-        return true;
+        return (id - 2) <= battle.id;
     }
 }

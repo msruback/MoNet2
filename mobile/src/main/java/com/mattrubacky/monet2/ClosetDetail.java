@@ -1,14 +1,9 @@
 package com.mattrubacky.monet2;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +18,11 @@ import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 public class ClosetDetail extends AppCompatActivity {
 
@@ -40,8 +40,8 @@ public class ClosetDetail extends AppCompatActivity {
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView title = (TextView) findViewById(R.id.title);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView title = findViewById(R.id.title);
         title.setTypeface(fontTitle);
         setSupportActionBar(toolbar);
 
@@ -49,25 +49,25 @@ public class ClosetDetail extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        RelativeLayout nameLayout = (RelativeLayout) findViewById(R.id.nameLayout);
-        RelativeLayout moreInfoLayout = (RelativeLayout) findViewById(R.id.moreInfo);
+        RelativeLayout nameLayout = findViewById(R.id.nameLayout);
+        RelativeLayout moreInfoLayout = findViewById(R.id.moreInfo);
 
-        ImageView editGear = (ImageView) findViewById(R.id.EditGear);
-        ImageView brand = (ImageView) findViewById(R.id.Brand);
-        ImageView gear = (ImageView) findViewById(R.id.GearImage);
-        ImageView main = (ImageView) findViewById(R.id.Main);
-        ImageView sub1 = (ImageView) findViewById(R.id.Sub1);
-        ImageView sub2 = (ImageView) findViewById(R.id.Sub2);
-        ImageView sub3 = (ImageView) findViewById(R.id.Sub3);
+        ImageView editGear = findViewById(R.id.EditGear);
+        ImageView brand = findViewById(R.id.Brand);
+        ImageView gear = findViewById(R.id.GearImage);
+        ImageView main = findViewById(R.id.Main);
+        ImageView sub1 = findViewById(R.id.Sub1);
+        ImageView sub2 = findViewById(R.id.Sub2);
+        ImageView sub3 = findViewById(R.id.Sub3);
 
-        TextView name = (TextView) findViewById(R.id.Name);
-        TextView number = (TextView) findViewById(R.id.Number);
-        TextView winText = (TextView) findViewById(R.id.WinText);
-        TextView lossText = (TextView) findViewById(R.id.LossText);
-        TextView inkedTitle = (TextView) findViewById(R.id.InkedTitleText);
-        TextView inkedText = (TextView) findViewById(R.id.InkedText);
-        TextView lastUsedTitle = (TextView) findViewById(R.id.LastTitleText);
-        TextView lastText = (TextView) findViewById(R.id.LastText);
+        TextView name = findViewById(R.id.Name);
+        TextView number = findViewById(R.id.Number);
+        TextView winText = findViewById(R.id.WinText);
+        TextView lossText = findViewById(R.id.LossText);
+        TextView inkedTitle = findViewById(R.id.InkedTitleText);
+        TextView inkedText = findViewById(R.id.InkedText);
+        TextView lastUsedTitle = findViewById(R.id.LastTitleText);
+        TextView lastText = findViewById(R.id.LastText);
 
         name.setTypeface(fontTitle);
         number.setTypeface(font);
@@ -212,24 +212,24 @@ public class ClosetDetail extends AppCompatActivity {
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        RelativeLayout winLossMeter = (RelativeLayout) findViewById(R.id.WinLossMeter);
-        RelativeLayout wins = (RelativeLayout) findViewById(R.id.Wins);
-        RelativeLayout losses = (RelativeLayout) findViewById(R.id.Losses);
+        RelativeLayout winLossMeter = findViewById(R.id.WinLossMeter);
+        RelativeLayout wins = findViewById(R.id.Wins);
+        RelativeLayout losses = findViewById(R.id.Losses);
 
         winLossMeter.setClipToOutline(true);
 
-        RelativeLayout generalStats = (RelativeLayout) findViewById(R.id.generalStats);
-        RelativeLayout inkCard = (RelativeLayout) findViewById(R.id.inkStats);
-        RelativeLayout killCard = (RelativeLayout) findViewById(R.id.killStats);
-        RelativeLayout deathCard = (RelativeLayout) findViewById(R.id.deathStats);
-        RelativeLayout specialCard = (RelativeLayout) findViewById(R.id.specialStats);
-        RelativeLayout noStatsCard = (RelativeLayout) findViewById(R.id.noStats);
+        RelativeLayout generalStats = findViewById(R.id.generalStats);
+        RelativeLayout inkCard = findViewById(R.id.inkStats);
+        RelativeLayout killCard = findViewById(R.id.killStats);
+        RelativeLayout deathCard = findViewById(R.id.deathStats);
+        RelativeLayout specialCard = findViewById(R.id.specialStats);
+        RelativeLayout noStatsCard = findViewById(R.id.noStats);
 
-        TextView inkTitle = (TextView) findViewById(R.id.InkTitle);
-        TextView killTitle = (TextView) findViewById(R.id.KillTitle);
-        TextView deathTitle = (TextView) findViewById(R.id.DeathTitle);
-        TextView specialTitle = (TextView) findViewById(R.id.SpecialTitle);
-        TextView noStatsText = (TextView) findViewById(R.id.NoStatsText);
+        TextView inkTitle = findViewById(R.id.InkTitle);
+        TextView killTitle = findViewById(R.id.KillTitle);
+        TextView deathTitle = findViewById(R.id.DeathTitle);
+        TextView specialTitle = findViewById(R.id.SpecialTitle);
+        TextView noStatsText = findViewById(R.id.NoStatsText);
 
         inkTitle.setTypeface(fontTitle);
         killTitle.setTypeface(fontTitle);

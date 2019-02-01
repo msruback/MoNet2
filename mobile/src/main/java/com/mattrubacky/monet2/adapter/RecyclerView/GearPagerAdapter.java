@@ -1,16 +1,17 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.mattrubacky.monet2.adapter.RecyclerView.GearAdapter;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ListViewHolder;
 import com.mattrubacky.monet2.helper.ClosetHanger;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 12/18/2017.
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 public class GearPagerAdapter extends RecyclerView.Adapter<ListViewHolder>{
 
-    private ArrayList<ArrayList<ClosetHanger>> input = new ArrayList<>();
+    private ArrayList<ArrayList<ClosetHanger>> input;
     private LayoutInflater inflater;
     private Context context;
 
@@ -27,13 +28,14 @@ public class GearPagerAdapter extends RecyclerView.Adapter<ListViewHolder>{
         this.input = input;
         this.context = context;
     }
+    @NonNull
     @Override
-    public ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ListViewHolder(inflater,parent);
     }
 
     @Override
-    public void onBindViewHolder(final ListViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ListViewHolder holder, final int position) {
 
         ArrayList<ClosetHanger> stats = input.get(position);
 

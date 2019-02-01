@@ -1,12 +1,7 @@
 package com.mattrubacky.monet2.fragment.MainScreenFragments.StatFragments;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,26 +19,29 @@ import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 11/15/2017.
  */
 
 public class StagePostcardsFragment extends Fragment implements SplatnetConnected{
 
-    ViewGroup rootView;
-    SharedPreferences settings;
-    Record records;
-    ArrayList<StageStats> stageStatsList;
-    RecyclerView stageList;
-    SplatnetConnector splatnetConnector;
+    private ViewGroup rootView;
+    private Record records;
+    private ArrayList<StageStats> stageStatsList;
+    private RecyclerView stageList;
+    private SplatnetConnector splatnetConnector;
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_stage_postcards, container, false);
-
-        settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         return rootView;
 
@@ -67,7 +65,7 @@ public class StagePostcardsFragment extends Fragment implements SplatnetConnecte
     }
 
     private void updateUI(){
-        stageList = (RecyclerView) rootView.findViewById(R.id.StageList);
+        stageList = rootView.findViewById(R.id.StageList);
         StageAdapter stageAdapter = new StageAdapter(getContext(), stageStatsList, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

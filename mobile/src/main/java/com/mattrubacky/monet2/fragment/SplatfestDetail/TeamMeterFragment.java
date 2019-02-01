@@ -4,7 +4,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,9 @@ import android.widget.TextView;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestColors;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 /**
  * Created by mattr on 11/17/2017.
  */
@@ -22,8 +24,9 @@ import com.mattrubacky.monet2.deserialized.splatoon.SplatfestColors;
 public class TeamMeterFragment extends Fragment {
     ViewGroup rootView;
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_team_meter, container, false);
@@ -34,25 +37,24 @@ public class TeamMeterFragment extends Fragment {
         SplatfestColors colors = bundle.getParcelable("colors");
 
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
-        Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
 
-        RelativeLayout LowerWhisker = (RelativeLayout) rootView.findViewById(R.id.LowerWhisker);
-        RelativeLayout Box = (RelativeLayout) rootView.findViewById(R.id.Box);
-        RelativeLayout LowerBox = (RelativeLayout) rootView.findViewById(R.id.LowerBox);
-        RelativeLayout UpperBox = (RelativeLayout) rootView.findViewById(R.id.UpperBox);
-        RelativeLayout UpperWhisker = (RelativeLayout) rootView.findViewById(R.id.UpperWhisker);
-        RelativeLayout Player = (RelativeLayout) rootView.findViewById(R.id.Player);
+        RelativeLayout LowerWhisker = rootView.findViewById(R.id.LowerWhisker);
+        RelativeLayout Box = rootView.findViewById(R.id.Box);
+        RelativeLayout LowerBox = rootView.findViewById(R.id.LowerBox);
+        RelativeLayout UpperBox = rootView.findViewById(R.id.UpperBox);
+        RelativeLayout UpperWhisker = rootView.findViewById(R.id.UpperWhisker);
+        RelativeLayout Player = rootView.findViewById(R.id.Player);
 
         Box.setClipToOutline(true);
 
         UpperBox.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(colors.bravo.getColor())));
         LowerBox.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(colors.alpha.getColor())));
 
-        TextView Minimum = (TextView) rootView.findViewById(R.id.Minimum);
-        TextView LowerQuartile = (TextView) rootView.findViewById(R.id.LowerQuartile);
-        TextView Median = (TextView) rootView.findViewById(R.id.Median);
-        TextView UpperQuartile = (TextView) rootView.findViewById(R.id.UpperQuartile);
-        TextView Maximum = (TextView) rootView.findViewById(R.id.Maximum);
+        TextView Minimum = rootView.findViewById(R.id.Minimum);
+        TextView LowerQuartile = rootView.findViewById(R.id.LowerQuartile);
+        TextView Median = rootView.findViewById(R.id.Median);
+        TextView UpperQuartile = rootView.findViewById(R.id.UpperQuartile);
+        TextView Maximum = rootView.findViewById(R.id.Maximum);
 
         Minimum.setTypeface(font);
         LowerQuartile.setTypeface(font);
@@ -120,7 +122,7 @@ public class TeamMeterFragment extends Fragment {
         UpperWhisker.setLayoutParams(layoutParams);
 
         marginLayoutParams = (ViewGroup.MarginLayoutParams) Player.getLayoutParams();
-        width = (float) ((average - stats[0])/range) * (270);
+        width = ((average - stats[0])/range) * (270);
         marginLayoutParams.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics());
         Player.setLayoutParams(marginLayoutParams);
 

@@ -2,9 +2,7 @@ package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +10,11 @@ import android.view.ViewGroup;
 import com.mattrubacky.monet2.ClosetDetail;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.GearViewHolder;
 import com.mattrubacky.monet2.helper.ClosetHanger;
-import com.mattrubacky.monet2.helper.ImageHandler;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 11/13/2017.
@@ -22,10 +22,10 @@ import java.util.ArrayList;
 
 public class GearAdapter extends RecyclerView.Adapter<GearViewHolder>{
 
-    private ArrayList<ClosetHanger> input = new ArrayList<>();
+    private ArrayList<ClosetHanger> input;
     private LayoutInflater inflater;
     private Context context;
-    RecyclerView listView;
+    private RecyclerView listView;
 
     public GearAdapter(Context context, ArrayList<ClosetHanger> input,RecyclerView listView) {
         this.inflater = LayoutInflater.from(context);
@@ -33,8 +33,9 @@ public class GearAdapter extends RecyclerView.Adapter<GearViewHolder>{
         this.context = context;
         this.listView = listView;
     }
+    @NonNull
     @Override
-    public GearViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GearViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         GearViewHolder viewHolder = new GearViewHolder(inflater,parent,context);
         viewHolder.itemView.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -55,12 +56,8 @@ public class GearAdapter extends RecyclerView.Adapter<GearViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(final GearViewHolder holder, final int position) {
-        Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");
-        ImageHandler imageHandler = new ImageHandler();
-
+    public void onBindViewHolder(@NonNull final GearViewHolder holder, final int position) {
         ClosetHanger closetHanger = input.get(position);
-
         holder.manageHolder(closetHanger);
 
     }

@@ -2,14 +2,14 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.helper.ImageHandler;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 12/24/2017.
@@ -17,9 +17,9 @@ import com.mattrubacky.monet2.helper.ImageHandler;
 
 public class GeneralStatViewHolder extends RecyclerView.ViewHolder{
 
-    public RelativeLayout card,winLossMeter,wins,losses;
-    public TextView inkTitle,lastPlayedTitle;
-    public TextView winText,lossText,inkedText,lastPlayedText;
+    private RelativeLayout card,winLossMeter,wins,losses;
+    private TextView inkTitle,lastPlayedTitle;
+    private TextView winText,lossText,inkedText,lastPlayedText;
     private Context context;
 
     public GeneralStatViewHolder(LayoutInflater inflater, ViewGroup parent,Context context) {
@@ -27,18 +27,18 @@ public class GeneralStatViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        card = (RelativeLayout) itemView.findViewById(R.id.card);
-        winLossMeter = (RelativeLayout) itemView.findViewById(R.id.WinLossMeter);
-        wins = (RelativeLayout) itemView.findViewById(R.id.Wins);
-        losses = (RelativeLayout) itemView.findViewById(R.id.Losses);
+        card = itemView.findViewById(R.id.card);
+        winLossMeter = itemView.findViewById(R.id.WinLossMeter);
+        wins = itemView.findViewById(R.id.Wins);
+        losses = itemView.findViewById(R.id.Losses);
 
-        inkTitle = (TextView) itemView.findViewById(R.id.InkedTitleText);
-        lastPlayedTitle = (TextView) itemView.findViewById(R.id.LastTitleText);
+        inkTitle = itemView.findViewById(R.id.InkedTitleText);
+        lastPlayedTitle = itemView.findViewById(R.id.LastTitleText);
 
-        winText = (TextView) itemView.findViewById(R.id.WinText);
-        lossText = (TextView) itemView.findViewById(R.id.LossText);
-        inkedText = (TextView) itemView.findViewById(R.id.InkedText);
-        lastPlayedText = (TextView) itemView.findViewById(R.id.LastText);
+        winText = itemView.findViewById(R.id.WinText);
+        lossText = itemView.findViewById(R.id.LossText);
+        inkedText = itemView.findViewById(R.id.InkedText);
+        lastPlayedText = itemView.findViewById(R.id.LastText);
     }
 
     public void manageHolder(){

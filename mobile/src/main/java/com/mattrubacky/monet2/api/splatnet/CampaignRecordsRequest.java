@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.splatoon.CampaignRecords;
 
-import java.io.IOException;
 
 import retrofit2.Response;
 
@@ -29,7 +28,7 @@ public class CampaignRecordsRequest extends SplatnetRequest {
     }
 
     @Override
-    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
+    protected void manageResponse(Response response) {
         records = (CampaignRecords) response.body();
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);

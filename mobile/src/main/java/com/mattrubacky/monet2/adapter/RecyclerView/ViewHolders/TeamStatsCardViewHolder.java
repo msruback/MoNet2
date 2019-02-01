@@ -2,17 +2,17 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 12/24/2017.
@@ -34,25 +34,25 @@ public class TeamStatsCardViewHolder extends RecyclerView.ViewHolder{
         super(inflater.inflate(R.layout.item_team_stats, parent, false));
         this.context = context;
 
-        card = (RelativeLayout) itemView.findViewById(R.id.card);
-        title = (TextView) itemView.findViewById(R.id.Title);
-        product = (ImageView) itemView.findViewById(R.id.product);
-        zigzag = (RelativeLayout) itemView.findViewById(R.id.zigzag);
+        card = itemView.findViewById(R.id.card);
+        title = itemView.findViewById(R.id.Title);
+        product = itemView.findViewById(R.id.product);
+        zigzag = itemView.findViewById(R.id.zigzag);
 
-        lowerWhisker = (RelativeLayout) itemView.findViewById(R.id.LowerWhisker);
-        box = (RelativeLayout) itemView.findViewById(R.id.Box);
-        lowerBox = (RelativeLayout) itemView.findViewById(R.id.LowerBox);
-        upperBox = (RelativeLayout) itemView.findViewById(R.id.UpperBox);
-        upperWhisker = (RelativeLayout) itemView.findViewById(R.id.UpperWhisker);
+        lowerWhisker = itemView.findViewById(R.id.LowerWhisker);
+        box = itemView.findViewById(R.id.Box);
+        lowerBox = itemView.findViewById(R.id.LowerBox);
+        upperBox = itemView.findViewById(R.id.UpperBox);
+        upperWhisker = itemView.findViewById(R.id.UpperWhisker);
 
-        minimum = (TextView) itemView.findViewById(R.id.Minimum);
-        lowerQuartile = (TextView) itemView.findViewById(R.id.LowerQuartile);
-        median = (TextView) itemView.findViewById(R.id.Median);
-        upperQuartile = (TextView) itemView.findViewById(R.id.UpperQuartile);
-        maximum = (TextView) itemView.findViewById(R.id.Maximum);
+        minimum = itemView.findViewById(R.id.Minimum);
+        lowerQuartile = itemView.findViewById(R.id.LowerQuartile);
+        median = itemView.findViewById(R.id.Median);
+        upperQuartile = itemView.findViewById(R.id.UpperQuartile);
+        maximum = itemView.findViewById(R.id.Maximum);
 
-        player = (RelativeLayout) itemView.findViewById(R.id.Player);
-        button = (TextView) itemView.findViewById(R.id.Button);
+        player = itemView.findViewById(R.id.Player);
+        button = itemView.findViewById(R.id.Button);
     }
     public void manageHolder(String type,int[]user,int[]team,float average){
         this.type = type;
@@ -209,7 +209,7 @@ public class TeamStatsCardViewHolder extends RecyclerView.ViewHolder{
         upperWhisker.setLayoutParams(layoutParams);
 
         marginLayoutParams = (ViewGroup.MarginLayoutParams) player.getLayoutParams();
-        width = (float) ((average - team[0])/range) * (270);
+        width = ((average - team[0])/range) * (270);
         marginLayoutParams.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, context.getResources().getDisplayMetrics());
         player.setLayoutParams(marginLayoutParams);
 

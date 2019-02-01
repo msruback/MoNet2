@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +24,13 @@ import com.mattrubacky.monet2.reciever.DataUpdateAlarm;
 
 import java.util.ArrayList;
 
+import androidx.fragment.app.Fragment;
+
 /**
  * Created by mattr on 9/14/2017.
  */
 
-public class AutoUpdateFragment extends Fragment{
+public class AutoUpdateFragment extends Fragment {
     ViewGroup rootView;
     SharedPreferences settings;
     DataUpdateAlarm dataUpdateAlarm;
@@ -61,18 +62,18 @@ public class AutoUpdateFragment extends Fragment{
         hours.add("10 Hours");
         hours.add("12 Hours");
 
-        final RelativeLayout frequencyLayout = (RelativeLayout) rootView.findViewById(R.id.FrequencyLayout);
-        final RelativeLayout dataLayout = (RelativeLayout) rootView.findViewById(R.id.DataLayout);
+        final RelativeLayout frequencyLayout = rootView.findViewById(R.id.FrequencyLayout);
+        final RelativeLayout dataLayout = rootView.findViewById(R.id.DataLayout);
 
-        final TextView autoTitle = (TextView) rootView.findViewById(R.id.autoUpdateTitle);
-        final TextView autoText = (TextView) rootView.findViewById(R.id.AutoText);
-        final TextView frequencyText = (TextView) rootView.findViewById(R.id.FrequencyText);
-        final TextView dataText = (TextView) rootView.findViewById(R.id.DataText);
-        TextView nextText = (TextView) rootView.findViewById(R.id.nextText);
+        final TextView autoTitle = rootView.findViewById(R.id.autoUpdateTitle);
+        final TextView autoText = rootView.findViewById(R.id.AutoText);
+        final TextView frequencyText = rootView.findViewById(R.id.FrequencyText);
+        final TextView dataText = rootView.findViewById(R.id.DataText);
+        TextView nextText = rootView.findViewById(R.id.nextText);
 
-        RelativeLayout nextButton = (RelativeLayout) rootView.findViewById(R.id.NextButton);
+        RelativeLayout nextButton = rootView.findViewById(R.id.NextButton);
 
-        final Spinner frequencySpinner = (Spinner) rootView.findViewById(R.id.FrequencySpinner);
+        final Spinner frequencySpinner = rootView.findViewById(R.id.FrequencySpinner);
 
         final ArrayAdapter<String> hourAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,hours) {
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -88,8 +89,8 @@ public class AutoUpdateFragment extends Fragment{
         };
 
         frequencySpinner.setAdapter(hourAdapter);
-        final Switch autoSwitch = (Switch) rootView.findViewById(R.id.AutoSwitch);
-        final Switch dataSwitch = (Switch) rootView.findViewById(R.id.DataSwitch);
+        final Switch autoSwitch = rootView.findViewById(R.id.AutoSwitch);
+        final Switch dataSwitch = rootView.findViewById(R.id.DataSwitch);
 
         Boolean checked = settings.getBoolean("autoUpdate",false);
         autoSwitch.setChecked(checked);

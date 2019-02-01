@@ -4,11 +4,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +24,11 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 
 public class BattleInfo extends AppCompatActivity {
     Battle battle;
@@ -39,21 +40,21 @@ public class BattleInfo extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         battle = bundle.getParcelable("battle");
 
-        RelativeLayout meter = (RelativeLayout) findViewById(R.id.meter);
+        RelativeLayout meter = findViewById(R.id.meter);
         meter.setClipToOutline(true);
 
-        RelativeLayout fesMode = (RelativeLayout) findViewById(R.id.FesMode);
-        RelativeLayout alpha = (RelativeLayout) findViewById(R.id.Alpha);
-        RelativeLayout bravo = (RelativeLayout) findViewById(R.id.Bravo);
+        RelativeLayout fesMode = findViewById(R.id.FesMode);
+        RelativeLayout alpha = findViewById(R.id.Alpha);
+        RelativeLayout bravo = findViewById(R.id.Bravo);
 
-        RelativeLayout allyCard = (RelativeLayout) findViewById(R.id.allies);
-        RelativeLayout foeCard = (RelativeLayout) findViewById(R.id.foes);
+        RelativeLayout allyCard = findViewById(R.id.allies);
+        RelativeLayout foeCard = findViewById(R.id.foes);
 
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView title = (TextView) findViewById(R.id.title);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView title = findViewById(R.id.title);
         title.setTypeface(fontTitle);
         setSupportActionBar(toolbar);
 
@@ -61,24 +62,24 @@ public class BattleInfo extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        RelativeLayout allyMeter = (RelativeLayout) findViewById(R.id.AllyMeter);
-        RelativeLayout foeMeter = (RelativeLayout) findViewById(R.id.FoeMeter);
+        RelativeLayout allyMeter = findViewById(R.id.AllyMeter);
+        RelativeLayout foeMeter = findViewById(R.id.FoeMeter);
 
-        ImageView stageImage = (ImageView) findViewById(R.id.StageImage);
-        ImageView modeImage = (ImageView) findViewById(R.id.Mode);
-        ImageView allyImage = (ImageView) findViewById(R.id.AllyFesIcon);
-        ImageView foeImage = (ImageView) findViewById(R.id.FoeFesIcon);
+        ImageView stageImage = findViewById(R.id.StageImage);
+        ImageView modeImage = findViewById(R.id.Mode);
+        ImageView allyImage = findViewById(R.id.AllyFesIcon);
+        ImageView foeImage = findViewById(R.id.FoeFesIcon);
 
-        TextView stageName = (TextView) findViewById(R.id.StageName);
-        TextView rule = (TextView) findViewById(R.id.Rule);
-        TextView allyTitle = (TextView) findViewById(R.id.allyTitle);
-        TextView foeTitle = (TextView) findViewById(R.id.foeTitle);
-        TextView allyCount = (TextView) findViewById(R.id.AllyPercent);
-        TextView foeCount = (TextView) findViewById(R.id.FoePercent);
-        TextView result = (TextView) findViewById(R.id.Result);
-        TextView power = (TextView) findViewById(R.id.Power);
-        TextView startTime = (TextView) findViewById(R.id.Time);
-        TextView elapsedTime = (TextView) findViewById(R.id.Length);
+        TextView stageName = findViewById(R.id.StageName);
+        TextView rule = findViewById(R.id.Rule);
+        TextView allyTitle = findViewById(R.id.allyTitle);
+        TextView foeTitle = findViewById(R.id.foeTitle);
+        TextView allyCount = findViewById(R.id.AllyPercent);
+        TextView foeCount = findViewById(R.id.FoePercent);
+        TextView result = findViewById(R.id.Result);
+        TextView power = findViewById(R.id.Power);
+        TextView startTime = findViewById(R.id.Time);
+        TextView elapsedTime = findViewById(R.id.Length);
 
         title.setTypeface(fontTitle);
         stageName.setTypeface(fontTitle);
@@ -287,8 +288,8 @@ public class BattleInfo extends AppCompatActivity {
         allies.add(battle.user);
         allies.addAll(battle.myTeam);
 
-        final RecyclerView allyList = (RecyclerView) findViewById(R.id.AllyList);
-        final RecyclerView foeList = (RecyclerView) findViewById(R.id.FoeList);
+        final RecyclerView allyList = findViewById(R.id.AllyList);
+        final RecyclerView foeList = findViewById(R.id.FoeList);
 
 
         PlayerInfoAdapter allyAdapter = new PlayerInfoAdapter(BattleInfo.this,allies,allyList,battle,true);
@@ -296,8 +297,8 @@ public class BattleInfo extends AppCompatActivity {
 
         allyList.setAdapter(allyAdapter);
         foeList.setAdapter(foeAdapter);
-        allyList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        foeList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        allyList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
+        foeList.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
     }
 
     @Override

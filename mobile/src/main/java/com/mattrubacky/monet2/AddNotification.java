@@ -4,9 +4,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +28,9 @@ import com.mattrubacky.monet2.dialog.SkillPickerDialog;
 import com.mattrubacky.monet2.dialog.StagePickerDialog;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class AddNotification extends AppCompatActivity {
 
@@ -58,8 +59,8 @@ public class AddNotification extends AppCompatActivity {
 
             setContentView(R.layout.activity_add_gear_notification);
 
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            TextView title = (TextView) findViewById(R.id.title);
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            TextView title = findViewById(R.id.title);
             title.setTypeface(fontTitle);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -67,15 +68,15 @@ public class AddNotification extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-            RelativeLayout Submit = (RelativeLayout) findViewById(R.id.Submit);
-            final RelativeLayout Delete = (RelativeLayout) findViewById(R.id.Delete);
+            RelativeLayout Submit = findViewById(R.id.Submit);
+            final RelativeLayout Delete = findViewById(R.id.Delete);
 
-            TextView gearText = (TextView) findViewById(R.id.GearText);
-            gearInput = (TextView) findViewById(R.id.GearInput);
-            TextView abilityText = (TextView) findViewById(R.id.AbilityText);
-            abilityInput = (TextView) findViewById(R.id.AbilityInput);
-            TextView submitText = (TextView) findViewById(R.id.SubmitText);
-            TextView deleteText = (TextView) findViewById(R.id.DeleteText);
+            TextView gearText = findViewById(R.id.GearText);
+            gearInput = findViewById(R.id.GearInput);
+            TextView abilityText = findViewById(R.id.AbilityText);
+            abilityInput = findViewById(R.id.AbilityInput);
+            TextView submitText = findViewById(R.id.SubmitText);
+            TextView deleteText = findViewById(R.id.DeleteText);
 
             gearText.setTypeface(font);
             gearInput.setTypeface(font);
@@ -187,8 +188,8 @@ public class AddNotification extends AppCompatActivity {
             //Stage Notification
             setContentView(R.layout.activity_add_stage_notification);
 
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            TextView title = (TextView) findViewById(R.id.title);
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            TextView title = findViewById(R.id.title);
             title.setTypeface(fontTitle);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -196,8 +197,8 @@ public class AddNotification extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-            RelativeLayout Submit = (RelativeLayout) findViewById(R.id.Submit);
-            final RelativeLayout Delete = (RelativeLayout) findViewById(R.id.Delete);
+            RelativeLayout Submit = findViewById(R.id.Submit);
+            final RelativeLayout Delete = findViewById(R.id.Delete);
 
             final ArrayList<String> modes = new ArrayList<>();
             modes.add(getResources().getString(R.string.any));
@@ -239,15 +240,15 @@ public class AddNotification extends AppCompatActivity {
             };
 
 
-            TextView stageText = (TextView) findViewById(R.id.StageText);
-            stageInput = (TextView) findViewById(R.id.StageInput);
-            TextView modeText = (TextView) findViewById(R.id.TypeText);
-            TextView ruleText = (TextView) findViewById(R.id.RuleText);
-            TextView submitText = (TextView) findViewById(R.id.SubmitText);
-            final TextView deleteText = (TextView) findViewById(R.id.DeleteText);
+            TextView stageText = findViewById(R.id.StageText);
+            stageInput = findViewById(R.id.StageInput);
+            TextView modeText = findViewById(R.id.TypeText);
+            TextView ruleText = findViewById(R.id.RuleText);
+            TextView submitText = findViewById(R.id.SubmitText);
+            final TextView deleteText = findViewById(R.id.DeleteText);
 
-            final Spinner modeSpinner = (Spinner) findViewById(R.id.TypeSpinner);
-            final Spinner ruleSpinner = (Spinner) findViewById(R.id.RuleSpinner);
+            final Spinner modeSpinner = findViewById(R.id.TypeSpinner);
+            final Spinner ruleSpinner = findViewById(R.id.RuleSpinner);
 
             modeSpinner.setAdapter(modeAdapter);
             ruleSpinner.setAdapter(ruleAdapter);

@@ -8,9 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
-import android.support.v4.content.WakefulBroadcastReceiver;
 
-import com.mattrubacky.monet2.api.splatnet.CoopResultsRequest;
 import com.mattrubacky.monet2.api.splatnet.CoopSchedulesRequest;
 import com.mattrubacky.monet2.api.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.api.splatnet.ResultsRequest;
@@ -25,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import androidx.legacy.content.WakefulBroadcastReceiver;
+
 /**
  * Created by mattr on 9/26/2017.
  */
@@ -37,7 +37,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver implements Splatne
     public void onReceive(Context context, Intent intent) {
         this.context =context;
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
+        wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "monet:dataupdatealarm");
         wl.acquire();
 
         SplatnetConnector splatnetConnector = new SplatnetConnector(this,context);
@@ -64,7 +64,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver implements Splatne
                 lastUpdate += 4;
                 break;
             case 3:
-                lastUpdate += 6;;
+                lastUpdate += 6;
                 break;
             case 4:
                 lastUpdate += 8;

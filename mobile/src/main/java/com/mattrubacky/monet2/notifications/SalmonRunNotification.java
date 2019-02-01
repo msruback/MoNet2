@@ -32,7 +32,7 @@ public class SalmonRunNotification extends Notification {
     }
     @Override
     public void show() {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent rotationIntent = new Intent(context, MainActivity.class);
         rotationIntent.putExtra("fragment",0);
         PendingIntent rotationIntentPending = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), rotationIntent, 0);

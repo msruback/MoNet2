@@ -4,10 +4,6 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,21 +21,26 @@ import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 
 import java.util.ArrayList;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 11/1/2017.
  */
 
 public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
 
-    ViewGroup rootView;
-    SharedPreferences settings;
-    Record records;
-    ArrayList<WeaponStats> weaponStatsList;
-    RecyclerView weaponList;
-    SplatnetConnector splatnetConnector;
-    LinearLayoutManager linearLayoutManager;
-    RelativeLayout shooterTab,brushTab,chargerTab,slosherTab,splatlingTab,dualieTab,brellaTab;
-    ImageView shooterImage,brushImage,chargerImage,slosherImage,splatlingImage,dualieImage,brellaImage;
+    private ViewGroup rootView;
+    private SharedPreferences settings;
+    private Record records;
+    private ArrayList<WeaponStats> weaponStatsList;
+    private RecyclerView weaponList;
+    private SplatnetConnector splatnetConnector;
+    private LinearLayoutManager linearLayoutManager;
+    private RelativeLayout shooterTab,brushTab,chargerTab,slosherTab,splatlingTab,dualieTab,brellaTab;
+    private ImageView shooterImage,brushImage,chargerImage,slosherImage,splatlingImage,dualieImage,brellaImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,25 +51,25 @@ public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
         settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
 
-        weaponList = (RecyclerView) rootView.findViewById(R.id.WeaponList);
+        weaponList = rootView.findViewById(R.id.WeaponList);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(weaponList);
 
-        shooterTab = (RelativeLayout) rootView.findViewById(R.id.ShooterTab);
-        brushTab = (RelativeLayout) rootView.findViewById(R.id.BrushTab);
-        chargerTab = (RelativeLayout) rootView.findViewById(R.id.ChargerTab);
-        slosherTab = (RelativeLayout) rootView.findViewById(R.id.SlosherTab);
-        splatlingTab = (RelativeLayout) rootView.findViewById(R.id.SplatlingTab);
-        dualieTab = (RelativeLayout) rootView.findViewById(R.id.DualieTab);
-        brellaTab = (RelativeLayout) rootView.findViewById(R.id.BrellaTab);
+        shooterTab = rootView.findViewById(R.id.ShooterTab);
+        brushTab = rootView.findViewById(R.id.BrushTab);
+        chargerTab = rootView.findViewById(R.id.ChargerTab);
+        slosherTab = rootView.findViewById(R.id.SlosherTab);
+        splatlingTab = rootView.findViewById(R.id.SplatlingTab);
+        dualieTab = rootView.findViewById(R.id.DualieTab);
+        brellaTab = rootView.findViewById(R.id.BrellaTab);
 
-        shooterImage = (ImageView) rootView.findViewById(R.id.ShooterImage);
-        brushImage = (ImageView) rootView.findViewById(R.id.BrushImage);
-        chargerImage = (ImageView) rootView.findViewById(R.id.ChargerImage);
-        slosherImage = (ImageView) rootView.findViewById(R.id.SlosherImage);
-        splatlingImage = (ImageView) rootView.findViewById(R.id.SplatlingImage);
-        dualieImage = (ImageView) rootView.findViewById(R.id.DualieImage);
-        brellaImage = (ImageView) rootView.findViewById(R.id.BrellaImage);
+        shooterImage = rootView.findViewById(R.id.ShooterImage);
+        brushImage = rootView.findViewById(R.id.BrushImage);
+        chargerImage = rootView.findViewById(R.id.ChargerImage);
+        slosherImage = rootView.findViewById(R.id.SlosherImage);
+        splatlingImage = rootView.findViewById(R.id.SplatlingImage);
+        dualieImage = rootView.findViewById(R.id.DualieImage);
+        brellaImage = rootView.findViewById(R.id.BrellaImage);
 
         shooterTab.setOnClickListener(new View.OnClickListener() {
             @Override

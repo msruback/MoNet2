@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,6 +11,8 @@ import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.splatoon.RewardGear;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.squareup.picasso.Picasso;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 11/10/2018.
@@ -25,9 +26,9 @@ public class CapsuleRightNibViewHolder extends RecyclerView.ViewHolder{
     public CapsuleRightNibViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
         super(inflater.inflate(R.layout.nib_capsule_right, parent, false));
 
-        reward = (ImageView) itemView.findViewById(R.id.Capsule);
+        reward = itemView.findViewById(R.id.Capsule);
 
-        title = (TextView) itemView.findViewById(R.id.Title);
+        title = itemView.findViewById(R.id.Title);
         this.context = context;
     }
 

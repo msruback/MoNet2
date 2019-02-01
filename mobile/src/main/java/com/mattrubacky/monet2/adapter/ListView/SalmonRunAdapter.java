@@ -35,7 +35,7 @@ public class SalmonRunAdapter extends ArrayAdapter<SalmonRun> {
 
         final SalmonRun salmonRun = getItem(position);
 
-        TextView time = (TextView) convertView.findViewById(R.id.time);
+        TextView time = convertView.findViewById(R.id.time);
         time.setTypeface(font);
 
         SimpleDateFormat sdf = new SimpleDateFormat("EEE M/d h a");

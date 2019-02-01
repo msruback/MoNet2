@@ -2,12 +2,8 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
@@ -17,6 +13,9 @@ import com.mattrubacky.monet2.deserialized.splatoon.RewardGear;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 11/5/2018.
  */
@@ -24,18 +23,18 @@ import java.util.ArrayList;
 public class SalmonJobViewHolder extends RecyclerView.ViewHolder{
 
     private Context context;
-    TextView wave1,wave2,wave3,result;
-    RecyclerView nibHolder;
+    private TextView wave1,wave2,wave3,result;
+    private RecyclerView nibHolder;
 
     public SalmonJobViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
         super(inflater.inflate(R.layout.item_coop_result, parent, false));
 
         this.context = context;
-        wave1 = (TextView) itemView.findViewById(R.id.wave1);
-        wave2 = (TextView) itemView.findViewById(R.id.wave2);
-        wave3 = (TextView) itemView.findViewById(R.id.wave3);
-        result = (TextView) itemView.findViewById(R.id.result);
-        nibHolder = (RecyclerView) itemView.findViewById(R.id.nibs);
+        wave1 = itemView.findViewById(R.id.wave1);
+        wave2 = itemView.findViewById(R.id.wave2);
+        wave3 = itemView.findViewById(R.id.wave3);
+        result = itemView.findViewById(R.id.result);
+        nibHolder = itemView.findViewById(R.id.nibs);
 
     }
 
@@ -61,7 +60,7 @@ public class SalmonJobViewHolder extends RecyclerView.ViewHolder{
         }
 
         nibHolder.setAdapter(nibAdapter);
-        nibHolder.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+        nibHolder.setLayoutManager(new LinearLayoutManager(context,RecyclerView.VERTICAL,false));
 
         wave1.setTypeface(font);
         wave2.setTypeface(font);

@@ -42,13 +42,13 @@ public class GearNotificationPickerAdapter extends ArrayAdapter<GearNotification
         final GearNotification notification = getItem(position);
         final Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
-        RelativeLayout skillLayout = (RelativeLayout) convertView.findViewById(R.id.skillImage);
+        RelativeLayout skillLayout = convertView.findViewById(R.id.skillImage);
 
-        TextView gearName = (TextView) convertView.findViewById(R.id.GearName);
+        TextView gearName = convertView.findViewById(R.id.GearName);
 
-        ImageView gearImage = (ImageView) convertView.findViewById(R.id.GearImage);
-        ImageView skillImage = (ImageView) convertView.findViewById(R.id.SkillImage);
-        ImageView editButton = (ImageView) convertView.findViewById(R.id.EditButton);
+        ImageView gearImage = convertView.findViewById(R.id.GearImage);
+        ImageView skillImage = convertView.findViewById(R.id.SkillImage);
+        ImageView editButton = convertView.findViewById(R.id.EditButton);
 
         gearName.setTypeface(font);
         gearName.setText(notification.gear.name);

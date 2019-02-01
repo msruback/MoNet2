@@ -84,7 +84,7 @@ public class Wave implements Parcelable{
             if(waves.get(0).num<waves.get(1).num){
                 return waves;
             }else{
-                ArrayList newWaves = new ArrayList();
+                ArrayList<Wave> newWaves = new ArrayList<>();
                 newWaves.add(waves.get(1));
                 newWaves.add(waves.get(2));
                 return newWaves;

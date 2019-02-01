@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +18,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 12/24/2017.
  */
 
 public class CampaignStageViewHolder extends RecyclerView.ViewHolder{
 
-    public ImageView image, boss;
-    public TextView number, weaponTime, completion;
+    private ImageView image, boss;
+    private TextView number, weaponTime, completion;
     private Context context;
 
     public CampaignStageViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
@@ -34,12 +35,12 @@ public class CampaignStageViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        image = (ImageView) itemView.findViewById(R.id.WeaponImage);
-        boss = (ImageView) itemView.findViewById(R.id.Boss);
+        image = itemView.findViewById(R.id.WeaponImage);
+        boss = itemView.findViewById(R.id.Boss);
 
-        number = (TextView) itemView.findViewById(R.id.Number);
-        weaponTime = (TextView) itemView.findViewById(R.id.WeaponTime);
-        completion = (TextView) itemView.findViewById(R.id.Completion);;
+        number = itemView.findViewById(R.id.Number);
+        weaponTime = itemView.findViewById(R.id.WeaponTime);
+        completion = itemView.findViewById(R.id.Completion);
     }
 
     public void manageHolder(CampaignStageInfo info,Map<Integer, CampaignWeapon> weaponMap){

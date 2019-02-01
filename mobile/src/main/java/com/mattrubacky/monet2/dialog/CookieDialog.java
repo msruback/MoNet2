@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.helper.GenericCallback;
 
 /**
  * Created by mattr on 10/14/2017.
@@ -35,10 +34,10 @@ public class CookieDialog extends Dialog {
         Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
         final Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
-        RelativeLayout Submit = (RelativeLayout) findViewById(R.id.Submit);
+        RelativeLayout Submit = findViewById(R.id.Submit);
 
-        TextView prompt = (TextView) findViewById(R.id.DialogPrompt);
-        final TextView cookieInput = (TextView) findViewById(R.id.CookieInput);
+        TextView prompt = findViewById(R.id.DialogPrompt);
+        final TextView cookieInput = findViewById(R.id.CookieInput);
 
         prompt.setTypeface(titleFont);
         cookieInput.setTypeface(font);

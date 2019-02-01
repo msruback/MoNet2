@@ -40,7 +40,7 @@ public class StageNotification extends Notification {
 
     @Override
     public void show() {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent stageIntent = new Intent(context, MainActivity.class);
         stageIntent.putExtra("fragment",0);
         PendingIntent stageIntentPending = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), stageIntent, 0);

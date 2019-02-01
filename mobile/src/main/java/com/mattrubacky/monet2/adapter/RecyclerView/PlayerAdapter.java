@@ -1,9 +1,6 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +15,10 @@ import com.mattrubacky.monet2.helper.PlayerStats;
 
 import java.util.ArrayList;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 12/24/2017.
  */
@@ -31,7 +32,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private PlayerStats stats;
     private FragmentManager fragmentManager;
 
-    public PlayerAdapter(Context context, Record records, NicknameIcon icon,FragmentManager fragmentManager) {
+    public PlayerAdapter(Context context, Record records, NicknameIcon icon, FragmentManager fragmentManager) {
         this.inflater = LayoutInflater.from(context);
         this.context = context;
         this.records = records;
@@ -66,13 +67,13 @@ public class PlayerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             challenges.addAll(records.challenges.challenges);
             ChallengeAdapter challengeAdapter = new ChallengeAdapter(context, challenges, records.challenges.totalPaint);
             holder.itemList.setAdapter(challengeAdapter);
-            holder.itemList.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+            holder.itemList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
 
         }else if(holderAb.getItemViewType()==2){
             ListViewHolder holder = (ListViewHolder) holderAb;
             PlayerStatAdapter playerStatAdapter = new PlayerStatAdapter(context,stats,records);
             holder.itemList.setAdapter(playerStatAdapter);
-            holder.itemList.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+            holder.itemList.setLayoutManager(new LinearLayoutManager(context,RecyclerView.VERTICAL,false));
         }
 
     }

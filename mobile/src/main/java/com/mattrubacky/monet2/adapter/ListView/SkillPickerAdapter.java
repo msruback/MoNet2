@@ -31,8 +31,8 @@ public class SkillPickerAdapter extends ArrayAdapter<Skill> {
         }
         Skill skill = getItem(position);
 
-        ImageView image = (ImageView) convertView.findViewById(R.id.Image);
-        TextView weaponName = (TextView) convertView.findViewById(R.id.SkillName);
+        ImageView image = convertView.findViewById(R.id.Image);
+        TextView weaponName = convertView.findViewById(R.id.SkillName);
         if(skill.id ==-1) {
             weaponName.setText("Any");
             image.setImageDrawable(getContext().getResources().getDrawable(R.drawable.skill_blank));

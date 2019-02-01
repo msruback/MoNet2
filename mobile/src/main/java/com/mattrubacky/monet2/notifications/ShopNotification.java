@@ -36,7 +36,7 @@ public class ShopNotification extends Notification{
 
     @Override
     public void show() {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent shopIntent = new Intent(context, MainActivity.class);
         shopIntent.putExtra("fragment",1);
         PendingIntent shopIntentPending = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), shopIntent, 0);

@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonSchedule;
 
-import java.io.IOException;
 import java.util.Date;
 
 import retrofit2.Response;
@@ -34,7 +33,7 @@ public class CoopSchedulesRequest extends SplatnetRequest {
     }
 
     @Override
-    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
+    protected void manageResponse(Response response) {
         salmonSchedule = (SalmonSchedule) response.body();
         if(!override){
             salmonSchedule.times.remove(0);

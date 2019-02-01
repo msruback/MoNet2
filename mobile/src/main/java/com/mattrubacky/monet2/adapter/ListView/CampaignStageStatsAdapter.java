@@ -42,8 +42,8 @@ public class CampaignStageStatsAdapter extends ArrayAdapter<CampaignWeapon> {
 
         ImageHandler imageHandler = new ImageHandler();
 
-        TextView weaponTime = (TextView) convertView.findViewById(R.id.WeaponTime);
-        ImageView weaponImage = (ImageView) convertView.findViewById(R.id.WeaponImage);
+        TextView weaponTime = convertView.findViewById(R.id.WeaponTime);
+        ImageView weaponImage = convertView.findViewById(R.id.WeaponImage);
 
         weaponTime.setTypeface(font);
 

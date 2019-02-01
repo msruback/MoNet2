@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,6 +11,8 @@ import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StageStats;
 import com.squareup.picasso.Picasso;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 12/24/2017.
@@ -27,8 +28,8 @@ public class StageViewHolder extends RecyclerView.ViewHolder{
         super(inflater.inflate(R.layout.item_stage, parent, false));
         this.context = context;
 
-        stage = (ImageView) itemView.findViewById(R.id.StageImage);
-        name = (TextView) itemView.findViewById(R.id.Name);
+        stage = itemView.findViewById(R.id.StageImage);
+        name = itemView.findViewById(R.id.Name);
     }
     public void manageHolder(StageStats stageStats){
         Typeface font = Typeface.createFromAsset(context.getAssets(),"Splatfont2.ttf");

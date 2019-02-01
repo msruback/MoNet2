@@ -3,10 +3,7 @@ package com.mattrubacky.monet2.fragment.MainScreenFragments;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +29,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 9/15/2017.
@@ -66,9 +67,9 @@ public class ShopFragment extends Fragment implements SplatnetConnected {
         Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),"Paintball.otf");
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
-        TextView noOrderText = (TextView) rootView.findViewById(R.id.NothingOrdered);
+        TextView noOrderText = rootView.findViewById(R.id.NothingOrdered);
 
-        RelativeLayout orderLayout = (RelativeLayout) rootView.findViewById(R.id.orderLayout);
+        RelativeLayout orderLayout = rootView.findViewById(R.id.orderLayout);
         orderLayout.setClipToOutline(true);
 
         noOrderText.setTypeface(font);
@@ -100,7 +101,7 @@ public class ShopFragment extends Fragment implements SplatnetConnected {
     }
 
     private void updateUI(){
-        RecyclerView currentMerch = (RecyclerView) getActivity().findViewById(R.id.CurrentMerch);
+        RecyclerView currentMerch = getActivity().findViewById(R.id.CurrentMerch);
         currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
         if(shop==null){
             shop = new Annie();
@@ -111,7 +112,7 @@ public class ShopFragment extends Fragment implements SplatnetConnected {
         MerchAdapter merchAdapter = new MerchAdapter(getActivity(), shop.merch, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecyclerView currentMerch = (RecyclerView) rootView.findViewById(R.id.CurrentMerch);
+                RecyclerView currentMerch = rootView.findViewById(R.id.CurrentMerch);
                 int itemPosition = currentMerch.indexOfChild(v);
                 BuyDialog buyDialog = new BuyDialog(getActivity(),connected,shop.merch.get(itemPosition),shop.ordered);
                 buyDialog.show();
@@ -126,9 +127,9 @@ public class ShopFragment extends Fragment implements SplatnetConnected {
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
         ImageHandler imageHandler = new ImageHandler();
 
-        RelativeLayout order = (RelativeLayout) rootView.findViewById(R.id.Ordered);
-        RelativeLayout noOrder = (RelativeLayout) rootView.findViewById(R.id.nothingToShow);
-        RelativeLayout orderLayout = (RelativeLayout) rootView.findViewById(R.id.orderLayout);
+        RelativeLayout order = rootView.findViewById(R.id.Ordered);
+        RelativeLayout noOrder = rootView.findViewById(R.id.nothingToShow);
+        RelativeLayout orderLayout = rootView.findViewById(R.id.orderLayout);
         ViewGroup.LayoutParams layoutParams = orderLayout.getLayoutParams();
         if(ordered==null){
             order.setVisibility(View.GONE);
@@ -136,21 +137,21 @@ public class ShopFragment extends Fragment implements SplatnetConnected {
         }else {
             noOrder.setVisibility(View.GONE);
             order.setVisibility(View.VISIBLE);
-            RelativeLayout item = (RelativeLayout) rootView.findViewById(R.id.OrderedItem);
-            RelativeLayout infoBar = (RelativeLayout) rootView.findViewById(R.id.OrderedInfoBar);
-            RelativeLayout infoPatch = (RelativeLayout) rootView.findViewById(R.id.OrderedInfoPatch);
+            RelativeLayout item = rootView.findViewById(R.id.OrderedItem);
+            RelativeLayout infoBar = rootView.findViewById(R.id.OrderedInfoBar);
+            RelativeLayout infoPatch = rootView.findViewById(R.id.OrderedInfoPatch);
             item.setClipToOutline(true);
 
             layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 300, getResources().getDisplayMetrics());
 
-            ImageView brand = (ImageView) rootView.findViewById(R.id.OrderedBrand);
-            ImageView gear = (ImageView) rootView.findViewById(R.id.OrderedImage);
-            ImageView mainAbility = (ImageView) rootView.findViewById(R.id.OrderedMainAbility);
-            ImageView sub2 = (ImageView) rootView.findViewById(R.id.OrderedSub2);
-            ImageView sub3 = (ImageView) rootView.findViewById(R.id.OrderedSub3);
+            ImageView brand = rootView.findViewById(R.id.OrderedBrand);
+            ImageView gear = rootView.findViewById(R.id.OrderedImage);
+            ImageView mainAbility = rootView.findViewById(R.id.OrderedMainAbility);
+            ImageView sub2 = rootView.findViewById(R.id.OrderedSub2);
+            ImageView sub3 = rootView.findViewById(R.id.OrderedSub3);
 
-            TextView name = (TextView) rootView.findViewById(R.id.OrderedName);
-            TextView cost = (TextView) rootView.findViewById(R.id.OrderedCost);
+            TextView name = rootView.findViewById(R.id.OrderedName);
+            TextView cost = rootView.findViewById(R.id.OrderedCost);
 
             //Change the info bar color to match gear kind
             switch (ordered.gear.kind) {

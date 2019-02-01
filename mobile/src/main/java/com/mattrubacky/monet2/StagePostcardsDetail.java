@@ -1,11 +1,7 @@
 package com.mattrubacky.monet2;
 
 import android.graphics.Typeface;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +16,11 @@ import com.mattrubacky.monet2.helper.StageStats;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 public class StagePostcardsDetail extends AppCompatActivity {
 
@@ -37,8 +38,8 @@ public class StagePostcardsDetail extends AppCompatActivity {
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView title = (TextView) findViewById(R.id.title);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView title = findViewById(R.id.title);
         title.setTypeface(fontTitle);
         setSupportActionBar(toolbar);
 
@@ -46,32 +47,32 @@ public class StagePostcardsDetail extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        ImageView stage = (ImageView) findViewById(R.id.StageImage);
+        ImageView stage = findViewById(R.id.StageImage);
 
-        RelativeLayout lastPlayedRanked = (RelativeLayout) findViewById(R.id.lastLayoutRanked);
-        RelativeLayout lastPlayedRegular = (RelativeLayout) findViewById(R.id.lastLayoutRegular);
+        RelativeLayout lastPlayedRanked = findViewById(R.id.lastLayoutRanked);
+        RelativeLayout lastPlayedRegular = findViewById(R.id.lastLayoutRegular);
 
-        TextView name = (TextView) findViewById(R.id.Name);
-        TextView number = (TextView) findViewById(R.id.Number);
-        TextView turfTitle = (TextView) findViewById(R.id.TurfTitle);
-        TextView turfWinText = (TextView) findViewById(R.id.TurfWinText);
-        TextView turfLossText = (TextView) findViewById(R.id.TurfLossText);
-        TextView zoneTitle = (TextView) findViewById(R.id.ZoneTitle);
-        TextView zoneWinText = (TextView) findViewById(R.id.ZoneWinText);
-        TextView zoneLossText = (TextView) findViewById(R.id.ZoneLossText);
-        TextView rainmakerTitle = (TextView) findViewById(R.id.RainmakerTitle);
-        TextView rainmakerWinText = (TextView) findViewById(R.id.RainmakerWinText);
-        TextView rainmakerLossText = (TextView) findViewById(R.id.RainmakerLossText);
-        TextView towerTitle = (TextView) findViewById(R.id.TowerTitle);
-        TextView towerWinText = (TextView) findViewById(R.id.TowerWinText);
-        TextView towerLossText = (TextView) findViewById(R.id.TowerLossText);
-        TextView clamTitle = (TextView) findViewById(R.id.ClamTitle);
-        TextView clamWinText = (TextView) findViewById(R.id.ClamWinText);
-        TextView clamLossText = (TextView) findViewById(R.id.ClamLossText);
-        TextView lastUsedTitleRanked = (TextView) findViewById(R.id.LastTitleTextRanked);
-        TextView lastUsedRanked = (TextView) findViewById(R.id.LastTextRanked);
-        TextView lastUsedTitleRegular = (TextView) findViewById(R.id.LastTitleTextRegular);
-        TextView lastUsedRegular = (TextView) findViewById(R.id.LastTextRegular);
+        TextView name = findViewById(R.id.Name);
+        TextView number = findViewById(R.id.Number);
+        TextView turfTitle = findViewById(R.id.TurfTitle);
+        TextView turfWinText = findViewById(R.id.TurfWinText);
+        TextView turfLossText = findViewById(R.id.TurfLossText);
+        TextView zoneTitle = findViewById(R.id.ZoneTitle);
+        TextView zoneWinText = findViewById(R.id.ZoneWinText);
+        TextView zoneLossText = findViewById(R.id.ZoneLossText);
+        TextView rainmakerTitle = findViewById(R.id.RainmakerTitle);
+        TextView rainmakerWinText = findViewById(R.id.RainmakerWinText);
+        TextView rainmakerLossText = findViewById(R.id.RainmakerLossText);
+        TextView towerTitle = findViewById(R.id.TowerTitle);
+        TextView towerWinText = findViewById(R.id.TowerWinText);
+        TextView towerLossText = findViewById(R.id.TowerLossText);
+        TextView clamTitle = findViewById(R.id.ClamTitle);
+        TextView clamWinText = findViewById(R.id.ClamWinText);
+        TextView clamLossText = findViewById(R.id.ClamLossText);
+        TextView lastUsedTitleRanked = findViewById(R.id.LastTitleTextRanked);
+        TextView lastUsedRanked = findViewById(R.id.LastTextRanked);
+        TextView lastUsedTitleRegular = findViewById(R.id.LastTitleTextRegular);
+        TextView lastUsedRegular = findViewById(R.id.LastTextRegular);
 
         name.setTypeface(fontTitle);
         turfTitle.setTypeface(fontTitle);
@@ -157,67 +158,67 @@ public class StagePostcardsDetail extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
 
-        RelativeLayout turfMeter = (RelativeLayout) findViewById(R.id.turfMeter);
-        RelativeLayout turfWinLossMeter = (RelativeLayout) findViewById(R.id.TurfWinLossMeter);
-        RelativeLayout turfWins = (RelativeLayout) findViewById(R.id.TurfWins);
-        RelativeLayout turfLosses = (RelativeLayout) findViewById(R.id.TurfLosses);
+        RelativeLayout turfMeter = findViewById(R.id.turfMeter);
+        RelativeLayout turfWinLossMeter = findViewById(R.id.TurfWinLossMeter);
+        RelativeLayout turfWins = findViewById(R.id.TurfWins);
+        RelativeLayout turfLosses = findViewById(R.id.TurfLosses);
 
         turfWinLossMeter.setClipToOutline(true);
         if(stageStats.turfWin==0&&stageStats.turfLose==0){
             turfMeter.setVisibility(View.GONE);
         }
 
-        RelativeLayout zoneMeter = (RelativeLayout) findViewById(R.id.zoneMeter);
-        RelativeLayout zoneWinLossMeter = (RelativeLayout) findViewById(R.id.ZoneWinLossMeter);
-        RelativeLayout zoneWins = (RelativeLayout) findViewById(R.id.ZoneWins);
-        RelativeLayout zoneLosses = (RelativeLayout) findViewById(R.id.ZoneLosses);
+        RelativeLayout zoneMeter = findViewById(R.id.zoneMeter);
+        RelativeLayout zoneWinLossMeter = findViewById(R.id.ZoneWinLossMeter);
+        RelativeLayout zoneWins = findViewById(R.id.ZoneWins);
+        RelativeLayout zoneLosses = findViewById(R.id.ZoneLosses);
 
         zoneWinLossMeter.setClipToOutline(true);
         if(stageStats.splatzonesLose==0&&stageStats.splatzonesWin==0){
             zoneMeter.setVisibility(View.GONE);
         }
 
-        RelativeLayout rainmakerMeter = (RelativeLayout) findViewById(R.id.rainmakerMeter);
-        RelativeLayout rainmakerWinLossMeter = (RelativeLayout) findViewById(R.id.RainmakerWinLossMeter);
-        RelativeLayout rainmakerWins = (RelativeLayout) findViewById(R.id.RainmakerWins);
-        RelativeLayout rainmakerLosses = (RelativeLayout) findViewById(R.id.RainmakerLosses);
+        RelativeLayout rainmakerMeter = findViewById(R.id.rainmakerMeter);
+        RelativeLayout rainmakerWinLossMeter = findViewById(R.id.RainmakerWinLossMeter);
+        RelativeLayout rainmakerWins = findViewById(R.id.RainmakerWins);
+        RelativeLayout rainmakerLosses = findViewById(R.id.RainmakerLosses);
 
         rainmakerWinLossMeter.setClipToOutline(true);
         if(stageStats.rainmakerWin==0&&stageStats.rainmakerLose==0){
             rainmakerMeter.setVisibility(View.GONE);
         }
 
-        RelativeLayout towerMeter = (RelativeLayout) findViewById(R.id.towerMeter);
-        RelativeLayout towerWinLossMeter = (RelativeLayout) findViewById(R.id.TowerWinLossMeter);
-        RelativeLayout towerWins = (RelativeLayout) findViewById(R.id.TowerWins);
-        RelativeLayout towerLosses = (RelativeLayout) findViewById(R.id.TowerLosses);
+        RelativeLayout towerMeter = findViewById(R.id.towerMeter);
+        RelativeLayout towerWinLossMeter = findViewById(R.id.TowerWinLossMeter);
+        RelativeLayout towerWins = findViewById(R.id.TowerWins);
+        RelativeLayout towerLosses = findViewById(R.id.TowerLosses);
 
         towerWinLossMeter.setClipToOutline(true);
         if(stageStats.towerWin==0&&stageStats.towerLose==0){
             towerMeter.setVisibility(View.GONE);
         }
 
-        RelativeLayout clamMeter = (RelativeLayout) findViewById(R.id.clamMeter);
-        RelativeLayout clamWinLossMeter = (RelativeLayout) findViewById(R.id.ClamWinLossMeter);
-        RelativeLayout clamWins = (RelativeLayout) findViewById(R.id.ClamWins);
-        RelativeLayout clamLosses = (RelativeLayout) findViewById(R.id.ClamLosses);
+        RelativeLayout clamMeter = findViewById(R.id.clamMeter);
+        RelativeLayout clamWinLossMeter = findViewById(R.id.ClamWinLossMeter);
+        RelativeLayout clamWins = findViewById(R.id.ClamWins);
+        RelativeLayout clamLosses = findViewById(R.id.ClamLosses);
 
         clamWinLossMeter.setClipToOutline(true);
         if(stageStats.clamWin==0&&stageStats.clamLose==0){
             clamMeter.setVisibility(View.GONE);
         }
 
-        RelativeLayout inkCard = (RelativeLayout) findViewById(R.id.inkStats);
-        RelativeLayout killCard = (RelativeLayout) findViewById(R.id.killStats);
-        RelativeLayout deathCard = (RelativeLayout) findViewById(R.id.deathStats);
-        RelativeLayout specialCard = (RelativeLayout) findViewById(R.id.specialStats);
-        RelativeLayout noStatsCard = (RelativeLayout) findViewById(R.id.noStats);
+        RelativeLayout inkCard = findViewById(R.id.inkStats);
+        RelativeLayout killCard = findViewById(R.id.killStats);
+        RelativeLayout deathCard = findViewById(R.id.deathStats);
+        RelativeLayout specialCard = findViewById(R.id.specialStats);
+        RelativeLayout noStatsCard = findViewById(R.id.noStats);
 
-        TextView inkTitle = (TextView) findViewById(R.id.InkTitle);
-        TextView killTitle = (TextView) findViewById(R.id.KillTitle);
-        TextView deathTitle = (TextView) findViewById(R.id.DeathTitle);
-        TextView specialTitle = (TextView) findViewById(R.id.SpecialTitle);
-        TextView noStatsText = (TextView) findViewById(R.id.NoStatsText);
+        TextView inkTitle = findViewById(R.id.InkTitle);
+        TextView killTitle = findViewById(R.id.KillTitle);
+        TextView deathTitle = findViewById(R.id.DeathTitle);
+        TextView specialTitle = findViewById(R.id.SpecialTitle);
+        TextView noStatsText = findViewById(R.id.NoStatsText);
 
         inkTitle.setTypeface(fontTitle);
         killTitle.setTypeface(fontTitle);

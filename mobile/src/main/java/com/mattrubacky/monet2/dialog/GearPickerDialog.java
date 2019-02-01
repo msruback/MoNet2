@@ -6,9 +6,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -23,16 +20,20 @@ import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 11/13/2017.
  */
 
 public class GearPickerDialog extends Dialog {
-    int selected;
-    RelativeLayout headTab,clothesTab,shoeTab;
-    ArrayList<Gear> gearList;
-    Gear result;
-    LinearLayoutManager linearLayoutManager;
+    private int selected;
+    private RelativeLayout headTab,clothesTab,shoeTab;
+    private ArrayList<Gear> gearList;
+    private Gear result;
+    private LinearLayoutManager linearLayoutManager;
 
     public GearPickerDialog(Activity activity) {
         super(activity);
@@ -48,12 +49,12 @@ public class GearPickerDialog extends Dialog {
 
         selected =-1;
 
-        RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
+        RelativeLayout card = findViewById(R.id.dialogCard);
 
-        TextView title = (TextView) findViewById(R.id.title);
-        final RecyclerView gearListView = (RecyclerView) findViewById(R.id.ItemList);
-        Button submit = (Button) findViewById(R.id.Submit);
-        Button cancel = (Button) findViewById(R.id.Cancel);
+        TextView title = findViewById(R.id.title);
+        final RecyclerView gearListView = findViewById(R.id.ItemList);
+        Button submit = findViewById(R.id.Submit);
+        Button cancel = findViewById(R.id.Cancel);
 
         submit.setTypeface(titleFont);
         cancel.setTypeface(titleFont);
@@ -102,9 +103,9 @@ public class GearPickerDialog extends Dialog {
 
         card.setClipToOutline(true);
 
-        headTab = (RelativeLayout) findViewById(R.id.HeadTab);
-        clothesTab = (RelativeLayout) findViewById(R.id.ClothesTab);
-        shoeTab = (RelativeLayout) findViewById(R.id.ShoesTab);
+        headTab =  findViewById(R.id.HeadTab);
+        clothesTab = findViewById(R.id.ClothesTab);
+        shoeTab = findViewById(R.id.ShoesTab);
 
         headTab.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.colorPrimary));
         clothesTab.setBackgroundTintList(getContext().getResources().getColorStateList(R.color.colorAccent));

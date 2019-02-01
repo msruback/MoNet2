@@ -4,22 +4,20 @@ package com.mattrubacky.monet2.adapter.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.mattrubacky.monet2.BattleInfo;
-import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.BattleViewHolder;
 import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 10/21/2017.
@@ -29,19 +27,20 @@ import java.util.ArrayList;
 
 public class BattleListAdapter extends RecyclerView.Adapter<BattleViewHolder>{
 
-    private ArrayList<Battle> input = new ArrayList<>();
+    private ArrayList<Battle> input;
     private LayoutInflater inflater;
     private Context context;
-    RecyclerView listView;
+    private RecyclerView listView;
 
-    public BattleListAdapter(Context context, ArrayList<Battle> input,RecyclerView listView) {
+    public BattleListAdapter(Context context, ArrayList<Battle> input, RecyclerView listView) {
         this.inflater = LayoutInflater.from(context);
         this.input = input;
         this.context = context;
         this.listView = listView;
     }
     @Override
-    public BattleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public BattleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         BattleViewHolder viewHolder = new BattleViewHolder(inflater,parent,context);
         viewHolder.itemView.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -64,7 +63,7 @@ public class BattleListAdapter extends RecyclerView.Adapter<BattleViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(final BattleViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final BattleViewHolder holder, final int position) {
 
         Battle battle = input.get(position);
 

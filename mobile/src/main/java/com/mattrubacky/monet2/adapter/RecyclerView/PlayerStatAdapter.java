@@ -1,7 +1,6 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,6 +14,9 @@ import com.mattrubacky.monet2.helper.PlayerStats;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 12/28/2017.
@@ -60,7 +62,8 @@ public class PlayerStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(viewType==0){
             return new PlayerGeneralStatViewHolder(inflater,parent,context);
         }else if (viewType==5){
@@ -71,13 +74,13 @@ public class PlayerStatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holderAb, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holderAb, final int position) {
         float rotation = (float) (random.nextInt(200)/100.0);
         if(position%2==0){
             rotation*=-1;
         }
         if(holderAb.getItemViewType()==0){
-            PlayerGeneralStatViewHolder holder = (PlayerGeneralStatViewHolder) holderAb;
+            PlayerGeneralStatViewHolder holder = (PlayerGeneralStatViewHolder)holderAb;
             holder.manageHolder(stats,records);
             holder.card.setRotation(rotation);
             holder.card.setBackgroundTintList(context.getResources().getColorStateList(R.color.favColorGreen));

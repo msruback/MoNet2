@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 
-import java.io.IOException;
 
 import retrofit2.Response;
 
@@ -23,7 +22,7 @@ public class ResultRequest extends SplatnetRequest {
     }
 
     @Override
-    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
+    protected void manageResponse(Response response) {
         battle = (Battle) response.body();
     }
 

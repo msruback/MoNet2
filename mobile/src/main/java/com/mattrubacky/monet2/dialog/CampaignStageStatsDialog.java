@@ -36,10 +36,10 @@ public class CampaignStageStatsDialog extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.dialog_campaign);
 
-        RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
+        RelativeLayout card = findViewById(R.id.dialogCard);
         card.setClipToOutline(true);
 
-        ListView list = (ListView) findViewById(R.id.ItemList);
+        ListView list = findViewById(R.id.ItemList);
 
         CampaignStageStatsAdapter campaignStageStatsAdapter = new CampaignStageStatsAdapter(getContext(),weapons,info);
 

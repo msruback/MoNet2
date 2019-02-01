@@ -28,7 +28,7 @@ public class StagePickerAdapter extends ArrayAdapter<Stage> {
         }
         Stage stage = getItem(position);
 
-        TextView stageName = (TextView) convertView.findViewById(R.id.StageName);
+        TextView stageName = convertView.findViewById(R.id.StageName);
 
         stageName.setText(stage.name);
 

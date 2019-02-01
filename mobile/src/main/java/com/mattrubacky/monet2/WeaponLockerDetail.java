@@ -1,11 +1,7 @@
 package com.mattrubacky.monet2;
 
 import android.graphics.Typeface;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +16,11 @@ import com.mattrubacky.monet2.helper.WeaponStats;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 public class WeaponLockerDetail extends AppCompatActivity {
 
@@ -37,8 +38,8 @@ public class WeaponLockerDetail extends AppCompatActivity {
         Typeface font = Typeface.createFromAsset(getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView title = (TextView) findViewById(R.id.title);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView title = findViewById(R.id.title);
         title.setTypeface(fontTitle);
         setSupportActionBar(toolbar);
 
@@ -46,19 +47,19 @@ public class WeaponLockerDetail extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        ImageView flag = (ImageView) findViewById(R.id.Flag);
-        ImageView weapon = (ImageView) findViewById(R.id.WeaponImage);
-        ImageView sub = (ImageView) findViewById(R.id.Sub);
-        ImageView special = (ImageView) findViewById(R.id.Special);
+        ImageView flag = findViewById(R.id.Flag);
+        ImageView weapon = findViewById(R.id.WeaponImage);
+        ImageView sub = findViewById(R.id.Sub);
+        ImageView special = findViewById(R.id.Special);
 
-        TextView name = (TextView) findViewById(R.id.Name);
-        TextView number = (TextView) findViewById(R.id.Number);
-        TextView winText = (TextView) findViewById(R.id.WinText);
-        TextView lossText = (TextView) findViewById(R.id.LossText);
-        TextView inkedTitle = (TextView) findViewById(R.id.InkedTitleText);
-        TextView inked = (TextView) findViewById(R.id.InkedText);
-        TextView lastUsedTitle = (TextView) findViewById(R.id.LastTitleText);
-        TextView lastUsed = (TextView) findViewById(R.id.LastText);
+        TextView name = findViewById(R.id.Name);
+        TextView number = findViewById(R.id.Number);
+        TextView winText = findViewById(R.id.WinText);
+        TextView lossText = findViewById(R.id.LossText);
+        TextView inkedTitle = findViewById(R.id.InkedTitleText);
+        TextView inked = findViewById(R.id.InkedText);
+        TextView lastUsedTitle = findViewById(R.id.LastTitleText);
+        TextView lastUsed = findViewById(R.id.LastText);
 
         name.setTypeface(fontTitle);
         number.setTypeface(font);
@@ -146,23 +147,23 @@ public class WeaponLockerDetail extends AppCompatActivity {
         Typeface fontTitle = Typeface.createFromAsset(getAssets(), "Paintball.otf");
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        RelativeLayout winLossMeter = (RelativeLayout) findViewById(R.id.WinLossMeter);
-        RelativeLayout wins = (RelativeLayout) findViewById(R.id.Wins);
-        RelativeLayout losses = (RelativeLayout) findViewById(R.id.Losses);
+        RelativeLayout winLossMeter = findViewById(R.id.WinLossMeter);
+        RelativeLayout wins = findViewById(R.id.Wins);
+        RelativeLayout losses = findViewById(R.id.Losses);
 
         winLossMeter.setClipToOutline(true);
 
-        RelativeLayout inkCard = (RelativeLayout) findViewById(R.id.inkStats);
-        RelativeLayout killCard = (RelativeLayout) findViewById(R.id.killStats);
-        RelativeLayout deathCard = (RelativeLayout) findViewById(R.id.deathStats);
-        RelativeLayout specialCard = (RelativeLayout) findViewById(R.id.specialStats);
-        RelativeLayout noStatsCard = (RelativeLayout) findViewById(R.id.noStats);
+        RelativeLayout inkCard = findViewById(R.id.inkStats);
+        RelativeLayout killCard = findViewById(R.id.killStats);
+        RelativeLayout deathCard = findViewById(R.id.deathStats);
+        RelativeLayout specialCard = findViewById(R.id.specialStats);
+        RelativeLayout noStatsCard = findViewById(R.id.noStats);
 
-        TextView inkTitle = (TextView) findViewById(R.id.InkTitle);
-        TextView killTitle = (TextView) findViewById(R.id.KillTitle);
-        TextView deathTitle = (TextView) findViewById(R.id.DeathTitle);
-        TextView specialTitle = (TextView) findViewById(R.id.SpecialTitle);
-        TextView noStatsText = (TextView) findViewById(R.id.NoStatsText);
+        TextView inkTitle = findViewById(R.id.InkTitle);
+        TextView killTitle = findViewById(R.id.KillTitle);
+        TextView deathTitle = findViewById(R.id.DeathTitle);
+        TextView specialTitle = findViewById(R.id.SpecialTitle);
+        TextView noStatsText = findViewById(R.id.NoStatsText);
 
         inkTitle.setTypeface(fontTitle);
         killTitle.setTypeface(fontTitle);

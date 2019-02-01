@@ -32,10 +32,10 @@ public class GearPickerAdapter extends ArrayAdapter<Gear> {
         }
         Gear gear = getItem(position);
 
-        RelativeLayout imageBackground = (RelativeLayout) convertView.findViewById(R.id.image);
+        RelativeLayout imageBackground = convertView.findViewById(R.id.image);
 
-        ImageView image = (ImageView) convertView.findViewById(R.id.Image);
-        TextView weaponName = (TextView) convertView.findViewById(R.id.SkillName);
+        ImageView image = convertView.findViewById(R.id.Image);
+        TextView weaponName = convertView.findViewById(R.id.SkillName);
 
         switch(gear.kind){
             case "head":

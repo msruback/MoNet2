@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,27 +15,29 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 11/6/2018.
  */
 
 public class SalmonShiftViewHolder extends RecyclerView.ViewHolder{
     private Context context;
-    ImageView stageImage,weapon1Image,weapon2Image,weapon3Image,weapon4Image;
-    TextView stageName,time;
+    private ImageView stageImage,weapon1Image,weapon2Image,weapon3Image,weapon4Image;
+    private TextView stageName,time;
 
     public SalmonShiftViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
         super(inflater.inflate(R.layout.item_shift, parent, false));
 
         this.context = context;
-        stageImage = (ImageView) itemView.findViewById(R.id.StageImage);
-        weapon1Image = (ImageView) itemView.findViewById(R.id.Weapon1Image);
-        weapon2Image = (ImageView) itemView.findViewById(R.id.Weapon2Image);
-        weapon3Image = (ImageView) itemView.findViewById(R.id.Weapon3Image);
-        weapon4Image = (ImageView) itemView.findViewById(R.id.Weapon4Image);
+        stageImage = itemView.findViewById(R.id.StageImage);
+        weapon1Image = itemView.findViewById(R.id.Weapon1Image);
+        weapon2Image = itemView.findViewById(R.id.Weapon2Image);
+        weapon3Image = itemView.findViewById(R.id.Weapon3Image);
+        weapon4Image = itemView.findViewById(R.id.Weapon4Image);
 
-        stageName = (TextView) itemView.findViewById(R.id.StageName);
-        time = (TextView) itemView.findViewById(R.id.Time);
+        stageName = itemView.findViewById(R.id.StageName);
+        time = itemView.findViewById(R.id.Time);
 
     }
 

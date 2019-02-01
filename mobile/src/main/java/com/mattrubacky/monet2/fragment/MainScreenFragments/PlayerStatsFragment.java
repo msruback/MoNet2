@@ -1,13 +1,7 @@
 package com.mattrubacky.monet2.fragment.MainScreenFragments;
 
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,20 +19,24 @@ import com.mattrubacky.monet2.api.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 12/18/2017.
  */
 
 public class PlayerStatsFragment extends Fragment implements SplatnetConnected {
-    ViewGroup rootView;
-    SharedPreferences settings;
+    private ViewGroup rootView;
 
-    SplatnetConnector splatnetConnector;
-    LinearLayoutManager linearLayoutManager;
-    RecyclerView pager;
+    private SplatnetConnector splatnetConnector;
+    private LinearLayoutManager linearLayoutManager;
+    private RecyclerView pager;
 
-    RelativeLayout playerTab,challengeTab,statsTab;
-    ImageView playerImage,challengeImage,statsImage;
+    private RelativeLayout playerTab,challengeTab,statsTab;
+    private ImageView playerImage,challengeImage,statsImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,21 +44,20 @@ public class PlayerStatsFragment extends Fragment implements SplatnetConnected {
         // Inflate the layout for this fragment
         rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_player_stats, container, false);
 
-        settings = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-        pager = (RecyclerView) rootView.findViewById(R.id.PlayerPager);
+        pager = rootView.findViewById(R.id.PlayerPager);
         pager.setLayoutManager(linearLayoutManager);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(pager);
 
-        playerTab = (RelativeLayout) rootView.findViewById(R.id.UserTab);
-        challengeTab = (RelativeLayout) rootView.findViewById(R.id.ChallengeTab);
-        statsTab = (RelativeLayout) rootView.findViewById(R.id.StatsTab);
+        playerTab = rootView.findViewById(R.id.UserTab);
+        challengeTab = rootView.findViewById(R.id.ChallengeTab);
+        statsTab = rootView.findViewById(R.id.StatsTab);
 
-        playerImage = (ImageView) rootView.findViewById(R.id.UserImage);
-        challengeImage = (ImageView) rootView.findViewById(R.id.ChallengeImage);
-        statsImage = (ImageView) rootView.findViewById(R.id.StatsImage);
+        playerImage = rootView.findViewById(R.id.UserImage);
+        challengeImage = rootView.findViewById(R.id.ChallengeImage);
+        statsImage = rootView.findViewById(R.id.StatsImage);
 
         playerTab.setOnClickListener(new View.OnClickListener() {
             @Override

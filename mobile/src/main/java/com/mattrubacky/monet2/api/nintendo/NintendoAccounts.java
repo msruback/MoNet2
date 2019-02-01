@@ -1,7 +1,6 @@
 package com.mattrubacky.monet2.api.nintendo;
 
 import com.mattrubacky.monet2.deserialized.nintendo.ServiceTokenResponse;
-import com.mattrubacky.monet2.deserialized.nintendo.SessionToken;
 import com.mattrubacky.monet2.deserialized.nintendo.UserDetailsResponse;
 
 import java.io.IOException;

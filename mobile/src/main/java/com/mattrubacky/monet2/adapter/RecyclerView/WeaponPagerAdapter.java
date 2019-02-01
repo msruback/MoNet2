@@ -1,8 +1,6 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -12,13 +10,16 @@ import com.mattrubacky.monet2.helper.WeaponStats;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 12/17/2017.
  */
 
 public class WeaponPagerAdapter extends RecyclerView.Adapter<ListViewHolder>{
 
-    private ArrayList<ArrayList<WeaponStats>> input = new ArrayList<>();
+    private ArrayList<ArrayList<WeaponStats>> input;
     private LayoutInflater inflater;
     private Context context;
 

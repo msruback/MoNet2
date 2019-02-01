@@ -31,7 +31,7 @@ public class SchedulesRequest extends SplatnetRequest {
     }
 
     @Override
-    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException,SplatnetMaintenanceException {
+    protected void manageResponse(Response response) {
         Schedules schedules = (Schedules) response.body();
         if(schedules.regular!=null) {
             for(TimePeriod timePeriod :schedules.regular){

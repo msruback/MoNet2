@@ -1,13 +1,7 @@
 package com.mattrubacky.monet2.fragment.MainScreenFragments.StatFragments;
 
 import android.graphics.Point;
-import android.support.v4.app.Fragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +15,12 @@ import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 
 /**
  * Created by mattr on 11/6/2017.
@@ -28,31 +28,29 @@ import java.util.ArrayList;
 
 public class ClosetFragment extends Fragment {
 
-    ViewGroup rootView;
-    SharedPreferences settings;
-    ArrayList<ClosetHanger> gearList;
-    RecyclerView gearListView;
-    RelativeLayout headTab,clothesTab,shoeTab;
-    LinearLayoutManager linearLayoutManager;
+    private ViewGroup rootView;
+    private ArrayList<ClosetHanger> gearList;
+    private RecyclerView gearListView;
+    private RelativeLayout headTab,clothesTab,shoeTab;
+    private LinearLayoutManager linearLayoutManager;
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = (ViewGroup)  inflater.inflate(R.layout.fragment_closet, container, false);
 
-        settings = PreferenceManager.getDefaultSharedPreferences(getContext());
-
         SplatnetSQLManager database = new SplatnetSQLManager(getContext());
         gearList = database.getCloset();
 
-        gearListView = (RecyclerView) rootView.findViewById(R.id.GearList);
+        gearListView = rootView.findViewById(R.id.GearList);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(gearListView);
 
-        headTab = (RelativeLayout) rootView.findViewById(R.id.HeadTab);
-        clothesTab = (RelativeLayout) rootView.findViewById(R.id.ClothesTab);
-        shoeTab = (RelativeLayout) rootView.findViewById(R.id.ShoesTab);
+        headTab = rootView.findViewById(R.id.HeadTab);
+        clothesTab = rootView.findViewById(R.id.ClothesTab);
+        shoeTab = rootView.findViewById(R.id.ShoesTab);
 
         headTab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +83,7 @@ public class ClosetFragment extends Fragment {
         });
         gearListView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if(newState==0){
                     switch(linearLayoutManager.findFirstVisibleItemPosition()){

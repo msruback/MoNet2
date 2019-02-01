@@ -124,8 +124,7 @@ public class SplatnetSQLManager {
 
     public SplatfestDatabase selectSplatfest(int id){
         SplatfestManager splatfestManager = new SplatfestManager(context);
-        SplatfestDatabase splatfestDatabase = splatfestManager.select(id);
-        return splatfestDatabase;
+        return splatfestManager.select(id);
     }
     public ArrayList<SplatfestDatabase> getSplatfests(){
         SplatfestManager splatfestManager = new SplatfestManager(context);

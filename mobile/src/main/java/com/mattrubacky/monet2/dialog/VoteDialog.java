@@ -56,17 +56,17 @@ public class VoteDialog extends Dialog {
         Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
 
-        hook = (RelativeLayout) findViewById(R.id.hook);
-        RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
-        bar = (RelativeLayout) findViewById(R.id.bar);
-        alpha = (RelativeLayout) findViewById(R.id.AlphaButton);
-        bravo = (RelativeLayout) findViewById(R.id.BravoButton);
+        hook = findViewById(R.id.hook);
+        RelativeLayout card = findViewById(R.id.dialogCard);
+        bar = findViewById(R.id.bar);
+        alpha = findViewById(R.id.AlphaButton);
+        bravo = findViewById(R.id.BravoButton);
 
-        TextView title = (TextView) findViewById(R.id.title);
-        TextView alphaText = (TextView) findViewById(R.id.AlphaText);
-        TextView bravoText = (TextView) findViewById(R.id.BravoText);
+        TextView title = findViewById(R.id.title);
+        TextView alphaText = findViewById(R.id.AlphaText);
+        TextView bravoText = findViewById(R.id.BravoText);
 
-        list = (ListView) findViewById(R.id.ItemList);
+        list = findViewById(R.id.ItemList);
 
         card.setClipToOutline(true);
 

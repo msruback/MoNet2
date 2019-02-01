@@ -78,7 +78,7 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onPreExecute() {
         if(hasUI) {
-            loading = (ImageView) activity.findViewById(R.id.loading_indicator);
+            loading = activity.findViewById(R.id.loading_indicator);
 
             RotateAnimation animation = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             animation.setInterpolator(new LinearInterpolator());
@@ -163,7 +163,7 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
     protected void onCancelled() {
         super.onCancelled();
         if(hasUI) {
-            ImageView loading = (ImageView) activity.findViewById(R.id.loading_indicator);
+            ImageView loading = activity.findViewById(R.id.loading_indicator);
             loading.setVisibility(View.GONE);
             loading.setAnimation(null);
         }

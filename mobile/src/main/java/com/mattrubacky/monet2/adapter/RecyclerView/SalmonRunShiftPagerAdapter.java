@@ -1,16 +1,16 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.ListViewHolder;
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
 
 import java.util.ArrayList;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 11/6/2018.
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class SalmonRunShiftPagerAdapter extends RecyclerView.Adapter<ListViewHolder>{
 
-    private ArrayList<ArrayList<SalmonRunDetail>> input = new ArrayList<>();
+    private ArrayList<ArrayList<SalmonRunDetail>> input;
     private LayoutInflater inflater;
     private Context context;
 
@@ -38,7 +38,7 @@ public class SalmonRunShiftPagerAdapter extends RecyclerView.Adapter<ListViewHol
         final ArrayList<SalmonRunDetail> details = input.get(position);
 
         holder.itemList.setAdapter(new SalmonShiftAdapter(context,details,holder.itemList));
-        holder.itemList.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+        holder.itemList.setLayoutManager(new LinearLayoutManager(context,RecyclerView.VERTICAL,false));
 
     }
 

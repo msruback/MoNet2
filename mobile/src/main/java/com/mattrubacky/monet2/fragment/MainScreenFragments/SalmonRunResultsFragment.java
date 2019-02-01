@@ -1,33 +1,25 @@
 package com.mattrubacky.monet2.fragment.MainScreenFragments;
 
-import android.graphics.Typeface;
+
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.adapter.RecyclerView.BattleListPagerAdapter;
 import com.mattrubacky.monet2.adapter.RecyclerView.SalmonRunShiftPagerAdapter;
 import com.mattrubacky.monet2.api.splatnet.CoopResultsRequest;
-import com.mattrubacky.monet2.api.splatnet.CoopSchedulesRequest;
-import com.mattrubacky.monet2.api.splatnet.MonthlyGearRequest;
-import com.mattrubacky.monet2.api.splatnet.SchedulesRequest;
 import com.mattrubacky.monet2.api.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.api.splatnet.SplatnetConnector;
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
-import com.mattrubacky.monet2.deserialized.splatoon.Timeline;
-import com.mattrubacky.monet2.helper.WearLink;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 11/6/2018.
@@ -35,12 +27,12 @@ import java.util.ArrayList;
 
 public class SalmonRunResultsFragment extends Fragment implements SplatnetConnected {
 
-    ViewGroup rootView;
-    SplatnetConnector connector;
-    SplatnetSQLManager database;
+    private ViewGroup rootView;
+    private SplatnetConnector connector;
+    private SplatnetSQLManager database;
 
-    RecyclerView listView;
-    LinearLayoutManager linearLayoutManager;
+    private RecyclerView listView;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +42,7 @@ public class SalmonRunResultsFragment extends Fragment implements SplatnetConnec
 
         database = new SplatnetSQLManager(getContext());
 
-        listView = (RecyclerView) rootView.findViewById(R.id.Shifts);
+        listView = rootView.findViewById(R.id.Shifts);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(listView);
 

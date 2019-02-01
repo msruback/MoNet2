@@ -31,11 +31,11 @@ public class VoteAdapter extends ArrayAdapter<NicknameIcon> {
         }
         NicknameIcon player = getItem(position);
 
-        RelativeLayout imageBackground = (RelativeLayout) convertView.findViewById(R.id.imageCircle);
+        RelativeLayout imageBackground = convertView.findViewById(R.id.imageCircle);
         imageBackground.setClipToOutline(true);
 
-        ImageView image = (ImageView) convertView.findViewById(R.id.UserImage);
-        TextView playerName = (TextView) convertView.findViewById(R.id.Name);
+        ImageView image = convertView.findViewById(R.id.UserImage);
+        TextView playerName = convertView.findViewById(R.id.Name);
 
         playerName.setText(player.nickname);
 

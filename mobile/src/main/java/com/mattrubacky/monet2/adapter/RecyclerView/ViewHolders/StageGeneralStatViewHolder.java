@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,8 @@ import com.mattrubacky.monet2.helper.StageStats;
 
 import java.text.SimpleDateFormat;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 12/25/2017.
  */
@@ -22,13 +23,13 @@ import java.text.SimpleDateFormat;
 public class StageGeneralStatViewHolder extends RecyclerView.ViewHolder {
 
     public RelativeLayout card;
-    public RelativeLayout turfMeter, turfWinLossMeter,turfWins,turfLosses;
-    public RelativeLayout zoneMeter, zoneWinLossMeter,zoneWins,zoneLosses;
-    public RelativeLayout rainmakerMeter,rainmakerWinLossMeter,rainmakerWins,rainmakerLosses;
-    public RelativeLayout towerMeter,towerWinLossMeter,towerWins,towerLosses;
-    public RelativeLayout clamMeter,clamWinLossMeter,clamWins,clamLosses;
-    public TextView turfTitle, zoneTitle, rainmakerTitle, towerTitle, clamTitle,lastPlayedTitle;
-    public TextView turfWinText,turfLossText,zoneWinText,zoneLossText,rainmakerWinText,rainmakerLossText,towerWinText,towerLossText,clamWinText,clamLossText, lastPlayedText;
+    private RelativeLayout turfMeter, turfWinLossMeter,turfWins,turfLosses;
+    private RelativeLayout zoneMeter, zoneWinLossMeter,zoneWins,zoneLosses;
+    private RelativeLayout rainmakerMeter,rainmakerWinLossMeter,rainmakerWins,rainmakerLosses;
+    private RelativeLayout towerMeter,towerWinLossMeter,towerWins,towerLosses;
+    private RelativeLayout clamMeter,clamWinLossMeter,clamWins,clamLosses;
+    private TextView turfTitle, zoneTitle, rainmakerTitle, towerTitle, clamTitle,lastPlayedTitle;
+    private TextView turfWinText,turfLossText,zoneWinText,zoneLossText,rainmakerWinText,rainmakerLossText,towerWinText,towerLossText,clamWinText,clamLossText, lastPlayedText;
     private Context context;
 
     public StageGeneralStatViewHolder(LayoutInflater inflater, ViewGroup parent, Context context) {
@@ -36,52 +37,52 @@ public class StageGeneralStatViewHolder extends RecyclerView.ViewHolder {
 
         this.context = context;
 
-        card = (RelativeLayout) itemView.findViewById(R.id.card);
+        card = itemView.findViewById(R.id.card);
 
-        turfMeter = (RelativeLayout) itemView.findViewById(R.id.turfMeter);
-        turfWinLossMeter = (RelativeLayout) itemView.findViewById(R.id.TurfWinLossMeter);
-        turfWins = (RelativeLayout) itemView.findViewById(R.id.TurfWins);
-        turfLosses = (RelativeLayout) itemView.findViewById(R.id.TurfLosses);
+        turfMeter = itemView.findViewById(R.id.turfMeter);
+        turfWinLossMeter = itemView.findViewById(R.id.TurfWinLossMeter);
+        turfWins = itemView.findViewById(R.id.TurfWins);
+        turfLosses = itemView.findViewById(R.id.TurfLosses);
 
-        zoneMeter = (RelativeLayout) itemView.findViewById(R.id.zoneMeter);
-        zoneWinLossMeter = (RelativeLayout) itemView.findViewById(R.id.ZoneWinLossMeter);
-        zoneWins = (RelativeLayout) itemView.findViewById(R.id.ZoneWins);
-        zoneLosses = (RelativeLayout) itemView.findViewById(R.id.ZoneLosses);
+        zoneMeter = itemView.findViewById(R.id.zoneMeter);
+        zoneWinLossMeter = itemView.findViewById(R.id.ZoneWinLossMeter);
+        zoneWins = itemView.findViewById(R.id.ZoneWins);
+        zoneLosses = itemView.findViewById(R.id.ZoneLosses);
 
-        rainmakerMeter = (RelativeLayout) itemView.findViewById(R.id.rainmakerMeter);
-        rainmakerWinLossMeter = (RelativeLayout) itemView.findViewById(R.id.RainmakerWinLossMeter);
-        rainmakerWins = (RelativeLayout) itemView.findViewById(R.id.RainmakerWins);
-        rainmakerLosses = (RelativeLayout) itemView.findViewById(R.id.RainmakerLosses);
+        rainmakerMeter = itemView.findViewById(R.id.rainmakerMeter);
+        rainmakerWinLossMeter = itemView.findViewById(R.id.RainmakerWinLossMeter);
+        rainmakerWins = itemView.findViewById(R.id.RainmakerWins);
+        rainmakerLosses = itemView.findViewById(R.id.RainmakerLosses);
 
-        towerMeter = (RelativeLayout) itemView.findViewById(R.id.towerMeter);
-        towerWinLossMeter = (RelativeLayout) itemView.findViewById(R.id.TowerWinLossMeter);
-        towerWins = (RelativeLayout) itemView.findViewById(R.id.TowerWins);
-        towerLosses = (RelativeLayout) itemView.findViewById(R.id.TowerLosses);
+        towerMeter = itemView.findViewById(R.id.towerMeter);
+        towerWinLossMeter = itemView.findViewById(R.id.TowerWinLossMeter);
+        towerWins = itemView.findViewById(R.id.TowerWins);
+        towerLosses = itemView.findViewById(R.id.TowerLosses);
 
-        clamMeter = (RelativeLayout) itemView.findViewById(R.id.clamMeter);
-        clamWinLossMeter = (RelativeLayout) itemView.findViewById(R.id.ClamWinLossMeter);
-        clamWins = (RelativeLayout) itemView.findViewById(R.id.ClamWins);
-        clamLosses = (RelativeLayout) itemView.findViewById(R.id.ClamLosses);
+        clamMeter = itemView.findViewById(R.id.clamMeter);
+        clamWinLossMeter = itemView.findViewById(R.id.ClamWinLossMeter);
+        clamWins = itemView.findViewById(R.id.ClamWins);
+        clamLosses = itemView.findViewById(R.id.ClamLosses);
 
-        turfTitle = (TextView) itemView.findViewById(R.id.TurfTitle);
-        zoneTitle = (TextView) itemView.findViewById(R.id.ZoneTitle);
-        rainmakerTitle = (TextView) itemView.findViewById(R.id.RainmakerTitle);
-        towerTitle = (TextView) itemView.findViewById(R.id.TowerTitle);
-        clamTitle = (TextView) itemView.findViewById(R.id.ClamTitle);
-        lastPlayedTitle = (TextView) itemView.findViewById(R.id.LastTitleText);
+        turfTitle = itemView.findViewById(R.id.TurfTitle);
+        zoneTitle = itemView.findViewById(R.id.ZoneTitle);
+        rainmakerTitle = itemView.findViewById(R.id.RainmakerTitle);
+        towerTitle = itemView.findViewById(R.id.TowerTitle);
+        clamTitle = itemView.findViewById(R.id.ClamTitle);
+        lastPlayedTitle = itemView.findViewById(R.id.LastTitleText);
 
-        turfWinText = (TextView) itemView.findViewById(R.id.TurfWinText);
-        turfLossText = (TextView) itemView.findViewById(R.id.TurfLossText);
-        zoneWinText = (TextView) itemView.findViewById(R.id.ZoneWinText);
-        zoneLossText = (TextView) itemView.findViewById(R.id.ZoneLossText);
-        rainmakerWinText = (TextView) itemView.findViewById(R.id.RainmakerWinText);
-        rainmakerLossText = (TextView) itemView.findViewById(R.id.RainmakerLossText);
-        towerWinText = (TextView) itemView.findViewById(R.id.TowerWinText);
-        towerLossText = (TextView) itemView.findViewById(R.id.TowerLossText);
-        clamWinText = (TextView) itemView.findViewById(R.id.ClamWinText);
-        clamLossText = (TextView) itemView.findViewById(R.id.ClamLossText);
+        turfWinText = itemView.findViewById(R.id.TurfWinText);
+        turfLossText = itemView.findViewById(R.id.TurfLossText);
+        zoneWinText = itemView.findViewById(R.id.ZoneWinText);
+        zoneLossText = itemView.findViewById(R.id.ZoneLossText);
+        rainmakerWinText = itemView.findViewById(R.id.RainmakerWinText);
+        rainmakerLossText = itemView.findViewById(R.id.RainmakerLossText);
+        towerWinText = itemView.findViewById(R.id.TowerWinText);
+        towerLossText = itemView.findViewById(R.id.TowerLossText);
+        clamWinText = itemView.findViewById(R.id.ClamWinText);
+        clamLossText = itemView.findViewById(R.id.ClamLossText);
 
-        lastPlayedText = (TextView) itemView.findViewById(R.id.LastText);
+        lastPlayedText = itemView.findViewById(R.id.LastText);
     }
 
     public void manageHolder(StageStats stageStats) {

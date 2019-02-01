@@ -3,9 +3,7 @@ package com.mattrubacky.monet2;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,6 +20,9 @@ import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class AddGear extends AppCompatActivity {
 
@@ -41,8 +42,8 @@ public class AddGear extends AppCompatActivity {
 
         setContentView(R.layout.activity_add_gear);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView title = (TextView) findViewById(R.id.title);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView title = findViewById(R.id.title);
         title.setTypeface(fontTitle);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -50,15 +51,15 @@ public class AddGear extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        final TextView gearInput = (TextView) findViewById(R.id.GearInput);
-        TextView gearText = (TextView) findViewById(R.id.GearText);
-        TextView abilityText = (TextView) findViewById(R.id.AbilityText);
-        TextView submitText = (TextView) findViewById(R.id.SubmitText);
+        final TextView gearInput = findViewById(R.id.GearInput);
+        TextView gearText = findViewById(R.id.GearText);
+        TextView abilityText = findViewById(R.id.AbilityText);
+        TextView submitText = findViewById(R.id.SubmitText);
 
-        final ImageView main = (ImageView) findViewById(R.id.Main);
-        final ImageView sub1 = (ImageView) findViewById(R.id.Sub1);
-        final ImageView sub2 = (ImageView) findViewById(R.id.Sub2);
-        final ImageView sub3 = (ImageView) findViewById(R.id.Sub3);
+        final ImageView main = findViewById(R.id.Main);
+        final ImageView sub1 = findViewById(R.id.Sub1);
+        final ImageView sub2 = findViewById(R.id.Sub2);
+        final ImageView sub3 = findViewById(R.id.Sub3);
 
         gearText.setTypeface(font);
         gearInput.setTypeface(font);

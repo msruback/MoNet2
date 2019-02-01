@@ -37,9 +37,9 @@ public class CampaignWeaponStatsAdapter extends ArrayAdapter<CampaignStageInfo> 
 
         final Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Splatfont2.ttf");
 
-        TextView number = (TextView) convertView.findViewById(R.id.Number);
-        TextView weaponTime = (TextView) convertView.findViewById(R.id.WeaponTime);
-        ImageView boss = (ImageView) convertView.findViewById(R.id.Boss);
+        TextView number = convertView.findViewById(R.id.Number);
+        TextView weaponTime = convertView.findViewById(R.id.WeaponTime);
+        ImageView boss = convertView.findViewById(R.id.Boss);
 
         number.setTypeface(font);
         weaponTime.setTypeface(font);

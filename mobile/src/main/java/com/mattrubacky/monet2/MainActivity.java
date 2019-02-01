@@ -5,15 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
@@ -53,12 +46,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-//.3230or46fsx
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,13 +78,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (ExpandableListView) findViewById(R.id.left_drawer);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        drawerList = findViewById(R.id.left_drawer);
         fragmentManager = getSupportFragmentManager();
         backStack = new ArrayList<>();
 
         //Add titles
-        titles = new ArrayList<String>();
+        titles = new ArrayList<>();
         titles.add("Rotation");
         titles.add("Shop");
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -96,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         titles.add("Leaderboards");
         titles.add("Settings");
 
-        children = new ArrayList<String>();
+        children = new ArrayList<>();
         children.add("Weapon Locker");
         children.add("Closet");
         children.add("Stages");
@@ -120,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
         splatfestStats = new SplatfestStatsFragment();
         campaignStats = new CampaignStatsFragment();
 
-        addButton = (TextView) findViewById(R.id.AddButton);
-        notificationButton = (ImageView) findViewById(R.id.NotificationButton);
+        addButton = findViewById(R.id.AddButton);
+        notificationButton = findViewById(R.id.NotificationButton);
 
         DataUpdateAlarm dataUpdateAlarm = new DataUpdateAlarm();
         if(settings.getBoolean("autoUpdate",false)){
@@ -139,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     lastUpdate += 4;
                     break;
                 case 3:
-                    lastUpdate += 6;;
+                    lastUpdate += 6;
                     break;
                 case 4:
                     lastUpdate += 8;
@@ -342,8 +340,8 @@ public class MainActivity extends AppCompatActivity {
             fontTitle = Typeface.createFromAsset(getAssets(),"Paintball.otf");
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView title = (TextView) findViewById(R.id.title);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView title = findViewById(R.id.title);
         title.setTypeface(fontTitle);
         setSupportActionBar(toolbar);
         title.setText(toolbar.getTitle());

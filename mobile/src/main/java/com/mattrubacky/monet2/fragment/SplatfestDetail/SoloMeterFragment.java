@@ -4,7 +4,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,8 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.deserialized.splatoon.SplatfestColors;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * Created by mattr on 11/16/2017.
@@ -36,11 +37,11 @@ public class SoloMeterFragment extends Fragment {
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
 
-        RelativeLayout LowerWhisker = (RelativeLayout) rootView.findViewById(R.id.LowerWhisker);
-        RelativeLayout Box = (RelativeLayout) rootView.findViewById(R.id.Box);
-        RelativeLayout LowerBox = (RelativeLayout) rootView.findViewById(R.id.LowerBox);
-        RelativeLayout UpperBox = (RelativeLayout) rootView.findViewById(R.id.UpperBox);
-        RelativeLayout UpperWhisker = (RelativeLayout) rootView.findViewById(R.id.UpperWhisker);
+        RelativeLayout LowerWhisker = rootView.findViewById(R.id.LowerWhisker);
+        RelativeLayout Box = rootView.findViewById(R.id.Box);
+        RelativeLayout LowerBox = rootView.findViewById(R.id.LowerBox);
+        RelativeLayout UpperBox = rootView.findViewById(R.id.UpperBox);
+        RelativeLayout UpperWhisker = rootView.findViewById(R.id.UpperWhisker);
 
         Box.setClipToOutline(true);
 
@@ -49,11 +50,11 @@ public class SoloMeterFragment extends Fragment {
             LowerBox.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(colors.alpha.getColor())));
         }
 
-        TextView Minimum = (TextView) rootView.findViewById(R.id.Minimum);
-        TextView LowerQuartile = (TextView) rootView.findViewById(R.id.LowerQuartile);
-        TextView Median = (TextView) rootView.findViewById(R.id.Median);
-        TextView UpperQuartile = (TextView) rootView.findViewById(R.id.UpperQuartile);
-        TextView Maximum = (TextView) rootView.findViewById(R.id.Maximum);
+        TextView Minimum = rootView.findViewById(R.id.Minimum);
+        TextView LowerQuartile = rootView.findViewById(R.id.LowerQuartile);
+        TextView Median = rootView.findViewById(R.id.Median);
+        TextView UpperQuartile = rootView.findViewById(R.id.UpperQuartile);
+        TextView Maximum = rootView.findViewById(R.id.Maximum);
 
         Minimum.setTypeface(font);
         LowerQuartile.setTypeface(font);

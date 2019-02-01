@@ -1,21 +1,17 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders.StageViewHolder;
-import com.mattrubacky.monet2.helper.ImageHandler;
 import com.mattrubacky.monet2.helper.StageStats;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 11/13/2017.
@@ -34,15 +30,16 @@ public class StageAdapter extends RecyclerView.Adapter<StageViewHolder>{
         this.context = context;
         this.onClickListener = onClickListener;
     }
+    @NonNull
     @Override
-    public StageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public StageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         StageViewHolder viewHolder = new StageViewHolder(inflater,parent,context);
         viewHolder.itemView.setOnClickListener(onClickListener);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final StageViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final StageViewHolder holder, final int position) {
         StageStats stageStats = input.get(position);
         holder.manageHolder(stageStats);
 

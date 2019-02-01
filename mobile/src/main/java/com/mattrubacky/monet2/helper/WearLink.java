@@ -51,7 +51,7 @@ public class WearLink implements GoogleApiClient.ConnectionCallbacks, GoogleApiC
         }
 
         Gson gson = new Gson();
-        Schedules scheduleObj=gson.fromJson(schedules,Schedules.class);;
+        Schedules scheduleObj=gson.fromJson(schedules,Schedules.class);
 
         PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/splatnet");
         putDataMapReq.getDataMap().putString("schedule",schedules);

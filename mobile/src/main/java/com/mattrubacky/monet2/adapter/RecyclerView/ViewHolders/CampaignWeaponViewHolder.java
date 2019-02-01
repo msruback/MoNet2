@@ -2,7 +2,6 @@ package com.mattrubacky.monet2.adapter.RecyclerView.ViewHolders;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +16,8 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by mattr on 12/24/2017.
@@ -33,9 +34,9 @@ public class CampaignWeaponViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        image = (ImageView) itemView.findViewById(R.id.WeaponImage);
-        weaponTime = (TextView) itemView.findViewById(R.id.WeaponTime);
-        completion = (TextView) itemView.findViewById(R.id.Completion);
+        image = itemView.findViewById(R.id.WeaponImage);
+        weaponTime = itemView.findViewById(R.id.WeaponTime);
+        completion = itemView.findViewById(R.id.Completion);
     }
     public void manageHolder(CampaignWeapon weapon, ArrayList<CampaignStageInfo> infos){
         if(weapon!=null) {

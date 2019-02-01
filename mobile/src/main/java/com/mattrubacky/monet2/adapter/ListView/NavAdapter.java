@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
@@ -76,7 +75,7 @@ public class NavAdapter extends BaseExpandableListAdapter {
         Typeface font = Typeface.createFromAsset(context.getAssets(),"Paintball.otf");
 
 
-        TextView title = (TextView) convertView.findViewById(R.id.Title);
+        TextView title = convertView.findViewById(R.id.Title);
         title.setText((String) getGroup(groupPosition));
         title.setTypeface(font);
         return convertView;
@@ -89,7 +88,7 @@ public class NavAdapter extends BaseExpandableListAdapter {
         }
         Typeface font = Typeface.createFromAsset(context.getAssets(),"Paintball.otf");
 
-        TextView title = (TextView) convertView.findViewById(R.id.Title);
+        TextView title = convertView.findViewById(R.id.Title);
         title.setText((String) getChild(groupPosition,childPosition));
         title.setTypeface(font);
 

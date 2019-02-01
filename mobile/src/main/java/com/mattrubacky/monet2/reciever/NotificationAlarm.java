@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
-import android.support.v4.content.WakefulBroadcastReceiver;
 
 import com.mattrubacky.monet2.notifications.BattleGearNotificationFactory;
 import com.mattrubacky.monet2.notifications.GrizzCoRewardNotificationFactory;
@@ -13,6 +12,8 @@ import com.mattrubacky.monet2.notifications.SalmonRunNotificationFactory;
 import com.mattrubacky.monet2.notifications.ShopNotificationFactory;
 import com.mattrubacky.monet2.notifications.StageNotificationFactory;
 import com.mattrubacky.monet2.notifications.WeaponNotificationFactory;
+
+import androidx.legacy.content.WakefulBroadcastReceiver;
 
 /**
  * Created by mattr on 12/19/2017.
@@ -22,7 +23,7 @@ public class NotificationAlarm extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "monet:notificationalarm");
         wl.acquire();
 
         new ShopNotificationFactory(context).manageNotifications();

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +19,15 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 11/13/2017.
  */
 
 public class WeaponAdapter extends RecyclerView.Adapter<WeaponViewHolder>{
 
-    private ArrayList<WeaponStats> input = new ArrayList<WeaponStats>();
+    private ArrayList<WeaponStats> input;
     private LayoutInflater inflater;
     private Context context;
     private RecyclerView listView;

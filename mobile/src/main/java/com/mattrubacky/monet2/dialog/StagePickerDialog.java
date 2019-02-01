@@ -44,11 +44,11 @@ public class StagePickerDialog extends Dialog {
 
         selected =-1;
 
-        RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
-        TextView title = (TextView) findViewById(R.id.title);
-        final ListView stageList = (ListView) findViewById(R.id.ItemList);
-        Button submit = (Button) findViewById(R.id.Submit);
-        Button cancel = (Button) findViewById(R.id.Cancel);
+        RelativeLayout card = findViewById(R.id.dialogCard);
+        TextView title = findViewById(R.id.title);
+        final ListView stageList = findViewById(R.id.ItemList);
+        Button submit = findViewById(R.id.Submit);
+        Button cancel = findViewById(R.id.Cancel);
 
         submit.setTypeface(titleFont);
         cancel.setTypeface(titleFont);

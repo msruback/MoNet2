@@ -51,15 +51,15 @@ public class SplatfestBattleDialog extends Dialog {
         Typeface font = Typeface.createFromAsset(getContext().getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(getContext().getAssets(), "Paintball.otf");
 
-        RelativeLayout hook = (RelativeLayout) findViewById(R.id.hook);
-        RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
-        RelativeLayout bar = (RelativeLayout) findViewById(R.id.bar);
+        RelativeLayout hook = findViewById(R.id.hook);
+        RelativeLayout card = findViewById(R.id.dialogCard);
+        RelativeLayout bar = findViewById(R.id.bar);
 
         card.setClipToOutline(true);
 
-        TextView title = (TextView) findViewById(R.id.title);
+        TextView title = findViewById(R.id.title);
 
-        ListView list = (ListView) findViewById(R.id.ItemList);
+        ListView list = findViewById(R.id.ItemList);
 
         title.setTypeface(fontTitle);
 

@@ -5,9 +5,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 
 import com.mattrubacky.monet2.fragment.WelcomeFragments.AutoUpdateFragment;
 import com.mattrubacky.monet2.fragment.WelcomeFragments.LoginFragment;
@@ -15,6 +12,10 @@ import com.mattrubacky.monet2.fragment.WelcomeFragments.WelcomeFragment;
 import com.mattrubacky.monet2.helper.GenericCallback;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * Created by mattr on 11/11/2018.

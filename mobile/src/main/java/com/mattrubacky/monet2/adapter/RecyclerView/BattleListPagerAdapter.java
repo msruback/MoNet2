@@ -1,8 +1,6 @@
 package com.mattrubacky.monet2.adapter.RecyclerView;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,13 +9,16 @@ import com.mattrubacky.monet2.deserialized.splatoon.Battle;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 12/21/2017.
  */
 
 public class BattleListPagerAdapter extends RecyclerView.Adapter<ListViewHolder>{
 
-    private ArrayList<ArrayList<Battle>> input = new ArrayList<>();
+    private ArrayList<ArrayList<Battle>> input;
     private LayoutInflater inflater;
     private Context context;
 
@@ -37,7 +38,7 @@ public class BattleListPagerAdapter extends RecyclerView.Adapter<ListViewHolder>
         final ArrayList<Battle> battles = input.get(position);
 
         holder.itemList.setAdapter(new BattleListAdapter(context,battles,holder.itemList));
-        holder.itemList.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+        holder.itemList.setLayoutManager(new LinearLayoutManager(context,RecyclerView.VERTICAL,false));
 
     }
 

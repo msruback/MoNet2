@@ -43,13 +43,13 @@ public class SplatfestTimePeriodViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        time = (TextView) itemView.findViewById(R.id.fesTime);
-        title1 = (TextView) itemView.findViewById(R.id.fesStageName1);
-        title2 = (TextView) itemView.findViewById(R.id.fesStageName2);
-        title3 = (TextView) itemView.findViewById(R.id.fesStageName3);
-        image1 = (ImageView) itemView.findViewById(R.id.fesStageImage1);
-        image2 = (ImageView) itemView.findViewById(R.id.fesStageImage2);
-        image3 = (ImageView) itemView.findViewById(R.id.fesStageImage3);
+        time = itemView.findViewById(R.id.fesTime);
+        title1 = itemView.findViewById(R.id.fesStageName1);
+        title2 = itemView.findViewById(R.id.fesStageName2);
+        title3 = itemView.findViewById(R.id.fesStageName3);
+        image1 = itemView.findViewById(R.id.fesStageImage1);
+        image2 = itemView.findViewById(R.id.fesStageImage2);
+        image3 = itemView.findViewById(R.id.fesStageImage3);
     }
 
     public void manageHolder(TimePeriod timePeriod, final Splatfest splatfest){

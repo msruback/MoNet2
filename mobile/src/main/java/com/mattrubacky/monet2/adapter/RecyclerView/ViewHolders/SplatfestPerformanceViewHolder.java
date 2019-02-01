@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,15 +21,17 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by mattr on 12/24/2017.
  */
 
 public class SplatfestPerformanceViewHolder extends RecyclerView.ViewHolder{
 
-    public RelativeLayout winLossMeter,wins,losses,meterLayout,sameTeam,disconnects,timePlayedLayout,imageLayout;
-    public TextView gradeTitle,sameTeamTitle,disconnectTitle,powerTitle,playedTitle;
-    public TextView winText,lossText,gradeText,sameTeamText,disconnectText,powerText,playedText;
+    private RelativeLayout winLossMeter,wins,losses,meterLayout,sameTeam,disconnects,timePlayedLayout,imageLayout;
+    private TextView gradeTitle,sameTeamTitle,disconnectTitle,powerTitle,playedTitle;
+    private TextView winText,lossText,gradeText,sameTeamText,disconnectText,powerText,playedText;
     public ImageView image;
     private Context context;
 
@@ -39,29 +40,29 @@ public class SplatfestPerformanceViewHolder extends RecyclerView.ViewHolder{
 
         this.context = context;
 
-        winLossMeter = (RelativeLayout) itemView.findViewById(R.id.WinLossMeter);
-        wins = (RelativeLayout) itemView.findViewById(R.id.Wins);
-        losses = (RelativeLayout) itemView.findViewById(R.id.Losses);
-        meterLayout = (RelativeLayout) itemView.findViewById(R.id.winOutline);
-        sameTeam = (RelativeLayout) itemView.findViewById(R.id.sameTeamLayout);
-        disconnects = (RelativeLayout) itemView.findViewById(R.id.disconnectLayout);
-        timePlayedLayout = (RelativeLayout) itemView.findViewById(R.id.timeLayout);
-        imageLayout = (RelativeLayout) itemView.findViewById(R.id.imageLayout);
+        winLossMeter = itemView.findViewById(R.id.WinLossMeter);
+        wins = itemView.findViewById(R.id.Wins);
+        losses = itemView.findViewById(R.id.Losses);
+        meterLayout = itemView.findViewById(R.id.winOutline);
+        sameTeam = itemView.findViewById(R.id.sameTeamLayout);
+        disconnects = itemView.findViewById(R.id.disconnectLayout);
+        timePlayedLayout = itemView.findViewById(R.id.timeLayout);
+        imageLayout = itemView.findViewById(R.id.imageLayout);
 
-        winText = (TextView) itemView.findViewById(R.id.WinText);
-        lossText = (TextView) itemView.findViewById(R.id.LossText);
-        gradeTitle = (TextView) itemView.findViewById(R.id.GradeTitleText);
-        gradeText = (TextView) itemView.findViewById(R.id.GradeText);
-        sameTeamTitle = (TextView) itemView.findViewById(R.id.SameTeamTitleText);
-        sameTeamText = (TextView) itemView.findViewById(R.id.SameTeamText);
-        disconnectTitle = (TextView) itemView.findViewById(R.id.DisconnectTitleText);
-        disconnectText = (TextView) itemView.findViewById(R.id.DisconnectText);
-        powerTitle = (TextView) itemView.findViewById(R.id.PowerTitleText);
-        powerText = (TextView) itemView.findViewById(R.id.PowerText);
-        playedTitle = (TextView) itemView.findViewById(R.id.TimeTitleText);
-        playedText = (TextView) itemView.findViewById(R.id.TimeText);
+        winText = itemView.findViewById(R.id.WinText);
+        lossText = itemView.findViewById(R.id.LossText);
+        gradeTitle = itemView.findViewById(R.id.GradeTitleText);
+        gradeText = itemView.findViewById(R.id.GradeText);
+        sameTeamTitle = itemView.findViewById(R.id.SameTeamTitleText);
+        sameTeamText = itemView.findViewById(R.id.SameTeamText);
+        disconnectTitle = itemView.findViewById(R.id.DisconnectTitleText);
+        disconnectText = itemView.findViewById(R.id.DisconnectText);
+        powerTitle = itemView.findViewById(R.id.PowerTitleText);
+        powerText = itemView.findViewById(R.id.PowerText);
+        playedTitle = itemView.findViewById(R.id.TimeTitleText);
+        playedText = itemView.findViewById(R.id.TimeText);
 
-        image = (ImageView) itemView.findViewById(R.id.Image);
+        image = itemView.findViewById(R.id.Image);
     }
 
     public void manageHolder(SplatfestStats stats,Splatfest splatfest){

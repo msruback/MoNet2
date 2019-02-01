@@ -1,7 +1,5 @@
 package com.mattrubacky.monet2.api.splatnet;
 
-import java.io.IOException;
-
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Response;
@@ -20,7 +18,7 @@ public class OrderRequest extends SplatnetRequest {
     }
 
     @Override
-    protected void manageResponse(Response response) throws IOException, SplatnetUnauthorizedException {
+    protected void manageResponse(Response response) {
 
     }
 

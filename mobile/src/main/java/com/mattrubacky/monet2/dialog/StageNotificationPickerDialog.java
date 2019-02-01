@@ -46,10 +46,10 @@ public class StageNotificationPickerDialog extends Dialog {
 
         selected =-1;
 
-        RelativeLayout card = (RelativeLayout) findViewById(R.id.dialogCard);
-        TextView title = (TextView) findViewById(R.id.title);
-        final ListView notificationListView = (ListView) findViewById(R.id.ItemList);
-        Button addNotification = (Button) findViewById(R.id.AddNotification);
+        RelativeLayout card = findViewById(R.id.dialogCard);
+        TextView title = findViewById(R.id.title);
+        final ListView notificationListView = findViewById(R.id.ItemList);
+        Button addNotification = findViewById(R.id.AddNotification);
 
         title.setText("Notifications");
 
