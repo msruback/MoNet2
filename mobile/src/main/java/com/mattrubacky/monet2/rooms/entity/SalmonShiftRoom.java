@@ -1,7 +1,14 @@
 package com.mattrubacky.monet2.rooms.entity;
 
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonRun;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunWeapon;
+import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
+
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -39,5 +46,24 @@ public class SalmonShiftRoom {
         this.startTime = startTime;
         this.endTime = endTime;
         this.stage = stage;
+    }
+
+    public SalmonRun toDeserialised(){
+        SalmonRun salmonRun = new SalmonRun();
+        salmonRun.start = startTime;
+        salmonRun.end = endTime;
+        return salmonRun;
+    }
+
+    public SalmonRunDetail toDeserialised(SalmonStageRoom salmonStageRoom, List<WeaponRoom> weaponRooms){
+        SalmonRunDetail salmonRunDetail = new SalmonRunDetail();
+        salmonRunDetail.start = startTime;
+        salmonRunDetail.end = endTime;
+        salmonRunDetail.stage =salmonStageRoom.toDeserialized();
+        salmonRunDetail.weapons = new ArrayList<>();
+        for(WeaponRoom weapon:weaponRooms){
+            salmonRunDetail.weapons.add(weapon.toDeserialized());
+        }
+        return salmonRunDetail;
     }
 }

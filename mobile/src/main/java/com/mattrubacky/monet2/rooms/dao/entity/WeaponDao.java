@@ -1,5 +1,6 @@
 package com.mattrubacky.monet2.rooms.dao.entity;
 
+import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
 import com.mattrubacky.monet2.rooms.entity.WeaponRoom;
 
 import java.util.List;
@@ -38,4 +39,7 @@ public interface WeaponDao {
 
     @Query("SELECT id FROM weapon WHERE sub=:sub")
     List<Integer> selectIdFromSub(int sub);
+
+    @Query("SELECT * FROM salmon_weapons INNER JOIN weapon ON salmon_weapons.weapon_id = weapon.id WHERE salmon_weapons.shift_id=:shiftId")
+    List<WeaponRoom> selectFromShift(int shiftId);
 }

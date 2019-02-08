@@ -1,5 +1,7 @@
 package com.mattrubacky.monet2.rooms.entity;
 
+import com.mattrubacky.monet2.deserialized.splatoon.SalmonStage;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 @Entity(tableName = "salmon_stage")
@@ -38,5 +40,12 @@ public class SalmonStageRoom {
         }
         this.name = name;
         this.url = url;
+    }
+
+    public SalmonStage toDeserialized(){
+        SalmonStage salmonStage = new SalmonStage();
+        salmonStage.name = name;
+        salmonStage.url = url;
+        return salmonStage;
     }
 }

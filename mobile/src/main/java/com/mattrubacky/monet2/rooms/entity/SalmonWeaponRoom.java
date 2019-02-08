@@ -1,8 +1,8 @@
 package com.mattrubacky.monet2.rooms.entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
 
 @Entity(tableName = "salmon_weapons",
         primaryKeys = {"weaponId","shiftId"},
@@ -15,7 +15,9 @@ import androidx.room.PrimaryKey;
                             childColumns = "weaponId")
         })
 public class SalmonWeaponRoom {
+    @ColumnInfo(name = "weapon_id")
     int weaponId;
+    @ColumnInfo(name = "shift_id")
     int shiftId;
 
     public SalmonWeaponRoom(int weaponId, int shiftId){

@@ -1,5 +1,7 @@
 package com.mattrubacky.monet2.rooms.entity;
 
+import com.mattrubacky.monet2.deserialized.splatoon.Sub;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -15,5 +17,13 @@ public class SubRoom {
         this.id = id;
         this.name = name;
         this.url = url;
+    }
+
+    public Sub toDeserialized(){
+        Sub sub = new Sub();
+        sub.id = id;
+        sub.name = name;
+        sub.url = url;
+        return sub;
     }
 }

@@ -2,14 +2,20 @@ package com.mattrubacky.monet2.rooms;
 
 import android.content.Context;
 
+import com.mattrubacky.monet2.rooms.dao.entity.BrandDao;
+import com.mattrubacky.monet2.rooms.dao.entity.ClosetDao;
+import com.mattrubacky.monet2.rooms.dao.entity.GearDao;
+import com.mattrubacky.monet2.rooms.dao.entity.SalmonGearDao;
 import com.mattrubacky.monet2.rooms.dao.entity.SalmonShiftDao;
 import com.mattrubacky.monet2.rooms.dao.entity.SalmonStageDao;
 import com.mattrubacky.monet2.rooms.dao.entity.SalmonWeaponDao;
+import com.mattrubacky.monet2.rooms.dao.entity.SkillDao;
 import com.mattrubacky.monet2.rooms.dao.entity.SpecialDao;
 import com.mattrubacky.monet2.rooms.dao.entity.StageDao;
 import com.mattrubacky.monet2.rooms.dao.entity.SubDao;
 import com.mattrubacky.monet2.rooms.dao.entity.TimePeriodDao;
 import com.mattrubacky.monet2.rooms.dao.entity.WeaponDao;
+import com.mattrubacky.monet2.rooms.entity.SalmonGearRoom;
 import com.mattrubacky.monet2.rooms.entity.StageRoom;
 import com.mattrubacky.monet2.rooms.entity.TimePeriodRoom;
 
@@ -42,7 +48,12 @@ public abstract class SplatnetDatabase extends RoomDatabase {
     public abstract SalmonShiftDao getSalmonShiftDao();
     public abstract SalmonStageDao getSalmonStageDao();
     public abstract SalmonWeaponDao getSalmonWeaponDao();
+    public abstract SalmonGearDao getSalmonGearDao();
     public abstract WeaponDao getWeaponDao();
     public abstract SpecialDao getSpecialDao();
     public abstract SubDao getSubDao();
+    public abstract GearDao getGearDao();
+    public abstract BrandDao getBrandDao();
+    public abstract SkillDao getSkillDao();
+    public abstract ClosetDao getClosetDao();
 }

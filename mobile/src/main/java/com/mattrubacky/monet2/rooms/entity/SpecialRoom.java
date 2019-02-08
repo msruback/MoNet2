@@ -1,5 +1,7 @@
 package com.mattrubacky.monet2.rooms.entity;
 
+import com.mattrubacky.monet2.deserialized.splatoon.Special;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -15,5 +17,13 @@ public class SpecialRoom {
         this.id = id;
         this.name = name;
         this.url = url;
+    }
+
+    public Special toDeserialized(){
+        Special special = new Special();
+        special.id = id;
+        special.name = name;
+        special.url = url;
+        return special;
     }
 }

@@ -1,6 +1,5 @@
 package com.mattrubacky.monet2.rooms.entity;
 
-
 import com.mattrubacky.monet2.deserialized.splatoon.KeyName;
 import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 
