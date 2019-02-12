@@ -1,7 +1,5 @@
 package com.mattrubacky.monet2.rooms.dao.entity;
 
-import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
-import com.mattrubacky.monet2.rooms.entity.StageRoom;
 import com.mattrubacky.monet2.rooms.entity.TimePeriodRoom;
 
 import java.util.List;

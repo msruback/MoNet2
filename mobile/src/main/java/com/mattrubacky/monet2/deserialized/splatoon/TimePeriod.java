@@ -43,25 +43,7 @@ public class TimePeriod implements Parcelable {
     public Long end;
 
     public TimePeriodRoom toRoom(){
-        int bias = 0;
-        switch (gamemode.key){
-            case "regular":
-                bias=0;
-                break;
-            case "gachi":
-                bias = 100;
-                break;
-            case "league":
-                bias = 200;
-                break;
-            default:
-                bias = 300;
-                break;
-        }
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date(start));
-        int id = cal.get(Calendar.HOUR_OF_DAY)+bias;
-        return new TimePeriodRoom(id,start,end,rule.key,gamemode.key,a.id,b.id);
+        return new TimePeriodRoom(start,end,rule.key,gamemode.key,a.id,b.id);
     }
 
     protected TimePeriod(Parcel in) {

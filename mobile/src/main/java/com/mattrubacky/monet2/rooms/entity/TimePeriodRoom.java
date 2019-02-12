@@ -1,9 +1,10 @@
 package com.mattrubacky.monet2.rooms.entity;
 
-
 import com.mattrubacky.monet2.deserialized.splatoon.KeyName;
 import com.mattrubacky.monet2.deserialized.splatoon.TimePeriod;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.room.ColumnInfo;
@@ -48,6 +49,16 @@ public class TimePeriodRoom {
         this.b = b;
     }
 
+    public TimePeriodRoom(long start,long end, String rule, String mode,int a,int b){
+        this.id = generateId(start,mode);
+        this.start = start;
+        this.end = end;
+        this.rule = rule;
+        this.mode = mode;
+        this.a = a;
+        this.b = b;
+    }
+
     public TimePeriod toDeserialized(List<StageRoom> stages){
         TimePeriod timePeriod = new TimePeriod();
         timePeriod.start = start;
@@ -64,5 +75,26 @@ public class TimePeriodRoom {
             }
         }
         return timePeriod;
+    }
+
+    public static int generateId(long start,String mode){
+        int bias = 0;
+        switch (mode){
+            case "regular":
+                bias=0;
+                break;
+            case "gachi":
+                bias = 100;
+                break;
+            case "league":
+                bias = 200;
+                break;
+            default:
+                bias = 300;
+                break;
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date(start));
+        return cal.get(Calendar.HOUR_OF_DAY)+bias;
     }
 }
