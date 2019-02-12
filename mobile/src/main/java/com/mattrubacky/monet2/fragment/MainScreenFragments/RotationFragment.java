@@ -30,11 +30,6 @@ public class RotationFragment extends Fragment {
     private WearLink wearLink;
     private RotationViewModel viewModel;
 
-    private Schedules schedules;
-    private SalmonSchedule salmonSchedule;
-    private Gear monthlyGear;
-    private CurrentSplatfest currentSplatfest;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,22 +38,43 @@ public class RotationFragment extends Fragment {
 
         wearLink = new WearLink(getContext());
 
+        wearLink.openConnection();
+
         viewModel = ViewModelProviders.of(this).get(RotationViewModel.class);
 
         viewModel.getSchedules().observe(this, new Observer<Schedules>() {
             @Override
             public void onChanged(Schedules schedules) {
                 RecyclerView scheduleList = rootView.findViewById(R.id.ScheduleList);
-                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),schedules,salmonSchedule,monthlyGear,currentSplatfest);
+                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),schedules,viewModel.getSalmonSchedule().getValue(),viewModel.getMonthlyGear().getValue(),viewModel.getCurrentSplatfest());
+                scheduleList.setAdapter(scheduleAdapter);
+                scheduleList.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+
+                wearLink.sendRotation(schedules);
+            }
+        });
+
+        viewModel.getSalmonSchedule().observe(this, new Observer<SalmonSchedule>() {
+            @Override
+            public void onChanged(SalmonSchedule salmonSchedule) {
+                RecyclerView scheduleList = rootView.findViewById(R.id.ScheduleList);
+                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),viewModel.getSchedules().getValue(),salmonSchedule,viewModel.getMonthlyGear().getValue(),viewModel.getCurrentSplatfest());
+                scheduleList.setAdapter(scheduleAdapter);
+                scheduleList.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+
+                wearLink.sendSalmon(salmonSchedule);
+            }
+        });
+
+        viewModel.getMonthlyGear().observe(this, new Observer<Gear>() {
+            @Override
+            public void onChanged(Gear gear) {
+                RecyclerView scheduleList = rootView.findViewById(R.id.ScheduleList);
+                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),viewModel.getSchedules().getValue(),viewModel.getSalmonSchedule().getValue(),gear,viewModel.getCurrentSplatfest());
                 scheduleList.setAdapter(scheduleAdapter);
                 scheduleList.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
             }
         });
-
-        wearLink.openConnection();
-
-        wearLink.sendRotation(schedules);
-        wearLink.sendSalmon(salmonSchedule);
 
         return rootView;
     }

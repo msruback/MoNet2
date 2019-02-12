@@ -1,5 +1,7 @@
 package com.mattrubacky.monet2.rooms.dao.entity;
 
+import com.mattrubacky.monet2.rooms.entity.SalmonStageRoom;
+
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -21,7 +23,7 @@ public interface SalmonStageDao {
     void delete(SalmonStageDao... stage);
 
     @Query("SELECT * FROM salmon_stage")
-    LiveData<List<SalmonStageDao>> selectAll();
+    LiveData<List<SalmonStageRoom>> selectAll();
 
     @Query("SELECT * FROM salmon_stage WHERE id=:id")
     SalmonStageDao select(int id);

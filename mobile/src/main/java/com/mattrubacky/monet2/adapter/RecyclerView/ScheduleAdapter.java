@@ -14,6 +14,7 @@ import com.mattrubacky.monet2.deserialized.splatoon.CurrentSplatfest;
 import com.mattrubacky.monet2.deserialized.splatoon.Gear;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonSchedule;
 import com.mattrubacky.monet2.deserialized.splatoon.Schedules;
+import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
 
 import java.util.ArrayList;
 
@@ -30,10 +31,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Schedules schedules;
     private SalmonSchedule salmonSchedule;
     private Gear rewardGear;
-    private CurrentSplatfest currentSplatfest;
+    private Splatfest currentSplatfest;
     public ArrayList<String> rotation;
 
-    public ScheduleAdapter(Context context, Schedules schedules, SalmonSchedule salmonSchedule, Gear rewardGear,CurrentSplatfest currentSplatfest) {
+    public ScheduleAdapter(Context context, Schedules schedules, SalmonSchedule salmonSchedule, Gear rewardGear,Splatfest currentSplatfest) {
         this.inflater = LayoutInflater.from(context);
         this.context = context;
         this.schedules = schedules;
@@ -53,8 +54,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         }
         if(currentSplatfest!=null) {
-            if (currentSplatfest.splatfests.size() > 0 && schedules.splatfest.size() > 0) {
-                if (schedules.regular.size() == 0 || currentSplatfest.splatfests.get(0).times.start < schedules.regular.get(0).start) {
+            if (currentSplatfest!=null && schedules.splatfest.size() > 0) {
+                if (schedules.regular.size() == 0 || currentSplatfest.times.start < schedules.regular.get(0).start) {
                     rotation.add(0, "fes");
                 } else {
                     rotation.add("fes");
@@ -99,7 +100,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.manageHolder(schedules.league);
         }else if(holderAb.getItemViewType()==3){
             SplatfestCardViewHolder holder = (SplatfestCardViewHolder) holderAb;
-            holder.manageHolder(schedules.splatfest,currentSplatfest.splatfests.get(0));
+            holder.manageHolder(schedules.splatfest,currentSplatfest);
         }else{
             SalmonRunCardViewHolder holder = (SalmonRunCardViewHolder) holderAb;
             holder.manageHolder(salmonSchedule,rewardGear);

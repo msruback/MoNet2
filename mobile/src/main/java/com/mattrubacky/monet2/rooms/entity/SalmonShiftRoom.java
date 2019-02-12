@@ -38,11 +38,7 @@ public class SalmonShiftRoom {
         this.stage = stage;
     }
     public SalmonShiftRoom(long startTime,long endTime,int stage){
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date(startTime));
-        id = cal.get(Calendar.YEAR)-2017;
-        id *= 1000;
-        id += cal.get(Calendar.DAY_OF_YEAR);
+        this.id = generateId(startTime);
         this.startTime = startTime;
         this.endTime = endTime;
         this.stage = stage;
@@ -55,15 +51,28 @@ public class SalmonShiftRoom {
         return salmonRun;
     }
 
-    public SalmonRunDetail toDeserialised(SalmonStageRoom salmonStageRoom, List<WeaponRoom> weaponRooms){
+    public SalmonRunDetail toDeserialised(List<SalmonStageRoom> salmonStageRooms, List<WeaponRoom> weaponRooms){
         SalmonRunDetail salmonRunDetail = new SalmonRunDetail();
         salmonRunDetail.start = startTime;
         salmonRunDetail.end = endTime;
-        salmonRunDetail.stage =salmonStageRoom.toDeserialized();
+        for(SalmonStageRoom salmonStageRoom:salmonStageRooms){
+            if(salmonStageRoom.id == stage){
+                salmonRunDetail.stage =salmonStageRoom.toDeserialized();
+            }
+        }
         salmonRunDetail.weapons = new ArrayList<>();
         for(WeaponRoom weapon:weaponRooms){
             salmonRunDetail.weapons.add(weapon.toDeserialized());
         }
         return salmonRunDetail;
+    }
+
+    public static int generateId(long startTime){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date(startTime));
+        int id = cal.get(Calendar.YEAR)-2017;
+        id *= 1000;
+        id += cal.get(Calendar.DAY_OF_YEAR);
+        return id;
     }
 }

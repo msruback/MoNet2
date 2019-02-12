@@ -19,25 +19,7 @@ public class SalmonStageRoom {
     }
 
     public SalmonStageRoom(String name, String url){
-        switch(name){
-            case "Spawning Grounds":
-                id = 0;
-                break;
-            case "Marooner's Bay":
-                id = 1;
-                break;
-            case "Lost Outpost":
-                id = 2;
-                break;
-            case "Salmonid Smokeyard":
-                id = 3;
-                break;
-            case "Ruins of Ark Polaris":
-                id = 4;
-                break;
-            default:
-                id = 5;
-        }
+        this.id = generateId(name);
         this.name = name;
         this.url = url;
     }
@@ -47,5 +29,22 @@ public class SalmonStageRoom {
         salmonStage.name = name;
         salmonStage.url = url;
         return salmonStage;
+    }
+
+    public int generateId(String name){
+        switch(name){
+            case "Spawning Grounds":
+                return 0;
+            case "Marooner's Bay":
+                return 1;
+            case "Lost Outpost":
+                return 2;
+            case "Salmonid Smokeyard":
+                return 3;
+            case "Ruins of Ark Polaris":
+                return 4;
+            default:
+                return -1;
+        }
     }
 }

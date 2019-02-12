@@ -2,9 +2,11 @@ package com.mattrubacky.monet2.rooms.dao.entity;
 
 import com.mattrubacky.monet2.rooms.entity.SalmonGearRoom;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
@@ -17,4 +19,7 @@ public interface SalmonGearDao {
 
     @Delete
     void delete(SalmonGearRoom... salmonGear);
+    
+    @Query("SELECT * FROM salmon_gear WHERE month=:currentMonth")
+    LiveData<SalmonGearRoom> selectCurrentGear(long currentMonth);
 }

@@ -40,26 +40,22 @@ public class GearRoom {
     }
 
     public GearRoom(int splatnetId, String name, String url, String kind, int rarity, int brand){
-        switch(kind){
-            case "head":
-                id=100000;
-                break;
-            case "clothes":
-                id=200000;
-                break;
-            case "shoes":
-                id=300000;
-                break;
-            default:
-                id=0;
-        }
-        id+=splatnetId;
+        id = generateId(splatnetId,kind);
         this.splatnetId = splatnetId;
         this.name = name;
         this.url = url;
         this.kind = kind;
         this.rarity = rarity;
         this.brand = brand;
+    }
+
+    public Gear toDeserialized(){
+        Gear gear = new Gear();
+        gear.id = splatnetId;
+        gear.name = name;
+        gear.url = url;
+        gear.rarity = rarity;
+        return gear;
     }
 
     public Gear toDeserialized(List<BrandRoom> brands,List<SkillRoom> skills){
@@ -73,7 +69,24 @@ public class GearRoom {
                 gear.brand = brandRoom.toDeserialized(skills);
             }
         }
-
         return gear;
+    }
+
+    public static int generateId(int id, String kind){
+        int newId;
+        switch(kind){
+            case "head":
+                newId=100000;
+                break;
+            case "clothes":
+                newId=200000;
+                break;
+            case "shoes":
+                newId=300000;
+                break;
+            default:
+                newId=0;
+        }
+        return newId+id;
     }
 }

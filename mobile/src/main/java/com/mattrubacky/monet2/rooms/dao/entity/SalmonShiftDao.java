@@ -24,4 +24,10 @@ public interface SalmonShiftDao {
 
     @Query("SELECT * FROM shift")
     LiveData<List<SalmonShiftRoom>> selectAll();
+
+    @Query("SELECT * FROM shift WHERE end_time>:now")
+    LiveData<List<SalmonShiftRoom>> selectUpcoming(long now);
+
+    @Query("SELECT * FROM shift WHERE start_time<:now")
+    LiveData<List<SalmonShiftRoom>> selectPast(long now);
 }
