@@ -10,6 +10,7 @@ import java.util.List;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "time_period",
@@ -49,6 +50,7 @@ public class TimePeriodRoom {
         this.b = b;
     }
 
+    @Ignore
     public TimePeriodRoom(long start,long end, String rule, String mode,int a,int b){
         this.id = generateId(start,mode);
         this.start = start;

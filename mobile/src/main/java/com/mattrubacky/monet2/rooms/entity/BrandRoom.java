@@ -7,6 +7,7 @@ import java.util.List;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "brand",
@@ -15,7 +16,8 @@ import androidx.room.PrimaryKey;
                     parentColumns = "id",
                     childColumns = "skill"
             )
-})
+        },
+        indices = {@Index(value = "skill")})
 public class BrandRoom {
     @PrimaryKey
     public int id;

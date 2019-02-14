@@ -7,6 +7,7 @@ import java.util.List;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "gear",
@@ -39,6 +40,7 @@ public class GearRoom {
         this.brand = brand;
     }
 
+    @Ignore
     public GearRoom(int splatnetId, String name, String url, String kind, int rarity, int brand){
         id = generateId(splatnetId,kind);
         this.splatnetId = splatnetId;

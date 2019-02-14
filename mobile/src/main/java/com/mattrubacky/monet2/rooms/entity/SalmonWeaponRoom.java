@@ -5,20 +5,20 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
 @Entity(tableName = "salmon_weapons",
-        primaryKeys = {"weaponId","shiftId"},
+        primaryKeys = {"weapon_id","shift_id"},
         foreignKeys = {
                 @ForeignKey(entity = SalmonShiftRoom.class,
                             parentColumns = "id",
-                            childColumns = "shiftId"),
+                            childColumns = "shift_id"),
                 @ForeignKey(entity = WeaponRoom.class,
                             parentColumns = "id",
-                            childColumns = "weaponId")
+                            childColumns = "weapon_id")
         })
 public class SalmonWeaponRoom {
     @ColumnInfo(name = "weapon_id")
-    int weaponId;
+    public int weaponId;
     @ColumnInfo(name = "shift_id")
-    int shiftId;
+    public int shiftId;
 
     public SalmonWeaponRoom(int weaponId, int shiftId){
         this.weaponId = weaponId;

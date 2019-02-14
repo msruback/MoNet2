@@ -14,17 +14,17 @@ import androidx.room.Update;
 @Dao
 public interface SalmonStageDao {
     @Insert
-    void insert(SalmonStageDao... stage);
+    void insert(SalmonStageRoom... stage);
 
     @Update
-    void update(SalmonStageDao... stage);
+    void update(SalmonStageRoom... stage);
 
     @Delete
-    void delete(SalmonStageDao... stage);
+    void delete(SalmonStageRoom... stage);
 
     @Query("SELECT * FROM salmon_stage")
     LiveData<List<SalmonStageRoom>> selectAll();
 
     @Query("SELECT * FROM salmon_stage WHERE id=:id")
-    SalmonStageDao select(int id);
+    SalmonStageRoom select(int id);
 }

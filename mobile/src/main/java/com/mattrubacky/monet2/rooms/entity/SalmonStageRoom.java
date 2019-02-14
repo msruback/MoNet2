@@ -3,6 +3,7 @@ package com.mattrubacky.monet2.rooms.entity;
 import com.mattrubacky.monet2.deserialized.splatoon.SalmonStage;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 @Entity(tableName = "salmon_stage")
 public class SalmonStageRoom {
@@ -18,6 +19,7 @@ public class SalmonStageRoom {
         this.url = url;
     }
 
+    @Ignore
     public SalmonStageRoom(String name, String url){
         this.id = generateId(name);
         this.name = name;

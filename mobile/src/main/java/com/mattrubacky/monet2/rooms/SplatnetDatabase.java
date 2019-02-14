@@ -18,15 +18,30 @@ import com.mattrubacky.monet2.rooms.dao.entity.StageDao;
 import com.mattrubacky.monet2.rooms.dao.entity.SubDao;
 import com.mattrubacky.monet2.rooms.dao.entity.TimePeriodDao;
 import com.mattrubacky.monet2.rooms.dao.entity.WeaponDao;
+import com.mattrubacky.monet2.rooms.entity.BrandRoom;
+import com.mattrubacky.monet2.rooms.entity.ClosetRoom;
+import com.mattrubacky.monet2.rooms.entity.GearRoom;
 import com.mattrubacky.monet2.rooms.entity.SalmonGearRoom;
+import com.mattrubacky.monet2.rooms.entity.SalmonShiftRoom;
+import com.mattrubacky.monet2.rooms.entity.SalmonStageRoom;
+import com.mattrubacky.monet2.rooms.entity.SalmonWeaponRoom;
+import com.mattrubacky.monet2.rooms.entity.SkillRoom;
+import com.mattrubacky.monet2.rooms.entity.SpecialRoom;
+import com.mattrubacky.monet2.rooms.entity.SplatfestResultRoom;
+import com.mattrubacky.monet2.rooms.entity.SplatfestRoom;
 import com.mattrubacky.monet2.rooms.entity.StageRoom;
+import com.mattrubacky.monet2.rooms.entity.SubRoom;
 import com.mattrubacky.monet2.rooms.entity.TimePeriodRoom;
+import com.mattrubacky.monet2.rooms.entity.WeaponRoom;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = { StageRoom.class, TimePeriodRoom.class},version=1,exportSchema = false)
+@Database(entities = {  BrandRoom.class, ClosetRoom.class, GearRoom.class, SalmonGearRoom.class,
+                        SalmonShiftRoom.class, SalmonStageRoom.class, SalmonWeaponRoom.class, SkillRoom.class,
+                        SpecialRoom.class, SplatfestResultRoom.class, SplatfestRoom.class, StageRoom.class,
+                        SubRoom.class,TimePeriodRoom.class, WeaponRoom.class},version=1,exportSchema = false)
 public abstract class SplatnetDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "splatnetDatabase.db";

@@ -13,6 +13,7 @@ import java.util.List;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "shift",
@@ -37,6 +38,7 @@ public class SalmonShiftRoom {
         this.endTime = endTime;
         this.stage = stage;
     }
+    @Ignore
     public SalmonShiftRoom(long startTime,long endTime,int stage){
         this.id = generateId(startTime);
         this.startTime = startTime;

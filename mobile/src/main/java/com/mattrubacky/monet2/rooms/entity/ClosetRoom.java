@@ -1,8 +1,11 @@
 package com.mattrubacky.monet2.rooms.entity;
 
+import androidx.core.content.PermissionChecker;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = "closet",
         foreignKeys = {
@@ -26,8 +29,16 @@ import androidx.room.ForeignKey;
                         parentColumns = "id",
                         childColumns = "tr_sub"
                 )
+        },
+        indices = {
+                @Index(value = "gear"),
+                @Index(value = "main"),
+                @Index(value="fr_sub"),
+                @Index(value = "sc_sub"),
+                @Index(value = "tr_sub")
         })
 public class ClosetRoom {
+    @PrimaryKey
     public int gear;
     public int main;
     @ColumnInfo(name = "fr_sub")
