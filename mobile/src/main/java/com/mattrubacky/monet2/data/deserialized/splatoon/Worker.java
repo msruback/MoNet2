@@ -7,10 +7,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+
 /**
  * Created by mattr on 10/8/2018.
  */
 
+@Entity(tableName = "worker")
 public class Worker implements Parcelable{
     public Worker(){}
 
@@ -45,6 +49,7 @@ public class Worker implements Parcelable{
     @SerializedName("weapon_list")
     public ArrayList<SalmonRunWeapon> weapons;
 
+    @Ignore
     @SerializedName("boss_kill_counts")
     public BossCount bossKillses;
 

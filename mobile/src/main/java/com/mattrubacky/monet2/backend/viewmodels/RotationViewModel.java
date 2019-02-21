@@ -78,7 +78,19 @@ public class RotationViewModel extends AndroidViewModel implements SplatnetConne
                 if(rotation==null){
                     rotation = new Schedules();
                 }
-                rotation.regular = new ArrayList<>(timePeriods);
+
+                rotation.regular = new ArrayList<>();
+                for (TimePeriod timePeriod : timePeriods) {
+                    for(Stage stage:stages.getValue()){
+                        if(timePeriod.a.id == stage.id){
+                            timePeriod.a = stage;
+                        }else if(timePeriod.b.id == stage.id){
+                            timePeriod.b = stage;
+                        }
+
+                    }
+                    rotation.regular.add(timePeriod);
+                }
                 schedules.setValue(rotation);
             }
         });
@@ -89,7 +101,18 @@ public class RotationViewModel extends AndroidViewModel implements SplatnetConne
                 if(rotation==null){
                     rotation = new Schedules();
                 }
-                rotation.ranked = new ArrayList<>(timePeriods);
+                rotation.ranked = new ArrayList<>();
+                for (TimePeriod timePeriod : timePeriods) {
+                    for(Stage stage:stages.getValue()){
+                        if(timePeriod.a.id == stage.id){
+                            timePeriod.a = stage;
+                        }else if(timePeriod.b.id == stage.id){
+                            timePeriod.b = stage;
+                        }
+
+                    }
+                    rotation.ranked.add(timePeriod);
+                }
                 schedules.setValue(rotation);
             }
         });
@@ -100,7 +123,18 @@ public class RotationViewModel extends AndroidViewModel implements SplatnetConne
                 if(rotation==null){
                     rotation = new Schedules();
                 }
-                rotation.league = new ArrayList<>(timePeriods);
+                rotation.league = new ArrayList<>();
+                for (TimePeriod timePeriod : timePeriods) {
+                    for(Stage stage:stages.getValue()){
+                        if(timePeriod.a.id == stage.id){
+                            timePeriod.a = stage;
+                        }else if(timePeriod.b.id == stage.id){
+                            timePeriod.b = stage;
+                        }
+
+                    }
+                    rotation.league.add(timePeriod);
+                }
                 schedules.setValue(rotation);
             }
         });
@@ -111,7 +145,18 @@ public class RotationViewModel extends AndroidViewModel implements SplatnetConne
                 if(rotation==null){
                     rotation = new Schedules();
                 }
-                rotation.splatfest = new ArrayList<>(timePeriods);
+                rotation.splatfest = new ArrayList<>();
+                for (TimePeriod timePeriod : timePeriods) {
+                    for(Stage stage:stages.getValue()){
+                        if(timePeriod.a.id == stage.id){
+                            timePeriod.a = stage;
+                        }else if(timePeriod.b.id == stage.id){
+                            timePeriod.b = stage;
+                        }
+
+                    }
+                    rotation.splatfest.add(timePeriod);
+                }
                 schedules.setValue(rotation);
             }
         });
