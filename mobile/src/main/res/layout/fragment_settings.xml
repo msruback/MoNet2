@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mattrubacky.monet2.fragment.MainScreenFragments.SettingsFragment"
+    tools:context=".ui.fragment.MainScreenFragments.SettingsFragment"
     android:background="@drawable/repeat_squids">
 
     <ScrollView

@@ -14,17 +14,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.adapter.CompetitiveAdapter;
-import com.mattrubacky.monet2.adapter.FestivalAdapter;
-import com.mattrubacky.monet2.adapter.RegularAdapter;
-import com.mattrubacky.monet2.adapter.SalmonAdapter;
+import com.mattrubacky.monet2.ui.adapter.CompetitiveAdapter;
+import com.mattrubacky.monet2.ui.adapter.FestivalAdapter;
+import com.mattrubacky.monet2.ui.adapter.RegularAdapter;
+import com.mattrubacky.monet2.ui.adapter.SalmonAdapter;
 import com.mattrubacky.monet2.connection.WatchConnected;
 import com.mattrubacky.monet2.connection.WatchConnector;
-import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
-import com.mattrubacky.monet2.deserialized.SalmonRunDetail;
-import com.mattrubacky.monet2.deserialized.SalmonSchedule;
-import com.mattrubacky.monet2.deserialized.Schedules;
-import com.mattrubacky.monet2.deserialized.TimePeriod;
+import com.mattrubacky.monet2.data.deserialized.CurrentSplatfest;
+import com.mattrubacky.monet2.data.deserialized.SalmonRunDetail;
+import com.mattrubacky.monet2.data.deserialized.SalmonSchedule;
+import com.mattrubacky.monet2.data.deserialized.Schedules;
+import com.mattrubacky.monet2.data.deserialized.TimePeriod;
 
 import java.util.ArrayList;
 

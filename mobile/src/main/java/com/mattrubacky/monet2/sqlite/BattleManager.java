@@ -5,14 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.deserialized.splatoon.KeyName;
-import com.mattrubacky.monet2.deserialized.splatoon.PlayerDatabase;
-import com.mattrubacky.monet2.deserialized.splatoon.SplatfestColor;
-import com.mattrubacky.monet2.deserialized.splatoon.SplatfestGrade;
-import com.mattrubacky.monet2.deserialized.splatoon.Stage;
-import com.mattrubacky.monet2.deserialized.splatoon.TeamResult;
-import com.mattrubacky.monet2.deserialized.splatoon.TeamTheme;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.data.deserialized.splatoon.KeyName;
+import com.mattrubacky.monet2.data.deserialized.splatoon.PlayerDatabase;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestColor;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestGrade;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized.splatoon.TeamTheme;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -211,7 +210,7 @@ class BattleManager {
             rule.name = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
             battle.rule = rule;
 
-            TeamResult teamResult = new TeamResult();
+            KeyName teamResult = new KeyName();
             teamResult.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
             battle.result = teamResult;
 
@@ -347,7 +346,7 @@ class BattleManager {
                     rule.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
                     battle.rule = rule;
 
-                    TeamResult teamResult = new TeamResult();
+                    KeyName teamResult = new KeyName();
                     teamResult.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
                     battle.result = teamResult;
 
@@ -469,7 +468,7 @@ class BattleManager {
                 rule.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
                 battle.rule = rule;
 
-                TeamResult teamResult = new TeamResult();
+                KeyName teamResult = new KeyName();
                 teamResult.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
                 battle.result = teamResult;
 
@@ -610,7 +609,7 @@ class BattleManager {
                 rule.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RULE));
                 battle.rule = rule;
 
-                TeamResult teamResult = new TeamResult();
+                KeyName teamResult = new KeyName();
                 teamResult.key = cursor.getString(cursor.getColumnIndex(SplatnetContract.Battle.COLUMN_RESULT));
                 battle.result = teamResult;
 

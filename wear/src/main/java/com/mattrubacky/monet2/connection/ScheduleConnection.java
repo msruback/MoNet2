@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.deserialized.Schedules;
+import com.mattrubacky.monet2.data.deserialized.Schedules;
 
 import java.util.Date;
 

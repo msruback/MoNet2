@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mattrubacky.monet2.AddNotification"
+    tools:context="com.mattrubacky.monet2.ui.activities.AddNotification"
     android:background="@drawable/repeat_squids">
 
 

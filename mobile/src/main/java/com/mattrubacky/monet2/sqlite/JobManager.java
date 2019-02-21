@@ -5,13 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.BossCount;
-import com.mattrubacky.monet2.deserialized.splatoon.CoopResult;
-import com.mattrubacky.monet2.deserialized.splatoon.GrizzCoBossKills;
-import com.mattrubacky.monet2.deserialized.splatoon.GrizzCoGrade;
-import com.mattrubacky.monet2.deserialized.splatoon.JobResult;
-import com.mattrubacky.monet2.deserialized.splatoon.Wave;
-import com.mattrubacky.monet2.deserialized.splatoon.Worker;
+import com.mattrubacky.monet2.data.deserialized.splatoon.BossCount;
+import com.mattrubacky.monet2.data.deserialized.splatoon.CoopResult;
+import com.mattrubacky.monet2.data.deserialized.splatoon.GrizzCoBossKills;
+import com.mattrubacky.monet2.data.deserialized.splatoon.GrizzCoGrade;
+import com.mattrubacky.monet2.data.deserialized.splatoon.JobResult;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Wave;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Worker;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
+import com.mattrubacky.monet2.data.deserialized.CurrentSplatfest;
 
 /**
  * Created by mattr on 1/9/2018.

@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
 
 /**
  * Created by mattr on 10/18/2017.

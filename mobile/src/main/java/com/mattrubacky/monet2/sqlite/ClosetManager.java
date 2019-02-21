@@ -5,11 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.deserialized.splatoon.Gear;
-import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
-import com.mattrubacky.monet2.deserialized.splatoon.Skill;
-import com.mattrubacky.monet2.helper.ClosetHanger;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized.splatoon.GearSkills;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.data.stats.GearStats;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 class ClosetManager {
     Context context;
-    HashMap<Integer,ClosetHanger> toInsert;
+    HashMap<Integer, GearStats> toInsert;
     ArrayList<Integer> toSelect;
     GearManager gearManager;
     SkillManager skillManager;
@@ -36,14 +36,14 @@ class ClosetManager {
     }
 
     public void addToInsert(Gear gear, GearSkills skills, Battle battle){
-        ClosetHanger hanger = new ClosetHanger();
+        GearStats hanger = new GearStats();
         hanger.gear = gear;
         hanger.skills = skills;
         hanger.time = battle.start;
 
         toInsert.put(gear.id,hanger);
     }
-    public void addToInsert(ClosetHanger hanger){
+    public void addToInsert(GearStats hanger){
         toInsert.put(hanger.gear.id,hanger);
     }
 
@@ -76,14 +76,14 @@ class ClosetManager {
 
             int id;
 
-            ClosetHanger closetHanger;
+            GearStats gearStats;
             for(int i=0;i<keys.length;i++){
                 values = new ContentValues();
-                closetHanger = toInsert.get(keys[i]);
+                gearStats = toInsert.get(keys[i]);
 
-                id = closetHanger.gear.id;
+                id = gearStats.gear.id;
                 id*=10;
-                switch (closetHanger.gear.kind){
+                switch (gearStats.gear.kind){
                     case "head":
                         id+=1;
                         break;
@@ -96,19 +96,19 @@ class ClosetManager {
                 }
 
                 values.put(SplatnetContract.Closet._ID,id);
-                values.put(SplatnetContract.Closet.COLUMN_GEAR,closetHanger.gear.id);
-                values.put(SplatnetContract.Closet.COLUMN_KIND,closetHanger.gear.kind);
+                values.put(SplatnetContract.Closet.COLUMN_GEAR, gearStats.gear.id);
+                values.put(SplatnetContract.Closet.COLUMN_KIND, gearStats.gear.kind);
 
-                values.put(SplatnetContract.Closet.COLUMN_MAIN,closetHanger.skills.main.id);
+                values.put(SplatnetContract.Closet.COLUMN_MAIN, gearStats.skills.main.id);
 
-                values.put(SplatnetContract.Closet.COLUMN_LAST_USE_TIME,closetHanger.time);
+                values.put(SplatnetContract.Closet.COLUMN_LAST_USE_TIME, gearStats.time);
 
-                if(closetHanger.skills.subs.get(0)!=null){
-                    values.put(SplatnetContract.Closet.COLUMN_SUB_1,closetHanger.skills.subs.get(0).id);
-                    if(closetHanger.skills.subs.get(1)!=null){
-                        values.put(SplatnetContract.Closet.COLUMN_SUB_2,closetHanger.skills.subs.get(1).id);
-                        if(closetHanger.skills.subs.get(2)!=null){
-                            values.put(SplatnetContract.Closet.COLUMN_SUB_3,closetHanger.skills.subs.get(2).id);
+                if(gearStats.skills.subs.get(0)!=null){
+                    values.put(SplatnetContract.Closet.COLUMN_SUB_1, gearStats.skills.subs.get(0).id);
+                    if(gearStats.skills.subs.get(1)!=null){
+                        values.put(SplatnetContract.Closet.COLUMN_SUB_2, gearStats.skills.subs.get(1).id);
+                        if(gearStats.skills.subs.get(2)!=null){
+                            values.put(SplatnetContract.Closet.COLUMN_SUB_3, gearStats.skills.subs.get(2).id);
                         }else{
                             values.put(SplatnetContract.Closet.COLUMN_SUB_3,-1);
                         }
@@ -134,7 +134,7 @@ class ClosetManager {
         }
     }
 
-    public ClosetHanger select(int id,String kind){
+    public GearStats select(int id, String kind){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
         id*=10;
@@ -160,10 +160,10 @@ class ClosetManager {
 
         Cursor cursor = database.query(SplatnetContract.Closet.TABLE_NAME,null,whereClause,args,null,null,null);
 
-        ClosetHanger closetHanger = new ClosetHanger();
+        GearStats gearStats = new GearStats();
 
         if(cursor.moveToFirst()){
-            closetHanger.gear = gearManager.select(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_GEAR)),cursor.getString(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_KIND)));
+            gearStats.gear = gearManager.select(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_GEAR)),cursor.getString(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_KIND)));
 
             skillManager.addToSelect(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_MAIN)));
 
@@ -173,34 +173,34 @@ class ClosetManager {
 
             HashMap<Integer,Skill> skillHashMap = skillManager.select();
 
-            closetHanger.skills = new GearSkills();
+            gearStats.skills = new GearSkills();
 
-            closetHanger.skills.main = skillHashMap.get(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_MAIN)));
+            gearStats.skills.main = skillHashMap.get(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_MAIN)));
 
-            closetHanger.skills.subs = new ArrayList<>();
-            closetHanger.skills.subs.add(skillHashMap.get(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_SUB_1))));
-            closetHanger.skills.subs.add(skillHashMap.get(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_SUB_2))));
-            closetHanger.skills.subs.add(skillHashMap.get(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_SUB_3))));
+            gearStats.skills.subs = new ArrayList<>();
+            gearStats.skills.subs.add(skillHashMap.get(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_SUB_1))));
+            gearStats.skills.subs.add(skillHashMap.get(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_SUB_2))));
+            gearStats.skills.subs.add(skillHashMap.get(cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_SUB_3))));
 
-            closetHanger.time = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_LAST_USE_TIME));
+            gearStats.time = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_LAST_USE_TIME));
 
         }
         cursor.close();
         database.close();
 
-        return closetHanger;
+        return gearStats;
     }
 
-    public ArrayList<ClosetHanger> selectAll(){
-        ArrayList<ClosetHanger> selected = new ArrayList<>();
+    public ArrayList<GearStats> selectAll(){
+        ArrayList<GearStats> selected = new ArrayList<>();
 
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
 
         Cursor cursor = database.query(SplatnetContract.Closet.TABLE_NAME,null,null,null,null,null,null);
 
-        ClosetHanger closetHanger;
+        GearStats gearStats;
 
-        ArrayList<ClosetHanger> hangers = new ArrayList<>();
+        ArrayList<GearStats> hangers = new ArrayList<>();
 
         ArrayList<Integer> gearIDs = new ArrayList<>();
         int gearID;
@@ -216,7 +216,7 @@ class ClosetManager {
 
         if(cursor.moveToFirst()){
             do {
-                closetHanger = new ClosetHanger();
+                gearStats = new GearStats();
 
                 gearID = cursor.getInt(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_GEAR));
                 gearKind = cursor.getString(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_KIND));
@@ -242,9 +242,9 @@ class ClosetManager {
                 skillManager.addToSelect(sub3ID);
                 sub3IDs.add(sub3ID);
 
-                closetHanger.time = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_LAST_USE_TIME));
+                gearStats.time = cursor.getLong(cursor.getColumnIndex(SplatnetContract.Closet.COLUMN_LAST_USE_TIME));
 
-                hangers.add(closetHanger);
+                hangers.add(gearStats);
             }while(cursor.moveToNext());
         }
         cursor.close();
@@ -253,7 +253,7 @@ class ClosetManager {
         HashMap<Integer,Gear> gearHashMap = new HashMap<>();
         HashMap<Integer,Skill> skillHashMap = skillManager.select();
         for(int i=0;i<hangers.size();i++){
-            closetHanger = hangers.get(i);
+            gearStats = hangers.get(i);
             switch(gearKinds.get(i)) {
                 case "head":
                     gearHashMap = gearList.get(0);
@@ -264,17 +264,17 @@ class ClosetManager {
                 case "shoes":
                     gearHashMap = gearList.get(2);
             }
-            closetHanger.gear = gearHashMap.get(gearIDs.get(i));
+            gearStats.gear = gearHashMap.get(gearIDs.get(i));
 
-            closetHanger.skills = new GearSkills();
+            gearStats.skills = new GearSkills();
 
-            closetHanger.skills.main = skillHashMap.get(mainIDs.get(i));
+            gearStats.skills.main = skillHashMap.get(mainIDs.get(i));
 
-            closetHanger.skills.subs = new ArrayList<>();
-            closetHanger.skills.subs.add(skillHashMap.get(sub1IDs.get(i)));
-            closetHanger.skills.subs.add(skillHashMap.get(sub2IDs.get(i)));
-            closetHanger.skills.subs.add(skillHashMap.get(sub3IDs.get(i)));
-            selected.add(closetHanger);
+            gearStats.skills.subs = new ArrayList<>();
+            gearStats.skills.subs.add(skillHashMap.get(sub1IDs.get(i)));
+            gearStats.skills.subs.add(skillHashMap.get(sub2IDs.get(i)));
+            gearStats.skills.subs.add(skillHashMap.get(sub3IDs.get(i)));
+            selected.add(gearStats);
         }
 
 

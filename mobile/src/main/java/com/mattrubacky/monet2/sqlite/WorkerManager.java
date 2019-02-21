@@ -4,18 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.GridLayout;
 
-import com.mattrubacky.monet2.api.splatnet.Splatnet;
-import com.mattrubacky.monet2.deserialized.splatoon.BossCount;
-import com.mattrubacky.monet2.deserialized.splatoon.GrizzCoBossKills;
-import com.mattrubacky.monet2.deserialized.splatoon.SalmonRun;
-import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
-import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunWeapon;
-import com.mattrubacky.monet2.deserialized.splatoon.SalmonStage;
-import com.mattrubacky.monet2.deserialized.splatoon.Special;
-import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
-import com.mattrubacky.monet2.deserialized.splatoon.Worker;
+import com.mattrubacky.monet2.data.deserialized.splatoon.BossCount;
+import com.mattrubacky.monet2.data.deserialized.splatoon.GrizzCoBossKills;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunDetail;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunWeapon;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Special;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Worker;
 
 import java.util.ArrayList;
 import java.util.HashMap;

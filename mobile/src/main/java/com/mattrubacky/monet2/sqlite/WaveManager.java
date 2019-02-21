@@ -5,11 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
-import com.mattrubacky.monet2.deserialized.splatoon.KeyName;
-import com.mattrubacky.monet2.deserialized.splatoon.Skill;
-import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
-import com.mattrubacky.monet2.deserialized.splatoon.Wave;
+import com.mattrubacky.monet2.data.deserialized.splatoon.KeyName;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Wave;
 
 import java.util.ArrayList;
 import java.util.HashMap;

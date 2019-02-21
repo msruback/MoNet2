@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;

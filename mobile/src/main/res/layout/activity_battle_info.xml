@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mattrubacky.monet2.BattleInfo">
+    tools:context="com.mattrubacky.monet2.ui.activities.BattleInfo">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

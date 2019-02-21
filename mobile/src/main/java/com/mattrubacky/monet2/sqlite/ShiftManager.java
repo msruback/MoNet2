@@ -5,14 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.api.splatnet.Splatnet;
-import com.mattrubacky.monet2.deserialized.splatoon.SalmonRun;
-import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
-import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunWeapon;
-import com.mattrubacky.monet2.deserialized.splatoon.SalmonStage;
-import com.mattrubacky.monet2.deserialized.splatoon.Sub;
-import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
-import com.mattrubacky.monet2.notifications.SalmonRunNotification;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunDetail;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunWeapon;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonStage;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
 
 import java.util.ArrayList;
 import java.util.HashMap;

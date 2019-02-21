@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.mattrubacky.monet2.AddNotification"
+    tools:context="com.mattrubacky.monet2.ui.activities.AddNotification"
     android:background="@drawable/repeat_squids">
 
     <androidx.appcompat.widget.Toolbar

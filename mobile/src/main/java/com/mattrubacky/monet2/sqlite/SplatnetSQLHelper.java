@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.mattrubacky.monet2.api.splatnet.Splatnet;
-
 /**
  * Created by mattr on 10/17/2017.
  */

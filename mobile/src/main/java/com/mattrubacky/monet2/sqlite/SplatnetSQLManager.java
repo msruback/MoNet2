@@ -4,21 +4,20 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.deserialized.splatoon.CoopResult;
-import com.mattrubacky.monet2.deserialized.splatoon.Gear;
-import com.mattrubacky.monet2.deserialized.splatoon.GearSkills;
-import com.mattrubacky.monet2.deserialized.splatoon.Player;
-import com.mattrubacky.monet2.deserialized.splatoon.RewardGear;
-import com.mattrubacky.monet2.deserialized.splatoon.SalmonRun;
-import com.mattrubacky.monet2.deserialized.splatoon.SalmonRunDetail;
-import com.mattrubacky.monet2.deserialized.splatoon.Skill;
-import com.mattrubacky.monet2.deserialized.splatoon.Splatfest;
-import com.mattrubacky.monet2.deserialized.splatoon.SplatfestDatabase;
-import com.mattrubacky.monet2.deserialized.splatoon.SplatfestResult;
-import com.mattrubacky.monet2.deserialized.splatoon.Stage;
-import com.mattrubacky.monet2.deserialized.splatoon.Weapon;
-import com.mattrubacky.monet2.helper.ClosetHanger;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
+import com.mattrubacky.monet2.data.deserialized.splatoon.CoopResult;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized.splatoon.GearSkills;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Player;
+import com.mattrubacky.monet2.data.deserialized.splatoon.RewardGear;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunDetail;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Splatfest;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestDatabase;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestResult;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.data.stats.GearStats;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -238,7 +237,7 @@ public class SplatnetSQLManager {
         closetManager.insert();
     }
 
-    public void insertCloset(ArrayList<ClosetHanger> gear){
+    public void insertCloset(ArrayList<GearStats> gear){
         ClosetManager closetManager = new ClosetManager(context);
         for(int i=0;i<gear.size();i++){
             closetManager.addToInsert(gear.get(i));
@@ -246,11 +245,11 @@ public class SplatnetSQLManager {
         closetManager.insert();
     }
 
-    public ArrayList<ClosetHanger> getCloset(){
+    public ArrayList<GearStats> getCloset(){
         ClosetManager closetManager = new ClosetManager(context);
         return closetManager.selectAll();
     }
-    public ClosetHanger selectCloset(int id,String kind){
+    public GearStats selectCloset(int id, String kind){
         ClosetManager closetManager = new ClosetManager(context);
         return closetManager.select(id,kind);
     }
@@ -284,14 +283,14 @@ public class SplatnetSQLManager {
 
     public void restructureCloset(){
         SQLiteDatabase database = new SplatnetSQLHelper(context).getReadableDatabase();
-        ArrayList<ClosetHanger> closetHangers = getCloset();
+        ArrayList<GearStats> gearStats = getCloset();
 
         database.execSQL("DROP TABLE IF EXISTS closet");
 
         database.execSQL(SplatnetContract.Closet.CREATE_TABLE);
         ClosetManager closetManager = new ClosetManager(context);
-        for(int i=0;i<closetHangers.size();i++){
-            closetManager.addToInsert(closetHangers.get(i));
+        for(int i = 0; i< gearStats.size(); i++){
+            closetManager.addToInsert(gearStats.get(i));
         }
         closetManager.insert();
     }

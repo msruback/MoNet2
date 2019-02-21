@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.deserialized.splatoon.Special;
-import com.mattrubacky.monet2.dialog.LoadingDialog;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Special;
+import com.mattrubacky.monet2.ui.dialog.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;

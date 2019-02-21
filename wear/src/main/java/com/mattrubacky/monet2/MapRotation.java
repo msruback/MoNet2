@@ -6,17 +6,16 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.wearable.view.WatchViewStub;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.adapter.ScheduleAdapter;
 import com.mattrubacky.monet2.connection.WatchConnected;
 import com.mattrubacky.monet2.connection.WatchConnector;
-import com.mattrubacky.monet2.deserialized.CurrentSplatfest;
-import com.mattrubacky.monet2.deserialized.SalmonSchedule;
-import com.mattrubacky.monet2.deserialized.Schedules;
+import com.mattrubacky.monet2.data.deserialized.CurrentSplatfest;
+import com.mattrubacky.monet2.data.deserialized.SalmonSchedule;
+import com.mattrubacky.monet2.data.deserialized.Schedules;
+import com.mattrubacky.monet2.ui.adapter.ScheduleAdapter;
 
 import java.util.ArrayList;
 
