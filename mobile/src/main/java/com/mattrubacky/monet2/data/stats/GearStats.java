@@ -57,6 +57,7 @@ import androidx.room.PrimaryKey;
                 @Index(value = "tr_sub")
         })
 public class GearStats extends Stats implements Parcelable{
+    @Ignore
     public GearStats(){
     }
     @PrimaryKey
@@ -71,7 +72,7 @@ public class GearStats extends Stats implements Parcelable{
     public Skill sub3;
 
     @Ignore
-    private GearSkills skills;
+    public GearSkills skills;
 
     @Ignore
     public int wins;
@@ -100,6 +101,7 @@ public class GearStats extends Stats implements Parcelable{
         this.sub3 = sub3;
     }
 
+    @Ignore
     protected GearStats(Parcel in) {
         gear = in.readParcelable(Gear.class.getClassLoader());
         main = in.readParcelable(Skill.class.getClassLoader());

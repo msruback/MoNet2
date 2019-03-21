@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 /**
@@ -14,6 +15,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "salmon_stage")
 public class SalmonStage implements Parcelable{
+    @Ignore
     public SalmonStage(){}
 
     @PrimaryKey
@@ -30,6 +32,7 @@ public class SalmonStage implements Parcelable{
         this.url = url;
     }
 
+    @Ignore
     protected SalmonStage(Parcel in) {
         name = in.readString();
         url = in.readString();

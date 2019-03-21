@@ -37,13 +37,13 @@ public class RotationViewModel extends AndroidViewModel implements SplatnetConne
     private LiveData<List<SalmonShiftRoom>> salmonRun;
     private LiveData<List<SalmonStage>> salmonStages;
     private LiveData<SalmonGearRoom> gearId;
+    private LiveData<SplatfestRoom> currentSplatfest;
 
     private MediatorLiveData<Schedules> schedules;
     private MediatorLiveData<SalmonSchedule> salmonSchedule;
     private MediatorLiveData<Gear> monthlyGear;
+    private MediatorLiveData<Splatfest> splatfestInfo;
 
-
-    private SplatfestRoom currentSplatfest;
 
     private SplatnetDatabase database;
     private SplatnetConnector connector;
@@ -56,10 +56,10 @@ public class RotationViewModel extends AndroidViewModel implements SplatnetConne
 
         salmonStages = database.getSalmonStageDao().selectAll();
 
-        regular = database.getTimePeriodDao().selectRegular();
-        ranked = database.getTimePeriodDao().selectGachi();
-        league = database.getTimePeriodDao().selectLeague();
-        splatfest = database.getTimePeriodDao().selectFestival();
+        regular = database.getTimePeriodDao().selectRegularLive();
+        ranked = database.getTimePeriodDao().selectGachiLive();
+        league = database.getTimePeriodDao().selectLeagueLive();
+        splatfest = database.getTimePeriodDao().selectFestivalLive();
 
         gearId = database.getSalmonGearDao().selectCurrentGear(SalmonGearRoom.generateId(Calendar.getInstance().getTimeInMillis()));
 
@@ -185,7 +185,16 @@ public class RotationViewModel extends AndroidViewModel implements SplatnetConne
         monthlyGear.addSource(gearId, new Observer<SalmonGearRoom>() {
             @Override
             public void onChanged(SalmonGearRoom salmonGearRoom) {
-                monthlyGear.setValue(database.getGearDao().select(salmonGearRoom.gear));
+                //monthlyGear.setValue(database.getGearDao().select(salmonGearRoom.gear));
+            }
+        });
+
+        splatfestInfo = new MediatorLiveData<>();
+
+        splatfestInfo.addSource(currentSplatfest, new Observer<SplatfestRoom>() {
+            @Override
+            public void onChanged(SplatfestRoom splatfestRoom) {
+                splatfestInfo.setValue(currentSplatfest.getValue().toDeserialized(stages.getValue()));
             }
         });
     }
@@ -210,9 +219,8 @@ public class RotationViewModel extends AndroidViewModel implements SplatnetConne
         return monthlyGear;
     }
 
-    public Splatfest getCurrentSplatfest(){
-        SplatfestRoom splatfestRoom = currentSplatfest;
-        return splatfestRoom.toDeserialized(stages.getValue());
+    public MediatorLiveData<Splatfest> getSplatfest(){
+        return splatfestInfo;
     }
 
 

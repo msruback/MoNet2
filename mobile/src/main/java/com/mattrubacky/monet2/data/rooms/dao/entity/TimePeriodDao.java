@@ -1,5 +1,7 @@
 package com.mattrubacky.monet2.data.rooms.dao.entity;
 
+import android.database.sqlite.SQLiteConstraintException;
+
 import com.mattrubacky.monet2.data.deserialized.splatoon.TimePeriod;
 
 import java.util.List;
@@ -12,28 +14,51 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
-public interface TimePeriodDao {
+public abstract class TimePeriodDao {
+
+    public void insertTimePeriod(TimePeriod timePeriod){
+        try{
+            insert(timePeriod);
+        }catch (SQLiteConstraintException e){
+        }
+    }
+
     @Insert
-    void insert(TimePeriod... timePeriod);
+    protected abstract void insert(TimePeriod... timePeriod);
 
     @Update
-    void update(TimePeriod... timePeriod);
+    protected abstract void update(TimePeriod... timePeriod);
 
     @Delete
-    void delete(TimePeriod... timePeriod);
+    public abstract void delete(TimePeriod... timePeriod);
 
-    @Query("SELECT * FROM time_period WHERE mode=='regular'")
-    LiveData<List<TimePeriod>> selectRegular();
+    @Query("SELECT * FROM time_period WHERE id=:id")
+    public abstract TimePeriod select(long id);
 
-    @Query("SELECT * FROM time_period WHERE mode=='gachi'")
-    LiveData<List<TimePeriod>> selectGachi();
+    @Query("SELECT * FROM time_period WHERE mode='regular'")
+    public abstract LiveData<List<TimePeriod>> selectRegularLive();
 
-    @Query("SELECT * FROM time_period WHERE mode=='league'")
-    LiveData<List<TimePeriod>> selectLeague();
+    @Query("SELECT * FROM time_period WHERE mode='regular'")
+    public abstract List<TimePeriod> selectRegular();
 
-    @Query("SELECT * FROM time_period WHERE mode=='fes'")
-    LiveData<List<TimePeriod>> selectFestival();
+    @Query("SELECT * FROM time_period WHERE mode='gachi'")
+    public abstract LiveData<List<TimePeriod>> selectGachiLive();
+
+    @Query("SELECT * FROM time_period WHERE mode='gachi'")
+    public abstract List<TimePeriod> selectGachi();
+
+    @Query("SELECT * FROM time_period WHERE mode='league'")
+    public abstract LiveData<List<TimePeriod>> selectLeagueLive();
+
+    @Query("SELECT * FROM time_period WHERE mode='league'")
+    public abstract List<TimePeriod> selectLeague();
+
+    @Query("SELECT * FROM time_period WHERE mode='fes'")
+    public abstract LiveData<List<TimePeriod>> selectFestivalLive();
+
+    @Query("SELECT * FROM time_period WHERE mode='fes'")
+    public abstract List<TimePeriod> selectFestival();
 
     @Query("SELECT * FROM time_period WHERE end_time>:now")
-    List<TimePeriod> selectOld(long now);
+    public abstract List<TimePeriod> selectOld(long now);
 }

@@ -45,7 +45,7 @@ public class RotationFragment extends Fragment {
             @Override
             public void onChanged(Schedules schedules) {
                 RecyclerView scheduleList = rootView.findViewById(R.id.ScheduleList);
-                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),schedules,viewModel.getSalmonSchedule().getValue(),viewModel.getMonthlyGear().getValue(),viewModel.getCurrentSplatfest());
+                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),schedules,viewModel.getSalmonSchedule().getValue(),viewModel.getMonthlyGear().getValue(),viewModel.getSplatfest().getValue());
                 scheduleList.setAdapter(scheduleAdapter);
                 scheduleList.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
 
@@ -57,7 +57,7 @@ public class RotationFragment extends Fragment {
             @Override
             public void onChanged(SalmonSchedule salmonSchedule) {
                 RecyclerView scheduleList = rootView.findViewById(R.id.ScheduleList);
-                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),viewModel.getSchedules().getValue(),salmonSchedule,viewModel.getMonthlyGear().getValue(),viewModel.getCurrentSplatfest());
+                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),viewModel.getSchedules().getValue(),salmonSchedule,viewModel.getMonthlyGear().getValue(),viewModel.getSplatfest().getValue());
                 scheduleList.setAdapter(scheduleAdapter);
                 scheduleList.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
 
@@ -69,7 +69,7 @@ public class RotationFragment extends Fragment {
             @Override
             public void onChanged(Gear gear) {
                 RecyclerView scheduleList = rootView.findViewById(R.id.ScheduleList);
-                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),viewModel.getSchedules().getValue(),viewModel.getSalmonSchedule().getValue(),gear,viewModel.getCurrentSplatfest());
+                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(),viewModel.getSchedules().getValue(),viewModel.getSalmonSchedule().getValue(),gear,viewModel.getSplatfest().getValue());
                 scheduleList.setAdapter(scheduleAdapter);
                 scheduleList.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
             }

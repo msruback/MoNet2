@@ -1,0 +1,99 @@
+{
+	"schedules": [{
+		"start_time": 1550059200,
+		"end_time": 1550167200
+	}, {
+		"start_time": 1550210400,
+		"end_time": 1550318400
+	}, {
+		"start_time": 1550361600,
+		"end_time": 1550491200
+	}, {
+		"end_time": 1550642400,
+		"start_time": 1550534400
+	}, {
+		"end_time": 1550793600,
+		"start_time": 1550685600
+	}],
+	"details": [{
+		"start_time": 1550059200,
+		"stage": {
+			"name": "Lost Outpost",
+			"image": "/images/coop_stage/6d68f5baa75f3a94e5e9bfb89b82e7377e3ecd2c.png"
+		},
+		"end_time": 1550167200,
+		"weapons": [{
+			"id": "4000",
+			"weapon": {
+				"name": "Mini Splatling",
+				"image": "/images/weapon/2a1c5ca0e68919b4d655bd860cac3b2942b95498.png",
+				"id": "4000",
+				"thumbnail": "/images/weapon/585e0e72053689bbab848d97ec07bac4ea769e68.png"
+			}
+		}, {
+			"weapon": {
+				"name": "Blaster",
+				"image": "/images/weapon/cfafc8bc42bcd89058fdb22b7b943fb9f893adb8.png",
+				"id": "210",
+				"thumbnail": "/images/weapon/5e26f6a8217836c25ac0c75f05b13e6051bdc644.png"
+			},
+			"id": "210"
+		}, {
+			"weapon": {
+				"id": "5040",
+				"thumbnail": "/images/weapon/78f0df8c7b0f625d91f5b4ea953b10872109c77b.png",
+				"name": "Dark Tetra Dualies",
+				"image": "/images/weapon/ba750d284eb067abdc995435c3358eed4e6f90fa.png"
+			},
+			"id": "5040"
+		}, {
+			"weapon": {
+				"image": "/images/weapon/e34bbd580e49695b97d5fc4464cc901d4fe08ce5.png",
+				"name": "Hydra Splatling",
+				"id": "4020",
+				"thumbnail": "/images/weapon/3a92a1fa8320222ca300d3c3ac25474c5077c304.png"
+			},
+			"id": "4020"
+		}]
+	}, {
+		"start_time": 1550210400,
+		"stage": {
+			"image": "/images/coop_stage/e07d73b7d9f0c64e552b34a2e6c29b8564c63388.png",
+			"name": "Marooner's Bay"
+		},
+		"end_time": 1550318400,
+		"weapons": [{
+			"id": "6000",
+			"weapon": {
+				"id": "6000",
+				"thumbnail": "/images/weapon/9a1adf1c38c1a017bad0be0cac13255ae0f8d25b.png",
+				"image": "/images/weapon/f1fa6db2e21f32cd1c2cd093ec24f1a450d4650c.png",
+				"name": "Splat Brella"
+			}
+		}, {
+			"weapon": {
+				"name": "N-ZAP '85",
+				"image": "/images/weapon/1f2b1db5917ef7a4e62f0e15b8805275e33f2179.png",
+				"id": "60",
+				"thumbnail": "/images/weapon/fdcd7cbe806eb84df374ea8f7e074ac9637d4762.png"
+			},
+			"id": "60"
+		}, {
+			"weapon": {
+				"id": "250",
+				"thumbnail": "/images/weapon/91208c6fe9fc4e62e81412d6e772fc696b1a7317.png",
+				"image": "/images/weapon/8f64580bb033ba86fa0179179cfeb56b5544fda6.png",
+				"name": "Rapid Blaster Pro"
+			},
+			"id": "250"
+		}, {
+			"id": "2020",
+			"weapon": {
+				"name": "Splatterscope",
+				"image": "/images/weapon/0ec07bb00918f071975b35191e0860152bdcb321.png",
+				"id": "2020",
+				"thumbnail": "/images/weapon/928d52eca6c3f907f7c6f9132236cbf92e658466.png"
+			}
+		}]
+	}]
+}

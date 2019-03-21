@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.Brand;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
-import com.mattrubacky.monet2.data.deserialized.splatoon.GearSkills;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonStage;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Special;
@@ -44,22 +43,22 @@ import androidx.room.TypeConverters;
                         Special.class, SplatfestResultRoom.class, SplatfestRoom.class, Stage.class,
                         Sub.class, TimePeriod.class, Weapon.class},version=1,exportSchema = false)
 @TypeConverters({SplatnetConverters.class})
-public abstract class SplatnetDatabase extends RoomDatabase {
+public abstract class TestDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "splatnetDatabase.db";
-    private static volatile SplatnetDatabase instance;
+    private static volatile TestDatabase instance;
 
-    public static synchronized SplatnetDatabase getInstance(Context context) {
+    public static synchronized TestDatabase getInstance(Context context) {
         if (instance == null) {
             instance = create(context);
         }
         return instance;
     }
 
-    private static SplatnetDatabase create(final Context context) {
+    private static TestDatabase create(final Context context) {
         return Room.databaseBuilder(
                 context,
-                SplatnetDatabase.class,
+                TestDatabase.class,
                 DB_NAME).build();
     }
 

@@ -1,0 +1,24 @@
+{
+	"stage_a": {
+		"id": "10",
+		"image": "/images/stage/a12e4bf9f871677a5f3735d421317fbbf09e1a78.png",
+		"name": "Kelp Dome"
+	},
+	"end_time": 1550174400,
+	"id": 4780952683923229000,
+	"stage_b": {
+		"image": "/images/stage/8cab733d543efc9dd561bfcc9edac52594e62522.png",
+		"id": "18",
+		"name": "Goby Arena"
+	},
+	"rule": {
+		"multiline_name": "Turf\nWar",
+		"name": "Turf War",
+		"key": "turf_war"
+	},
+	"start_time": 1550167200,
+	"game_mode": {
+		"key": "regular",
+		"name": "Regular Battle"
+	}
+}

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -26,8 +26,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/offWhite"
             android:textSize="30sp" />
-    </android.support.v7.widget.Toolbar>
-    <android.support.v4.widget.DrawerLayout
+    </androidx.appcompat.widget.Toolbar>
+    <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -53,7 +53,7 @@
             android:groupIndicator="@null"
             android:background="@drawable/grey_stripes"></ExpandableListView>
 
-    </android.support.v4.widget.DrawerLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 
     <ImageView
         android:id="@+id/loading_indicator"

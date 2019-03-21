@@ -18,10 +18,10 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "weapon",
         foreignKeys = {
-                @ForeignKey(entity = SubRoom.class,
+                @ForeignKey(entity = Sub.class,
                         parentColumns = "id",
                         childColumns = "sub"),
-                @ForeignKey(entity = SpecialRoom.class,
+                @ForeignKey(entity = Special.class,
                         parentColumns = "id",
                         childColumns = "special")
         })

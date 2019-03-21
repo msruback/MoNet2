@@ -1,7 +1,9 @@
 package com.mattrubacky.monet2.data.rooms;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.Brand;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.KeyName;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonStage;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Special;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestGrade;
@@ -91,5 +93,31 @@ public class SplatnetConverters {
         SplatfestGrade grade = new SplatfestGrade();
         grade.name = value;
         return grade;
+    }
+    @TypeConverter
+    public static String fromGrade(SplatfestGrade grade) {
+        return grade.name;
+    }
+
+    @TypeConverter
+    public static int fromGear(Gear gear){ return gear.id;}
+
+    @TypeConverter
+    public static Gear toGear(int id){
+        Gear gear = new Gear();
+        gear.id = id;
+        return gear;
+    }
+
+    @TypeConverter
+    public static SalmonStage toSalmonStage(int id){
+        SalmonStage salmonStage = new SalmonStage();
+        salmonStage.id = id;
+        return salmonStage;
+    }
+
+    @TypeConverter
+    public static int fromSalmonStage(SalmonStage salmonStage){
+        return salmonStage.id;
     }
 }

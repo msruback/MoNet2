@@ -1,0 +1,24 @@
+{
+		"stage_a": {
+			"name": "MakoMart",
+			"image": "/images/stage/d9f0f6c330aaa3b975e572637b00c4c0b6b89f7d.png",
+			"id": "13"
+		},
+		"end_time": 1550174400,
+		"id": 4780952683923229000,
+		"stage_b": {
+			"id": "3",
+			"image": "/images/stage/bc794e337900afd763f8a88359f83df5679ddf12.png",
+			"name": "Sturgeon Shipyard"
+		},
+		"start_time": 1550167200,
+		"rule": {
+			"key": "tower_control",
+			"multiline_name": "Tower\nControl",
+			"name": "Tower Control"
+		},
+		"game_mode": {
+			"key": "gachi",
+			"name": "Ranked Battle"
+		}
+	}

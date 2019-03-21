@@ -26,7 +26,7 @@ public interface SplatfestDao {
     SplatfestRoom select(int id);
 
     @Query("SELECT * FROM splatfest WHERE end_time>:time")
-    SplatfestRoom selectUpcoming(long time);
+    LiveData<SplatfestRoom> selectUpcoming(long time);
 
     @Query("SELECT * FROM splatfest")
     LiveData<List<SplatfestRoom>> selectAll();

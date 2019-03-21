@@ -42,13 +42,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.currentSplatfest = currentSplatfest;
         rotation = new ArrayList<>();
         if(schedules!=null) {
-            if (schedules.regular.size() > 0) {
+            if (schedules.regular!=null&&schedules.regular.size() > 0) {
                 rotation.add("regular");
             }
-            if (schedules.ranked.size() > 0) {
+            if (schedules.ranked!=null&&schedules.ranked.size() > 0) {
                 rotation.add("ranked");
             }
-            if (schedules.league.size() > 0) {
+            if (schedules.league!=null&&schedules.league.size() > 0) {
                 rotation.add("league");
             }
         }

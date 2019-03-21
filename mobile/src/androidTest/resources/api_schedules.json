@@ -1,0 +1,833 @@
+{
+	"league": [{
+		"stage_a": {
+			"name": "Sturgeon Shipyard",
+			"id": "3",
+			"image": "/images/stage/bc794e337900afd763f8a88359f83df5679ddf12.png"
+		},
+		"end_time": 1550095200,
+		"id": 4780952683923229000,
+		"stage_b": {
+			"name": "Inkblot Art Academy",
+			"image": "/images/stage/5c030a505ee57c889d3e5268a4b10c1f1f37880a.png",
+			"id": "4"
+		},
+		"rule": {
+			"multiline_name": "Rainmaker",
+			"name": "Rainmaker",
+			"key": "rainmaker"
+		},
+		"start_time": 1550088000,
+		"game_mode": {
+			"name": "League Battle",
+			"key": "league"
+		}
+	}, {
+		"id": 4780952683923229000,
+		"stage_b": {
+			"name": "The Reef",
+			"image": "/images/stage/98baf21c0366ce6e03299e2326fe6d27a7582dce.png",
+			"id": "0"
+		},
+		"start_time": 1550095200,
+		"game_mode": {
+			"key": "league",
+			"name": "League Battle"
+		},
+		"rule": {
+			"multiline_name": "Tower\nControl",
+			"name": "Tower Control",
+			"key": "tower_control"
+		},
+		"end_time": 1550102400,
+		"stage_a": {
+			"id": "5",
+			"image": "/images/stage/fc23fedca2dfbbd8707a14606d719a4004403d13.png",
+			"name": "Humpback Pump Track"
+		}
+	}, {
+		"stage_b": {
+			"id": "12",
+			"image": "/images/stage/23259c80272f45cea2d5c9e60bc0cedb6ce29e46.png",
+			"name": "Shellendorf Institute"
+		},
+		"id": 4780952683923229000,
+		"start_time": 1550102400,
+		"rule": {
+			"key": "splat_zones",
+			"multiline_name": "Splat\nZones",
+			"name": "Splat Zones"
+		},
+		"game_mode": {
+			"key": "league",
+			"name": "League Battle"
+		},
+		"end_time": 1550109600,
+		"stage_a": {
+			"id": "7",
+			"image": "/images/stage/0907fc7dc325836a94d385919fe01dc13848612a.png",
+			"name": "Port Mackerel"
+		}
+	}, {
+		"stage_a": {
+			"image": "/images/stage/8cab733d543efc9dd561bfcc9edac52594e62522.png",
+			"id": "18",
+			"name": "Goby Arena"
+		},
+		"end_time": 1550116800,
+		"stage_b": {
+			"id": "17",
+			"image": "/images/stage/828e49a8414a4bbc0a5da3e61454ab148a9f4063.png",
+			"name": "Piranha Pit"
+		},
+		"id": 4780952683923229000,
+		"rule": {
+			"key": "clam_blitz",
+			"multiline_name": "Clam\nBlitz",
+			"name": "Clam Blitz"
+		},
+		"start_time": 1550109600,
+		"game_mode": {
+			"key": "league",
+			"name": "League Battle"
+		}
+	}, {
+		"id": 4780952683923229000,
+		"stage_b": {
+			"id": "16",
+			"image": "/images/stage/e4c4800be9fff23112334b193abb0fdf36e05933.png",
+			"name": "Camp Triggerfish"
+		},
+		"start_time": 1550116800,
+		"game_mode": {
+			"name": "League Battle",
+			"key": "league"
+		},
+		"rule": {
+			"multiline_name": "Tower\nControl",
+			"name": "Tower Control",
+			"key": "tower_control"
+		},
+		"end_time": 1550124000,
+		"stage_a": {
+			"id": "15",
+			"image": "/images/stage/dcf332bdcc80f566f3ae59c1c3a29bc6312d0ba8.png",
+			"name": "Arowana Mall"
+		}
+	}, {
+		"stage_b": {
+			"name": "Ancho-V Games",
+			"image": "/images/stage/1430e5ac7ae9396a126078eeab824a186b490b5a.png",
+			"id": "21"
+		},
+		"id": 4780952683923229000,
+		"start_time": 1550124000,
+		"rule": {
+			"multiline_name": "Rainmaker",
+			"name": "Rainmaker",
+			"key": "rainmaker"
+		},
+		"game_mode": {
+			"name": "League Battle",
+			"key": "league"
+		},
+		"stage_a": {
+			"image": "/images/stage/187987856bf575c4155d021cb511034931d06d24.png",
+			"id": "2",
+			"name": "Starfish Mainstage"
+		},
+		"end_time": 1550131200
+	}, {
+		"start_time": 1550131200,
+		"game_mode": {
+			"key": "league",
+			"name": "League Battle"
+		},
+		"rule": {
+			"name": "Splat Zones",
+			"multiline_name": "Splat\nZones",
+			"key": "splat_zones"
+		},
+		"stage_b": {
+			"name": "Musselforge Fitness",
+			"id": "1",
+			"image": "/images/stage/83acec875a5bb19418d7b87d5df4ba1e38ceac66.png"
+		},
+		"id": 4780952683923229000,
+		"end_time": 1550138400,
+		"stage_a": {
+			"id": "8",
+			"image": "/images/stage/96fd8c0492331a30e60a217c94fd1d4c73a966cc.png",
+			"name": "Moray Towers"
+		}
+	}, {
+		"stage_a": {
+			"name": "Snapper Canal",
+			"image": "/images/stage/8c95053b3043e163cbfaaf1ec1e5f3eb770e5e07.png",
+			"id": "9"
+		},
+		"end_time": 1550145600,
+		"start_time": 1550138400,
+		"rule": {
+			"name": "Clam Blitz",
+			"multiline_name": "Clam\nBlitz",
+			"key": "clam_blitz"
+		},
+		"game_mode": {
+			"name": "League Battle",
+			"key": "league"
+		},
+		"stage_b": {
+			"name": "Inkblot Art Academy",
+			"image": "/images/stage/5c030a505ee57c889d3e5268a4b10c1f1f37880a.png",
+			"id": "4"
+		},
+		"id": 4780952683923229000
+	}, {
+		"game_mode": {
+			"key": "league",
+			"name": "League Battle"
+		},
+		"start_time": 1550145600,
+		"rule": {
+			"multiline_name": "Rainmaker",
+			"key": "rainmaker",
+			"name": "Rainmaker"
+		},
+		"id": 4780952683923229000,
+		"stage_b": {
+			"image": "/images/stage/a12e4bf9f871677a5f3735d421317fbbf09e1a78.png",
+			"id": "10",
+			"name": "Kelp Dome"
+		},
+		"stage_a": {
+			"image": "/images/stage/758338859615898a59e93b84f7e1ca670f75e865.png",
+			"id": "11",
+			"name": "Blackbelly Skatepark"
+		},
+		"end_time": 1550152800
+	}, {
+		"start_time": 1550152800,
+		"game_mode": {
+			"key": "league",
+			"name": "League Battle"
+		},
+		"rule": {
+			"multiline_name": "Tower\nControl",
+			"name": "Tower Control",
+			"key": "tower_control"
+		},
+		"id": 4780952683923229000,
+		"stage_b": {
+			"name": "Wahoo World",
+			"image": "/images/stage/555c356487ac3edb0088c416e8045576c6b37fcc.png",
+			"id": "20"
+		},
+		"stage_a": {
+			"id": "13",
+			"image": "/images/stage/d9f0f6c330aaa3b975e572637b00c4c0b6b89f7d.png",
+			"name": "MakoMart"
+		},
+		"end_time": 1550160000
+	}, {
+		"end_time": 1550167200,
+		"stage_a": {
+			"name": "Walleye Warehouse",
+			"id": "14",
+			"image": "/images/stage/65c99da154295109d6fe067005f194f681762f8c.png"
+		},
+		"stage_b": {
+			"name": "Humpback Pump Track",
+			"id": "5",
+			"image": "/images/stage/fc23fedca2dfbbd8707a14606d719a4004403d13.png"
+		},
+		"id": 4780952683923229000,
+		"game_mode": {
+			"name": "League Battle",
+			"key": "league"
+		},
+		"start_time": 1550160000,
+		"rule": {
+			"key": "splat_zones",
+			"multiline_name": "Splat\nZones",
+			"name": "Splat Zones"
+		}
+	}, {
+		"game_mode": {
+			"name": "League Battle",
+			"key": "league"
+		},
+		"start_time": 1550167200,
+		"rule": {
+			"key": "rainmaker",
+			"multiline_name": "Rainmaker",
+			"name": "Rainmaker"
+		},
+		"stage_b": {
+			"image": "/images/stage/132327c819abf2bd44d0adc0f4a21aad9cc84bb2.png",
+			"id": "22",
+			"name": "Skipper Pavilion"
+		},
+		"id": 4780952683923229000,
+		"end_time": 1550174400,
+		"stage_a": {
+			"image": "/images/stage/98baf21c0366ce6e03299e2326fe6d27a7582dce.png",
+			"id": "0",
+			"name": "The Reef"
+		}
+	}],
+	"regular": [{
+		"stage_a": {
+			"name": "Goby Arena",
+			"image": "/images/stage/8cab733d543efc9dd561bfcc9edac52594e62522.png",
+			"id": "18"
+		},
+		"end_time": 1550095200,
+		"id": 4780952683923229000,
+		"stage_b": {
+			"image": "/images/stage/e4c4800be9fff23112334b193abb0fdf36e05933.png",
+			"id": "16",
+			"name": "Camp Triggerfish"
+		},
+		"rule": {
+			"name": "Turf War",
+			"multiline_name": "Turf\nWar",
+			"key": "turf_war"
+		},
+		"start_time": 1550088000,
+		"game_mode": {
+			"key": "regular",
+			"name": "Regular Battle"
+		}
+	}, {
+		"stage_a": {
+			"name": "Arowana Mall",
+			"id": "15",
+			"image": "/images/stage/dcf332bdcc80f566f3ae59c1c3a29bc6312d0ba8.png"
+		},
+		"end_time": 1550102400,
+		"game_mode": {
+			"name": "Regular Battle",
+			"key": "regular"
+		},
+		"start_time": 1550095200,
+		"rule": {
+			"multiline_name": "Turf\nWar",
+			"name": "Turf War",
+			"key": "turf_war"
+		},
+		"id": 4780952683923229000,
+		"stage_b": {
+			"image": "/images/stage/758338859615898a59e93b84f7e1ca670f75e865.png",
+			"id": "11",
+			"name": "Blackbelly Skatepark"
+		}
+	}, {
+		"end_time": 1550109600,
+		"stage_a": {
+			"name": "Piranha Pit",
+			"image": "/images/stage/828e49a8414a4bbc0a5da3e61454ab148a9f4063.png",
+			"id": "17"
+		},
+		"rule": {
+			"key": "turf_war",
+			"multiline_name": "Turf\nWar",
+			"name": "Turf War"
+		},
+		"start_time": 1550102400,
+		"game_mode": {
+			"name": "Regular Battle",
+			"key": "regular"
+		},
+		"id": 4780952683923229000,
+		"stage_b": {
+			"name": "Ancho-V Games",
+			"image": "/images/stage/1430e5ac7ae9396a126078eeab824a186b490b5a.png",
+			"id": "21"
+		}
+	}, {
+		"stage_b": {
+			"id": "5",
+			"image": "/images/stage/fc23fedca2dfbbd8707a14606d719a4004403d13.png",
+			"name": "Humpback Pump Track"
+		},
+		"id": 4780952683923229000,
+		"rule": {
+			"multiline_name": "Turf\nWar",
+			"key": "turf_war",
+			"name": "Turf War"
+		},
+		"start_time": 1550109600,
+		"game_mode": {
+			"key": "regular",
+			"name": "Regular Battle"
+		},
+		"end_time": 1550116800,
+		"stage_a": {
+			"image": "/images/stage/23259c80272f45cea2d5c9e60bc0cedb6ce29e46.png",
+			"id": "12",
+			"name": "Shellendorf Institute"
+		}
+	}, {
+		"stage_a": {
+			"name": "Sturgeon Shipyard",
+			"id": "3",
+			"image": "/images/stage/bc794e337900afd763f8a88359f83df5679ddf12.png"
+		},
+		"end_time": 1550124000,
+		"start_time": 1550116800,
+		"rule": {
+			"multiline_name": "Turf\nWar",
+			"name": "Turf War",
+			"key": "turf_war"
+		},
+		"game_mode": {
+			"key": "regular",
+			"name": "Regular Battle"
+		},
+		"id": 4780952683923229000,
+		"stage_b": {
+			"id": "19",
+			"image": "/images/stage/98a7d7a4009fae9fb7479554535425a5a604e88e.png",
+			"name": "New Albacore Hotel"
+		}
+	}, {
+		"end_time": 1550131200,
+		"stage_a": {
+			"name": "Skipper Pavilion",
+			"image": "/images/stage/132327c819abf2bd44d0adc0f4a21aad9cc84bb2.png",
+			"id": "22"
+		},
+		"rule": {
+			"name": "Turf War",
+			"multiline_name": "Turf\nWar",
+			"key": "turf_war"
+		},
+		"start_time": 1550124000,
+		"game_mode": {
+			"name": "Regular Battle",
+			"key": "regular"
+		},
+		"id": 4780952683923229000,
+		"stage_b": {
+			"image": "/images/stage/83acec875a5bb19418d7b87d5df4ba1e38ceac66.png",
+			"id": "1",
+			"name": "Musselforge Fitness"
+		}
+	}, {
+		"start_time": 1550131200,
+		"rule": {
+			"name": "Turf War",
+			"multiline_name": "Turf\nWar",
+			"key": "turf_war"
+		},
+		"game_mode": {
+			"name": "Regular Battle",
+			"key": "regular"
+		},
+		"stage_b": {
+			"name": "Starfish Mainstage",
+			"image": "/images/stage/187987856bf575c4155d021cb511034931d06d24.png",
+			"id": "2"
+		},
+		"id": 4780952683923229000,
+		"stage_a": {
+			"name": "Manta Maria",
+			"id": "6",
+			"image": "/images/stage/070d7ee287fdf3c5df02411950c2a1ce5b238746.png"
+		},
+		"end_time": 1550138400
+	}, {
+		"end_time": 1550145600,
+		"stage_a": {
+			"name": "Moray Towers",
+			"image": "/images/stage/96fd8c0492331a30e60a217c94fd1d4c73a966cc.png",
+			"id": "8"
+		},
+		"id": 4780952683923229000,
+		"stage_b": {
+			"name": "Walleye Warehouse",
+			"image": "/images/stage/65c99da154295109d6fe067005f194f681762f8c.png",
+			"id": "14"
+		},
+		"rule": {
+			"multiline_name": "Turf\nWar",
+			"key": "turf_war",
+			"name": "Turf War"
+		},
+		"start_time": 1550138400,
+		"game_mode": {
+			"key": "regular",
+			"name": "Regular Battle"
+		}
+	}, {
+		"stage_a": {
+			"id": "13",
+			"image": "/images/stage/d9f0f6c330aaa3b975e572637b00c4c0b6b89f7d.png",
+			"name": "MakoMart"
+		},
+		"end_time": 1550152800,
+		"start_time": 1550145600,
+		"game_mode": {
+			"name": "Regular Battle",
+			"key": "regular"
+		},
+		"rule": {
+			"name": "Turf War",
+			"multiline_name": "Turf\nWar",
+			"key": "turf_war"
+		},
+		"id": 4780952683923229000,
+		"stage_b": {
+			"image": "/images/stage/555c356487ac3edb0088c416e8045576c6b37fcc.png",
+			"id": "20",
+			"name": "Wahoo World"
+		}
+	}, {
+		"stage_b": {
+			"image": "/images/stage/8c95053b3043e163cbfaaf1ec1e5f3eb770e5e07.png",
+			"id": "9",
+			"name": "Snapper Canal"
+		},
+		"id": 4780952683923229000,
+		"rule": {
+			"multiline_name": "Turf\nWar",
+			"name": "Turf War",
+			"key": "turf_war"
+		},
+		"start_time": 1550152800,
+		"game_mode": {
+			"name": "Regular Battle",
+			"key": "regular"
+		},
+		"stage_a": {
+			"name": "Port Mackerel",
+			"id": "7",
+			"image": "/images/stage/0907fc7dc325836a94d385919fe01dc13848612a.png"
+		},
+		"end_time": 1550160000
+	}, {
+		"end_time": 1550167200,
+		"stage_a": {
+			"image": "/images/stage/5c030a505ee57c889d3e5268a4b10c1f1f37880a.png",
+			"id": "4",
+			"name": "Inkblot Art Academy"
+		},
+		"start_time": 1550160000,
+		"game_mode": {
+			"key": "regular",
+			"name": "Regular Battle"
+		},
+		"rule": {
+			"name": "Turf War",
+			"multiline_name": "Turf\nWar",
+			"key": "turf_war"
+		},
+		"id": 4780952683923229000,
+		"stage_b": {
+			"name": "Camp Triggerfish",
+			"image": "/images/stage/e4c4800be9fff23112334b193abb0fdf36e05933.png",
+			"id": "16"
+		}
+	}, {
+		"stage_a": {
+			"id": "10",
+			"image": "/images/stage/a12e4bf9f871677a5f3735d421317fbbf09e1a78.png",
+			"name": "Kelp Dome"
+		},
+		"end_time": 1550174400,
+		"id": 4780952683923229000,
+		"stage_b": {
+			"image": "/images/stage/8cab733d543efc9dd561bfcc9edac52594e62522.png",
+			"id": "18",
+			"name": "Goby Arena"
+		},
+		"rule": {
+			"multiline_name": "Turf\nWar",
+			"name": "Turf War",
+			"key": "turf_war"
+		},
+		"start_time": 1550167200,
+		"game_mode": {
+			"key": "regular",
+			"name": "Regular Battle"
+		}
+	}],
+	"gachi": [{
+		"stage_a": {
+			"id": "2",
+			"image": "/images/stage/187987856bf575c4155d021cb511034931d06d24.png",
+			"name": "Starfish Mainstage"
+		},
+		"end_time": 1550095200,
+		"id": 4780952683923229000,
+		"stage_b": {
+			"name": "The Reef",
+			"id": "0",
+			"image": "/images/stage/98baf21c0366ce6e03299e2326fe6d27a7582dce.png"
+		},
+		"start_time": 1550088000,
+		"game_mode": {
+			"key": "gachi",
+			"name": "Ranked Battle"
+		},
+		"rule": {
+			"multiline_name": "Splat\nZones",
+			"key": "splat_zones",
+			"name": "Splat Zones"
+		}
+	}, {
+		"stage_b": {
+			"image": "/images/stage/d9f0f6c330aaa3b975e572637b00c4c0b6b89f7d.png",
+			"id": "13",
+			"name": "MakoMart"
+		},
+		"id": 4780952683923229000,
+		"start_time": 1550095200,
+		"game_mode": {
+			"key": "gachi",
+			"name": "Ranked Battle"
+		},
+		"rule": {
+			"multiline_name": "Clam\nBlitz",
+			"name": "Clam Blitz",
+			"key": "clam_blitz"
+		},
+		"stage_a": {
+			"name": "Musselforge Fitness",
+			"image": "/images/stage/83acec875a5bb19418d7b87d5df4ba1e38ceac66.png",
+			"id": "1"
+		},
+		"end_time": 1550102400
+	}, {
+		"id": 4780952683923229000,
+		"stage_b": {
+			"name": "Wahoo World",
+			"id": "20",
+			"image": "/images/stage/555c356487ac3edb0088c416e8045576c6b37fcc.png"
+		},
+		"start_time": 1550102400,
+		"game_mode": {
+			"name": "Ranked Battle",
+			"key": "gachi"
+		},
+		"rule": {
+			"multiline_name": "Rainmaker",
+			"key": "rainmaker",
+			"name": "Rainmaker"
+		},
+		"stage_a": {
+			"name": "Arowana Mall",
+			"image": "/images/stage/dcf332bdcc80f566f3ae59c1c3a29bc6312d0ba8.png",
+			"id": "15"
+		},
+		"end_time": 1550109600
+	}, {
+		"stage_a": {
+			"name": "Camp Triggerfish",
+			"id": "16",
+			"image": "/images/stage/e4c4800be9fff23112334b193abb0fdf36e05933.png"
+		},
+		"end_time": 1550116800,
+		"start_time": 1550109600,
+		"rule": {
+			"multiline_name": "Tower\nControl",
+			"key": "tower_control",
+			"name": "Tower Control"
+		},
+		"game_mode": {
+			"name": "Ranked Battle",
+			"key": "gachi"
+		},
+		"id": 4780952683923229000,
+		"stage_b": {
+			"name": "Sturgeon Shipyard",
+			"id": "3",
+			"image": "/images/stage/bc794e337900afd763f8a88359f83df5679ddf12.png"
+		}
+	}, {
+		"stage_a": {
+			"name": "Kelp Dome",
+			"id": "10",
+			"image": "/images/stage/a12e4bf9f871677a5f3735d421317fbbf09e1a78.png"
+		},
+		"end_time": 1550124000,
+		"stage_b": {
+			"name": "Ancho-V Games",
+			"id": "21",
+			"image": "/images/stage/1430e5ac7ae9396a126078eeab824a186b490b5a.png"
+		},
+		"id": 4780952683923229000,
+		"start_time": 1550116800,
+		"game_mode": {
+			"name": "Ranked Battle",
+			"key": "gachi"
+		},
+		"rule": {
+			"multiline_name": "Splat\nZones",
+			"name": "Splat Zones",
+			"key": "splat_zones"
+		}
+	}, {
+		"id": 4780952683923229000,
+		"stage_b": {
+			"image": "/images/stage/96fd8c0492331a30e60a217c94fd1d4c73a966cc.png",
+			"id": "8",
+			"name": "Moray Towers"
+		},
+		"start_time": 1550124000,
+		"rule": {
+			"multiline_name": "Clam\nBlitz",
+			"key": "clam_blitz",
+			"name": "Clam Blitz"
+		},
+		"game_mode": {
+			"key": "gachi",
+			"name": "Ranked Battle"
+		},
+		"stage_a": {
+			"id": "4",
+			"image": "/images/stage/5c030a505ee57c889d3e5268a4b10c1f1f37880a.png",
+			"name": "Inkblot Art Academy"
+		},
+		"end_time": 1550131200
+	}, {
+		"stage_a": {
+			"image": "/images/stage/8c95053b3043e163cbfaaf1ec1e5f3eb770e5e07.png",
+			"id": "9",
+			"name": "Snapper Canal"
+		},
+		"end_time": 1550138400,
+		"start_time": 1550131200,
+		"rule": {
+			"multiline_name": "Rainmaker",
+			"name": "Rainmaker",
+			"key": "rainmaker"
+		},
+		"game_mode": {
+			"key": "gachi",
+			"name": "Ranked Battle"
+		},
+		"stage_b": {
+			"name": "Goby Arena",
+			"id": "18",
+			"image": "/images/stage/8cab733d543efc9dd561bfcc9edac52594e62522.png"
+		},
+		"id": 4780952683923229000
+	}, {
+		"game_mode": {
+			"key": "gachi",
+			"name": "Ranked Battle"
+		},
+		"start_time": 1550138400,
+		"rule": {
+			"multiline_name": "Tower\nControl",
+			"key": "tower_control",
+			"name": "Tower Control"
+		},
+		"stage_b": {
+			"id": "7",
+			"image": "/images/stage/0907fc7dc325836a94d385919fe01dc13848612a.png",
+			"name": "Port Mackerel"
+		},
+		"id": 4780952683923229000,
+		"end_time": 1550145600,
+		"stage_a": {
+			"name": "Piranha Pit",
+			"id": "17",
+			"image": "/images/stage/828e49a8414a4bbc0a5da3e61454ab148a9f4063.png"
+		}
+	}, {
+		"stage_b": {
+			"image": "/images/stage/070d7ee287fdf3c5df02411950c2a1ce5b238746.png",
+			"id": "6",
+			"name": "Manta Maria"
+		},
+		"id": 4780952683923229000,
+		"start_time": 1550145600,
+		"rule": {
+			"multiline_name": "Clam\nBlitz",
+			"name": "Clam Blitz",
+			"key": "clam_blitz"
+		},
+		"game_mode": {
+			"key": "gachi",
+			"name": "Ranked Battle"
+		},
+		"end_time": 1550152800,
+		"stage_a": {
+			"image": "/images/stage/65c99da154295109d6fe067005f194f681762f8c.png",
+			"id": "14",
+			"name": "Walleye Warehouse"
+		}
+	}, {
+		"end_time": 1550160000,
+		"stage_a": {
+			"id": "11",
+			"image": "/images/stage/758338859615898a59e93b84f7e1ca670f75e865.png",
+			"name": "Blackbelly Skatepark"
+		},
+		"start_time": 1550152800,
+		"game_mode": {
+			"key": "gachi",
+			"name": "Ranked Battle"
+		},
+		"rule": {
+			"multiline_name": "Splat\nZones",
+			"key": "splat_zones",
+			"name": "Splat Zones"
+		},
+		"stage_b": {
+			"name": "The Reef",
+			"image": "/images/stage/98baf21c0366ce6e03299e2326fe6d27a7582dce.png",
+			"id": "0"
+		},
+		"id": 4780952683923229000
+	}, {
+		"game_mode": {
+			"key": "gachi",
+			"name": "Ranked Battle"
+		},
+		"start_time": 1550160000,
+		"rule": {
+			"name": "Rainmaker",
+			"multiline_name": "Rainmaker",
+			"key": "rainmaker"
+		},
+		"id": 4780952683923229000,
+		"stage_b": {
+			"id": "10",
+			"image": "/images/stage/a12e4bf9f871677a5f3735d421317fbbf09e1a78.png",
+			"name": "Kelp Dome"
+		},
+		"end_time": 1550167200,
+		"stage_a": {
+			"id": "22",
+			"image": "/images/stage/132327c819abf2bd44d0adc0f4a21aad9cc84bb2.png",
+			"name": "Skipper Pavilion"
+		}
+	}, {
+		"stage_a": {
+			"name": "MakoMart",
+			"image": "/images/stage/d9f0f6c330aaa3b975e572637b00c4c0b6b89f7d.png",
+			"id": "13"
+		},
+		"end_time": 1550174400,
+		"id": 4780952683923229000,
+		"stage_b": {
+			"id": "3",
+			"image": "/images/stage/bc794e337900afd763f8a88359f83df5679ddf12.png",
+			"name": "Sturgeon Shipyard"
+		},
+		"start_time": 1550167200,
+		"rule": {
+			"key": "tower_control",
+			"multiline_name": "Tower\nControl",
+			"name": "Tower Control"
+		},
+		"game_mode": {
+			"key": "gachi",
+			"name": "Ranked Battle"
+		}
+	}]
+}

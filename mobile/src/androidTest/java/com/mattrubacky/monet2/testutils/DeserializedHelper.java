@@ -1,12 +1,12 @@
-package com.mattrubacky.monet2.modeledobjects;
+package com.mattrubacky.monet2.testutils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public abstract class ModeledObjectTest {
-    protected String[] getCSV(String path) throws IOException {
+public class DeserializedHelper{
+    public String[] getCSV(String path) throws IOException {
         InputStream fis = this.getClass().getClassLoader().getResourceAsStream(path);
         InputStreamReader in = new InputStreamReader(fis);
         BufferedReader br = new BufferedReader(in);
@@ -20,7 +20,7 @@ public abstract class ModeledObjectTest {
         return stringBuilder.toString().split(",");
     }
 
-    protected String getJSON(String path) throws IOException {
+    public String getJSON(String path) throws IOException {
         InputStream fis = this.getClass().getClassLoader().getResourceAsStream(path);
         InputStreamReader in = new InputStreamReader(fis);
         BufferedReader br = new BufferedReader(in);

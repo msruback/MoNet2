@@ -19,23 +19,18 @@ import androidx.room.PrimaryKey;
 public class Stage implements Parcelable {
     @Ignore
     public Stage(){}
-
-    @PrimaryKey
-    @SerializedName("id")
-    public int id;
-
-    //The URL of the Stage image
-    @SerializedName("image")
-    public String url;
-
-    //The name of the Stage
-    @SerializedName("name")
-    public String name;
-
-    public Stage(int id, String url, String name){
+    public Stage(int id, String name, String url){
         this.id = id;
-        this.url = url;
         this.name = name;
+        this.url = url;
+    }
+
+    public Stage(String[] csv){
+        if(csv.length==3) {
+            this.id = Integer.valueOf(csv[0]);
+            this.name = csv[1];
+            this.url = csv[2];
+        }
     }
 
     @Ignore
@@ -44,6 +39,18 @@ public class Stage implements Parcelable {
         url = in.readString();
         name = in.readString();
     }
+
+    @PrimaryKey
+    @SerializedName("id")
+    public int id;
+
+    //The name of the Stage
+    @SerializedName("name")
+    public String name;
+
+    //The URL of the Stage image
+    @SerializedName("image")
+    public String url;
 
     public static final Creator<Stage> CREATOR = new Creator<Stage>() {
         @Override

@@ -54,9 +54,9 @@ public class Gear implements Parcelable {
     @SerializedName("kind")
     public String kind;
 
-    public Gear(int id, int splatnetId, String name, String url, String kind, int rarity, Brand brand){
-        this.generatedId = id;
-        this.id = splatnetId;
+    public Gear(int generatedId, int id, Brand brand, String name, String url, String kind, int rarity){
+        this.generatedId = generatedId;
+        this.id = id;
         this.name = name;
         this.url = url;
         this.kind = kind;

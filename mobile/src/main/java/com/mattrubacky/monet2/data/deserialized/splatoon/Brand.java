@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -17,6 +18,7 @@ import androidx.room.Entity;
 public class Brand implements Parcelable{
     public Brand(){}
 
+    @PrimaryKey
     @SerializedName("id")
     public int id;
 
