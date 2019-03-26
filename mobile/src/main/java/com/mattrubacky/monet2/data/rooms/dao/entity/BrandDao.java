@@ -1,5 +1,7 @@
 package com.mattrubacky.monet2.data.rooms.dao.entity;
 
+import android.database.sqlite.SQLiteConstraintException;
+
 import com.mattrubacky.monet2.data.deserialized.splatoon.Brand;
 
 import androidx.room.Dao;
@@ -9,16 +11,24 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
-public interface BrandDao {
+public abstract class BrandDao {
+
+    void insertBrand(Brand brand){
+        try{
+            insert(brand);
+        }catch(SQLiteConstraintException e) {
+        }
+    }
+
     @Insert
-    void insert(Brand... brand);
+    abstract void insert(Brand... brand);
 
     @Update
-    void update(Brand... brand);
+    abstract void update(Brand... brand);
 
     @Delete
-    void delete(Brand... brand);
+    abstract void delete(Brand... brand);
 
     @Query("SELECT * FROM brand WHERE id=:id")
-    Brand select(int id);
+    abstract Brand select(int id);
 }

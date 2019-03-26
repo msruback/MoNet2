@@ -28,6 +28,11 @@ public class Gear implements Parcelable {
     @Ignore
     public Gear(){}
 
+    @Ignore
+    public Gear(Gear gear){
+        this(gear.generatedId,gear.id,gear.brand,gear.name,gear.url,gear.kind,gear.rarity);
+    }
+
     @PrimaryKey
     @ColumnInfo(name = "id")
     public int generatedId;
@@ -72,6 +77,22 @@ public class Gear implements Parcelable {
         rarity = in.readInt();
         id = in.readInt();
         kind = in.readString();
+    }
+
+    public static int generateId(String kind, int id){
+        int genId =0;
+        switch(kind){
+            case "head":
+                genId = 0;
+                break;
+            case "clothes":
+                genId = 10000;
+                break;
+            case "shoes":
+                genId = 20000;
+                break;
+        }
+        return genId +id;
     }
 
     public static final Creator<Gear> CREATOR = new Creator<Gear>() {

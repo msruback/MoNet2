@@ -1,0 +1,18 @@
+{
+	"rarity": 2,
+	"thumbnail": "/images/head/1497dc3c21ca2724ac69aa9217ecbb9d33f42fd5.png",
+	"brand": {
+		"name": "Forge",
+		"id": "5",
+		"image": "/images/brand/b38b99b3358f587efd1613b72a72c9ca9f81f406.png",
+		"frequent_skill": {
+			"name": "Special Power Up",
+			"id": "7",
+			"image": "/images/skill/f20a3e85feeb6b4bb021d28059afd6265cee0b43.png"
+		}
+	},
+	"kind": "head",
+	"id": "8003",
+	"image": "/images/head/420f4fb23c4777df3144b1bbdbdeaccee6bf642a.png",
+	"name": "Skull Bandana"
+}

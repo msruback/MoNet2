@@ -1,0 +1,18 @@
+{
+	"id": "3013",
+	"image": "/images/clothes/72af1435e745a9a3f22245fecffaf1c2bd044b89.png",
+	"name": "Squid Yellow Layered LS",
+	"kind": "clothes",
+	"rarity": 1,
+	"thumbnail": "/images/clothes/9039d06144f90def0161bf64f24346c3ad85fa71.png",
+	"brand": {
+		"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png",
+		"frequent_skill": {
+			"id": "11",
+			"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+			"name": "Ink Resistance Up"
+		},
+		"name": "SquidForce",
+		"id": "0"
+	}
+}

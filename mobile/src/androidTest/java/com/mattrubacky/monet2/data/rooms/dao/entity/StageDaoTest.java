@@ -1,7 +1,7 @@
 package com.mattrubacky.monet2.data.rooms.dao.entity;
 
 import android.content.Context;
-import android.test.suitebuilder.annotation.SmallTest;
+import androidx.test.filters.SmallTest;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
@@ -42,7 +42,7 @@ public class StageDaoTest {
     }
 
     @After
-    public void closeDb() throws IOException {
+    public void closeDb() {
         stageDao.delete(stage);
         db.close();
     }

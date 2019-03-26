@@ -1,0 +1,18 @@
+{
+	"rarity": 0,
+	"thumbnail": "/images/shoes/32c86b7ee34d19f1618c61fd4c12bec996c7eae4.png",
+	"brand": {
+		"frequent_skill": {
+			"image": "/images/skill/daf6883039afa62da91eb93eb2a40b673f10b715.png",
+			"name": "Quick Super Jump",
+			"id": "9"
+		},
+		"image": "/images/brand/3d4661b3f60f4b74e9bb6760ba7397ecd2502a20.png",
+		"name": "Zink",
+		"id": "1"
+	},
+	"name": "Purple Hi-Horses",
+	"image": "/images/shoes/92a77cddd7d1bf697f9a6c9599afb7803e4ce7a2.png",
+	"id": "2003",
+	"kind": "shoes"
+}
