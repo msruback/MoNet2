@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.ColumnInfo;
+
 /**
  * Created by mattr on 10/17/2017.
  * This class hold the Theme of a Splatfest Team

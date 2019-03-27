@@ -57,7 +57,7 @@ public class Battle implements Parcelable{
     @SerializedName("other_team_count")
     public int otherTeamCount;
 
-    //In casual modes the percent the stage was inked. Note: Unless the stage is completly inked, it does not add up to 100%;
+    //In casual modes the percent the stage was inked. Note: Unless the stage is completely inked, it does not add up to 100%;
     @SerializedName("my_team_percentage")
     public float myTeamPercent;
     @SerializedName("other_team_percentage")
@@ -86,6 +86,7 @@ public class Battle implements Parcelable{
     public Long start;
 
     //For casual modes, the "freshness" of a weapon.
+    @ColumnInfo(name = "win_meter")
     @SerializedName("win_meter")
     public Float winMeter;
 

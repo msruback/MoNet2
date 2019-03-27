@@ -1,5 +1,7 @@
 package com.mattrubacky.monet2.data.rooms.dao.entity;
 
+import android.database.sqlite.SQLiteConstraintException;
+
 import com.mattrubacky.monet2.data.deserialized.splatoon.Special;
 
 import java.util.List;
@@ -11,19 +13,28 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
-public interface SpecialDao {
+public abstract class SpecialDao {
+
+    void insertSpecial(Special special){
+        try{
+            insert(special);
+        }catch(SQLiteConstraintException e){
+
+        }
+    }
+
     @Insert
-    void insert(Special... special);
+    abstract void insert(Special... special);
 
     @Update
-    void update(Special... special);
+    abstract void update(Special... special);
 
     @Delete
-    void delete(Special... special);
+    abstract void delete(Special... special);
 
     @Query("SELECT * FROM special")
-    List<Special> selectAll();
+    abstract List<Special> selectAll();
 
     @Query("SELECT * FROM special WHERE id=:id")
-    Special select(int id);
+    abstract Special select(int id);
 }
