@@ -1,0 +1,18 @@
+{
+	"id": "10",
+	"image": "/images/weapon/91b6666bcbfccc204d86f21222a8db22a27d08d0.png",
+	"thumbnail": "/images/weapon/f1419d88f30dfacdb94a8122ccdd8c14bbadc7c4.png",
+	"name": "Splattershot Jr.",
+	"sub": {
+		"image_b": "/images/sub/b13bf755b279af83904892fae01cd98c866dfec7.png",
+		"image_a": "/images/sub/d2eaeec524d28ef315a13f8a9e11dd1039cb78aa.png",
+		"name": "Splat Bomb",
+		"id": "0"
+	},
+	"special": {
+		"name": "Ink Armor",
+		"image_a": "/images/special/abe458a7d13d855f1b27135ccf3e96f46f1f3d10.png",
+		"image_b": "/images/special/415bf85acb0b0dcc478316332fe86efb1fe4f203.png",
+		"id": "1"
+	}
+}
