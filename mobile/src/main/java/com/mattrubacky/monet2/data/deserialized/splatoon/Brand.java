@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 /**
@@ -14,7 +15,12 @@ import androidx.room.PrimaryKey;
  * Brand images are stored in brand
  */
 
-@Entity(tableName = "brand")
+@Entity(tableName = "brand",
+        foreignKeys = {
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "skill")
+})
 public class Brand implements Parcelable{
     public Brand(){}
 

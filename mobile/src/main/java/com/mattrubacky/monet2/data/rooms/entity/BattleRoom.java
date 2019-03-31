@@ -6,15 +6,22 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestColor;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestGrade;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.data.deserialized.splatoon.TeamTheme;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
 
 import java.util.List;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "battle")
+@Entity(tableName = "battle",
+        foreignKeys = {
+            @ForeignKey(entity = SplatfestRoom.class,
+                    parentColumns = "id",
+                    childColumns = "fes_id")
+        })
 public class BattleRoom {
 
     @PrimaryKey
@@ -183,18 +190,13 @@ public class BattleRoom {
         }
     }
 
-    public Battle toDeserialized(List<Stage> stageList){
+    public Battle toDeserialized(){
         Battle battle = new Battle();
         battle.id = id;
         battle.eventType = eventType;
         battle.rule = rule;
         battle.type = type;
         battle.fesMode = fesMode;
-        for(Stage stage : stageList){
-            if(this.stage.id == stage.id){
-                battle.stage = stage;
-            }
-        }
         battle.result = result;
         battle.start = start;
 

@@ -13,9 +13,60 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
 import java.util.ArrayList;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 
-@Entity(tableName = "player")
+@Entity(tableName = "player",
+        foreignKeys = {
+                @ForeignKey(entity = Weapon.class,
+                        parentColumns = "id",
+                        childColumns = "weapon"),
+                @ForeignKey(entity = Gear.class,
+                        parentColumns = "id",
+                        childColumns = "head"),
+                @ForeignKey(entity = Gear.class,
+                        parentColumns = "id",
+                        childColumns = "clothes"),
+                @ForeignKey(entity = Gear.class,
+                        parentColumns = "id",
+                        childColumns = "shoes"),
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "headMain"),
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "headSub1"),
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "headSub2"),
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "headSub3"),
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "clothesMain"),
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "clothesSub1"),
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "clothesSub2"),
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "clothesSub3"),
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "shoeMain"),
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "shoeSub1"),
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "shoeSub2"),
+                @ForeignKey(entity = Skill.class,
+                        parentColumns = "id",
+                        childColumns = "shoeSub3")
+        })
 public class PlayerRoom {
     public int battleId;
     public int playerType;

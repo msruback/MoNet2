@@ -33,7 +33,7 @@ public abstract class BattleDao {
     @Delete
     abstract void delete(Battle... battle);
 
-    @Query("SELECT * FROM battle JOIN player ON player.battleId = battle.id JOIN weapon ON player.weapon = weapon.id WHERE player.playerType = 0")
+    @Query("SELECT * FROM battle JOIN player ON player.battleId = battle.id JOIN weapon ON player.weapon = weapon.id JOIN stage ON battle.stage = stage.id WHERE player.playerType = 0")
     abstract List<BattlePlayer> selectAll();
     
 }

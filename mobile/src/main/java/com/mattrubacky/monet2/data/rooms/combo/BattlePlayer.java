@@ -10,12 +10,12 @@ import java.util.List;
 
 public class BattlePlayer {
     BattleRoom battle;
-    PlayerRoom player;
-    Weapon weapon;
-    public Battle toDeserialized(List<Stage> stageList){
-        Battle battle = this.battle.toDeserialized(stageList);
+    Stage stage;
+    PlayerWeapon player;
+    public Battle toDeserialized(){
+        Battle battle = this.battle.toDeserialized();
+        battle.stage = stage;
         battle.user = player.toDeserialized();
-        battle.user.user.weapon = weapon;
         return battle;
     }
 }
