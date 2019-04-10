@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "salmon_gear",
@@ -14,6 +15,10 @@ import androidx.room.PrimaryKey;
                 @ForeignKey(entity = Gear.class,
                         parentColumns = "id",
                         childColumns = "gear")
+        },
+        indices = {
+                @Index(name="monthly_gear",
+                        value = "gear")
         }
 )
 public class SalmonGearRoom {

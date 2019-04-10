@@ -6,6 +6,8 @@ import android.os.Bundle;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Schedules;
 import com.mattrubacky.monet2.data.deserialized.splatoon.TimePeriod;
 import com.mattrubacky.monet2.data.rooms.SplatnetDatabase;
+import com.mattrubacky.monet2.data.rooms.dao.entity.StageDao;
+import com.mattrubacky.monet2.data.rooms.dao.entity.TimePeriodDao;
 
 import java.util.Calendar;
 import java.util.List;
@@ -20,10 +22,16 @@ public class SchedulesRequest extends SplatnetRequest {
 
     private Context context;
     private ActiveSplatfestRequest splatfestRequest;
+    private SplatnetDatabase db;
+    private StageDao stageDao;
+    private TimePeriodDao timePeriodDao;
 
     public SchedulesRequest(Context context){
         this.context = context;
         splatfestRequest = new ActiveSplatfestRequest(context);
+        db = SplatnetDatabase.getInstance(context);
+        stageDao = db.getStageDao();
+        timePeriodDao = db.getTimePeriodDao();
     }
 
     @Override
@@ -31,32 +39,25 @@ public class SchedulesRequest extends SplatnetRequest {
         Schedules schedules = (Schedules) response.body();
         if(schedules.regular!=null) {
             for(TimePeriod timePeriod :schedules.regular) {
-                SplatnetDatabase.getInstance(context).getTimePeriodDao().insertTimePeriod(timePeriod);
-                SplatnetDatabase.getInstance(context).getStageDao().insertStage(timePeriod.a);
-                SplatnetDatabase.getInstance(context).getStageDao().insertStage(timePeriod.b);
+                timePeriodDao.insertTimePeriod(timePeriod,stageDao);
             }
         }
         if(schedules.ranked!=null) {
             for(TimePeriod timePeriod :schedules.ranked){
-                SplatnetDatabase.getInstance(context).getTimePeriodDao().insertTimePeriod(timePeriod);
-                SplatnetDatabase.getInstance(context).getStageDao().insertStage(timePeriod.a);
-                SplatnetDatabase.getInstance(context).getStageDao().insertStage(timePeriod.b);
+                timePeriodDao.insertTimePeriod(timePeriod,stageDao);
             }
         }
         if(schedules.league!=null) {
             for(TimePeriod timePeriod :schedules.league){
-                SplatnetDatabase.getInstance(context).getTimePeriodDao().insertTimePeriod(timePeriod);
-                SplatnetDatabase.getInstance(context).getStageDao().insertStage(timePeriod.a);
-                SplatnetDatabase.getInstance(context).getStageDao().insertStage(timePeriod.b);
+                timePeriodDao.insertTimePeriod(timePeriod,stageDao);
             }
         }
         if(schedules.splatfest!=null) {
             for(TimePeriod timePeriod :schedules.splatfest){
-                SplatnetDatabase.getInstance(context).getTimePeriodDao().insertTimePeriod(timePeriod);
-                SplatnetDatabase.getInstance(context).getStageDao().insertStage(timePeriod.a);
-                SplatnetDatabase.getInstance(context).getStageDao().insertStage(timePeriod.b);
+                timePeriodDao.insertTimePeriod(timePeriod,stageDao);
             }
         }
+        db.close();
     }
 
     @Override

@@ -35,6 +35,6 @@ public abstract class SpecialDao {
     @Query("SELECT * FROM special")
     abstract List<Special> selectAll();
 
-    @Query("SELECT * FROM special WHERE id=:id")
+    @Query("SELECT * FROM special WHERE special_id=:id")
     abstract Special select(int id);
 }

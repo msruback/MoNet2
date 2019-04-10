@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -22,12 +23,15 @@ public class Special implements Parcelable {
     public Special(){}
 
     @PrimaryKey
+    @ColumnInfo(name="special_id")
     @SerializedName("id")
     public int id;
+    @ColumnInfo(name="special_name")
     @SerializedName("name")
     public String name;
 
     //The URL of the basic url
+    @ColumnInfo(name="special_url")
     @SerializedName("image_a")
     public String url;
 

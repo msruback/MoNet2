@@ -5,9 +5,11 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -19,23 +21,32 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "weapon",
         foreignKeys = {
                 @ForeignKey(entity = Sub.class,
-                        parentColumns = "id",
+                        parentColumns = "sub_id",
                         childColumns = "sub"),
                 @ForeignKey(entity = Special.class,
-                        parentColumns = "id",
+                        parentColumns = "special_id",
                         childColumns = "special")
+        },
+        indices = {
+                @Index(name="weapon_sub",
+                        value = "sub"),
+                @Index(name="weapon_special",
+                        value = "special")
         })
 public class Weapon implements Parcelable {
     @Ignore
     public Weapon(){}
 
     @PrimaryKey
+    @ColumnInfo(name="weapon_id")
     @SerializedName("id")
     public int id;
+    @ColumnInfo(name="weapon_name")
     @SerializedName("name")
     public String name;
 
     //The URL for the weapon image
+    @ColumnInfo(name="weapon_url")
     @SerializedName("image")
     public String url;
 

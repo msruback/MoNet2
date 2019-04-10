@@ -40,21 +40,14 @@ public class GearDaoTest {
             head = gson.fromJson(deserializedHelper.getJSON("gear_head.json"),Gear.class);
             clothes = gson.fromJson(deserializedHelper.getJSON("gear_clothes.json"),Gear.class);
             shoes = gson.fromJson(deserializedHelper.getJSON("gear_shoes.json"),Gear.class);
-            skillDao.insertSkill(head.brand.skill);
-            skillDao.insertSkill(clothes.brand.skill);
-            skillDao.insertSkill(shoes.brand.skill);
-
-            brandDao.insertBrand(head.brand);
-            brandDao.insertBrand(clothes.brand);
-            brandDao.insertBrand(shoes.brand);
 
             head.generatedId = Gear.generateId(head.kind,head.id);
             clothes.generatedId = Gear.generateId(clothes.kind,clothes.id);
             shoes.generatedId = Gear.generateId(shoes.kind,shoes.id);
 
-            gearDao.insertGear(head,false);
-            gearDao.insertGear(clothes,false);
-            gearDao.insertGear(shoes,false);
+            gearDao.insertGear(head,false,brandDao,skillDao);
+            gearDao.insertGear(clothes,false,brandDao,skillDao);
+            gearDao.insertGear(shoes,false,brandDao,skillDao);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,17 +55,6 @@ public class GearDaoTest {
 
     @After
     public void deleteDB(){
-        gearDao.delete(head);
-        gearDao.delete(clothes);
-        gearDao.delete(shoes);
-
-        brandDao.delete(head.brand);
-        brandDao.delete(clothes.brand);
-        brandDao.delete(shoes.brand);
-
-        skillDao.delete(head.brand.skill);
-        skillDao.delete(clothes.brand.skill);
-        skillDao.delete(shoes.brand.skill);
         db.close();
     }
 
@@ -94,11 +76,10 @@ public class GearDaoTest {
         assertThat(head.rarity).isEqualTo(2);
         editedGear.rarity ++;
         assertThat(head.rarity).isEqualTo(2);
-        gearDao.insertGear(editedGear,true);
+        gearDao.insertGear(editedGear,true,brandDao,skillDao);
         Gear pulledGear = gearDao.select(head.generatedId);
         assertThat(pulledGear.rarity).isNotEqualTo(head.rarity);
         assertThat(pulledGear.rarity).isEqualTo(editedGear.rarity);
-        gearDao.update(head);
     }
 
     @Test
@@ -116,21 +97,21 @@ public class GearDaoTest {
     @Test
     public void selectHead(){
         for(Gear gear:gearDao.selectHead()){
-            assertThat(gear.kind).isEqualTo("head");
+            assertThat(gear.kind).isEqualTo(head.kind);
         }
     }
 
     @Test
     public void selectClothes(){
         for(Gear gear:gearDao.selectClothes()){
-            assertThat(gear.kind).isEqualTo("clothes");
+            assertThat(gear.kind).isEqualTo(clothes.kind);
         }
     }
 
     @Test
     public void selectShoes(){
         for(Gear gear:gearDao.selectShoes()){
-            assertThat(gear.kind).isEqualTo("shoes");
+            assertThat(gear.kind).isEqualTo(shoes.kind);
         }
     }
 }

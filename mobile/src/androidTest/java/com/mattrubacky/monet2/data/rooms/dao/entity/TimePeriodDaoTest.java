@@ -26,7 +26,6 @@ import static com.google.common.truth.Truth.assertThat;
 public class TimePeriodDaoTest {
 
     private TimePeriodDao timePeriodDao;
-    private StageDao stageDao;
     private TestDatabase db;
     private TimePeriod timePeriodRegular,timePeriodRanked,timePeriodLeague;
     private Context context;
@@ -36,7 +35,7 @@ public class TimePeriodDaoTest {
         context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, TestDatabase.class).build();
         timePeriodDao = db.getTimePeriodDao();
-        stageDao = db.getStageDao();
+        StageDao stageDao = db.getStageDao();
         try {
             DeserializedHelper deserializedHelper = new DeserializedHelper();
             Gson gson = new Gson();
@@ -47,38 +46,22 @@ public class TimePeriodDaoTest {
             timePeriodRegular.id = TimePeriod.generateId(timePeriodRegular.start,timePeriodRegular.mode.key);
             timePeriodRanked.id = TimePeriod.generateId(timePeriodRanked.start,timePeriodRanked.mode.key);
             timePeriodLeague.id = TimePeriod.generateId(timePeriodLeague.start,timePeriodLeague.mode.key);
-            stageDao.insertStage(timePeriodRegular.a);
-            stageDao.insertStage(timePeriodRegular.b);
-            stageDao.insertStage(timePeriodRanked.a);
-            stageDao.insertStage(timePeriodRanked.b);
-            stageDao.insertStage(timePeriodLeague.a);
-            stageDao.insertStage(timePeriodLeague.b);
-            timePeriodDao.insertTimePeriod(timePeriodRegular);
-            timePeriodDao.insertTimePeriod(timePeriodRanked);
-            timePeriodDao.insertTimePeriod(timePeriodLeague);
+            timePeriodDao.insertTimePeriod(timePeriodRegular, stageDao);
+            timePeriodDao.insertTimePeriod(timePeriodRanked, stageDao);
+            timePeriodDao.insertTimePeriod(timePeriodLeague, stageDao);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @After
-    public void closeDb() throws IOException {
-        timePeriodDao.delete(timePeriodRegular);
-        timePeriodDao.delete(timePeriodRanked);
-        timePeriodDao.delete(timePeriodLeague);
-        stageDao.delete(timePeriodRegular.a);
-        stageDao.delete(timePeriodRegular.b);
-        stageDao.delete(timePeriodRanked.a);
-        stageDao.delete(timePeriodRanked.b);
-        stageDao.delete(timePeriodLeague.a);
-        stageDao.delete(timePeriodLeague.b);
+    public void closeDb(){
         db.close();
     }
 
 
     @Test
     public void insert() {
-        timePeriodDao.insertTimePeriod(timePeriodRegular);
         TimePeriod timePeriodEnd = timePeriodDao.select(timePeriodRegular.id);
         assertThat(timePeriodEnd.id).isEqualTo(timePeriodRegular.id);
         assertThat(timePeriodEnd.start).isEqualTo(timePeriodRegular.start);
@@ -98,7 +81,6 @@ public class TimePeriodDaoTest {
         timePeriodDao.delete(timePeriodRegular);
         TimePeriod timePeriodEnd = timePeriodDao.select(timePeriodRegular.id);
         assertThat(timePeriodEnd).isNull();
-        timePeriodDao.insertTimePeriod(timePeriodRegular);
     }
 
     @Test
@@ -113,7 +95,7 @@ public class TimePeriodDaoTest {
     public void selectGachi() {
         List<TimePeriod> timePeriods = timePeriodDao.selectGachi();
         for(TimePeriod timePeriod:timePeriods){
-            assertThat(timePeriod.mode.getName(context)).isEqualTo("Ranked");
+            assertThat(timePeriod.mode.getName(context)).isEqualTo(timePeriodRanked.mode.getName(context));
         }
     }
 
@@ -121,7 +103,7 @@ public class TimePeriodDaoTest {
     public void selectLeague() {
         List<TimePeriod> timePeriods =timePeriodDao.selectLeague();
         for(TimePeriod timePeriod:timePeriods){
-            assertThat(timePeriod.mode.getName(context)).isEqualTo("League");
+            assertThat(timePeriod.mode.getName(context)).isEqualTo(timePeriodLeague.mode.getName(context));
         }
     }
 

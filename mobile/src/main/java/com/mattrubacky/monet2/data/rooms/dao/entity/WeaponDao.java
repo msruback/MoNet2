@@ -3,6 +3,7 @@ package com.mattrubacky.monet2.data.rooms.dao.entity;
 import android.database.sqlite.SQLiteConstraintException;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.data.rooms.combo.WeaponCombo;
 
 import java.util.List;
 
@@ -15,7 +16,9 @@ import androidx.room.Update;
 @Dao
 public abstract class WeaponDao {
 
-    public void insertWeapon(Weapon weapon){
+    public void insertWeapon(Weapon weapon, SubDao subDao, SpecialDao specialDao){
+        subDao.insertSub(weapon.sub);
+        specialDao.insertSpecial(weapon.special);
         try{
             insert(weapon);
         }catch(SQLiteConstraintException e){
@@ -35,7 +38,7 @@ public abstract class WeaponDao {
     @Query("SELECT * FROM weapon")
     public abstract List<Weapon> selectAll();
 
-    @Query("SELECT * FROM weapon WHERE id=:id")
+    @Query("SELECT * FROM weapon WHERE weapon_id=:id")
     public abstract Weapon select(int id);
 
     @Query("SELECT * FROM weapon WHERE special=:special")
@@ -44,6 +47,9 @@ public abstract class WeaponDao {
     @Query("SELECT * FROM weapon WHERE sub=:sub")
     public abstract List<Weapon> selectFromSub(int sub);
 
-    @Query("SELECT * FROM salmon_weapons INNER JOIN weapon ON salmon_weapons.weapon_id = weapon.id WHERE salmon_weapons.shift_id=:shiftId")
-    public abstract List<Weapon> selectFromShift(int shiftId);
+   // @Query("SELECT * FROM salmon_weapons INNER JOIN weapon ON salmon_weapons.weapon_id = weapon_id WHERE salmon_weapons.shift_id=:shiftId")
+   //public abstract List<Weapon> selectFromShift(int shiftId);
+
+    @Query("SELECT * FROM weapon JOIN sub ON sub_id = sub JOIN special ON special_id = special WHERE weapon_id = :id")
+    public abstract WeaponCombo selectCombo(int id);
 }

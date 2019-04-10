@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 
 @Entity(tableName = "player",
         foreignKeys = {
@@ -147,8 +148,8 @@ public class PlayerRoom {
     }
 
     @Ignore
-    public PlayerRoom(Battle battle, Player player,int playerType, String battleType){
-        battleId = battle.id;
+    public PlayerRoom(int id, Player player,int playerType, String battleType){
+        battleId = id;
         this.playerType = playerType;
         if(playerType!=0) {
             userId = player.user.uniqueId;

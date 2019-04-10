@@ -35,6 +35,6 @@ public abstract class SubDao {
     @Query("SELECT * FROM sub")
     abstract List<Sub> selectAll();
 
-    @Query("SELECT * FROM sub WHERE id=:id")
+    @Query("SELECT * FROM sub WHERE sub_id=:id")
     abstract Sub select(int id);
 }

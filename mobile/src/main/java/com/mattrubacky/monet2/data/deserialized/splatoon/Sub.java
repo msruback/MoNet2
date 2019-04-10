@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -20,13 +21,16 @@ public class Sub implements Parcelable {
     }
 
     @PrimaryKey
+    @ColumnInfo(name="sub_id")
     @SerializedName("id")
     public int id;
 
+    @ColumnInfo(name="sub_name")
     @SerializedName("name")
     public String name;
 
     //The base image of the sub weapon
+    @ColumnInfo(name="sub_url")
     @SerializedName("image_a")
     public String url;
 

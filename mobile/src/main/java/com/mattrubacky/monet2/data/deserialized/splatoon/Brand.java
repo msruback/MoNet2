@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -20,7 +21,11 @@ import androidx.room.PrimaryKey;
                 @ForeignKey(entity = Skill.class,
                         parentColumns = "id",
                         childColumns = "skill")
-})
+        },
+        indices = {
+                @Index(name="brand_skill",
+                        value = "skill")
+        })
 public class Brand implements Parcelable{
     public Brand(){}
 

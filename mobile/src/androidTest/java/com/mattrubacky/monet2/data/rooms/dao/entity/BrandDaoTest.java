@@ -36,8 +36,7 @@ public class BrandDaoTest {
             Gson gson = new Gson();
             brand = gson.fromJson(deserializedHelper.getJSON("brand.json"),Brand.class);
 
-            skillDao.insertSkill(brand.skill);
-            brandDao.insertBrand(brand);
+            brandDao.insertBrand(brand,skillDao);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,8 +45,6 @@ public class BrandDaoTest {
 
     @After
     public void deleteDB(){
-        brandDao.delete(brand);
-        skillDao.delete(brand.skill);
         db.close();
     }
 

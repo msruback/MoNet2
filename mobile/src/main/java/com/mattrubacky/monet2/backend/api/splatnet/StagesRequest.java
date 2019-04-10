@@ -20,8 +20,6 @@ public class StagesRequest extends SplatnetRequest{
 
     @Override
     protected void manageResponse(Response response) {
-
-        stages = (ArrayList<Stage>) response.body();
     }
 
     @Override

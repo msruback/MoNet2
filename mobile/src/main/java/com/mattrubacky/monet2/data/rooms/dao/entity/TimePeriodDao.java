@@ -16,7 +16,9 @@ import androidx.room.Update;
 @Dao
 public abstract class TimePeriodDao {
 
-    public void insertTimePeriod(TimePeriod timePeriod){
+    public void insertTimePeriod(TimePeriod timePeriod,StageDao stageDao){
+        stageDao.insertStage(timePeriod.a);
+        stageDao.insertStage(timePeriod.b);
         try{
             insert(timePeriod);
         }catch (SQLiteConstraintException e){

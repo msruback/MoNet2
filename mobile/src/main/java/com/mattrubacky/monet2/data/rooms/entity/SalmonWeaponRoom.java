@@ -11,10 +11,7 @@ import androidx.room.ForeignKey;
         foreignKeys = {
                 @ForeignKey(entity = SalmonShiftRoom.class,
                             parentColumns = "id",
-                            childColumns = "shift_id"),
-                @ForeignKey(entity = Weapon.class,
-                            parentColumns = "id",
-                            childColumns = "weapon_id")
+                            childColumns = "shift_id")
         })
 public class SalmonWeaponRoom {
     @ColumnInfo(name = "weapon_id")

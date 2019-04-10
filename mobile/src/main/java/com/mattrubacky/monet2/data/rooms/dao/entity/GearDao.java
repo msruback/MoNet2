@@ -15,7 +15,8 @@ import androidx.room.Update;
 
 @Dao
 public abstract class GearDao {
-    void insertGear(Gear gear,boolean isDefault){
+    void insertGear(Gear gear,boolean isDefault,BrandDao brandDao,SkillDao skillDao){
+        brandDao.insertBrand(gear.brand,skillDao);
         try{
             insert(gear);
         }catch(SQLiteConstraintException e){

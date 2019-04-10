@@ -15,6 +15,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "shift",
@@ -22,6 +23,10 @@ import androidx.room.PrimaryKey;
                 @ForeignKey(entity = SalmonStage.class,
                             parentColumns = "id",
                             childColumns = "stage")
+        },
+        indices = {
+                @Index(name="shift_stage",
+                        value = "stage")
         })
 public class SalmonShiftRoom {
     @PrimaryKey

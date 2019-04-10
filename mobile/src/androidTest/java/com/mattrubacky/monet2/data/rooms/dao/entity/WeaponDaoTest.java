@@ -8,6 +8,7 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
 import com.mattrubacky.monet2.data.rooms.TestDatabase;
+import com.mattrubacky.monet2.data.rooms.combo.WeaponCombo;
 import com.mattrubacky.monet2.testutils.DeserializedHelper;
 
 import org.junit.After;
@@ -41,9 +42,7 @@ public class WeaponDaoTest {
             DeserializedHelper deserializedHelper = new DeserializedHelper();
             Gson gson = new Gson();
             weapon = gson.fromJson(deserializedHelper.getJSON("weapon.json"), Weapon.class);
-            subDao.insertSub(weapon.sub);
-            specialDao.insertSpecial(weapon.special);
-            weaponDao.insertWeapon(weapon);
+            weaponDao.insertWeapon(weapon,subDao,specialDao);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,4 +79,23 @@ public class WeaponDaoTest {
             assertThat(pulledWeapon.sub.id).isEqualTo(weapon.sub.id);
         }
     }
+
+    @Test
+    public void selectCombo(){
+        WeaponCombo weaponCombo = weaponDao.selectCombo(weapon.id);
+        Weapon pulledWeapon = weaponCombo.toDeserialized();
+
+        assertThat(pulledWeapon.id).isEqualTo(weapon.id);
+        assertThat(pulledWeapon.name).isEqualTo(weapon.name);
+        assertThat(pulledWeapon.url).isEqualTo(weapon.url);
+
+        assertThat(pulledWeapon.special.id).isEqualTo(weapon.special.id);
+        assertThat(pulledWeapon.special.name).isEqualTo(weapon.special.name);
+        assertThat(pulledWeapon.special.url).isEqualTo(weapon.special.url);
+
+        assertThat(pulledWeapon.sub.id).isEqualTo(weapon.sub.id);
+        assertThat(pulledWeapon.sub.name).isEqualTo(weapon.sub.name);
+        assertThat(pulledWeapon.sub.url).isEqualTo(weapon.sub.url);
+    }
+
 }

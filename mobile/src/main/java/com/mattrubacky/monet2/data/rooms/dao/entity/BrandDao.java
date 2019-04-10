@@ -13,7 +13,8 @@ import androidx.room.Update;
 @Dao
 public abstract class BrandDao {
 
-    void insertBrand(Brand brand){
+    void insertBrand(Brand brand, SkillDao skillDao){
+        skillDao.insertSkill(brand.skill);
         try{
             insert(brand);
         }catch(SQLiteConstraintException e) {

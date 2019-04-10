@@ -171,8 +171,8 @@ public class RotationViewModel extends AndroidViewModel implements SplatnetConne
                 salmonSchedule.times = new ArrayList<>();
                 for(SalmonShiftRoom salmonShiftRoom:salmonShiftRooms){
                     if(salmonShiftRoom.stage.id!=-1){
-                        List<Weapon> weaponRooms = database.getWeaponDao().selectFromShift(salmonShiftRoom.id);
-                        salmonSchedule.details.add(salmonShiftRoom.toDeserialised(salmonStages.getValue(),weaponRooms));
+                        //List<Weapon> weaponRooms = database.getWeaponDao().selectFromShift(salmonShiftRoom.id);
+                        //salmonSchedule.details.add(salmonShiftRoom.toDeserialised(salmonStages.getValue(),weaponRooms));
                     }else{
                         salmonSchedule.times.add(salmonShiftRoom.toDeserialised());
                     }
