@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.GearSkills;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
 
 /**
  * Created by mattr on 10/18/2017.

@@ -5,9 +5,8 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Player;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
 import com.mattrubacky.monet2.data.rooms.TestDatabase;
-import com.mattrubacky.monet2.data.rooms.entity.PlayerRoom;
+import com.mattrubacky.monet2.data.entity.PlayerRoom;
 import com.mattrubacky.monet2.testutils.DeserializedHelper;
 
 import org.junit.After;
@@ -46,12 +45,12 @@ public class PlayerDaoTest {
             Gson gson = new Gson();
             splatfest = gson.fromJson(deserializedHelper.getJSON("battle_splatfest.json"), Battle.class);
             player = splatfest.user;
-            playerDao.insertPlayer(new PlayerRoom(splatfest.id,splatfest.user,0,splatfest.type),weaponDao,subDao,specialDao,gearDao,brandDao,skillDao);
+            playerDao.insertPlayer(new PlayerRoom(splatfest.id,splatfest.user,0,splatfest.result.key,splatfest.type),weaponDao,subDao,specialDao,gearDao,brandDao,skillDao);
             for(Player player : splatfest.myTeam){
-                playerDao.insertPlayer(new PlayerRoom(splatfest.id,player,1,splatfest.type),weaponDao,subDao,specialDao,gearDao,brandDao,skillDao);
+                playerDao.insertPlayer(new PlayerRoom(splatfest.id,player,1,splatfest.result.key,splatfest.type),weaponDao,subDao,specialDao,gearDao,brandDao,skillDao);
             }
             for(Player player : splatfest.otherTeam){
-                playerDao.insertPlayer(new PlayerRoom(splatfest.id,player,2,splatfest.type),weaponDao,subDao,specialDao,gearDao,brandDao,skillDao);
+                playerDao.insertPlayer(new PlayerRoom(splatfest.id,player,2,splatfest.result.key,splatfest.type),weaponDao,subDao,specialDao,gearDao,brandDao,skillDao);
             }
         } catch (IOException e) {
             e.printStackTrace();

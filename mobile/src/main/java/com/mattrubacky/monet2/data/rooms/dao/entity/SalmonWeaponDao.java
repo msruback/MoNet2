@@ -1,6 +1,8 @@
 package com.mattrubacky.monet2.data.rooms.dao.entity;
 
-import com.mattrubacky.monet2.data.rooms.entity.SalmonWeaponRoom;
+import android.database.sqlite.SQLiteConstraintException;
+
+import com.mattrubacky.monet2.data.deserialized_entities.SalmonRunWeapon;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -8,13 +10,22 @@ import androidx.room.Insert;
 import androidx.room.Update;
 
 @Dao
-public interface SalmonWeaponDao {
+public abstract class SalmonWeaponDao {
+
+    void insertSalmonWeapon(SalmonRunWeapon weapon,WeaponDao weaponDao){
+        weaponDao.insert(weapon.weapon);
+        try{
+            insert(weapon);
+        }catch (SQLiteConstraintException e){
+        }
+    }
+
     @Insert
-    void insert(SalmonWeaponRoom... weaponRooms);
+    abstract void insert(SalmonRunWeapon... weapon);
 
     @Update
-    void update(SalmonWeaponRoom... weaponRooms);
+    abstract void update(SalmonRunWeapon... weapon);
 
     @Delete
-    void delete(SalmonWeaponRoom... weaponRooms);
+    abstract void delete(SalmonRunWeapon... weapon);
 }

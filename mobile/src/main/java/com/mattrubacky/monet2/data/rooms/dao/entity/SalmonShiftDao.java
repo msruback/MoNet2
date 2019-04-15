@@ -1,6 +1,10 @@
 package com.mattrubacky.monet2.data.rooms.dao.entity;
 
-import com.mattrubacky.monet2.data.rooms.entity.SalmonShiftRoom;
+import android.database.sqlite.SQLiteConstraintException;
+
+import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunDetail;
+import com.mattrubacky.monet2.data.deserialized_entities.SalmonRunWeapon;
+import com.mattrubacky.monet2.data.entity.SalmonShiftRoom;
 
 import java.util.List;
 
@@ -12,22 +16,34 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
-public interface SalmonShiftDao {
+public abstract class SalmonShiftDao {
+
+    void insertSalmonShift(SalmonRunDetail salmonRunDetail,SalmonStageDao salmonStageDao,SalmonWeaponDao salmonWeaponDao,WeaponDao weaponDao){
+        salmonStageDao.insertSalmonStage(salmonRunDetail.stage);
+        for(SalmonRunWeapon salmonRunWeapon:salmonRunDetail.weapons){
+            salmonWeaponDao.insertSalmonWeapon(salmonRunWeapon,weaponDao);
+        }
+        try{
+            insert(new SalmonShiftRoom(salmonRunDetail));
+        }catch (SQLiteConstraintException ignored){
+        }
+    }
+
     @Insert
-    void insert(SalmonShiftRoom... shift);
+    protected abstract void insert(SalmonShiftRoom... shift);
 
     @Update
-    void update(SalmonShiftRoom... shift);
+    protected abstract void update(SalmonShiftRoom... shift);
 
     @Delete
-    void delete(SalmonShiftRoom... shift);
+    protected abstract void delete(SalmonShiftRoom... shift);
 
     @Query("SELECT * FROM shift")
-    LiveData<List<SalmonShiftRoom>> selectAll();
+    public abstract LiveData<List<SalmonShiftRoom>> selectAll();
 
     @Query("SELECT * FROM shift WHERE end_time>:now")
-    LiveData<List<SalmonShiftRoom>> selectUpcoming(long now);
+    public abstract LiveData<List<SalmonShiftRoom>> selectUpcoming(long now);
 
     @Query("SELECT * FROM shift WHERE start_time<:now")
-    LiveData<List<SalmonShiftRoom>> selectPast(long now);
+    public abstract LiveData<List<SalmonShiftRoom>> selectPast(long now);
 }

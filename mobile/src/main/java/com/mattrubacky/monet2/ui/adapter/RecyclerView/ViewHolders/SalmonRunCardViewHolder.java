@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.SalmonRotationAdapter;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonSchedule;
 import com.mattrubacky.monet2.backend.ImageHandler;
 import com.squareup.picasso.Picasso;

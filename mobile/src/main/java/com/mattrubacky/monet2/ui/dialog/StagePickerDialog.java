@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.ui.adapter.ListView.StagePickerAdapter;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;

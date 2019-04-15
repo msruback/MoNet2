@@ -2,7 +2,7 @@ package com.mattrubacky.monet2.data.rooms.dao.entity;
 
 import android.database.sqlite.SQLiteConstraintException;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 
 import java.util.List;
 
@@ -32,10 +32,7 @@ public abstract class StageDao {
     @Delete
     abstract void delete(Stage... stage);
 
-    @Query("SELECT COUNT(id) FROM stage WHERE id=:id")
-    public abstract int count(int id);
-
-    @Query("SELECT * FROM stage WHERE id=:id")
+    @Query("SELECT * FROM stage WHERE stage_id=:id")
     public abstract Stage select(int id);
 
     @Query("SELECT * FROM stage")

@@ -13,9 +13,9 @@ import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.ui.activities.BattleInfo;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Player;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 

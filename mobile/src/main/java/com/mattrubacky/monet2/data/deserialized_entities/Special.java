@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.data.deserialized.splatoon;
+package com.mattrubacky.monet2.data.deserialized_entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -19,13 +19,22 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "special")
 public class Special implements Parcelable {
+    //GSON constructor
     @Ignore
     public Special(){}
+
+    //Rooms constructor
+    public Special(int id,String name, String url){
+        this.id = id;
+        this.name = name;
+        this.url = url;
+    }
 
     @PrimaryKey
     @ColumnInfo(name="special_id")
     @SerializedName("id")
     public int id;
+
     @ColumnInfo(name="special_name")
     @SerializedName("name")
     public String name;
@@ -34,12 +43,6 @@ public class Special implements Parcelable {
     @ColumnInfo(name="special_url")
     @SerializedName("image_a")
     public String url;
-
-    public Special(int id,String name, String url){
-        this.id = id;
-        this.name = name;
-        this.url = url;
-    }
 
     @Ignore
     protected Special(Parcel in) {

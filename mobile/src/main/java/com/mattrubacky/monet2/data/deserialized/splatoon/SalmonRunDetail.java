@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.data.deserialized_entities.SalmonRunWeapon;
+import com.mattrubacky.monet2.data.deserialized_entities.SalmonStage;
 
 import java.util.ArrayList;
 

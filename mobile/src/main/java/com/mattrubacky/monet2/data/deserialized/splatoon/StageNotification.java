@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.TimePeriod;
 
 import java.util.ArrayList;
 
@@ -27,7 +29,7 @@ public class StageNotification implements Parcelable {
     @SerializedName("rule")
     public String rule;
     @SerializedName("notified")
-    ArrayList<TimePeriod> notified;
+    private ArrayList<TimePeriod> notified;
 
     protected StageNotification(Parcel in) {
         stage = in.readParcelable(Stage.class.getClassLoader());

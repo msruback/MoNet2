@@ -1,10 +1,10 @@
-package com.mattrubacky.monet2.data.rooms.entity;
+package com.mattrubacky.monet2.data.entity;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRun;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunDetail;
-import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunWeapon;
-import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonStage;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.data.deserialized_entities.SalmonRunWeapon;
+import com.mattrubacky.monet2.data.deserialized_entities.SalmonStage;
+import com.mattrubacky.monet2.data.deserialized_entities.Weapon;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -21,21 +21,23 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "shift",
         foreignKeys = {
                 @ForeignKey(entity = SalmonStage.class,
-                            parentColumns = "id",
-                            childColumns = "stage")
+                            parentColumns = "salmon_stage_id",
+                            childColumns = "shift_stage")
         },
         indices = {
                 @Index(name="shift_stage",
-                        value = "stage")
+                        value = "shift_stage")
         })
 public class SalmonShiftRoom {
     @PrimaryKey
+    @ColumnInfo(name="shift_id")
     public int id;
 
     @ColumnInfo(name = "start_time")
     public long startTime;
     @ColumnInfo(name = "end_time")
     public long endTime;
+    @ColumnInfo(name="shift_stage")
     public SalmonStage stage;
 
     public SalmonShiftRoom(int id, long startTime,long endTime,SalmonStage stage){

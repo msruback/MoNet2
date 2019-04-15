@@ -1,14 +1,13 @@
-package com.mattrubacky.monet2.data.rooms.entity;
+package com.mattrubacky.monet2.data.entity;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.GearSkills;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Player;
 import com.mattrubacky.monet2.data.deserialized.splatoon.PlayerType;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestGrade;
 import com.mattrubacky.monet2.data.deserialized.splatoon.User;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.data.deserialized_entities.Weapon;
 
 import java.util.ArrayList;
 
@@ -16,139 +15,103 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = "player",
         foreignKeys = {
+                @ForeignKey(entity = BattleRoom.class,
+                            parentColumns = "id",
+                            childColumns = "battleId"),
                 @ForeignKey(entity = Weapon.class,
-                        parentColumns = "id",
+                        parentColumns = "weapon_id",
                         childColumns = "weapon"),
                 @ForeignKey(entity = Gear.class,
-                        parentColumns = "id",
+                        parentColumns = "gear_id",
                         childColumns = "head"),
                 @ForeignKey(entity = Gear.class,
-                        parentColumns = "id",
+                        parentColumns = "gear_id",
                         childColumns = "clothes"),
                 @ForeignKey(entity = Gear.class,
-                        parentColumns = "id",
+                        parentColumns = "gear_id",
                         childColumns = "shoes"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "headMain"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "headSub1"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "headSub2"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "headSub3"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "clothesMain"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "clothesSub1"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "clothesSub2"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "clothesSub3"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "shoeMain"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "shoeSub1"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "shoeSub2"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "shoeSub3")
+        },
+        indices = {
+                @Index(name="player_battle",
+                        value = "battleId"),
+                @Index(name="player_weapon",
+                        value = "weapon"),
+                @Index(name="player_head",
+                        value = "head"),
+                @Index(name="player_clothes",
+                        value = "clothes"),
+                @Index(name="player_shoe",
+                        value = "shoes"),
+                @Index(name="player_head_main",
+                        value = "headMain"),
+                @Index(name="player_head_sub_1",
+                        value = "headSub1"),
+                @Index(name="player_head_sub_2",
+                        value = "headSub2"),
+                @Index(name="player_head_sub_3",
+                        value = "headSub3"),
+                @Index(name="player_clothes_main",
+                        value = "clothesMain"),
+                @Index(name="player_clothes_sub_1",
+                        value = "clothesSub1"),
+                @Index(name="player_clothes_sub_2",
+                        value = "clothesSub2"),
+                @Index(name="player_clothes_sub_3",
+                        value = "clothesSub3"),
+                @Index(name="player_shoe_main",
+                        value = "shoeMain"),
+                @Index(name="player_shoe_sub_1",
+                        value = "shoeSub1"),
+                @Index(name="player_shoe_sub_2",
+                        value = "shoeSub2"),
+                @Index(name="player_shoe_sub_3",
+                        value = "shoeSub3")
         })
 public class PlayerRoom {
-    public int battleId;
-    public int playerType;
-    public String battleType;
 
-    public String userId;
-    public String name;
-    public String species;
-    public String style;
-    public int level;
-    public int starLevel;
-    public String rank;
-    public String sPlus;
-    public boolean isX;
-    public SplatfestGrade fesGrade;
-
-    public int point;
-    public int kill;
-    public int assist;
-    public int death;
-    public int special;
-
-    public Weapon weapon;
-    public Gear head;
-    public Gear clothes;
-    public Gear shoes;
-
-    public Skill headMain;
-    public Skill headSub1;
-    public Skill headSub2;
-    public Skill headSub3;
-
-    public Skill clothesMain;
-    public Skill clothesSub1;
-    public Skill clothesSub2;
-    public Skill clothesSub3;
-
-    public Skill shoeMain;
-    public Skill shoeSub1;
-    public Skill shoeSub2;
-    public Skill shoeSub3;
-
-    public PlayerRoom(int battleId, int playerType, String battleType, String userId, String name, String species, String style,
-                      int level, int starLevel, String rank, String sPlus, Boolean isX, SplatfestGrade fesGrade,
-                      int point, int kill, int assist, int death, int special, Weapon weapon, Gear head, Gear clothes, Gear shoes,
-                      Skill headMain, Skill headSub1, Skill headSub2, Skill headSub3, Skill clothesMain, Skill clothesSub1,
-                      Skill clothesSub2, Skill clothesSub3, Skill shoeMain, Skill shoeSub1, Skill shoeSub2, Skill shoeSub3){
-        this.battleId = battleId;
-        this.playerType = playerType;
-        this.battleType = battleType;
-        this.userId = userId;
-        this.name = name;
-        this.species = species;
-        this.style = style;
-        this.level = level;
-        this.starLevel = starLevel;
-        this.rank = rank;
-        this.sPlus = sPlus;
-        this.isX = isX;
-        this.fesGrade = fesGrade;
-        this.point = point;
-        this.kill = kill;
-        this.assist = assist;
-        this.death = death;
-        this.special = special;
-        this.weapon = weapon;
-        this.head = head;
-        this.clothes = clothes;
-        this.shoes = shoes;
-        this.headMain = headMain;
-        this.headSub1 = headSub1;
-        this.headSub2 = headSub2;
-        this.headSub3 = headSub3;
-        this.clothesMain = clothesMain;
-        this.clothesSub1 = clothesSub1;
-        this.clothesSub2 = clothesSub2;
-        this.clothesSub3 = clothesSub3;
-    }
-
+    //From Deserialized Constructor
     @Ignore
-    public PlayerRoom(int id, Player player,int playerType, String battleType){
+    public PlayerRoom(int id, Player player,int playerType,String battleResult, String battleType){
         battleId = id;
         this.playerType = playerType;
         if(playerType!=0) {
@@ -156,6 +119,7 @@ public class PlayerRoom {
         }else{
             userId = player.user.id;
         }
+        this.battleResult = battleResult;
         this.battleType = battleType;
         switch (battleType) {
             case "gachi":
@@ -220,6 +184,94 @@ public class PlayerRoom {
         }
     }
 
+    //Rooms Constructor
+    public PlayerRoom(int battleId, int playerType,String battleResult, String battleType, String userId, String name, String species, String style,
+                      int level, int starLevel, String rank, String sPlus, Boolean isX, SplatfestGrade fesGrade,
+                      int point, int kill, int assist, int death, int special, Weapon weapon, Gear head, Gear clothes, Gear shoes,
+                      Skill headMain, Skill headSub1, Skill headSub2, Skill headSub3, Skill clothesMain, Skill clothesSub1,
+                      Skill clothesSub2, Skill clothesSub3, Skill shoeMain, Skill shoeSub1, Skill shoeSub2, Skill shoeSub3){
+        this.battleId = battleId;
+        this.playerType = playerType;
+        this.battleResult = battleResult;
+        this.battleType = battleType;
+        this.userId = userId;
+        this.name = name;
+        this.species = species;
+        this.style = style;
+        this.level = level;
+        this.starLevel = starLevel;
+        this.rank = rank;
+        this.sPlus = sPlus;
+        this.isX = isX;
+        this.fesGrade = fesGrade;
+        this.point = point;
+        this.kill = kill;
+        this.assist = assist;
+        this.death = death;
+        this.special = special;
+        this.weapon = weapon;
+        this.head = head;
+        this.clothes = clothes;
+        this.shoes = shoes;
+        this.headMain = headMain;
+        this.headSub1 = headSub1;
+        this.headSub2 = headSub2;
+        this.headSub3 = headSub3;
+        this.clothesMain = clothesMain;
+        this.clothesSub1 = clothesSub1;
+        this.clothesSub2 = clothesSub2;
+        this.clothesSub3 = clothesSub3;
+        this.shoeMain = shoeMain;
+        this.shoeSub1 = shoeSub1;
+        this.shoeSub2 = shoeSub2;
+        this.shoeSub3 = shoeSub3;
+    }
+
+    @PrimaryKey
+    public int generatedPlayerId;
+
+    public int battleId;
+    public String battleResult;
+    public int playerType;
+    public String battleType;
+
+    public String userId;
+    public String name;
+    public String species;
+    public String style;
+    public int level;
+    public int starLevel;
+    public String rank;
+    public String sPlus;
+    public boolean isX;
+    public SplatfestGrade fesGrade;
+
+    public int point;
+    public int kill;
+    public int assist;
+    public int death;
+    public int special;
+
+    public Weapon weapon;
+    public Gear head;
+    public Gear clothes;
+    public Gear shoes;
+
+    public Skill headMain;
+    public Skill headSub1;
+    public Skill headSub2;
+    public Skill headSub3;
+
+    public Skill clothesMain;
+    public Skill clothesSub1;
+    public Skill clothesSub2;
+    public Skill clothesSub3;
+
+    public Skill shoeMain;
+    public Skill shoeSub1;
+    public Skill shoeSub2;
+    public Skill shoeSub3;
+
     public Player toDeserialized(){
         Player player = new Player();
         player.user = new User();
@@ -283,5 +335,13 @@ public class PlayerRoom {
         player.user.shoeSkills.subs.add(shoeSub3);
 
         return player;
+    }
+
+    public static int generateID(int id, int type, int num){
+        id*=10;
+        id+=type;
+        id*=10;
+        id+=num;
+        return id;
     }
 }

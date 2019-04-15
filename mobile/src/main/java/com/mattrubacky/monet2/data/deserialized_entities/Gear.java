@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.data.deserialized.splatoon;
+package com.mattrubacky.monet2.data.deserialized_entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -21,38 +21,56 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "gear",
         foreignKeys = {
                 @ForeignKey(entity = Brand.class,
-                        parentColumns = "id",
-                        childColumns = "brand")
+                        parentColumns = "brand_id",
+                        childColumns = "gear_brand")
         },
         indices = {
                 @Index(name="gear_brand",
-                        value = "brand")
+                        value = "gear_brand")
         }
 )
 public class Gear implements Parcelable {
+
+    //GSON constructor
     @Ignore
     public Gear(){}
 
+    //Copy constructor
     @Ignore
     public Gear(Gear gear){
         this(gear.generatedId,gear.id,gear.brand,gear.name,gear.url,gear.kind,gear.rarity);
     }
 
+    //Rooms constructor
+    public Gear(int generatedId, int id, Brand brand, String name, String url, String kind, int rarity){
+        this.generatedId = generatedId;
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.kind = kind;
+        this.rarity = rarity;
+        this.brand = brand;
+    }
+
     @PrimaryKey
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "gear_id")
     public int generatedId;
 
     @ColumnInfo(name = "splatnet_id")
     @SerializedName("id")
     public int id;
+
+    @ColumnInfo(name="gear_name")
     @SerializedName("name")
     public String name;
 
     //The Brand of the Gear
+    @ColumnInfo(name="gear_brand")
     @SerializedName("brand")
     public Brand brand;
 
     //The URL of the gear url
+    @ColumnInfo(name="gear_image")
     @SerializedName("image")
     public String url;
 
@@ -63,16 +81,6 @@ public class Gear implements Parcelable {
     //The type of the gear, "head","clothes",and "shoe"
     @SerializedName("kind")
     public String kind;
-
-    public Gear(int generatedId, int id, Brand brand, String name, String url, String kind, int rarity){
-        this.generatedId = generatedId;
-        this.id = id;
-        this.name = name;
-        this.url = url;
-        this.kind = kind;
-        this.rarity = rarity;
-        this.brand = brand;
-    }
 
     @Ignore
     protected Gear(Parcel in) {

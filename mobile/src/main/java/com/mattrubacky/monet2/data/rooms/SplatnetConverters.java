@@ -1,19 +1,17 @@
 package com.mattrubacky.monet2.data.rooms;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Brand;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Brand;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.KeyName;
-import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonStage;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Special;
+import com.mattrubacky.monet2.data.deserialized_entities.SalmonStage;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
+import com.mattrubacky.monet2.data.deserialized_entities.Special;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestGrade;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Sub;
-
-import java.security.Key;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Sub;
+import com.mattrubacky.monet2.data.deserialized_entities.Weapon;
 
 import androidx.room.TypeConverter;
-import androidx.room.TypeConverters;
 
 public class SplatnetConverters {
     @TypeConverter
@@ -119,5 +117,16 @@ public class SplatnetConverters {
     @TypeConverter
     public static int fromSalmonStage(SalmonStage salmonStage){
         return salmonStage.id;
+    }
+
+    @TypeConverter
+    public static Weapon toWeapon(int id){
+        Weapon weapon = new Weapon();
+        weapon.id = id;
+        return weapon;
+    }
+    @TypeConverter
+    public static int fromWeapon(Weapon weapon){
+        return weapon.id;
     }
 }

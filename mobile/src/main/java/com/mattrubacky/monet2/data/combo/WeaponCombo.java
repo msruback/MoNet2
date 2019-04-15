@@ -1,8 +1,8 @@
-package com.mattrubacky.monet2.data.rooms.combo;
+package com.mattrubacky.monet2.data.combo;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Special;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Sub;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.data.deserialized_entities.Special;
+import com.mattrubacky.monet2.data.deserialized_entities.Sub;
+import com.mattrubacky.monet2.data.deserialized_entities.Weapon;
 
 import androidx.room.Embedded;
 

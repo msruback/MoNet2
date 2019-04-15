@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.data.deserialized.splatoon;
+package com.mattrubacky.monet2.data.deserialized_entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -16,8 +16,15 @@ import androidx.room.PrimaryKey;
  */
 @Entity(tableName = "sub")
 public class Sub implements Parcelable {
+    //GSON constructor
     @Ignore
-    public Sub(){
+    public Sub(){}
+
+    //Rooms constructor
+    public Sub(int id, String name, String url){
+        this.id = id;
+        this.name = name;
+        this.url = url;
     }
 
     @PrimaryKey
@@ -39,12 +46,6 @@ public class Sub implements Parcelable {
         id = in.readInt();
         name = in.readString();
         url = in.readString();
-    }
-
-    public Sub(int id, String name, String url){
-        this.id = id;
-        this.name = name;
-        this.url = url;
     }
 
     public static final Creator<Sub> CREATOR = new Creator<Sub>() {

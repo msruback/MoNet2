@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.data.rooms.entity;
+package com.mattrubacky.monet2.data.entity;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.Rates;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestContribution;

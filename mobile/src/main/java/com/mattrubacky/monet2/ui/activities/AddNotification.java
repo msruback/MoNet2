@@ -17,11 +17,11 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.GearNotification;
 import com.mattrubacky.monet2.data.deserialized.splatoon.GearNotifications;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 import com.mattrubacky.monet2.data.deserialized.splatoon.StageNotification;
 import com.mattrubacky.monet2.data.deserialized.splatoon.StageNotifications;
 import com.mattrubacky.monet2.ui.dialog.GearPickerDialog;

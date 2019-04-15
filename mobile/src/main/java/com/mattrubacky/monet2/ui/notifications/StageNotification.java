@@ -9,8 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.ui.activities.MainActivity;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
-import com.mattrubacky.monet2.data.deserialized.splatoon.TimePeriod;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.TimePeriod;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

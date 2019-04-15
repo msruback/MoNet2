@@ -17,7 +17,7 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestRates;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestResult;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestSummary;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestTimes;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;

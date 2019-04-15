@@ -1,24 +1,18 @@
 package com.mattrubacky.monet2.data.stats;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.GearSkills;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Player;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
-import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
+import com.mattrubacky.monet2.data.combo.ClosetStatCombo;
+import com.mattrubacky.monet2.data.entity.PlayerRoom;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Ignore;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
 /**
  * Created by mattr on 10/17/2017.
@@ -26,50 +20,16 @@ import androidx.room.PrimaryKey;
  * Not a part of the Splatnet API
  */
 
-@Entity(tableName = "closet",
-        foreignKeys = {
-                @ForeignKey(entity = Gear.class,
-                        parentColumns = "id",
-                        childColumns = "gear"
-                ),
-                @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
-                        childColumns = "main"
-                ),
-                @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
-                        childColumns = "fr_sub"
-                ),
-                @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
-                        childColumns = "sc_sub"
-                ),
-                @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
-                        childColumns = "tr_sub"
-                )
-        },
-        indices = {
-                @Index(value = "gear"),
-                @Index(value = "main"),
-                @Index(value="fr_sub"),
-                @Index(value = "sc_sub"),
-                @Index(value = "tr_sub")
-        })
+
 public class GearStats extends Stats implements Parcelable{
-    @Ignore
+
     public GearStats(){
     }
-    @PrimaryKey
-    public Gear gear;
 
-    public Skill main;
-    @ColumnInfo(name = "fr_sub")
-    public Skill sub1;
-    @ColumnInfo(name = "sc_sub")
-    public Skill sub2;
-    @ColumnInfo(name = "tr_sub")
-    public Skill sub3;
+    public ClosetStatCombo closetStatCombo;
+
+    @Ignore
+    public Gear gear;
 
     @Ignore
     public GearSkills skills;
@@ -93,21 +53,8 @@ public class GearStats extends Stats implements Parcelable{
     @Ignore
     public long inked;
 
-    public GearStats(Gear gear, Skill main, Skill sub1, Skill sub2, Skill sub3){
-        this.gear = gear;
-        this.main = main;
-        this.sub1 = sub1;
-        this.sub2 = sub2;
-        this.sub3 = sub3;
-    }
 
-    @Ignore
     protected GearStats(Parcel in) {
-        gear = in.readParcelable(Gear.class.getClassLoader());
-        main = in.readParcelable(Skill.class.getClassLoader());
-        sub1 = in.readParcelable(Skill.class.getClassLoader());
-        sub2 = in.readParcelable(Skill.class.getClassLoader());
-        sub3 = in.readParcelable(Skill.class.getClassLoader());
         skills = in.readParcelable(GearSkills.class.getClassLoader());
         wins = in.readInt();
         losses = in.readInt();
@@ -118,42 +65,6 @@ public class GearStats extends Stats implements Parcelable{
         specialStats = in.createIntArray();
         numGames = in.readInt();
         inked = in.readLong();
-    }
-
-    public GearSkills getSkills(){
-        if(skills!=null){
-            skills = new GearSkills();
-            skills.main = main;
-            skills.subs = new ArrayList<>();
-            skills.subs.add(sub1);
-            skills.subs.add(sub2);
-            skills.subs.add(sub3);
-        }
-        return skills;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(gear, flags);
-        dest.writeParcelable(main, flags);
-        dest.writeParcelable(sub1, flags);
-        dest.writeParcelable(sub2, flags);
-        dest.writeParcelable(sub3, flags);
-        dest.writeParcelable(skills,flags);
-        dest.writeInt(wins);
-        dest.writeInt(losses);
-        dest.writeLong(time);
-        dest.writeIntArray(inkStats);
-        dest.writeIntArray(killStats);
-        dest.writeIntArray(deathStats);
-        dest.writeIntArray(specialStats);
-        dest.writeInt(numGames);
-        dest.writeLong(inked);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
     public static final Creator<GearStats> CREATOR = new Creator<GearStats>() {
@@ -168,15 +79,35 @@ public class GearStats extends Stats implements Parcelable{
         }
     };
 
-    @Override
-    public void calcStats(Context context) {
-        ArrayList<Battle> battles;
+    public void calcStats(List<Skill> skills) {
         ArrayList<Integer> ink,kill,death,special;
-        SplatnetSQLManager database = new SplatnetSQLManager(context);
+        List<PlayerRoom> playerRoomList = closetStatCombo.getPlayers();
 
-        battles = database.getPlayerStats(gear.id,gear.kind);
+        for(Skill skill:skills){
+            if(this.skills.main.id == skill.id){
+                this.skills.main = skill;
+            }
+            if(this.skills.subs.size()>0){
+                if(this.skills.subs.get(0).id == skill.id){
+                    this.skills.subs.remove(0);
+                    this.skills.subs.add(0,skill);
+                }
+                if(this.skills.subs.size()>1){
+                    if(this.skills.subs.get(1).id == skill.id){
+                        this.skills.subs.remove(1);
+                        this.skills.subs.add(1,skill);
+                    }
+                    if(this.skills.subs.size()>2){
+                        if(this.skills.subs.get(2).id == skill.id){
+                            this.skills.subs.remove(2);
+                            this.skills.subs.add(2,skill);
+                        }
+                    }
+                }
+            }
+        }
 
-        numGames= battles.size();
+        numGames= playerRoomList.size();
 
         inkStats = new int[5];
         killStats = new int[5];
@@ -192,30 +123,44 @@ public class GearStats extends Stats implements Parcelable{
         wins = 0;
         losses = 0;
 
-        Player player;
-        Battle battle;
-        for(int i=0;i<battles.size();i++){
-            battle = battles.get(i);
-            player = battle.user;
-
-            if(battle.result.key.equals("victory")){
+        for(PlayerRoom playerRoom:playerRoomList){
+            if(playerRoom.battleResult.equals("victory")){
                 wins++;
             }else{
                 losses++;
             }
 
-            inked+=player.points;
-            ink.add(player.points);
-            kill.add(player.kills);
-            death.add(player.deaths);
-            special.add(player.special);
+            inked+=playerRoom.point;
+            ink.add(playerRoom.point);
+            kill.add(playerRoom.kill);
+            death.add(playerRoom.death);
+            special.add(playerRoom.special);
         }
 
-        if(battles.size()>5) {
+        if(playerRoomList.size()>5) {
             inkStats = calcSpread(sort(ink));
             killStats = calcSpread(sort(kill));
             deathStats = calcSpread(sort(death));
             specialStats = calcSpread(sort(special));
         }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(skills, flags);
+        dest.writeInt(wins);
+        dest.writeInt(losses);
+        dest.writeLong(time);
+        dest.writeIntArray(inkStats);
+        dest.writeIntArray(killStats);
+        dest.writeIntArray(deathStats);
+        dest.writeIntArray(specialStats);
+        dest.writeInt(numGames);
+        dest.writeLong(inked);
     }
 }

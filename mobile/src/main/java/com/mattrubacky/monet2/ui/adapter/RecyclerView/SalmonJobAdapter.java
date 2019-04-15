@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ViewHolders.SalmonJobViewHolder;
 import com.mattrubacky.monet2.data.deserialized.splatoon.CoopResult;
-import com.mattrubacky.monet2.data.deserialized.splatoon.RewardGear;
+import com.mattrubacky.monet2.data.deserialized_entities.RewardGear;
 
 import java.util.ArrayList;
 

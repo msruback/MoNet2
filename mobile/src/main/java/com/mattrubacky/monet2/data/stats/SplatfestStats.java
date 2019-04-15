@@ -137,7 +137,6 @@ public class SplatfestStats extends Stats implements Parcelable{
         }
     };
 
-    @Override
     public void calcStats(Context context) {
         ArrayList<Integer> playerInk,playerKill,playerDeath,playerSpecial,teamInk,teamKill,teamDeath,teamSpecial;
         SplatnetSQLManager database = new SplatnetSQLManager(context);

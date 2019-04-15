@@ -6,7 +6,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
@@ -151,7 +151,6 @@ public class StageStats extends Stats implements Parcelable{
         }
     };
 
-    @Override
     public void calcStats(Context context) {
         ArrayList<Battle> battles;
         ArrayList<Integer> ink,kill,death,special;

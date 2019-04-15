@@ -16,7 +16,7 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.ResultList;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonSchedule;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Schedules;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestVotes;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Timeline;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public interface Splatnet {
             "Accept: */*",
             "Accept-Encoding: gzip, deflate",
             "Accept-Language: en-US",
-            "User-Agent: Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/55.0.2883.91 Safari/537.36",
+            "Mozilla/5.0 (Linux; Android 5.1.1; KFDOWI Build/LVY48F; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/59.0.3071.125 Safari/537.36",
             "X-Requested-With: XMLHttpRequest",
             "origin: https://app.splatoon2.nintendo.net",
             "Connection: keep-alive"

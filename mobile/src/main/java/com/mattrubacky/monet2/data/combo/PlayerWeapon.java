@@ -1,7 +1,7 @@
-package com.mattrubacky.monet2.data.rooms.combo;
+package com.mattrubacky.monet2.data.combo;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.Player;
-import com.mattrubacky.monet2.data.rooms.entity.PlayerRoom;
+import com.mattrubacky.monet2.data.entity.PlayerRoom;
 
 public class PlayerWeapon {
     public PlayerRoom player;

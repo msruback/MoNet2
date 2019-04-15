@@ -2,7 +2,7 @@ package com.mattrubacky.monet2.data.rooms.dao.entity;
 
 import android.database.sqlite.SQLiteConstraintException;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 
 import java.util.List;
 
@@ -17,6 +17,7 @@ import androidx.room.Update;
 public abstract class GearDao {
     void insertGear(Gear gear,boolean isDefault,BrandDao brandDao,SkillDao skillDao){
         brandDao.insertBrand(gear.brand,skillDao);
+        gear.generatedId = Gear.generateId(gear.kind,gear.id);
         try{
             insert(gear);
         }catch(SQLiteConstraintException e){
@@ -35,28 +36,27 @@ public abstract class GearDao {
     @Delete
     protected abstract void delete(Gear... gear);
 
-    @Query("SELECT * FROM gear WHERE id=:id")
-    abstract Gear select(int id);
+    @Query("SELECT * FROM gear WHERE gear_id=:id")
+    public abstract Gear select(int id);
 
     @Query("SELECT * FROM gear WHERE splatnet_id=:id AND kind=:kind")
-    abstract Gear select(int id, String kind);
-
-
-    @Query("SELECT * FROM gear WHERE kind='head'")
-    abstract LiveData<List<Gear>> selectHeadLive();
+    public abstract Gear select(int id, String kind);
 
     @Query("SELECT * FROM gear WHERE kind='head'")
-    abstract List<Gear> selectHead();
+    public abstract LiveData<List<Gear>> selectHeadLive();
+
+    @Query("SELECT * FROM gear WHERE kind='head'")
+    public abstract List<Gear> selectHead();
 
     @Query("SELECT * FROM gear WHERE kind='clothes'")
-    abstract LiveData<List<Gear>> selectClothesLive();
+    public abstract LiveData<List<Gear>> selectClothesLive();
 
     @Query("SELECT * FROM gear WHERE kind='clothes'")
-    abstract List<Gear> selectClothes();
+    public abstract List<Gear> selectClothes();
 
     @Query("SELECT * FROM gear WHERE kind='shoe'")
-    abstract LiveData<List<Gear>> selectShoesLive();
+    public abstract LiveData<List<Gear>> selectShoesLive();
 
     @Query("SELECT * FROM gear WHERE kind='shoe'")
-    abstract List<Gear> selectShoes();
+    public abstract List<Gear> selectShoes();
 }

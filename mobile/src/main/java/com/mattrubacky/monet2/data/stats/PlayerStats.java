@@ -67,7 +67,6 @@ public class PlayerStats extends Stats implements Parcelable {
         }
     };
 
-    @Override
     public void calcStats(Context context) {
         ArrayList<Battle> battles;
         ArrayList<Integer> ink,kill,death,special;

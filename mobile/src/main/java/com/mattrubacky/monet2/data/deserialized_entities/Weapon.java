@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.data.deserialized.splatoon;
+package com.mattrubacky.monet2.data.deserialized_entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -22,25 +22,37 @@ import androidx.room.PrimaryKey;
         foreignKeys = {
                 @ForeignKey(entity = Sub.class,
                         parentColumns = "sub_id",
-                        childColumns = "sub"),
+                        childColumns = "weapon_sub"),
                 @ForeignKey(entity = Special.class,
                         parentColumns = "special_id",
-                        childColumns = "special")
+                        childColumns = "weapon_special")
         },
         indices = {
                 @Index(name="weapon_sub",
-                        value = "sub"),
+                        value = "weapon_sub"),
                 @Index(name="weapon_special",
-                        value = "special")
+                        value = "weapon_special")
         })
 public class Weapon implements Parcelable {
+
+    //GSON constructor
     @Ignore
     public Weapon(){}
+
+    //Rooms Constructor
+    public Weapon(int id, String name, String url, Sub sub, Special special){
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.sub = sub;
+        this.special = special;
+    }
 
     @PrimaryKey
     @ColumnInfo(name="weapon_id")
     @SerializedName("id")
     public int id;
+
     @ColumnInfo(name="weapon_name")
     @SerializedName("name")
     public String name;
@@ -51,20 +63,14 @@ public class Weapon implements Parcelable {
     public String url;
 
     //The Special Weapon this weapon has
+    @ColumnInfo(name="weapon_special")
     @SerializedName("special")
     public Special special;
 
     //The Sub Weapon this weapon has
+    @ColumnInfo(name="weapon_sub")
     @SerializedName("sub")
     public Sub sub;
-
-    public Weapon(int id, String name, String url, Sub sub, Special special){
-        this.id = id;
-        this.name = name;
-        this.url = url;
-        this.sub = sub;
-        this.special = special;
-    }
 
     @Ignore
     protected Weapon(Parcel in) {

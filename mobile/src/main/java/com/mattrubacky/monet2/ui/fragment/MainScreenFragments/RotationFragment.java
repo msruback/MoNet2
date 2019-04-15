@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.mattrubacky.monet2.*;
 import com.mattrubacky.monet2.backend.WearLink;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ScheduleAdapter;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonSchedule;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Schedules;
 import com.mattrubacky.monet2.backend.viewmodels.RotationViewModel;

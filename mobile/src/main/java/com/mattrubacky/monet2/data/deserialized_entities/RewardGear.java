@@ -1,26 +1,71 @@
-package com.mattrubacky.monet2.data.deserialized.splatoon;
+package com.mattrubacky.monet2.data.deserialized_entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.sql.Date;
+import java.util.Calendar;
+
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
 /**
  * Created by mattr on 10/17/2017.
  * This class represents the gear of the month at GrizzCo
  */
+@Entity(tableName = "salmon_gear",
+        foreignKeys = {
+                @ForeignKey(entity = Gear.class,
+                        parentColumns = "gear_id",
+                        childColumns = "monthly_gear")
+        },
+        indices = {
+                @Index(name="monthly_gear",
+                        value = "monthly_gear")
+        }
+)
 public class RewardGear implements Parcelable{
+
+    //GSON constructor
+    @Ignore
     public RewardGear(){}
+
+    //Rooms constructor
+    public RewardGear(int month,Gear gear){
+        this.month = month;
+        this.gear = gear;
+    }
 
     //The first date the gear is available
     //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
+    @Ignore
     @SerializedName("available_time")
     public long available;
 
+    @PrimaryKey
+    public int month;
+
     //The gear itself
+    @ColumnInfo(name="monthly_gear")
     @SerializedName("gear")
     public Gear gear;
 
+    public static int generateId(long now){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date(now));
+        int id = cal.get(Calendar.YEAR)-2017;
+        id *= 100;
+        id += cal.get(Calendar.MONTH);
+        return id;
+    }
+
+    @Ignore
     protected RewardGear(Parcel in) {
         available = in.readLong();
         gear = in.readParcelable(Gear.class.getClassLoader());

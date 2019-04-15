@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.Schedules;
-import com.mattrubacky.monet2.data.deserialized.splatoon.TimePeriod;
+import com.mattrubacky.monet2.data.deserialized_entities.TimePeriod;
 import com.mattrubacky.monet2.data.rooms.SplatnetDatabase;
 import com.mattrubacky.monet2.data.rooms.dao.entity.StageDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.TimePeriodDao;

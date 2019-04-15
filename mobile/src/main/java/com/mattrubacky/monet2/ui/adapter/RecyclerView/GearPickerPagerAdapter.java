@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import com.mattrubacky.monet2.ui.adapter.ListView.GearPickerAdapter;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ViewHolders.ListViewViewHolder;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 
 import java.util.ArrayList;
 

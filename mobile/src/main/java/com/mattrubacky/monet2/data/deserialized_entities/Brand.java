@@ -1,12 +1,14 @@
-package com.mattrubacky.monet2.data.deserialized.splatoon;
+package com.mattrubacky.monet2.data.deserialized_entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -19,29 +21,44 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "brand",
         foreignKeys = {
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
-                        childColumns = "skill")
+                        parentColumns = "skill_id",
+                        childColumns = "brand_skill")
         },
         indices = {
                 @Index(name="brand_skill",
-                        value = "skill")
+                        value = "brand_skill")
         })
 public class Brand implements Parcelable{
+
+    //GSON constructor
+    @Ignore
     public Brand(){}
 
+    //Rooms constructor
+    public Brand(int id,String name, String url, Skill skill){
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.skill = skill;
+    }
+
     @PrimaryKey
+    @ColumnInfo(name="brand_id")
     @SerializedName("id")
     public int id;
 
     //The name of the brand
+    @ColumnInfo(name="brand_name")
     @SerializedName("name")
     public String name;
 
     //Url of the brand url
+    @ColumnInfo(name="brand_image")
     @SerializedName("image")
     public String url;
 
     //The skill the brand is most likely to roll
+    @ColumnInfo(name="brand_skill")
     @SerializedName("frequent_skill")
     public Skill skill;
 

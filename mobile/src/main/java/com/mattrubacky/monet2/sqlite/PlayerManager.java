@@ -6,16 +6,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.GearSkills;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Player;
 import com.mattrubacky.monet2.data.deserialized.splatoon.PlayerDatabase;
 import com.mattrubacky.monet2.data.deserialized.splatoon.PlayerType;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Rank;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestGrade;
 import com.mattrubacky.monet2.data.deserialized.splatoon.User;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.data.deserialized_entities.Weapon;
 
 import java.util.ArrayList;
 import java.util.HashMap;

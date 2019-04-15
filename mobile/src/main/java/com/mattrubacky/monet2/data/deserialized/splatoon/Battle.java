@@ -5,11 +5,11 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 
 import java.util.ArrayList;
 
 import androidx.room.ColumnInfo;
-import androidx.room.Ignore;
 
 
 /**
@@ -82,7 +82,7 @@ public class Battle implements Parcelable{
 
     //The time the match started
     //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
-    @SerializedName("start_time")
+    @SerializedName("battle_time")
     public Long start;
 
     //For casual modes, the "freshness" of a weapon.

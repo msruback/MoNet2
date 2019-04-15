@@ -1,4 +1,4 @@
-package com.mattrubacky.monet2.data.rooms.entity;
+package com.mattrubacky.monet2.data.entity;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestColor;
@@ -6,20 +6,33 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestColors;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestImages;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestNames;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestTimes;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 
 import java.util.List;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "splatfest")
+@Entity(tableName = "splatfest",
+        foreignKeys = {
+                @ForeignKey(entity = Stage.class,
+                        parentColumns = "stage_id",
+                        childColumns = "splatfest_stage")
+        },
+        indices = {
+                @Index(name="splatfest_stage",
+                        value = "splatfest_stage")
+        })
 public class SplatfestRoom {
     @PrimaryKey
+    @ColumnInfo(name="splatfest_id")
     public int id;
 
+    @ColumnInfo(name = "splatfest_stage")
     public Stage stage;
     @ColumnInfo(name = "announce_time")
     public long announced;

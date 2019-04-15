@@ -1,10 +1,11 @@
-package com.mattrubacky.monet2.data.deserialized.splatoon;
+package com.mattrubacky.monet2.data.deserialized_entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -15,22 +16,28 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "salmon_stage")
 public class SalmonStage implements Parcelable{
+    //GSON constructor
     @Ignore
     public SalmonStage(){}
 
-    @PrimaryKey
-    public int id;
-
-    @SerializedName("name")
-    public String name;
-    @SerializedName("image")
-    public String url;
-
+    //Rooms constructor
     public SalmonStage(int id, String name, String url){
         this.id = id;
         this.name = name;
         this.url = url;
     }
+
+    @PrimaryKey
+    @ColumnInfo(name="salmon_stage_id")
+    public int id;
+
+    @ColumnInfo(name="salmon_stage_name")
+    @SerializedName("name")
+    public String name;
+
+    @ColumnInfo(name="salmon_stage_image")
+    @SerializedName("image")
+    public String url;
 
     @Ignore
     protected SalmonStage(Parcel in) {

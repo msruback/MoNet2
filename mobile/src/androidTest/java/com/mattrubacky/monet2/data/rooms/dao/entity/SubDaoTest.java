@@ -3,7 +3,7 @@ package com.mattrubacky.monet2.data.rooms.dao.entity;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Sub;
+import com.mattrubacky.monet2.data.deserialized_entities.Sub;
 import com.mattrubacky.monet2.data.rooms.TestDatabase;
 import com.mattrubacky.monet2.testutils.DeserializedHelper;
 

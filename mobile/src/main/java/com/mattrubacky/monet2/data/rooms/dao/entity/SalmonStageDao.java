@@ -1,6 +1,8 @@
 package com.mattrubacky.monet2.data.rooms.dao.entity;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonStage;
+import android.database.sqlite.SQLiteConstraintException;
+
+import com.mattrubacky.monet2.data.deserialized_entities.SalmonStage;
 
 import java.util.List;
 
@@ -12,19 +14,28 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 @Dao
-public interface SalmonStageDao {
+public abstract class SalmonStageDao {
+
+    void insertSalmonStage(SalmonStage salmonStage){
+        salmonStage.id = SalmonStage.generateId(salmonStage.name);
+        try{
+            insert(salmonStage);
+        }catch (SQLiteConstraintException e){
+        }
+    }
+
     @Insert
-    void insert(SalmonStage... stage);
+    abstract void insert(SalmonStage... stage);
 
     @Update
-    void update(SalmonStage... stage);
+    abstract void update(SalmonStage... stage);
 
     @Delete
-    void delete(SalmonStage... stage);
+    abstract void delete(SalmonStage... stage);
 
     @Query("SELECT * FROM salmon_stage")
-    LiveData<List<SalmonStage>> selectAll();
+    public abstract LiveData<List<SalmonStage>> selectAll();
 
-    @Query("SELECT * FROM salmon_stage WHERE id=:id")
-    SalmonStage select(int id);
+    @Query("SELECT * FROM salmon_stage WHERE salmon_stage_id=:id")
+    public abstract SalmonStage select(int id);
 }

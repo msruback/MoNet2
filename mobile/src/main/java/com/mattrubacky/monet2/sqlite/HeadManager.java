@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Brand;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Brand;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 
 import java.util.ArrayList;
 import java.util.HashMap;

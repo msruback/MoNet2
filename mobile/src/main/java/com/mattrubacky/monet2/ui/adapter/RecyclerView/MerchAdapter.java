@@ -21,6 +21,7 @@ import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -29,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MerchAdapter extends RecyclerView.Adapter<MerchViewHolder>{
 
-    private ArrayList<Product> input = new ArrayList<Product>();
+    private ArrayList<Product> input;
     private LayoutInflater inflater;
     private Context context;
     private Activity activity;
@@ -44,7 +45,8 @@ public class MerchAdapter extends RecyclerView.Adapter<MerchViewHolder>{
 
     }
     @Override
-    public MerchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public MerchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         MerchViewHolder viewHolder = new MerchViewHolder(inflater,parent,context);
         viewHolder.itemView.setOnClickListener(onClickListener);
         viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -59,7 +61,7 @@ public class MerchAdapter extends RecyclerView.Adapter<MerchViewHolder>{
 
                 if(hanger.gear!=null) {
 
-                    hanger.calcStats(context);
+                    //hanger.calcStats(context);
 
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("stats", hanger);
@@ -76,7 +78,7 @@ public class MerchAdapter extends RecyclerView.Adapter<MerchViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(final MerchViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MerchViewHolder holder, final int position) {
         Product product  = input.get(position);
         holder.manageHolder(product);
     }

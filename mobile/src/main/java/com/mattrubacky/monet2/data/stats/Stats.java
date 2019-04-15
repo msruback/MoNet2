@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public abstract class Stats {
 
-    public abstract void calcStats(Context context);
 
     protected ArrayList<Integer> sort(ArrayList<Integer> data){
         if(data.size()<=1){

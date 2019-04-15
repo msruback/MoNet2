@@ -5,7 +5,7 @@ import androidx.test.filters.SmallTest;
 
 import com.google.common.collect.Range;
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
 import com.mattrubacky.monet2.data.rooms.TestDatabase;
 import com.mattrubacky.monet2.testutils.DeserializedHelper;
 

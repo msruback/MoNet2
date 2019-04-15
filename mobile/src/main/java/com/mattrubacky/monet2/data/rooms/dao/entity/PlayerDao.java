@@ -2,11 +2,8 @@ package com.mattrubacky.monet2.data.rooms.dao.entity;
 
 import android.database.sqlite.SQLiteConstraintException;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Player;
-import com.mattrubacky.monet2.data.rooms.combo.BattlePlayer;
-import com.mattrubacky.monet2.data.rooms.combo.PlayerWeapon;
-import com.mattrubacky.monet2.data.rooms.entity.PlayerRoom;
+import com.mattrubacky.monet2.data.combo.PlayerWeapon;
+import com.mattrubacky.monet2.data.entity.PlayerRoom;
 
 import java.util.List;
 

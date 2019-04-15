@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ViewHolders.RegularTimePeriodViewHolder;
-import com.mattrubacky.monet2.data.deserialized.splatoon.TimePeriod;
+import com.mattrubacky.monet2.data.deserialized_entities.TimePeriod;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

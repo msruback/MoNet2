@@ -10,9 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
-import com.mattrubacky.monet2.data.deserialized.splatoon.GearSkills;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
 import com.mattrubacky.monet2.ui.dialog.GearPickerDialog;
 import com.mattrubacky.monet2.ui.dialog.SkillPickerDialog;
 import com.mattrubacky.monet2.data.stats.GearStats;
@@ -105,8 +104,8 @@ public class AddGear extends AppCompatActivity {
             gearInput.setText(hanger.gear.name);
 
             ImageHandler imageHandler = new ImageHandler();
-            String dirName = hanger.getSkills().main.name.toLowerCase().replaceAll(" ","_");
-            String url = "https://app.splatoon2.nintendo.net" +hanger.getSkills().main.url;
+            String dirName = hanger.skills.main.name.toLowerCase().replaceAll(" ","_");
+            String url = "https://app.splatoon2.nintendo.net" +hanger.skills.main.url;
             if(imageHandler.imageExists("ability",dirName,getApplicationContext())){
                 main.setImageBitmap(imageHandler.loadImage("ability",dirName));
             }else{
@@ -114,9 +113,9 @@ public class AddGear extends AppCompatActivity {
                 imageHandler.downloadImage("ability",dirName,url,getApplicationContext());
             }
 
-            if(hanger.getSkills().subs.size()>0&&hanger.getSkills().subs.get(0)!=null) {
-                dirName = hanger.getSkills().subs.get(0).name.toLowerCase().replaceAll(" ", "_");
-                url = "https://app.splatoon2.nintendo.net" + hanger.getSkills().main.url;
+            if(hanger.skills.subs.size()>0&&hanger.skills.subs.get(0)!=null) {
+                dirName = hanger.skills.subs.get(0).name.toLowerCase().replaceAll(" ", "_");
+                url = "https://app.splatoon2.nintendo.net" + hanger.skills.main.url;
                 if (imageHandler.imageExists("ability", dirName, getApplicationContext())) {
                     sub1.setImageBitmap(imageHandler.loadImage("ability", dirName));
                 } else {
@@ -124,9 +123,9 @@ public class AddGear extends AppCompatActivity {
                     imageHandler.downloadImage("ability", dirName, url, getApplicationContext());
                 }
             }
-            if(hanger.getSkills().subs.size()>1&&hanger.getSkills().subs.get(1)!=null) {
-                dirName = hanger.getSkills().subs.get(1).name.toLowerCase().replaceAll(" ", "_");
-                url = "https://app.splatoon2.nintendo.net" + hanger.getSkills().main.url;
+            if(hanger.skills.subs.size()>1&&hanger.skills.subs.get(1)!=null) {
+                dirName = hanger.skills.subs.get(1).name.toLowerCase().replaceAll(" ", "_");
+                url = "https://app.splatoon2.nintendo.net" + hanger.skills.main.url;
                 if (imageHandler.imageExists("ability", dirName, getApplicationContext())) {
                     sub2.setImageBitmap(imageHandler.loadImage("ability", dirName));
                 } else {
@@ -134,9 +133,9 @@ public class AddGear extends AppCompatActivity {
                     imageHandler.downloadImage("ability", dirName, url, getApplicationContext());
                 }
             }
-            if(hanger.getSkills().subs.size()>2&&hanger.getSkills().subs.get(2)!=null) {
-                dirName = hanger.getSkills().subs.get(2).name.toLowerCase().replaceAll(" ", "_");
-                url = "https://app.splatoon2.nintendo.net" + hanger.getSkills().main.url;
+            if(hanger.skills.subs.size()>2&&hanger.skills.subs.get(2)!=null) {
+                dirName = hanger.skills.subs.get(2).name.toLowerCase().replaceAll(" ", "_");
+                url = "https://app.splatoon2.nintendo.net" + hanger.skills.main.url;
                 if (imageHandler.imageExists("ability", dirName, getApplicationContext())) {
                     sub3.setImageBitmap(imageHandler.loadImage("ability", dirName));
                 } else {
@@ -155,7 +154,7 @@ public class AddGear extends AppCompatActivity {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         Skill skill = skillPickerDialog.getResult();
-                        hanger.getSkills().main = skill;
+                        hanger.skills.main = skill;
                         ImageHandler imageHandler = new ImageHandler();
                         String dirName = skill.name.toLowerCase().replaceAll(" ","_");
                         String url = "https://app.splatoon2.nintendo.net" +skill.url;
@@ -179,8 +178,8 @@ public class AddGear extends AppCompatActivity {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         Skill skill = skillPickerDialog.getResult();
-                        hanger.getSkills().subs.remove(0);
-                        hanger.getSkills().subs.add(0,skill);
+                        hanger.skills.subs.remove(0);
+                        hanger.skills.subs.add(0,skill);
                         ImageHandler imageHandler = new ImageHandler();
                         String dirName = skill.name.toLowerCase().replaceAll(" ","_");
                         String url = "https://app.splatoon2.nintendo.net" +skill.url;
@@ -204,8 +203,8 @@ public class AddGear extends AppCompatActivity {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         Skill skill = skillPickerDialog.getResult();
-                        hanger.getSkills().subs.remove(1);
-                        hanger.getSkills().subs.add(1,skill);
+                        hanger.skills.subs.remove(1);
+                        hanger.skills.subs.add(1,skill);
                         ImageHandler imageHandler = new ImageHandler();
                         String dirName = skill.name.toLowerCase().replaceAll(" ","_");
                         String url = "https://app.splatoon2.nintendo.net" +skill.url;
@@ -229,8 +228,8 @@ public class AddGear extends AppCompatActivity {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         Skill skill = skillPickerDialog.getResult();
-                        hanger.getSkills().subs.remove(2);
-                        hanger.getSkills().subs.add(2,skill);
+                        hanger.skills.subs.remove(2);
+                        hanger.skills.subs.add(2,skill);
                         ImageHandler imageHandler = new ImageHandler();
                         String dirName = skill.name.toLowerCase().replaceAll(" ","_");
                         String url = "https://app.splatoon2.nintendo.net" +skill.url;
@@ -255,7 +254,7 @@ public class AddGear extends AppCompatActivity {
                 if(isEdit){
                     Intent intent = new Intent(AddGear.this, ClosetDetail.class);
                     Bundle intentBundle = new Bundle();
-                    hanger.calcStats(getApplicationContext());
+                    //hanger.calcStats();
                     intentBundle.putParcelable("stats",hanger);
                     intent.putExtras(intentBundle);
                     startActivity(intent);

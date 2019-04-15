@@ -1,142 +1,37 @@
-package com.mattrubacky.monet2.data.rooms.entity;
+package com.mattrubacky.monet2.data.entity;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.data.deserialized.splatoon.KeyName;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestColor;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestGrade;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 import com.mattrubacky.monet2.data.deserialized.splatoon.TeamTheme;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
-
-import java.util.List;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "battle",
         foreignKeys = {
             @ForeignKey(entity = SplatfestRoom.class,
-                    parentColumns = "id",
-                    childColumns = "fes_id")
+                    parentColumns = "splatfest_id",
+                    childColumns = "fes_id"),
+            @ForeignKey(entity = Stage.class,
+                    parentColumns = "stage_id",
+                    childColumns = "stage")
+        },
+        indices = {
+                @Index(name="battle_splatfest",
+                        value = "fes_id"),
+                @Index(name="battle_stage",
+                        value = "stage")
         })
 public class BattleRoom {
 
-    @PrimaryKey
-    public int id;
-
-    @ColumnInfo(name = "event_type")
-    public KeyName eventType;
-    public KeyName rule;
-    public String type;
-    @ColumnInfo(name = "fes_mode")
-    public KeyName fesMode;
-    public Stage stage;
-    public KeyName result;
-    public Long time;
-    public Long start;
-    @ColumnInfo(name = "win_meter")
-    public Float winMeter;
-    @ColumnInfo(name = "my_team_count")
-    public int myTeamCount;
-    @ColumnInfo(name = "other_team_count")
-    public int otherTeamCount;
-    @ColumnInfo(name = "my_team_percent")
-    public float myTeamPercent;
-    @ColumnInfo(name = "other_team_percent")
-    public float otherTeamPercent;
-    @ColumnInfo(name = "uniform_bonus")
-    public float uniformBonus;
-
-    @ColumnInfo(name = "fes_id")
-    public int fesId;
-
-    @ColumnInfo(name = "my_fes_power")
-    public int myFesPower;
-    @ColumnInfo(name = "my_consecutive_wins")
-    public int myConsecutiveWins;
-    @ColumnInfo(name = "my_team_name")
-    public String myTeamName;
-
-    @ColumnInfo(name = "other_fes_power")
-    public int otherFesPower;
-    @ColumnInfo(name = "other_consecutive_wins")
-    public int otherConsecutiveWins;
-    @ColumnInfo(name = "other_team_name")
-    public String otherTeamName;
-
-    @ColumnInfo(name = "fes_point")
-    public int fesPoint;
-
-    @ColumnInfo(name = "fes_grade")
-    public SplatfestGrade grade;
-
-    @ColumnInfo(name = "contribution_point")
-    public int contributionPoint;
-
-    @ColumnInfo(name = "estimate_gachi_power")
-    public int gachiPower;
-
-    @ColumnInfo(name = "my_color")
-    public String myColor;
-
-    @ColumnInfo(name = "my_side_key")
-    public String myFesTeamKey;
-
-    @ColumnInfo(name = "my_side_name")
-    public String myFesTeamName;
-
-    @ColumnInfo(name = "other_color")
-    public String otherColor;
-
-    @ColumnInfo(name = "other_side_key")
-    public String otherFesTeamKey;
-
-    @ColumnInfo(name = "other_side_name")
-    public String otherFesTeamName;
-
-    public BattleRoom(int id, KeyName eventType, KeyName rule, String type, KeyName fesMode, Stage stage, KeyName result,
-                      int myTeamCount, int otherTeamCount, float myTeamPercent, float otherTeamPercent, float uniformBonus,
-                      long time, long start, float winMeter, int fesId, int myFesPower, int myConsecutiveWins, String myTeamName,
-                      int otherFesPower, int otherConsecutiveWins, String otherTeamName, int fesPoint, SplatfestGrade splatfestGrade,
-                      int contributionPoint, int gachiPower, String myColor, String myFesTeamKey, String myFesTeamName, String otherColor,
-                      String otherFesTeamKey, String otherFesTeamName){
-        this.id = id;
-        this.eventType = eventType;
-        this.rule = rule;
-        this.type = type;
-        this.fesMode = fesMode;
-        this.stage = stage;
-        this.result = result;
-        this.myTeamCount = myTeamCount;
-        this.otherTeamCount = otherTeamCount;
-        this.myTeamPercent = myTeamPercent;
-        this.otherTeamPercent = otherTeamPercent;
-        this.uniformBonus = uniformBonus;
-        this.time = time;
-        this.start = start;
-        this.winMeter = winMeter;
-        this.fesId = fesId;
-        this.myFesPower = myFesPower;
-        this.myConsecutiveWins = myConsecutiveWins;
-        this.myTeamName = myTeamName;
-        this.otherFesPower = otherFesPower;
-        this.otherConsecutiveWins = otherConsecutiveWins;
-        this.otherTeamName = otherTeamName;
-        this.fesPoint = fesPoint;
-        this.grade = splatfestGrade;
-        this.contributionPoint = contributionPoint;
-        this.gachiPower = gachiPower;
-        this.myColor = myColor;
-        this.myFesTeamKey = myFesTeamKey;
-        this.myFesTeamName = myFesTeamName;
-        this.otherColor = otherColor;
-        this.otherFesTeamKey = otherFesTeamKey;
-        this.otherFesTeamName = otherFesTeamName;
-    }
-
+    //Constructor to translate from Deserialized to Room
     @Ignore
     public BattleRoom(Battle battle){
         this.id = battle.id;
@@ -189,6 +84,137 @@ public class BattleRoom {
 
         }
     }
+
+    //Rooms Constructor
+    public BattleRoom(int id, KeyName eventType, KeyName rule, String type, KeyName fesMode, Stage stage, KeyName result,
+                      long time, long start, float winMeter, int myTeamCount, int otherTeamCount, float myTeamPercent,
+                      float otherTeamPercent, float uniformBonus, int fesId, int myFesPower, int myConsecutiveWins, String myTeamName,
+                      int otherFesPower, int otherConsecutiveWins, String otherTeamName, int fesPoint, SplatfestGrade grade,
+                      int contributionPoint, int gachiPower, String myColor, String myFesTeamKey, String myFesTeamName, String otherColor,
+                      String otherFesTeamKey, String otherFesTeamName){
+        this.id = id;
+        this.eventType = eventType;
+        this.rule = rule;
+        this.type = type;
+        this.fesMode = fesMode;
+        this.stage = stage;
+        this.result = result;
+        this.myTeamCount = myTeamCount;
+        this.otherTeamCount = otherTeamCount;
+        this.myTeamPercent = myTeamPercent;
+        this.otherTeamPercent = otherTeamPercent;
+        this.uniformBonus = uniformBonus;
+        this.time = time;
+        this.start = start;
+        this.winMeter = winMeter;
+        this.fesId = fesId;
+        this.myFesPower = myFesPower;
+        this.myConsecutiveWins = myConsecutiveWins;
+        this.myTeamName = myTeamName;
+        this.otherFesPower = otherFesPower;
+        this.otherConsecutiveWins = otherConsecutiveWins;
+        this.otherTeamName = otherTeamName;
+        this.fesPoint = fesPoint;
+        this.grade = grade;
+        this.contributionPoint = contributionPoint;
+        this.gachiPower = gachiPower;
+        this.myColor = myColor;
+        this.myFesTeamKey = myFesTeamKey;
+        this.myFesTeamName = myFesTeamName;
+        this.otherColor = otherColor;
+        this.otherFesTeamKey = otherFesTeamKey;
+        this.otherFesTeamName = otherFesTeamName;
+    }
+
+    @PrimaryKey
+    public int id;
+
+    @ColumnInfo(name = "event_type")
+    public KeyName eventType;
+
+    public KeyName rule;
+
+    public String type;
+
+    @ColumnInfo(name = "fes_mode")
+    public KeyName fesMode;
+
+    public Stage stage;
+
+    public KeyName result;
+
+    public Long time;
+
+    public Long start;
+
+    @ColumnInfo(name = "win_meter")
+    public Float winMeter;
+
+    @ColumnInfo(name = "my_team_count")
+    public int myTeamCount;
+
+    @ColumnInfo(name = "other_team_count")
+    public int otherTeamCount;
+
+    @ColumnInfo(name = "my_team_percent")
+    public float myTeamPercent;
+
+    @ColumnInfo(name = "other_team_percent")
+    public float otherTeamPercent;
+
+    @ColumnInfo(name = "uniform_bonus")
+    public float uniformBonus;
+
+    @ColumnInfo(name = "fes_id")
+    public int fesId;
+
+    @ColumnInfo(name = "my_fes_power")
+    public int myFesPower;
+
+    @ColumnInfo(name = "my_consecutive_wins")
+    public int myConsecutiveWins;
+
+    @ColumnInfo(name = "my_team_name")
+    public String myTeamName;
+
+    @ColumnInfo(name = "other_fes_power")
+    public int otherFesPower;
+
+    @ColumnInfo(name = "other_consecutive_wins")
+    public int otherConsecutiveWins;
+
+    @ColumnInfo(name = "other_team_name")
+    public String otherTeamName;
+
+    @ColumnInfo(name = "fes_point")
+    public int fesPoint;
+
+    @ColumnInfo(name = "fes_grade")
+    public SplatfestGrade grade;
+
+    @ColumnInfo(name = "contribution_point")
+    public int contributionPoint;
+
+    @ColumnInfo(name = "estimate_gachi_power")
+    public int gachiPower;
+
+    @ColumnInfo(name = "my_color")
+    public String myColor;
+
+    @ColumnInfo(name = "my_side_key")
+    public String myFesTeamKey;
+
+    @ColumnInfo(name = "my_side_name")
+    public String myFesTeamName;
+
+    @ColumnInfo(name = "other_color")
+    public String otherColor;
+
+    @ColumnInfo(name = "other_side_key")
+    public String otherFesTeamKey;
+
+    @ColumnInfo(name = "other_side_name")
+    public String otherFesTeamName;
 
     public Battle toDeserialized(){
         Battle battle = new Battle();

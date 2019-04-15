@@ -1,9 +1,10 @@
-package com.mattrubacky.monet2.data.deserialized.splatoon;
+package com.mattrubacky.monet2.data.deserialized_entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.data.deserialized.splatoon.KeyName;
 
 import java.util.Calendar;
 
@@ -21,10 +22,10 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "time_period",
         foreignKeys = {
                 @ForeignKey(entity = Stage.class,
-                        parentColumns = "id",
+                        parentColumns = "stage_id",
                         childColumns = "a"),
                 @ForeignKey(entity = Stage.class,
-                        parentColumns = "id",
+                        parentColumns = "stage_id",
                         childColumns = "b")
         },
         indices = {
@@ -35,10 +36,10 @@ import androidx.room.PrimaryKey;
         }
 )
 public class TimePeriod implements Parcelable {
-    //Default Constructor for Gson
+    //GSON constructor
     @Ignore
     public TimePeriod() {}
-    //Constructor for Rooms
+    //Rooms constructor
     public TimePeriod(int id, long start, long end, KeyName rule, KeyName mode, Stage a, Stage b) {
         this.id = id;
         this.start = start;
@@ -48,31 +49,44 @@ public class TimePeriod implements Parcelable {
         this.a = a;
         this.b = b;
     }
-    //Constructor for Testing Gson
-    @Ignore
-    public TimePeriod(String[][] csv){
-        if(csv.length==3){
-            this.id = Integer.valueOf(csv[0][0]);
-            this.start = Long.valueOf(csv[0][1]);
-            this.end = Long.valueOf(csv[0][2]);
-            this.rule = new KeyName();
-            this.rule.key = csv[0][3];
-            this.mode = new KeyName();
-            this.mode.key = csv[0][4];
-            this.a = new Stage(csv[1]);
-            this.b = new Stage(csv[2]);
-        }
-    }
-    //Constructor for Parcelable
-    @Ignore
-    protected TimePeriod(Parcel in) {
-        mode = in.readParcelable(KeyName.class.getClassLoader());
-        rule = in.readParcelable(KeyName.class.getClassLoader());
-        b = in.readParcelable(Stage.class.getClassLoader());
-        a = in.readParcelable(Stage.class.getClassLoader());
-        start = in.readLong();
-        end = in.readLong();
-    }
+
+    //I made the mistake of annotating this once, and for some godforsaken reason GSON won't learn that it isn't annotated any more
+    @PrimaryKey
+    @ColumnInfo(name="time_period_id")
+    @SerializedName("gson is fucking stupid and refuses to understand that this field isn't annotated")
+    public int id;
+
+    @SerializedName("id")
+    public long trash;
+
+    //The mode the TimePeriod is in
+    @ColumnInfo(name = "time_period_mode")
+    @SerializedName("game_mode")
+    public KeyName mode;
+
+    //The rule available during this TimePeriod
+    @ColumnInfo(name="time_period_rule")
+    @SerializedName("rule")
+    public KeyName rule;
+
+    //A Stage available in this TimePeriod
+    @SerializedName("stage_a")
+    public Stage a;
+    //Another Stage available in this TimePeriod
+    @SerializedName("stage_b")
+    public Stage b;
+
+    //The time this TimePeriod starts
+    //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
+    @ColumnInfo(name = "start_time")
+    @SerializedName("start_time")
+    public Long start;
+
+    //The time this TimePeriod ends
+    //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
+    @ColumnInfo(name = "end_time")
+    @SerializedName("end_time")
+    public Long end;
 
     public static int generateId(long start,String mode){
         Calendar cal = Calendar.getInstance();
@@ -99,40 +113,16 @@ public class TimePeriod implements Parcelable {
         return id;
     }
 
-    //I made the mistake of annotating this once, and for some godforsaken reason GSON won't learn that it isn't annotated any more
-    @PrimaryKey
-    @SerializedName("gson is fucking stupid and refuses to understand that this field isn't annotated")
-    public int id;
-
-    @SerializedName("id")
-    public long trash;
-
-    //The mode the TimePeriod is in
-    @SerializedName("game_mode")
-    public KeyName mode;
-
-    //The rule available during this TimePeriod
-    @SerializedName("rule")
-    public KeyName rule;
-
-    //A Stage available in this TimePeriod
-    @SerializedName("stage_a")
-    public Stage a;
-    //Another Stage available in this TimePeriod
-    @SerializedName("stage_b")
-    public Stage b;
-
-    //The time this TimePeriod starts
-    //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
-    @ColumnInfo(name = "start_time")
-    @SerializedName("start_time")
-    public Long start;
-
-    //The time this TimePeriod ends
-    //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
-    @ColumnInfo(name = "end_time")
-    @SerializedName("end_time")
-    public Long end;
+    //Constructor for Parcelable
+    @Ignore
+    protected TimePeriod(Parcel in) {
+        mode = in.readParcelable(KeyName.class.getClassLoader());
+        rule = in.readParcelable(KeyName.class.getClassLoader());
+        b = in.readParcelable(Stage.class.getClassLoader());
+        a = in.readParcelable(Stage.class.getClassLoader());
+        start = in.readLong();
+        end = in.readLong();
+    }
 
 
     public static final Creator<TimePeriod> CREATOR = new Creator<TimePeriod>() {

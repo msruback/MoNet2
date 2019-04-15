@@ -2,7 +2,7 @@ package com.mattrubacky.monet2.data.rooms.dao.entity;
 
 import android.database.sqlite.SQLiteConstraintException;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Special;
+import com.mattrubacky.monet2.data.deserialized_entities.Special;
 
 import java.util.List;
 

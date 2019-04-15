@@ -10,7 +10,7 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.KeyName;
 import com.mattrubacky.monet2.data.deserialized.splatoon.PlayerDatabase;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestColor;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestGrade;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 import com.mattrubacky.monet2.data.deserialized.splatoon.TeamTheme;
 
 import java.util.ArrayList;

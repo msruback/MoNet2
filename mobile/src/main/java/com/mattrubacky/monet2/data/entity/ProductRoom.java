@@ -1,22 +1,31 @@
-package com.mattrubacky.monet2.data.rooms.entity;
+package com.mattrubacky.monet2.data.entity;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
+import com.mattrubacky.monet2.data.deserialized.splatoon.Ordered;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Product;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "products",
         foreignKeys = {
                 @ForeignKey(entity = Gear.class,
-                        parentColumns = "id",
+                        parentColumns = "gear_id",
                         childColumns = "gear"),
                 @ForeignKey(entity = Skill.class,
-                        parentColumns = "id",
+                        parentColumns = "skill_id",
                         childColumns = "skill")
+        },
+        indices = {
+                @Index(name="product_gear",
+                        value = "gear"),
+                @Index(name="product_skill",
+                    value = "skill")
         })
 public class ProductRoom {
 
@@ -37,7 +46,16 @@ public class ProductRoom {
         this.skill = product.skill;
     }
 
+    @Ignore
+    public ProductRoom(Ordered ordered){
+        this.id = "-1";
+        this.price = ordered.price;
+        this.gear = ordered.gear;
+        this.skill = ordered.skill;
+    }
+
     @PrimaryKey
+    @NonNull
     public String id;
 
     public String price;

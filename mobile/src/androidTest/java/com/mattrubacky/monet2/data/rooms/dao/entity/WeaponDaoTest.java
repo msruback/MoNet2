@@ -4,11 +4,9 @@ import android.content.Context;
 import androidx.test.filters.SmallTest;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.data.deserialized_entities.Weapon;
 import com.mattrubacky.monet2.data.rooms.TestDatabase;
-import com.mattrubacky.monet2.data.rooms.combo.WeaponCombo;
+import com.mattrubacky.monet2.data.combo.WeaponCombo;
 import com.mattrubacky.monet2.testutils.DeserializedHelper;
 
 import org.junit.After;

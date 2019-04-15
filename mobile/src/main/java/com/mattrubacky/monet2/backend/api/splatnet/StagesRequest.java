@@ -2,7 +2,7 @@ package com.mattrubacky.monet2.backend.api.splatnet;
 
 import android.os.Bundle;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 
 import java.util.ArrayList;
 

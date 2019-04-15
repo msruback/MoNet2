@@ -7,7 +7,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Player;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.data.deserialized_entities.Weapon;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
@@ -113,7 +113,6 @@ public class WeaponStats extends Stats implements Parcelable{
         dest.writeLong(numGames);
     }
 
-    @Override
     public void calcStats(Context context) {
         ArrayList<Battle> battles;
         ArrayList<Integer> ink,kill,death,special;

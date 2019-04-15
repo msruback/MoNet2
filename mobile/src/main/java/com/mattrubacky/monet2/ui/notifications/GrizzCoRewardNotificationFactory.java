@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.data.deserialized.splatoon.RewardGear;
+import com.mattrubacky.monet2.data.deserialized_entities.RewardGear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Timeline;
 
 import java.util.ArrayList;

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.RankedRotationAdapter;
-import com.mattrubacky.monet2.data.deserialized.splatoon.TimePeriod;
+import com.mattrubacky.monet2.data.deserialized_entities.TimePeriod;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;

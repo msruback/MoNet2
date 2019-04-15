@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.ui.adapter.ListView.NavAdapter;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.PastSplatfest;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Record;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Timeline;

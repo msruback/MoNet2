@@ -3,7 +3,7 @@ package com.mattrubacky.monet2.data.rooms.dao.entity;
 import android.database.sqlite.SQLiteConstraintException;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.data.rooms.combo.BattlePlayer;
+import com.mattrubacky.monet2.data.combo.BattlePlayer;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public abstract class BattleDao {
     @Delete
     abstract void delete(Battle... battle);
 
-    @Query("SELECT * FROM battle JOIN player ON player.battleId = battle.id JOIN weapon ON player.weapon = weapon.id JOIN stage ON battle.stage = stage.id WHERE player.playerType = 0")
+    @Query("SELECT * FROM battle JOIN player ON battleId = id JOIN weapon ON weapon = weapon_id JOIN stage ON stage = stage_id WHERE playerType = 0")
     abstract List<BattlePlayer> selectAll();
     
 }

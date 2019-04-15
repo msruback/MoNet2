@@ -8,9 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.mattrubacky.monet2.data.deserialized.splatoon.BossCount;
 import com.mattrubacky.monet2.data.deserialized.splatoon.GrizzCoBossKills;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunDetail;
-import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunWeapon;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Special;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.data.deserialized_entities.SalmonRunWeapon;
+import com.mattrubacky.monet2.data.deserialized_entities.Special;
+import com.mattrubacky.monet2.data.deserialized_entities.Weapon;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Worker;
 
 import java.util.ArrayList;

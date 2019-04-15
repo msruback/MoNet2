@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.data.deserialized_entities.Weapon;
 
 /**
  * Created by mattr on 12/1/2017.

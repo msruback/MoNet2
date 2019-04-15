@@ -45,7 +45,7 @@ public class GearAdapter extends RecyclerView.Adapter<GearViewHolder>{
                 Bundle bundle = new Bundle();
                 GearStats hanger = input.get(itemPosition);
 
-                hanger.calcStats(context);
+                //hanger.calcStats(context);
 
                 bundle.putParcelable("stats",hanger);
                 intent.putExtras(bundle);

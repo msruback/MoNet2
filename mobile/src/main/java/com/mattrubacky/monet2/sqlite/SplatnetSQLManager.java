@@ -6,17 +6,17 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.data.deserialized.splatoon.CoopResult;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.GearSkills;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Player;
-import com.mattrubacky.monet2.data.deserialized.splatoon.RewardGear;
+import com.mattrubacky.monet2.data.deserialized_entities.RewardGear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunDetail;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestDatabase;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestResult;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Weapon;
 import com.mattrubacky.monet2.data.stats.GearStats;
 
 import java.sql.Date;

@@ -4,7 +4,7 @@ import android.content.Context;
 import androidx.test.filters.SmallTest;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 import com.mattrubacky.monet2.data.rooms.TestDatabase;
 import com.mattrubacky.monet2.testutils.DeserializedHelper;
 

@@ -2,16 +2,21 @@ package com.mattrubacky.monet2.data.rooms;
 
 import android.content.Context;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Brand;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Gear;
-import com.mattrubacky.monet2.data.deserialized.splatoon.GearSkills;
-import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonStage;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Skill;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Special;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Sub;
-import com.mattrubacky.monet2.data.deserialized.splatoon.TimePeriod;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
+import com.mattrubacky.monet2.data.deserialized_entities.Brand;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.RewardGear;
+import com.mattrubacky.monet2.data.deserialized_entities.SalmonRunWeapon;
+import com.mattrubacky.monet2.data.deserialized_entities.SalmonStage;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
+import com.mattrubacky.monet2.data.deserialized_entities.Special;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
+import com.mattrubacky.monet2.data.deserialized_entities.Sub;
+import com.mattrubacky.monet2.data.deserialized_entities.TimePeriod;
+import com.mattrubacky.monet2.data.deserialized_entities.Weapon;
+import com.mattrubacky.monet2.data.entity.BattleRoom;
+import com.mattrubacky.monet2.data.entity.ClosetRoom;
+import com.mattrubacky.monet2.data.entity.PlayerRoom;
+import com.mattrubacky.monet2.data.entity.ProductRoom;
 import com.mattrubacky.monet2.data.rooms.dao.entity.BrandDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.ClosetDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.GearDao;
@@ -27,22 +32,19 @@ import com.mattrubacky.monet2.data.rooms.dao.entity.StageDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.SubDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.TimePeriodDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.WeaponDao;
-import com.mattrubacky.monet2.data.rooms.entity.SalmonGearRoom;
-import com.mattrubacky.monet2.data.rooms.entity.SalmonShiftRoom;
-import com.mattrubacky.monet2.data.rooms.entity.SalmonWeaponRoom;
-import com.mattrubacky.monet2.data.rooms.entity.SplatfestResultRoom;
-import com.mattrubacky.monet2.data.rooms.entity.SplatfestRoom;
-import com.mattrubacky.monet2.data.stats.GearStats;
+import com.mattrubacky.monet2.data.entity.SalmonShiftRoom;
+import com.mattrubacky.monet2.data.entity.SplatfestResultRoom;
+import com.mattrubacky.monet2.data.entity.SplatfestRoom;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-@Database(entities = {  Brand.class, GearStats.class, Gear.class, SalmonGearRoom.class,
-                        SalmonShiftRoom.class, SalmonStage.class, SalmonWeaponRoom.class, Skill.class,
-                        Special.class, SplatfestResultRoom.class, SplatfestRoom.class, Stage.class,
-                        Sub.class, TimePeriod.class, Weapon.class},version=1,exportSchema = false)
+@Database(entities = {  Brand.class, Gear.class, RewardGear.class, SalmonRunWeapon.class, SalmonStage.class,
+                        Skill.class, Special.class, Stage.class, Sub.class, TimePeriod.class, Weapon.class,
+                        BattleRoom.class, ClosetRoom.class, PlayerRoom.class, ProductRoom.class, SalmonShiftRoom.class,
+                        SplatfestResultRoom.class, SplatfestRoom.class},version=1,exportSchema = false)
 @TypeConverters({SplatnetConverters.class})
 public abstract class SplatnetDatabase extends RoomDatabase {
 

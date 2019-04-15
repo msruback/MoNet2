@@ -1,10 +1,11 @@
-package com.mattrubacky.monet2.data.deserialized.splatoon;
+package com.mattrubacky.monet2.data.deserialized_entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -16,24 +17,31 @@ import androidx.room.PrimaryKey;
  */
 @Entity(tableName = "skill")
 public class Skill implements Parcelable {
+    //GSON constructor
     @Ignore
     public Skill(){}
 
-    @PrimaryKey
-    @SerializedName("id")
-    public int id;
-    @SerializedName("name")
-    public String name;
-
-    //The URL of the Ability images
-    @SerializedName("image")
-    public String url;
-
+    //Rooms constructor
     public Skill(int id, String name, String url){
         this.id = id;
         this.name = name;
         this.url = url;
     }
+
+    @PrimaryKey
+    @ColumnInfo(name="skill_id")
+    @SerializedName("id")
+    public int id;
+
+    @ColumnInfo(name="skill_name")
+    @SerializedName("name")
+    public String name;
+
+    //The URL of the Ability images
+    @ColumnInfo(name="skill_image")
+    @SerializedName("image")
+    public String url;
+
 
     @Ignore
     protected Skill(Parcel in) {

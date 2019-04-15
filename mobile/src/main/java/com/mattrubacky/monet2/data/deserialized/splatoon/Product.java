@@ -4,17 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.mattrubacky.monet2.data.deserialized_entities.Gear;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
  * Created by mattr on 10/17/2017.
  * This class represents a pieces of Gear for sale in the shop
  */
-@Entity(tableName = "products")
 public class Product implements Parcelable {
     @Ignore
     public Product(){}

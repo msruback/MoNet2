@@ -1,12 +1,8 @@
-package com.mattrubacky.monet2.data.rooms.combo;
+package com.mattrubacky.monet2.data.combo;
 
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Stage;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Weapon;
-import com.mattrubacky.monet2.data.rooms.entity.BattleRoom;
-import com.mattrubacky.monet2.data.rooms.entity.PlayerRoom;
-
-import java.util.List;
+import com.mattrubacky.monet2.data.deserialized_entities.Stage;
+import com.mattrubacky.monet2.data.entity.BattleRoom;
 
 public class BattlePlayer {
     BattleRoom battle;
