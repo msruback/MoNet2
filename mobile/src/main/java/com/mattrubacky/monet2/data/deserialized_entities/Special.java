@@ -33,7 +33,7 @@ public class Special implements Parcelable {
     @PrimaryKey
     @ColumnInfo(name="special_id")
     @SerializedName("id")
-    public int id;
+    public Integer id;
 
     @ColumnInfo(name="special_name")
     @SerializedName("name")

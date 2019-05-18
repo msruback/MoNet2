@@ -6,6 +6,7 @@ import com.mattrubacky.monet2.data.deserialized_entities.Special;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -33,8 +34,8 @@ public abstract class SpecialDao {
     abstract void delete(Special... special);
 
     @Query("SELECT * FROM special")
-    abstract List<Special> selectAll();
+    abstract LiveData<List<Special>> selectAll();
 
     @Query("SELECT * FROM special WHERE special_id=:id")
-    abstract Special select(int id);
+    abstract LiveData<Special> select(int id);
 }

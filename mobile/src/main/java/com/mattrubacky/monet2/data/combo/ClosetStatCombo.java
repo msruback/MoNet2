@@ -12,7 +12,7 @@ import androidx.room.Embedded;
 
 public abstract class ClosetStatCombo {
     @Embedded
-    public Gear gear;
+    public GearBrand gear;
 
     public Skill main;
     @ColumnInfo(name="fr_sub")
@@ -26,7 +26,7 @@ public abstract class ClosetStatCombo {
         return new GearSkills(main,sub1,sub2,sub3);
     }
     public Gear getGear(){
-        return gear;
+        return gear.toDeserialized();
     }
     public abstract List<PlayerRoom> getPlayers();
 }

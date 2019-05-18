@@ -9,6 +9,7 @@ import com.mattrubacky.monet2.backend.api.splatnet.MonthlyGearRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SchedulesRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
+import com.mattrubacky.monet2.data.combo.SplatfestStageCombo;
 import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonSchedule;
 import com.mattrubacky.monet2.data.deserialized_entities.RewardGear;
@@ -36,7 +37,7 @@ public class RotationViewModel extends AndroidViewModel implements SplatnetConne
     private LiveData<List<SalmonShiftRoom>> salmonRun;
     private LiveData<List<SalmonStage>> salmonStages;
     private LiveData<RewardGear> gearId;
-    private LiveData<SplatfestRoom> currentSplatfest;
+    private LiveData<SplatfestStageCombo> currentSplatfest;
 
     private MediatorLiveData<Schedules> schedules;
     private MediatorLiveData<SalmonSchedule> salmonSchedule;
@@ -55,12 +56,12 @@ public class RotationViewModel extends AndroidViewModel implements SplatnetConne
 
         salmonStages = database.getSalmonStageDao().selectAll();
 
-        regular = database.getTimePeriodDao().selectRegularLive();
-        ranked = database.getTimePeriodDao().selectGachiLive();
-        league = database.getTimePeriodDao().selectLeagueLive();
-        splatfest = database.getTimePeriodDao().selectFestivalLive();
+        regular = database.getTimePeriodDao().selectRegular();
+        ranked = database.getTimePeriodDao().selectGachi();
+        league = database.getTimePeriodDao().selectLeague();
+        splatfest = database.getTimePeriodDao().selectFestival();
 
-        gearId = database.getSalmonGearDao().selectCurrentGear(RewardGear.generateId(Calendar.getInstance().getTimeInMillis()));
+        gearId = database.getSalmonGearDao().selectCurrentGearLive(RewardGear.generateId(Calendar.getInstance().getTimeInMillis()));
 
         currentSplatfest = database.getSplatfestDao().selectUpcoming(Calendar.getInstance().getTimeInMillis()/1000);
 
@@ -182,16 +183,16 @@ public class RotationViewModel extends AndroidViewModel implements SplatnetConne
         monthlyGear.addSource(gearId, new Observer<RewardGear>() {
             @Override
             public void onChanged(RewardGear salmonGear) {
-                monthlyGear.setValue(database.getGearDao().select(salmonGear.gear.generatedId));
+                //monthlyGear.setValue(salmonGear);
             }
         });
 
         splatfestInfo = new MediatorLiveData<>();
 
-        splatfestInfo.addSource(currentSplatfest, new Observer<SplatfestRoom>() {
+        splatfestInfo.addSource(currentSplatfest, new Observer<SplatfestStageCombo>() {
             @Override
-            public void onChanged(SplatfestRoom splatfestRoom) {
-                splatfestInfo.setValue(currentSplatfest.getValue().toDeserialized(stages.getValue()));
+            public void onChanged(SplatfestStageCombo splatfestRoom) {
+                splatfestInfo.setValue(splatfestRoom.toDeserialized());
             }
         });
     }

@@ -7,6 +7,7 @@ import com.mattrubacky.monet2.data.combo.WeaponCombo;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -43,20 +44,20 @@ public abstract class WeaponDao {
     abstract void delete(Weapon... weapon);
 
     @Query("SELECT * FROM weapon")
-    public abstract List<Weapon> selectAll();
+    public abstract LiveData<List<Weapon>> selectAll();
 
-    @Query("SELECT * FROM weapon WHERE weapon_id=:id")
-    public abstract Weapon select(int id);
+    @Query("SELECT * FROM weapon JOIN special ON weapon_special = special_id JOIN sub ON weapon_sub = sub_id WHERE weapon_id=:id")
+    public abstract LiveData<WeaponCombo> select(int id);
 
-    @Query("SELECT * FROM weapon WHERE weapon_special=:special")
-    public abstract List<Weapon> selectFromSpecial(int special);
+    @Query("SELECT * FROM weapon JOIN special ON weapon_special = special_id JOIN sub ON weapon_sub = sub_id WHERE weapon_special=:special")
+    public abstract LiveData<List<WeaponCombo>> selectFromSpecial(int special);
 
-    @Query("SELECT * FROM weapon WHERE weapon_sub=:sub")
-    public abstract List<Weapon> selectFromSub(int sub);
+    @Query("SELECT * FROM weapon JOIN special ON weapon_special = special_id JOIN sub ON weapon_sub = sub_id WHERE weapon_sub=:sub")
+    public abstract LiveData<List<WeaponCombo>> selectFromSub(int sub);
 
    // @Query("SELECT * FROM salmon_weapons INNER JOIN weapon ON salmon_weapons.weapon_id = weapon_id WHERE salmon_weapons.shift_id=:shiftId")
    //public abstract List<Weapon> selectFromShift(int shiftId);
 
     @Query("SELECT * FROM weapon JOIN sub ON sub_id = weapon_sub JOIN special ON special_id = weapon_special WHERE weapon_id = :id")
-    public abstract WeaponCombo selectCombo(int id);
+    public abstract LiveData<WeaponCombo> selectCombo(int id);
 }

@@ -33,7 +33,7 @@ public abstract class StageDao {
     abstract void delete(Stage... stage);
 
     @Query("SELECT * FROM stage WHERE stage_id=:id")
-    public abstract Stage select(int id);
+    public abstract LiveData<Stage> select(int id);
 
     @Query("SELECT * FROM stage")
     public abstract LiveData<List<Stage>> selectAll();

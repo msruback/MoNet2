@@ -2,7 +2,9 @@ package com.mattrubacky.monet2.data.rooms.dao.entity;
 
 import android.database.sqlite.SQLiteConstraintException;
 
+import com.mattrubacky.monet2.data.combo.GearBrand;
 import com.mattrubacky.monet2.data.deserialized_entities.Gear;
+import com.mattrubacky.monet2.ui.adapter.RecyclerView.GearAdapter;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ public abstract class GearDao {
         try{
             insert(gear);
         }catch(SQLiteConstraintException e){
+            e.printStackTrace();
             if(isDefault){
                 update(gear);
             }
@@ -36,27 +39,21 @@ public abstract class GearDao {
     @Delete
     protected abstract void delete(Gear... gear);
 
-    @Query("SELECT * FROM gear WHERE gear_id=:id")
-    public abstract Gear select(int id);
+    @Query("SELECT * FROM gear JOIN brand ON gear_brand = brand_id LEFT JOIN skill ON brand_skill = skill_id WHERE gear_id=:id")
+    public abstract LiveData<GearBrand> select(int id);
 
-    @Query("SELECT * FROM gear WHERE splatnet_id=:id AND kind=:kind")
-    public abstract Gear select(int id, String kind);
+    @Query("SELECT * FROM gear JOIN brand ON gear_brand = brand_id LEFT JOIN skill ON brand_skill = skill_id WHERE splatnet_id=:id AND kind=:kind")
+    public abstract LiveData<GearBrand> select(int id, String kind);
 
-    @Query("SELECT * FROM gear WHERE kind='head'")
-    public abstract LiveData<List<Gear>> selectHeadLive();
+    @Query("SELECT * FROM gear JOIN brand ON gear_brand = brand_id LEFT JOIN skill ON brand_skill = skill_id WHERE kind='head'")
+    public abstract LiveData<List<GearBrand>> selectHead();
 
-    @Query("SELECT * FROM gear WHERE kind='head'")
-    public abstract List<Gear> selectHead();
+    @Query("SELECT * FROM gear JOIN brand ON gear_brand = brand_id LEFT JOIN skill ON brand_skill = skill_id WHERE kind='clothes'")
+    public abstract LiveData<List<GearBrand>> selectClothes();
 
-    @Query("SELECT * FROM gear WHERE kind='clothes'")
-    public abstract LiveData<List<Gear>> selectClothesLive();
+    @Query("SELECT * FROM gear JOIN brand ON gear_brand = brand_id LEFT JOIN skill ON brand_skill = skill_id WHERE kind='shoe'")
+    public abstract LiveData<List<GearBrand>> selectShoes();
 
-    @Query("SELECT * FROM gear WHERE kind='clothes'")
-    public abstract List<Gear> selectClothes();
-
-    @Query("SELECT * FROM gear WHERE kind='shoe'")
-    public abstract LiveData<List<Gear>> selectShoesLive();
-
-    @Query("SELECT * FROM gear WHERE kind='shoe'")
-    public abstract List<Gear> selectShoes();
+    @Query("SELECT * FROM gear JOIN brand ON gear_brand = brand_id JOIN skill ON brand_skill = skill_id WHERE gear_id IN(:ids)")
+    public abstract LiveData<List<GearBrand>> selectList(int[] ids);
 }

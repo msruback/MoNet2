@@ -20,7 +20,7 @@ public class User implements Parcelable {
     public String uniqueId;
 
     //A player's unique id (does not apply to the user)
-    @SerializedName("prinicipal_id")
+    @SerializedName("principal_id")
     public String id;
 
     //The player's nickname

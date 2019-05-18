@@ -45,7 +45,7 @@ public class Brand implements Parcelable{
     @PrimaryKey
     @ColumnInfo(name="brand_id")
     @SerializedName("id")
-    public int id;
+    public Integer id;
 
     //The name of the brand
     @ColumnInfo(name="brand_name")

@@ -144,6 +144,7 @@ public class PlayerRoom {
         this.point = player.points;
         this.kill = player.kills;
         this.assist = player.assists;
+        this.death = player.deaths;
         this.special = player.special;
         this.weapon = player.user.weapon;
         this.head = player.user.head;
@@ -151,33 +152,33 @@ public class PlayerRoom {
         this.shoes = player.user.shoes;
 
         this.headMain = player.user.headSkills.main;
-        if(player.user.headSkills.subs.size()>0){
+        if(player.user.headSkills.subs.size()!=0){
             this.headSub1 = player.user.headSkills.subs.get(0);
-            if(player.user.headSkills.subs.size()>1){
+            if(player.user.headSkills.subs.size()!=1){
                 this.headSub2 = player.user.headSkills.subs.get(1);
-                if(player.user.headSkills.subs.size()>2){
+                if(player.user.headSkills.subs.size()!=2){
                     this.headSub3 = player.user.headSkills.subs.get(2);
                 }
             }
         }
 
         this.clothesMain = player.user.clothesSkills.main;
-        if(player.user.clothesSkills.subs.size()>0){
+        if(player.user.clothesSkills.subs.size()!=0){
             this.clothesSub1 = player.user.clothesSkills.subs.get(0);
-            if(player.user.clothesSkills.subs.size()>1){
+            if(player.user.clothesSkills.subs.size()!=1){
                 this.clothesSub2 = player.user.clothesSkills.subs.get(1);
-                if(player.user.clothesSkills.subs.size()>2){
+                if(player.user.clothesSkills.subs.get(2)!=null){
                     this.clothesSub3 = player.user.clothesSkills.subs.get(2);
                 }
             }
         }
 
         this.shoeMain = player.user.shoeSkills.main;
-        if(player.user.shoeSkills.subs.size()>0){
+        if(player.user.shoeSkills.subs.size()!=0){
             this.shoeSub1 = player.user.shoeSkills.subs.get(0);
-            if(player.user.shoeSkills.subs.size()>1){
+            if(player.user.shoeSkills.subs.size()!=1){
                 this.shoeSub2 = player.user.shoeSkills.subs.get(1);
-                if(player.user.shoeSkills.subs.size()>2){
+                if(player.user.shoeSkills.subs.size()!=2){
                     this.shoeSub3 = player.user.shoeSkills.subs.get(2);
                 }
             }
@@ -275,11 +276,7 @@ public class PlayerRoom {
     public Player toDeserialized(){
         Player player = new Player();
         player.user = new User();
-        if(playerType==0){
-            player.user.uniqueId = userId;
-        }else{
-            player.user.id = userId;
-        }
+        player.user.id = userId;
 
         switch (battleType) {
             case "gachi":
@@ -308,6 +305,7 @@ public class PlayerRoom {
         player.kills = kill;
         player.assists = assist;
         player.special = special;
+        player.deaths = death;
         player.user.weapon = weapon;
         player.user.head = head;
         player.user.clothes = clothes;

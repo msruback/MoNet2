@@ -25,9 +25,6 @@ public class Battle implements Parcelable{
     @Expose
     public int id;
 
-    @SerializedName("event_type")
-    public KeyName eventType;
-
     //The user's stats and info
     @SerializedName("player_result")
     public Player user;
@@ -43,6 +40,9 @@ public class Battle implements Parcelable{
     @SerializedName("fes_mode")
     public KeyName fesMode;
 
+    @SerializedName("event_type")
+    public KeyName eventType;
+
     //Stage the match took place on
     @SerializedName("stage")
     public Stage stage;
@@ -53,19 +53,19 @@ public class Battle implements Parcelable{
 
     //In competitive modes the amount the objective was pushed or held. null for casual modes
     @SerializedName("my_team_count")
-    public int myTeamCount;
+    public Integer myTeamCount;
     @SerializedName("other_team_count")
-    public int otherTeamCount;
+    public Integer otherTeamCount;
 
     //In casual modes the percent the stage was inked. Note: Unless the stage is completely inked, it does not add up to 100%;
     @SerializedName("my_team_percentage")
-    public float myTeamPercent;
+    public Float myTeamPercent;
     @SerializedName("other_team_percentage")
-    public float otherTeamPercent;
+    public Float otherTeamPercent;
 
     //In the new fes mode score is a bit different
     @SerializedName("uniform_bonus")
-    public float uniformBonus;
+    public Float uniformBonus;
 
     //The players on the user's team, minus themselves. As far as I know, will always be size()==3
     @SerializedName("my_team_members")
@@ -82,7 +82,7 @@ public class Battle implements Parcelable{
 
     //The time the match started
     //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
-    @SerializedName("battle_time")
+    @SerializedName("start_time")
     public Long start;
 
     //For casual modes, the "freshness" of a weapon.
@@ -92,40 +92,40 @@ public class Battle implements Parcelable{
 
     //If the battle is part of a Splatfest, this will refer to the Splatfest in question, null otherwise
     @SerializedName("fes_id")
-    public int splatfestID;
+    public Integer splatfestID;
 
     //If the battle is part of a Splatfest, this will contain the user's festival power level, null otherwise
     @SerializedName("my_estimate_fes_power")
-    public int myFesPower;
+    public Integer myFesPower;
 
     @SerializedName("my_team_consecutive_win")
-    public int myConsecutiveWins;
+    public Integer myConsecutiveWins;
 
     @SerializedName("my_team_another_name")
     public String myTeamName;
 
     @SerializedName("other_estimate_fes_power")
-    public int otherFesPower;
+    public Integer otherFesPower;
 
     @SerializedName("other_team_consecutive_win")
-    public int otherConsecutiveWins;
+    public Integer otherConsecutiveWins;
 
     @SerializedName("other_team_another_name")
     public String otherTeamName;
 
     @SerializedName("fes_point")
-    public int fesPoint;
+    public Integer fesPoint;
 
     //Resulting grade in a match. Grade in player is Starting Grade
     @SerializedName("fes_grade")
     public SplatfestGrade grade;
 
     @SerializedName("contribution_point")
-    public int contributionPoints;
+    public Integer contributionPoints;
 
     //For ranked battles, this will contain the power level of the match, null otherwise
     @SerializedName("estimate_gachi_power")
-    public int gachiPower;
+    public Integer gachiPower;
 
     //If the battle is part of a Splatfest, these will contain the team splatfest themes for each team, null otherwise
     @SerializedName("my_team_fes_theme")

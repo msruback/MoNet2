@@ -3,6 +3,8 @@ package com.mattrubacky.monet2.data.deserialized.splatoon;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -15,16 +17,16 @@ public class Wave implements Parcelable{
     public Wave(){}
 
     @SerializedName("quota_num")
-    public int quotaNum;
+    public Integer quotaNum;
 
     @SerializedName("ikura_num")
-    public int powerEggNum;
+    public Integer powerEggNum;
 
     @SerializedName("golden_ikura_num")
-    public int goldenEggNum;
+    public Integer goldenEggNum;
 
     @SerializedName("golden_ikura_pop_num")
-    public int goldenEggPop;
+    public Integer goldenEggPop;
 
     @SerializedName("water_level")
     public KeyName waterLevel;
@@ -32,11 +34,11 @@ public class Wave implements Parcelable{
     @SerializedName("event_type")
     public KeyName eventType;
 
-    public int job;
+    public Integer job;
 
-    public int num;
+    public Integer num;
 
-    protected Wave(Parcel in) {
+    protected Wave(@NonNull Parcel in) {
         quotaNum = in.readInt();
         powerEggNum = in.readInt();
         goldenEggNum = in.readInt();

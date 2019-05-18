@@ -69,11 +69,11 @@ public class ClosetRoom implements Parcelable {
     public ClosetRoom(Gear gear, GearSkills gearSkills){
         this.gear = gear;
         this.main = gearSkills.main;
-        if(gearSkills.subs.size()<0){
+        if(gearSkills.subs.size()>0){
             this.sub1 = gearSkills.subs.get(0);
-            if(gearSkills.subs.size()<1){
+            if(gearSkills.subs.size()>1){
                 this.sub2 = gearSkills.subs.get(1);
-                if(gearSkills.subs.size()<2){
+                if(gearSkills.subs.size()>2){
                     this.sub3 = gearSkills.subs.get(2);
                 }
             }

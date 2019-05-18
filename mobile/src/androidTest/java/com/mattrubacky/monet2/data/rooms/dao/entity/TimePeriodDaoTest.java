@@ -9,6 +9,7 @@ import com.mattrubacky.monet2.testutils.DeserializedHelper;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 
@@ -16,6 +17,9 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.SmallTest;
@@ -29,6 +33,9 @@ public class TimePeriodDaoTest {
     private TestDatabase db;
     private TimePeriod timePeriodRegular,timePeriodRanked,timePeriodLeague;
     private Context context;
+
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Before
     public void createDb() {
@@ -62,57 +69,75 @@ public class TimePeriodDaoTest {
 
     @Test
     public void insert() {
-        TimePeriod timePeriodEnd = timePeriodDao.select(timePeriodRegular.id);
-        assertThat(timePeriodEnd.id).isEqualTo(timePeriodRegular.id);
-        assertThat(timePeriodEnd.start).isEqualTo(timePeriodRegular.start);
-        assertThat(timePeriodEnd.end).isEqualTo(timePeriodRegular.end);
-        assertThat(timePeriodEnd.rule.getName(context)).isEqualTo(timePeriodRegular.rule.getName(context));
-        assertThat(timePeriodEnd.mode.getName(context)).isEqualTo(timePeriodRegular.mode.getName(context));
-        assertThat(timePeriodEnd.a.id).isEqualTo(timePeriodRegular.a.id);
-        assertThat(timePeriodEnd.a.name).isNull();
-        assertThat(timePeriodEnd.a.url).isNull();
-        assertThat(timePeriodEnd.b.id).isEqualTo(timePeriodRegular.b.id);
-        assertThat(timePeriodEnd.b.name).isNull();
-        assertThat(timePeriodEnd.b.url).isNull();
-    }
-
-    @Test
-    public void delete() {
-        timePeriodDao.delete(timePeriodRegular);
-        TimePeriod timePeriodEnd = timePeriodDao.select(timePeriodRegular.id);
-        assertThat(timePeriodEnd).isNull();
+        LiveData<TimePeriod> timePeriodLiveData = timePeriodDao.select(timePeriodRegular.id);
+        timePeriodLiveData.observeForever(new Observer<TimePeriod>() {
+            @Override
+            public void onChanged(TimePeriod timePeriod) {
+                assertThat(timePeriod.id).isEqualTo(timePeriodRegular.id);
+                assertThat(timePeriod.start).isEqualTo(timePeriodRegular.start);
+                assertThat(timePeriod.end).isEqualTo(timePeriodRegular.end);
+                assertThat(timePeriod.rule.getName(context)).isEqualTo(timePeriodRegular.rule.getName(context));
+                assertThat(timePeriod.mode.getName(context)).isEqualTo(timePeriodRegular.mode.getName(context));
+                assertThat(timePeriod.a.id).isEqualTo(timePeriodRegular.a.id);
+                assertThat(timePeriod.a.name).isNull();
+                assertThat(timePeriod.a.url).isNull();
+                assertThat(timePeriod.b.id).isEqualTo(timePeriodRegular.b.id);
+                assertThat(timePeriod.b.name).isNull();
+                assertThat(timePeriod.b.url).isNull();
+            }
+        });
     }
 
     @Test
     public void selectRegular() {
-        List<TimePeriod> timePeriods =timePeriodDao.selectRegular();
-        for(TimePeriod timePeriod:timePeriods){
-            assertThat(timePeriod.mode.getName(context)).isEqualTo("Regular");
-        }
+        LiveData<List<TimePeriod>> timePeriodLiveData = timePeriodDao.selectRegular();
+        timePeriodLiveData.observeForever(new Observer<List<TimePeriod>>() {
+            @Override
+            public void onChanged(List<TimePeriod> timePeriods) {
+                for(TimePeriod timePeriod:timePeriods){
+                    assertThat(timePeriod.mode.getName(context)).isEqualTo(timePeriodRegular.mode.getName(context));
+                }
+            }
+        });
     }
 
     @Test
     public void selectGachi() {
-        List<TimePeriod> timePeriods = timePeriodDao.selectGachi();
-        for(TimePeriod timePeriod:timePeriods){
-            assertThat(timePeriod.mode.getName(context)).isEqualTo(timePeriodRanked.mode.getName(context));
-        }
+        LiveData<List<TimePeriod>> timePeriodLiveData = timePeriodDao.selectGachi();
+        timePeriodLiveData.observeForever(new Observer<List<TimePeriod>>() {
+            @Override
+            public void onChanged(List<TimePeriod> timePeriods) {
+                for(TimePeriod timePeriod:timePeriods){
+                    assertThat(timePeriod.mode.getName(context)).isEqualTo(timePeriodRanked.mode.getName(context));
+                }
+            }
+        });
     }
 
     @Test
     public void selectLeague() {
-        List<TimePeriod> timePeriods =timePeriodDao.selectLeague();
-        for(TimePeriod timePeriod:timePeriods){
-            assertThat(timePeriod.mode.getName(context)).isEqualTo(timePeriodLeague.mode.getName(context));
-        }
+        LiveData<List<TimePeriod>> timePeriodLiveData = timePeriodDao.selectLeague();
+        timePeriodLiveData.observeForever(new Observer<List<TimePeriod>>() {
+            @Override
+            public void onChanged(List<TimePeriod> timePeriods) {
+                for(TimePeriod timePeriod:timePeriods){
+                    assertThat(timePeriod.mode.getName(context)).isEqualTo(timePeriodLeague.mode.getName(context));
+                }
+            }
+        });
     }
 
     @Test
     public void selectFestival() {
-        List<TimePeriod> timePeriods = timePeriodDao.selectFestival();
-        for(TimePeriod timePeriod:timePeriods){
-            assertThat(timePeriod.mode.getName(context)).isEqualTo("Festival");
-        }
+        LiveData<List<TimePeriod>> timePeriodLiveData = timePeriodDao.selectFestival();
+        timePeriodLiveData.observeForever(new Observer<List<TimePeriod>>() {
+            @Override
+            public void onChanged(List<TimePeriod> timePeriods) {
+                for(TimePeriod timePeriod:timePeriods){
+                    assertThat(timePeriod.mode.getName(context)).isEqualTo("Festival");
+                }
+            }
+        });
     }
 
     @Test

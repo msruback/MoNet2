@@ -99,10 +99,10 @@ public class Gear implements Parcelable {
                 genId = 0;
                 break;
             case "clothes":
-                genId = 10000;
+                genId = 100000;
                 break;
             case "shoes":
-                genId = 20000;
+                genId = 200000;
                 break;
         }
         return genId +id;

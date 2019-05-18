@@ -9,6 +9,7 @@ import com.mattrubacky.monet2.data.deserialized_entities.Special;
 
 import java.util.ArrayList;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 
@@ -23,24 +24,24 @@ public class Worker implements Parcelable{
     @SerializedName("pid")
     public String id;
 
-    public int job;
+    public Integer job;
 
-    public int type;
+    public Integer type;
 
     @SerializedName("name")
     public String name;
 
     @SerializedName("ikura_num")
-    public int powerEggs;
+    public Integer powerEggs;
 
     @SerializedName("golden_ikura_num")
-    public int goldenEggs;
+    public Integer goldenEggs;
 
     @SerializedName("dead_count")
-    public int deadCount;
+    public Integer deadCount;
 
     @SerializedName("help_count")
-    public int helpCount;
+    public Integer helpCount;
 
     @SerializedName("special")
     public Special special;
@@ -51,7 +52,7 @@ public class Worker implements Parcelable{
     @SerializedName("weapon_list")
     public ArrayList<SalmonRunWeapon> weapons;
 
-    @Ignore
+    @Embedded(prefix = "worker_")
     @SerializedName("boss_kill_counts")
     public BossCount bossKillses;
 

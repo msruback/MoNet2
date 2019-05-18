@@ -69,22 +69,11 @@ public class SalmonShiftRoom {
         return salmonRun;
     }
 
-    public SalmonRunDetail toDeserialised(List<SalmonStage> salmonStages, List<Weapon> weapons){
+    public SalmonRunDetail toDeserialisedDetail(){
         SalmonRunDetail salmonRunDetail = new SalmonRunDetail();
         salmonRunDetail.start = startTime;
         salmonRunDetail.end = endTime;
-        for(SalmonStage salmonStage:salmonStages){
-            if(salmonStage.id == stage.id){
-                salmonRunDetail.stage = salmonStage;
-            }
-        }
         salmonRunDetail.weapons = new ArrayList<>();
-        for(Weapon weapon:weapons){
-            SalmonRunWeapon salmonRunWeapon = new SalmonRunWeapon();
-            salmonRunWeapon.id = weapon.id;
-            salmonRunWeapon.weapon = weapon;
-            salmonRunDetail.weapons.add(salmonRunWeapon);
-        }
         return salmonRunDetail;
     }
 

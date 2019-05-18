@@ -6,6 +6,7 @@ import com.mattrubacky.monet2.data.deserialized_entities.Sub;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -36,5 +37,5 @@ public abstract class SubDao {
     abstract List<Sub> selectAll();
 
     @Query("SELECT * FROM sub WHERE sub_id=:id")
-    abstract Sub select(int id);
+    abstract LiveData<Sub> select(int id);
 }

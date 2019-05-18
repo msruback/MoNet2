@@ -17,9 +17,11 @@ import androidx.room.Update;
 public abstract class SkillDao {
     void insertSkill(Skill skill){
         try{
-            insert(skill);
+            if(skill!=null){
+                insert(skill);
+            }
         }catch (SQLiteConstraintException e){
-
+           //e.printStackTrace();
         }
     }
 
@@ -33,23 +35,14 @@ public abstract class SkillDao {
     abstract void delete(Skill... skill);
 
     @Query("SELECT * FROM skill WHERE skill_id=:id")
-    abstract Skill select(int id);
+    abstract LiveData<Skill> select(Integer id);
 
     @Query("SELECT * FROM skill")
-    abstract LiveData<List<Skill>> selectAllLive();
-
-    @Query("SELECT * FROM skill")
-    abstract List<Skill> selectAll();
+    abstract LiveData<List<Skill>> selectAll();
 
     @Query("SELECT * FROM skill WHERE skill_id>100 AND skill_id<200")
-    abstract LiveData<List<Skill>> selectSpecialSkillsLive();
-
-    @Query("SELECT * FROM skill WHERE skill_id>100 AND skill_id<200")
-    abstract List<Skill> selectSpecialSkills();
+    abstract LiveData<List<Skill>> selectSpecialSkills();
 
     @Query("SELECT * FROM skill WHERE (skill_id<100 AND skill_id!=12 AND skill_id!=13) OR (skill_id>200)")
-    abstract LiveData<List<Skill>> selectChunkableSkillsLive();
-
-    @Query("SELECT * FROM skill WHERE (skill_id<100 AND skill_id!=12 AND skill_id!=13) OR (skill_id>200)")
-    abstract List<Skill> selectChunkableSkills();
+    abstract LiveData<List<Skill>> selectChunkableSkills();
 }

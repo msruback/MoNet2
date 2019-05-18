@@ -15,11 +15,15 @@ import com.mattrubacky.monet2.data.deserialized_entities.TimePeriod;
 import com.mattrubacky.monet2.data.deserialized_entities.Weapon;
 import com.mattrubacky.monet2.data.entity.BattleRoom;
 import com.mattrubacky.monet2.data.entity.ClosetRoom;
+import com.mattrubacky.monet2.data.entity.DayRoom;
 import com.mattrubacky.monet2.data.entity.PlayerRoom;
 import com.mattrubacky.monet2.data.entity.ProductRoom;
+import com.mattrubacky.monet2.data.rooms.dao.entity.BattleDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.BrandDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.ClosetDao;
+import com.mattrubacky.monet2.data.rooms.dao.entity.DayDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.GearDao;
+import com.mattrubacky.monet2.data.rooms.dao.entity.PlayerDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.SalmonGearDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.SalmonShiftDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.SalmonStageDao;
@@ -45,7 +49,7 @@ import androidx.room.TypeConverters;
 @Database(entities = {  Brand.class, Gear.class, RewardGear.class, SalmonRunWeapon.class, SalmonStage.class,
         Skill.class, Special.class, Stage.class, Sub.class, TimePeriod.class, Weapon.class,
         BattleRoom.class, ClosetRoom.class, PlayerRoom.class, ProductRoom.class, SalmonShiftRoom.class,
-        SplatfestResultRoom.class, SplatfestRoom.class},version=1,exportSchema = false)
+        SplatfestResultRoom.class, SplatfestRoom.class, DayRoom.class},version=1,exportSchema = false)
 @TypeConverters({SplatnetConverters.class})
 public abstract class TestDatabase extends RoomDatabase {
 
@@ -72,6 +76,9 @@ public abstract class TestDatabase extends RoomDatabase {
     public abstract SalmonStageDao getSalmonStageDao();
     public abstract SalmonWeaponDao getSalmonWeaponDao();
     public abstract SalmonGearDao getSalmonGearDao();
+    public abstract PlayerDao getPlayerDao();
+    public abstract DayDao getDayDao();
+    public abstract BattleDao getBattleDao();
     public abstract WeaponDao getWeaponDao();
     public abstract SpecialDao getSpecialDao();
     public abstract SubDao getSubDao();

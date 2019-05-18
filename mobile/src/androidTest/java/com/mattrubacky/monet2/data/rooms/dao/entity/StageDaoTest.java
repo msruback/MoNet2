@@ -1,6 +1,10 @@
 package com.mattrubacky.monet2.data.rooms.dao.entity;
 
 import android.content.Context;
+
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.test.filters.SmallTest;
 
 import com.google.gson.Gson;
@@ -10,6 +14,7 @@ import com.mattrubacky.monet2.testutils.DeserializedHelper;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -24,11 +29,13 @@ public class StageDaoTest {
     private StageDao stageDao;
     private TestDatabase db;
     private Stage stage;
-    private Context context;
+
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Before
     public void createDb() {
-        context = ApplicationProvider.getApplicationContext();
+        Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, TestDatabase.class).build();
         stageDao = db.getStageDao();
         try {
@@ -43,22 +50,18 @@ public class StageDaoTest {
 
     @After
     public void closeDb() {
-        stageDao.delete(stage);
         db.close();
     }
 
     @Test
     public void insert() {
-        Stage pulledStage = stageDao.select(stage.id);
-        assertThat(pulledStage.name).isEqualTo(stage.name);
-        assertThat(pulledStage.url).isEqualTo(stage.url);
-    }
-
-    @Test
-    public void delete() {
-        stageDao.delete(stage);
-        Stage deletedStage = stageDao.select(stage.id);
-        assertThat(deletedStage).isNull();
-        stageDao.insertStage(stage);
+        LiveData<Stage> stageLiveData = stageDao.select(stage.id);
+        stageLiveData.observeForever(new Observer<Stage>() {
+            @Override
+            public void onChanged(Stage pulledStage) {
+                assertThat(pulledStage.name).isEqualTo(stage.name);
+                assertThat(pulledStage.url).isEqualTo(stage.url);
+            }
+        });
     }
 }

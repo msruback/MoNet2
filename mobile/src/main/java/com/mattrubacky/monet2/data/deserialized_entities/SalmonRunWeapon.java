@@ -38,6 +38,12 @@ public class SalmonRunWeapon implements Parcelable {
     @Ignore
     public SalmonRunWeapon(){}
 
+    @Ignore
+    public SalmonRunWeapon(Weapon weapon){
+        this.weapon = weapon;
+        id = weapon.id;
+    }
+
     //Rooms constructor
     public SalmonRunWeapon(int id, int shiftId){
         this.id = id;

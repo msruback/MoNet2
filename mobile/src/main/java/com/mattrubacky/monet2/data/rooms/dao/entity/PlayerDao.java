@@ -9,6 +9,7 @@ import com.mattrubacky.monet2.data.entity.PlayerRoom;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -25,7 +26,7 @@ public abstract class PlayerDao {
         gearDao.insertGear(player.user.head,false,brandDao,skillDao);
         skillDao.insertSkill(player.user.headSkills.main);
         for(Skill skill: player.user.headSkills.subs){
-            skillDao.insertSkill(skill);
+                skillDao.insertSkill(skill);
         }
 
         gearDao.insertGear(player.user.clothes,false,brandDao,skillDao);
@@ -34,6 +35,7 @@ public abstract class PlayerDao {
             skillDao.insertSkill(skill);
         }
 
+        gearDao.insertGear(player.user.shoes,false,brandDao,skillDao);
         skillDao.insertSkill(player.user.shoeSkills.main);
         for(Skill skill: player.user.shoeSkills.subs){
             skillDao.insertSkill(skill);
@@ -47,7 +49,8 @@ public abstract class PlayerDao {
                 closetDao.insertGear(player.user.clothes,player.user.clothesSkills);
                 closetDao.insertGear(player.user.shoes,player.user.shoeSkills);
             }
-        }catch(SQLiteConstraintException ignored){
+        }catch(SQLiteConstraintException e){
+            e.printStackTrace();
         }
     }
 
@@ -60,14 +63,14 @@ public abstract class PlayerDao {
     @Delete
     abstract void delete(PlayerRoom... player);
 
-    @Query("SELECT * FROM player WHERE battleId=:id AND playerType = 0")
-    public abstract PlayerRoom selectPlayerFromBattle(int id);
+    @Query("SELECT * FROM player JOIN weapon ON weapon = weapon_id JOIN sub ON weapon_sub = sub_id JOIN special ON weapon_special = special_id WHERE battleId=:id AND playerType = 0")
+    public abstract LiveData<PlayerWeapon> selectPlayerFromBattle(int id);
 
-    @Query("SELECT * FROM player WHERE battleId=:id AND playerType=:type")
-    public abstract List<PlayerRoom> selectPlayersFromBattle(int id,int type);
+    @Query("SELECT * FROM player JOIN weapon ON weapon = weapon_id JOIN sub ON weapon_sub = sub_id JOIN special ON weapon_special = special_id WHERE battleId=:id AND playerType=:type")
+    public abstract LiveData<List<PlayerWeapon>> selectPlayersFromBattle(int id, int type);
 
     @Query("SELECT * FROM player JOIN weapon ON weapon = weapon_id WHERE battleId=:id")
-    public abstract List<PlayerWeapon> selectPlayerBattles(int id);
+    public abstract List<PlayerWeapon> selectWeaponBattles(int id);
 
     @Query("SELECT * FROM player JOIN battle ON battleId = id WHERE fes_id =:fesId AND playerType=:type")
     public abstract List<PlayerRoom> getSplatStats(int fesId,int type);

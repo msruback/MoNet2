@@ -44,27 +44,27 @@ public class BattleRoom {
 
         switch (type){
             case "regular":
-                this.myTeamCount = battle.myTeamCount;
-                this.otherTeamCount = battle.otherTeamCount;
+                this.myTeamPercent = battle.myTeamPercent;
+                this.otherTeamPercent = battle.otherTeamPercent;
                 this.winMeter = battle.winMeter;
                 break;
             case "gachi":
                 this.gachiPower = battle.gachiPower;
-                this.myTeamPercent = battle.myTeamPercent;
-                this.otherTeamPercent = battle.otherTeamPercent;
+                this.myTeamCount = battle.myTeamCount;
+                this.otherTeamCount = battle.otherTeamCount;
                 this.time = battle.time;
                 break;
             case "league":
-                this.myTeamPercent = battle.myTeamPercent;
-                this.otherTeamPercent = battle.otherTeamPercent;
+                this.myTeamCount = battle.myTeamCount;
+                this.otherTeamCount = battle.otherTeamCount;
                 this.time = battle.time;
                 break;
             case "fes":
 
                 this.fesId = battle.splatfestID;
                 this.fesMode = battle.fesMode;
-                this.myTeamCount = battle.myTeamCount;
-                this.otherTeamCount = battle.otherTeamCount;
+                this.myTeamPercent = battle.myTeamPercent;
+                this.otherTeamPercent = battle.otherTeamPercent;
                 this.uniformBonus = battle.uniformBonus;
                 this.myFesPower = battle.myFesPower;
                 this.myConsecutiveWins = battle.myConsecutiveWins;
@@ -87,10 +87,10 @@ public class BattleRoom {
 
     //Rooms Constructor
     public BattleRoom(int id, KeyName eventType, KeyName rule, String type, KeyName fesMode, Stage stage, KeyName result,
-                      long time, long start, float winMeter, int myTeamCount, int otherTeamCount, float myTeamPercent,
-                      float otherTeamPercent, float uniformBonus, int fesId, int myFesPower, int myConsecutiveWins, String myTeamName,
-                      int otherFesPower, int otherConsecutiveWins, String otherTeamName, int fesPoint, SplatfestGrade grade,
-                      int contributionPoint, int gachiPower, String myColor, String myFesTeamKey, String myFesTeamName, String otherColor,
+                      Long time, Long start, Float winMeter, Integer myTeamCount, Integer otherTeamCount, Float myTeamPercent,
+                      Float otherTeamPercent, Float uniformBonus, Integer fesId, Integer myFesPower, Integer myConsecutiveWins, String myTeamName,
+                      Integer otherFesPower, Integer otherConsecutiveWins, String otherTeamName, Integer fesPoint, SplatfestGrade grade,
+                      Integer contributionPoint, Integer gachiPower, String myColor, String myFesTeamKey, String myFesTeamName, String otherColor,
                       String otherFesTeamKey, String otherFesTeamName){
         this.id = id;
         this.eventType = eventType;
@@ -151,52 +151,52 @@ public class BattleRoom {
     public Float winMeter;
 
     @ColumnInfo(name = "my_team_count")
-    public int myTeamCount;
+    public Integer myTeamCount;
 
     @ColumnInfo(name = "other_team_count")
-    public int otherTeamCount;
+    public Integer otherTeamCount;
 
     @ColumnInfo(name = "my_team_percent")
-    public float myTeamPercent;
+    public Float myTeamPercent;
 
     @ColumnInfo(name = "other_team_percent")
-    public float otherTeamPercent;
+    public Float otherTeamPercent;
 
     @ColumnInfo(name = "uniform_bonus")
-    public float uniformBonus;
+    public Float uniformBonus;
 
     @ColumnInfo(name = "fes_id")
-    public int fesId;
+    public Integer fesId;
 
     @ColumnInfo(name = "my_fes_power")
-    public int myFesPower;
+    public Integer myFesPower;
 
     @ColumnInfo(name = "my_consecutive_wins")
-    public int myConsecutiveWins;
+    public Integer myConsecutiveWins;
 
     @ColumnInfo(name = "my_team_name")
     public String myTeamName;
 
     @ColumnInfo(name = "other_fes_power")
-    public int otherFesPower;
+    public Integer otherFesPower;
 
     @ColumnInfo(name = "other_consecutive_wins")
-    public int otherConsecutiveWins;
+    public Integer otherConsecutiveWins;
 
     @ColumnInfo(name = "other_team_name")
     public String otherTeamName;
 
     @ColumnInfo(name = "fes_point")
-    public int fesPoint;
+    public Integer fesPoint;
 
     @ColumnInfo(name = "fes_grade")
     public SplatfestGrade grade;
 
     @ColumnInfo(name = "contribution_point")
-    public int contributionPoint;
+    public Integer contributionPoint;
 
     @ColumnInfo(name = "estimate_gachi_power")
-    public int gachiPower;
+    public Integer gachiPower;
 
     @ColumnInfo(name = "my_color")
     public String myColor;
@@ -228,23 +228,23 @@ public class BattleRoom {
 
         switch(type){
             case "regular":
-                battle.myTeamCount = myTeamCount;
-                battle.otherTeamCount = otherTeamCount;
+                battle.myTeamPercent = myTeamPercent;
+                battle.otherTeamPercent = otherTeamPercent;
                 battle.winMeter = winMeter;
                 break;
             case "gachi":
-                battle.myTeamPercent = myTeamPercent;
-                battle.otherTeamPercent = otherTeamPercent;
+                battle.myTeamCount = myTeamCount;
+                battle.otherTeamCount = otherTeamCount;
                 battle.time = time;
                 break;
             case "league":
-                battle.myTeamPercent = myTeamPercent;
-                battle.otherTeamPercent = otherTeamPercent;
+                battle.myTeamCount = myTeamCount;
+                battle.otherTeamCount = otherTeamCount;
                 battle.time = time;
                 break;
             case "fes":
-                battle.myTeamCount = myTeamCount;
-                battle.otherTeamCount = otherTeamCount;
+                battle.myTeamPercent = myTeamPercent;
+                battle.otherTeamPercent = otherTeamPercent;
                 battle.uniformBonus = uniformBonus;
                 battle.splatfestID = fesId;
                 battle.myFesPower = myFesPower;

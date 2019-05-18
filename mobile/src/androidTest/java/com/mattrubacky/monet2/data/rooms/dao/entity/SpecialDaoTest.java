@@ -9,10 +9,14 @@ import com.mattrubacky.monet2.testutils.DeserializedHelper;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.IOException;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.filters.SmallTest;
@@ -22,13 +26,15 @@ import static com.google.common.truth.Truth.assertThat;
 @SmallTest
 public class SpecialDaoTest {
     private TestDatabase db;
-    private Context context;
     private SpecialDao specialDao;
     private Special special;
 
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
     @Before
     public void createDb() {
-        context = ApplicationProvider.getApplicationContext();
+        Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, TestDatabase.class).build();
         specialDao = db.getSpecialDao();
         try {
@@ -43,15 +49,19 @@ public class SpecialDaoTest {
 
     @After
     public void closeDb() {
-        specialDao.delete(special);
         db.close();
     }
 
     @Test
     public void insert(){
-        Special pulledSpecial = specialDao.select(special.id);
-        assertThat(pulledSpecial.id).isEqualTo(special.id);
-        assertThat(pulledSpecial.name).isEqualTo(special.name);
-        assertThat(pulledSpecial.url).isEqualTo(special.url);
+        LiveData<Special> specialLiveData = specialDao.select(special.id);
+        specialLiveData.observeForever(new Observer<Special>() {
+            @Override
+            public void onChanged(Special pulledSpecial) {
+                assertThat(pulledSpecial.id).isEqualTo(special.id);
+                assertThat(pulledSpecial.name).isEqualTo(special.name);
+                assertThat(pulledSpecial.url).isEqualTo(special.url);
+            }
+        });
     }
 }

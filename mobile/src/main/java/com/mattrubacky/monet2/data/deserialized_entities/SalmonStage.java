@@ -21,7 +21,7 @@ public class SalmonStage implements Parcelable{
     public SalmonStage(){}
 
     //Rooms constructor
-    public SalmonStage(int id, String name, String url){
+    public SalmonStage(Integer id, String name, String url){
         this.id = id;
         this.name = name;
         this.url = url;
@@ -29,7 +29,7 @@ public class SalmonStage implements Parcelable{
 
     @PrimaryKey
     @ColumnInfo(name="salmon_stage_id")
-    public int id;
+    public Integer id;
 
     @ColumnInfo(name="salmon_stage_name")
     @SerializedName("name")

@@ -2,6 +2,7 @@ package com.mattrubacky.monet2.data.rooms;
 
 import android.content.Context;
 
+import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.data.deserialized_entities.Brand;
 import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized_entities.RewardGear;
@@ -17,6 +18,7 @@ import com.mattrubacky.monet2.data.entity.BattleRoom;
 import com.mattrubacky.monet2.data.entity.ClosetRoom;
 import com.mattrubacky.monet2.data.entity.PlayerRoom;
 import com.mattrubacky.monet2.data.entity.ProductRoom;
+import com.mattrubacky.monet2.data.rooms.dao.entity.BattleDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.BrandDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.ClosetDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.GearDao;
@@ -71,6 +73,7 @@ public abstract class SplatnetDatabase extends RoomDatabase {
     public abstract SalmonStageDao getSalmonStageDao();
     public abstract SalmonWeaponDao getSalmonWeaponDao();
     public abstract SalmonGearDao getSalmonGearDao();
+    public abstract BattleDao getBattleDao();
     public abstract WeaponDao getWeaponDao();
     public abstract SpecialDao getSpecialDao();
     public abstract SubDao getSubDao();

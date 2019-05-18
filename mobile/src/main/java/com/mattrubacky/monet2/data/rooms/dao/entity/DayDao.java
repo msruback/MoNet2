@@ -32,5 +32,5 @@ public abstract class DayDao {
     abstract void delete(DayRoom ...dayRooms);
 
     @Query("SELECT * FROM day")
-    abstract List<DayRoom> getDays();
+    abstract List<DayRoom> selectAll();
 }

@@ -31,7 +31,7 @@ public class Skill implements Parcelable {
     @PrimaryKey
     @ColumnInfo(name="skill_id")
     @SerializedName("id")
-    public int id;
+    public Integer id;
 
     @ColumnInfo(name="skill_name")
     @SerializedName("name")

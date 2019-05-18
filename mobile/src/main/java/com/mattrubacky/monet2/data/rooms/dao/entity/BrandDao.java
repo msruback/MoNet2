@@ -2,8 +2,11 @@ package com.mattrubacky.monet2.data.rooms.dao.entity;
 
 import android.database.sqlite.SQLiteConstraintException;
 
+import com.mattrubacky.monet2.data.combo.BrandSkill;
 import com.mattrubacky.monet2.data.deserialized_entities.Brand;
+import com.mattrubacky.monet2.data.deserialized_entities.Skill;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -18,6 +21,7 @@ public abstract class BrandDao {
         try{
             insert(brand);
         }catch(SQLiteConstraintException e) {
+            e.printStackTrace();
         }
     }
 
@@ -30,6 +34,6 @@ public abstract class BrandDao {
     @Delete
     abstract void delete(Brand... brand);
 
-    @Query("SELECT * FROM brand WHERE brand_id=:id")
-    abstract Brand select(int id);
+    @Query("SELECT * FROM brand LEFT JOIN skill ON brand_skill = skill_id WHERE brand_id=:id")
+    abstract LiveData<BrandSkill> select(int id);
 }

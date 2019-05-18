@@ -13,7 +13,7 @@ public class DayRoom {
     }
 
     @PrimaryKey
-    long day;
+    public long day;
 
     public static long generateId(long time){
         Calendar timeCal = Calendar.getInstance();
@@ -23,6 +23,10 @@ public class DayRoom {
         timeCal.set(Calendar.MINUTE,0);
         timeCal.set(Calendar.HOUR_OF_DAY,0);
         return timeCal.getTimeInMillis();
+    }
+
+    public static long generateEnd(long time){
+        return generateId(time)+86400000;
     }
 
 }

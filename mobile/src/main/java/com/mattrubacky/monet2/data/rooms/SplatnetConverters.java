@@ -46,7 +46,7 @@ public class SplatnetConverters {
     }
 
     @TypeConverter
-    public static int fromBrand(Brand brand){
+    public static Integer fromBrand(Brand brand){
         return brand.id;
     }
 
@@ -58,8 +58,11 @@ public class SplatnetConverters {
     }
 
     @TypeConverter
-    public static int fromSpecial(Special special){
-        return special.id;
+    public static Integer fromSpecial(Special special){
+        if(special!=null) {
+            return special.id;
+        }
+        return null;
     }
 
     @TypeConverter
@@ -70,20 +73,26 @@ public class SplatnetConverters {
     }
 
     @TypeConverter
-    public static int fromSub(Sub sub){
-        return sub.id;
+    public static Integer fromSub(Sub sub){
+        if (sub!=null) {
+            return sub.id;
+        }
+        return null;
     }
 
     @TypeConverter
-    public static Skill toSkill(int value){
+    public static Skill toSkill(Integer value){
         Skill skill = new Skill();
         skill.id = value;
         return skill;
     }
 
     @TypeConverter
-    public static int fromSkill(Skill skill){
-        return skill.id;
+    public static Integer fromSkill(Skill skill){
+        if(skill!=null){
+            return skill.id;
+        }
+        return null;
     }
 
     @TypeConverter
@@ -98,25 +107,28 @@ public class SplatnetConverters {
     }
 
     @TypeConverter
-    public static int fromGear(Gear gear){ return gear.id;}
+    public static int fromGear(Gear gear){ return gear.generatedId;}
 
     @TypeConverter
     public static Gear toGear(int id){
         Gear gear = new Gear();
-        gear.id = id;
+        gear.generatedId = id;
         return gear;
     }
 
     @TypeConverter
-    public static SalmonStage toSalmonStage(int id){
+    public static SalmonStage toSalmonStage(Integer id){
         SalmonStage salmonStage = new SalmonStage();
         salmonStage.id = id;
         return salmonStage;
     }
 
     @TypeConverter
-    public static int fromSalmonStage(SalmonStage salmonStage){
+    public static Integer fromSalmonStage(SalmonStage salmonStage){
+        if(salmonStage!=null){
         return salmonStage.id;
+        }
+        return null;
     }
 
     @TypeConverter

@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -37,14 +38,14 @@ public class RewardGear implements Parcelable{
     public RewardGear(){}
 
     //Rooms constructor
-    public RewardGear(int month,Gear gear){
+    public RewardGear(int month,long available,Gear gear){
         this.month = month;
+        this.available = available;
         this.gear = gear;
     }
 
     //The first date the gear is available
     //IMPORTANT: This is in seconds from epoch, Java takes milliseconds from epoch, don't forget to multiply by 1000
-    @Ignore
     @SerializedName("available_time")
     public long available;
 
@@ -58,7 +59,8 @@ public class RewardGear implements Parcelable{
 
     public static int generateId(long now){
         Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date(now));
+        cal.setTimeZone(TimeZone.getTimeZone("GMT"));
+        cal.setTime(new Date(now*1000));
         int id = cal.get(Calendar.YEAR)-2017;
         id *= 100;
         id += cal.get(Calendar.MONTH);

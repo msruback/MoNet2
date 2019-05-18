@@ -1,6 +1,9 @@
 package com.mattrubacky.monet2.data.rooms.dao.entity;
 import android.content.Context;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.test.filters.SmallTest;
 
 import com.google.common.collect.Range;
@@ -11,9 +14,11 @@ import com.mattrubacky.monet2.testutils.DeserializedHelper;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
@@ -26,6 +31,9 @@ public class SkillDaoTest {
     private Context context;
     private SkillDao skillDao;
     private Skill chunkableSkill,specialSkill,oldSkill;
+
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Before
     public void createDB(){
@@ -50,41 +58,47 @@ public class SkillDaoTest {
 
     @After
     public void deleteDB(){
-        skillDao.delete(chunkableSkill);
-        skillDao.delete(specialSkill);
-        skillDao.delete(oldSkill);
         db.close();
     }
 
     @Test
     public void insert(){
-        Skill pulledSkill = skillDao.select(chunkableSkill.id);
-        assertThat(pulledSkill.id).isEqualTo(chunkableSkill.id);
-        assertThat(pulledSkill.name).isEqualTo(chunkableSkill.name);
-        assertThat(pulledSkill.url).isEqualTo(chunkableSkill.url);
-    }
-
-    @Test
-    public void delete(){
-        skillDao.delete(chunkableSkill);
-        Skill pulledSkill = skillDao.select(chunkableSkill.id);
-        assertThat(pulledSkill).isNull();
-        skillDao.insertSkill(chunkableSkill);
+        LiveData<Skill> skillLiveData = skillDao.select(chunkableSkill.id);
+        skillLiveData.observeForever(new Observer<Skill>() {
+            @Override
+            public void onChanged(Skill pulledSkill) {
+                assertThat(pulledSkill.id).isEqualTo(chunkableSkill.id);
+                assertThat(pulledSkill.name).isEqualTo(chunkableSkill.name);
+                assertThat(pulledSkill.url).isEqualTo(chunkableSkill.url);
+            }
+        });
     }
 
     @Test
     public void selectChunkable(){
-        for(Skill skill:skillDao.selectChunkableSkills()){
-            assertThat(skill.id).isNotIn( Range.openClosed(100,200));
-            assertThat(skill.id).isNotEqualTo(12);
-            assertThat(skill.id).isNotEqualTo(13);
-        }
+        LiveData<List<Skill>> skillLiveData = skillDao.selectChunkableSkills();
+        skillLiveData.observeForever(new Observer<List<Skill>>() {
+            @Override
+            public void onChanged(List<Skill> skills) {
+                for(Skill skill:skills){
+                    assertThat(skill.id).isNotIn( Range.openClosed(100,200));
+                    assertThat(skill.id).isNotEqualTo(12);
+                    assertThat(skill.id).isNotEqualTo(13);
+                }
+            }
+        });
     }
 
     @Test
     public void selectSpecial(){
-        for(Skill skill:skillDao.selectSpecialSkills()){
-            assertThat(skill.id).isIn( Range.openClosed(100,200));
-        }
+        LiveData<List<Skill>> skillLiveData = skillDao.selectSpecialSkills();
+        skillLiveData.observeForever(new Observer<List<Skill>>() {
+            @Override
+            public void onChanged(List<Skill> skills) {
+                for(Skill skill:skills){
+                    assertThat(skill.id).isIn( Range.openClosed(100,200));
+                }
+            }
+        });
     }
 }

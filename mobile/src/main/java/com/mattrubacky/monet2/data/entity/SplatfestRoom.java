@@ -104,19 +104,14 @@ public class SplatfestRoom {
         this.bravoName = splatfest.names.bravo;
         this.bravoLongName = splatfest.names.bravoDesc;
 
-        this.alphaColor = splatfest.colors.alpha.color;
-        this.bravoColor = splatfest.colors.bravo.color;
+        this.alphaColor = splatfest.colors.alpha.getColor();
+        this.bravoColor = splatfest.colors.bravo.getColor();
     }
 
-    public Splatfest toDeserialized(List<Stage> stages){
+    public Splatfest toDeserialized(){
         Splatfest splatfest = new Splatfest();
         splatfest.id = id;
-        for(Stage stage:stages) {
-            if(this.stage.id==stage.id) {
-                splatfest.stage = stage;
-            }
-        }
-
+        splatfest.stage = stage;
         splatfest.times = new SplatfestTimes();
         splatfest.times.announce = announced;
         splatfest.times.start = start;
