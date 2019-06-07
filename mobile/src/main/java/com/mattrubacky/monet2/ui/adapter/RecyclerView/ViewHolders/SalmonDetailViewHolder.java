@@ -67,68 +67,78 @@ public class SalmonDetailViewHolder extends RecyclerView.ViewHolder{
             imageHandler.downloadImage("salmon_stage",imageDirName,url,context);
         }
 
-        if(detail.weapons.get(0).id>=0){
-            imageDirName = detail.weapons.get(0).weapon.name.toLowerCase().replace(" ","_");
-            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(0).weapon.url;
+        if(detail.weapons.size()>0) {
+            if (!detail.weapons.get(0).isMystery) {
+                if (detail.weapons.get(0).weapon != null) {
+                    imageDirName = detail.weapons.get(0).weapon.name.toLowerCase().replace(" ", "_");
+                    url = "https://app.splatoon2.nintendo.net" + detail.weapons.get(0).weapon.url;
 
-            if(imageHandler.imageExists("weapon",imageDirName,context)){
-                weapon1Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-            }else{
-                Picasso.with(context).load(url).into(weapon1Image);
-                imageHandler.downloadImage("weapon",imageDirName,url,context);
+                    if (imageHandler.imageExists("weapon", imageDirName, context)) {
+                        weapon1Image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                    } else {
+                        Picasso.with(context).load(url).into(weapon1Image);
+                        imageHandler.downloadImage("weapon", imageDirName, url, context);
+                    }
+                }
+            } else if (!detail.weapons.get(0).isGold) {
+                weapon1Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
+            } else {
+                weapon1Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery_grizzco));
             }
-        }else if(detail.weapons.get(0).id==-1){
-            weapon1Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
-        }else if(detail.weapons.get(0).id==-2){
-            weapon1Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery_grizzco));
-        }
 
-        if(detail.weapons.get(1).id>=0){
-            imageDirName = detail.weapons.get(1).weapon.name.toLowerCase().replace(" ","_");
-            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(1).weapon.url;
+            if (!detail.weapons.get(1).isMystery) {
+                if (detail.weapons.get(1).weapon != null) {
+                    imageDirName = detail.weapons.get(1).weapon.name.toLowerCase().replace(" ", "_");
+                    url = "https://app.splatoon2.nintendo.net" + detail.weapons.get(1).weapon.url;
 
-            if(imageHandler.imageExists("weapon",imageDirName,context)){
-                weapon2Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-            }else{
-                Picasso.with(context).load(url).into(weapon2Image);
-                imageHandler.downloadImage("weapon",imageDirName,url,context);
+                    if (imageHandler.imageExists("weapon", imageDirName, context)) {
+                        weapon2Image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                    } else {
+                        Picasso.with(context).load(url).into(weapon2Image);
+                        imageHandler.downloadImage("weapon", imageDirName, url, context);
+                    }
+                }
+            } else if (!detail.weapons.get(1).isGold) {
+                weapon2Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
+            } else {
+                weapon2Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery_grizzco));
             }
-        }else if(detail.weapons.get(1).id==-1){
-            weapon2Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
-        }else if(detail.weapons.get(1).id==-2){
-            weapon2Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery_grizzco));
-        }
 
-        if(detail.weapons.get(2).id>=0){
-            imageDirName = detail.weapons.get(2).weapon.name.toLowerCase().replace(" ","_");
-            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(2).weapon.url;
+            if (!detail.weapons.get(2).isMystery) {
+                if (detail.weapons.get(2).weapon != null) {
+                    imageDirName = detail.weapons.get(2).weapon.name.toLowerCase().replace(" ", "_");
+                    url = "https://app.splatoon2.nintendo.net" + detail.weapons.get(2).weapon.url;
 
-            if(imageHandler.imageExists("weapon",imageDirName,context)){
-                weapon3Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-            }else{
-                Picasso.with(context).load(url).into(weapon3Image);
-                imageHandler.downloadImage("weapon",imageDirName,url,context);
+                    if (imageHandler.imageExists("weapon", imageDirName, context)) {
+                        weapon3Image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                    } else {
+                        Picasso.with(context).load(url).into(weapon3Image);
+                        imageHandler.downloadImage("weapon", imageDirName, url, context);
+                    }
+                }
+            } else if (!detail.weapons.get(2).isGold) {
+                weapon3Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
+            } else {
+                weapon3Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery_grizzco));
             }
-        }else if(detail.weapons.get(2).id==-1){
-            weapon3Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
-        }else if(detail.weapons.get(2).id==-2){
-            weapon3Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery_grizzco));
-        }
 
-        if(detail.weapons.get(3).id>=0){
-            imageDirName = detail.weapons.get(3).weapon.name.toLowerCase().replace(" ","_");
-            url = "https://app.splatoon2.nintendo.net"+detail.weapons.get(3).weapon.url;
+            if (!detail.weapons.get(3).isMystery) {
+                if (detail.weapons.get(3).weapon != null) {
+                    imageDirName = detail.weapons.get(3).weapon.name.toLowerCase().replace(" ", "_");
+                    url = "https://app.splatoon2.nintendo.net" + detail.weapons.get(3).weapon.url;
 
-            if(imageHandler.imageExists("weapon",imageDirName,context)){
-                weapon4Image.setImageBitmap(imageHandler.loadImage("weapon",imageDirName));
-            }else{
-                Picasso.with(context).load(url).into(weapon4Image);
-                imageHandler.downloadImage("weapon",imageDirName,url,context);
+                    if (imageHandler.imageExists("weapon", imageDirName, context)) {
+                        weapon4Image.setImageBitmap(imageHandler.loadImage("weapon", imageDirName));
+                    } else {
+                        Picasso.with(context).load(url).into(weapon4Image);
+                        imageHandler.downloadImage("weapon", imageDirName, url, context);
+                    }
+                }
+            } else if (!detail.weapons.get(3).isGold) {
+                weapon4Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
+            } else {
+                weapon4Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery_grizzco));
             }
-        }else if(detail.weapons.get(3).id==-1){
-            weapon4Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery));
-        }else if(detail.weapons.get(3).id==-2){
-            weapon4Image.setImageDrawable(context.getResources().getDrawable(R.drawable.weapon_mystery_grizzco));
         }
 
     }

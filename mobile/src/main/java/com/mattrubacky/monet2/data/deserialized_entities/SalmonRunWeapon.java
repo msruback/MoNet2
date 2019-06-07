@@ -12,12 +12,12 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
 /**
  * Created by mattr on 7/4/2018.
  */
 @Entity(tableName = "salmon_weapons",
-        primaryKeys = {"salmon_weapon_id","weapon_shift_id"},
         foreignKeys = {
                 @ForeignKey(entity = Weapon.class,
                         parentColumns = "weapon_id",
@@ -45,14 +45,26 @@ public class SalmonRunWeapon implements Parcelable {
     }
 
     //Rooms constructor
-    public SalmonRunWeapon(int id, int shiftId){
+    public SalmonRunWeapon(int gen_id,int id, int shiftId,boolean isMystery,boolean isGold){
+        this.gen_id = gen_id;
         this.id = id;
         this.shiftId = shiftId;
+        this.isMystery = isMystery;
+        this.isGold = isGold;
     }
+
+    @PrimaryKey
+    public int gen_id;
 
     @ColumnInfo(name = "salmon_weapon_id")
     @SerializedName("id")
-    public int id;
+    public Integer id;
+
+    @ColumnInfo(name = "is_mystery")
+    public boolean isMystery;
+
+    @ColumnInfo(name = "is_gold")
+    public boolean isGold;
 
     @Ignore
     @SerializedName("weapon")
@@ -61,6 +73,13 @@ public class SalmonRunWeapon implements Parcelable {
     @ColumnInfo(name = "weapon_shift_id")
     public int shiftId;
 
+    public static int generateId(int shiftId, int num){
+        shiftId*=10;
+        shiftId+=num;
+        return shiftId;
+    }
+
+    @Ignore
     protected SalmonRunWeapon(Parcel in) {
         id = in.readInt();
         weapon = in.readParcelable(Weapon.class.getClassLoader());

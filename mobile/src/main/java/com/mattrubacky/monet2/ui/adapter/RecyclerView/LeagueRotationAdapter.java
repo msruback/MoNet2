@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mattr on 1/14/2018.
@@ -20,11 +21,11 @@ import java.util.ArrayList;
 
 public class LeagueRotationAdapter extends RecyclerView.Adapter<CompetitiveTimePeriodViewHolder>{
 
-    private ArrayList<TimePeriod> input;
+    private List<TimePeriod> input;
     private LayoutInflater inflater;
     private Context context;
 
-    public LeagueRotationAdapter(Context context, ArrayList<TimePeriod> input) {
+    public LeagueRotationAdapter(Context context, List<TimePeriod> input) {
         this.inflater = LayoutInflater.from(context);
         this.input = input;
         this.context = context;

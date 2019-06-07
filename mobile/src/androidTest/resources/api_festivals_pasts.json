@@ -1,0 +1,1678 @@
+{
+	"results": [{
+		"summary": {
+			"vote": 1,
+			"total": 1,
+			"team": 0,
+			"solo": 1
+		},
+		"festival_id": 2054,
+		"rates": {
+			"vote": {
+				"bravo": 6787,
+				"alpha": 3213
+			},
+			"solo": {
+				"bravo": 5064,
+				"alpha": 4936
+			},
+			"team": {
+				"bravo": 4872,
+				"alpha": 5128
+			}
+		},
+		"festival_version": 1
+	}, {
+		"festival_id": 2050,
+		"rates": {
+			"vote": {
+				"alpha": 2685,
+				"bravo": 7315
+			},
+			"solo": {
+				"bravo": 4817,
+				"alpha": 5183
+			},
+			"team": {
+				"bravo": 4861,
+				"alpha": 5139
+			}
+		},
+		"festival_version": 1,
+		"summary": {
+			"team": 0,
+			"solo": 0,
+			"total": 0,
+			"vote": 1
+		}
+	}, {
+		"festival_id": 5059,
+		"festival_version": 1,
+		"rates": {
+			"team": {
+				"alpha": 5261,
+				"bravo": 4739
+			},
+			"solo": {
+				"bravo": 4938,
+				"alpha": 5062
+			},
+			"vote": {
+				"alpha": 3265,
+				"bravo": 6735
+			}
+		},
+		"summary": {
+			"team": 0,
+			"solo": 0,
+			"total": 0,
+			"vote": 1
+		}
+	}, {
+		"summary": {
+			"vote": 0,
+			"regular": 1,
+			"total": 1,
+			"challenge": 1
+		},
+		"contribution_bravo": {
+			"regular": 1717.2247479933,
+			"challenge": 1212.21693570245
+		},
+		"contribution_alpha": {
+			"challenge": 1098.82166843997,
+			"regular": 1709.83501614571
+		},
+		"festival_id": 4053,
+		"festival_version": 2,
+		"rates": {
+			"challenge": {
+				"bravo": 5245,
+				"alpha": 4755
+			},
+			"regular": {
+				"alpha": 4989,
+				"bravo": 5011
+			},
+			"vote": {
+				"bravo": 4315,
+				"alpha": 5685
+			}
+		}
+	}, {
+		"summary": {
+			"team": 0,
+			"solo": 0,
+			"total": 0,
+			"vote": 1
+		},
+		"festival_id": 4052,
+		"festival_version": 1,
+		"rates": {
+			"team": {
+				"alpha": 5294,
+				"bravo": 4706
+			},
+			"solo": {
+				"bravo": 4834,
+				"alpha": 5166
+			},
+			"vote": {
+				"bravo": 5596,
+				"alpha": 4404
+			}
+		}
+	}, {
+		"summary": {
+			"challenge": 0,
+			"regular": 0,
+			"vote": 1,
+			"total": 0
+		},
+		"contribution_bravo": {
+			"challenge": 1257.53790617024,
+			"regular": 1829.71395987326
+		},
+		"contribution_alpha": {
+			"challenge": 1288.57107882826,
+			"regular": 1991.30435692518
+		},
+		"festival_id": 4057,
+		"festival_version": 2,
+		"rates": {
+			"challenge": {
+				"bravo": 4939,
+				"alpha": 5061
+			},
+			"regular": {
+				"bravo": 4789,
+				"alpha": 5211
+			},
+			"vote": {
+				"alpha": 4379,
+				"bravo": 5621
+			}
+		}
+	}, {
+		"festival_id": 2055,
+		"rates": {
+			"solo": {
+				"alpha": 5081,
+				"bravo": 4919
+			},
+			"team": {
+				"alpha": 5095,
+				"bravo": 4905
+			},
+			"vote": {
+				"bravo": 5999,
+				"alpha": 4001
+			}
+		},
+		"festival_version": 1,
+		"summary": {
+			"vote": 1,
+			"total": 0,
+			"solo": 0,
+			"team": 0
+		}
+	}, {
+		"summary": {
+			"team": 0,
+			"solo": 0,
+			"total": 0,
+			"vote": 0
+		},
+		"festival_id": 2053,
+		"rates": {
+			"vote": {
+				"bravo": 4573,
+				"alpha": 5427
+			},
+			"team": {
+				"bravo": 4778,
+				"alpha": 5222
+			},
+			"solo": {
+				"bravo": 4906,
+				"alpha": 5094
+			}
+		},
+		"festival_version": 1
+	}, {
+		"festival_id": 5054,
+		"festival_version": 1,
+		"rates": {
+			"solo": {
+				"alpha": 4764,
+				"bravo": 5236
+			},
+			"team": {
+				"bravo": 5482,
+				"alpha": 4518
+			},
+			"vote": {
+				"bravo": 4415,
+				"alpha": 5585
+			}
+		},
+		"summary": {
+			"team": 1,
+			"solo": 1,
+			"total": 1,
+			"vote": 0
+		}
+	}, {
+		"festival_id": 2056,
+		"festival_version": 1,
+		"rates": {
+			"vote": {
+				"bravo": 5320,
+				"alpha": 4680
+			},
+			"solo": {
+				"bravo": 4838,
+				"alpha": 5162
+			},
+			"team": {
+				"bravo": 4969,
+				"alpha": 5031
+			}
+		},
+		"summary": {
+			"total": 0,
+			"vote": 1,
+			"solo": 0,
+			"team": 0
+		}
+	}, {
+		"festival_version": 2,
+		"rates": {
+			"challenge": {
+				"bravo": 4600,
+				"alpha": 5400
+			},
+			"vote": {
+				"alpha": 5712,
+				"bravo": 4288
+			},
+			"regular": {
+				"alpha": 5247,
+				"bravo": 4753
+			}
+		},
+		"festival_id": 2057,
+		"contribution_alpha": {
+			"regular": 1828.44609844023,
+			"challenge": 1308.87846516543
+		},
+		"contribution_bravo": {
+			"challenge": 1114.83102999756,
+			"regular": 1656.37421022264
+		},
+		"summary": {
+			"challenge": 0,
+			"regular": 0,
+			"vote": 0,
+			"total": 0
+		}
+	}, {
+		"festival_id": 2051,
+		"festival_version": 1,
+		"rates": {
+			"team": {
+				"alpha": 5237,
+				"bravo": 4763
+			},
+			"solo": {
+				"bravo": 4909,
+				"alpha": 5091
+			},
+			"vote": {
+				"bravo": 4644,
+				"alpha": 5356
+			}
+		},
+		"summary": {
+			"total": 0,
+			"vote": 0,
+			"team": 0,
+			"solo": 0
+		}
+	}, {
+		"summary": {
+			"total": 0,
+			"vote": 1,
+			"solo": 0,
+			"team": 0
+		},
+		"festival_id": 5052,
+		"festival_version": 1,
+		"rates": {
+			"vote": {
+				"alpha": 4130,
+				"bravo": 5870
+			},
+			"team": {
+				"bravo": 4370,
+				"alpha": 5630
+			},
+			"solo": {
+				"bravo": 4734,
+				"alpha": 5266
+			}
+		}
+	}, {
+		"summary": {
+			"solo": 0,
+			"team": 0,
+			"total": 0,
+			"vote": 1
+		},
+		"festival_version": 1,
+		"rates": {
+			"solo": {
+				"alpha": 5182,
+				"bravo": 4818
+			},
+			"team": {
+				"alpha": 5586,
+				"bravo": 4414
+			},
+			"vote": {
+				"bravo": 5777,
+				"alpha": 4223
+			}
+		},
+		"festival_id": 5053
+	}, {
+		"festival_version": 2,
+		"rates": {
+			"vote": {
+				"bravo": 3773,
+				"alpha": 6227
+			},
+			"regular": {
+				"bravo": 5199,
+				"alpha": 4801
+			},
+			"challenge": {
+				"bravo": 5283,
+				"alpha": 4717
+			}
+		},
+		"festival_id": 4055,
+		"contribution_alpha": {
+			"regular": 1726.55840426841,
+			"challenge": 1199.0399825232
+		},
+		"contribution_bravo": {
+			"challenge": 1343.062160242,
+			"regular": 1869.98856160141
+		},
+		"summary": {
+			"challenge": 1,
+			"total": 1,
+			"regular": 1,
+			"vote": 0
+		}
+	}, {
+		"festival_version": 1,
+		"rates": {
+			"team": {
+				"bravo": 5134,
+				"alpha": 4866
+			},
+			"solo": {
+				"bravo": 5133,
+				"alpha": 4867
+			},
+			"vote": {
+				"bravo": 4218,
+				"alpha": 5782
+			}
+		},
+		"festival_id": 4051,
+		"summary": {
+			"solo": 1,
+			"team": 1,
+			"vote": 0,
+			"total": 1
+		}
+	}, {
+		"festival_version": 1,
+		"rates": {
+			"vote": {
+				"bravo": 4698,
+				"alpha": 5302
+			},
+			"solo": {
+				"bravo": 5189,
+				"alpha": 4811
+			},
+			"team": {
+				"bravo": 5098,
+				"alpha": 4902
+			}
+		},
+		"festival_id": 5056,
+		"summary": {
+			"vote": 0,
+			"total": 1,
+			"solo": 1,
+			"team": 1
+		}
+	}, {
+		"summary": {
+			"vote": 1,
+			"total": 0,
+			"solo": 0,
+			"team": 0
+		},
+		"festival_id": 5051,
+		"rates": {
+			"vote": {
+				"alpha": 4926,
+				"bravo": 5074
+			},
+			"team": {
+				"alpha": 5224,
+				"bravo": 4776
+			},
+			"solo": {
+				"alpha": 5531,
+				"bravo": 4469
+			}
+		},
+		"festival_version": 1
+	}, {
+		"summary": {
+			"challenge": 1,
+			"total": 1,
+			"vote": 1,
+			"regular": 1
+		},
+		"contribution_bravo": {
+			"challenge": 1191.22800314902,
+			"regular": 1769.23975136417
+		},
+		"contribution_alpha": {
+			"regular": 1677.17585341534,
+			"challenge": 1126.00835880337
+		},
+		"festival_id": 5061,
+		"festival_version": 2,
+		"rates": {
+			"vote": {
+				"bravo": 5131,
+				"alpha": 4869
+			},
+			"regular": {
+				"alpha": 4866,
+				"bravo": 5134
+			},
+			"challenge": {
+				"alpha": 4859,
+				"bravo": 5141
+			}
+		}
+	}, {
+		"summary": {
+			"total": 1,
+			"vote": 1,
+			"solo": 1,
+			"team": 0
+		},
+		"festival_id": 2052,
+		"festival_version": 1,
+		"rates": {
+			"solo": {
+				"bravo": 5031,
+				"alpha": 4969
+			},
+			"team": {
+				"bravo": 4980,
+				"alpha": 5020
+			},
+			"vote": {
+				"bravo": 5722,
+				"alpha": 4278
+			}
+		}
+	}, {
+		"contribution_alpha": {
+			"challenge": 1280.51590049857,
+			"regular": 1904.19466371321
+		},
+		"contribution_bravo": {
+			"challenge": 1265.08961539733,
+			"regular": 1925.11530888715
+		},
+		"summary": {
+			"regular": 1,
+			"vote": 1,
+			"total": 1,
+			"challenge": 0
+		},
+		"festival_id": 4056,
+		"festival_version": 2,
+		"rates": {
+			"challenge": {
+				"alpha": 5030,
+				"bravo": 4970
+			},
+			"regular": {
+				"alpha": 4973,
+				"bravo": 5027
+			},
+			"vote": {
+				"alpha": 3732,
+				"bravo": 6268
+			}
+		}
+	}, {
+		"contribution_bravo": {
+			"regular": 2017.02048762767,
+			"challenge": 1409.34020846411
+		},
+		"contribution_alpha": {
+			"challenge": 1224.29598956872,
+			"regular": 1846.07342133148
+		},
+		"summary": {
+			"vote": 0,
+			"regular": 1,
+			"total": 1,
+			"challenge": 1
+		},
+		"festival_id": 4054,
+		"rates": {
+			"vote": {
+				"bravo": 3711,
+				"alpha": 6289
+			},
+			"regular": {
+				"alpha": 4779,
+				"bravo": 5221
+			},
+			"challenge": {
+				"bravo": 5351,
+				"alpha": 4649
+			}
+		},
+		"festival_version": 2
+	}, {
+		"contribution_alpha": {
+			"challenge": 1068.56604720131,
+			"regular": 1457.52375683559
+		},
+		"contribution_bravo": {
+			"regular": 1530.96554798145,
+			"challenge": 1148.10910640716
+		},
+		"summary": {
+			"challenge": 1,
+			"vote": 1,
+			"regular": 1,
+			"total": 1
+		},
+		"rates": {
+			"vote": {
+				"alpha": 3117,
+				"bravo": 6883
+			},
+			"regular": {
+				"bravo": 5123,
+				"alpha": 4877
+			},
+			"challenge": {
+				"bravo": 5179,
+				"alpha": 4821
+			}
+		},
+		"festival_version": 2,
+		"festival_id": 5060
+	}],
+	"festivals": [{
+		"colors": {
+			"alpha": {
+				"a": 1,
+				"css_rgb": "rgb(91%,41%,75%)",
+				"r": 0.91,
+				"g": 0.41,
+				"b": 0.75
+			},
+			"bravo": {
+				"css_rgb": "rgb(54%,81%,28%)",
+				"a": 1,
+				"b": 0.28,
+				"r": 0.54,
+				"g": 0.81
+			},
+			"middle": {
+				"b": 0.87,
+				"r": 0.09,
+				"g": 0.81,
+				"css_rgb": "rgb(9%,81%,87%)",
+				"a": 1
+			}
+		},
+		"times": {
+			"start": 1555711200,
+			"end": 1555884000,
+			"result": 1555891200,
+			"announce": 1554451200
+		},
+		"names": {
+			"bravo_long": "TORTOISE",
+			"alpha_short": "Hare",
+			"alpha_long": "HARE",
+			"bravo_short": "Tortoise"
+		},
+		"images": {
+			"bravo": "/images/festival/25b2f0f54ab695af7501796a84dcd23e.png",
+			"panel": "/images/festival/636ecf532b58e1f99310d3a60e2eb3ae.png",
+			"alpha": "/images/festival/64bf92868ec61febf48914368a341694.png"
+		},
+		"special_stage": {
+			"name": "Shifty Station",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999"
+		},
+		"festival_id": 4057
+	}, {
+		"names": {
+			"alpha_long": "KNIGHTS",
+			"bravo_short": "Wizard",
+			"bravo_long": "WIZARDS",
+			"alpha_short": "Knight"
+		},
+		"times": {
+			"result": 1552831200,
+			"announce": 1552032000,
+			"start": 1552708800,
+			"end": 1552795200
+		},
+		"colors": {
+			"bravo": {
+				"css_rgb": "rgb(42%,4%,16%)",
+				"a": 1,
+				"b": 0.16,
+				"r": 0.42,
+				"g": 0.04
+			},
+			"middle": {
+				"a": 1,
+				"css_rgb": "rgb(65%,45%,3%)",
+				"g": 0.45,
+				"r": 0.65,
+				"b": 0.03
+			},
+			"alpha": {
+				"b": 0.53,
+				"r": 0.47,
+				"g": 0.55,
+				"css_rgb": "rgb(47%,55%,53%)",
+				"a": 1
+			}
+		},
+		"images": {
+			"alpha": "/images/festival/0eebbd0cc324ba479b112f88293cefd4.png",
+			"bravo": "/images/festival/337a817b2c1588c6dddecda6c1c1a0b0.png",
+			"panel": "/images/festival/6d5d3a80a3f442adca813f14657b1d30.png"
+		},
+		"festival_id": 4056,
+		"special_stage": {
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999",
+			"name": "Shifty Station"
+		}
+	}, {
+		"times": {
+			"end": 1549771200,
+			"start": 1549684800,
+			"announce": 1549008000,
+			"result": 1549814400
+		},
+		"names": {
+			"bravo_long": "WAFFLES",
+			"alpha_short": "Pancake",
+			"bravo_short": "Waffle",
+			"alpha_long": "PANCAKES"
+		},
+		"colors": {
+			"alpha": {
+				"a": 1,
+				"css_rgb": "rgb(83%,72%,45%)",
+				"r": 0.83,
+				"g": 0.72,
+				"b": 0.45
+			},
+			"middle": {
+				"r": 0.9,
+				"g": 0.3,
+				"b": 0.45,
+				"a": 1,
+				"css_rgb": "rgb(90%,30%,45%)"
+			},
+			"bravo": {
+				"css_rgb": "rgb(27%,27%,67%)",
+				"a": 1,
+				"b": 0.67,
+				"r": 0.27,
+				"g": 0.27
+			}
+		},
+		"special_stage": {
+			"name": "Shifty Station",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999"
+		},
+		"images": {
+			"alpha": "/images/festival/7c90e6226e62e705319e5683c0c84f00.png",
+			"bravo": "/images/festival/dd8c383fdff05b52d21dac6a16385912.png",
+			"panel": "/images/festival/4c5df669eb782f9bbad81f7e52252398.png"
+		},
+		"festival_id": 5061
+	}, {
+		"colors": {
+			"bravo": {
+				"b": 0.56,
+				"r": 0.51,
+				"g": 0.53,
+				"css_rgb": "rgb(51%,53%,56%)",
+				"a": 1
+			},
+			"middle": {
+				"css_rgb": "rgb(76%,8%,2%)",
+				"a": 1,
+				"b": 0.02,
+				"g": 0.08,
+				"r": 0.76
+			},
+			"alpha": {
+				"r": 0.49,
+				"g": 0.36,
+				"b": 0.15,
+				"a": 1,
+				"css_rgb": "rgb(49%,36%,15%)"
+			}
+		},
+		"times": {
+			"result": 1546819200,
+			"announce": 1545379200,
+			"start": 1546639200,
+			"end": 1546812000
+		},
+		"names": {
+			"bravo_long": "FRIENDS",
+			"alpha_short": "Fam",
+			"alpha_long": "FAMILY",
+			"bravo_short": "Friend"
+		},
+		"images": {
+			"bravo": "/images/festival/9a6de731cff750fe27dc9badc4685cb2.png",
+			"panel": "/images/festival/87049765012ba33c5566e53e2ee23acc.png",
+			"alpha": "/images/festival/7a5af2320b5b1c9e66fac2fde60cbfbe.png"
+		},
+		"festival_id": 4055,
+		"special_stage": {
+			"name": "Shifty Station",
+			"id": "9999",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png"
+		}
+	}, {
+		"images": {
+			"bravo": "/images/festival/4dcd1203ab683be2f811c4b6cfbe6ef3.png",
+			"panel": "/images/festival/d60f05b972835085c1dd65645377e496.png",
+			"alpha": "/images/festival/f29f516d41a0eadab392a1025a0d82a8.png"
+		},
+		"special_stage": {
+			"name": "Shifty Station",
+			"id": "9999",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png"
+		},
+		"festival_id": 4054,
+		"colors": {
+			"bravo": {
+				"a": 1,
+				"css_rgb": "rgb(27%,9%,82%)",
+				"r": 0.27,
+				"g": 0.09,
+				"b": 0.82
+			},
+			"middle": {
+				"a": 1,
+				"css_rgb": "rgb(82%,82%,82%)",
+				"g": 0.82,
+				"r": 0.82,
+				"b": 0.82
+			},
+			"alpha": {
+				"a": 1,
+				"css_rgb": "rgb(93%,14%,1%)",
+				"r": 0.93,
+				"g": 0.14,
+				"b": 0.01
+			}
+		},
+		"names": {
+			"alpha_short": "Hero",
+			"bravo_long": "VILLAINS",
+			"alpha_long": "HEROES",
+			"bravo_short": "Villain"
+		},
+		"times": {
+			"announce": 1544169600,
+			"result": 1544976000,
+			"end": 1544932800,
+			"start": 1544846400
+		}
+	}, {
+		"special_stage": {
+			"name": "Shifty Station",
+			"id": "9999",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png"
+		},
+		"images": {
+			"alpha": "/images/festival/09b89bd0d196a850375a35df06a80e3f.png",
+			"bravo": "/images/festival/4a4c328f3a01c53904c1de0db254a010.png",
+			"panel": "/images/festival/3a94b9a7aabc5fe004e2ca1cec21b3ea.png"
+		},
+		"festival_id": 2057,
+		"names": {
+			"bravo_long": "GUACAMOLE",
+			"alpha_short": "Salsa",
+			"alpha_long": "SALSA",
+			"bravo_short": "Guac"
+		},
+		"times": {
+			"end": 1542513600,
+			"start": 1542427200,
+			"announce": 1541750400,
+			"result": 1542520800
+		},
+		"colors": {
+			"middle": {
+				"a": 1,
+				"css_rgb": "rgb(83%,76%,71%)",
+				"g": 0.76,
+				"r": 0.83,
+				"b": 0.71
+			},
+			"bravo": {
+				"r": 0.46,
+				"g": 0.48,
+				"b": 0.17,
+				"a": 1,
+				"css_rgb": "rgb(46%,48%,17%)"
+			},
+			"alpha": {
+				"b": 0,
+				"g": 0.1,
+				"r": 0.5,
+				"css_rgb": "rgb(50%,10%,0%)",
+				"a": 1
+			}
+		}
+	}, {
+		"names": {
+			"bravo_long": "TREAT",
+			"alpha_short": "Trick",
+			"bravo_short": "Treat",
+			"alpha_long": "TRICK"
+		},
+		"times": {
+			"announce": 1538726400,
+			"result": 1540166400,
+			"end": 1540159200,
+			"start": 1539986400
+		},
+		"colors": {
+			"middle": {
+				"b": 0.6235294,
+				"r": 0.3058824,
+				"g": 0.9019608,
+				"css_rgb": "rgb(31%,90%,62%)",
+				"a": 1
+			},
+			"bravo": {
+				"css_rgb": "rgb(53%,2%,80%)",
+				"a": 1,
+				"b": 0.8,
+				"r": 0.5333334,
+				"g": 0.02
+			},
+			"alpha": {
+				"css_rgb": "rgb(93%,44%,15%)",
+				"a": 1,
+				"b": 0.145098,
+				"r": 0.9254902,
+				"g": 0.4431373
+			}
+		},
+		"images": {
+			"bravo": "/images/festival/6bf7d31afbd3c9d9605036a4086352a0.png",
+			"panel": "/images/festival/ae3bbc0b7ccfb6f686938a14ce7a725b.png",
+			"alpha": "/images/festival/0957e57c58c75b6897b8cff48017464b.png"
+		},
+		"special_stage": {
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999",
+			"name": "Shifty Station"
+		},
+		"festival_id": 4053
+	}, {
+		"images": {
+			"alpha": "/images/festival/2f0dad013ee736a585c8c6b1d50cf580.png",
+			"panel": "/images/festival/1addfc2fd590191b32130e1d7d06b99e.png",
+			"bravo": "/images/festival/56b6a031734728de15b4241337e4e6ae.png"
+		},
+		"special_stage": {
+			"name": "Shifty Station",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999"
+		},
+		"festival_id": 5060,
+		"colors": {
+			"middle": {
+				"r": 0.003,
+				"g": 0.094,
+				"b": 0.89,
+				"a": 1,
+				"css_rgb": "rgb(0%,9%,89%)"
+			},
+			"bravo": {
+				"r": 0.35,
+				"g": 0.4,
+				"b": 0.4,
+				"a": 1,
+				"css_rgb": "rgb(35%,40%,40%)"
+			},
+			"alpha": {
+				"a": 1,
+				"css_rgb": "rgb(42%,26%,13%)",
+				"r": 0.42,
+				"g": 0.26,
+				"b": 0.13
+			}
+		},
+		"names": {
+			"alpha_long": "I'm all about the\nRETRO style!",
+			"bravo_short": "Modern",
+			"alpha_short": "Retro",
+			"bravo_long": "I'm all about the\nMODERN style!"
+		},
+		"times": {
+			"result": 1537718400,
+			"announce": 1536976800,
+			"start": 1537588800,
+			"end": 1537675200
+		}
+	}, {
+		"images": {
+			"alpha": "/images/festival/a656296219071de542dc1dda8c30a774.png",
+			"panel": "/images/festival/36863b3199e0b89356bb4f611264cb69.png",
+			"bravo": "/images/festival/47b34946976311e6410983133e19364c.png"
+		},
+		"special_stage": {
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999",
+			"name": "Shifty Station"
+		},
+		"festival_id": 2056,
+		"times": {
+			"end": 1535256000,
+			"start": 1535169600,
+			"announce": 1534557600,
+			"result": 1535263200
+		},
+		"names": {
+			"bravo_short": "Spoon",
+			"alpha_long": "FORK",
+			"bravo_long": "SPOON",
+			"alpha_short": "Fork"
+		},
+		"colors": {
+			"alpha": {
+				"css_rgb": "rgb(89%,43%,38%)",
+				"a": 1,
+				"b": 0.37521,
+				"g": 0.42741,
+				"r": 0.89021
+			},
+			"middle": {
+				"b": 0.3843,
+				"r": 0.9215,
+				"g": 0.8039,
+				"css_rgb": "rgb(92%,80%,38%)",
+				"a": 1
+			},
+			"bravo": {
+				"a": 1,
+				"css_rgb": "rgb(18%,72%,60%)",
+				"r": 0.18431,
+				"g": 0.72156,
+				"b": 0.60392
+			}
+		}
+	}, {
+		"colors": {
+			"alpha": {
+				"css_rgb": "rgb(31%,84%,15%)",
+				"a": 1,
+				"b": 0.145098,
+				"g": 0.8352941,
+				"r": 0.3137255
+			},
+			"middle": {
+				"css_rgb": "rgb(29%,13%,78%)",
+				"a": 1,
+				"b": 0.7843137,
+				"r": 0.2941177,
+				"g": 0.1333333
+			},
+			"bravo": {
+				"css_rgb": "rgb(91%,0%,82%)",
+				"a": 1,
+				"b": 0.8235294,
+				"g": 0,
+				"r": 0.9137255
+			}
+		},
+		"times": {
+			"start": 1532145600,
+			"end": 1532232000,
+			"result": 1532275200,
+			"announce": 1530928800
+		},
+		"names": {
+			"alpha_long": "I'm team\nSQUID!",
+			"bravo_short": "Octopus",
+			"alpha_short": "Squid",
+			"bravo_long": "I'm team\nOCTOPUS!"
+		},
+		"images": {
+			"panel": "/images/festival/816e592b8b504c8a9a3abbcb295a7d98.png",
+			"bravo": "/images/festival/4f1310bc2f08932e2206af62e78d4c86.png",
+			"alpha": "/images/festival/ab723b3031a07ffe63c66d0081092f15.png"
+		},
+		"special_stage": {
+			"name": "Shifty Station",
+			"id": "9999",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png"
+		},
+		"festival_id": 4052
+	}, {
+		"festival_id": 5059,
+		"images": {
+			"alpha": "/images/festival/1825bbd6b89dbee4072ee33e50512f25.png",
+			"bravo": "/images/festival/8ee76925c3d9713f74e18db1906ab31d.png",
+			"panel": "/images/festival/16d799e667b6a984ed1597e9e909c9d3.png"
+		},
+		"special_stage": {
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999",
+			"name": "Shifty Station"
+		},
+		"colors": {
+			"alpha": {
+				"b": 0.133,
+				"r": 0.933,
+				"g": 0.505,
+				"css_rgb": "rgb(93%,50%,13%)",
+				"a": 1
+			},
+			"bravo": {
+				"a": 1,
+				"css_rgb": "rgb(18%,81%,27%)",
+				"r": 0.184,
+				"g": 0.81,
+				"b": 0.274
+			},
+			"middle": {
+				"css_rgb": "rgb(26%,82%,92%)",
+				"a": 1,
+				"b": 0.917,
+				"r": 0.258,
+				"g": 0.815
+			}
+		},
+		"times": {
+			"end": 1529812800,
+			"start": 1529726400,
+			"announce": 1529114400,
+			"result": 1529856000
+		},
+		"names": {
+			"bravo_long": "I like my OJ\nWITHOUT PULP",
+			"alpha_short": "Pulp",
+			"bravo_short": "No-Pulp",
+			"alpha_long": "I like my OJ\nWITH PULP"
+		}
+	}, {
+		"festival_id": 5056,
+		"images": {
+			"bravo": "/images/festival/1a4adf454f3f8d2c06be827d6d0ae0d5.png",
+			"panel": "/images/festival/ac4461bcca1750bba6ff0187c226936a.png",
+			"alpha": "/images/festival/4946ff2b7397cba5a5cfedbfda2019aa.png"
+		},
+		"special_stage": {
+			"name": "Shifty Station",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999"
+		},
+		"times": {
+			"start": 1526702400,
+			"end": 1526788800,
+			"result": 1526832000,
+			"announce": 1526436000
+		},
+		"names": {
+			"alpha_long": "RAPH",
+			"bravo_short": "Donnie",
+			"bravo_long": "DONNIE",
+			"alpha_short": "Raph"
+		},
+		"colors": {
+			"alpha": {
+				"a": 1,
+				"css_rgb": "rgb(89%,20%,32%)",
+				"r": 0.886,
+				"g": 0.196,
+				"b": 0.325
+			},
+			"middle": {
+				"css_rgb": "rgb(18%,50%,30%)",
+				"a": 1,
+				"b": 0.305,
+				"r": 0.176,
+				"g": 0.498
+			},
+			"bravo": {
+				"b": 0.819,
+				"r": 0.494,
+				"g": 0.247,
+				"css_rgb": "rgb(49%,25%,82%)",
+				"a": 1
+			}
+		}
+	}, {
+		"special_stage": {
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999",
+			"name": "Shifty Station"
+		},
+		"images": {
+			"alpha": "/images/festival/363411617f79e244f24eceb4b378b0d6.png",
+			"panel": "/images/festival/3c0c84f2a612f654cf4f3712530c8cbb.png",
+			"bravo": "/images/festival/0f69ce03fa59ee785c9b2b66b25274d5.png"
+		},
+		"festival_id": 5054,
+		"names": {
+			"alpha_short": "Mikey",
+			"bravo_long": "DONNIE",
+			"bravo_short": "Donnie",
+			"alpha_long": "MIKEY"
+		},
+		"times": {
+			"result": 1526227200,
+			"announce": 1525831200,
+			"start": 1526097600,
+			"end": 1526184000
+		},
+		"colors": {
+			"alpha": {
+				"g": 0.588,
+				"r": 0.972,
+				"b": 0.125,
+				"a": 1,
+				"css_rgb": "rgb(97%,59%,12%)"
+			},
+			"bravo": {
+				"a": 1,
+				"css_rgb": "rgb(32%,20%,66%)",
+				"g": 0.2,
+				"r": 0.321,
+				"b": 0.658
+			},
+			"middle": {
+				"r": 0.176,
+				"g": 0.498,
+				"b": 0.305,
+				"a": 1,
+				"css_rgb": "rgb(18%,50%,30%)"
+			}
+		}
+	}, {
+		"festival_id": 5053,
+		"images": {
+			"bravo": "/images/festival/3ecf2600d781959fb4f1fea328418190.png",
+			"panel": "/images/festival/c191f55f6f7eaa1224c3ffc2238e5e2d.png",
+			"alpha": "/images/festival/ee6ceb4854c6916594a713b1eca042b3.png"
+		},
+		"special_stage": {
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999",
+			"name": "Shifty Station"
+		},
+		"times": {
+			"announce": 1524880800,
+			"result": 1525622400,
+			"end": 1525579200,
+			"start": 1525492800
+		},
+		"names": {
+			"bravo_long": "LEO",
+			"alpha_short": "Raph",
+			"alpha_long": "RAPH",
+			"bravo_short": "Leo"
+		},
+		"colors": {
+			"middle": {
+				"a": 1,
+				"css_rgb": "rgb(18%,50%,30%)",
+				"g": 0.498,
+				"r": 0.176,
+				"b": 0.305
+			},
+			"bravo": {
+				"a": 1,
+				"css_rgb": "rgb(16%,53%,78%)",
+				"g": 0.529,
+				"r": 0.164,
+				"b": 0.776
+			},
+			"alpha": {
+				"a": 1,
+				"css_rgb": "rgb(89%,20%,32%)",
+				"r": 0.886,
+				"g": 0.196,
+				"b": 0.325
+			}
+		}
+	}, {
+		"times": {
+			"end": 1523160000,
+			"start": 1523073600,
+			"announce": 1522461600,
+			"result": 1523167200
+		},
+		"names": {
+			"alpha_short": "Baseball",
+			"bravo_long": "SOCCER",
+			"alpha_long": "BASEBALL",
+			"bravo_short": "Soccer"
+		},
+		"colors": {
+			"bravo": {
+				"b": 0.227451,
+				"r": 0,
+				"g": 0.6,
+				"css_rgb": "rgb(0%,60%,23%)",
+				"a": 1
+			},
+			"middle": {
+				"a": 1,
+				"css_rgb": "rgb(40%,26%,82%)",
+				"g": 0.2588235,
+				"r": 0.4,
+				"b": 0.8156863
+			},
+			"alpha": {
+				"css_rgb": "rgb(98%,35%,16%)",
+				"a": 1,
+				"b": 0.1647059,
+				"g": 0.3529412,
+				"r": 0.9803922
+			}
+		},
+		"festival_id": 2055,
+		"images": {
+			"alpha": "/images/festival/3fad03c6eb123a2059beb18242ea49ba.png",
+			"bravo": "/images/festival/828d1a2e65e27eeda2b626c4c6b227a5.png",
+			"panel": "/images/festival/027fc01e0ec475872977753664e7cebc.png"
+		},
+		"special_stage": {
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999",
+			"name": "Shifty Station"
+		}
+	}, {
+		"images": {
+			"panel": "/images/festival/9f1730d002628e22c74f52f6dbd8622a.png",
+			"bravo": "/images/festival/00e4c5fdccd3720d07127084fc1f4152.png",
+			"alpha": "/images/festival/a070cc6b405b4fb335992d824097acd8.png"
+		},
+		"festival_id": 5052,
+		"special_stage": {
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999",
+			"name": "Shifty Station"
+		},
+		"colors": {
+			"alpha": {
+				"g": 0.949,
+				"r": 0.937,
+				"b": 0.921,
+				"a": 1,
+				"css_rgb": "rgb(94%,95%,92%)"
+			},
+			"bravo": {
+				"css_rgb": "rgb(98%,75%,31%)",
+				"a": 1,
+				"b": 0.313,
+				"g": 0.749,
+				"r": 0.98
+			},
+			"middle": {
+				"b": 0.207,
+				"g": 0.149,
+				"r": 0.929,
+				"css_rgb": "rgb(93%,15%,21%)",
+				"a": 1
+			}
+		},
+		"names": {
+			"alpha_long": "THE CHICKEN\ncame first",
+			"bravo_short": "Egg",
+			"bravo_long": "THE EGG\ncame first",
+			"alpha_short": "Chicken"
+		},
+		"times": {
+			"start": 1520654400,
+			"end": 1520740800,
+			"result": 1520784000,
+			"announce": 1520042400
+		}
+	}, {
+		"images": {
+			"alpha": "/images/festival/b90d85a5cb1a8682b5a50eb61c13959d.png",
+			"panel": "/images/festival/64cb995153229865fb6897708b3d54eb.png",
+			"bravo": "/images/festival/744828fd21f3e7187697fac2ea13cd6c.png"
+		},
+		"festival_id": 2054,
+		"special_stage": {
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999",
+			"name": "Shifty Station"
+		},
+		"colors": {
+			"bravo": {
+				"css_rgb": "rgb(99%,43%,46%)",
+				"a": 1,
+				"b": 0.4588235,
+				"g": 0.427451,
+				"r": 0.9882353
+			},
+			"middle": {
+				"b": 0.9254902,
+				"g": 0.3176471,
+				"r": 0.3294118,
+				"css_rgb": "rgb(33%,32%,93%)",
+				"a": 1
+			},
+			"alpha": {
+				"b": 0.1411765,
+				"g": 0.8392157,
+				"r": 1,
+				"css_rgb": "rgb(100%,84%,14%)",
+				"a": 1
+			}
+		},
+		"times": {
+			"end": 1518930000,
+			"start": 1518843600,
+			"announce": 1518228000,
+			"result": 1518937200
+		},
+		"names": {
+			"alpha_long": "MONEY",
+			"bravo_short": "Love",
+			"bravo_long": "LOVE",
+			"alpha_short": "Money"
+		}
+	}, {
+		"special_stage": {
+			"id": "9999",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"name": "Shifty Station"
+		},
+		"images": {
+			"alpha": "/images/festival/76bc31861473c25500fd67cfef258710.png",
+			"panel": "/images/festival/c8e8fde799fd509053aa694e0673f27a.png",
+			"bravo": "/images/festival/bb601dcb90c305e1c93a0b8e67913651.png"
+		},
+		"festival_id": 4051,
+		"colors": {
+			"middle": {
+				"g": 0.29,
+				"r": 0.706,
+				"b": 0.937,
+				"a": 1,
+				"css_rgb": "rgb(71%,29%,94%)"
+			},
+			"bravo": {
+				"css_rgb": "rgb(8%,52%,73%)",
+				"a": 1,
+				"b": 0.729,
+				"r": 0.075,
+				"g": 0.518
+			},
+			"alpha": {
+				"css_rgb": "rgb(98%,56%,0%)",
+				"a": 1,
+				"b": 0,
+				"r": 0.98,
+				"g": 0.557
+			}
+		},
+		"names": {
+			"alpha_short": "Action",
+			"bravo_long": "COMEDY",
+			"alpha_long": "ACTION",
+			"bravo_short": "Comedy"
+		},
+		"times": {
+			"announce": 1515204000,
+			"result": 1515938400,
+			"end": 1515902400,
+			"start": 1515816000
+		}
+	}, {
+		"special_stage": {
+			"name": "Shifty Station",
+			"id": "9999",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png"
+		},
+		"images": {
+			"bravo": "/images/festival/6048d7aa5039ddfcad8d3d22d1afdd27.png",
+			"panel": "/images/festival/f9ee1526ac5c37cd3d87da5107b2aa9a.png",
+			"alpha": "/images/festival/5deb566aed4f1bf8ab97b19527a52ff2.png"
+		},
+		"festival_id": 2053,
+		"colors": {
+			"middle": {
+				"b": 0.792,
+				"r": 0.792,
+				"g": 0.792,
+				"css_rgb": "rgb(79%,79%,79%)",
+				"a": 1
+			},
+			"bravo": {
+				"b": 0.318,
+				"r": 0.051,
+				"g": 0.545,
+				"css_rgb": "rgb(5%,55%,32%)",
+				"a": 1
+			},
+			"alpha": {
+				"a": 1,
+				"css_rgb": "rgb(77%,21%,30%)",
+				"g": 0.207,
+				"r": 0.768,
+				"b": 0.302
+			}
+		},
+		"names": {
+			"bravo_long": "SOCKS",
+			"alpha_short": "Sweater",
+			"bravo_short": "Sock",
+			"alpha_long": "SWEATERS"
+		},
+		"times": {
+			"result": 1513494000,
+			"announce": 1512784800,
+			"start": 1513400400,
+			"end": 1513486800
+		}
+	}, {
+		"names": {
+			"bravo_long": "FANTASY",
+			"alpha_short": "Sci-Fi",
+			"bravo_short": "Fantasy",
+			"alpha_long": "SCIENCE FICTION"
+		},
+		"times": {
+			"result": 1511074800,
+			"announce": 1510365600,
+			"start": 1510981200,
+			"end": 1511067600
+		},
+		"colors": {
+			"middle": {
+				"css_rgb": "rgb(99%,39%,42%)",
+				"a": 1,
+				"b": 0.416,
+				"g": 0.388,
+				"r": 0.992
+			},
+			"bravo": {
+				"a": 1,
+				"css_rgb": "rgb(55%,100%,2%)",
+				"g": 1,
+				"r": 0.545,
+				"b": 0.023
+			},
+			"alpha": {
+				"r": 0.122,
+				"g": 0.686,
+				"b": 0.909,
+				"a": 1,
+				"css_rgb": "rgb(12%,69%,91%)"
+			}
+		},
+		"special_stage": {
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999",
+			"name": "Shifty Station"
+		},
+		"images": {
+			"bravo": "/images/festival/31d1cde8e1f5629d39f36c93b7eafc23.png",
+			"panel": "/images/festival/75652feea7076d4c57eeffc2ccc787e7.png",
+			"alpha": "/images/festival/5998b875be76e8cb27081a800bd54c00.png"
+		},
+		"festival_id": 2052
+	}, {
+		"names": {
+			"bravo_long": "WEREWOLVES",
+			"alpha_short": "Vampire",
+			"bravo_short": "Werewolf",
+			"alpha_long": "VAMPIRES"
+		},
+		"times": {
+			"end": 1508040000,
+			"start": 1507953600,
+			"announce": 1507341600,
+			"result": 1508047200
+		},
+		"colors": {
+			"alpha": {
+				"g": 0.207,
+				"r": 0.403,
+				"b": 0.686,
+				"a": 1,
+				"css_rgb": "rgb(40%,21%,69%)"
+			},
+			"bravo": {
+				"a": 1,
+				"css_rgb": "rgb(100%,41%,16%)",
+				"g": 0.408,
+				"r": 0.998,
+				"b": 0.161
+			},
+			"middle": {
+				"css_rgb": "rgb(0%,79%,6%)",
+				"a": 1,
+				"b": 0.055,
+				"r": 0,
+				"g": 0.794
+			}
+		},
+		"festival_id": 2051,
+		"images": {
+			"alpha": "/images/festival/a50696bb2e868b76e0bdc5d4b0d8b862.png",
+			"panel": "/images/festival/3aa4fbf7562d762c1d336c4fdbce8dfa.png",
+			"bravo": "/images/festival/e12abbae931d7a0a3e44acfddadfe894.png"
+		},
+		"special_stage": {
+			"name": "Shifty Station",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999"
+		}
+	}, {
+		"times": {
+			"start": 1504324800,
+			"end": 1504411200,
+			"result": 1504454400,
+			"announce": 1503712800
+		},
+		"names": {
+			"alpha_long": "The power of\nFLIGHT!",
+			"bravo_short": "Invisibility",
+			"bravo_long": "The power of\nINVISIBILITY!",
+			"alpha_short": "Flight"
+		},
+		"colors": {
+			"alpha": {
+				"b": 0.929,
+				"g": 0.333,
+				"r": 0.309,
+				"css_rgb": "rgb(31%,33%,93%)",
+				"a": 1
+			},
+			"middle": {
+				"css_rgb": "rgb(93%,15%,60%)",
+				"a": 1,
+				"b": 0.603,
+				"r": 0.929,
+				"g": 0.152
+			},
+			"bravo": {
+				"css_rgb": "rgb(42%,84%,17%)",
+				"a": 1,
+				"b": 0.172,
+				"g": 0.835,
+				"r": 0.419
+			}
+		},
+		"festival_id": 5051,
+		"images": {
+			"panel": "/images/festival/640c5aa1d2f83c3b9b7a0a06fd3585a8.png",
+			"bravo": "/images/festival/554d96de9077e6851bf65a8a205af527.png",
+			"alpha": "/images/festival/040068b6fbdb4ed7e0200e1025616171.png"
+		},
+		"special_stage": {
+			"id": "9999",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"name": "Shifty Station"
+		}
+	}, {
+		"times": {
+			"start": 1501905600,
+			"end": 1501992000,
+			"result": 1501999200,
+			"announce": 1501293600
+		},
+		"names": {
+			"alpha_short": "Mayo",
+			"bravo_long": "Ketchup is better than Mayo!",
+			"bravo_short": "Ketchup",
+			"alpha_long": "Mayo is better than Ketchup!"
+		},
+		"colors": {
+			"alpha": {
+				"a": 1,
+				"css_rgb": "rgb(100%,91%,61%)",
+				"g": 0.914,
+				"r": 1,
+				"b": 0.609
+			},
+			"middle": {
+				"css_rgb": "rgb(11%,69%,15%)",
+				"a": 1,
+				"b": 0.148,
+				"g": 0.692,
+				"r": 0.107
+			},
+			"bravo": {
+				"b": 0.117,
+				"r": 0.984,
+				"g": 0.195,
+				"css_rgb": "rgb(98%,20%,12%)",
+				"a": 1
+			}
+		},
+		"special_stage": {
+			"name": "Shifty Station",
+			"id": "9999",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png"
+		},
+		"images": {
+			"alpha": "/images/festival/8d3bacc0ef3479c1bfa5f111cf35f6c5.png",
+			"bravo": "/images/festival/273866ecd34058df6bf54e79b18df3ec.png",
+			"panel": "/images/festival/941d35ffa3742692c62965cc87876a30.png"
+		},
+		"festival_id": 2050
+	}]
+}

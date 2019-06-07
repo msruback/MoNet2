@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mattr on 1/14/2018.
@@ -36,7 +37,7 @@ public class RankedCardViewHolder extends RecyclerView.ViewHolder{
         RankPager = itemView.findViewById(R.id.RankedPager);
     }
 
-    public void manageHolder(ArrayList<TimePeriod> timePeriods){
+    public void manageHolder(List<TimePeriod> timePeriods){
         Typeface font = Typeface.createFromAsset(context.getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(context.getAssets(), "Paintball.otf");
 

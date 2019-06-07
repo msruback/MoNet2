@@ -22,39 +22,36 @@ public class SchedulesRequest extends SplatnetRequest {
 
     private Context context;
     private ActiveSplatfestRequest splatfestRequest;
-    private SplatnetDatabase db;
-    private StageDao stageDao;
-    private TimePeriodDao timePeriodDao;
 
     public SchedulesRequest(Context context){
         this.context = context;
         splatfestRequest = new ActiveSplatfestRequest(context);
-        db = SplatnetDatabase.getInstance(context);
-        stageDao = db.getStageDao();
-        timePeriodDao = db.getTimePeriodDao();
     }
 
     @Override
     protected void manageResponse(Response response) {
         Schedules schedules = (Schedules) response.body();
+        SplatnetDatabase db = SplatnetDatabase.getInstance(context);
+        StageDao stageDao = db.getStageDao();
+        TimePeriodDao timePeriodDao = db.getTimePeriodDao();
         if(schedules.regular!=null) {
             for(TimePeriod timePeriod :schedules.regular) {
-                timePeriodDao.insertTimePeriod(timePeriod,stageDao);
+                timePeriodDao.insertTimePeriod(timePeriod, stageDao);
             }
         }
         if(schedules.ranked!=null) {
             for(TimePeriod timePeriod :schedules.ranked){
-                timePeriodDao.insertTimePeriod(timePeriod,stageDao);
+                timePeriodDao.insertTimePeriod(timePeriod, stageDao);
             }
         }
         if(schedules.league!=null) {
             for(TimePeriod timePeriod :schedules.league){
-                timePeriodDao.insertTimePeriod(timePeriod,stageDao);
+                timePeriodDao.insertTimePeriod(timePeriod, stageDao);
             }
         }
         if(schedules.splatfest!=null) {
             for(TimePeriod timePeriod :schedules.splatfest){
-                timePeriodDao.insertTimePeriod(timePeriod,stageDao);
+                timePeriodDao.insertTimePeriod(timePeriod, stageDao);
             }
         }
         db.close();
@@ -62,13 +59,23 @@ public class SchedulesRequest extends SplatnetRequest {
 
     @Override
     public boolean shouldUpdate(){
-        List<TimePeriod> roomList = SplatnetDatabase.getInstance(context).getTimePeriodDao().selectOld(Calendar.getInstance().getTimeInMillis());
+        SplatnetDatabase db = SplatnetDatabase.getInstance(context);
+        TimePeriodDao timePeriodDao = db.getTimePeriodDao();
+        long now = Calendar.getInstance().getTimeInMillis()/1000;
+        List<TimePeriod> roomList = timePeriodDao.selectOld(now);
+        Integer count = timePeriodDao.count();
         if(roomList.size()>0){
             for(TimePeriod room : roomList){
-                SplatnetDatabase.getInstance(context).getTimePeriodDao().delete(room);
+                timePeriodDao.delete(room);
             }
+            db.close();
             return true;
         }
+        if(count<3){
+            db.close();
+            return true;
+        }
+        db.close();
         return false;
     }
 

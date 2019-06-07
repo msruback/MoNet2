@@ -66,95 +66,98 @@ public class RegularTimePeriodViewHolder extends RecyclerView.ViewHolder{
         Date endTime = new Date((timePeriod.end*1000));
         String endText = sdf.format(endTime);
 
-        title1.setText(a.name);
-        title2.setText(b.name);
-        time.setText(startText+" - "+endText);
+        if(a!=null&&b!=null&&a.name!=null&&b.name!=null) {
 
-        String url1 = "https://app.splatoon2.nintendo.net"+a.url;
-        String url2 = "https://app.splatoon2.nintendo.net"+b.url;
+            title1.setText(a.name);
+            title2.setText(b.name);
+            time.setText(startText + " - " + endText);
 
-        ImageHandler imageHandler = new ImageHandler();
-        String image1DirName = a.name.toLowerCase().replace(" ","_");
-        String image2DirName = b.name.toLowerCase().replace(" ","_");
+            String url1 = "https://app.splatoon2.nintendo.net" + a.url;
+            String url2 = "https://app.splatoon2.nintendo.net" + b.url;
 
-        if(imageHandler.imageExists("stage",image1DirName,context)){
-            image1.setImageBitmap(imageHandler.loadImage("stage",image1DirName));
-        }else{
-            Picasso.with(context).load(url1).resize(1280,720).into(image1);
-            imageHandler.downloadImage("stage",image1DirName,url1,context);
-        }
+            ImageHandler imageHandler = new ImageHandler();
+            String image1DirName = a.name.toLowerCase().replace(" ", "_");
+            String image2DirName = b.name.toLowerCase().replace(" ", "_");
 
-        if(imageHandler.imageExists("stage",image2DirName,context)){
-            image2.setImageBitmap(imageHandler.loadImage("stage",image2DirName));
-        }else{
-            Picasso.with(context).load(url2).resize(1280,720).into(image2);
-            imageHandler.downloadImage("stage",image2DirName,url2,context);
-        }
-
-        image1.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(context,StagePostcardsDetail.class);
-
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-                Gson gson = new Gson();
-                Record records = gson.fromJson(settings.getString("records",""),Record.class);
-
-                StageStats stats;
-
-                if(records.records.stageStats.containsKey(a.id)){
-                    stats = records.records.stageStats.get(a.id);
-                    stats.isSplatnet = true;
-                }else{
-                    stats = new StageStats();
-                    stats.stage = a;
-                    stats.isSplatnet = false;
-                }
-
-                if(stats!=null) {
-
-                    stats.calcStats(context);
-
-                    Bundle intentBundle = new Bundle();
-                    intentBundle.putParcelable("stats", stats);
-                    intent.putExtras(intentBundle);
-                    context.startActivity(intent);
-                }
-                return false;
+            if (imageHandler.imageExists("stage", image1DirName, context)) {
+                image1.setImageBitmap(imageHandler.loadImage("stage", image1DirName));
+            } else {
+                Picasso.with(context).load(url1).resize(1280, 720).into(image1);
+                imageHandler.downloadImage("stage", image1DirName, url1, context);
             }
-        });
 
-        image2.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(context,StagePostcardsDetail.class);
-
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-                Gson gson = new Gson();
-                Record records = gson.fromJson(settings.getString("records",""),Record.class);
-
-                StageStats stats;
-
-                if(records.records.stageStats.containsKey(b.id)){
-                    stats = records.records.stageStats.get(b.id);
-                    stats.isSplatnet = true;
-                }else{
-                    stats = new StageStats();
-                    stats.stage = b;
-                    stats.isSplatnet = false;
-                }
-
-
-                if(stats!=null) {
-                    stats.calcStats(context);
-
-                    Bundle intentBundle = new Bundle();
-                    intentBundle.putParcelable("stats", stats);
-                    intent.putExtras(intentBundle);
-                    context.startActivity(intent);
-                }
-                return false;
+            if (imageHandler.imageExists("stage", image2DirName, context)) {
+                image2.setImageBitmap(imageHandler.loadImage("stage", image2DirName));
+            } else {
+                Picasso.with(context).load(url2).resize(1280, 720).into(image2);
+                imageHandler.downloadImage("stage", image2DirName, url2, context);
             }
-        });
+
+            image1.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Intent intent = new Intent(context, StagePostcardsDetail.class);
+
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+                    Gson gson = new Gson();
+                    Record records = gson.fromJson(settings.getString("records", ""), Record.class);
+
+                    StageStats stats;
+
+                    if (records.records.stageStats.containsKey(a.id)) {
+                        stats = records.records.stageStats.get(a.id);
+                        stats.isSplatnet = true;
+                    } else {
+                        stats = new StageStats();
+                        stats.stage = a;
+                        stats.isSplatnet = false;
+                    }
+
+                    if (stats != null) {
+
+                        stats.calcStats(context);
+
+                        Bundle intentBundle = new Bundle();
+                        intentBundle.putParcelable("stats", stats);
+                        intent.putExtras(intentBundle);
+                        context.startActivity(intent);
+                    }
+                    return false;
+                }
+            });
+
+            image2.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Intent intent = new Intent(context, StagePostcardsDetail.class);
+
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+                    Gson gson = new Gson();
+                    Record records = gson.fromJson(settings.getString("records", ""), Record.class);
+
+                    StageStats stats;
+
+                    if (records.records.stageStats.containsKey(b.id)) {
+                        stats = records.records.stageStats.get(b.id);
+                        stats.isSplatnet = true;
+                    } else {
+                        stats = new StageStats();
+                        stats.stage = b;
+                        stats.isSplatnet = false;
+                    }
+
+
+                    if (stats != null) {
+                        stats.calcStats(context);
+
+                        Bundle intentBundle = new Bundle();
+                        intentBundle.putParcelable("stats", stats);
+                        intent.putExtras(intentBundle);
+                        context.startActivity(intent);
+                    }
+                    return false;
+                }
+            });
+        }
     }
 }

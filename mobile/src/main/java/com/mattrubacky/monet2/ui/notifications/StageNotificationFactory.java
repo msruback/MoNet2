@@ -10,6 +10,7 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.StageNotifications;
 import com.mattrubacky.monet2.data.deserialized_entities.TimePeriod;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mattr on 12/19/2017.
@@ -40,7 +41,7 @@ public class StageNotificationFactory extends NotificationFactory {
 
         return notifications;
     }
-    private ArrayList<Notification> getFromTimePeriod(ArrayList<TimePeriod> timePeriods, ArrayList<com.mattrubacky.monet2.data.deserialized.splatoon.StageNotification> toNotify){
+    private ArrayList<Notification> getFromTimePeriod(List<TimePeriod> timePeriods, ArrayList<com.mattrubacky.monet2.data.deserialized.splatoon.StageNotification> toNotify){
         ArrayList<Notification> notifications = new ArrayList<>();
         if(timePeriods!=null) {
             for (int i = 0; i < timePeriods.size(); i++) {

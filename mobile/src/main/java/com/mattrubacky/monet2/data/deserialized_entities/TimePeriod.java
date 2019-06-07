@@ -97,18 +97,20 @@ public class TimePeriod implements Parcelable {
                 id = 0;
                 break;
             case "gachi":
-                id = 1000;
+                id = 10;
                 break;
             case "league":
-                id = 2000;
+                id = 20;
                 break;
             case "fes":
-                id = 3000;
+                id = 30;
                 break;
             default:
                 id = 0;
                 break;
         }
+        id +=cal.get(Calendar.DAY_OF_WEEK);
+        id *= 100;
         id +=cal.get(Calendar.HOUR_OF_DAY);
         return id;
     }

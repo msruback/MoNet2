@@ -71,7 +71,7 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
 
         votes = null;
 
-        splatnetConnector = new SplatnetConnector(this,this);
+        splatnetConnector = new SplatnetConnector((SplatnetConnected)this,this);
         splatnetConnector.addRequest(new SplatfestVoteRequest(splatfest.id));
         splatnetConnector.execute();
 

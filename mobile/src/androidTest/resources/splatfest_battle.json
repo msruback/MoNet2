@@ -1,0 +1,48 @@
+{
+		"names": {
+			"alpha_long": "KNIGHTS",
+			"bravo_short": "Wizard",
+			"bravo_long": "WIZARDS",
+			"alpha_short": "Knight"
+		},
+		"times": {
+			"result": 1552831200,
+			"announce": 1552032000,
+			"start": 1552708800,
+			"end": 1552795200
+		},
+		"colors": {
+			"bravo": {
+				"css_rgb": "rgb(42%,4%,16%)",
+				"a": 1,
+				"b": 0.16,
+				"r": 0.42,
+				"g": 0.04
+			},
+			"middle": {
+				"a": 1,
+				"css_rgb": "rgb(65%,45%,3%)",
+				"g": 0.45,
+				"r": 0.65,
+				"b": 0.03
+			},
+			"alpha": {
+				"b": 0.53,
+				"r": 0.47,
+				"g": 0.55,
+				"css_rgb": "rgb(47%,55%,53%)",
+				"a": 1
+			}
+		},
+		"images": {
+			"alpha": "/images/festival/0eebbd0cc324ba479b112f88293cefd4.png",
+			"bravo": "/images/festival/337a817b2c1588c6dddecda6c1c1a0b0.png",
+			"panel": "/images/festival/6d5d3a80a3f442adca813f14657b1d30.png"
+		},
+		"festival_id": 4056,
+		"special_stage": {
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999",
+			"name": "Shifty Station"
+		}
+	}

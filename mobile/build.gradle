@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -46,6 +49,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-wearable:16.0.1'
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     testImplementation 'org.robolectric:robolectric:4.2'
 
     androidTestImplementation 'androidx.test:core:1.1.0'
@@ -61,6 +65,7 @@ dependencies {
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
 
     implementation "androidx.paging:paging-runtime:$paging_version"
@@ -81,5 +86,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-web:3.1.0'
     androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.1.0'
+    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
+    implementation "android.arch.navigation:navigation-ui-ktx:1.0.0-beta02"
+    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0-beta02"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+}
+repositories {
+    mavenCentral()
 }

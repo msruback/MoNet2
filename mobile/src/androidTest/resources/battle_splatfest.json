@@ -1,0 +1,1247 @@
+{
+	"max_fes_power": 0,
+	"my_estimate_fes_power": 1770,
+	"my_team_result": {
+		"name": "VICTORY",
+		"key": "victory"
+	},
+	"fes_grade": {
+		"name": "Knight King",
+		"rank": 4
+	},
+	"my_team_fes_theme": {
+		"name": "Knight",
+		"key": "alpha",
+		"color": {
+			"g": 0.55,
+			"css_rgb": "rgb(47%,55%,53%)",
+			"b": 0.53,
+			"r": 0.47,
+			"a": 1
+		}
+	},
+	"battle_number": "1901",
+	"fes_mode": {
+		"name": "Normal",
+		"key": "fes.result.regular"
+	},
+	"fes_power": 0,
+	"event_type": {
+		"multiline_name": "",
+		"name": "",
+		"class_name": "1-x-match",
+		"key": "1_x_match"
+	},
+	"uniform_bonus": 1,
+	"version": 4,
+	"my_team_consecutive_win": 0,
+	"rule": {
+		"name": "Turf War",
+		"key": "turf_war",
+		"multiline_name": "Turf\nWar"
+	},
+	"player_rank": 50,
+	"other_team_result": {
+		"name": "DEFEAT",
+		"key": "defeat"
+	},
+	"fes_point": 0,
+	"other_estimate_fes_power": 1740,
+	"my_team_percentage": 51.5,
+	"start_time": 1552792490,
+	"game_mode": {
+		"name": "Splatfest Battle",
+		"key": "fes_team"
+	},
+	"other_team_members": [{
+		"assist_count": 1,
+		"sort_score": 0,
+		"kill_count": 4,
+		"death_count": 3,
+		"special_count": 2,
+		"player": {
+			"weapon": {
+				"thumbnail": "/images/weapon/54ce83bf80f87263854d3c96ebdb54f427aa0a09.png",
+				"id": "72",
+				"image": "/images/weapon/69cb46d940fa310937264d9cd962143e85ee633b.png",
+				"name": "Kensa Splattershot Pro",
+				"sub": {
+					"name": "Splat Bomb",
+					"image_a": "/images/sub/d2eaeec524d28ef315a13f8a9e11dd1039cb78aa.png",
+					"image_b": "/images/sub/b13bf755b279af83904892fae01cd98c866dfec7.png",
+					"id": "0"
+				},
+				"special": {
+					"id": "17",
+					"name": "Booyah Bomb",
+					"image_a": "/images/special/e6f33512755e462874f57d1f02b61bb1c41ad79f.png",
+					"image_b": "/images/special/714c00b84b54d68c5e0b6da4186d41831fb4a442.png"
+				}
+			},
+			"clothes": {
+				"kind": "clothes",
+				"id": "26000",
+				"image": "/images/clothes/631b0853ae796a429bd31fe2765f05229f7b5e8b.png",
+				"thumbnail": "/images/clothes/c72ffd01ccb906588829493c648670c3644cd338.png",
+				"rarity": 2,
+				"name": "Splatfest Tee",
+				"brand": {
+					"name": "SquidForce",
+					"frequent_skill": {
+						"name": "Ink Resistance Up",
+						"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+						"id": "11"
+					},
+					"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png",
+					"id": "0"
+				}
+			},
+			"star_rank": 0,
+			"head": {
+				"thumbnail": "/images/head/39a52add9c466bc26f43fb91ea7089356e42bb04.png",
+				"id": "2005",
+				"image": "/images/head/84ea324ce140ace9c23e72f728712d557e63644f.png",
+				"kind": "head",
+				"brand": {
+					"frequent_skill": {
+						"id": "8",
+						"image": "/images/skill/84ab4ba1188849dff63a4314955a53ab103b47df.png",
+						"name": "Quick Respawn"
+					},
+					"name": "Skalop",
+					"id": "7",
+					"image": "/images/brand/8175954b5a7e02b8097dbb484c808c8f39d31f41.png"
+				},
+				"name": "Squid Nordic",
+				"rarity": 2
+			},
+			"head_skills": {
+				"subs": [{
+					"id": "201",
+					"image": "/images/skill/39f3e937b709d378c178ef2bf00d9a7295b8159d.png",
+					"name": "Main Power Up"
+				}, {
+					"name": "Quick Respawn",
+					"image": "/images/skill/84ab4ba1188849dff63a4314955a53ab103b47df.png",
+					"id": "8"
+				}, {
+					"id": "8",
+					"image": "/images/skill/84ab4ba1188849dff63a4314955a53ab103b47df.png",
+					"name": "Quick Respawn"
+				}],
+				"main": {
+					"name": "Comeback",
+					"image": "/images/skill/bdc5135874439cf3169d9a54b3f1fbdba3731b34.png",
+					"id": "103"
+				}
+			},
+			"principal_id": "3",
+			"nickname": "Placeholder",
+			"player_rank": 84,
+			"fes_grade": {
+				"rank": 3,
+				"name": "Wizard Champion"
+			},
+			"player_type": {
+				"species": "octolings",
+				"style": "girl"
+			},
+			"shoes_skills": {
+				"main": {
+					"name": "Special Charge Up",
+					"image": "/images/skill/1378f3963526d7216ec44da35b924b81a8ff6a37.png",
+					"id": "5"
+				},
+				"subs": [{
+					"name": "Ink Recovery Up",
+					"id": "2",
+					"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png"
+				}, {
+					"name": "Ink Recovery Up",
+					"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png",
+					"id": "2"
+				}, {
+					"name": "Ink Recovery Up",
+					"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png",
+					"id": "2"
+				}]
+			},
+			"clothes_skills": {
+				"subs": [{
+					"id": "0",
+					"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+					"name": "Ink Saver (Main)"
+				}, {
+					"name": "Ink Saver (Sub)",
+					"id": "1",
+					"image": "/images/skill/da8ff08954fd5d890fc8bc4dd4cb761e2a33b703.png"
+				}, {
+					"name": "Special Power Up",
+					"image": "/images/skill/f20a3e85feeb6b4bb021d28059afd6265cee0b43.png",
+					"id": "7"
+				}],
+				"main": {
+					"name": "Ability Doubler",
+					"id": "108",
+					"image": "/images/skill/67e4e8ec069dfaec1d732c7fe407a2c73e8e51b8.png"
+				}
+			},
+			"shoes": {
+				"brand": {
+					"id": "10",
+					"image": "/images/brand/02286fe17bb6bc3f5f13c6b251ddc0a55c44c756.png",
+					"name": "Tentatek",
+					"frequent_skill": {
+						"name": "Ink Recovery Up",
+						"id": "2",
+						"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png"
+					}
+				},
+				"name": "Black Norimaki 750s",
+				"rarity": 2,
+				"thumbnail": "/images/shoes/d912ee07772db7aa302703b3506217221803a083.png",
+				"image": "/images/shoes/0f1ef711bc32cf7189602e0a11b9a2f63b87f3da.png",
+				"id": "2015",
+				"kind": "shoes"
+			}
+		},
+		"game_paint_point": 1055
+	}, {
+		"sort_score": 0,
+		"assist_count": 0,
+		"kill_count": 3,
+		"death_count": 4,
+		"game_paint_point": 1095,
+		"special_count": 5,
+		"player": {
+			"clothes": {
+				"id": "26000",
+				"image": "/images/clothes/631b0853ae796a429bd31fe2765f05229f7b5e8b.png",
+				"thumbnail": "/images/clothes/c72ffd01ccb906588829493c648670c3644cd338.png",
+				"kind": "clothes",
+				"rarity": 2,
+				"name": "Splatfest Tee",
+				"brand": {
+					"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png",
+					"id": "0",
+					"frequent_skill": {
+						"name": "Ink Resistance Up",
+						"id": "11",
+						"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png"
+					},
+					"name": "SquidForce"
+				}
+			},
+			"star_rank": 0,
+			"head": {
+				"name": "Tulip Parasol",
+				"rarity": 0,
+				"brand": {
+					"frequent_skill": {
+						"id": "200",
+						"image": "/images/skill/0a29f0ce326a81a5ddb3a7abab1816a25fefdc7c.png",
+						"name": "Bomb Defense Up DX"
+					},
+					"name": "Inkline",
+					"image": "/images/brand/80648c6e427eae4d32677797fa1be7c0e253fda5.png",
+					"id": "9"
+				},
+				"kind": "head",
+				"image": "/images/head/cb0a3bae89a92e298f5435bbe8ef8bb62cda7cb4.png",
+				"id": "4010",
+				"thumbnail": "/images/head/0ce99b45cafaf11eeec5629828fd603794737536.png"
+			},
+			"weapon": {
+				"image": "/images/weapon/32d41a5d14de756c3e5a1ee97a9bd8fcb9e69bf5.png",
+				"id": "0",
+				"thumbnail": "/images/weapon/60cff5009fde2559f7a4106aafcfd1a3c724971f.png",
+				"name": "Sploosh-o-matic",
+				"sub": {
+					"name": "Curling Bomb",
+					"image_a": "/images/sub/e398a9e0360f048b6a0c4c3c1e89211cca96577f.png",
+					"image_b": "/images/sub/2b5797c0ad847a54b9bd8168e75050484919d373.png",
+					"id": "3"
+				},
+				"special": {
+					"id": "9",
+					"image_b": "/images/special/4eb81e00f5d707248879a7c7037d8475716a8045.png",
+					"image_a": "/images/special/324d41e9582d84101152849bc8c96d6595c9b0ff.png",
+					"name": "Splashdown"
+				}
+			},
+			"fes_grade": {
+				"rank": 3,
+				"name": "Wizard Champion"
+			},
+			"player_rank": 40,
+			"player_type": {
+				"species": "inklings",
+				"style": "girl"
+			},
+			"clothes_skills": {
+				"main": {
+					"id": "108",
+					"image": "/images/skill/67e4e8ec069dfaec1d732c7fe407a2c73e8e51b8.png",
+					"name": "Ability Doubler"
+				},
+				"subs": [{
+					"name": "Ink Recovery Up",
+					"id": "2",
+					"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png"
+				}, {
+					"name": "Ink Recovery Up",
+					"id": "2",
+					"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png"
+				}, {
+					"name": "Ink Resistance Up",
+					"id": "11",
+					"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png"
+				}]
+			},
+			"shoes_skills": {
+				"subs": [{
+					"name": "Ink Recovery Up",
+					"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png",
+					"id": "2"
+				}, {
+					"image": "/images/skill/1378f3963526d7216ec44da35b924b81a8ff6a37.png",
+					"id": "5",
+					"name": "Special Charge Up"
+				}, {
+					"id": "5",
+					"image": "/images/skill/1378f3963526d7216ec44da35b924b81a8ff6a37.png",
+					"name": "Special Charge Up"
+				}],
+				"main": {
+					"name": "Special Saver",
+					"image": "/images/skill/d83b962b84fcea9d02c591c296234f5de77f9682.png",
+					"id": "6"
+				}
+			},
+			"shoes": {
+				"thumbnail": "/images/shoes/5d4253cb38bb96d1141a0f3d8a7787b1db18d297.png",
+				"id": "2020",
+				"image": "/images/shoes/43646aa6a2d4fed221eb9b15f0879d84c20e3c1b.png",
+				"kind": "shoes",
+				"brand": {
+					"name": "Takoroka",
+					"frequent_skill": {
+						"name": "Special Charge Up",
+						"image": "/images/skill/1378f3963526d7216ec44da35b924b81a8ff6a37.png",
+						"id": "5"
+					},
+					"image": "/images/brand/eab05d2d502cf953b4ae034c87e52e8c999339d6.png",
+					"id": "11"
+				},
+				"rarity": 1,
+				"name": "Orca Hi-Tops"
+			},
+			"head_skills": {
+				"subs": [{
+					"id": "2",
+					"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png",
+					"name": "Ink Recovery Up"
+				}, {
+					"name": "Special Charge Up",
+					"id": "5",
+					"image": "/images/skill/1378f3963526d7216ec44da35b924b81a8ff6a37.png"
+				}, {
+					"name": "Special Charge Up",
+					"id": "5",
+					"image": "/images/skill/1378f3963526d7216ec44da35b924b81a8ff6a37.png"
+				}],
+				"main": {
+					"id": "11",
+					"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+					"name": "Ink Resistance Up"
+				}
+			},
+			"principal_id": "2",
+			"nickname": "Placeholder"
+		}
+	}, {
+		"kill_count": 3,
+		"death_count": 5,
+		"sort_score": 0,
+		"assist_count": 0,
+		"player": {
+			"principal_id": "1",
+			"nickname": "Placeholder",
+			"head_skills": {
+				"subs": [{
+					"id": "1",
+					"image": "/images/skill/da8ff08954fd5d890fc8bc4dd4cb761e2a33b703.png",
+					"name": "Ink Saver (Sub)"
+				}, {
+					"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+					"id": "0",
+					"name": "Ink Saver (Main)"
+				}, null],
+				"main": {
+					"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+					"id": "0",
+					"name": "Ink Saver (Main)"
+				}
+			},
+			"shoes_skills": {
+				"subs": [{
+					"name": "Special Charge Up",
+					"image": "/images/skill/1378f3963526d7216ec44da35b924b81a8ff6a37.png",
+					"id": "5"
+				}, {
+					"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+					"id": "11",
+					"name": "Ink Resistance Up"
+				}, null],
+				"main": {
+					"id": "3",
+					"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+					"name": "Run Speed Up"
+				}
+			},
+			"clothes_skills": {
+				"subs": [{
+					"name": "Ink Resistance Up",
+					"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+					"id": "11"
+				}, {
+					"id": "255",
+					"image": "/images/skill/46f9b6fc3a2aafdc0c688dec8cadb54aa6f8ace6.png",
+					"name": "question mark"
+				}, {
+					"image": "/images/skill/46f9b6fc3a2aafdc0c688dec8cadb54aa6f8ace6.png",
+					"id": "255",
+					"name": "question mark"
+				}],
+				"main": {
+					"image": "/images/skill/67e4e8ec069dfaec1d732c7fe407a2c73e8e51b8.png",
+					"id": "108",
+					"name": "Ability Doubler"
+				}
+			},
+			"shoes": {
+				"name": "Enchanted Boots",
+				"rarity": 1,
+				"brand": {
+					"id": "99",
+					"image": "/images/brand/154440ecbfb65a22cdb224fac843b02cccbcad03.png",
+					"name": "amiibo"
+				},
+				"image": "/images/shoes/5d7a8723a0e81e39f31aa17f67b4703b1698a153.png",
+				"id": "25008",
+				"thumbnail": "/images/shoes/8f1460c8a4887861c8af2a657d3d838292c55a70.png",
+				"kind": "shoes"
+			},
+			"player_rank": 16,
+			"fes_grade": {
+				"rank": 2,
+				"name": "Wizard Defender"
+			},
+			"player_type": {
+				"style": "boy",
+				"species": "inklings"
+			},
+			"weapon": {
+				"image": "/images/weapon/b9901d49ef3229d3e62d58fc3e1edc8c48da6873.png",
+				"id": "400",
+				"thumbnail": "/images/weapon/38fd7f743bd9db2e2dfb2b8cd81576028ee7ab89.png",
+				"special": {
+					"id": "7",
+					"image_a": "/images/special/7af300fdd872feb27b3d8e68a969457fac8b3bb7.png",
+					"image_b": "/images/special/485b748720bbf809d8b28f9f4ee1a505cbcb339b.png",
+					"name": "Sting Ray"
+				},
+				"sub": {
+					"image_a": "/images/sub/b00df7ddec57c9254094c901dbb7533b61e5a3e3.png",
+					"image_b": "/images/sub/42940c5ac8fea75599f8d8379f9e0c5bbd2eaedd.png",
+					"name": "Splash Wall",
+					"id": "9"
+				},
+				"name": "Squeezer"
+			},
+			"clothes": {
+				"rarity": 2,
+				"name": "Splatfest Tee",
+				"brand": {
+					"id": "0",
+					"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png",
+					"name": "SquidForce",
+					"frequent_skill": {
+						"name": "Ink Resistance Up",
+						"id": "11",
+						"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png"
+					}
+				},
+				"kind": "clothes",
+				"image": "/images/clothes/631b0853ae796a429bd31fe2765f05229f7b5e8b.png",
+				"id": "26000",
+				"thumbnail": "/images/clothes/c72ffd01ccb906588829493c648670c3644cd338.png"
+			},
+			"star_rank": 0,
+			"head": {
+				"rarity": 1,
+				"name": "Enchanted Hat",
+				"brand": {
+					"name": "amiibo",
+					"image": "/images/brand/154440ecbfb65a22cdb224fac843b02cccbcad03.png",
+					"id": "99"
+				},
+				"id": "25008",
+				"image": "/images/head/07983d16fdaa4c5c346cba62018eb9dc2b1daf4c.png",
+				"thumbnail": "/images/head/fdcec2dfb4a2d5be15fff987bc8e503c9ddfb01b.png",
+				"kind": "head"
+			}
+		},
+		"special_count": 3,
+		"game_paint_point": 788
+	}, {
+		"kill_count": 0,
+		"death_count": 8,
+		"assist_count": 1,
+		"sort_score": 0,
+		"player": {
+			"star_rank": 0,
+			"clothes": {
+				"brand": {
+					"name": "SquidForce",
+					"frequent_skill": {
+						"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+						"id": "11",
+						"name": "Ink Resistance Up"
+					},
+					"id": "0",
+					"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png"
+				},
+				"name": "Splatfest Tee",
+				"rarity": 2,
+				"thumbnail": "/images/clothes/c72ffd01ccb906588829493c648670c3644cd338.png",
+				"id": "26000",
+				"image": "/images/clothes/631b0853ae796a429bd31fe2765f05229f7b5e8b.png",
+				"kind": "clothes"
+			},
+			"head": {
+				"image": "/images/head/07983d16fdaa4c5c346cba62018eb9dc2b1daf4c.png",
+				"id": "25008",
+				"thumbnail": "/images/head/fdcec2dfb4a2d5be15fff987bc8e503c9ddfb01b.png",
+				"kind": "head",
+				"name": "Enchanted Hat",
+				"rarity": 1,
+				"brand": {
+					"id": "99",
+					"image": "/images/brand/154440ecbfb65a22cdb224fac843b02cccbcad03.png",
+					"name": "amiibo"
+				}
+			},
+			"weapon": {
+				"name": "Splattershot Pro",
+				"sub": {
+					"image_a": "/images/sub/14b4d4ef62e915e87bd7caa8b99fb4e986caea26.png",
+					"image_b": "/images/sub/627ae0ea02ab649a7a482ee7ee7ace85ca307f44.png",
+					"name": "Point Sensor",
+					"id": "8"
+				},
+				"special": {
+					"image_b": "/images/special/b2ffd060612d3ed4cfa7bee583cb28d22307064a.png",
+					"image_a": "/images/special/b07cb8cd5b8afbf509b98a9cbb768ed0f2e34898.png",
+					"name": "Ink Storm",
+					"id": "10"
+				},
+				"id": "70",
+				"image": "/images/weapon/2e2b59379b8f14cfed0600f84590be0ecad707b6.png",
+				"thumbnail": "/images/weapon/05d735502f00fe9cbcaca8714f7102653da888fd.png"
+			},
+			"clothes_skills": {
+				"main": {
+					"name": "Ability Doubler",
+					"id": "108",
+					"image": "/images/skill/67e4e8ec069dfaec1d732c7fe407a2c73e8e51b8.png"
+				},
+				"subs": [{
+					"id": "3",
+					"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+					"name": "Run Speed Up"
+				}, {
+					"name": "Run Speed Up",
+					"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+					"id": "3"
+				}, {
+					"image": "/images/skill/34e114a50a001778a574f7061039d43e632137b7.png",
+					"id": "10",
+					"name": "Sub Power Up"
+				}]
+			},
+			"shoes_skills": {
+				"subs": [{
+					"name": "question mark",
+					"id": "255",
+					"image": "/images/skill/46f9b6fc3a2aafdc0c688dec8cadb54aa6f8ace6.png"
+				}, {
+					"image": "/images/skill/46f9b6fc3a2aafdc0c688dec8cadb54aa6f8ace6.png",
+					"id": "255",
+					"name": "question mark"
+				}, null],
+				"main": {
+					"id": "3",
+					"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+					"name": "Run Speed Up"
+				}
+			},
+			"shoes": {
+				"brand": {
+					"image": "/images/brand/154440ecbfb65a22cdb224fac843b02cccbcad03.png",
+					"id": "99",
+					"name": "amiibo"
+				},
+				"name": "Enchanted Boots",
+				"rarity": 1,
+				"kind": "shoes",
+				"thumbnail": "/images/shoes/8f1460c8a4887861c8af2a657d3d838292c55a70.png",
+				"id": "25008",
+				"image": "/images/shoes/5d7a8723a0e81e39f31aa17f67b4703b1698a153.png"
+			},
+			"fes_grade": {
+				"name": "Wizard Defender",
+				"rank": 2
+			},
+			"player_type": {
+				"style": "girl",
+				"species": "inklings"
+			},
+			"player_rank": 22,
+			"principal_id": "0",
+			"nickname": "Placeholder",
+			"head_skills": {
+				"subs": [{
+					"name": "question mark",
+					"image": "/images/skill/46f9b6fc3a2aafdc0c688dec8cadb54aa6f8ace6.png",
+					"id": "255"
+				}, {
+					"image": "/images/skill/46f9b6fc3a2aafdc0c688dec8cadb54aa6f8ace6.png",
+					"id": "255",
+					"name": "question mark"
+				}, null],
+				"main": {
+					"name": "Ink Saver (Main)",
+					"id": "0",
+					"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png"
+				}
+			}
+		},
+		"special_count": 0,
+		"game_paint_point": 479
+	}],
+	"my_team_another_name": null,
+	"fes_id": 4056,
+	"weapon_paint_point": 33412,
+	"type": "fes",
+	"star_rank": 0,
+	"win_meter": 1.5,
+	"other_team_fes_theme": {
+		"name": "Wizard",
+		"key": "bravo",
+		"color": {
+			"b": 0.16,
+			"g": 0.04,
+			"css_rgb": "rgb(42%,4%,16%)",
+			"a": 1,
+			"r": 0.42
+		}
+	},
+	"contribution_point": 2149,
+	"player_result": {
+		"assist_count": 2,
+		"sort_score": 0,
+		"death_count": 1,
+		"kill_count": 7,
+		"special_count": 4,
+		"player": {
+			"weapon": {
+				"id": "10",
+				"image": "/images/weapon/91b6666bcbfccc204d86f21222a8db22a27d08d0.png",
+				"thumbnail": "/images/weapon/f1419d88f30dfacdb94a8122ccdd8c14bbadc7c4.png",
+				"name": "Splattershot Jr.",
+				"sub": {
+					"image_b": "/images/sub/b13bf755b279af83904892fae01cd98c866dfec7.png",
+					"image_a": "/images/sub/d2eaeec524d28ef315a13f8a9e11dd1039cb78aa.png",
+					"name": "Splat Bomb",
+					"id": "0"
+				},
+				"special": {
+					"name": "Ink Armor",
+					"image_a": "/images/special/abe458a7d13d855f1b27135ccf3e96f46f1f3d10.png",
+					"image_b": "/images/special/415bf85acb0b0dcc478316332fe86efb1fe4f203.png",
+					"id": "1"
+				}
+			},
+			"head": {
+				"brand": {
+					"name": "Tentatek",
+					"frequent_skill": {
+						"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png",
+						"id": "2",
+						"name": "Ink Recovery Up"
+					},
+					"id": "10",
+					"image": "/images/brand/02286fe17bb6bc3f5f13c6b251ddc0a55c44c756.png"
+				},
+				"name": "Sun Visor",
+				"rarity": 1,
+				"kind": "head",
+				"thumbnail": "/images/head/b09778454366a842730c3436a07cd40631c031ff.png",
+				"image": "/images/head/6f0967b86eb06eb39edcd0bcb630ae3bb9cf7646.png",
+				"id": "6002"
+			},
+			"clothes": {
+				"thumbnail": "/images/clothes/c72ffd01ccb906588829493c648670c3644cd338.png",
+				"id": "26000",
+				"image": "/images/clothes/631b0853ae796a429bd31fe2765f05229f7b5e8b.png",
+				"kind": "clothes",
+				"brand": {
+					"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png",
+					"id": "0",
+					"frequent_skill": {
+						"name": "Ink Resistance Up",
+						"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+						"id": "11"
+					},
+					"name": "SquidForce"
+				},
+				"name": "Splatfest Tee",
+				"rarity": 2
+			},
+			"star_rank": 0,
+			"nickname": "MattyWatty",
+			"principal_id": "1",
+			"head_skills": {
+				"main": {
+					"name": "Ink Saver (Main)",
+					"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+					"id": "0"
+				},
+				"subs": [{
+					"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+					"id": "0",
+					"name": "Ink Saver (Main)"
+				}, {
+					"name": "Ink Saver (Main)",
+					"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+					"id": "0"
+				}, {
+					"name": "Ink Saver (Main)",
+					"id": "0",
+					"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png"
+				}]
+			},
+			"shoes": {
+				"rarity": 0,
+				"name": "Mint Dakroniks",
+				"brand": {
+					"frequent_skill": {
+						"id": "9",
+						"image": "/images/skill/daf6883039afa62da91eb93eb2a40b673f10b715.png",
+						"name": "Quick Super Jump"
+					},
+					"name": "Zink",
+					"id": "1",
+					"image": "/images/brand/3d4661b3f60f4b74e9bb6760ba7397ecd2502a20.png"
+				},
+				"kind": "shoes",
+				"id": "2011",
+				"image": "/images/shoes/ffd94b8a6ac2433dc4b8f4ceadfc0880205ab984.png",
+				"thumbnail": "/images/shoes/765732fc32a7445ef8e630371faee81927e78361.png"
+			},
+			"clothes_skills": {
+				"subs": [{
+					"name": "Ink Recovery Up",
+					"id": "2",
+					"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png"
+				}, {
+					"image": "/images/skill/f20a3e85feeb6b4bb021d28059afd6265cee0b43.png",
+					"id": "7",
+					"name": "Special Power Up"
+				}, {
+					"image": "/images/skill/da8ff08954fd5d890fc8bc4dd4cb761e2a33b703.png",
+					"id": "1",
+					"name": "Ink Saver (Sub)"
+				}],
+				"main": {
+					"name": "Ability Doubler",
+					"image": "/images/skill/67e4e8ec069dfaec1d732c7fe407a2c73e8e51b8.png",
+					"id": "108"
+				}
+			},
+			"shoes_skills": {
+				"subs": [{
+					"name": "Ink Recovery Up",
+					"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png",
+					"id": "2"
+				}, {
+					"name": "Ink Recovery Up",
+					"id": "2",
+					"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png"
+				}, {
+					"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png",
+					"id": "2",
+					"name": "Ink Recovery Up"
+				}],
+				"main": {
+					"id": "110",
+					"image": "/images/skill/47a74cd575b25a9de3e3592084ff3870db0cf4e0.png",
+					"name": "Object Shredder"
+				}
+			},
+			"player_rank": 50,
+			"fes_grade": {
+				"rank": 3,
+				"name": "Knight Champion"
+			},
+			"player_type": {
+				"style": "boy",
+				"species": "inklings"
+			}
+		},
+		"game_paint_point": 1149
+	},
+	"other_team_percentage": 32.5,
+	"other_team_another_name": "The Shooter Mob",
+	"my_team_members": [{
+		"game_paint_point": 946,
+		"player": {
+			"head": {
+				"brand": {
+					"id": "0",
+					"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png",
+					"name": "SquidForce",
+					"frequent_skill": {
+						"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+						"id": "11",
+						"name": "Ink Resistance Up"
+					}
+				},
+				"rarity": 0,
+				"name": "Squid Facemask",
+				"kind": "head",
+				"thumbnail": "/images/head/fc621787423516f680061b9eaf6008053bdc87a5.png",
+				"image": "/images/head/5f2e1fc5167be96065b79176079890536da71989.png",
+				"id": "8007"
+			},
+			"clothes": {
+				"thumbnail": "/images/clothes/c72ffd01ccb906588829493c648670c3644cd338.png",
+				"id": "26000",
+				"image": "/images/clothes/631b0853ae796a429bd31fe2765f05229f7b5e8b.png",
+				"kind": "clothes",
+				"brand": {
+					"name": "SquidForce",
+					"frequent_skill": {
+						"name": "Ink Resistance Up",
+						"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+						"id": "11"
+					},
+					"id": "0",
+					"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png"
+				},
+				"name": "Splatfest Tee",
+				"rarity": 2
+			},
+			"star_rank": 0,
+			"weapon": {
+				"special": {
+					"name": "Ink Storm",
+					"image_b": "/images/special/b2ffd060612d3ed4cfa7bee583cb28d22307064a.png",
+					"image_a": "/images/special/b07cb8cd5b8afbf509b98a9cbb768ed0f2e34898.png",
+					"id": "10"
+				},
+				"sub": {
+					"id": "9",
+					"image_b": "/images/sub/42940c5ac8fea75599f8d8379f9e0c5bbd2eaedd.png",
+					"image_a": "/images/sub/b00df7ddec57c9254094c901dbb7533b61e5a3e3.png",
+					"name": "Splash Wall"
+				},
+				"name": "Bloblobber",
+				"thumbnail": "/images/weapon/e8d17d8b73fc1eaa3e3672c54e8800163d909ede.png",
+				"image": "/images/weapon/2835f6d61a4296b4ac3876337884a0c453a4fa4f.png",
+				"id": "3030"
+			},
+			"fes_grade": {
+				"rank": 3,
+				"name": "Knight Champion"
+			},
+			"player_type": {
+				"species": "octolings",
+				"style": "girl"
+			},
+			"player_rank": 21,
+			"shoes_skills": {
+				"subs": [{
+					"image": "/images/skill/da8ff08954fd5d890fc8bc4dd4cb761e2a33b703.png",
+					"id": "1",
+					"name": "Ink Saver (Sub)"
+				}, {
+					"name": "Ink Saver (Sub)",
+					"id": "1",
+					"image": "/images/skill/da8ff08954fd5d890fc8bc4dd4cb761e2a33b703.png"
+				}, null],
+				"main": {
+					"name": "Run Speed Up",
+					"id": "3",
+					"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png"
+				}
+			},
+			"clothes_skills": {
+				"subs": [{
+					"name": "Special Power Up",
+					"image": "/images/skill/f20a3e85feeb6b4bb021d28059afd6265cee0b43.png",
+					"id": "7"
+				}, {
+					"id": "255",
+					"image": "/images/skill/46f9b6fc3a2aafdc0c688dec8cadb54aa6f8ace6.png",
+					"name": "question mark"
+				}, {
+					"name": "question mark",
+					"image": "/images/skill/46f9b6fc3a2aafdc0c688dec8cadb54aa6f8ace6.png",
+					"id": "255"
+				}],
+				"main": {
+					"id": "108",
+					"image": "/images/skill/67e4e8ec069dfaec1d732c7fe407a2c73e8e51b8.png",
+					"name": "Ability Doubler"
+				}
+			},
+			"shoes": {
+				"rarity": 1,
+				"name": "Old-Timey Shoes",
+				"brand": {
+					"image": "/images/brand/047cbc2f0674eeb4796efb3b6ec1b710b22d07e7.png",
+					"id": "98",
+					"name": "Cuttlegear"
+				},
+				"id": "27106",
+				"image": "/images/shoes/95d077afaf58c95bf165b252d030ec62e7654ad5.png",
+				"thumbnail": "/images/shoes/98e603752e0266d8454b1f974f7d419b4c3489c1.png",
+				"kind": "shoes"
+			},
+			"head_skills": {
+				"main": {
+					"name": "Ink Saver (Main)",
+					"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+					"id": "0"
+				},
+				"subs": [{
+					"name": "Ink Resistance Up",
+					"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+					"id": "11"
+				}, null, null]
+			},
+			"principal_id": "0",
+			"nickname": "Placeholder"
+		},
+		"special_count": 3,
+		"kill_count": 4,
+		"death_count": 2,
+		"sort_score": 0,
+		"assist_count": 2
+	}, {
+		"game_paint_point": 1290,
+		"special_count": 4,
+		"player": {
+			"clothes": {
+				"thumbnail": "/images/clothes/c72ffd01ccb906588829493c648670c3644cd338.png",
+				"id": "26000",
+				"image": "/images/clothes/631b0853ae796a429bd31fe2765f05229f7b5e8b.png",
+				"kind": "clothes",
+				"brand": {
+					"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png",
+					"id": "0",
+					"frequent_skill": {
+						"id": "11",
+						"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+						"name": "Ink Resistance Up"
+					},
+					"name": "SquidForce"
+				},
+				"rarity": 2,
+				"name": "Splatfest Tee"
+			},
+			"head": {
+				"brand": {
+					"id": "98",
+					"image": "/images/brand/047cbc2f0674eeb4796efb3b6ec1b710b22d07e7.png",
+					"name": "Cuttlegear"
+				},
+				"rarity": 1,
+				"name": "Conductor Cap",
+				"kind": "head",
+				"thumbnail": "/images/head/8c3f5794a48cf188f783bf4492d2957d23fc222c.png",
+				"id": "27107",
+				"image": "/images/head/0ecec5e091668c602c56ac75fa00c265ad9e6b80.png"
+			},
+			"star_rank": 1,
+			"weapon": {
+				"special": {
+					"image_b": "/images/special/0ee7864672be208c9ea57904eb172e942dc4471f.png",
+					"image_a": "/images/special/0a6b11ca3d93e99fa53aa50ee8a948c6747a651d.png",
+					"name": "Suction-Bomb Launcher",
+					"id": "3"
+				},
+				"sub": {
+					"image_b": "/images/sub/0c90dd7487c0c1179e0e6827b8928143cf04e336.png",
+					"image_a": "/images/sub/5f978ddb4716f0d04fcc737755b0b3d212d5671c.png",
+					"name": "Burst Bomb",
+					"id": "2"
+				},
+				"name": "Neo Splash-o-matic",
+				"id": "21",
+				"image": "/images/weapon/dea2b808b42d65aff5223b016fc6dc5859e88976.png",
+				"thumbnail": "/images/weapon/b4fd108db45846a5f006dbdcbe09c4c50b8be4b7.png"
+			},
+			"shoes": {
+				"kind": "shoes",
+				"id": "27106",
+				"image": "/images/shoes/95d077afaf58c95bf165b252d030ec62e7654ad5.png",
+				"thumbnail": "/images/shoes/98e603752e0266d8454b1f974f7d419b4c3489c1.png",
+				"rarity": 1,
+				"name": "Old-Timey Shoes",
+				"brand": {
+					"id": "98",
+					"image": "/images/brand/047cbc2f0674eeb4796efb3b6ec1b710b22d07e7.png",
+					"name": "Cuttlegear"
+				}
+			},
+			"clothes_skills": {
+				"subs": [{
+					"id": "6",
+					"image": "/images/skill/d83b962b84fcea9d02c591c296234f5de77f9682.png",
+					"name": "Special Saver"
+				}, {
+					"image": "/images/skill/46f9b6fc3a2aafdc0c688dec8cadb54aa6f8ace6.png",
+					"id": "255",
+					"name": "question mark"
+				}, {
+					"name": "question mark",
+					"id": "255",
+					"image": "/images/skill/46f9b6fc3a2aafdc0c688dec8cadb54aa6f8ace6.png"
+				}],
+				"main": {
+					"name": "Ability Doubler",
+					"id": "108",
+					"image": "/images/skill/67e4e8ec069dfaec1d732c7fe407a2c73e8e51b8.png"
+				}
+			},
+			"shoes_skills": {
+				"subs": [{
+					"name": "Run Speed Up",
+					"id": "3",
+					"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png"
+				}, {
+					"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+					"id": "3",
+					"name": "Run Speed Up"
+				}, {
+					"name": "Run Speed Up",
+					"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+					"id": "3"
+				}],
+				"main": {
+					"name": "Run Speed Up",
+					"id": "3",
+					"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png"
+				}
+			},
+			"player_rank": 28,
+			"fes_grade": {
+				"rank": 2,
+				"name": "Knight Defender"
+			},
+			"player_type": {
+				"style": "girl",
+				"species": "octolings"
+			},
+			"nickname": "1",
+			"principal_id": "placeholder",
+			"head_skills": {
+				"subs": [{
+					"name": "Sub Power Up",
+					"id": "10",
+					"image": "/images/skill/34e114a50a001778a574f7061039d43e632137b7.png"
+				}, {
+					"name": "Sub Power Up",
+					"image": "/images/skill/34e114a50a001778a574f7061039d43e632137b7.png",
+					"id": "10"
+				}, {
+					"image": "/images/skill/34e114a50a001778a574f7061039d43e632137b7.png",
+					"id": "10",
+					"name": "Sub Power Up"
+				}],
+				"main": {
+					"image": "/images/skill/34e114a50a001778a574f7061039d43e632137b7.png",
+					"id": "10",
+					"name": "Sub Power Up"
+				}
+			}
+		},
+		"assist_count": 1,
+		"sort_score": 0,
+		"kill_count": 6,
+		"death_count": 1
+	}, {
+		"game_paint_point": 500,
+		"special_count": 1,
+		"player": {
+			"weapon": {
+				"id": "72",
+				"image": "/images/weapon/69cb46d940fa310937264d9cd962143e85ee633b.png",
+				"thumbnail": "/images/weapon/54ce83bf80f87263854d3c96ebdb54f427aa0a09.png",
+				"special": {
+					"name": "Booyah Bomb",
+					"image_a": "/images/special/e6f33512755e462874f57d1f02b61bb1c41ad79f.png",
+					"image_b": "/images/special/714c00b84b54d68c5e0b6da4186d41831fb4a442.png",
+					"id": "17"
+				},
+				"sub": {
+					"image_a": "/images/sub/d2eaeec524d28ef315a13f8a9e11dd1039cb78aa.png",
+					"image_b": "/images/sub/b13bf755b279af83904892fae01cd98c866dfec7.png",
+					"name": "Splat Bomb",
+					"id": "0"
+				},
+				"name": "Kensa Splattershot Pro"
+			},
+			"clothes": {
+				"rarity": 2,
+				"name": "Splatfest Tee",
+				"brand": {
+					"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png",
+					"id": "0",
+					"name": "SquidForce",
+					"frequent_skill": {
+						"id": "11",
+						"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+						"name": "Ink Resistance Up"
+					}
+				},
+				"image": "/images/clothes/631b0853ae796a429bd31fe2765f05229f7b5e8b.png",
+				"id": "26000",
+				"thumbnail": "/images/clothes/c72ffd01ccb906588829493c648670c3644cd338.png",
+				"kind": "clothes"
+			},
+			"star_rank": 0,
+			"head": {
+				"brand": {
+					"frequent_skill": {
+						"name": "Ink Resistance Up",
+						"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+						"id": "11"
+					},
+					"name": "SquidForce",
+					"id": "0",
+					"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png"
+				},
+				"name": "Twisty Headband",
+				"rarity": 2,
+				"kind": "head",
+				"thumbnail": "/images/head/b80970994affb81579f72584400c464632b02a30.png",
+				"image": "/images/head/430439ace3f22ae115630d7e03165dfb523e29bb.png",
+				"id": "24006"
+			},
+			"principal_id": "2",
+			"nickname": "placeholder",
+			"head_skills": {
+				"main": {
+					"name": "Special Power Up",
+					"image": "/images/skill/f20a3e85feeb6b4bb021d28059afd6265cee0b43.png",
+					"id": "7"
+				},
+				"subs": [{
+					"name": "Special Power Up",
+					"id": "7",
+					"image": "/images/skill/f20a3e85feeb6b4bb021d28059afd6265cee0b43.png"
+				}, {
+					"id": "11",
+					"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+					"name": "Ink Resistance Up"
+				}, {
+					"name": "Ink Resistance Up",
+					"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+					"id": "11"
+				}]
+			},
+			"clothes_skills": {
+				"main": {
+					"name": "Ability Doubler",
+					"id": "108",
+					"image": "/images/skill/67e4e8ec069dfaec1d732c7fe407a2c73e8e51b8.png"
+				},
+				"subs": [{
+					"name": "Bomb Defense Up DX",
+					"id": "200",
+					"image": "/images/skill/0a29f0ce326a81a5ddb3a7abab1816a25fefdc7c.png"
+				}, {
+					"name": "Bomb Defense Up DX",
+					"id": "200",
+					"image": "/images/skill/0a29f0ce326a81a5ddb3a7abab1816a25fefdc7c.png"
+				}, {
+					"id": "11",
+					"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+					"name": "Ink Resistance Up"
+				}]
+			},
+			"shoes_skills": {
+				"subs": [{
+					"id": "0",
+					"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+					"name": "Ink Saver (Main)"
+				}, {
+					"image": "/images/skill/d138c293c8ddac42fadf0e6531100a88c79c81f6.png",
+					"id": "4",
+					"name": "Swim Speed Up"
+				}, {
+					"id": "1",
+					"image": "/images/skill/da8ff08954fd5d890fc8bc4dd4cb761e2a33b703.png",
+					"name": "Ink Saver (Sub)"
+				}],
+				"main": {
+					"image": "/images/skill/0a29f0ce326a81a5ddb3a7abab1816a25fefdc7c.png",
+					"id": "200",
+					"name": "Bomb Defense Up DX"
+				}
+			},
+			"shoes": {
+				"kind": "shoes",
+				"thumbnail": "/images/shoes/f8cda5d53bd629b263c3f24c2e271bac8105eb92.png",
+				"image": "/images/shoes/f1af818020fb5912b304a997c39b8c72a7258c1e.png",
+				"id": "6007",
+				"brand": {
+					"frequent_skill": {
+						"id": "3",
+						"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+						"name": "Run Speed Up"
+					},
+					"name": "Rockenberg",
+					"image": "/images/brand/451a2d0b5ceb7ea4ec4e47c3ff05eee362e9b722.png",
+					"id": "3"
+				},
+				"name": "Punk Cherries",
+				"rarity": 2
+			},
+			"player_rank": 43,
+			"fes_grade": {
+				"rank": 4,
+				"name": "Knight Queen"
+			},
+			"player_type": {
+				"style": "girl",
+				"species": "inklings"
+			}
+		},
+		"sort_score": 0,
+		"assist_count": 1,
+		"death_count": 6,
+		"kill_count": 3
+	}],
+	"contribution_point_total": 67879,
+	"stage": {
+		"image": "/images/stage/98baf21c0366ce6e03299e2326fe6d27a7582dce.png",
+		"id": "0",
+		"name": "The Reef"
+	},
+	"other_team_consecutive_win": 0
+}

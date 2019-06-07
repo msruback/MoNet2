@@ -51,7 +51,7 @@ public class SplatnetConverters {
     }
 
     @TypeConverter
-    public static Special toSpecial(int value){
+    public static Special toSpecial(Integer value){
         Special special = new Special();
         special.id = value;
         return special;
@@ -66,7 +66,7 @@ public class SplatnetConverters {
     }
 
     @TypeConverter
-    public static Sub toSub(int value){
+    public static Sub toSub(Integer value){
         Sub sub = new Sub();
         sub.id = value;
         return sub;

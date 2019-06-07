@@ -69,7 +69,7 @@ public abstract class PlayerDao {
     @Query("SELECT * FROM player JOIN weapon ON weapon = weapon_id JOIN sub ON weapon_sub = sub_id JOIN special ON weapon_special = special_id WHERE battleId=:id AND playerType=:type")
     public abstract LiveData<List<PlayerWeapon>> selectPlayersFromBattle(int id, int type);
 
-    @Query("SELECT * FROM player JOIN weapon ON weapon = weapon_id WHERE battleId=:id")
+    @Query("SELECT * FROM player JOIN weapon ON weapon = weapon_id JOIN sub ON weapon_sub = sub_id JOIN special ON weapon_special = special_id WHERE battleId=:id")
     public abstract List<PlayerWeapon> selectWeaponBattles(int id);
 
     @Query("SELECT * FROM player JOIN battle ON battleId = id WHERE fes_id =:fesId AND playerType=:type")

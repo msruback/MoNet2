@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mattr on 1/14/2018.
@@ -47,7 +48,7 @@ public class SplatfestCardViewHolder extends RecyclerView.ViewHolder{
         snapHelper.attachToRecyclerView(SplatfestPager);
     }
 
-    public void manageHolder(ArrayList<TimePeriod> timePeriods,Splatfest splatfest){
+    public void manageHolder(List<TimePeriod> timePeriods, Splatfest splatfest){
         Typeface font = Typeface.createFromAsset(context.getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(context.getAssets(), "Paintball.otf");
 

@@ -27,17 +27,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class SalmonRunResultsFragment extends Fragment implements SplatnetConnected {
 
-    private ViewGroup rootView;
     private SplatnetConnector connector;
     private SplatnetSQLManager database;
 
     private RecyclerView listView;
-    private LinearLayoutManager linearLayoutManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = (ViewGroup) inflater.inflate(
+        ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_salmon_result, container, false);
 
         database = new SplatnetSQLManager(getContext());
@@ -78,7 +76,7 @@ public class SalmonRunResultsFragment extends Fragment implements SplatnetConnec
         }
         SalmonRunShiftPagerAdapter shiftAdapter = new SalmonRunShiftPagerAdapter(getContext(),detailLists);
         listView.setAdapter(shiftAdapter);
-        linearLayoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         listView.setLayoutManager(linearLayoutManager);
     }
 

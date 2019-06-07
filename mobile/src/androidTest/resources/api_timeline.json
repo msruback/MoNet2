@@ -1,0 +1,1153 @@
+{
+	"schedule": {
+		"importance": 0.8,
+		"schedules": {
+			"regular": [{
+				"id": 4780952683923439000,
+				"game_mode": {
+					"name": "Regular Battle",
+					"key": "regular"
+				},
+				"end_time": 1556056800,
+				"rule": {
+					"name": "Turf War",
+					"key": "turf_war",
+					"multiline_name": "Turf\nWar"
+				},
+				"stage_a": {
+					"id": "19",
+					"name": "New Albacore Hotel",
+					"image": "/images/stage/98a7d7a4009fae9fb7479554535425a5a604e88e.png"
+				},
+				"stage_b": {
+					"id": "20",
+					"image": "/images/stage/555c356487ac3edb0088c416e8045576c6b37fcc.png",
+					"name": "Wahoo World"
+				},
+				"start_time": 1556049600
+			}],
+			"gachi": [{
+				"stage_b": {
+					"id": "13",
+					"image": "/images/stage/d9f0f6c330aaa3b975e572637b00c4c0b6b89f7d.png",
+					"name": "MakoMart"
+				},
+				"start_time": 1556049600,
+				"stage_a": {
+					"image": "/images/stage/8cab733d543efc9dd561bfcc9edac52594e62522.png",
+					"name": "Goby Arena",
+					"id": "18"
+				},
+				"game_mode": {
+					"key": "gachi",
+					"name": "Ranked Battle"
+				},
+				"id": 4780952683923439000,
+				"rule": {
+					"name": "Tower Control",
+					"key": "tower_control",
+					"multiline_name": "Tower\nControl"
+				},
+				"end_time": 1556056800
+			}],
+			"league": [{
+				"stage_a": {
+					"id": "16",
+					"image": "/images/stage/e4c4800be9fff23112334b193abb0fdf36e05933.png",
+					"name": "Camp Triggerfish"
+				},
+				"stage_b": {
+					"id": "3",
+					"image": "/images/stage/bc794e337900afd763f8a88359f83df5679ddf12.png",
+					"name": "Sturgeon Shipyard"
+				},
+				"start_time": 1556049600,
+				"id": 4780952683923439000,
+				"game_mode": {
+					"key": "league",
+					"name": "League Battle"
+				},
+				"end_time": 1556056800,
+				"rule": {
+					"name": "Clam Blitz",
+					"key": "clam_blitz",
+					"multiline_name": "Clam\nBlitz"
+				}
+			}]
+		}
+	},
+	"onlineshop": {
+		"merchandise": {
+			"id": "4780952683923709319",
+			"end_time": 1556056800,
+			"price": 1750,
+			"kind": "head",
+			"skill": {
+				"id": "9",
+				"name": "Quick Super Jump",
+				"image": "/images/skill/daf6883039afa62da91eb93eb2a40b673f10b715.png"
+			},
+			"gear": {
+				"image": "/images/head/bcd091aef6a91bea7df9dad79b2747cb183f86b8.png",
+				"thumbnail": "/images/head/f553362b88938a75478baba7a7e145ce5586c2e8.png",
+				"name": "Jet Cap",
+				"kind": "head",
+				"brand": {
+					"image": "/images/brand/dee59c0797a6214114e527dfa51f0dd012085172.png",
+					"name": "Firefin",
+					"id": "6",
+					"frequent_skill": {
+						"image": "/images/skill/da8ff08954fd5d890fc8bc4dd4cb761e2a33b703.png",
+						"name": "Ink Saver (Sub)",
+						"id": "1"
+					}
+				},
+				"rarity": 0,
+				"id": "1011"
+			}
+		},
+		"importance": 0.102111111111111
+	},
+	"stats": {
+		"recents": [{
+			"start_time": 1555883670,
+			"battle_number": "1930",
+			"fes_point": 624,
+			"game_mode": {
+				"name": "Splatfest Battle",
+				"key": "fes_solo"
+			},
+			"weapon_paint_point": 209685,
+			"win_meter": 8.5,
+			"my_team_result": {
+				"key": "defeat",
+				"name": "DEFEAT"
+			},
+			"player_result": {
+				"game_paint_point": 1217,
+				"assist_count": 1,
+				"kill_count": 4,
+				"sort_score": 0,
+				"death_count": 4,
+				"player": {
+					"fes_grade": {
+						"name": "Hare Champion",
+						"rank": 3
+					},
+					"clothes": {
+						"kind": "clothes",
+						"thumbnail": "/images/clothes/c72ffd01ccb906588829493c648670c3644cd338.png",
+						"name": "Splatfest Tee",
+						"image": "/images/clothes/631b0853ae796a429bd31fe2765f05229f7b5e8b.png",
+						"id": "26000",
+						"rarity": 2,
+						"brand": {
+							"name": "SquidForce",
+							"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png",
+							"frequent_skill": {
+								"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+								"name": "Ink Resistance Up",
+								"id": "11"
+							},
+							"id": "0"
+						}
+					},
+					"head_skills": {
+						"main": {
+							"id": "0",
+							"name": "Ink Saver (Main)",
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png"
+						},
+						"subs": [{
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+							"name": "Ink Saver (Main)",
+							"id": "0"
+						}, {
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+							"name": "Ink Saver (Main)",
+							"id": "0"
+						}, {
+							"id": "0",
+							"name": "Ink Saver (Main)",
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png"
+						}]
+					},
+					"weapon": {
+						"id": "5031",
+						"sub": {
+							"image_a": "/images/sub/d2eaeec524d28ef315a13f8a9e11dd1039cb78aa.png",
+							"name": "Splat Bomb",
+							"id": "0",
+							"image_b": "/images/sub/b13bf755b279af83904892fae01cd98c866dfec7.png"
+						},
+						"special": {
+							"image_b": "/images/special/b2ffd060612d3ed4cfa7bee583cb28d22307064a.png",
+							"id": "10",
+							"name": "Ink Storm",
+							"image_a": "/images/special/b07cb8cd5b8afbf509b98a9cbb768ed0f2e34898.png"
+						},
+						"name": "Custom Dualie Squelchers",
+						"thumbnail": "/images/weapon/7ccb1233eb949e651d0c9e49971f1c0c6be59138.png",
+						"image": "/images/weapon/a1c290b4abc1b4b9ab03425d8e89b88053390dbe.png"
+					},
+					"shoes_skills": {
+						"main": {
+							"id": "3",
+							"name": "Run Speed Up",
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png"
+						},
+						"subs": [{
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"name": "Run Speed Up",
+							"id": "3"
+						}, {
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"name": "Run Speed Up",
+							"id": "3"
+						}, {
+							"name": "Run Speed Up",
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"id": "3"
+						}]
+					},
+					"principal_id": "7de5326fac8b4658",
+					"shoes": {
+						"id": "4002",
+						"brand": {
+							"name": "Krak-On",
+							"image": "/images/brand/9ac5752790dd6dbdc7a427df95e1bfe89fe318e0.png",
+							"frequent_skill": {
+								"name": "Swim Speed Up",
+								"image": "/images/skill/d138c293c8ddac42fadf0e6531100a88c79c81f6.png",
+								"id": "4"
+							},
+							"id": "2"
+						},
+						"rarity": 0,
+						"image": "/images/shoes/ca29a62fece933f26b0f51d353914c31cfefdc68.png",
+						"thumbnail": "/images/shoes/63420c5a3292ed9f1e84afaf2603fe8d0a1c5fd0.png",
+						"kind": "shoes",
+						"name": "Blueberry Casuals"
+					},
+					"star_rank": 0,
+					"clothes_skills": {
+						"subs": [{
+							"name": "Special Power Up",
+							"image": "/images/skill/f20a3e85feeb6b4bb021d28059afd6265cee0b43.png",
+							"id": "7"
+						}, {
+							"name": "Ink Saver (Sub)",
+							"image": "/images/skill/da8ff08954fd5d890fc8bc4dd4cb761e2a33b703.png",
+							"id": "1"
+						}, {
+							"id": "9",
+							"name": "Quick Super Jump",
+							"image": "/images/skill/daf6883039afa62da91eb93eb2a40b673f10b715.png"
+						}],
+						"main": {
+							"id": "108",
+							"image": "/images/skill/67e4e8ec069dfaec1d732c7fe407a2c73e8e51b8.png",
+							"name": "Ability Doubler"
+						}
+					},
+					"head": {
+						"brand": {
+							"name": "Tentatek",
+							"image": "/images/brand/02286fe17bb6bc3f5f13c6b251ddc0a55c44c756.png",
+							"frequent_skill": {
+								"id": "2",
+								"name": "Ink Recovery Up",
+								"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png"
+							},
+							"id": "10"
+						},
+						"rarity": 1,
+						"id": "6002",
+						"image": "/images/head/6f0967b86eb06eb39edcd0bcb630ae3bb9cf7646.png",
+						"thumbnail": "/images/head/b09778454366a842730c3436a07cd40631c031ff.png",
+						"kind": "head",
+						"name": "Sun Visor"
+					},
+					"nickname": "MattyWatty",
+					"player_rank": 50,
+					"player_type": {
+						"species": "inklings",
+						"style": "boy"
+					}
+				},
+				"special_count": 3
+			},
+			"event_type": {
+				"class_name": "1-x-match",
+				"name": "",
+				"multiline_name": "",
+				"key": "1_x_match"
+			},
+			"fes_power": 1960.9,
+			"contribution_point": 0,
+			"my_team_fes_theme": {
+				"key": "alpha",
+				"color": {
+					"r": 0.91,
+					"a": 1,
+					"css_rgb": "rgb(91%,41%,75%)",
+					"g": 0.41,
+					"b": 0.75
+				},
+				"name": "Hare"
+			},
+			"type": "fes",
+			"my_estimate_fes_power": 2210,
+			"fes_grade": {
+				"name": "Hare Champion",
+				"rank": 3
+			},
+			"my_team_percentage": 35.1,
+			"my_team_another_name": null,
+			"uniform_bonus": 0,
+			"contribution_point_total": 19060,
+			"my_team_consecutive_win": 0,
+			"stage": {
+				"name": "Inkblot Art Academy",
+				"image": "/images/stage/5c030a505ee57c889d3e5268a4b10c1f1f37880a.png",
+				"id": "4"
+			},
+			"fes_mode": {
+				"key": "fes.result.challenge",
+				"name": "Challenge"
+			},
+			"star_rank": 0,
+			"other_team_fes_theme": {
+				"key": "bravo",
+				"color": {
+					"g": 0.81,
+					"css_rgb": "rgb(54%,81%,28%)",
+					"b": 0.28,
+					"r": 0.54,
+					"a": 1
+				},
+				"name": "Tortoise"
+			},
+			"other_team_percentage": 55.6,
+			"other_team_result": {
+				"key": "victory",
+				"name": "VICTORY"
+			},
+			"player_rank": 50,
+			"max_fes_power": 2066.3,
+			"other_team_consecutive_win": 0,
+			"fes_id": 4057,
+			"rule": {
+				"multiline_name": "Turf\nWar",
+				"key": "turf_war",
+				"name": "Turf War"
+			},
+			"other_team_another_name": null,
+			"version": 4,
+			"other_estimate_fes_power": 2120
+		}, {
+			"weapon_paint_point": 208468,
+			"win_meter": 8.5,
+			"start_time": 1555883365,
+			"battle_number": "1929",
+			"fes_point": 604,
+			"game_mode": {
+				"key": "fes_solo",
+				"name": "Splatfest Battle"
+			},
+			"contribution_point": 0,
+			"my_team_fes_theme": {
+				"color": {
+					"b": 0.75,
+					"g": 0.41,
+					"css_rgb": "rgb(91%,41%,75%)",
+					"a": 1,
+					"r": 0.91
+				},
+				"key": "alpha",
+				"name": "Hare"
+			},
+			"my_estimate_fes_power": 2070,
+			"fes_grade": {
+				"name": "Hare Champion",
+				"rank": 3
+			},
+			"my_team_percentage": 42.1,
+			"type": "fes",
+			"player_result": {
+				"special_count": 2,
+				"kill_count": 6,
+				"sort_score": 0,
+				"player": {
+					"principal_id": "7de5326fac8b4658",
+					"shoes": {
+						"thumbnail": "/images/shoes/63420c5a3292ed9f1e84afaf2603fe8d0a1c5fd0.png",
+						"kind": "shoes",
+						"name": "Blueberry Casuals",
+						"image": "/images/shoes/ca29a62fece933f26b0f51d353914c31cfefdc68.png",
+						"rarity": 0,
+						"brand": {
+							"image": "/images/brand/9ac5752790dd6dbdc7a427df95e1bfe89fe318e0.png",
+							"name": "Krak-On",
+							"id": "2",
+							"frequent_skill": {
+								"id": "4",
+								"image": "/images/skill/d138c293c8ddac42fadf0e6531100a88c79c81f6.png",
+								"name": "Swim Speed Up"
+							}
+						},
+						"id": "4002"
+					},
+					"clothes": {
+						"image": "/images/clothes/631b0853ae796a429bd31fe2765f05229f7b5e8b.png",
+						"thumbnail": "/images/clothes/c72ffd01ccb906588829493c648670c3644cd338.png",
+						"name": "Splatfest Tee",
+						"kind": "clothes",
+						"brand": {
+							"frequent_skill": {
+								"id": "11",
+								"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+								"name": "Ink Resistance Up"
+							},
+							"id": "0",
+							"name": "SquidForce",
+							"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png"
+						},
+						"rarity": 2,
+						"id": "26000"
+					},
+					"fes_grade": {
+						"name": "Hare Champion",
+						"rank": 3
+					},
+					"head_skills": {
+						"subs": [{
+							"id": "0",
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+							"name": "Ink Saver (Main)"
+						}, {
+							"id": "0",
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+							"name": "Ink Saver (Main)"
+						}, {
+							"id": "0",
+							"name": "Ink Saver (Main)",
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png"
+						}],
+						"main": {
+							"name": "Ink Saver (Main)",
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+							"id": "0"
+						}
+					},
+					"weapon": {
+						"id": "5031",
+						"sub": {
+							"name": "Splat Bomb",
+							"image_a": "/images/sub/d2eaeec524d28ef315a13f8a9e11dd1039cb78aa.png",
+							"image_b": "/images/sub/b13bf755b279af83904892fae01cd98c866dfec7.png",
+							"id": "0"
+						},
+						"thumbnail": "/images/weapon/7ccb1233eb949e651d0c9e49971f1c0c6be59138.png",
+						"special": {
+							"id": "10",
+							"image_b": "/images/special/b2ffd060612d3ed4cfa7bee583cb28d22307064a.png",
+							"image_a": "/images/special/b07cb8cd5b8afbf509b98a9cbb768ed0f2e34898.png",
+							"name": "Ink Storm"
+						},
+						"name": "Custom Dualie Squelchers",
+						"image": "/images/weapon/a1c290b4abc1b4b9ab03425d8e89b88053390dbe.png"
+					},
+					"shoes_skills": {
+						"main": {
+							"id": "3",
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"name": "Run Speed Up"
+						},
+						"subs": [{
+							"id": "3",
+							"name": "Run Speed Up",
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png"
+						}, {
+							"id": "3",
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"name": "Run Speed Up"
+						}, {
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"name": "Run Speed Up",
+							"id": "3"
+						}]
+					},
+					"head": {
+						"image": "/images/head/6f0967b86eb06eb39edcd0bcb630ae3bb9cf7646.png",
+						"thumbnail": "/images/head/b09778454366a842730c3436a07cd40631c031ff.png",
+						"name": "Sun Visor",
+						"kind": "head",
+						"id": "6002",
+						"brand": {
+							"name": "Tentatek",
+							"image": "/images/brand/02286fe17bb6bc3f5f13c6b251ddc0a55c44c756.png",
+							"frequent_skill": {
+								"id": "2",
+								"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png",
+								"name": "Ink Recovery Up"
+							},
+							"id": "10"
+						},
+						"rarity": 1
+					},
+					"clothes_skills": {
+						"main": {
+							"name": "Ability Doubler",
+							"image": "/images/skill/67e4e8ec069dfaec1d732c7fe407a2c73e8e51b8.png",
+							"id": "108"
+						},
+						"subs": [{
+							"image": "/images/skill/f20a3e85feeb6b4bb021d28059afd6265cee0b43.png",
+							"name": "Special Power Up",
+							"id": "7"
+						}, {
+							"image": "/images/skill/da8ff08954fd5d890fc8bc4dd4cb761e2a33b703.png",
+							"name": "Ink Saver (Sub)",
+							"id": "1"
+						}, {
+							"name": "Quick Super Jump",
+							"image": "/images/skill/daf6883039afa62da91eb93eb2a40b673f10b715.png",
+							"id": "9"
+						}]
+					},
+					"nickname": "MattyWatty",
+					"star_rank": 0,
+					"player_rank": 50,
+					"player_type": {
+						"species": "inklings",
+						"style": "boy"
+					}
+				},
+				"death_count": 5,
+				"assist_count": 2,
+				"game_paint_point": 1075
+			},
+			"my_team_result": {
+				"key": "defeat",
+				"name": "DEFEAT"
+			},
+			"event_type": {
+				"class_name": "1-x-match",
+				"name": "",
+				"key": "1_x_match",
+				"multiline_name": ""
+			},
+			"fes_power": 2006.9,
+			"my_team_another_name": null,
+			"uniform_bonus": 0,
+			"stage": {
+				"name": "Shifty Station",
+				"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+				"id": "9999"
+			},
+			"contribution_point_total": 19060,
+			"my_team_consecutive_win": 0,
+			"star_rank": 0,
+			"fes_mode": {
+				"name": "Challenge",
+				"key": "fes.result.challenge"
+			},
+			"max_fes_power": 2066.3,
+			"other_team_consecutive_win": 0,
+			"fes_id": 4057,
+			"version": 4,
+			"other_team_another_name": null,
+			"rule": {
+				"name": "Turf War",
+				"multiline_name": "Turf\nWar",
+				"key": "turf_war"
+			},
+			"other_estimate_fes_power": 2030,
+			"other_team_percentage": 49.4,
+			"other_team_fes_theme": {
+				"key": "bravo",
+				"color": {
+					"a": 1,
+					"r": 0.54,
+					"b": 0.28,
+					"g": 0.81,
+					"css_rgb": "rgb(54%,81%,28%)"
+				},
+				"name": "Tortoise"
+			},
+			"other_team_result": {
+				"name": "VICTORY",
+				"key": "victory"
+			},
+			"player_rank": 50
+		}, {
+			"player_rank": 50,
+			"other_team_result": {
+				"key": "victory",
+				"name": "VICTORY"
+			},
+			"other_team_fes_theme": {
+				"key": "bravo",
+				"color": {
+					"b": 0.28,
+					"g": 0.81,
+					"css_rgb": "rgb(54%,81%,28%)",
+					"a": 1,
+					"r": 0.54
+				},
+				"name": "Tortoise"
+			},
+			"other_team_percentage": 47.4,
+			"other_estimate_fes_power": 2080,
+			"other_team_another_name": null,
+			"rule": {
+				"multiline_name": "Turf\nWar",
+				"key": "turf_war",
+				"name": "Turf War"
+			},
+			"version": 4,
+			"fes_id": 4057,
+			"other_team_consecutive_win": 0,
+			"max_fes_power": 2066.3,
+			"fes_mode": {
+				"name": "Challenge",
+				"key": "fes.result.challenge"
+			},
+			"star_rank": 0,
+			"my_team_consecutive_win": 0,
+			"contribution_point_total": 19060,
+			"stage": {
+				"name": "Shifty Station",
+				"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+				"id": "9999"
+			},
+			"uniform_bonus": 0,
+			"my_team_another_name": null,
+			"fes_power": 2041.4,
+			"event_type": {
+				"key": "1_x_match",
+				"multiline_name": "",
+				"class_name": "1-x-match",
+				"name": ""
+			},
+			"my_team_result": {
+				"key": "defeat",
+				"name": "DEFEAT"
+			},
+			"player_result": {
+				"game_paint_point": 773,
+				"assist_count": 1,
+				"player": {
+					"clothes_skills": {
+						"subs": [{
+							"id": "7",
+							"image": "/images/skill/f20a3e85feeb6b4bb021d28059afd6265cee0b43.png",
+							"name": "Special Power Up"
+						}, {
+							"id": "1",
+							"name": "Ink Saver (Sub)",
+							"image": "/images/skill/da8ff08954fd5d890fc8bc4dd4cb761e2a33b703.png"
+						}, {
+							"name": "Quick Super Jump",
+							"image": "/images/skill/daf6883039afa62da91eb93eb2a40b673f10b715.png",
+							"id": "9"
+						}],
+						"main": {
+							"id": "108",
+							"name": "Ability Doubler",
+							"image": "/images/skill/67e4e8ec069dfaec1d732c7fe407a2c73e8e51b8.png"
+						}
+					},
+					"star_rank": 0,
+					"head": {
+						"image": "/images/head/6f0967b86eb06eb39edcd0bcb630ae3bb9cf7646.png",
+						"kind": "head",
+						"thumbnail": "/images/head/b09778454366a842730c3436a07cd40631c031ff.png",
+						"name": "Sun Visor",
+						"id": "6002",
+						"brand": {
+							"name": "Tentatek",
+							"image": "/images/brand/02286fe17bb6bc3f5f13c6b251ddc0a55c44c756.png",
+							"frequent_skill": {
+								"name": "Ink Recovery Up",
+								"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png",
+								"id": "2"
+							},
+							"id": "10"
+						},
+						"rarity": 1
+					},
+					"nickname": "MattyWatty",
+					"player_rank": 50,
+					"player_type": {
+						"style": "boy",
+						"species": "inklings"
+					},
+					"principal_id": "7de5326fac8b4658",
+					"shoes": {
+						"image": "/images/shoes/ca29a62fece933f26b0f51d353914c31cfefdc68.png",
+						"thumbnail": "/images/shoes/63420c5a3292ed9f1e84afaf2603fe8d0a1c5fd0.png",
+						"kind": "shoes",
+						"name": "Blueberry Casuals",
+						"id": "4002",
+						"brand": {
+							"id": "2",
+							"frequent_skill": {
+								"image": "/images/skill/d138c293c8ddac42fadf0e6531100a88c79c81f6.png",
+								"name": "Swim Speed Up",
+								"id": "4"
+							},
+							"image": "/images/brand/9ac5752790dd6dbdc7a427df95e1bfe89fe318e0.png",
+							"name": "Krak-On"
+						},
+						"rarity": 0
+					},
+					"fes_grade": {
+						"name": "Hare Champion",
+						"rank": 3
+					},
+					"clothes": {
+						"image": "/images/clothes/631b0853ae796a429bd31fe2765f05229f7b5e8b.png",
+						"name": "Splatfest Tee",
+						"thumbnail": "/images/clothes/c72ffd01ccb906588829493c648670c3644cd338.png",
+						"kind": "clothes",
+						"brand": {
+							"frequent_skill": {
+								"name": "Ink Resistance Up",
+								"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+								"id": "11"
+							},
+							"id": "0",
+							"name": "SquidForce",
+							"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png"
+						},
+						"rarity": 2,
+						"id": "26000"
+					},
+					"head_skills": {
+						"subs": [{
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+							"name": "Ink Saver (Main)",
+							"id": "0"
+						}, {
+							"id": "0",
+							"name": "Ink Saver (Main)",
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png"
+						}, {
+							"id": "0",
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+							"name": "Ink Saver (Main)"
+						}],
+						"main": {
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+							"name": "Ink Saver (Main)",
+							"id": "0"
+						}
+					},
+					"shoes_skills": {
+						"subs": [{
+							"name": "Run Speed Up",
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"id": "3"
+						}, {
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"name": "Run Speed Up",
+							"id": "3"
+						}, {
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"name": "Run Speed Up",
+							"id": "3"
+						}],
+						"main": {
+							"id": "3",
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"name": "Run Speed Up"
+						}
+					},
+					"weapon": {
+						"sub": {
+							"name": "Splat Bomb",
+							"image_a": "/images/sub/d2eaeec524d28ef315a13f8a9e11dd1039cb78aa.png",
+							"image_b": "/images/sub/b13bf755b279af83904892fae01cd98c866dfec7.png",
+							"id": "0"
+						},
+						"id": "5031",
+						"special": {
+							"name": "Ink Storm",
+							"image_a": "/images/special/b07cb8cd5b8afbf509b98a9cbb768ed0f2e34898.png",
+							"image_b": "/images/special/b2ffd060612d3ed4cfa7bee583cb28d22307064a.png",
+							"id": "10"
+						},
+						"thumbnail": "/images/weapon/7ccb1233eb949e651d0c9e49971f1c0c6be59138.png",
+						"name": "Custom Dualie Squelchers",
+						"image": "/images/weapon/a1c290b4abc1b4b9ab03425d8e89b88053390dbe.png"
+					}
+				},
+				"death_count": 7,
+				"kill_count": 5,
+				"sort_score": 0,
+				"special_count": 0
+			},
+			"type": "fes",
+			"fes_grade": {
+				"name": "Hare Champion",
+				"rank": 3
+			},
+			"my_estimate_fes_power": 2070,
+			"my_team_percentage": 45,
+			"my_team_fes_theme": {
+				"name": "Hare",
+				"color": {
+					"b": 0.75,
+					"g": 0.41,
+					"css_rgb": "rgb(91%,41%,75%)",
+					"a": 1,
+					"r": 0.91
+				},
+				"key": "alpha"
+			},
+			"contribution_point": 0,
+			"game_mode": {
+				"key": "fes_solo",
+				"name": "Splatfest Battle"
+			},
+			"fes_point": 584,
+			"battle_number": "1928",
+			"start_time": 1555883077,
+			"win_meter": 8.5,
+			"weapon_paint_point": 207393
+		}, {
+			"star_rank": 0,
+			"fes_mode": {
+				"name": "Challenge",
+				"key": "fes.result.challenge"
+			},
+			"stage": {
+				"name": "Inkblot Art Academy",
+				"image": "/images/stage/5c030a505ee57c889d3e5268a4b10c1f1f37880a.png",
+				"id": "4"
+			},
+			"my_team_consecutive_win": 0,
+			"contribution_point_total": 19060,
+			"uniform_bonus": 0,
+			"my_team_another_name": null,
+			"other_estimate_fes_power": 2070,
+			"version": 4,
+			"other_team_another_name": null,
+			"rule": {
+				"multiline_name": "Turf\nWar",
+				"key": "turf_war",
+				"name": "Turf War"
+			},
+			"other_team_consecutive_win": 0,
+			"fes_id": 4057,
+			"max_fes_power": 2066.3,
+			"player_rank": 50,
+			"other_team_result": {
+				"name": "DEFEAT",
+				"key": "defeat"
+			},
+			"other_team_percentage": 40.3,
+			"other_team_fes_theme": {
+				"name": "Tortoise",
+				"key": "bravo",
+				"color": {
+					"b": 0.28,
+					"css_rgb": "rgb(54%,81%,28%)",
+					"g": 0.81,
+					"a": 1,
+					"r": 0.54
+				}
+			},
+			"win_meter": 8.5,
+			"weapon_paint_point": 206620,
+			"game_mode": {
+				"key": "fes_solo",
+				"name": "Splatfest Battle"
+			},
+			"fes_point": 564,
+			"battle_number": "1927",
+			"start_time": 1555882805,
+			"my_estimate_fes_power": 2110,
+			"my_team_percentage": 50.7,
+			"fes_grade": {
+				"name": "Hare Champion",
+				"rank": 3
+			},
+			"type": "fes",
+			"my_team_fes_theme": {
+				"color": {
+					"r": 0.91,
+					"a": 1,
+					"css_rgb": "rgb(91%,41%,75%)",
+					"g": 0.41,
+					"b": 0.75
+				},
+				"key": "alpha",
+				"name": "Hare"
+			},
+			"contribution_point": 2070,
+			"fes_power": 2066.3,
+			"event_type": {
+				"name": "",
+				"class_name": "1-x-match",
+				"multiline_name": "",
+				"key": "1_x_match"
+			},
+			"player_result": {
+				"special_count": 2,
+				"assist_count": 0,
+				"game_paint_point": 1017,
+				"player": {
+					"clothes_skills": {
+						"main": {
+							"id": "108",
+							"image": "/images/skill/67e4e8ec069dfaec1d732c7fe407a2c73e8e51b8.png",
+							"name": "Ability Doubler"
+						},
+						"subs": [{
+							"image": "/images/skill/f20a3e85feeb6b4bb021d28059afd6265cee0b43.png",
+							"name": "Special Power Up",
+							"id": "7"
+						}, {
+							"name": "Ink Saver (Sub)",
+							"image": "/images/skill/da8ff08954fd5d890fc8bc4dd4cb761e2a33b703.png",
+							"id": "1"
+						}, {
+							"id": "9",
+							"image": "/images/skill/daf6883039afa62da91eb93eb2a40b673f10b715.png",
+							"name": "Quick Super Jump"
+						}]
+					},
+					"nickname": "MattyWatty",
+					"head": {
+						"brand": {
+							"frequent_skill": {
+								"image": "/images/skill/c14f4471b26e0f918c736b5c17e03212290f4541.png",
+								"name": "Ink Recovery Up",
+								"id": "2"
+							},
+							"id": "10",
+							"name": "Tentatek",
+							"image": "/images/brand/02286fe17bb6bc3f5f13c6b251ddc0a55c44c756.png"
+						},
+						"rarity": 1,
+						"id": "6002",
+						"image": "/images/head/6f0967b86eb06eb39edcd0bcb630ae3bb9cf7646.png",
+						"name": "Sun Visor",
+						"thumbnail": "/images/head/b09778454366a842730c3436a07cd40631c031ff.png",
+						"kind": "head"
+					},
+					"star_rank": 0,
+					"player_type": {
+						"style": "boy",
+						"species": "inklings"
+					},
+					"player_rank": 50,
+					"shoes": {
+						"image": "/images/shoes/ca29a62fece933f26b0f51d353914c31cfefdc68.png",
+						"thumbnail": "/images/shoes/63420c5a3292ed9f1e84afaf2603fe8d0a1c5fd0.png",
+						"kind": "shoes",
+						"name": "Blueberry Casuals",
+						"brand": {
+							"image": "/images/brand/9ac5752790dd6dbdc7a427df95e1bfe89fe318e0.png",
+							"name": "Krak-On",
+							"id": "2",
+							"frequent_skill": {
+								"id": "4",
+								"name": "Swim Speed Up",
+								"image": "/images/skill/d138c293c8ddac42fadf0e6531100a88c79c81f6.png"
+							}
+						},
+						"rarity": 0,
+						"id": "4002"
+					},
+					"principal_id": "7de5326fac8b4658",
+					"head_skills": {
+						"main": {
+							"name": "Ink Saver (Main)",
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+							"id": "0"
+						},
+						"subs": [{
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png",
+							"name": "Ink Saver (Main)",
+							"id": "0"
+						}, {
+							"id": "0",
+							"name": "Ink Saver (Main)",
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png"
+						}, {
+							"id": "0",
+							"name": "Ink Saver (Main)",
+							"image": "/images/skill/04b1de71fba1f14197b9163503955c52fd74858b.png"
+						}]
+					},
+					"fes_grade": {
+						"rank": 3,
+						"name": "Hare Champion"
+					},
+					"clothes": {
+						"image": "/images/clothes/631b0853ae796a429bd31fe2765f05229f7b5e8b.png",
+						"name": "Splatfest Tee",
+						"thumbnail": "/images/clothes/c72ffd01ccb906588829493c648670c3644cd338.png",
+						"kind": "clothes",
+						"brand": {
+							"frequent_skill": {
+								"image": "/images/skill/33087a476135074af856151a89a6fe4d1d3a996e.png",
+								"name": "Ink Resistance Up",
+								"id": "11"
+							},
+							"id": "0",
+							"name": "SquidForce",
+							"image": "/images/brand/5547e529d160b188d104e3b68ff4b7566eab9771.png"
+						},
+						"rarity": 2,
+						"id": "26000"
+					},
+					"shoes_skills": {
+						"subs": [{
+							"id": "3",
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"name": "Run Speed Up"
+						}, {
+							"name": "Run Speed Up",
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"id": "3"
+						}, {
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"name": "Run Speed Up",
+							"id": "3"
+						}],
+						"main": {
+							"image": "/images/skill/7de1bdfd875ef470b6066c17bed726b5b5113d48.png",
+							"name": "Run Speed Up",
+							"id": "3"
+						}
+					},
+					"weapon": {
+						"special": {
+							"id": "10",
+							"image_b": "/images/special/b2ffd060612d3ed4cfa7bee583cb28d22307064a.png",
+							"image_a": "/images/special/b07cb8cd5b8afbf509b98a9cbb768ed0f2e34898.png",
+							"name": "Ink Storm"
+						},
+						"thumbnail": "/images/weapon/7ccb1233eb949e651d0c9e49971f1c0c6be59138.png",
+						"name": "Custom Dualie Squelchers",
+						"image": "/images/weapon/a1c290b4abc1b4b9ab03425d8e89b88053390dbe.png",
+						"id": "5031",
+						"sub": {
+							"name": "Splat Bomb",
+							"image_a": "/images/sub/d2eaeec524d28ef315a13f8a9e11dd1039cb78aa.png",
+							"image_b": "/images/sub/b13bf755b279af83904892fae01cd98c866dfec7.png",
+							"id": "0"
+						}
+					}
+				},
+				"death_count": 4,
+				"sort_score": 0,
+				"kill_count": 7
+			},
+			"my_team_result": {
+				"key": "victory",
+				"name": "VICTORY"
+			}
+		}],
+		"importance": 0.1
+	},
+	"fes_event_match_result": {
+		"importance": -1
+	},
+	"weapon_availability": {
+		"importance": -1,
+		"availabilities": []
+	},
+	"coop": {
+		"importance": 0.7,
+		"schedule": {
+			"start_time": 1556020800,
+			"stage": {
+				"image": "/images/coop_stage/65c68c6f0641cc5654434b78a6f10b0ad32ccdee.png",
+				"name": "Spawning Grounds"
+			},
+			"weapons": [{
+				"weapon": {
+					"image": "/images/weapon/cc4bc30ff53bf2b45bd5e3dadceb39d52b95761f.png",
+					"thumbnail": "/images/weapon/377fede68e69d13c1790fc90c3cb8c912a2a89db.png",
+					"name": "Dapple Dualies",
+					"id": "5000"
+				},
+				"id": "5000"
+			}, {
+				"id": "80",
+				"weapon": {
+					"id": "80",
+					"image": "/images/weapon/df90f6065594378690647c23d42440e2de89c99d.png",
+					"thumbnail": "/images/weapon/a696c21270a22fdb9babb63512031f5283be7c31.png",
+					"name": ".96 Gal"
+				}
+			}, {
+				"weapon": {
+					"image": "/images/weapon/f1d5740dfb7d87f7e43974bbe5585445368741b8.png",
+					"thumbnail": "/images/weapon/5f565ede7ae220d5b1d453b3ef55b8d20d7b9a2a.png",
+					"name": "Octobrush",
+					"id": "1110"
+				},
+				"id": "1110"
+			}, {
+				"id": "2010",
+				"weapon": {
+					"image": "/images/weapon/1ed94885bef2b0e498ed4dd76bea9064c85cfc94.png",
+					"thumbnail": "/images/weapon/d359c8312037a0c98db73cb0a4122cf2c5665f77.png",
+					"name": "Splat Charger",
+					"id": "2010"
+				}
+			}],
+			"end_time": 1556150400
+		},
+		"reward_gear": {
+			"gear": {
+				"id": "21009",
+				"brand": {
+					"image": "/images/brand/ec85f17c315e0a1ea4dee55041fd30a88d6aba93.png",
+					"name": "Grizzco",
+					"id": "97"
+				},
+				"rarity": 2,
+				"image": "/images/head/008456cdbce96e5bbd80417104524275f59ed853.png",
+				"thumbnail": "/images/head/dfbe650366b32dcf12dd26cdcd8e08efe2702552.png",
+				"name": "Sailor Cap",
+				"kind": "head"
+			},
+			"available_time": 1554076800
+		}
+	},
+	"udemae": {
+		"importance": -1
+	},
+	"unique_id": "",
+	"fes_winners": {
+		"importance": -1
+	},
+	"download_contents": {
+		"importance": 0,
+		"is_available": true
+	},
+	"challenge": {
+		"total_paint_point": 1703113,
+		"last_archived_challenge": {
+			"image": "/images/challenge/179e5cf35e5d2a089d101523bcae0e8082ddfeb1.png",
+			"name": "Machu Picchu",
+			"paint_points": 1512000,
+			"key": "machu_picchu"
+		},
+		"importance": 0.1,
+		"next_challenge": {
+			"key": "yosemite_valley",
+			"paint_points": 4652000,
+			"image": "/images/challenge/3780bea228f0767c5c99e401e773ca65850e7d1f.png",
+			"name": "Yosemite Valley"
+		}
+	}
+}

@@ -15,11 +15,8 @@ import retrofit2.Response;
 
 public class MonthlyGearRequest extends TimelineRequest {
 
-    SplatnetSQLManager database;
-
     public MonthlyGearRequest(Context context){
         super(context);
-        database = new SplatnetSQLManager(context);
     }
 
     @Override
@@ -29,15 +26,6 @@ public class MonthlyGearRequest extends TimelineRequest {
 
     @Override
     public boolean shouldUpdate(){
-        long now = new Date().getTime();
-//        if(timeline.currentRun!=null&&timeline.currentRun.rewardGear!=null) {
-//            if ((timeline.currentRun.rewardGear.available * 1000) < now) {
-//                return true;
-//
-//            }
-//            return false;
-//        }
-
         return true;
     }
 }

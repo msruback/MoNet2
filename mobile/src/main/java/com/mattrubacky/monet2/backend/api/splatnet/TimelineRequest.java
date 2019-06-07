@@ -9,6 +9,11 @@ import com.google.gson.Gson;
 import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized.splatoon.ResultIds;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Timeline;
+import com.mattrubacky.monet2.data.rooms.SplatnetDatabase;
+import com.mattrubacky.monet2.data.rooms.dao.entity.BrandDao;
+import com.mattrubacky.monet2.data.rooms.dao.entity.GearDao;
+import com.mattrubacky.monet2.data.rooms.dao.entity.SalmonGearDao;
+import com.mattrubacky.monet2.data.rooms.dao.entity.SkillDao;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.io.IOException;
@@ -52,10 +57,13 @@ public class TimelineRequest extends SplatnetRequest{
 
         //Handle Salmon Run gear
         if (timeline.currentRun.rewardGear != null) {
-            ArrayList<Gear> gear = new ArrayList<>();
-            gear.add(timeline.currentRun.rewardGear.gear);
-            database.insertGear(gear);
-            database.insertRewardGear(timeline.currentRun.rewardGear);
+            SplatnetDatabase db = SplatnetDatabase.getInstance(context);
+            SalmonGearDao salmonGearDao = db.getSalmonGearDao();
+            GearDao gearDao = db.getGearDao();
+            BrandDao brandDao = db.getBrandDao();
+            SkillDao skillDao = db.getSkillDao();
+            salmonGearDao.insertGear(timeline.currentRun.rewardGear,gearDao,brandDao,skillDao);
+            db.close();
         }
 
         int maxID = settings.getInt("lastBattle",-1);

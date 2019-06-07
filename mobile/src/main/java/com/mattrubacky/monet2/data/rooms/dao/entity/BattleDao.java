@@ -16,6 +16,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.RoomWarnings;
 import androidx.room.Update;
 
 @Dao
@@ -51,9 +52,9 @@ public abstract class BattleDao {
     @Query("SELECT * FROM battle JOIN player ON battleId = id JOIN weapon ON weapon = weapon_id JOIN sub ON weapon_sub = sub_id JOIN special ON weapon_special = special_id JOIN stage ON stage = stage_id WHERE playerType = 0 AND id =:id")
     abstract LiveData<BattlePlayer> select(int id);
 
-    @Query("SELECT * FROM battle JOIN player ON battleId = id JOIN weapon ON weapon = weapon_id JOIN stage ON stage = stage_id WHERE playerType = 0")
+    @Query("SELECT * FROM battle JOIN player ON battleId = id JOIN weapon ON weapon = weapon_id JOIN sub ON weapon_sub = sub_id JOIN special ON weapon_special = special_id JOIN stage ON stage = stage_id WHERE playerType = 0")
     abstract LiveData<List<BattlePlayer>> selectAll();
 
-    @Query("SELECT * FROM battle JOIN player ON battleId = id JOIN weapon ON weapon = weapon_id JOIN stage ON stage = stage_id JOIN splatfest ON fes_id = splatfest_id WHERE playerType = 0 AND start_time>=:day AND start_time<:end")
+    @Query("SELECT * FROM battle JOIN player ON battleId = id JOIN weapon ON weapon = weapon_id JOIN sub ON weapon_sub = sub_id JOIN special ON weapon_special = special_id JOIN stage ON stage = stage_id JOIN splatfest ON fes_id = splatfest_id WHERE playerType = 0 AND start_time>=:day AND start_time<:end")
     abstract LiveData<List<BattlePlayer>> selectDay(long day,long end);
 }

@@ -1,0 +1,48 @@
+{
+		"times": {
+			"start": 1501905600,
+			"end": 1501992000,
+			"result": 1501999200,
+			"announce": 1501293600
+		},
+		"names": {
+			"alpha_short": "Mayo",
+			"bravo_long": "Ketchup is better than Mayo!",
+			"bravo_short": "Ketchup",
+			"alpha_long": "Mayo is better than Ketchup!"
+		},
+		"colors": {
+			"alpha": {
+				"a": 1,
+				"css_rgb": "rgb(100%,91%,61%)",
+				"g": 0.914,
+				"r": 1,
+				"b": 0.609
+			},
+			"middle": {
+				"css_rgb": "rgb(11%,69%,15%)",
+				"a": 1,
+				"b": 0.148,
+				"g": 0.692,
+				"r": 0.107
+			},
+			"bravo": {
+				"b": 0.117,
+				"r": 0.984,
+				"g": 0.195,
+				"css_rgb": "rgb(98%,20%,12%)",
+				"a": 1
+			}
+		},
+		"special_stage": {
+			"name": "Shifty Station",
+			"id": "9999",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png"
+		},
+		"images": {
+			"alpha": "/images/festival/8d3bacc0ef3479c1bfa5f111cf35f6c5.png",
+			"bravo": "/images/festival/273866ecd34058df6bf54e79b18df3ec.png",
+			"panel": "/images/festival/941d35ffa3742692c62965cc87876a30.png"
+		},
+		"festival_id": 2050
+	}

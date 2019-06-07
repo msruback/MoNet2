@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Record;
+import com.mattrubacky.monet2.data.rooms.SplatnetDatabase;
 
 import retrofit2.Response;
 

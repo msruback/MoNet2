@@ -143,7 +143,7 @@ public class TimePeriodDaoTest {
     @Test
     public void selectOld() {
         Long now = Calendar.getInstance().getTimeInMillis();
-        List<TimePeriod> timePeriods = timePeriodDao.selectOld(now);
+        List<TimePeriod> timePeriods = timePeriodDao.selectOld(now/1000);
         for(TimePeriod timePeriod:timePeriods){
             assertThat(timePeriod.end).isLessThan(now);
         }

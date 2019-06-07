@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import com.mattrubacky.monet2.data.deserialized_entities.TimePeriod;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mattr on 9/23/2017.
@@ -19,15 +20,15 @@ public class Schedules implements Parcelable {
 
     }
     @SerializedName("regular")
-    public ArrayList<TimePeriod> regular;
+    public List<TimePeriod> regular;
     @SerializedName("gachi")
-    public ArrayList<TimePeriod> ranked;
+    public List<TimePeriod> ranked;
     @SerializedName("league")
-    public ArrayList<TimePeriod> league;
+    public List<TimePeriod> league;
 
     //splatfest is not in the Splatnet API, this is populated client side
     @SerializedName("fes")
-    public ArrayList<TimePeriod> splatfest;
+    public List<TimePeriod> splatfest;
 
     //Dequeue the expired schedules
     public void dequeue(){

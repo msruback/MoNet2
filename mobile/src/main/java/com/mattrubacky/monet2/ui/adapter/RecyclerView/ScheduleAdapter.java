@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mattrubacky.monet2.data.deserialized_entities.RewardGear;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ViewHolders.LeagueCardViewHolder;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ViewHolders.RankedCardViewHolder;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ViewHolders.RegularCardViewHolder;
@@ -29,11 +30,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Context context;
     private Schedules schedules;
     private SalmonSchedule salmonSchedule;
-    private Gear rewardGear;
+    private RewardGear rewardGear;
     private Splatfest currentSplatfest;
     public ArrayList<String> rotation;
 
-    public ScheduleAdapter(Context context, Schedules schedules, SalmonSchedule salmonSchedule, Gear rewardGear,Splatfest currentSplatfest) {
+    public ScheduleAdapter(Context context, Schedules schedules, SalmonSchedule salmonSchedule, RewardGear rewardGear, Splatfest currentSplatfest) {
         this.inflater = LayoutInflater.from(context);
         this.context = context;
         this.schedules = schedules;
@@ -53,7 +54,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         }
         if(currentSplatfest!=null) {
-            if (currentSplatfest!=null && schedules.splatfest.size() > 0) {
+            if (schedules.splatfest!=null && schedules.splatfest.size() > 0) {
                 if (schedules.regular.size() == 0 || currentSplatfest.times.start < schedules.regular.get(0).start) {
                     rotation.add(0, "fes");
                 } else {
@@ -61,7 +62,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             }
         }
-        if(salmonSchedule!=null) {
+        if(salmonSchedule!=null&&salmonSchedule.details!=null) {
             if (salmonSchedule.details.size() > 0) {
                 rotation.add("salmon");
             }
@@ -102,7 +103,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             holder.manageHolder(schedules.splatfest,currentSplatfest);
         }else{
             SalmonRunCardViewHolder holder = (SalmonRunCardViewHolder) holderAb;
-            holder.manageHolder(salmonSchedule,rewardGear);
+            holder.manageHolder(salmonSchedule,rewardGear.gear);
         }
 
     }

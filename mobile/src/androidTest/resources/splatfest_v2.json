@@ -1,0 +1,48 @@
+{
+		"colors": {
+			"alpha": {
+				"a": 1,
+				"css_rgb": "rgb(91%,41%,75%)",
+				"r": 0.91,
+				"g": 0.41,
+				"b": 0.75
+			},
+			"bravo": {
+				"css_rgb": "rgb(54%,81%,28%)",
+				"a": 1,
+				"b": 0.28,
+				"r": 0.54,
+				"g": 0.81
+			},
+			"middle": {
+				"b": 0.87,
+				"r": 0.09,
+				"g": 0.81,
+				"css_rgb": "rgb(9%,81%,87%)",
+				"a": 1
+			}
+		},
+		"times": {
+			"start": 1555711200,
+			"end": 1555884000,
+			"result": 1555891200,
+			"announce": 1554451200
+		},
+		"names": {
+			"bravo_long": "TORTOISE",
+			"alpha_short": "Hare",
+			"alpha_long": "HARE",
+			"bravo_short": "Tortoise"
+		},
+		"images": {
+			"bravo": "/images/festival/25b2f0f54ab695af7501796a84dcd23e.png",
+			"panel": "/images/festival/636ecf532b58e1f99310d3a60e2eb3ae.png",
+			"alpha": "/images/festival/64bf92868ec61febf48914368a341694.png"
+		},
+		"special_stage": {
+			"name": "Shifty Station",
+			"image": "/images/stage/77f1b9058f27c0215effd00feb5c6b6623b8d5b1.png",
+			"id": "9999"
+		},
+		"festival_id": 4057
+	}

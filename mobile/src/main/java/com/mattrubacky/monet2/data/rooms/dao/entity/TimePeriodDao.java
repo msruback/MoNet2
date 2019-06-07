@@ -19,6 +19,7 @@ public abstract class TimePeriodDao {
     public void insertTimePeriod(TimePeriod timePeriod,StageDao stageDao){
         stageDao.insertStage(timePeriod.a);
         stageDao.insertStage(timePeriod.b);
+        timePeriod.id = TimePeriod.generateId(timePeriod.start,timePeriod.mode.key);
         try{
             insert(timePeriod);
         }catch (SQLiteConstraintException e){
@@ -37,18 +38,21 @@ public abstract class TimePeriodDao {
     @Query("SELECT * FROM time_period WHERE time_period_id=:id")
     public abstract LiveData<TimePeriod> select(long id);
 
-    @Query("SELECT * FROM time_period WHERE time_period_mode='regular'")
-    public abstract LiveData<List<TimePeriod>> selectRegular();
+    @Query("SELECT * FROM time_period WHERE time_period_mode='regular' AND end_time>:now")
+    public abstract LiveData<List<TimePeriod>> selectRegular(long now);
 
-    @Query("SELECT * FROM time_period WHERE time_period_mode='gachi'")
-    public abstract LiveData<List<TimePeriod>> selectGachi();
+    @Query("SELECT * FROM time_period WHERE time_period_mode='gachi' AND end_time>:now")
+    public abstract LiveData<List<TimePeriod>> selectGachi(long now);
 
-    @Query("SELECT * FROM time_period WHERE time_period_mode='league'")
-    public abstract LiveData<List<TimePeriod>> selectLeague();
+    @Query("SELECT * FROM time_period WHERE time_period_mode='league' AND end_time>:now")
+    public abstract LiveData<List<TimePeriod>> selectLeague(long now);
 
-    @Query("SELECT * FROM time_period WHERE time_period_mode='fes'")
-    public abstract LiveData<List<TimePeriod>> selectFestival();
+    @Query("SELECT * FROM time_period WHERE time_period_mode='fes' AND end_time>:now")
+    public abstract LiveData<List<TimePeriod>> selectFestival(long now);
 
-    @Query("SELECT * FROM time_period WHERE end_time>:now")
+    @Query("SELECT * FROM time_period WHERE end_time<:now")
     public abstract List<TimePeriod> selectOld(long now);
+
+    @Query("SELECT COUNT(time_period_id) FROM time_period")
+    public abstract Integer count();
 }

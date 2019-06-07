@@ -17,6 +17,8 @@ import java.util.ArrayList;
 public class SalmonRunDetail implements Parcelable{
     public SalmonRunDetail(){}
 
+    public Integer id;
+
     @SerializedName("stage")
     public SalmonStage stage;
     @SerializedName("weapons")

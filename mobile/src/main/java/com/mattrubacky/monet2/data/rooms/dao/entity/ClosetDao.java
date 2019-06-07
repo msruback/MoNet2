@@ -39,7 +39,7 @@ public abstract class ClosetDao {
     @Delete
     abstract void delete(ClosetRoom... closet);
 
-    @Query("SELECT * FROM closet JOIN gear ON closet_gear = gear_id WHERE gear_id = :id")
+    @Query("SELECT * FROM closet JOIN gear ON closet_gear = gear_id JOIN brand ON gear_brand = brand_id JOIN skill ON brand_skill = skill_id WHERE gear_id = :id")
     abstract ClosetRoom selectCloset(int id);
 
     //Note, I am supressing warnings here because closet_gear isn't in the ClosetCombos

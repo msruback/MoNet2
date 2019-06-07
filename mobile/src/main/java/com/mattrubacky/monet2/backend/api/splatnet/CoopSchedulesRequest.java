@@ -6,8 +6,16 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRun;
+import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunDetail;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonSchedule;
+import com.mattrubacky.monet2.data.rooms.SplatnetDatabase;
+import com.mattrubacky.monet2.data.rooms.dao.entity.SalmonShiftDao;
+import com.mattrubacky.monet2.data.rooms.dao.entity.SalmonStageDao;
+import com.mattrubacky.monet2.data.rooms.dao.entity.SalmonWeaponDao;
+import com.mattrubacky.monet2.data.rooms.dao.entity.WeaponDao;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import retrofit2.Response;
@@ -25,11 +33,6 @@ public class CoopSchedulesRequest extends SplatnetRequest {
     public CoopSchedulesRequest(Context context,boolean override){
         this.context = context;
         this.override = override;
-
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        Gson gson = new Gson();
-
-        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{\"schedules\":[],\"details\":[]}"),SalmonSchedule.class);
     }
 
     @Override
@@ -39,14 +42,18 @@ public class CoopSchedulesRequest extends SplatnetRequest {
             salmonSchedule.times.remove(0);
             salmonSchedule.times.remove(0);
         }
-
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor edit = settings.edit();
-        Gson gson = new Gson();
-
-        String json = gson.toJson(salmonSchedule);
-        edit.putString("salmonRunSchedule",json);
-        edit.commit();
+        SplatnetDatabase db = SplatnetDatabase.getInstance(context);
+        SalmonShiftDao shiftDao = db.getSalmonShiftDao();
+        SalmonStageDao stageDao = db.getSalmonStageDao();
+        SalmonWeaponDao salmonWeaponDao = db.getSalmonWeaponDao();
+        WeaponDao weaponDao = db.getWeaponDao();
+        for(SalmonRunDetail salmonRunDetail:salmonSchedule.details) {
+            shiftDao.insertSalmonShift(salmonRunDetail,stageDao,salmonWeaponDao,weaponDao);
+        }
+        for(SalmonRun salmonRun:salmonSchedule.times){
+            shiftDao.insertSalmonShift(salmonRun);
+        }
+        db.close();
     }
 
     @Override
@@ -57,18 +64,10 @@ public class CoopSchedulesRequest extends SplatnetRequest {
 
     @Override
     public boolean shouldUpdate(){
-
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        Gson gson = new Gson();
-        long now = new Date().getTime();
-        salmonSchedule = gson.fromJson(settings.getString("salmonRunSchedule","{}"),SalmonSchedule.class);
-        boolean toReturn = true;
-        if(salmonSchedule.details!=null&&salmonSchedule.details.size()>0){
-            if((salmonSchedule.details.get(0).end*1000)>=now){
-                toReturn = false;
-            }
-        }
-        return toReturn;
+        SplatnetDatabase db = SplatnetDatabase.getInstance(context);
+        int count = db.getSalmonShiftDao().countUpcoming(Calendar.getInstance().getTimeInMillis()/1000);
+        db.close();
+        return !(count==6);
     }
 
     @Override

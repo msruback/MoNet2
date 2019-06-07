@@ -30,7 +30,7 @@ public class Sub implements Parcelable {
     @PrimaryKey
     @ColumnInfo(name="sub_id")
     @SerializedName("id")
-    public int id;
+    public Integer id;
 
     @ColumnInfo(name="sub_name")
     @SerializedName("name")

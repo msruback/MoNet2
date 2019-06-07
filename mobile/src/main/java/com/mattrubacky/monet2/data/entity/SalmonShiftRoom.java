@@ -71,6 +71,7 @@ public class SalmonShiftRoom {
 
     public SalmonRunDetail toDeserialisedDetail(){
         SalmonRunDetail salmonRunDetail = new SalmonRunDetail();
+        salmonRunDetail.id = id;
         salmonRunDetail.start = startTime;
         salmonRunDetail.end = endTime;
         salmonRunDetail.weapons = new ArrayList<>();
@@ -79,7 +80,7 @@ public class SalmonShiftRoom {
 
     public static int generateId(long startTime){
         Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date(startTime));
+        cal.setTime(new Date(startTime*1000));
         int id = cal.get(Calendar.YEAR)-2017;
         id *= 1000;
         id += cal.get(Calendar.DAY_OF_YEAR);

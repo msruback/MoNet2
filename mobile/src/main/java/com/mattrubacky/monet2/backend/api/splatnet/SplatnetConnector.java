@@ -35,7 +35,7 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
     private Activity activity;
     private ArrayList<SplatnetRequest> requests;
     private ImageView loading;
-    private boolean isUnconn,isUnauth,isMain,hasUI;
+    private boolean isUnconn,isUnauth,isMain,hasUI,callback;
     private Context context;
     private Bundle result;
 
@@ -47,6 +47,7 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
         result = new Bundle();
         requests = new ArrayList<>();
         hasUI = true;
+        callback = true;
     }
 
     //Constructor to not use UI changes
@@ -57,6 +58,15 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
         result = new Bundle();
         requests = new ArrayList<>();
         hasUI = false;
+        callback = true;
+    }
+
+    public SplatnetConnector(Context context){
+        this.context = context;
+        result = new Bundle();
+        requests = new ArrayList<>();
+        hasUI = false;
+        callback = false;
     }
 
     //Method to add a request to the list
@@ -120,17 +130,14 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
         }catch(SplatnetUnauthorizedException e){
             e.printStackTrace();
             isUnauth = true;
-            return null;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
             isUnconn = true;
-            return null;
         } catch (SplatnetMaintenanceException e) {
             e.printStackTrace();
             isMain = true;
-            return null;
         }
         return null;
     }
@@ -147,13 +154,13 @@ public class SplatnetConnector extends AsyncTask<Void,Void,Void> {
             } else if (isMain) {
                 AlertDialog alertDialog = new AlertDialog(activity, context.getResources().getString(R.string.splatnetMaintenance));
                 alertDialog.show();
-            } else {
+            } else if(callback){
                 caller.update(this.result);
             }
             loading.setAnimation(null);
             loading.setVisibility(View.GONE);
         }else{
-            if(!isUnconn&&!isUnauth){
+            if(!isUnconn&&!isUnauth&&callback){
                 caller.update(this.result);
             }
         }

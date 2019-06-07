@@ -1,0 +1,16 @@
+{
+	"gear": {
+		"id": "21009",
+		"brand": {
+			"image": "/images/brand/ec85f17c315e0a1ea4dee55041fd30a88d6aba93.png",
+			"name": "Grizzco",
+			"id": "97"
+		},
+		"rarity": 2,
+		"image": "/images/head/008456cdbce96e5bbd80417104524275f59ed853.png",
+		"thumbnail": "/images/head/dfbe650366b32dcf12dd26cdcd8e08efe2702552.png",
+		"name": "Sailor Cap",
+		"kind": "head"
+	},
+	"available_time": 1554076800
+}

@@ -11,6 +11,7 @@ import com.mattrubacky.monet2.ui.adapter.RecyclerView.RegularRotationAdapter;
 import com.mattrubacky.monet2.data.deserialized_entities.TimePeriod;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -36,7 +37,7 @@ public class RegularCardViewHolder extends RecyclerView.ViewHolder{
         TurfPager = itemView.findViewById(R.id.TurfPager);
     }
 
-    public void manageHolder(ArrayList<TimePeriod> timePeriods){
+    public void manageHolder(List<TimePeriod> timePeriods){
         Typeface font = Typeface.createFromAsset(context.getAssets(), "Splatfont2.ttf");
         Typeface fontTitle = Typeface.createFromAsset(context.getAssets(), "Paintball.otf");
 
