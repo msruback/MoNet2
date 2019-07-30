@@ -39,16 +39,28 @@ public abstract class TimePeriodDao {
     public abstract LiveData<TimePeriod> select(long id);
 
     @Query("SELECT * FROM time_period WHERE time_period_mode='regular' AND end_time>:now")
-    public abstract LiveData<List<TimePeriod>> selectRegular(long now);
+    public abstract LiveData<List<TimePeriod>> selectRegularLive(long now);
+
+    @Query("SELECT * FROM time_period WHERE time_period_mode='regular' AND end_time>:now")
+    public abstract List<TimePeriod> selectRegular(long now);
 
     @Query("SELECT * FROM time_period WHERE time_period_mode='gachi' AND end_time>:now")
-    public abstract LiveData<List<TimePeriod>> selectGachi(long now);
+    public abstract LiveData<List<TimePeriod>> selectGachiLive(long now);
+
+    @Query("SELECT * FROM time_period WHERE time_period_mode='gachi' AND end_time>:now")
+    public abstract List<TimePeriod> selectGachi(long now);
 
     @Query("SELECT * FROM time_period WHERE time_period_mode='league' AND end_time>:now")
-    public abstract LiveData<List<TimePeriod>> selectLeague(long now);
+    public abstract LiveData<List<TimePeriod>> selectLeagueLive(long now);
+
+    @Query("SELECT * FROM time_period WHERE time_period_mode='league' AND end_time>:now")
+    public abstract List<TimePeriod> selectLeague(long now);
 
     @Query("SELECT * FROM time_period WHERE time_period_mode='fes' AND end_time>:now")
-    public abstract LiveData<List<TimePeriod>> selectFestival(long now);
+    public abstract LiveData<List<TimePeriod>> selectFestivalLive(long now);
+
+    @Query("SELECT * FROM time_period WHERE time_period_mode='fes' AND end_time>:now")
+    public abstract List<TimePeriod> selectFestival(long now);
 
     @Query("SELECT * FROM time_period WHERE end_time<:now")
     public abstract List<TimePeriod> selectOld(long now);

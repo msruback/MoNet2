@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Annie;
 import com.mattrubacky.monet2.data.deserialized.splatoon.GearNotification;
 import com.mattrubacky.monet2.data.deserialized.splatoon.GearNotifications;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Product;

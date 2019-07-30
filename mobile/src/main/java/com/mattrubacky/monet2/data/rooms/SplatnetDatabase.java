@@ -51,7 +51,7 @@ import androidx.room.TypeConverters;
 public abstract class SplatnetDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "splatnetDatabase.db";
-    private static volatile SplatnetDatabase instance;
+    private static SplatnetDatabase instance;
 
     public static synchronized SplatnetDatabase getInstance(Context context) {
         if (instance == null) {

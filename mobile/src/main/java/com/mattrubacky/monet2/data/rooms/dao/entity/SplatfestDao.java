@@ -18,7 +18,7 @@ import androidx.room.Update;
 @Dao
 public abstract class SplatfestDao {
 
-    void insertSplatfest(Splatfest splatfest, StageDao stageDao){
+    public void insertSplatfest(Splatfest splatfest, StageDao stageDao){
         stageDao.insertStage(splatfest.stage);
         try{
             insert(new SplatfestRoom(splatfest));
@@ -39,7 +39,10 @@ public abstract class SplatfestDao {
     public abstract SplatfestStageCombo select(int id);
 
     @Query("SELECT * FROM splatfest JOIN stage ON splatfest_stage = stage_id WHERE end_time>:time")
-    public abstract LiveData<SplatfestStageCombo> selectUpcoming(long time);
+    public abstract LiveData<SplatfestStageCombo> selectUpcomingLive(long time);
+
+    @Query("SELECT * FROM splatfest JOIN stage ON splatfest_stage = stage_id WHERE end_time>:time")
+    public abstract SplatfestStageCombo selectUpcoming(long time);
 
     @Query("SELECT * FROM splatfest JOIN stage ON splatfest_stage = stage_id")
     abstract LiveData<List<SplatfestStageCombo>> selectAll();

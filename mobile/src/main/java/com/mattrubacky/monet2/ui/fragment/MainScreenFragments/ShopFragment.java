@@ -14,20 +14,17 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.Annie;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.MerchAdapter;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Annie;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Ordered;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Product;
 import com.mattrubacky.monet2.backend.ImageHandler;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.backend.api.splatnet.ShopRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 
 import com.mattrubacky.monet2.ui.dialog.BuyDialog;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import androidx.fragment.app.Fragment;
@@ -56,11 +53,9 @@ public class ShopFragment extends Fragment implements SplatnetConnected {
             shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
             if(shop == null){
                 shop = new Annie();
-                shop.merch = new ArrayList<Product>();
             }
         }else{
             shop = new Annie();
-            shop.merch = new ArrayList<Product>();
         }
         connected = this;
 
@@ -95,7 +90,6 @@ public class ShopFragment extends Fragment implements SplatnetConnected {
         shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
         updateUI();
         splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
-        splatnetConnector.addRequest(new ShopRequest(getContext()));
         splatnetConnector.execute();
 
     }
@@ -105,9 +99,6 @@ public class ShopFragment extends Fragment implements SplatnetConnected {
         currentMerch.setLayoutManager(new GridLayoutManager(getContext(), 2));
         if(shop==null){
             shop = new Annie();
-        }
-        if(shop.merch==null){
-            shop.merch = new ArrayList<>();
         }
         MerchAdapter merchAdapter = new MerchAdapter(getActivity(), shop.merch, new View.OnClickListener() {
             @Override

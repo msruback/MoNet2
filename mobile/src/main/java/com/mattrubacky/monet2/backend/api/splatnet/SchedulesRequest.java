@@ -3,7 +3,6 @@ package com.mattrubacky.monet2.backend.api.splatnet;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Schedules;
 import com.mattrubacky.monet2.data.deserialized_entities.TimePeriod;
 import com.mattrubacky.monet2.data.rooms.SplatnetDatabase;
 import com.mattrubacky.monet2.data.rooms.dao.entity.StageDao;

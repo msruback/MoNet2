@@ -66,7 +66,11 @@ public abstract class SalmonShiftDao {
 
     @Transaction
     @Query("SELECT * FROM shift LEFT JOIN salmon_stage ON  shift_stage = salmon_stage_id WHERE end_time>:now")
-    public abstract LiveData<List<SalmonShiftCombo>> selectUpcoming(long now);
+    public abstract LiveData<List<SalmonShiftCombo>> selectUpcomingLive(long now);
+
+    @Transaction
+    @Query("SELECT * FROM shift LEFT JOIN salmon_stage ON  shift_stage = salmon_stage_id WHERE end_time>:now")
+    public abstract List<SalmonShiftCombo> selectUpcoming(long now);
 
     @Query("SELECT COUNT(shift_id) FROM shift WHERE end_time>:now")
     public abstract Integer countUpcoming(long now);

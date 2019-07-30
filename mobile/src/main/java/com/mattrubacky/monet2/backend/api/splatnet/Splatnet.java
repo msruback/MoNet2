@@ -4,18 +4,17 @@ package com.mattrubacky.monet2.backend.api.splatnet;
  * Created by mattr on 9/11/2017.
  */
 
-import com.mattrubacky.monet2.data.deserialized.splatoon.Annie;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.data.deserialized.splatoon.CampaignRecords;
 import com.mattrubacky.monet2.data.deserialized.splatoon.CoopResult;
 import com.mattrubacky.monet2.data.deserialized.splatoon.CoopResults;
-import com.mattrubacky.monet2.data.deserialized.splatoon.CurrentSplatfest;
+import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.Annie;
+import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.CurrentSplatfest;
 import com.mattrubacky.monet2.data.deserialized.splatoon.PastSplatfest;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Record;
 import com.mattrubacky.monet2.data.deserialized.splatoon.ResultList;
-import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonSchedule;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Schedules;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestVotes;
+import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.Schedules;
 import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Timeline;
 
@@ -208,7 +207,7 @@ public interface Splatnet {
             "origin: https://app.splatoon2.nintendo.net",
             "Connection: keep-alive"
     })
-    @GET("api/festivals/{id}/results")
+    @GET("api/festivals/{id}/result")
     Call<ResponseBody> getSplatfestResult(@Path("id") String id, @Header("Referer") String referer, @Header("Cookie") String cookie, @Header("X-Unique-Id") String uniqueId);
 
     @Headers({

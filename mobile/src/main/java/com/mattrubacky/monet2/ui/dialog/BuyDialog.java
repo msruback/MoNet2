@@ -20,7 +20,6 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.Product;
 import com.mattrubacky.monet2.backend.ImageHandler;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.backend.api.splatnet.OrderRequest;
-import com.mattrubacky.monet2.backend.api.splatnet.ShopRequest;
 
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
@@ -83,7 +82,6 @@ public class BuyDialog extends Dialog{
                 public void onClick(View v) {
                     SplatnetConnector splatnetConnector = new SplatnetConnector(caller,activity,getContext());
                     splatnetConnector.addRequest(new OrderRequest(toBuy.id));
-                    splatnetConnector.addRequest(new ShopRequest(getContext(),true));
                     splatnetConnector.execute();
                     dismiss();
                 }
@@ -235,7 +233,6 @@ public class BuyDialog extends Dialog{
                 public void onClick(View v) {
                     SplatnetConnector splatnetConnector = new SplatnetConnector(caller,activity,getContext());
                     splatnetConnector.addRequest(new OrderRequest(toBuy.id));
-                    splatnetConnector.addRequest(new ShopRequest(getContext(),true));
                     splatnetConnector.execute();
                     dismiss();
                 }

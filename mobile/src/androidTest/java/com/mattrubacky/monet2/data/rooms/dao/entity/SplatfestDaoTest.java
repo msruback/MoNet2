@@ -86,7 +86,7 @@ public class SplatfestDaoTest {
 
     @Test
     public void selectUpcoming(){
-        LiveData<SplatfestStageCombo> stageComboLiveData = splatfestDao.selectUpcoming(splatfestV2.times.announce);
+        LiveData<SplatfestStageCombo> stageComboLiveData = splatfestDao.selectUpcomingLive(splatfestV2.times.announce);
         stageComboLiveData.observeForever(new Observer<SplatfestStageCombo>() {
             @Override
             public void onChanged(SplatfestStageCombo splatfestStageCombo) {

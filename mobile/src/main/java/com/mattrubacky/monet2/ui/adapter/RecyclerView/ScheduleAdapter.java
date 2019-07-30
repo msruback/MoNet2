@@ -5,15 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.SalmonSchedule;
+import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.Schedules;
 import com.mattrubacky.monet2.data.deserialized_entities.RewardGear;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ViewHolders.LeagueCardViewHolder;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ViewHolders.RankedCardViewHolder;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ViewHolders.RegularCardViewHolder;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ViewHolders.SalmonRunCardViewHolder;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ViewHolders.SplatfestCardViewHolder;
-import com.mattrubacky.monet2.data.deserialized_entities.Gear;
-import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonSchedule;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Schedules;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Splatfest;
 
 import java.util.ArrayList;

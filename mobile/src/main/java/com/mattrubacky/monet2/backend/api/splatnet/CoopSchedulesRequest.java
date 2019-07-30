@@ -1,14 +1,10 @@
 package com.mattrubacky.monet2.backend.api.splatnet;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 
-import com.google.gson.Gson;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRun;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunDetail;
-import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonSchedule;
 import com.mattrubacky.monet2.data.rooms.SplatnetDatabase;
 import com.mattrubacky.monet2.data.rooms.dao.entity.SalmonShiftDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.SalmonStageDao;
@@ -16,7 +12,6 @@ import com.mattrubacky.monet2.data.rooms.dao.entity.SalmonWeaponDao;
 import com.mattrubacky.monet2.data.rooms.dao.entity.WeaponDao;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import retrofit2.Response;
 

@@ -13,7 +13,6 @@ import com.mattrubacky.monet2.ui.adapter.RecyclerView.CampaignWorldAdapter;
 import com.mattrubacky.monet2.data.deserialized.splatoon.CampaignRecords;
 import com.mattrubacky.monet2.data.deserialized.splatoon.CampaignStageInfo;
 import com.mattrubacky.monet2.data.deserialized.splatoon.CampaignWeapon;
-import com.mattrubacky.monet2.backend.api.splatnet.CampaignRecordsRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 

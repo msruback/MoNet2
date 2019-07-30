@@ -36,5 +36,8 @@ public abstract class StageDao {
     public abstract LiveData<Stage> select(int id);
 
     @Query("SELECT * FROM stage")
-    public abstract LiveData<List<Stage>> selectAll();
+    public abstract LiveData<List<Stage>> selectAllLive();
+
+    @Query("SELECT * FROM stage")
+    public abstract List<Stage> selectAll();
 }

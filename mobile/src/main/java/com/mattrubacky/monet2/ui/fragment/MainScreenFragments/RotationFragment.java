@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.mattrubacky.monet2.*;
 import com.mattrubacky.monet2.backend.WearLink;
 import com.mattrubacky.monet2.backend.viewmodels.RotationViewModel;
-import com.mattrubacky.monet2.data.mediator.RotationMediator;
+import com.mattrubacky.monet2.data.parsley.splatnet.bunch.RotationBunch;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ScheduleAdapter;
 
 import androidx.annotation.NonNull;
@@ -39,17 +39,17 @@ public class RotationFragment extends Fragment {
 
         RotationViewModel viewModel = ViewModelProviders.of(this).get(RotationViewModel.class);
 
-        MediatorLiveData<RotationMediator> rotation = viewModel.getRotation();
-        rotation.observe(this, new Observer<RotationMediator>() {
+        MediatorLiveData<RotationBunch> rotation = viewModel.getRotation();
+        rotation.observe(this, new Observer<RotationBunch>() {
             @Override
-            public void onChanged(RotationMediator rotationMediator) {
+            public void onChanged(RotationBunch rotationBunch) {
                 RecyclerView scheduleList = rootView.findViewById(R.id.ScheduleList);
-                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(), rotationMediator.getSchedules(), rotationMediator.getSalmonSchedule(), rotationMediator.getRewardGear(), rotationMediator.getSplatfest());
+                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(), rotationBunch.getSchedules(), rotationBunch.getSalmonSchedule(), rotationBunch.getRewardGear(), rotationBunch.getSplatfest());
                 scheduleList.setAdapter(scheduleAdapter);
                 scheduleList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
-                wearLink.sendRotation(rotationMediator.getSchedules());
-                wearLink.sendSalmon(rotationMediator.getSalmonSchedule());
+                wearLink.sendRotation(rotationBunch.getSchedules());
+                wearLink.sendSalmon(rotationBunch.getSalmonSchedule());
             }
         });
         return rootView;

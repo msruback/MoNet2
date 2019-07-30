@@ -13,7 +13,6 @@ import com.mattrubacky.monet2.backend.api.splatnet.CoopSchedulesRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.ResultsRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SchedulesRequest;
-import com.mattrubacky.monet2.backend.api.splatnet.ShopRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
@@ -43,7 +42,7 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver implements Splatne
         SplatnetConnector splatnetConnector = new SplatnetConnector(this,context);
         splatnetConnector.addRequest(new SchedulesRequest(context));
         splatnetConnector.addRequest(new CoopSchedulesRequest(context,false));
-        splatnetConnector.addRequest(new ShopRequest(context));
+        //splatnetConnector.addRequest(new ShopRequest(context));
         splatnetConnector.addRequest(new RecordsRequest(context));
         splatnetConnector.addRequest(new ResultsRequest(context));
         //splatnetConnector.addRequest(new CoopResultsRequest(context));

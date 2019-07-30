@@ -90,7 +90,8 @@ public class TimePeriodDaoTest {
 
     @Test
     public void selectRegular() {
-        LiveData<List<TimePeriod>> timePeriodLiveData = timePeriodDao.selectRegular();
+        Long now = Calendar.getInstance().getTimeInMillis();
+        LiveData<List<TimePeriod>> timePeriodLiveData = timePeriodDao.selectRegularLive(now/1000);
         timePeriodLiveData.observeForever(new Observer<List<TimePeriod>>() {
             @Override
             public void onChanged(List<TimePeriod> timePeriods) {
@@ -103,8 +104,9 @@ public class TimePeriodDaoTest {
 
     @Test
     public void selectGachi() {
-        LiveData<List<TimePeriod>> timePeriodLiveData = timePeriodDao.selectGachi();
-        timePeriodLiveData.observeForever(new Observer<List<TimePeriod>>() {
+        Long now = Calendar.getInstance().getTimeInMillis();
+        LiveData<List<TimePeriod>> timePeriodLiveData = timePeriodDao.selectGachiLive(now/1000);
+        timePeriodLiveData.observeForever( new Observer<List<TimePeriod>>() {
             @Override
             public void onChanged(List<TimePeriod> timePeriods) {
                 for(TimePeriod timePeriod:timePeriods){
@@ -116,7 +118,8 @@ public class TimePeriodDaoTest {
 
     @Test
     public void selectLeague() {
-        LiveData<List<TimePeriod>> timePeriodLiveData = timePeriodDao.selectLeague();
+        Long now = Calendar.getInstance().getTimeInMillis();
+        LiveData<List<TimePeriod>> timePeriodLiveData = timePeriodDao.selectLeagueLive(now/1000);
         timePeriodLiveData.observeForever(new Observer<List<TimePeriod>>() {
             @Override
             public void onChanged(List<TimePeriod> timePeriods) {
@@ -129,7 +132,8 @@ public class TimePeriodDaoTest {
 
     @Test
     public void selectFestival() {
-        LiveData<List<TimePeriod>> timePeriodLiveData = timePeriodDao.selectFestival();
+        Long now = Calendar.getInstance().getTimeInMillis();
+        LiveData<List<TimePeriod>> timePeriodLiveData = timePeriodDao.selectFestivalLive(now/1000);
         timePeriodLiveData.observeForever(new Observer<List<TimePeriod>>() {
             @Override
             public void onChanged(List<TimePeriod> timePeriods) {

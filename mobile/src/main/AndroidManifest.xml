@@ -1,53 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mattrubacky.monet2">
+          package="com.mattrubacky.monet2">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- Required to act as a custom watch face. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
-    <application android:allowBackup="true" android:icon="@mipmap/ic_launcher"
-        android:label="MoNet 2" android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true" android:theme="@style/AppTheme">
-        <receiver android:name=".backend.reciever.DataUpdateAlarm" android:enabled="true"
-            android:exported="true" android:process=":remote" />
-        <receiver android:name=".backend.reciever.NotificationAlarm" android:enabled="true"
-            android:exported="true" android:process=":remote" />
-        <receiver android:name=".backend.reciever.BootReciever" android:enabled="true"
-            android:exported="true">
+    <!-- Required for complications to receive complication data and open the provider chooser. -->
+    <uses-permission android:name="com.google.android.wearable.permission.RECEIVE_COMPLICATION_DATA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="MoNet 2"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <receiver
+                android:name=".backend.reciever.DataUpdateAlarm"
+                android:enabled="true"
+                android:exported="true"
+                android:process=":remote"/>
+        <receiver
+                android:name=".backend.reciever.NotificationAlarm"
+                android:enabled="true"
+                android:exported="true"
+                android:process=":remote"/>
+        <receiver
+                android:name=".backend.reciever.BootReciever"
+                android:enabled="true"
+                android:exported="true">
             <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
             </intent-filter>
         </receiver>
 
-        <service android:name=".backend.service.OrderGear" android:exported="true" />
+        <service
+                android:name=".backend.service.OrderGear"
+                android:exported="true"/>
 
-        <activity android:name=".ui.activities.Startup" android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+        <activity
+                android:name=".ui.activities.Startup"
+                android:screenOrientation="portrait"
+                android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.FirstRun" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activities.Login" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.DebugActivity" android:screenOrientation="portrait">
-
+        <activity
+                android:name=".ui.activities.FirstRun"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.activities.Login"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.activities.DebugActivity"
+                android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activities.MainActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.AddNotification" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.BattleInfo" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.WeaponLockerDetail" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.ClosetDetail" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.AddGear" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.StagePostcardsDetail" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.SplatfestDetail" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activities.SalmonRunShiftDetail" android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.activities.MainActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.activities.AddNotification"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.activities.BattleInfo"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.activities.WeaponLockerDetail"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.activities.ClosetDetail"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.activities.AddGear"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.activities.StagePostcardsDetail"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.activities.SplatfestDetail"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.activities.SalmonRunShiftDetail"
+                android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

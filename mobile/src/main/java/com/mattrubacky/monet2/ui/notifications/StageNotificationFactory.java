@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.data.deserialized.splatoon.Schedules;
 import com.mattrubacky.monet2.data.deserialized.splatoon.StageNotifications;
 import com.mattrubacky.monet2.data.deserialized_entities.TimePeriod;
 

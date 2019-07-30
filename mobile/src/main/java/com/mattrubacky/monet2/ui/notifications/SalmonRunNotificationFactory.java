@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
-import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonSchedule;
 
 import java.util.ArrayList;
 
