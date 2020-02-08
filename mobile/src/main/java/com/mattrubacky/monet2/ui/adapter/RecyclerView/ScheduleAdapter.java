@@ -42,27 +42,27 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.currentSplatfest = currentSplatfest;
         rotation = new ArrayList<>();
         if(schedules!=null) {
-            if (schedules.regular!=null&&schedules.regular.size() > 0) {
+            if (schedules.getRegular()!=null&&schedules.getRegular().size() > 0) {
                 rotation.add("regular");
             }
-            if (schedules.ranked!=null&&schedules.ranked.size() > 0) {
+            if (schedules.getRanked()!=null&&schedules.getRanked().size() > 0) {
                 rotation.add("ranked");
             }
-            if (schedules.league!=null&&schedules.league.size() > 0) {
+            if (schedules.getLeague()!=null&&schedules.getLeague().size() > 0) {
                 rotation.add("league");
             }
         }
         if(currentSplatfest!=null) {
-            if (schedules.splatfest!=null && schedules.splatfest.size() > 0) {
-                if (schedules.regular.size() == 0 || currentSplatfest.times.start < schedules.regular.get(0).start) {
+            if (schedules.getSplatfest()!=null && schedules.getSplatfest().size() > 0) {
+                if (schedules.getRegular().size() == 0 || currentSplatfest.times.start < schedules.getRegular().get(0).start) {
                     rotation.add(0, "fes");
                 } else {
                     rotation.add("fes");
                 }
             }
         }
-        if(salmonSchedule!=null&&salmonSchedule.details!=null) {
-            if (salmonSchedule.details.size() > 0) {
+        if(salmonSchedule!=null&&salmonSchedule.getDetails()!=null) {
+            if (salmonSchedule.getDetails().size() > 0) {
                 rotation.add("salmon");
             }
         }
@@ -90,16 +90,16 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(final RecyclerView.ViewHolder holderAb, final int position) {
         if(holderAb.getItemViewType()==0) {
             RegularCardViewHolder holder = (RegularCardViewHolder) holderAb;
-            holder.manageHolder(schedules.regular);
+            holder.manageHolder(schedules.getRegular());
         }else if(holderAb.getItemViewType()==1) {
             RankedCardViewHolder holder = (RankedCardViewHolder) holderAb;
-            holder.manageHolder(schedules.ranked);
+            holder.manageHolder(schedules.getRanked());
         }else if(holderAb.getItemViewType()==2){
             LeagueCardViewHolder holder = (LeagueCardViewHolder) holderAb;
-            holder.manageHolder(schedules.league);
+            holder.manageHolder(schedules.getLeague());
         }else if(holderAb.getItemViewType()==3){
             SplatfestCardViewHolder holder = (SplatfestCardViewHolder) holderAb;
-            holder.manageHolder(schedules.splatfest,currentSplatfest);
+            holder.manageHolder(schedules.getSplatfest(),currentSplatfest);
         }else{
             SalmonRunCardViewHolder holder = (SalmonRunCardViewHolder) holderAb;
             holder.manageHolder(salmonSchedule,rewardGear.gear);

@@ -52,9 +52,11 @@ public abstract class BattleDao {
     @Query("SELECT * FROM battle JOIN player ON battleId = id JOIN weapon ON weapon = weapon_id JOIN sub ON weapon_sub = sub_id JOIN special ON weapon_special = special_id JOIN stage ON stage = stage_id WHERE playerType = 0 AND id =:id")
     abstract LiveData<BattlePlayer> select(int id);
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM battle JOIN player ON battleId = id JOIN weapon ON weapon = weapon_id JOIN sub ON weapon_sub = sub_id JOIN special ON weapon_special = special_id JOIN stage ON stage = stage_id WHERE playerType = 0")
     abstract LiveData<List<BattlePlayer>> selectAll();
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM battle JOIN player ON battleId = id JOIN weapon ON weapon = weapon_id JOIN sub ON weapon_sub = sub_id JOIN special ON weapon_special = special_id JOIN stage ON stage = stage_id JOIN splatfest ON fes_id = splatfest_id WHERE playerType = 0 AND start_time>=:day AND start_time<:end")
     abstract LiveData<List<BattlePlayer>> selectDay(long day,long end);
 }

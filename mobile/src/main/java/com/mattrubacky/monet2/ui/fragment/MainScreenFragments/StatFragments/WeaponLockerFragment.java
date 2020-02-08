@@ -15,9 +15,7 @@ import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.WeaponPagerAdapter;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Record;
 import com.mattrubacky.monet2.data.stats.WeaponStats;
-import com.mattrubacky.monet2.backend.api.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 
 import java.util.ArrayList;
 
@@ -37,7 +35,7 @@ public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
     private Record records;
     private ArrayList<WeaponStats> weaponStatsList;
     private RecyclerView weaponList;
-    private SplatnetConnector splatnetConnector;
+//    private SplatnetConnector splatnetConnector;
     private LinearLayoutManager linearLayoutManager;
     private RelativeLayout shooterTab,brushTab,chargerTab,slosherTab,splatlingTab,dualieTab,brellaTab;
     private ImageView shooterImage,brushImage,chargerImage,slosherImage,splatlingImage,dualieImage,brellaImage;
@@ -279,16 +277,16 @@ public class WeaponLockerFragment extends Fragment implements SplatnetConnected{
     @Override
     public void onPause() {
         super.onPause();
-        splatnetConnector.cancel(true);
+//        splatnetConnector.cancel(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
-        splatnetConnector.addRequest(new RecordsRequest(getContext()));
-        update(splatnetConnector.getCurrentData());
-        splatnetConnector.execute();
+//        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
+//        splatnetConnector.addRequest(new RecordsRequest(getContext()));
+//        update(splatnetConnector.getCurrentData());
+//        splatnetConnector.execute();
 
         shooterTab.setBackgroundTintList(getResources().getColorStateList(R.color.accent));
         brushTab.setBackgroundTintList(getResources().getColorStateList(R.color.weaponDark));

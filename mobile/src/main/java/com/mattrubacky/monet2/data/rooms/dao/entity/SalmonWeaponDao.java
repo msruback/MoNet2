@@ -11,6 +11,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.RoomWarnings;
 import androidx.room.Update;
 
 import java.util.List;
@@ -55,9 +56,11 @@ public abstract class SalmonWeaponDao {
     @Query("SELECT * FROM salmon_weapons WHERE weapon_shift_id=:id")
     public abstract List<SalmonRunWeapon> selectShift(int id);
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM salmon_weapons INNER JOIN weapon ON salmon_weapons.salmon_weapon_id = weapon_id WHERE salmon_weapons.weapon_shift_id IN(:ids)")
     public abstract LiveData<List<ShiftWeapon>> selectFromShift(List<Integer> ids);
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM salmon_weapons INNER JOIN weapon ON salmon_weapons.salmon_weapon_id = weapon_id JOIN shift ON weapon_shift_id = shift_id WHERE end_time>:now")
     public abstract LiveData<List<ShiftWeapon>> selectCurrent(long now);
 }

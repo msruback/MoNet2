@@ -7,8 +7,11 @@ import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.*;
 import com.mattrubacky.monet2.backend.WearLink;
+import com.mattrubacky.monet2.backend.api.splatnet.SplatnetParsley;
 import com.mattrubacky.monet2.backend.viewmodels.RotationViewModel;
+import com.mattrubacky.monet2.data.parsley.Bunch;
 import com.mattrubacky.monet2.data.parsley.splatnet.bunch.RotationBunch;
+import com.mattrubacky.monet2.data.rooms.SplatnetDatabase;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.ScheduleAdapter;
 
 import androidx.annotation.NonNull;
@@ -39,19 +42,19 @@ public class RotationFragment extends Fragment {
 
         RotationViewModel viewModel = ViewModelProviders.of(this).get(RotationViewModel.class);
 
-        MediatorLiveData<RotationBunch> rotation = viewModel.getRotation();
-        rotation.observe(this, new Observer<RotationBunch>() {
-            @Override
-            public void onChanged(RotationBunch rotationBunch) {
-                RecyclerView scheduleList = rootView.findViewById(R.id.ScheduleList);
-                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(), rotationBunch.getSchedules(), rotationBunch.getSalmonSchedule(), rotationBunch.getRewardGear(), rotationBunch.getSplatfest());
-                scheduleList.setAdapter(scheduleAdapter);
-                scheduleList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-
-                wearLink.sendRotation(rotationBunch.getSchedules());
-                wearLink.sendSalmon(rotationBunch.getSalmonSchedule());
-            }
-        });
+        MediatorLiveData<Bunch<SplatnetParsley, SplatnetDatabase>> rotation = viewModel.feedMo(new RotationBunch());
+//        rotation.observe(this, new Observer<RotationBunch>() {
+//            @Override
+//            public void onChanged(RotationBunch rotationBunch) {
+//                RecyclerView scheduleList = rootView.findViewById(R.id.ScheduleList);
+//                //ScheduleAdapter scheduleAdapter = new ScheduleAdapter(getContext(), rotationBunch.schedules(), rotationBunch.salmonSchedule(), rotationBunch.rewardGear(), rotationBunch.splatfest());
+//                //scheduleList.setAdapter(scheduleAdapter);
+//                //scheduleList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+//
+//                //wearLink.sendRotation(rotationBunch.schedules());
+//               //wearLink.sendSalmon(rotationBunch.salmonSchedule());
+//            }
+//        });
         return rootView;
     }
 }

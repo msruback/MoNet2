@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.mattrubacky.monet2.data.deserialized.splatoon.GearNotification;
 import com.mattrubacky.monet2.data.deserialized.splatoon.GearNotifications;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Product;
+import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.Annie;
 
 import java.util.ArrayList;
 
@@ -32,15 +33,15 @@ public class ShopNotificationFactory extends NotificationFactory {
 
         Annie shop = gson.fromJson(settings.getString("shopState",""),Annie.class);
 
-        for(int i = 0 ;i<shop.merch.size();i++){
-            Product product = shop.merch.get(i);
-            for(int j=0;j<gearNotifications.notifications.size();j++){
-                GearNotification notification = gearNotifications.notifications.get(j);
-                if(notification.gear.id == product.gear.id&&notification.gear.kind.equals(product.gear.kind)){
-                    notifications.add(new ShopNotification(context,product));
-                }
-            }
-        }
+//        for(int i = 0 ;i<shop.merch.size();i++){
+//            Product product = shop.merch.get(i);
+//            for(int j=0;j<gearNotifications.notifications.size();j++){
+//                GearNotification notification = gearNotifications.notifications.get(j);
+//                if(notification.gear.id == product.gear.id&&notification.gear.kind.equals(product.gear.kind)){
+//                    notifications.add(new ShopNotification(context,product));
+//                }
+//            }
+//        }
         return notifications;
     }
     @Override

@@ -12,9 +12,7 @@ import com.mattrubacky.monet2.ui.adapter.RecyclerView.StageAdapter;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Record;
 import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 import com.mattrubacky.monet2.data.stats.StageStats;
-import com.mattrubacky.monet2.backend.api.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
 import java.util.ArrayList;
@@ -34,7 +32,7 @@ public class StagePostcardsFragment extends Fragment implements SplatnetConnecte
     private Record records;
     private ArrayList<StageStats> stageStatsList;
     private RecyclerView stageList;
-    private SplatnetConnector splatnetConnector;
+//    private SplatnetConnector splatnetConnector;
 
     @NonNull
     @Override
@@ -51,17 +49,17 @@ public class StagePostcardsFragment extends Fragment implements SplatnetConnecte
     public void onPause() {
         super.onPause();
 
-        splatnetConnector.cancel(true);
+//        splatnetConnector.cancel(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
-        splatnetConnector.addRequest(new RecordsRequest(getContext()));
-        update(splatnetConnector.getCurrentData());
-        splatnetConnector.execute();
+//        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
+//        splatnetConnector.addRequest(new RecordsRequest(getContext()));
+//        update(splatnetConnector.getCurrentData());
+//        splatnetConnector.execute();
     }
 
     private void updateUI(){

@@ -12,6 +12,7 @@ import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 import com.google.gson.Gson;
 
+import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.SalmonSchedule;
 import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.Schedules;
 
 /**

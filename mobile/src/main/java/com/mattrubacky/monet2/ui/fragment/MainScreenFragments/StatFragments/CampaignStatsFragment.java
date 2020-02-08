@@ -14,7 +14,6 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.CampaignRecords;
 import com.mattrubacky.monet2.data.deserialized.splatoon.CampaignStageInfo;
 import com.mattrubacky.monet2.data.deserialized.splatoon.CampaignWeapon;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 
 import java.util.ArrayList;
 
@@ -30,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CampaignStatsFragment extends Fragment implements SplatnetConnected{
     private ViewGroup rootView;
     private CampaignRecords campaignRecords;
-    private SplatnetConnector connector;
+//    private SplatnetConnector connector;
 
     @NonNull
     @Override
@@ -47,19 +46,19 @@ public class CampaignStatsFragment extends Fragment implements SplatnetConnected
     public void onPause() {
         super.onPause();
 
-        connector.cancel(true);
+//        connector.cancel(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        connector = new SplatnetConnector(this, getActivity(),getContext());
-        connector.addRequest(new CampaignRecordsRequest(getContext()));
+//        connector = new SplatnetConnector(this, getActivity(),getContext());
+//        connector.addRequest(new CampaignRecordsRequest(getContext()));
+//
+//        update(connector.getCurrentData());
 
-        update(connector.getCurrentData());
-
-        connector.execute();
+//        connector.execute();
     }
 
     public void updateUI(){

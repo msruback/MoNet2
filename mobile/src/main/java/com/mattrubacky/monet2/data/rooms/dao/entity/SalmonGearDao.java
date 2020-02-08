@@ -14,7 +14,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.RoomWarnings;
-import androidx.room.Transaction;
 import androidx.room.Update;
 
 @Dao
@@ -43,7 +42,11 @@ public abstract class SalmonGearDao {
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM salmon_gear JOIN gear ON monthly_gear=gear_id JOIN brand ON gear_brand=brand_id WHERE month=:currentMonth")
-    public abstract LiveData<RewardGearCombo> selectCurrentGear(int currentMonth);
+    public abstract LiveData<RewardGearCombo> selectCurrentGearLive(int currentMonth);
+
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("SELECT * FROM salmon_gear JOIN gear ON monthly_gear=gear_id JOIN brand ON gear_brand=brand_id WHERE month=:currentMonth")
+    public abstract RewardGearCombo selectCurrentGear(int currentMonth);
 
     @Query("SELECT * FROM salmon_gear")
     public abstract List<RewardGear> selectAll();

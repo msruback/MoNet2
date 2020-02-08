@@ -14,9 +14,7 @@ import android.widget.Toast;
 import com.mattrubacky.monet2.ui.activities.BattleInfo;
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.BattleListPagerAdapter;
-import com.mattrubacky.monet2.backend.api.splatnet.ResultsRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
@@ -37,7 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class BattleListFragment extends Fragment implements SplatnetConnected {
     private ViewGroup rootView;
     private SplatnetSQLManager database;
-    private SplatnetConnector splatnetConnector;
+//    private SplatnetConnector splatnetConnector;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView listView;
 
@@ -98,16 +96,16 @@ public class BattleListFragment extends Fragment implements SplatnetConnected {
     @Override
     public void onPause() {
         super.onPause();
-        splatnetConnector.cancel(true);
+        //splatnetConnector.cancel(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
-        splatnetConnector.addRequest(new ResultsRequest(getContext()));
-        update(splatnetConnector.getCurrentData());
-        splatnetConnector.execute();
+//        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
+//        splatnetConnector.addRequest(new ResultsRequest(getContext()));
+//        update(splatnetConnector.getCurrentData());
+//        splatnetConnector.execute();
     }
 
     private void updateUI(){

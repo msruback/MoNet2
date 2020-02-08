@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.mattrubacky.monet2.data.combo.RewardGearCombo;
-import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.data.deserialized_entities.RewardGear;
 import com.mattrubacky.monet2.data.rooms.TestDatabase;
 import com.mattrubacky.monet2.testutils.DeserializedHelper;

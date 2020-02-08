@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mattrubacky.monet2.R;
+import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.SalmonSchedule;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.SalmonRotationAdapter;
 import com.mattrubacky.monet2.data.deserialized_entities.Gear;
 import com.mattrubacky.monet2.backend.ImageHandler;
@@ -59,7 +60,7 @@ public class SalmonRunCardViewHolder extends RecyclerView.ViewHolder{
                 imageHandler.downloadImage("gear", imageDirName, url, context);
             }
         }
-        SalmonRotationAdapter salmonRotationAdapter = new SalmonRotationAdapter(context,salmonSchedule.details,salmonSchedule.times);
+        SalmonRotationAdapter salmonRotationAdapter = new SalmonRotationAdapter(context,salmonSchedule.getDetails(),salmonSchedule.getTimes());
         salmonPager.setAdapter(salmonRotationAdapter);
         salmonPager.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
 

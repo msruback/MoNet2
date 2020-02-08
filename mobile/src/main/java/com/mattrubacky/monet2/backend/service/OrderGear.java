@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 
-import com.mattrubacky.monet2.backend.api.splatnet.OrderRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Product;
 
 import androidx.annotation.Nullable;
@@ -31,9 +29,9 @@ public class OrderGear extends Service implements SplatnetConnected {
 
         super.onStartCommand(intent,flags,startId);
         buying = intent.getExtras().getParcelable("product");
-        SplatnetConnector splatnetConnector = new SplatnetConnector(this,getApplicationContext());
-        splatnetConnector.addRequest(new OrderRequest(buying.id));
-        splatnetConnector.execute();
+//        SplatnetConnector splatnetConnector = new SplatnetConnector(this,getApplicationContext());
+//        splatnetConnector.addRequest(new OrderRequest(buying.id));
+//        splatnetConnector.execute();
         return START_NOT_STICKY;
     }
 

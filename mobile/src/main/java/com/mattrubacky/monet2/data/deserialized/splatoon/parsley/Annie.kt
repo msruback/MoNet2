@@ -45,7 +45,7 @@ class Annie() : Sprig<SplatnetParsley,SplatnetDatabase>, Parcelable {
 
     constructor(parcel: Parcel) : this() {
         ordered = parcel.readParcelable(Ordered::class.java.classLoader)
-        merch = parcel.createTypedArrayList(Product.CREATOR)
+        merch = parcel.createTypedArrayList(Product.CREATOR)!!
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {

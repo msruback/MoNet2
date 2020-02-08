@@ -14,6 +14,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.RoomWarnings;
 import androidx.room.Update;
 
 @Dao
@@ -72,6 +73,7 @@ public abstract class PlayerDao {
     @Query("SELECT * FROM player JOIN weapon ON weapon = weapon_id JOIN sub ON weapon_sub = sub_id JOIN special ON weapon_special = special_id WHERE battleId=:id")
     public abstract List<PlayerWeapon> selectWeaponBattles(int id);
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM player JOIN battle ON battleId = id WHERE fes_id =:fesId AND playerType=:type")
     public abstract List<PlayerRoom> getSplatStats(int fesId,int type);
 

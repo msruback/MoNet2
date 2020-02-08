@@ -9,12 +9,7 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 
-import com.mattrubacky.monet2.backend.api.splatnet.CoopSchedulesRequest;
-import com.mattrubacky.monet2.backend.api.splatnet.RecordsRequest;
-import com.mattrubacky.monet2.backend.api.splatnet.ResultsRequest;
-import com.mattrubacky.monet2.backend.api.splatnet.SchedulesRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Battle;
 import com.mattrubacky.monet2.backend.WearLink;
 
@@ -39,14 +34,14 @@ public class DataUpdateAlarm extends WakefulBroadcastReceiver implements Splatne
         wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "monet:dataupdatealarm");
         wl.acquire();
 
-        SplatnetConnector splatnetConnector = new SplatnetConnector(this,context);
-        splatnetConnector.addRequest(new SchedulesRequest(context));
-        splatnetConnector.addRequest(new CoopSchedulesRequest(context,false));
-        //splatnetConnector.addRequest(new ShopRequest(context));
-        splatnetConnector.addRequest(new RecordsRequest(context));
-        splatnetConnector.addRequest(new ResultsRequest(context));
-        //splatnetConnector.addRequest(new CoopResultsRequest(context));
-        splatnetConnector.execute();
+//        SplatnetConnector splatnetConnector = new SplatnetConnector(this,context);
+//        //splatnetConnector.addRequest(new SchedulesRequest(context));
+//        //splatnetConnector.addRequest(new CoopSchedulesRequest(context,false));
+//        //splatnetConnector.addRequest(new ShopRequest(context));
+//        splatnetConnector.addRequest(new RecordsRequest(context));
+//        splatnetConnector.addRequest(new ResultsRequest(context));
+//        //splatnetConnector.addRequest(new CoopResultsRequest(context));
+//        splatnetConnector.execute();
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor edit = settings.edit();

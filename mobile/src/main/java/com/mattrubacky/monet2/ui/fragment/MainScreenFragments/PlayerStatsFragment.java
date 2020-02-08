@@ -14,10 +14,7 @@ import com.mattrubacky.monet2.ui.adapter.RecyclerView.PlayerAdapter;
 import com.mattrubacky.monet2.data.deserialized.splatoon.NicknameIcon;
 import com.mattrubacky.monet2.data.deserialized.splatoon.NicknameIcons;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Record;
-import com.mattrubacky.monet2.backend.api.splatnet.NicknameRequest;
-import com.mattrubacky.monet2.backend.api.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PlayerStatsFragment extends Fragment implements SplatnetConnected {
     private ViewGroup rootView;
 
-    private SplatnetConnector splatnetConnector;
+//    private SplatnetConnector splatnetConnector;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView pager;
 
@@ -142,18 +139,18 @@ public class PlayerStatsFragment extends Fragment implements SplatnetConnected {
     @Override
     public void onPause() {
         super.onPause();
-        splatnetConnector.cancel(true);
+//        splatnetConnector.cancel(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
-        splatnetConnector.addRequest(new RecordsRequest(getContext()));
-        Record record = splatnetConnector.getCurrentData().getParcelable("records");
-        splatnetConnector.addRequest(new NicknameRequest(record.records.user.id));
-        update(splatnetConnector.getCurrentData());
-        splatnetConnector.execute();
+//        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
+//        splatnetConnector.addRequest(new RecordsRequest(getContext()));
+//        Record record = splatnetConnector.getCurrentData().getParcelable("records");
+//        splatnetConnector.addRequest(new NicknameRequest(record.records.user.id));
+//        update(splatnetConnector.getCurrentData());
+//        splatnetConnector.execute();
 
 
         playerTab.setBackgroundTintList(getResources().getColorStateList(R.color.favColorGreen));

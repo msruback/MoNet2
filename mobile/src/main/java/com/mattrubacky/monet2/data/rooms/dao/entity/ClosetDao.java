@@ -39,6 +39,7 @@ public abstract class ClosetDao {
     @Delete
     abstract void delete(ClosetRoom... closet);
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("SELECT * FROM closet JOIN gear ON closet_gear = gear_id JOIN brand ON gear_brand = brand_id JOIN skill ON brand_skill = skill_id WHERE gear_id = :id")
     abstract ClosetRoom selectCloset(int id);
 

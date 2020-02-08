@@ -23,7 +23,7 @@ import kotlin.collections.ArrayList
 class RotationViewModel(application: Application) : AndroidViewModel(application){
     private val db = SplatnetDatabase.getInstance(application)
     private val api = SplatnetParsley(application)
-    private val mochi = Bunny(SplatnetParsley(application), SplatnetDatabase.getInstance(application))
+    private val mochi = Bunny(api, db)
 
     infix fun feedMo(bunch: Bunch<SplatnetParsley,SplatnetDatabase>): MediatorLiveData<Bunch<SplatnetParsley,SplatnetDatabase>>{
         return mochi monch bunch

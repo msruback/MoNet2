@@ -14,10 +14,7 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.Splatfest;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestDatabase;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestRecords;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestResult;
-import com.mattrubacky.monet2.backend.api.splatnet.PastSplatfestRequest;
-import com.mattrubacky.monet2.backend.api.splatnet.RecordsRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 
 import java.util.ArrayList;
 
@@ -36,7 +33,7 @@ public class SplatfestStatsFragment extends Fragment implements SplatnetConnecte
     private ArrayList<SplatfestDatabase> splatfests;
     private RecyclerView splatfestList;
 
-    private SplatnetConnector splatnetConnector;
+//    private SplatnetConnector splatnetConnector;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -50,18 +47,18 @@ public class SplatfestStatsFragment extends Fragment implements SplatnetConnecte
     @Override
     public void onPause() {
         super.onPause();
-        splatnetConnector.cancel(true);
+//        splatnetConnector.cancel(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
-        splatnetConnector.addRequest(new PastSplatfestRequest(getContext()));
-        splatnetConnector.addRequest(new RecordsRequest(getContext()));
-        update(splatnetConnector.getCurrentData());
-        splatnetConnector.execute();
+//        splatnetConnector = new SplatnetConnector(this,getActivity(),getContext());
+//        splatnetConnector.addRequest(new PastSplatfestRequest(getContext()));
+//        splatnetConnector.addRequest(new RecordsRequest(getContext()));
+//        update(splatnetConnector.getCurrentData());
+//        splatnetConnector.execute();
     }
 
     private void updateUI(){

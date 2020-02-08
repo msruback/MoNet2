@@ -7,11 +7,11 @@ abstract class Request<T>{
     abstract var call: Call<T>
     var value:T? = null
     var error:String? = null
-    var isSuccess:Boolean = false
+    private var isSuccess:Boolean = false
 
     abstract fun manageError(response: Response<T>)
 
-    fun shouldUpdate():Boolean = true
+    private fun shouldUpdate():Boolean = true
 
     open fun manageReponse(response: Response<T>){
         value = response.body()

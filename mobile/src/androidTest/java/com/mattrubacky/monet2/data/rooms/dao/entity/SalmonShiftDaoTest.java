@@ -13,11 +13,11 @@ import com.google.gson.Gson;
 import com.mattrubacky.monet2.data.combo.SalmonShiftCombo;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRun;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunDetail;
-import com.mattrubacky.monet2.data.deserialized_entities.SalmonRunWeapon;
 import com.mattrubacky.monet2.data.entity.SalmonShiftRoom;
 import com.mattrubacky.monet2.data.rooms.TestDatabase;
 import com.mattrubacky.monet2.testutils.DeserializedHelper;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -57,6 +57,11 @@ public class SalmonShiftDaoTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @After
+    public void deleteDB(){
+        db.close();
     }
 
     @Test

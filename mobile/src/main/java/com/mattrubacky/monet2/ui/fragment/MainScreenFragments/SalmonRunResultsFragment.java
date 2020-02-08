@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 
 import com.mattrubacky.monet2.R;
 import com.mattrubacky.monet2.ui.adapter.RecyclerView.SalmonRunShiftPagerAdapter;
-import com.mattrubacky.monet2.backend.api.splatnet.CoopResultsRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SalmonRunDetail;
 import com.mattrubacky.monet2.sqlite.SplatnetSQLManager;
 
@@ -27,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class SalmonRunResultsFragment extends Fragment implements SplatnetConnected {
 
-    private SplatnetConnector connector;
+//    private SplatnetConnector connector;
     private SplatnetSQLManager database;
 
     private RecyclerView listView;
@@ -50,18 +48,18 @@ public class SalmonRunResultsFragment extends Fragment implements SplatnetConnec
     @Override
     public void onPause() {
         super.onPause();
-        connector.cancel(true);
+//        connector.cancel(true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        connector = new SplatnetConnector(this, getActivity(),getContext());
-        connector.addRequest(new CoopResultsRequest(getContext()));
-
-        update(connector.getCurrentData());
-        connector.execute();
+//        connector = new SplatnetConnector(this, getActivity(),getContext());
+//        connector.addRequest(new CoopResultsRequest(getContext()));
+//
+//        update(connector.getCurrentData());
+//        connector.execute();
     }
 
     @Override

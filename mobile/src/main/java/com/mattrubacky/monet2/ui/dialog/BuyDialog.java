@@ -19,10 +19,8 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.Ordered;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Product;
 import com.mattrubacky.monet2.backend.ImageHandler;
 import com.mattrubacky.monet2.R;
-import com.mattrubacky.monet2.backend.api.splatnet.OrderRequest;
 
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
@@ -80,9 +78,9 @@ public class BuyDialog extends Dialog{
             orderButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SplatnetConnector splatnetConnector = new SplatnetConnector(caller,activity,getContext());
-                    splatnetConnector.addRequest(new OrderRequest(toBuy.id));
-                    splatnetConnector.execute();
+//                    SplatnetConnector splatnetConnector = new SplatnetConnector(caller,activity,getContext());
+//                    splatnetConnector.addRequest(new OrderRequest(toBuy.id));
+//                    splatnetConnector.execute();
                     dismiss();
                 }
             });
@@ -231,9 +229,9 @@ public class BuyDialog extends Dialog{
             orderButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SplatnetConnector splatnetConnector = new SplatnetConnector(caller,activity,getContext());
-                    splatnetConnector.addRequest(new OrderRequest(toBuy.id));
-                    splatnetConnector.execute();
+//                    SplatnetConnector splatnetConnector = new SplatnetConnector(caller,activity,getContext());
+//                    splatnetConnector.addRequest(new OrderRequest(toBuy.id));
+//                    splatnetConnector.execute();
                     dismiss();
                 }
             });

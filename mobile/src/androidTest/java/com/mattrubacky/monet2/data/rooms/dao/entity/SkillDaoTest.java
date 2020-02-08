@@ -28,7 +28,6 @@ import static com.google.common.truth.Truth.assertThat;
 public class SkillDaoTest {
 
     private TestDatabase db;
-    private Context context;
     private SkillDao skillDao;
     private Skill chunkableSkill,specialSkill,oldSkill;
 
@@ -37,7 +36,7 @@ public class SkillDaoTest {
 
     @Before
     public void createDB(){
-        context = ApplicationProvider.getApplicationContext();
+        Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, TestDatabase.class).build();
         skillDao = db.getSkillDao();
         try{

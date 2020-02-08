@@ -14,6 +14,7 @@ import com.mattrubacky.monet2.data.deserialized.splatoon.PastSplatfest;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Record;
 import com.mattrubacky.monet2.data.deserialized.splatoon.ResultList;
 import com.mattrubacky.monet2.data.deserialized.splatoon.SplatfestVotes;
+import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.SalmonSchedule;
 import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.Schedules;
 import com.mattrubacky.monet2.data.deserialized_entities.Stage;
 import com.mattrubacky.monet2.data.deserialized.splatoon.Timeline;

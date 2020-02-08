@@ -25,9 +25,7 @@ import com.mattrubacky.monet2.ui.fragment.SplatfestDetail.SoloMeterFragment;
 import com.mattrubacky.monet2.ui.fragment.SplatfestDetail.TeamMeterFragment;
 import com.mattrubacky.monet2.backend.ImageHandler;
 import com.mattrubacky.monet2.data.stats.SplatfestStats;
-import com.mattrubacky.monet2.backend.api.splatnet.SplatfestVoteRequest;
 import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnected;
-import com.mattrubacky.monet2.backend.api.splatnet.SplatnetConnector;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -52,7 +50,7 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
 
     private FragmentManager fragmentManager;
 
-    private SplatnetConnector splatnetConnector;
+    //private SplatnetConnector splatnetConnector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +69,9 @@ public class SplatfestDetail extends AppCompatActivity implements SplatnetConnec
 
         votes = null;
 
-        splatnetConnector = new SplatnetConnector((SplatnetConnected)this,this);
-        splatnetConnector.addRequest(new SplatfestVoteRequest(splatfest.id));
-        splatnetConnector.execute();
+//        splatnetConnector = new SplatnetConnector((SplatnetConnected)this,this);
+//        splatnetConnector.addRequest(new SplatfestVoteRequest(splatfest.id));
+//        splatnetConnector.execute();
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 

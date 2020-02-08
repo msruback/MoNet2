@@ -3,7 +3,7 @@ package com.mattrubacky.monet2.data.parsley
 import androidx.lifecycle.MediatorLiveData
 import kotlinx.coroutines.*
 
-class Bunny<Source,Store>(val source:Source,val store:Store){
+class Bunny<Source,Store>(private val source:Source, private val store:Store){
 
     infix fun <T:Bunch<Source,Store>> monch(parsley:T):MediatorLiveData<T>{
         val kiss = MediatorLiveData<T>()

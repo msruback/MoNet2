@@ -18,7 +18,8 @@ import kotlin.collections.ArrayList
 
 class Schedules() : Sprig<SplatnetParsley,SplatnetDatabase>,Parcelable{
 
-    private var needsUpdate: Boolean = true
+    var needsUpdate: Boolean = true
+        private set
     private var stages: List<Stage> = ArrayList()
 
     @SerializedName("regular")
@@ -52,9 +53,10 @@ class Schedules() : Sprig<SplatnetParsley,SplatnetDatabase>,Parcelable{
             val schedules: Response<Schedules> = source.getSchedules().execute()
             val splatfest: Response<CurrentSplatfest> = source.getActiveSplatfests().execute()
             if (schedules.isSuccessful) {
-                regular = schedules.body()!!.regular
-                ranked = schedules.body()!!.ranked
-                league = schedules.body()!!.league
+                val schedule = schedules.body()!!
+                regular = schedule.regular
+                ranked = schedule.ranked
+                league = schedule.league
                 if (splatfest.isSuccessful && splatfest.body()!!.splatfests.isNotEmpty()) {
                     setSplatfest(splatfest.body()!!.splatfests[0])
                 }
@@ -67,8 +69,8 @@ class Schedules() : Sprig<SplatnetParsley,SplatnetDatabase>,Parcelable{
         val old = store.timePeriodDao.selectOld(getCurrentTime())
         for(timePeriod in old){
             store.timePeriodDao.delete(timePeriod)
-            needsUpdate = true
         }
+        needsUpdate = old.isNotEmpty()
     }
 
     override suspend fun putInStore(store: SplatnetDatabase) {
@@ -111,7 +113,7 @@ class Schedules() : Sprig<SplatnetParsley,SplatnetDatabase>,Parcelable{
 
         schedules.addSource(store.timePeriodDao.selectRegularLive(getCurrentTime())){ result: List<TimePeriod>? ->
             val updatedValue = schedules.value!! as Schedules
-            updatedValue.regular = ArrayList(result)
+            updatedValue.regular = ArrayList(result!!)
             if(updatedValue.stages.isNotEmpty()&&updatedValue.regular.isNotEmpty()) {
                 updatedValue.regular = insertStages(updatedValue.regular, updatedValue.stages)
             }
@@ -119,7 +121,7 @@ class Schedules() : Sprig<SplatnetParsley,SplatnetDatabase>,Parcelable{
         }
         schedules.addSource(store.timePeriodDao.selectGachiLive(getCurrentTime())){ result: List<TimePeriod>? ->
             val updatedValue =schedules.value!! as Schedules
-            updatedValue.ranked = ArrayList(result)
+            updatedValue.ranked = ArrayList(result!!)
             if(updatedValue.stages.isNotEmpty()&&updatedValue.ranked.isNotEmpty()) {
                 updatedValue.ranked = insertStages(updatedValue.ranked, updatedValue.stages)
             }
@@ -127,7 +129,7 @@ class Schedules() : Sprig<SplatnetParsley,SplatnetDatabase>,Parcelable{
         }
         schedules.addSource(store.timePeriodDao.selectLeagueLive(getCurrentTime())){ result: List<TimePeriod>? ->
             val updatedValue = schedules.value!! as Schedules
-            updatedValue.league = ArrayList(result)
+            updatedValue.league = ArrayList(result!!)
             if(updatedValue.stages.isNotEmpty()&&updatedValue.league.isNotEmpty()) {
                 updatedValue.league = insertStages(updatedValue.league, updatedValue.stages)
             }
@@ -135,7 +137,7 @@ class Schedules() : Sprig<SplatnetParsley,SplatnetDatabase>,Parcelable{
         }
         schedules.addSource(store.timePeriodDao.selectFestivalLive(getCurrentTime())){ result: List<TimePeriod>? ->
             val updatedValue = schedules.value!! as Schedules
-            updatedValue.splatfest = ArrayList(result)
+            updatedValue.splatfest = ArrayList(result!!)
             if(updatedValue.stages.isNotEmpty()&&updatedValue.splatfest.isNotEmpty()) {
                 updatedValue.splatfest = insertStages(updatedValue.splatfest, updatedValue.stages)
             }
@@ -146,10 +148,10 @@ class Schedules() : Sprig<SplatnetParsley,SplatnetDatabase>,Parcelable{
     }
 
     constructor(parcel: Parcel) : this() {
-        regular = parcel.createTypedArrayList(TimePeriod.CREATOR)
-        ranked = parcel.createTypedArrayList(TimePeriod.CREATOR)
-        league = parcel.createTypedArrayList(TimePeriod.CREATOR)
-        splatfest = parcel.createTypedArrayList(TimePeriod.CREATOR)
+        regular = parcel.createTypedArrayList(TimePeriod.CREATOR)!!
+        ranked = parcel.createTypedArrayList(TimePeriod.CREATOR)!!
+        league = parcel.createTypedArrayList(TimePeriod.CREATOR)!!
+        splatfest = parcel.createTypedArrayList(TimePeriod.CREATOR)!!
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

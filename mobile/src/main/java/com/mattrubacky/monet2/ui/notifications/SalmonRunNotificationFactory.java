@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
+import com.mattrubacky.monet2.data.deserialized.splatoon.parsley.SalmonSchedule;
 
 import java.util.ArrayList;
 
@@ -25,9 +26,9 @@ public class SalmonRunNotificationFactory extends NotificationFactory {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         SalmonSchedule schedule = gson.fromJson(settings.getString("salmonRunSchedule",""),SalmonSchedule.class);
-        for(int i=0;i<schedule.details.size();i++){
-            notifications.add(new SalmonRunNotification(context,schedule.details.get(i)));
-        }
+//        for(int i=0;i<schedule.details.size();i++){
+//            notifications.add(new SalmonRunNotification(context,schedule.details.get(i)));
+//        }
         return notifications;
     }
     @Override
